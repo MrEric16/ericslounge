@@ -239,6 +239,7 @@
     font-size:11px;
     color:var(--ink-soft);
     margin-left:134px;
+    line-height:1.6;
   }
   .entry-actions{
     display:flex;
@@ -657,6 +658,21 @@ function escapeHtml(str){
 function domainOf(url){
   try{ return new URL(url).hostname.replace('www.',''); }catch(e){ return ''; }
 }
+const SOURCE_NAMES = {
+  'bbc.com':'BBC',
+  'bbc.co.uk':'BBC',
+  'nature.com':'Nature',
+  'dezeen.com':'Dezeen',
+  'smithsonianmag.com':'The Smithsonian',
+  'youtube.com':'YouTube',
+};
+function sourceName(url){
+  const d = domainOf(url);
+  if(SOURCE_NAMES[d]) return SOURCE_NAMES[d];
+  // fall back: strip TLD and capitalise, e.g. example.com -> Example
+  const base = d.split('.')[0];
+  return base ? base.charAt(0).toUpperCase() + base.slice(1) : d;
+}
 function fmtDayHeader(dateStr){
   const d = new Date(dateStr + 'T00:00:00');
   return d.toLocaleDateString('en-GB', { day:'2-digit', month:'long', year:'numeric' }).toUpperCase();
@@ -684,7 +700,10 @@ function dispatchListHtml(list){
             <div class="tag" style="background:${fac.color}">${fac.label}</div>
             <a class="headline" href="${a.url}" rel="noopener">${escapeHtml(a.headline)}</a>
           </div>
-          <div class="entry-meta">${domainOf(a.url)}${readLabel ? ' · ' + readLabel : ''}</div>
+          <div class="entry-meta">
+            ${readLabel ? `<div>${readLabel}</div>` : ''}
+            <div>${escapeHtml(sourceName(a.url))}</div>
+          </div>
           <div class="entry-actions">
             <button class="react-btn ${saved==='👍'?'active':''}" data-key="${key}" data-emoji="👍">👍</button>
             <button class="react-btn ${saved==='😮'?'active':''}" data-key="${key}" data-emoji="😮">😮</button>
