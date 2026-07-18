@@ -580,7 +580,7 @@ function dispatchListHtml(list){
         <div class="entry">
           <div class="tag" style="background:${fac.color}">${fac.label}</div>
           <div class="entry-body">
-            <a class="headline" href="${a.url}" target="_blank" rel="noopener noreferrer">${escapeHtml(a.headline)}</a>
+            <a class="headline" href="${a.url}" rel="noopener">${escapeHtml(a.headline)}</a>
             <div class="entry-meta">${domainOf(a.url)}</div>
           </div>
         </div>`;
@@ -659,7 +659,7 @@ function recommendationsHtml(){
   }
   return `<div class="rec-list">${RECOMMENDATIONS.map(r=>`
     <div class="rec-item">
-      <a href="${r.url}" target="_blank" rel="noopener noreferrer">${escapeHtml(r.title)}</a>
+      <a href="${r.url}" rel="noopener">${escapeHtml(r.title)}</a>
       <div class="rec-note">${escapeHtml(r.note)}</div>
     </div>
   `).join('')}</div>`;
