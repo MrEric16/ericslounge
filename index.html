@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Eric's Lounge</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Nunito:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#FBF2E4;
+    --cream-2:#F6E7CE;
+    --card:#FFFCF6;
+    --ink:#3A2A1E;
+    --ink-soft:#7A6A57;
+    --coral:#F2622E;
+    --coral-dark:#D6491A;
+    --gold:#F0A93C;
+    --teal:#2F8F7A;
+    --line:#EAD9BB;
+    --arsenal:#EF0107;
+
+    --f-jur:#6B5B95;
+    --f-ir:#2F7A99;
+    --f-econ:#C98A2C;
+    --f-biz:#4C8C5B;
+    --f-sci:#1F8A7A;
+    --f-it:#3C6FA6;
+    --f-psy:#B0446E;
+    --f-des:#C2601F;
+  }
+
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--cream);
+    color:var(--ink);
+    font-family:'Nunito', sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3{font-family:'Baloo 2', sans-serif; margin:0;}
+  a{color:inherit;}
+
+  .wrap{max-width:1040px; margin:0 auto; padding:0 22px;}
+
+  /* ---------- Header ---------- */
+  header{
+    background:linear-gradient(135deg, #FDECD8 0%, #FBDCC0 60%, #F7CBA8 100%);
+    padding:36px 0 26px 0;
+    border-bottom:4px solid var(--card);
+  }
+  .masthead{text-align:center;}
+  h1.title{
+    font-size:clamp(38px,7vw,62px);
+    font-weight:800;
+    color:var(--coral-dark);
+    letter-spacing:-0.01em;
+  }
+  .subtitle{
+    font-size:16px;
+    font-weight:600;
+    color:var(--ink-soft);
+    margin-top:8px;
+  }
+
+  .stat-row{
+    display:flex;
+    justify-content:center;
+    gap:14px;
+    flex-wrap:wrap;
+    margin-top:24px;
+  }
+  .stat-pill{
+    background:var(--card);
+    border-radius:999px;
+    padding:10px 20px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    box-shadow:0 3px 0 rgba(58,42,30,.08);
+  }
+  .stat-pill .label{
+    font-size:11px;
+    font-weight:700;
+    text-transform:uppercase;
+    letter-spacing:.06em;
+    color:var(--ink-soft);
+  }
+  .stat-pill .value{
+    font-family:'Space Mono', monospace;
+    font-weight:700;
+    font-size:16px;
+    color:var(--coral-dark);
+  }
+  .stat-pill.weekend .value{color:var(--teal);}
+
+  /* ---------- Section shell ---------- */
+  section{padding:34px 0;}
+  .section-head{
+    display:flex;
+    align-items:baseline;
+    gap:10px;
+    margin-bottom:18px;
+  }
+  .section-head h2{
+    font-size:22px;
+    color:var(--ink);
+  }
+  .section-head .emoji{font-size:22px;}
+  .section-sub{
+    font-size:13px;
+    color:var(--ink-soft);
+    font-weight:600;
+    margin-left:auto;
+  }
+
+  /* ---------- Faculty tiles ---------- */
+  .faculties{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:12px;
+  }
+  @media (max-width:700px){ .faculties{grid-template-columns:repeat(2,1fr);} }
+
+  .fac-tile{
+    background:var(--card);
+    border:none;
+    border-radius:18px;
+    padding:16px 16px;
+    cursor:pointer;
+    text-align:left;
+    box-shadow:0 3px 0 rgba(58,42,30,.08);
+    transition:transform .12s ease, box-shadow .12s ease;
+    font-family:'Nunito', sans-serif;
+  }
+  .fac-tile:hover{transform:translateY(-2px); box-shadow:0 6px 0 rgba(58,42,30,.1);}
+  .fac-tile .dot{
+    width:10px; height:10px; border-radius:50%;
+    display:inline-block; margin-right:8px;
+  }
+  .fac-tile .name{font-weight:700; font-size:14.5px;}
+  .fac-tile .count{
+    font-family:'Space Mono', monospace;
+    font-size:12px;
+    color:var(--ink-soft);
+    margin-top:4px;
+    display:block;
+  }
+  .fac-tile.active{background:var(--coral); }
+  .fac-tile.active .name, .fac-tile.active .count{color:#fff;}
+  .fac-tile.all{background:var(--ink); grid-column:span 1;}
+  .fac-tile.all .name{color:#fff;}
+  .fac-tile.all .count{color:#D8CBBB;}
+  .fac-tile.all.active{background:var(--coral-dark);}
+
+  /* ---------- Feed ---------- */
+  .day-badge{
+    display:inline-block;
+    background:var(--ink);
+    color:#fff;
+    font-family:'Space Mono', monospace;
+    font-size:11px;
+    letter-spacing:.05em;
+    padding:5px 14px;
+    border-radius:999px;
+    margin:22px 0 12px 0;
+  }
+  .day-badge:first-child{margin-top:0;}
+
+  .entry{
+    display:flex;
+    gap:14px;
+    align-items:flex-start;
+    background:var(--card);
+    border-radius:16px;
+    padding:14px 16px;
+    margin-bottom:10px;
+    box-shadow:0 2px 0 rgba(58,42,30,.06);
+  }
+  .tag{
+    flex:0 0 auto;
+    font-family:'Space Mono', monospace;
+    font-size:10px;
+    letter-spacing:.04em;
+    text-transform:uppercase;
+    padding:5px 10px;
+    border-radius:999px;
+    color:#fff;
+    margin-top:2px;
+    white-space:nowrap;
+  }
+  .entry-body{flex:1; min-width:0;}
+  .entry-body a.headline{
+    font-weight:700;
+    font-size:16px;
+    color:var(--ink);
+    text-decoration:none;
+    line-height:1.35;
+  }
+  .entry-body a.headline:hover{color:var(--coral);}
+  .entry-meta{
+    font-family:'Space Mono', monospace;
+    font-size:11px;
+    color:var(--ink-soft);
+    margin-top:5px;
+  }
+
+  .empty-card{
+    background:var(--card);
+    border-radius:18px;
+    padding:34px 20px;
+    text-align:center;
+    color:var(--ink-soft);
+    font-weight:600;
+    font-size:14px;
+  }
+
+  /* ---------- Sports ---------- */
+  .sports-card{
+    background:var(--card);
+    border-radius:20px;
+    padding:20px;
+    box-shadow:0 3px 0 rgba(58,42,30,.08);
+  }
+  .sports-header{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    margin-bottom:16px;
+  }
+  .sports-header .crest{
+    width:38px; height:38px;
+    border-radius:50%;
+    background:var(--arsenal);
+    color:#fff;
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Baloo 2', sans-serif;
+    font-weight:800;
+    font-size:14px;
+  }
+  .sports-header .name{font-weight:800; font-size:17px;}
+  .sports-header .sub{font-size:12px; color:var(--ink-soft); font-weight:600;}
+
+  .result-row{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:10px 0;
+    border-bottom:1px solid var(--line);
+    font-size:14px;
+  }
+  .result-row:last-of-type{border-bottom:none;}
+  .result-row .comp{
+    font-family:'Space Mono', monospace;
+    font-size:10.5px;
+    color:var(--ink-soft);
+    text-transform:uppercase;
+  }
+  .result-row .score{font-weight:800; font-family:'Space Mono', monospace;}
+  .result-row .outcome{
+    font-size:10.5px;
+    font-weight:700;
+    padding:2px 8px;
+    border-radius:999px;
+    color:#fff;
+  }
+  .outcome.W{background:var(--teal);}
+  .outcome.D{background:var(--gold);}
+  .outcome.L{background:var(--coral);}
+
+  .next-fixture{
+    margin-top:14px;
+    background:var(--cream-2);
+    border-radius:14px;
+    padding:12px 14px;
+    font-size:13.5px;
+    font-weight:700;
+  }
+  .next-fixture .label{
+    display:block;
+    font-family:'Space Mono', monospace;
+    font-size:10px;
+    color:var(--ink-soft);
+    text-transform:uppercase;
+    margin-bottom:4px;
+    font-weight:400;
+  }
+
+  /* ---------- Student of the week ---------- */
+  .sotw-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill, minmax(260px, 1fr));
+    gap:14px;
+  }
+  .sotw-card{
+    background:var(--card);
+    border-radius:20px;
+    padding:22px;
+    display:flex;
+    gap:18px;
+    align-items:center;
+    box-shadow:0 3px 0 rgba(58,42,30,.08);
+  }
+  .sotw-photo{
+    width:96px; height:96px;
+    border-radius:50%;
+    background:var(--cream-2);
+    flex:0 0 auto;
+    display:flex; align-items:center; justify-content:center;
+    overflow:hidden;
+    border:3px solid var(--gold);
+  }
+  .sotw-photo img{width:100%; height:100%; object-fit:cover;}
+  .sotw-photo .placeholder{font-size:34px;}
+  .sotw-name{font-weight:800; font-size:19px;}
+  .sotw-note{color:var(--ink-soft); font-size:13.5px; margin-top:4px; font-weight:600;}
+
+  /* ---------- Recommend ---------- */
+  .rec-list{display:flex; flex-direction:column; gap:10px;}
+  .rec-item{
+    background:var(--card);
+    border-radius:16px;
+    padding:14px 16px;
+    box-shadow:0 2px 0 rgba(58,42,30,.06);
+  }
+  .rec-item a{
+    font-weight:700;
+    font-size:15px;
+    text-decoration:none;
+    color:var(--ink);
+  }
+  .rec-item a:hover{color:var(--coral);}
+  .rec-item .rec-note{
+    font-size:13px;
+    color:var(--ink-soft);
+    margin-top:4px;
+    font-weight:600;
+  }
+
+  /* ---------- Birthdays ---------- */
+  .bday-list{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:10px;
+  }
+  @media (max-width:700px){ .bday-list{grid-template-columns:1fr;} }
+  .bday-item{
+    background:var(--card);
+    border-radius:14px;
+    padding:12px 14px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    box-shadow:0 2px 0 rgba(58,42,30,.06);
+  }
+  .bday-item.today{background:var(--gold);}
+  .bday-item.today .bday-name, .bday-item.today .bday-date{color:#fff;}
+  .bday-name{font-weight:700; font-size:14.5px;}
+  .bday-date{
+    font-family:'Space Mono', monospace;
+    font-size:12px;
+    color:var(--ink-soft);
+  }
+
+  footer{
+    text-align:center;
+    padding:30px 0 50px 0;
+    color:var(--ink-soft);
+    font-size:12px;
+    font-weight:600;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap masthead">
+    <h1 class="title">Eric's Lounge</h1>
+    <div class="subtitle">Today's news, fresh off the press</div>
+    <div class="stat-row">
+      <div class="stat-pill">
+        <span class="label">Local time</span>
+        <span class="value" id="clock">--:--:--</span>
+      </div>
+      <div class="stat-pill weekend">
+        <span class="label">Weekend in</span>
+        <span class="value" id="weekendCountdown">--:--:--:--</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <section>
+    <div class="section-head"><span class="emoji">🎓</span><h2>Faculties</h2></div>
+    <div class="faculties" id="facultyTiles"></div>
+  </section>
+
+  <section>
+    <div class="section-head"><span class="emoji">📰</span><h2>Latest Dispatches</h2></div>
+    <div id="feed"></div>
+  </section>
+
+  <section>
+    <div class="section-head"><span class="emoji">⚽</span><h2>Sports Desk</h2></div>
+    <div class="sports-card">
+      <div class="sports-header">
+        <div class="crest">AFC</div>
+        <div>
+          <div class="name">Arsenal</div>
+          <div class="sub">Next fixture</div>
+        </div>
+      </div>
+      <div class="next-fixture" id="nextFixture"></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head"><span class="emoji">🌟</span><h2>Students of the Week</h2></div>
+    <div class="sotw-grid" id="sotwCard"></div>
+  </section>
+
+  <section>
+    <div class="section-head"><span class="emoji">👀</span><h2>Recommend You Check This Out</h2></div>
+    <div class="rec-list" id="recList"></div>
+  </section>
+
+  <section>
+    <div class="section-head"><span class="emoji">🎂</span><h2>Birthdays</h2></div>
+    <div class="bday-list" id="bdayList"></div>
+  </section>
+
+</div>
+
+<footer>Eric's Lounge — Interhouse Lyceum</footer>
+
+<script>
+/* =========================================================
+   EDITABLE CONTENT — everything below is plain data.
+   To add/change something, edit the relevant array/object.
+   ========================================================= */
+
+const FACULTIES = [
+  { key:'jurisprudence', label:'Jurisprudence', color:'var(--f-jur)' },
+  { key:'international-relations', label:"Int'l Relations", color:'var(--f-ir)' },
+  { key:'economics', label:'Economics', color:'var(--f-econ)' },
+  { key:'business', label:'Business', color:'var(--f-biz)' },
+  { key:'science', label:'Science', color:'var(--f-sci)' },
+  { key:'it', label:'IT', color:'var(--f-it)' },
+  { key:'psychology', label:'Psychology', color:'var(--f-psy)' },
+  { key:'design', label:'Design', color:'var(--f-des)' },
+];
+
+// One entry per headline. date format: 'YYYY-MM-DD'
+const DISPATCHES = [
+  { headline:"What motivates YOU?", url:"https://www.bbc.com/future/article/20260717-there-are-six-types-of-motivation-take-this-interactive-quiz-to-learn-yours-and-boost-your-success-at-work", faculty:"psychology", date:"2026-07-19" },
+];
+
+const ARSENAL_NEXT_FIXTURE = "Arsenal vs Coventry City — Premier League — Sat 22 Aug 2026, 00:00 (Tashkent time)";
+
+// Students of the week — add as many as you like. photoUrl gets embedded directly when Eric sends a photo.
+const STUDENTS_OF_WEEK = [
+  // { name:"Student Name", note:"Why they earned it", photoUrl:"" },
+];
+
+const RECOMMENDATIONS = [
+  // { title:"Example title", url:"https://...", note:"Why it's worth a look" },
+];
+
+// Birthdays: month is 1-12.
+const BIRTHDAYS = [
+  // { name:"Student Name", month:9, day:14 },
+];
+
+/* ========================================================= */
+
+const FAC_MAP = Object.fromEntries(FACULTIES.map(f=>[f.key,f]));
+let activeFilter = 'all';
+
+function renderFacultyTiles(){
+  const wrap = document.getElementById('facultyTiles');
+  wrap.innerHTML = '';
+
+  const allBtn = document.createElement('button');
+  allBtn.className = 'fac-tile all' + (activeFilter==='all' ? ' active' : '');
+  allBtn.innerHTML = `<span class="name">All</span><span class="count">${DISPATCHES.length} total</span>`;
+  allBtn.onclick = ()=>{ activeFilter='all'; renderFacultyTiles(); renderFeed(); };
+  wrap.appendChild(allBtn);
+
+  FACULTIES.forEach(f=>{
+    const count = DISPATCHES.filter(a=>a.faculty===f.key).length;
+    const btn = document.createElement('button');
+    btn.className = 'fac-tile' + (activeFilter===f.key ? ' active' : '');
+    btn.innerHTML = `<span class="name"><span class="dot" style="background:${f.color}"></span>${f.label}</span><span class="count">${count} stories</span>`;
+    btn.onclick = ()=>{ activeFilter=f.key; renderFacultyTiles(); renderFeed(); };
+    wrap.appendChild(btn);
+  });
+}
+
+function fmtDayHeader(dateStr){
+  const d = new Date(dateStr + 'T00:00:00');
+  return d.toLocaleDateString('en-GB', { day:'2-digit', month:'long', year:'numeric' }).toUpperCase();
+}
+function domainOf(url){
+  try{ return new URL(url).hostname.replace('www.',''); }catch(e){ return ''; }
+}
+function escapeHtml(str){
+  const d = document.createElement('div');
+  d.textContent = str;
+  return d.innerHTML;
+}
+
+function renderFeed(){
+  const feed = document.getElementById('feed');
+  const list = DISPATCHES
+    .filter(a=> activeFilter==='all' || a.faculty===activeFilter)
+    .sort((a,b)=> b.date.localeCompare(a.date));
+
+  if(list.length===0){
+    feed.innerHTML = '<div class="empty-card">No dispatches filed yet. Send Mr Eric a headline to get this started.</div>';
+    return;
+  }
+
+  const groups = {};
+  list.forEach(a=>{ (groups[a.date] = groups[a.date] || []).push(a); });
+
+  feed.innerHTML = '';
+  Object.keys(groups).sort((a,b)=>b.localeCompare(a)).forEach(date=>{
+    const badge = document.createElement('div');
+    badge.className = 'day-badge';
+    badge.textContent = fmtDayHeader(date);
+    feed.appendChild(badge);
+
+    groups[date].forEach(a=>{
+      const fac = FAC_MAP[a.faculty] || { label:a.faculty, color:'#999' };
+      const entry = document.createElement('div');
+      entry.className = 'entry';
+      entry.innerHTML = `
+        <div class="tag" style="background:${fac.color}">${fac.label}</div>
+        <div class="entry-body">
+          <a class="headline" href="${a.url}" target="_blank" rel="noopener noreferrer">${escapeHtml(a.headline)}</a>
+          <div class="entry-meta">${domainOf(a.url)}</div>
+        </div>`;
+      feed.appendChild(entry);
+    });
+  });
+}
+
+function renderSports(){
+  document.getElementById('nextFixture').innerHTML =
+    `<span class="label">Next up</span>${ARSENAL_NEXT_FIXTURE}`;
+}
+
+function renderStudentsOfWeek(){
+  const wrap = document.getElementById('sotwCard');
+  if(STUDENTS_OF_WEEK.length===0){
+    wrap.innerHTML = `
+      <div class="sotw-card">
+        <div class="sotw-photo"><span class="placeholder">🌟</span></div>
+        <div>
+          <div class="sotw-name">No one crowned yet this week</div>
+          <div class="sotw-note">Mr Eric will add this week's photo soon.</div>
+        </div>
+      </div>`;
+    return;
+  }
+  wrap.innerHTML = STUDENTS_OF_WEEK.map(s => `
+    <div class="sotw-card">
+      <div class="sotw-photo">${s.photoUrl ? `<img src="${s.photoUrl}" alt="${escapeHtml(s.name)}">` : '<span class="placeholder">🌟</span>'}</div>
+      <div>
+        <div class="sotw-name">${escapeHtml(s.name)}</div>
+        <div class="sotw-note">${escapeHtml(s.note)}</div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function renderRecommendations(){
+  const wrap = document.getElementById('recList');
+  if(RECOMMENDATIONS.length===0){
+    wrap.innerHTML = '<div class="empty-card">Nothing recommended yet — check back soon.</div>';
+    return;
+  }
+  wrap.innerHTML = RECOMMENDATIONS.map(r=>`
+    <div class="rec-item">
+      <a href="${r.url}" target="_blank" rel="noopener noreferrer">${escapeHtml(r.title)}</a>
+      <div class="rec-note">${escapeHtml(r.note)}</div>
+    </div>
+  `).join('');
+}
+
+function renderBirthdays(){
+  const wrap = document.getElementById('bdayList');
+  if(BIRTHDAYS.length===0){
+    wrap.innerHTML = '<div class="empty-card">Birthdays will appear here once the academic year starts.</div>';
+    return;
+  }
+  const today = new Date();
+  const todayM = today.getMonth()+1, todayD = today.getDate();
+
+  const withNextOccurrence = BIRTHDAYS.map(b=>{
+    let next = new Date(today.getFullYear(), b.month-1, b.day);
+    if(next < new Date(today.getFullYear(), todayM-1, todayD)){
+      next = new Date(today.getFullYear()+1, b.month-1, b.day);
+    }
+    return {...b, next};
+  }).sort((a,b)=> a.next - b.next);
+
+  const monthNames = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+
+  wrap.innerHTML = withNextOccurrence.map(b=>{
+    const isToday = b.month===todayM && b.day===todayD;
+    return `
+    <div class="bday-item ${isToday?'today':''}">
+      <span class="bday-name">${escapeHtml(b.name)}${isToday ? ' 🎉' : ''}</span>
+      <span class="bday-date">${b.day} ${monthNames[b.month-1]}</span>
+    </div>`;
+  }).join('');
+}
+
+/* ---- Live clock ---- */
+function pad(n){ return n.toString().padStart(2,'0'); }
+
+function updateClock(){
+  const now = new Date();
+  document.getElementById('clock').textContent =
+    `${pad(now.getHours())}:${pad(now.getMinutes())}:${pad(now.getSeconds())}`;
+}
+
+/* ---- Weekend countdown ---- */
+function isWeekendNow(now){
+  const day = now.getDay(); // 0 Sun ... 5 Fri ... 6 Sat
+  if(day === 5) return now.getHours() >= 18;
+  return day === 6 || day === 0;
+}
+function nextFridayEighteen(now){
+  const d = new Date(now);
+  d.setHours(18,0,0,0);
+  const day = d.getDay();
+  let diffDays = (5 - day + 7) % 7;
+  if(diffDays === 0 && now.getTime() > d.getTime()){ diffDays = 7; }
+  d.setDate(d.getDate() + diffDays);
+  return d;
+}
+function updateWeekendCountdown(){
+  const now = new Date();
+  const el = document.getElementById('weekendCountdown');
+  if(isWeekendNow(now)){
+    el.textContent = "it's here 🎉";
+    return;
+  }
+  const target = nextFridayEighteen(now);
+  let diff = Math.max(0, target - now);
+  const dd = Math.floor(diff / 86400000); diff -= dd*86400000;
+  const hh = Math.floor(diff / 3600000); diff -= hh*3600000;
+  const mm = Math.floor(diff / 60000); diff -= mm*60000;
+  const ss = Math.floor(diff / 1000);
+  el.textContent = `${pad(dd)}:${pad(hh)}:${pad(mm)}:${pad(ss)}`;
+}
+
+/* ---- Init ---- */
+renderFacultyTiles();
+renderFeed();
+renderSports();
+renderStudentsOfWeek();
+renderRecommendations();
+renderBirthdays();
+
+updateClock();
+updateWeekendCountdown();
+setInterval(updateClock, 1000);
+setInterval(updateWeekendCountdown, 1000);
+</script>
+
+</body>
+</html>
