@@ -316,6 +316,27 @@
   }
   .otd-card a{color:#fff; text-decoration:underline;}
 
+  /* ---------- Mood meter ---------- */
+  .mood-row{display:flex; gap:10px;}
+  .mood-btn{
+    background:var(--card);
+    border:none;
+    border-radius:16px;
+    font-size:26px;
+    padding:14px;
+    flex:1;
+    cursor:pointer;
+    box-shadow:0 3px 0 rgba(58,42,30,.08);
+  }
+  .mood-btn.active{background:var(--coral); box-shadow:0 3px 0 rgba(58,42,30,.15);}
+  .mood-response{
+    margin-top:12px;
+    font-weight:700;
+    font-size:14px;
+    color:var(--ink-soft);
+    min-height:20px;
+  }
+
   /* ---------- Random tile ---------- */
   .random-tile{
     background:var(--coral);
@@ -536,7 +557,7 @@
 <header>
   <div class="wrap masthead">
     <h1 class="title" id="titleLink">Mr Eric's Lounge</h1>
-    <div class="subtitle">Today's news, fresh off the press</div>
+    <div class="subtitle" id="subtitleText">Today's news, fresh off the press</div>
     <div class="stat-row">
       <div class="stat-pill">
         <span class="label">Local time</span>
@@ -648,6 +669,16 @@ const BIRTHDAYS = [
   // { name:"Student Name", month:9, day:14 },
 ];
 
+// Rotating subtitle — a random one shows each visit.
+const TAGLINES = [
+  "Today's news, fresh off the press",
+  "Read it before your seatmate does",
+  "Homework you don't hate",
+  "Gossip, but educational",
+  "Smarter in five minutes or less",
+  "Come for the memes, stay for the geopolitics",
+];
+
 /* ========================================================= */
 
 function escapeHtml(str){
@@ -680,7 +711,7 @@ function fmtDayHeader(dateStr){
 
 function dispatchListHtml(list){
   if(list.length===0){
-    return '<div class="empty-card">No dispatches filed here yet.</div>';
+    return '<div class="empty-card">Tumbleweeds. Nothing filed here yet.</div>';
   }
   const sorted = [...list].sort((a,b)=> b.date.localeCompare(a.date));
   const groups = {};
@@ -718,7 +749,7 @@ function dispatchListHtml(list){
 
 function watchGridHtml(list, idPrefix){
   if(list.length===0){
-    return '<div class="empty-card">No videos added here yet.</div>';
+    return '<div class="empty-card">Nothing to watch here. Yet. Patience, young padawan.</div>';
   }
   return list.map((v,i) => `
     <div class="watch-card">
@@ -829,7 +860,7 @@ function viewSearch(){
       <div class="section-head"><span class="emoji">🔍</span><h2>Search</h2></div>
       <input class="search-input" id="searchInput" type="text" placeholder="Search dispatches by headline…" autofocus>
       <div id="searchResults" style="margin-top:20px;">
-        <div class="empty-card">Start typing to search ${DISPATCHES.length} dispatches.</div>
+        <div class="empty-card">Go on, type something. We both know you're curious. (${DISPATCHES.length} dispatches waiting)</div>
       </div>
     </section>
   `;
@@ -842,7 +873,7 @@ function wireSearch(container){
   input.addEventListener('input', ()=>{
     const q = input.value.trim().toLowerCase();
     if(q.length === 0){
-      results.innerHTML = `<div class="empty-card">Start typing to search ${DISPATCHES.length} dispatches.</div>`;
+      results.innerHTML = `<div class="empty-card">Go on, type something. We both know you're curious. (${DISPATCHES.length} dispatches waiting)</div>`;
       return;
     }
     const matches = DISPATCHES.filter(a => a.headline.toLowerCase().includes(q));
@@ -872,7 +903,7 @@ function studentsHtml(){
     return `<div class="sotw-grid"><div class="sotw-card">
       <div class="sotw-photo"><span class="placeholder">🌟</span></div>
       <div>
-        <div class="sotw-name">No one crowned yet this week</div>
+        <div class="sotw-name">Nobody yet. The throne is empty.</div>
         <div class="sotw-note">Mr Eric will add this week's photo soon.</div>
       </div>
     </div></div>`;
@@ -890,7 +921,7 @@ function studentsHtml(){
 
 function recommendationsHtml(){
   if(RECOMMENDATIONS.length===0){
-    return '<div class="empty-card">Nothing recommended yet — check back soon.</div>';
+    return '<div class="empty-card">Nothing recommended yet. Mr Eric is still scrolling.</div>';
   }
   return `<div class="rec-list">${RECOMMENDATIONS.map(r=>`
     <div class="rec-item">
@@ -902,7 +933,7 @@ function recommendationsHtml(){
 
 function birthdaysHtml(){
   if(BIRTHDAYS.length===0){
-    return '<div class="empty-card">Birthdays will appear here once the academic year starts.</div>';
+    return '<div class="empty-card">No birthdays yet. Nobody\'s been born apparently.</div>';
   }
   const today = new Date();
   const todayM = today.getMonth()+1, todayD = today.getDate();
@@ -947,6 +978,17 @@ function viewHome(){
           <span class="count">${DISPATCHES.length} total</span>
         </a>
       </div>
+    </section>
+
+    <section>
+      <div class="section-head"><span class="emoji">🎭</span><h2>How's Today Going?</h2></div>
+      <div class="mood-row" id="moodRow">
+        <button class="mood-btn" data-mood="😩">😩</button>
+        <button class="mood-btn" data-mood="😐">😐</button>
+        <button class="mood-btn" data-mood="🙂">🙂</button>
+        <button class="mood-btn" data-mood="🔥">🔥</button>
+      </div>
+      <div class="mood-response" id="moodResponse"></div>
     </section>
 
     <section>
@@ -1101,11 +1143,108 @@ function renderRoute(){
   wireWatchButtons(app);
   wireEntryActions(app);
   if(parts[0] === 'search') wireSearch(app);
-  if(parts.length === 0){ loadOnThisDay(); wireRandomButton(app); }
+  if(parts.length === 0){ loadOnThisDay(); wireRandomButton(app); wireMoodMeter(app); checkAchievements(); }
   window.scrollTo(0,0);
 }
 
-document.getElementById('titleLink').addEventListener('click', ()=>{ location.hash = ''; });
+document.getElementById('subtitleText').textContent = TAGLINES[Math.floor(Math.random()*TAGLINES.length)];
+
+/* ---- Toast + confetti (playful feedback, no backend needed) ---- */
+function showToast(msg){
+  const t = document.createElement('div');
+  t.textContent = msg;
+  t.style.cssText = 'position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#3A2A1E;color:#fff;padding:12px 20px;border-radius:999px;font-family:"Nunito",sans-serif;font-weight:700;font-size:14px;z-index:9999;box-shadow:0 4px 12px rgba(0,0,0,.25);max-width:86vw;text-align:center;';
+  document.body.appendChild(t);
+  setTimeout(()=>{
+    t.style.transition = 'opacity .4s';
+    t.style.opacity = '0';
+    setTimeout(()=> t.remove(), 400);
+  }, 2600);
+}
+function burstConfetti(){
+  const colors = ['#F2622E','#F0A93C','#2F8F7A','#B0446E','#3C6FA6'];
+  for(let i=0;i<40;i++){
+    const p = document.createElement('div');
+    const size = 6 + Math.random()*6;
+    p.style.cssText = `position:fixed;left:${Math.random()*100}vw;top:-10px;width:${size}px;height:${size}px;background:${colors[Math.floor(Math.random()*colors.length)]};border-radius:${Math.random()>0.5?'50%':'2px'};z-index:9999;pointer-events:none;transition:transform 1.8s ease-out, opacity 1.8s ease-out;`;
+    document.body.appendChild(p);
+    requestAnimationFrame(()=>{
+      p.style.transform = `translateY(${60+Math.random()*40}vh) rotate(${Math.random()*720}deg)`;
+      p.style.opacity = '0';
+    });
+    setTimeout(()=> p.remove(), 2000);
+  }
+}
+
+/* ---- Mood meter (per-device, per-day — not a shared class tally) ---- */
+const MOOD_RESPONSES = {
+  '😩': "Rough one. Coffee's on you tomorrow.",
+  '😐': "Meh is valid. Meh is honest.",
+  '🙂': "Look at you, thriving.",
+  '🔥': "Certified menace to productivity charts.",
+};
+function moodKey(){
+  const d = new Date();
+  return 'mood:' + d.toISOString().slice(0,10);
+}
+function wireMoodMeter(container){
+  const row = container.querySelector('#moodRow');
+  const response = container.querySelector('#moodResponse');
+  if(!row) return;
+  const saved = (()=>{ try{ return localStorage.getItem(moodKey()); }catch(e){ return null; } })();
+  if(saved){
+    row.querySelectorAll('.mood-btn').forEach(b=> b.classList.toggle('active', b.dataset.mood === saved));
+    response.textContent = MOOD_RESPONSES[saved] || '';
+  }
+  row.querySelectorAll('.mood-btn').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      const mood = btn.dataset.mood;
+      try{ localStorage.setItem(moodKey(), mood); }catch(e){}
+      row.querySelectorAll('.mood-btn').forEach(b=> b.classList.toggle('active', b === btn));
+      response.textContent = MOOD_RESPONSES[mood] || '';
+    });
+  });
+}
+
+/* ---- Achievement toasts (session-only, playful, not a real leaderboard) ---- */
+document.body.addEventListener('click', (e)=>{
+  const link = e.target.closest('a.headline');
+  if(!link) return;
+  try{
+    let count = parseInt(sessionStorage.getItem('dispatchOpens') || '0', 10) + 1;
+    sessionStorage.setItem('dispatchOpens', String(count));
+  }catch(err){}
+});
+function checkAchievements(){
+  try{
+    const count = parseInt(sessionStorage.getItem('dispatchOpens') || '0', 10);
+    const milestones = [3, 5, 10, 20];
+    const shown = JSON.parse(sessionStorage.getItem('milestonesShown') || '[]');
+    for(const m of milestones){
+      if(count >= m && !shown.includes(m)){
+        shown.push(m);
+        sessionStorage.setItem('milestonesShown', JSON.stringify(shown));
+        showToast(`🔥 ${m} dispatches opened this session. Certified curious.`);
+        break;
+      }
+    }
+  }catch(e){}
+}
+
+/* ---- Easter egg: tap the title 5 times fast ---- */
+let titleTapCount = 0;
+let titleTapTimer = null;
+document.getElementById('titleLink').addEventListener('click', ()=>{
+  titleTapCount++;
+  clearTimeout(titleTapTimer);
+  titleTapTimer = setTimeout(()=>{ titleTapCount = 0; }, 1200);
+  if(titleTapCount >= 5){
+    titleTapCount = 0;
+    burstConfetti();
+    showToast("🐣 You found the secret. Mr Eric is mildly impressed.");
+  }
+  location.hash = '';
+});
 window.addEventListener('hashchange', renderRoute);
 renderRoute();
 
@@ -1138,6 +1277,13 @@ function updateWeekendCountdown(){
   const el = document.getElementById('weekendCountdown');
   if(isWeekendNow(now)){
     el.textContent = "it's here 🎉";
+    try{
+      if(!sessionStorage.getItem('weekendCelebrated')){
+        sessionStorage.setItem('weekendCelebrated', '1');
+        burstConfetti();
+        showToast("🎉 WEEKEND. Go outside. Or don't.");
+      }
+    }catch(e){}
     return;
   }
   const target = nextFridayEighteen(now);
