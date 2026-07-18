@@ -55,6 +55,7 @@
     font-weight:800;
     color:var(--coral-dark);
     letter-spacing:-0.01em;
+    cursor:pointer;
   }
   .subtitle{
     font-size:16px;
@@ -101,6 +102,7 @@
     align-items:baseline;
     gap:10px;
     margin-bottom:18px;
+    flex-wrap:wrap;
   }
   .section-head h2{
     font-size:22px;
@@ -113,6 +115,28 @@
     font-weight:600;
     margin-left:auto;
   }
+  .section-link{
+    font-size:13px;
+    font-weight:700;
+    color:var(--coral-dark);
+    text-decoration:none;
+    margin-left:auto;
+    cursor:pointer;
+  }
+  .section-link:hover{text-decoration:underline;}
+
+  .back-link{
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    font-weight:700;
+    font-size:14px;
+    color:var(--coral-dark);
+    text-decoration:none;
+    cursor:pointer;
+    margin-bottom:6px;
+  }
+  .back-link:hover{text-decoration:underline;}
 
   /* ---------- Faculty tiles ---------- */
   .faculties{
@@ -132,6 +156,9 @@
     box-shadow:0 3px 0 rgba(58,42,30,.08);
     transition:transform .12s ease, box-shadow .12s ease;
     font-family:'Nunito', sans-serif;
+    text-decoration:none;
+    display:block;
+    color:var(--ink);
   }
   .fac-tile:hover{transform:translateY(-2px); box-shadow:0 6px 0 rgba(58,42,30,.1);}
   .fac-tile .dot{
@@ -146,12 +173,9 @@
     margin-top:4px;
     display:block;
   }
-  .fac-tile.active{background:var(--coral); }
-  .fac-tile.active .name, .fac-tile.active .count{color:#fff;}
-  .fac-tile.all{background:var(--ink); grid-column:span 1;}
+  .fac-tile.all{background:var(--ink); grid-column:1/-1;}
   .fac-tile.all .name{color:#fff;}
   .fac-tile.all .count{color:#D8CBBB;}
-  .fac-tile.all.active{background:var(--coral-dark);}
 
   /* ---------- Feed ---------- */
   .day-badge{
@@ -241,35 +265,7 @@
   .sports-header .name{font-weight:800; font-size:17px;}
   .sports-header .sub{font-size:12px; color:var(--ink-soft); font-weight:600;}
 
-  .result-row{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    padding:10px 0;
-    border-bottom:1px solid var(--line);
-    font-size:14px;
-  }
-  .result-row:last-of-type{border-bottom:none;}
-  .result-row .comp{
-    font-family:'Space Mono', monospace;
-    font-size:10.5px;
-    color:var(--ink-soft);
-    text-transform:uppercase;
-  }
-  .result-row .score{font-weight:800; font-family:'Space Mono', monospace;}
-  .result-row .outcome{
-    font-size:10.5px;
-    font-weight:700;
-    padding:2px 8px;
-    border-radius:999px;
-    color:#fff;
-  }
-  .outcome.W{background:var(--teal);}
-  .outcome.D{background:var(--gold);}
-  .outcome.L{background:var(--coral);}
-
   .next-fixture{
-    margin-top:14px;
     background:var(--cream-2);
     border-radius:14px;
     padding:12px 14px;
@@ -337,32 +333,22 @@
     font-weight:600;
   }
 
-  /* ---------- Birthdays ---------- */
-  .bday-list{
-    display:grid;
-    grid-template-columns:repeat(2,1fr);
-    gap:10px;
-  }
-  @media (max-width:700px){ .bday-list{grid-template-columns:1fr;} }
-  .bday-item{
-    background:var(--card);
-    border-radius:14px;
-    padding:12px 14px;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    box-shadow:0 2px 0 rgba(58,42,30,.06);
-  }
-  .bday-item.today{background:var(--gold);}
-  .bday-item.today .bday-name, .bday-item.today .bday-date{color:#fff;}
-  .bday-name{font-weight:700; font-size:14.5px;}
-  .bday-date{
-    font-family:'Space Mono', monospace;
-    font-size:12px;
-    color:var(--ink-soft);
-  }
-
   /* ---------- Watch ---------- */
+  .watch-tile{
+    background:var(--ink);
+    color:#fff;
+    border-radius:20px;
+    padding:26px 22px;
+    display:flex;
+    align-items:center;
+    gap:16px;
+    text-decoration:none;
+    box-shadow:0 3px 0 rgba(58,42,30,.15);
+  }
+  .watch-tile .icon{font-size:30px;}
+  .watch-tile .title{font-weight:800; font-size:19px;}
+  .watch-tile .sub{font-size:13px; color:#D8CBBB; font-weight:600; margin-top:2px;}
+
   .watch-grid{
     display:grid;
     grid-template-columns:repeat(auto-fill, minmax(240px, 1fr));
@@ -409,6 +395,31 @@
     margin-top:4px;
   }
 
+  /* ---------- Birthdays ---------- */
+  .bday-list{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:10px;
+  }
+  @media (max-width:700px){ .bday-list{grid-template-columns:1fr;} }
+  .bday-item{
+    background:var(--card);
+    border-radius:14px;
+    padding:12px 14px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    box-shadow:0 2px 0 rgba(58,42,30,.06);
+  }
+  .bday-item.today{background:var(--gold);}
+  .bday-item.today .bday-name, .bday-item.today .bday-date{color:#fff;}
+  .bday-name{font-weight:700; font-size:14.5px;}
+  .bday-date{
+    font-family:'Space Mono', monospace;
+    font-size:12px;
+    color:var(--ink-soft);
+  }
+
   footer{
     text-align:center;
     padding:30px 0 50px 0;
@@ -422,7 +433,7 @@
 
 <header>
   <div class="wrap masthead">
-    <h1 class="title">Eric's Lounge</h1>
+    <h1 class="title" id="titleLink">Eric's Lounge</h1>
     <div class="subtitle">Today's news, fresh off the press</div>
     <div class="stat-row">
       <div class="stat-pill">
@@ -437,53 +448,7 @@
   </div>
 </header>
 
-<div class="wrap">
-
-  <section>
-    <div class="section-head"><span class="emoji">🎓</span><h2>Faculties</h2></div>
-    <div class="faculties" id="facultyTiles"></div>
-  </section>
-
-  <section>
-    <div class="section-head"><span class="emoji">📰</span><h2>Latest Dispatches</h2></div>
-    <div id="feed"></div>
-  </section>
-
-  <section>
-    <div class="section-head"><span class="emoji">⚽</span><h2>Sports Desk</h2></div>
-    <div class="sports-card">
-      <div class="sports-header">
-        <div class="crest">AFC</div>
-        <div>
-          <div class="name">Arsenal</div>
-          <div class="sub">Next fixture</div>
-        </div>
-      </div>
-      <div class="next-fixture" id="nextFixture"></div>
-    </div>
-  </section>
-
-  <section>
-    <div class="section-head"><span class="emoji">🌟</span><h2>Students of the Week</h2></div>
-    <div class="sotw-grid" id="sotwCard"></div>
-  </section>
-
-  <section>
-    <div class="section-head"><span class="emoji">👀</span><h2>Recommend You Check This Out</h2></div>
-    <div class="rec-list" id="recList"></div>
-  </section>
-
-  <section>
-    <div class="section-head"><span class="emoji">🎬</span><h2>Watch</h2></div>
-    <div class="watch-grid" id="watchGrid"></div>
-  </section>
-
-  <section>
-    <div class="section-head"><span class="emoji">🎂</span><h2>Birthdays</h2></div>
-    <div class="bday-list" id="bdayList"></div>
-  </section>
-
-</div>
+<div class="wrap" id="app"></div>
 
 <footer>Eric's Lounge</footer>
 
@@ -503,6 +468,7 @@ const FACULTIES = [
   { key:'psychology', label:'Psychology', color:'var(--f-psy)' },
   { key:'design', label:'Design', color:'var(--f-des)' },
 ];
+const FAC_MAP = Object.fromEntries(FACULTIES.map(f=>[f.key,f]));
 
 // One entry per headline. date format: 'YYYY-MM-DD'
 const DISPATCHES = [
@@ -560,10 +526,10 @@ const RECOMMENDATIONS = [
   // { title:"Example title", url:"https://...", note:"Why it's worth a look" },
 ];
 
-// YouTube videos. videoId is the part after 'v=' or after 'youtu.be/' in the URL.
+// YouTube videos. videoId is the part after 'v=' or after 'youtu.be/' in the URL. Each video belongs to one faculty.
 const WATCH_VIDEOS = [
-  { title:"Mini Countries Abroad: How Embassies Work", channel:"Wendover Productions", videoId:"SUsqnD9-42g" },
-  { title:"Why Diplomats Can't be Arrested", channel:"Half as Interesting", videoId:"5CesWbbsTTM" },
+  { title:"Mini Countries Abroad: How Embassies Work", channel:"Wendover Productions", videoId:"SUsqnD9-42g", faculty:"international-relations" },
+  { title:"Why Diplomats Can't be Arrested", channel:"Half as Interesting", videoId:"5CesWbbsTTM", faculty:"jurisprudence" },
 ];
 
 // Birthdays: month is 1-12.
@@ -573,116 +539,52 @@ const BIRTHDAYS = [
 
 /* ========================================================= */
 
-const FAC_MAP = Object.fromEntries(FACULTIES.map(f=>[f.key,f]));
-let activeFilter = 'all';
-
-function renderFacultyTiles(){
-  const wrap = document.getElementById('facultyTiles');
-  wrap.innerHTML = '';
-
-  const allBtn = document.createElement('button');
-  allBtn.className = 'fac-tile all' + (activeFilter==='all' ? ' active' : '');
-  allBtn.innerHTML = `<span class="name">All</span><span class="count">${DISPATCHES.length} total</span>`;
-  allBtn.onclick = ()=>{ activeFilter='all'; renderFacultyTiles(); renderFeed(); };
-  wrap.appendChild(allBtn);
-
-  FACULTIES.forEach(f=>{
-    const count = DISPATCHES.filter(a=>a.faculty===f.key).length;
-    const btn = document.createElement('button');
-    btn.className = 'fac-tile' + (activeFilter===f.key ? ' active' : '');
-    btn.innerHTML = `<span class="name"><span class="dot" style="background:${f.color}"></span>${f.label}</span><span class="count">${count} stories</span>`;
-    btn.onclick = ()=>{ activeFilter=f.key; renderFacultyTiles(); renderFeed(); };
-    wrap.appendChild(btn);
-  });
-}
-
-function fmtDayHeader(dateStr){
-  const d = new Date(dateStr + 'T00:00:00');
-  return d.toLocaleDateString('en-GB', { day:'2-digit', month:'long', year:'numeric' }).toUpperCase();
-}
-function domainOf(url){
-  try{ return new URL(url).hostname.replace('www.',''); }catch(e){ return ''; }
-}
 function escapeHtml(str){
   const d = document.createElement('div');
   d.textContent = str;
   return d.innerHTML;
 }
+function domainOf(url){
+  try{ return new URL(url).hostname.replace('www.',''); }catch(e){ return ''; }
+}
+function fmtDayHeader(dateStr){
+  const d = new Date(dateStr + 'T00:00:00');
+  return d.toLocaleDateString('en-GB', { day:'2-digit', month:'long', year:'numeric' }).toUpperCase();
+}
 
-function renderFeed(){
-  const feed = document.getElementById('feed');
-  const list = DISPATCHES
-    .filter(a=> activeFilter==='all' || a.faculty===activeFilter)
-    .sort((a,b)=> b.date.localeCompare(a.date));
-
+function dispatchListHtml(list){
   if(list.length===0){
-    feed.innerHTML = '<div class="empty-card">No dispatches filed yet. Send Mr Eric a headline to get this started.</div>';
-    return;
+    return '<div class="empty-card">No dispatches filed here yet.</div>';
   }
-
+  const sorted = [...list].sort((a,b)=> b.date.localeCompare(a.date));
   const groups = {};
-  list.forEach(a=>{ (groups[a.date] = groups[a.date] || []).push(a); });
+  sorted.forEach(a=>{ (groups[a.date] = groups[a.date] || []).push(a); });
 
-  feed.innerHTML = '';
+  let html = '';
   Object.keys(groups).sort((a,b)=>b.localeCompare(a)).forEach(date=>{
-    const badge = document.createElement('div');
-    badge.className = 'day-badge';
-    badge.textContent = fmtDayHeader(date);
-    feed.appendChild(badge);
-
+    html += `<div class="day-badge">${fmtDayHeader(date)}</div>`;
     groups[date].forEach(a=>{
       const fac = FAC_MAP[a.faculty] || { label:a.faculty, color:'#999' };
-      const entry = document.createElement('div');
-      entry.className = 'entry';
-      entry.innerHTML = `
-        <div class="tag" style="background:${fac.color}">${fac.label}</div>
-        <div class="entry-body">
-          <a class="headline" href="${a.url}" target="_blank" rel="noopener noreferrer">${escapeHtml(a.headline)}</a>
-          <div class="entry-meta">${domainOf(a.url)}</div>
+      html += `
+        <div class="entry">
+          <div class="tag" style="background:${fac.color}">${fac.label}</div>
+          <div class="entry-body">
+            <a class="headline" href="${a.url}" target="_blank" rel="noopener noreferrer">${escapeHtml(a.headline)}</a>
+            <div class="entry-meta">${domainOf(a.url)}</div>
+          </div>
         </div>`;
-      feed.appendChild(entry);
     });
   });
+  return html;
 }
 
-function renderSports(){
-  document.getElementById('nextFixture').innerHTML =
-    `<span class="label">Next up</span>${ARSENAL_NEXT_FIXTURE}`;
-}
-
-function renderStudentsOfWeek(){
-  const wrap = document.getElementById('sotwCard');
-  if(STUDENTS_OF_WEEK.length===0){
-    wrap.innerHTML = `
-      <div class="sotw-card">
-        <div class="sotw-photo"><span class="placeholder">🌟</span></div>
-        <div>
-          <div class="sotw-name">No one crowned yet this week</div>
-          <div class="sotw-note">Mr Eric will add this week's photo soon.</div>
-        </div>
-      </div>`;
-    return;
+function watchGridHtml(list, idPrefix){
+  if(list.length===0){
+    return '<div class="empty-card">No videos added here yet.</div>';
   }
-  wrap.innerHTML = STUDENTS_OF_WEEK.map(s => `
-    <div class="sotw-card">
-      <div class="sotw-photo">${s.photoUrl ? `<img src="${s.photoUrl}" alt="${escapeHtml(s.name)}">` : '<span class="placeholder">🌟</span>'}</div>
-      <div>
-        <div class="sotw-name">${escapeHtml(s.name)}</div>
-        <div class="sotw-note">${escapeHtml(s.note)}</div>
-      </div>
-    </div>
-  `).join('');
-}
-
-function renderWatch(){
-  const wrap = document.getElementById('watchGrid');
-  if(WATCH_VIDEOS.length===0){
-    wrap.innerHTML = '<div class="empty-card">No videos added yet — check back soon.</div>';
-    return;
-  }
-  wrap.innerHTML = WATCH_VIDEOS.map((v, i) => `
+  return list.map((v,i) => `
     <div class="watch-card">
-      <button class="watch-thumb" data-id="${v.videoId}" data-index="${i}" aria-label="Play ${escapeHtml(v.title)}">
+      <button class="watch-thumb" data-id="${v.videoId}" data-key="${idPrefix}-${i}" aria-label="Play ${escapeHtml(v.title)}">
         <img src="https://img.youtube.com/vi/${v.videoId}/hqdefault.jpg" alt="${escapeHtml(v.title)}" loading="lazy">
         <div class="play"><span>▶</span></div>
       </button>
@@ -692,8 +594,10 @@ function renderWatch(){
       </div>
     </div>
   `).join('');
+}
 
-  wrap.querySelectorAll('.watch-thumb').forEach(btn=>{
+function wireWatchButtons(container){
+  container.querySelectorAll('.watch-thumb').forEach(btn=>{
     btn.addEventListener('click', ()=>{
       const id = btn.dataset.id;
       btn.outerHTML = `<div class="watch-thumb"><iframe src="https://www.youtube-nocookie.com/embed/${id}?autoplay=1" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>`;
@@ -701,48 +605,241 @@ function renderWatch(){
   });
 }
 
-function renderRecommendations(){
-  const wrap = document.getElementById('recList');
-  if(RECOMMENDATIONS.length===0){
-    wrap.innerHTML = '<div class="empty-card">Nothing recommended yet — check back soon.</div>';
-    return;
+/* ---- Sports, Students, Recommendations, Birthdays (home page only) ---- */
+
+function sportsHtml(){
+  return `
+    <div class="sports-card">
+      <div class="sports-header">
+        <div class="crest">AFC</div>
+        <div>
+          <div class="name">Arsenal</div>
+          <div class="sub">Next fixture</div>
+        </div>
+      </div>
+      <div class="next-fixture"><span class="label">Next up</span>${ARSENAL_NEXT_FIXTURE}</div>
+    </div>`;
+}
+
+function studentsHtml(){
+  if(STUDENTS_OF_WEEK.length===0){
+    return `<div class="sotw-grid"><div class="sotw-card">
+      <div class="sotw-photo"><span class="placeholder">🌟</span></div>
+      <div>
+        <div class="sotw-name">No one crowned yet this week</div>
+        <div class="sotw-note">Mr Eric will add this week's photo soon.</div>
+      </div>
+    </div></div>`;
   }
-  wrap.innerHTML = RECOMMENDATIONS.map(r=>`
+  return `<div class="sotw-grid">${STUDENTS_OF_WEEK.map(s => `
+    <div class="sotw-card">
+      <div class="sotw-photo">${s.photoUrl ? `<img src="${s.photoUrl}" alt="${escapeHtml(s.name)}">` : '<span class="placeholder">🌟</span>'}</div>
+      <div>
+        <div class="sotw-name">${escapeHtml(s.name)}</div>
+        <div class="sotw-note">${escapeHtml(s.note)}</div>
+      </div>
+    </div>
+  `).join('')}</div>`;
+}
+
+function recommendationsHtml(){
+  if(RECOMMENDATIONS.length===0){
+    return '<div class="empty-card">Nothing recommended yet — check back soon.</div>';
+  }
+  return `<div class="rec-list">${RECOMMENDATIONS.map(r=>`
     <div class="rec-item">
       <a href="${r.url}" target="_blank" rel="noopener noreferrer">${escapeHtml(r.title)}</a>
       <div class="rec-note">${escapeHtml(r.note)}</div>
     </div>
-  `).join('');
+  `).join('')}</div>`;
 }
 
-function renderBirthdays(){
-  const wrap = document.getElementById('bdayList');
+function birthdaysHtml(){
   if(BIRTHDAYS.length===0){
-    wrap.innerHTML = '<div class="empty-card">Birthdays will appear here once the academic year starts.</div>';
-    return;
+    return '<div class="empty-card">Birthdays will appear here once the academic year starts.</div>';
   }
   const today = new Date();
   const todayM = today.getMonth()+1, todayD = today.getDate();
-
-  const withNextOccurrence = BIRTHDAYS.map(b=>{
+  const withNext = BIRTHDAYS.map(b=>{
     let next = new Date(today.getFullYear(), b.month-1, b.day);
     if(next < new Date(today.getFullYear(), todayM-1, todayD)){
       next = new Date(today.getFullYear()+1, b.month-1, b.day);
     }
     return {...b, next};
   }).sort((a,b)=> a.next - b.next);
-
   const monthNames = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-
-  wrap.innerHTML = withNextOccurrence.map(b=>{
+  return `<div class="bday-list">${withNext.map(b=>{
     const isToday = b.month===todayM && b.day===todayD;
-    return `
-    <div class="bday-item ${isToday?'today':''}">
+    return `<div class="bday-item ${isToday?'today':''}">
       <span class="bday-name">${escapeHtml(b.name)}${isToday ? ' 🎉' : ''}</span>
       <span class="bday-date">${b.day} ${monthNames[b.month-1]}</span>
     </div>`;
-  }).join('');
+  }).join('')}</div>`;
 }
+
+/* ---- Views ---- */
+
+function viewHome(){
+  const recentCount = 5;
+  const recent = [...DISPATCHES].sort((a,b)=> b.date.localeCompare(a.date)).slice(0, recentCount);
+
+  const facTiles = FACULTIES.map(f=>{
+    const count = DISPATCHES.filter(a=>a.faculty===f.key).length;
+    return `<a class="fac-tile" href="#faculty/${f.key}">
+      <span class="name"><span class="dot" style="background:${f.color}"></span>${f.label}</span>
+      <span class="count">${count} stories</span>
+    </a>`;
+  }).join('');
+
+  return `
+    <section>
+      <div class="section-head"><span class="emoji">🎓</span><h2>Faculties</h2></div>
+      <div class="faculties">
+        ${facTiles}
+        <a class="fac-tile all" href="#faculty/all">
+          <span class="name">All Faculties — Full Archive</span>
+          <span class="count">${DISPATCHES.length} total</span>
+        </a>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head"><span class="emoji">📰</span><h2>Latest Dispatches</h2><a class="section-link" href="#faculty/all">See full archive →</a></div>
+      ${dispatchListHtml(recent)}
+    </section>
+
+    <section>
+      <div class="section-head"><span class="emoji">⚽</span><h2>Sports Desk</h2></div>
+      ${sportsHtml()}
+    </section>
+
+    <section>
+      <div class="section-head"><span class="emoji">🌟</span><h2>Students of the Week</h2></div>
+      ${studentsHtml()}
+    </section>
+
+    <section>
+      <div class="section-head"><span class="emoji">👀</span><h2>Recommend You Check This Out</h2></div>
+      ${recommendationsHtml()}
+    </section>
+
+    <section>
+      <a class="watch-tile" href="#watch">
+        <span class="icon">🎬</span>
+        <div>
+          <div class="title">Watch</div>
+          <div class="sub">Videos by faculty — tap to browse</div>
+        </div>
+      </a>
+    </section>
+
+    <section>
+      <div class="section-head"><span class="emoji">🎂</span><h2>Birthdays</h2></div>
+      ${birthdaysHtml()}
+    </section>
+  `;
+}
+
+function viewFaculty(key){
+  if(key === 'all'){
+    return `
+      <a class="back-link" href="#">← Back to Eric's Lounge</a>
+      <section style="padding-top:14px;">
+        <div class="section-head"><span class="emoji">📰</span><h2>All Faculties — Full Archive</h2></div>
+        ${dispatchListHtml(DISPATCHES)}
+      </section>
+    `;
+  }
+  const fac = FAC_MAP[key];
+  if(!fac){
+    return `<a class="back-link" href="#">← Back to Eric's Lounge</a><div class="empty-card" style="margin-top:20px;">Unknown faculty.</div>`;
+  }
+  const list = DISPATCHES.filter(a=>a.faculty===key);
+  return `
+    <a class="back-link" href="#">← Back to Eric's Lounge</a>
+    <section style="padding-top:14px;">
+      <div class="section-head"><span class="dot" style="width:12px;height:12px;border-radius:50%;background:${fac.color};display:inline-block;"></span><h2>${fac.label}</h2></div>
+      ${dispatchListHtml(list)}
+    </section>
+  `;
+}
+
+function viewWatchHub(){
+  const tiles = FACULTIES.map(f=>{
+    const count = WATCH_VIDEOS.filter(v=>v.faculty===f.key).length;
+    return `<a class="fac-tile" href="#watch/${f.key}">
+      <span class="name"><span class="dot" style="background:${f.color}"></span>${f.label}</span>
+      <span class="count">${count} videos</span>
+    </a>`;
+  }).join('');
+
+  return `
+    <a class="back-link" href="#">← Back to Eric's Lounge</a>
+    <section style="padding-top:14px;">
+      <div class="section-head"><span class="emoji">🎬</span><h2>Watch — by Faculty</h2></div>
+      <div class="faculties">
+        ${tiles}
+        <a class="fac-tile all" href="#watch/all">
+          <span class="name">All Videos</span>
+          <span class="count">${WATCH_VIDEOS.length} total</span>
+        </a>
+      </div>
+    </section>
+  `;
+}
+
+function viewWatchFaculty(key){
+  if(key === 'all'){
+    return `
+      <a class="back-link" href="#watch">← Back to Watch</a>
+      <section style="padding-top:14px;">
+        <div class="section-head"><span class="emoji">🎬</span><h2>All Videos</h2></div>
+        <div class="watch-grid" id="watchGridTarget">${watchGridHtml(WATCH_VIDEOS, 'all')}</div>
+      </section>
+    `;
+  }
+  const fac = FAC_MAP[key];
+  if(!fac){
+    return `<a class="back-link" href="#watch">← Back to Watch</a><div class="empty-card" style="margin-top:20px;">Unknown faculty.</div>`;
+  }
+  const list = WATCH_VIDEOS.filter(v=>v.faculty===key);
+  return `
+    <a class="back-link" href="#watch">← Back to Watch</a>
+    <section style="padding-top:14px;">
+      <div class="section-head"><span class="dot" style="width:12px;height:12px;border-radius:50%;background:${fac.color};display:inline-block;"></span><h2>${fac.label} — Watch</h2></div>
+      <div class="watch-grid" id="watchGridTarget">${watchGridHtml(list, key)}</div>
+    </section>
+  `;
+}
+
+/* ---- Router ---- */
+
+function renderRoute(){
+  const app = document.getElementById('app');
+  const hash = location.hash.replace(/^#/, '');
+  const parts = hash.split('/').filter(Boolean);
+
+  let html;
+  if(parts.length === 0){
+    html = viewHome();
+  } else if(parts[0] === 'faculty' && parts[1]){
+    html = viewFaculty(parts[1]);
+  } else if(parts[0] === 'watch' && !parts[1]){
+    html = viewWatchHub();
+  } else if(parts[0] === 'watch' && parts[1]){
+    html = viewWatchFaculty(parts[1]);
+  } else {
+    html = viewHome();
+  }
+
+  app.innerHTML = html;
+  wireWatchButtons(app);
+  window.scrollTo(0,0);
+}
+
+document.getElementById('titleLink').addEventListener('click', ()=>{ location.hash = ''; });
+window.addEventListener('hashchange', renderRoute);
+renderRoute();
 
 /* ---- Live clock ---- */
 function pad(n){ return n.toString().padStart(2,'0'); }
@@ -755,7 +852,7 @@ function updateClock(){
 
 /* ---- Weekend countdown ---- */
 function isWeekendNow(now){
-  const day = now.getDay(); // 0 Sun ... 5 Fri ... 6 Sat
+  const day = now.getDay();
   if(day === 5) return now.getHours() >= 18;
   return day === 6 || day === 0;
 }
@@ -783,15 +880,6 @@ function updateWeekendCountdown(){
   const ss = Math.floor(diff / 1000);
   el.textContent = `${pad(dd)}:${pad(hh)}:${pad(mm)}:${pad(ss)}`;
 }
-
-/* ---- Init ---- */
-renderFacultyTiles();
-renderFeed();
-renderSports();
-renderStudentsOfWeek();
-renderRecommendations();
-renderWatch();
-renderBirthdays();
 
 updateClock();
 updateWeekendCountdown();
