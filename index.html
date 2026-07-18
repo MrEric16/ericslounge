@@ -704,11 +704,11 @@ function viewHome(){
 
   return `
     <section>
-      <div class="section-head"><span class="emoji">🎓</span><h2>Faculties</h2></div>
+      <div class="section-head"><span class="emoji">🎓</span><h2>Domains</h2></div>
       <div class="faculties">
         ${facTiles}
         <a class="fac-tile all" href="#faculty/all">
-          <span class="name">All Faculties — Full Archive</span>
+          <span class="name">All Domains — Full Archive</span>
           <span class="count">${DISPATCHES.length} total</span>
         </a>
       </div>
@@ -756,14 +756,14 @@ function viewFaculty(key){
     return `
       <a class="back-link" href="#">← Back to Eric's Lounge</a>
       <section style="padding-top:14px;">
-        <div class="section-head"><span class="emoji">📰</span><h2>All Faculties — Full Archive</h2></div>
+        <div class="section-head"><span class="emoji">📰</span><h2>All Domains — Full Archive</h2></div>
         ${dispatchListHtml(DISPATCHES)}
       </section>
     `;
   }
   const fac = FAC_MAP[key];
   if(!fac){
-    return `<a class="back-link" href="#">← Back to Eric's Lounge</a><div class="empty-card" style="margin-top:20px;">Unknown faculty.</div>`;
+    return `<a class="back-link" href="#">← Back to Eric's Lounge</a><div class="empty-card" style="margin-top:20px;">Unknown domain.</div>`;
   }
   const list = DISPATCHES.filter(a=>a.faculty===key);
   return `
@@ -787,7 +787,7 @@ function viewWatchHub(){
   return `
     <a class="back-link" href="#">← Back to Eric's Lounge</a>
     <section style="padding-top:14px;">
-      <div class="section-head"><span class="emoji">🎬</span><h2>Watch — by Faculty</h2></div>
+      <div class="section-head"><span class="emoji">🎬</span><h2>Watch — by Domain</h2></div>
       <div class="faculties">
         ${tiles}
         <a class="fac-tile all" href="#watch/all">
@@ -811,7 +811,7 @@ function viewWatchFaculty(key){
   }
   const fac = FAC_MAP[key];
   if(!fac){
-    return `<a class="back-link" href="#watch">← Back to Watch</a><div class="empty-card" style="margin-top:20px;">Unknown faculty.</div>`;
+    return `<a class="back-link" href="#watch">← Back to Watch</a><div class="empty-card" style="margin-top:20px;">Unknown domain.</div>`;
   }
   const list = WATCH_VIDEOS.filter(v=>v.faculty===key);
   return `
