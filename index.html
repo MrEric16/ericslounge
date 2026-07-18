@@ -640,6 +640,18 @@ const DISPATCHES = [
   { headline:"How One German Button Maker Searched the Rivers of the American Midwest for the Shells That Could Make Him a Fortune", url:"https://www.smithsonianmag.com/smithsonian-institution/how-one-german-button-maker-searched-the-rivers-of-the-american-midwest-for-the-shells-that-could-make-him-a-fortune-180989012/", faculty:"business", date:"2026-07-19", read:"6 min" },
   { headline:"This Giant, Seven-Story Picnic Basket, Once Home to an Iconic American Brand, Could Be Yours for $8.5 Million", url:"https://www.smithsonianmag.com/smart-news/this-giant-7-story-picnic-basket-once-home-to-icon-american-brand-longaberger-basket-could-be-yours-for-85-million-180988999/", faculty:"business", date:"2026-07-19", read:"3 min" },
   { headline:"An Industrious Grocer in the 1930s Wanted to Make It Easier for His Customers to Buy More. They Just Needed a Push", url:"https://www.smithsonianmag.com/history/industrious-grocer-1930s-wanted-make-easier-customers-buy-more-just-needed-push-180987633/", faculty:"business", date:"2026-07-19", read:"6 min" },
+
+  { headline:"Was There Ever an Original Version of 'The Odyssey,' and Do We Need to Worry About What Homer Would Think?", url:"https://www.smithsonianmag.com/history/was-there-ever-an-original-version-of-the-odyssey-and-do-we-need-to-worry-about-what-homer-would-think-180989143/", faculty:"history", date:"2026-07-19", read:"6 min" },
+  { headline:"Meet Sak Tahn Waax, a Maya Math Whiz Who Lived More Than 1,000 Years Ago and Left Behind a 'Really Elegant, Complex' Formula", url:"https://www.smithsonianmag.com/smart-news/meet-sak-tahn-waax-a-maya-math-whiz-who-lived-more-than-1000-years-ago-and-left-behind-a-really-elegant-complex-formula-180989125/", faculty:"history", date:"2026-07-19", read:"3 min" },
+  { headline:"Take an Exclusive Look at Three Newly Discovered Medieval Shipwrecks in Menorca's 'Cove of Mysteries'", url:"https://www.smithsonianmag.com/history/take-an-exclusive-look-at-three-newly-discovered-medieval-shipwrecks-in-menorcas-cove-of-mysteries-180989092/", faculty:"history", date:"2026-07-19", read:"6 min" },
+
+  { headline:"You're Guaranteed to Spot at Least One Gorgeous Giraffe in Each of These 15 Stunning and Awe-Inspiring Images", url:"https://www.smithsonianmag.com/travel/youre-guaranteed-to-spot-at-least-one-gorgeous-giraffe-in-each-of-these-15-stunningly-awe-inspiring-images-180988838/", faculty:"travel", date:"2026-07-19", read:"5 min" },
+  { headline:"These 15 Breathtaking Photos of Yosemite National Park Will Have You Planning Your Next Vacation to the Great Outdoors", url:"https://www.smithsonianmag.com/travel/these-15-breathtaking-photos-yosemite-national-park-have-you-planning-next-vacation-180988747/", faculty:"travel", date:"2026-07-19", read:"5 min" },
+  { headline:"From the Shining Seas to the Sandy Sahara, These 15 Photographs Showcase the Sensational Scenery of Morocco", url:"https://www.smithsonianmag.com/travel/from-the-shining-seas-to-the-sandy-sahara-these-15-photographs-showcase-the-sensational-scenery-of-morocco-180988770/", faculty:"travel", date:"2026-07-19", read:"5 min" },
+
+  { headline:"Snap Specs bring rich augmented reality to smart glasses", url:"https://www.dezeen.com/2026/06/18/snap-specs-smart-glasses-augmented-reality/", faculty:"technology", date:"2026-07-19", read:"2 min" },
+  { headline:"Google and Samsung launch AI-powered Intelligent Eyewear", url:"https://www.dezeen.com/2026/05/20/google-samsung-intelligent-eyewear/", faculty:"technology", date:"2026-07-19", read:"2 min" },
+  { headline:"Team Repair's adult STEM kit shows how to fix your phone", url:"https://www.dezeen.com/2026/05/07/repair-kit-for-grown-ups-team-repair/", faculty:"technology", date:"2026-07-19", read:"2 min" },
 ];
 
 const ARSENAL_NEXT_FIXTURE = "Girona vs Arsenal (Away) — Pre-season Friendly — Estadi Municipal de Montilivi — Sat 1 Aug 2026, 23:00 (Tashkent time)";
@@ -672,7 +684,7 @@ const BIRTHDAYS = [
 // Rotating subtitle — a random one shows each visit.
 const TAGLINES = [
   "Today's news, fresh off the press",
-  "Read it before your seatmate does",
+  "Read it before your classmate does",
   "Homework you don't hate",
   "Gossip, but educational",
   "Smarter in five minutes or less",
@@ -988,7 +1000,6 @@ function viewHome(){
         <button class="mood-btn" data-mood="🙂">🙂</button>
         <button class="mood-btn" data-mood="🔥">🔥</button>
       </div>
-      <div class="mood-response" id="moodResponse"></div>
     </section>
 
     <section>
@@ -1187,31 +1198,22 @@ function burstConfetti(){
 }
 
 /* ---- Mood meter (per-device, per-day — not a shared class tally) ---- */
-const MOOD_RESPONSES = {
-  '😩': "Rough one. Coffee's on you tomorrow.",
-  '😐': "Meh is valid. Meh is honest.",
-  '🙂': "Look at you, thriving.",
-  '🔥': "Certified menace to productivity charts.",
-};
 function moodKey(){
   const d = new Date();
   return 'mood:' + d.toISOString().slice(0,10);
 }
 function wireMoodMeter(container){
   const row = container.querySelector('#moodRow');
-  const response = container.querySelector('#moodResponse');
   if(!row) return;
   const saved = (()=>{ try{ return localStorage.getItem(moodKey()); }catch(e){ return null; } })();
   if(saved){
     row.querySelectorAll('.mood-btn').forEach(b=> b.classList.toggle('active', b.dataset.mood === saved));
-    response.textContent = MOOD_RESPONSES[saved] || '';
   }
   row.querySelectorAll('.mood-btn').forEach(btn=>{
     btn.addEventListener('click', ()=>{
       const mood = btn.dataset.mood;
       try{ localStorage.setItem(moodKey(), mood); }catch(e){}
       row.querySelectorAll('.mood-btn').forEach(b=> b.classList.toggle('active', b === btn));
-      response.textContent = MOOD_RESPONSES[mood] || '';
     });
   });
 }
