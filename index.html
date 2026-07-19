@@ -1070,7 +1070,43 @@ const DISPATCHES = [
   { headline:"Team Repair's adult STEM kit shows how to fix your phone", url:"https://www.dezeen.com/2026/05/07/repair-kit-for-grown-ups-team-repair/", faculty:"technology", date:"2026-07-19", read:"2 min" },
 ];
 
-const ARSENAL_NEXT_FIXTURE = "Girona vs Arsenal (Away) — Pre-season Friendly — Estadi Municipal de Montilivi — Sat 1 Aug 2026, 23:00 (Tashkent time)";
+// Arsenal fixtures — synced from Eric's Arsenal FC calendar subscription. Auto-advances
+// to whichever is soonest still in the future — no manual "next fixture" string to keep
+// updating. Re-sync from the calendar periodically (or whenever asked) to keep this fed.
+const ARSENAL_FIXTURES = [
+  { title:"Girona v Arsenal", venue:"(Away)", competition:"Pre-season Friendly", stadium:"Estadi Municipal de Montilivi", start:"2026-08-01T23:00:00+05:00" },
+  { title:"Arsenal v Real Betis", venue:"(Neutral)", competition:"Pre-season Friendly", stadium:"Aviva Stadium", start:"2026-08-05T23:30:00+05:00" },
+  { title:"Arsenal v Borussia Dortmund", venue:"(Home)", competition:"Pre-season Friendly", stadium:"Emirates Stadium", start:"2026-08-09T18:00:00+05:00" },
+  { title:"Arsenal v Como 1907", venue:"(Home)", competition:"Pre-season Friendly", stadium:"Emirates Stadium", start:"2026-08-12T23:30:00+05:00" },
+  { title:"Arsenal v Manchester City", venue:"(Neutral)", competition:"Pre-season Friendly", stadium:"Principality Stadium", start:"2026-08-16T19:00:00+05:00" },
+  { title:"Arsenal v Coventry City", venue:"(Home)", competition:"Premier League", stadium:"Emirates Stadium", start:"2026-08-22T00:00:00+05:00" },
+  { title:"Aston Villa v Arsenal", venue:"(Away)", competition:"Premier League", stadium:"Villa Park", start:"2026-09-01T00:00:00+05:00" },
+  { title:"Arsenal v Chelsea", venue:"(Home)", competition:"Premier League", stadium:"Emirates Stadium", start:"2026-09-06T20:30:00+05:00" },
+  { title:"Sunderland v Arsenal", venue:"(Away)", competition:"Premier League", stadium:"Stadium of Light", start:"2026-09-13T00:00:00+05:00" },
+  { title:"Brighton and Hove Albion v Arsenal", venue:"(Away)", competition:"Premier League", stadium:"American Express Stadium", start:"2026-09-19T19:00:00+05:00" },
+];
+function getNextArsenalFixture(){
+  const now = new Date();
+  const upcoming = ARSENAL_FIXTURES
+    .map(f => ({ ...f, dateObj: new Date(f.start) }))
+    .filter(f => f.dateObj > now)
+    .sort((a,b) => a.dateObj - b.dateObj);
+  return upcoming[0] || null;
+}
+function arsenalFixtureText(){
+  const f = getNextArsenalFixture();
+  if(!f) return "No fixtures currently loaded — ask Mr Eric to re-sync from the calendar.";
+  // Parse the Tashkent wall-clock time directly from the stored string, rather than using
+  // Date getters — those would show the VIEWER's own device timezone instead of Tashkent's,
+  // which would silently break the "(Tashkent time)" label for anyone outside Tashkent.
+  const m = f.start.match(/^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2})/);
+  const year = +m[1], month = +m[2], day = +m[3], hour = m[4], minute = m[5];
+  const days = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+  const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  const dayName = days[new Date(Date.UTC(year, month-1, day)).getUTCDay()];
+  const dateStr = `${dayName} ${day} ${months[month-1]} ${year}`;
+  return `${f.title} ${f.venue} — ${f.competition} — ${f.stadium} — ${dateStr}, ${hour}:${minute} (Tashkent time)`;
+}
 
 // Superstars archive — every winner ever added, newest first. Add a new entry each time
 // Eric sends a photo + name; date is recorded automatically as the day it's added.
@@ -2696,7 +2732,7 @@ function sportsHtml(){
           <div class="sub">Next fixture</div>
         </div>
       </div>
-      <div class="next-fixture"><span class="label">Next up</span>${ARSENAL_NEXT_FIXTURE}</div>
+      <div class="next-fixture"><span class="label">Next up</span>${arsenalFixtureText()}</div>
     </div>`;
 }
 
