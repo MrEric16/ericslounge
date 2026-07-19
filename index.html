@@ -4,6 +4,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Mr Eric's Lounge</title>
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon-180.png">
+<link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+<meta name="theme-color" content="#F2622E">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Eric's Lounge">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Nunito:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
@@ -321,6 +328,16 @@
     line-height:1;
   }
   .react-btn.active{background:var(--coral); }
+  .bookmark-btn{
+    background:var(--cream-2);
+    border:none;
+    border-radius:999px;
+    padding:5px 9px;
+    font-size:14px;
+    cursor:pointer;
+    line-height:1;
+  }
+  .bookmark-btn.active{background:var(--gold);}
   .share-btn{
     background:none;
     border:1px solid var(--line);
@@ -1079,6 +1096,7 @@ function dispatchListHtml(list){
             <button class="react-btn ${saved==='👍'?'active':''}" data-key="${key}" data-emoji="👍">👍</button>
             <button class="react-btn ${saved==='😮'?'active':''}" data-key="${key}" data-emoji="😮">😮</button>
             <button class="react-btn ${saved==='🤔'?'active':''}" data-key="${key}" data-emoji="🤔">🤔</button>
+            <button class="bookmark-btn ${isBookmarked(a.url)?'active':''}" data-url="${a.url}" data-title="${escapeHtml(a.headline)}" data-faculty="${a.faculty}" data-date="${a.date}" title="Save for later">${isBookmarked(a.url)?'🔖':'📑'}</button>
             <button class="share-btn" data-url="${a.url}" data-title="${escapeHtml(a.headline)}">Share</button>
           </div>
         </div>`;
@@ -1128,6 +1146,25 @@ function setReaction(key, emoji){
   }catch(e){ return null; }
 }
 
+/* ---- Bookmarks (stored per-device only, via localStorage) ---- */
+function getBookmarks(){
+  try{ return JSON.parse(localStorage.getItem('bookmarks') || '[]'); }catch(e){ return []; }
+}
+function isBookmarked(url){
+  return getBookmarks().some(b => b.url === url);
+}
+function toggleBookmark(item){
+  let list = getBookmarks();
+  const exists = list.some(b => b.url === item.url);
+  if(exists){
+    list = list.filter(b => b.url !== item.url);
+  } else {
+    list.push(item);
+  }
+  try{ localStorage.setItem('bookmarks', JSON.stringify(list)); }catch(e){}
+  return !exists;
+}
+
 /* ---- Share ---- */
 function shareEntry(url, title){
   if(navigator.share){
@@ -1147,6 +1184,14 @@ function wireEntryActions(container){
       container.querySelectorAll(`.react-btn[data-key="${CSS.escape(key)}"]`).forEach(b=>{
         b.classList.toggle('active', result === b.dataset.emoji);
       });
+    });
+  });
+  container.querySelectorAll('.bookmark-btn').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      const item = { url: btn.dataset.url, headline: btn.dataset.title, faculty: btn.dataset.faculty, date: btn.dataset.date };
+      const nowSaved = toggleBookmark(item);
+      btn.classList.toggle('active', nowSaved);
+      btn.textContent = nowSaved ? '🔖' : '📑';
     });
   });
   container.querySelectorAll('.share-btn').forEach(btn=>{
@@ -1435,6 +1480,21 @@ function wireSearch(container){
   });
 }
 
+function viewSaved(){
+  const saved = getBookmarks();
+  const asDispatches = saved.map(b => ({ headline: b.headline, url: b.url, faculty: b.faculty, date: b.date, read: null }));
+  const html = asDispatches.length === 0
+    ? '<div class="empty-card">Nothing saved yet. Tap the 📑 icon on any article to save it here.</div>'
+    : dispatchListHtml(asDispatches);
+  return `
+    <a class="back-link" href="#">← Back to Mr Eric's Lounge</a>
+    <section style="padding-top:14px;">
+      <div class="section-head"><span class="emoji">🔖</span><h2>Saved Articles</h2></div>
+      ${html}
+    </section>
+  `;
+}
+
 function viewPhotos(){
   const sorted = [...PHOTOS].sort((a,b)=> b.date.localeCompare(a.date));
   const grid = sorted.length === 0
@@ -1720,6 +1780,16 @@ function viewHome(){
     </section>
 
     <section>
+      <a class="photo-tile" href="#saved">
+        <span class="icon">🔖</span>
+        <div>
+          <div class="title">Saved Articles</div>
+          <div class="sub">Everything you've bookmarked</div>
+        </div>
+      </a>
+    </section>
+
+    <section>
       <div class="section-head"><span class="emoji">🎂</span><h2>Birthdays</h2></div>
       ${birthdaysHtml()}
     </section>
@@ -1820,6 +1890,8 @@ function renderRoute(){
     html = viewSearch();
   } else if(parts[0] === 'photos'){
     html = viewPhotos();
+  } else if(parts[0] === 'saved'){
+    html = viewSaved();
   } else if(parts[0] === 'sports' && parts[1] === 'tables'){
     html = viewSports();
   } else if(parts[0] === 'sports'){
