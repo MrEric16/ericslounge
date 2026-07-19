@@ -807,9 +807,9 @@ function zeroRows(names){
 // tab), except "League Tables" which stays inside the site. These are always current since
 // they open the real thing, not a copy of it.
 const SPORTS_TILES = [
-  { emoji:"⚽", name:"BBC Football", sub:"News, always current", url:"https://www.bbc.com/sport/football", color:"var(--coral)" },
   { emoji:"📊", name:"League Tables", sub:"All leagues, one page", url:"#sports/tables", color:"var(--teal)", internal:true },
-  { emoji:"🏴", name:"Premier League", sub:"Official site", url:"https://www.premierleague.com/en", color:"var(--f-jur)" },
+  { emoji:"⚽", name:"BBC Football", sub:"News, always current", url:"https://www.bbc.com/sport/football", color:"var(--coral)" },
+  { emoji:"<svg width=\"18\" height=\"12\" viewBox=\"0 0 60 36\" style=\"display:inline-block;vertical-align:-1px;\"><rect width=\"60\" height=\"36\" fill=\"#fff\"/><rect x=\"24\" width=\"12\" height=\"36\" fill=\"#CF142B\"/><rect y=\"12\" width=\"60\" height=\"12\" fill=\"#CF142B\"/></svg>", name:"Premier League", sub:"Official site", url:"https://www.premierleague.com/en", color:"var(--f-jur)" },
   { emoji:"🇪🇸", name:"La Liga", sub:"Official news", url:"https://www.laliga.com/en-GB/news", color:"var(--f-ir)" },
   { emoji:"🇮🇹", name:"Serie A", sub:"Official news", url:"https://en.legaseriea.it/news", color:"var(--f-econ)" },
   { emoji:"🇩🇪", name:"Bundesliga", sub:"Official news", url:"https://www.bundesliga.com/en/bundesliga/news", color:"var(--f-biz)" },
@@ -821,7 +821,7 @@ const SPORTS_TILES = [
 ];
 const SPORTS_LEAGUES = [
   {
-    name: "English Premier League", flag: "🏴󠁧󠁢󠁥󠁮󠁧󠁿", note: "Pre-season — starts 21 Aug 2026",
+    name: "English Premier League", flag: "<svg width=\"18\" height=\"12\" viewBox=\"0 0 60 36\" style=\"display:inline-block;vertical-align:-1px;\"><rect width=\"60\" height=\"36\" fill=\"#fff\"/><rect x=\"24\" width=\"12\" height=\"36\" fill=\"#CF142B\"/><rect y=\"12\" width=\"60\" height=\"12\" fill=\"#CF142B\"/></svg>", note: "Pre-season — starts 21 Aug 2026",
     teams: zeroRows(["Arsenal","Aston Villa","Bournemouth","Brentford","Brighton","Chelsea","Coventry City","Crystal Palace","Everton","Fulham","Hull City","Ipswich Town","Leeds United","Liverpool","Manchester City","Manchester United","Newcastle United","Nottingham Forest","Sunderland","Tottenham Hotspur"]),
   },
   {
@@ -1190,9 +1190,10 @@ function leagueTableHtml(league){
 
 function sportsTileHtml(t){
   const attrs = t.internal ? '' : ' target="_blank" rel="noopener"';
+  const showSub = t.sub && t.sub !== 'Official site';
   return `<a class="fac-tile" href="${t.url}"${attrs}>
-    <span class="name"><span class="dot" style="background:${t.color}"></span>${t.emoji} ${escapeHtml(t.name)}</span>
-    <span class="count">${escapeHtml(t.sub)}</span>
+    <span class="name">${t.emoji} ${escapeHtml(t.name)}</span>
+    ${showSub ? `<span class="count">${escapeHtml(t.sub)}</span>` : ''}
   </a>`;
 }
 function viewSportsHub(){
