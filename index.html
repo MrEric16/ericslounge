@@ -397,6 +397,25 @@
     box-shadow:0 3px 0 rgba(58,42,30,.08);
   }
   .search-input:focus{outline:2px solid var(--coral);}
+  #backToTopBtn{
+    position:fixed;
+    bottom:22px;
+    right:18px;
+    width:46px;
+    height:46px;
+    border-radius:50%;
+    background:var(--coral);
+    color:#fff;
+    border:none;
+    display:none;
+    align-items:center;
+    justify-content:center;
+    box-shadow:0 4px 12px rgba(0,0,0,.25);
+    z-index:500;
+    cursor:pointer;
+  }
+  #backToTopBtn.visible{display:flex;}
+
   .search-icon-btn{
     background:var(--card);
     border:none;
@@ -889,6 +908,7 @@
 </header>
 
 <div class="wrap" id="app"></div>
+<button id="backToTopBtn" title="Back to top"><svg width="20" height="20" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button>
 
 <footer></footer>
 
@@ -1486,6 +1506,276 @@ const RANDOM_FACTS = [
   "The world's shortest scheduled commercial flight takes under two minutes, between two Scottish islands.",
   "Cleopatra lived closer in time to the Moon landing than to the building of the Great Pyramid of Giza.",
   "Humans share roughly 60% of their DNA with bananas.",
+  "A group of owls is called a parliament.",
+  "The Great Barrier Reef is the largest living structure on Earth, visible from space.",
+  "A single bolt of lightning contains enough energy to toast about 100,000 slices of bread.",
+  "Koalas sleep up to 20 hours a day.",
+  "The human heart beats about 100,000 times a day.",
+  "Venus is the hottest planet in the solar system, even hotter than Mercury.",
+  "A shrimp's heart is located in its head.",
+  "The Eiffel Tower can be 15cm shorter in winter due to the cold contracting the metal.",
+  "Elephants are the only mammals that can't jump.",
+  "A single cloud can weigh more than a million pounds.",
+  "Honeybees can recognize individual human faces.",
+  "The fingerprints of koalas are so similar to humans that they've confused crime scenes.",
+  "Bananas float in water because they're less dense than it.",
+  "A crocodile can't stick its tongue out.",
+  "The shortest war in recorded history lasted around 38 minutes.",
+  "Octopuses have nine brains — one central brain and one in each arm.",
+  "It would take about 8 minutes for sunlight to reach Earth.",
+  "The dot over a lowercase 'i' is called a tittle.",
+  "A group of pandas is called an embarrassment.",
+  "Wombats are the only animal known to produce cube-shaped droppings.",
+  "Saturn would float in water if you had a bathtub big enough.",
+  "Cows have nearly 360-degree panoramic vision.",
+  "A blue whale's heart is roughly the size of a small car.",
+  "There are more stars in the universe than grains of sand on every beach on Earth.",
+  "Butterflies taste with their feet.",
+  "The inventor of the Frisbee was cremated and, per his wishes, made into frisbees.",
+  "Sloths can hold their breath longer than dolphins can.",
+  "A snail can sleep for three years.",
+  "Humans share about 50% of their DNA with bananas.",
+  "The longest recorded flight of a chicken is 13 seconds.",
+  "Sea otters hold hands while sleeping so they don't drift apart.",
+  "Antarctica is technically the world's largest desert.",
+  "A group of flamingos is called a flamboyance.",
+  "The unicorn is the national animal of Scotland.",
+  "Polar bears have black skin under their white fur.",
+  "The inventor of the Pringles can was buried in one.",
+  "A jiffy is an actual unit of time — 1/100th of a second.",
+  "It rains diamonds on Neptune and Uranus, according to atmospheric models.",
+  "Starfish don't have brains.",
+  "A hummingbird's heart beats up to 1,200 times a minute.",
+  "The Great Wall of China is not actually visible from space with the naked eye — that's a myth.",
+  "Cleopatra lived closer in time to the Moon landing than to the building of the Great Pyramid.",
+  "Sharks existed before trees.",
+  "A day on Venus is longer than a year on Venus.",
+  "Octopuses have blue blood.",
+  "Peanuts aren't nuts — they're legumes.",
+  "The tallest mountain in the solar system is on Mars: Olympus Mons.",
+  "Human bones are about as strong as steel bars of the same weight.",
+  "Wolves can hear another wolf howling from up to 10 miles away.",
+  "A group of crows is called a murder.",
+  "The inventor of the microwave discovered it by accident when a chocolate bar melted in his pocket near radar equipment.",
+  "Some turtles can breathe through their butts.",
+  "A rhinoceros's horn is made of the same material as human fingernails: keratin.",
+  "The average person walks the equivalent of three times around the world in a lifetime.",
+  "Bubble wrap was originally invented as textured wallpaper.",
+  "A group of hedgehogs is called a prickle.",
+  "The world's oldest known joke dates back nearly 4,000 years and comes from ancient Sumer.",
+  "An ostrich's eye is bigger than its brain.",
+  "Kangaroos can't walk backwards.",
+  "The moon has moonquakes, similar to earthquakes.",
+  "A group of jellyfish is called a smack.",
+  "There's a species of jellyfish that is biologically immortal.",
+  "The inventor of the ballpoint pen also designed the first practical retractable pencil.",
+  "Chameleons' tongues can be twice the length of their body.",
+  "The Sahara Desert was once green and covered in lakes and grasslands.",
+  "A group of rhinos is called a crash.",
+  "Human noses can distinguish roughly one trillion different smells.",
+  "Cats can't taste sweetness.",
+  "The tallest tree species on Earth is the coast redwood.",
+  "A single strand of spaghetti is called a spaghetto.",
+  "Mantis shrimp can punch with the acceleration of a bullet.",
+  "Scotland has been credited with over 400 different words for snow.",
+  "A group of porcupines is called a prickle.",
+  "The word 'set' has more definitions than any other word in the English language.",
+  "The oldest known recipe in human history is for beer.",
+  "A group of ferrets is called a business.",
+  "Giraffes only need 5 to 30 minutes of sleep a day.",
+  "The inventor of the Segway died by riding one off a cliff.",
+  "The world's shortest scheduled commercial flight takes under two minutes, between two Scottish islands.",
+  "Cows have best friends and get stressed when separated.",
+  "A hippopotamus can outrun a human on land despite its size.",
+  "Tigers have striped skin, not just striped fur.",
+  "A group of toads is called a knot.",
+  "Some species of bamboo can grow nearly a meter in a single day.",
+  "The average cumulus cloud weighs about a million pounds.",
+  "Dolphins have names for each other — signature whistles.",
+  "The inventor of the modern flush toilet was named Thomas Crapper.",
+  "A group of larks is called an exaltation.",
+  "The human body contains enough iron to make a small nail.",
+  "Termite mounds can be air-conditioned by their own internal design.",
+  "A group of turtles is called a bale.",
+  "The color orange the fruit came before orange the color name in English.",
+  "There are more possible iterations of chess than atoms in the observable universe.",
+  "Wombat mothers carry their babies in backward-facing pouches so they don't kick dirt on them while digging.",
+  "The longest living land animal is the Aldabra giant tortoise, some living over 150 years.",
+  "A hedgehog's spines are actually modified hairs.",
+  "A group of geese on the ground is called a gaggle, but in the air it's called a skein.",
+  "Honey never spoils — 3,000-year-old honey found in Egyptian tombs was still edible.",
+  "The inventor of the Rubik's Cube originally built it to teach 3D geometry to students.",
+  "A group of lions is called a pride.",
+  "The blue whale is the largest animal to have ever lived, bigger than any known dinosaur.",
+  "A group of jays is called a party.",
+  "It's physically impossible for pigs to look up into the sky due to their neck structure.",
+  "Cats have a third eyelid.",
+  "The Amazon rainforest produces about 20% of the world's oxygen.",
+  "A single teaspoon of a neutron star would weigh about 6 billion tons.",
+  "A group of otters is called a romp.",
+  "Camels don't store water in their humps — they store fat.",
+  "The first oranges weren't orange; they were green.",
+  "A group of woodpeckers is called a descent.",
+  "The shortest complete sentence in the English language is 'Go.'",
+  "Squirrels forget where they bury up to 80% of their nuts, accidentally planting new trees.",
+  "A group of parrots is called a pandemonium.",
+  "There are more atoms in a single glass of water than glasses of water in all the oceans on Earth.",
+  "The inventor of the fire hydrant's patent was lost in a fire.",
+  "A group of eagles is called a convocation.",
+  "Some snails can hibernate for up to three years.",
+  "The longest recorded lifespan of a goldfish is over 40 years.",
+  "A group of hyenas is called a cackle.",
+  "Sharks are older than Saturn's rings.",
+  "The Eiffel Tower gets a fresh coat of paint every seven years, using about 60 tonnes of paint.",
+  "A group of foxes is called a skulk.",
+  "There are more trees on Earth than stars in the Milky Way.",
+  "The human skeleton renews itself completely roughly every 10 years.",
+  "A group of skunks is called a stench.",
+  "Some starfish can regenerate an entirely new body from a single arm.",
+  "The word 'robot' comes from a Czech word meaning forced labor.",
+  "A group of whales is called a pod.",
+  "The average person spends about six months of their life waiting for red lights to turn green.",
+  "A group of bats roosting is called a colony, but in flight it's called a cloud.",
+  "The tallest waterfall in the world, Angel Falls, is so high that the water often evaporates before hitting the ground.",
+  "A group of raccoons is called a gaze.",
+  "The world's largest desert is actually Antarctica, not the Sahara.",
+  "A group of frogs is called an army.",
+  "Bees communicate the location of food through a 'waggle dance'.",
+  "The oldest piece of chewing gum ever found is over 9,000 years old.",
+  "A group of squids is called a shoal.",
+  "The Pacific Ocean is so large it contains about half of all the free water on Earth.",
+  "A group of moles is called a labour.",
+  "There are more possible games of chess than seconds since the universe began.",
+  "A group of badgers is called a cete.",
+  "Elephants can recognize themselves in a mirror, a rare trait among animals.",
+  "A group of giraffes is called a tower.",
+  "The world's tallest living tree is a redwood in California named Hyperion.",
+  "A group of zebras is called a dazzle.",
+  "The average adult human has around 37 trillion cells in their body.",
+  "A group of cheetahs is called a coalition.",
+  "The Mariana Trench is so deep that if Mount Everest were placed in it, its peak would still be over a mile underwater.",
+  "A group of vultures circling is called a kettle, but feeding on the ground it's called a wake.",
+  "Octopuses can taste through their skin.",
+  "A group of peacocks is called an ostentation.",
+  "The word 'nerd' first appeared in a Dr. Seuss book.",
+  "A group of penguins on land is called a waddle, but in water it's called a raft.",
+  "The moon is slowly drifting away from Earth, about 3.8cm a year.",
+  "A group of wolves is called a pack.",
+  "There's enough gold in Earth's core to coat the entire surface of the planet in a layer about 1.5 feet thick.",
+  "A group of bears is called a sloth or a sleuth.",
+  "The human brain uses about 20% of the body's total energy.",
+  "A group of ravens is called an unkindness.",
+  "The longest wedding veil was longer than 63 football fields.",
+  "A group of swans is called a bevy, but in flight it's called a wedge.",
+  "Some jellyfish have been around for over 500 million years, predating dinosaurs.",
+  "A group of gorillas is called a band or a troop.",
+  "The inventor of the electric chair was a dentist.",
+  "A group of storks is called a muster.",
+  "There is a type of fungus that can control the behavior of ants, sometimes called 'zombie ants'.",
+  "A group of leopards is called a leap.",
+  "The tallest man-made structure in the ancient world was the Great Pyramid of Giza for nearly 4,000 years.",
+  "A group of camels is called a caravan.",
+  "Octopuses have three hearts.",
+  "A group of alligators is called a congregation.",
+  "The world's quietest room is so silent that people can hear their own heartbeat and blood flow.",
+  "A group of bison is called an obstinacy.",
+  "The average lightning bolt is hotter than the surface of the sun.",
+  "A group of buffalo is called a gang.",
+  "A single ear of corn always has an even number of rows.",
+  "A group of orangutans is called a congress.",
+  "The world's smallest reptile was discovered in 2021 and is small enough to sit on a fingertip.",
+  "A group of dolphins is called a pod.",
+  "The city of Venice is slowly sinking, by about 1-2mm per year.",
+  "A group of walruses is called a huddle.",
+  "The world's largest snowflake on record was 15 inches wide.",
+  "A group of kangaroos is called a mob.",
+  "The inventor of the modern umbrella was mocked in public for using it, since it was seen as feminine at the time.",
+  "A group of meerkats is called a mob or a gang.",
+  "The average cloud can hold about a million gallons of water.",
+  "A group of hippos is called a bloat.",
+  "There's a forest in Portugal made almost entirely of cork oak trees.",
+  "A group of coyotes is called a band.",
+  "The largest living organism on Earth is a fungus in Oregon, covering nearly 4 square miles.",
+  "A group of antelope is called a herd.",
+  "A group of deer is called a herd, but a group of male deer is sometimes called a bachelor herd.",
+  "The world's first computer programmer was a woman, Ada Lovelace, in the 1840s.",
+  "A group of moose is called a herd.",
+  "The Sahara Desert is roughly the size of the entire United States.",
+  "A group of chimpanzees is called a troop.",
+  "Some species of trees can 'talk' to each other through underground fungal networks.",
+  "A group of ants is called a colony.",
+  "The world's oldest known living tree is over 4,800 years old.",
+  "A group of beavers is called a colony.",
+  "There's a lake in Australia that is naturally bright pink year-round.",
+  "A group of seals is called a colony or a herd.",
+  "The average person blinks about 15-20 times a minute.",
+  "A group of pelicans is called a squadron or a pod.",
+  "The tallest waterfall on land, Angel Falls, drops nearly a kilometer.",
+  "A group of herons is called a siege.",
+  "There's a species of ant that can survive being frozen solid.",
+  "A group of falcons is called a cast.",
+  "The average person will spend around 25 years of their life asleep.",
+  "A group of hawks is called a kettle when in flight.",
+  "There's a tree in South Africa believed to be over 2,000 years old.",
+  "A group of doves is called a dule.",
+  "The Great Blue Hole in Belize is a massive underwater sinkhole visible from space.",
+  "A group of magpies is called a tiding.",
+  "Some species of shrimp can 'boil' their prey with a snapping claw that creates heat and light.",
+  "A group of ducks on water is called a raft, but in flight it's called a team.",
+  "There's a river in Colombia known as the 'river of five colours' due to unique aquatic plants.",
+  "A group of geese is called a gaggle.",
+  "The tallest grass in the world is bamboo, which is technically a grass, not a tree.",
+  "A group of quail is called a covey.",
+  "Some species of turtles can breathe underwater through specialized skin near their tail.",
+  "A group of partridges is called a covey.",
+  "The world record for the largest snowman was over 122 feet tall.",
+  "A group of cranes is called a sedge.",
+  "The moon has no atmosphere, so footprints left there could last millions of years.",
+  "A group of pheasants is called a bouquet.",
+  "There's a species of frog that can survive being frozen and then thaw back to life.",
+  "A group of nightingales is called a watch.",
+  "The average adult has about 5 liters of blood in their body.",
+  "A group of finches is called a charm.",
+  "There's a glacier in Iceland known for its ice caves that change shape every year.",
+  "A group of sparrows is called a host.",
+  "A group of starlings is called a murmuration, known for their swirling flight patterns.",
+  "A group of swallows is called a flight.",
+  "Some deep-sea fish can produce their own light through bioluminescence.",
+  "A group of thrushes is called a mutation.",
+  "There's a cave system in Vietnam so large it has its own weather and ecosystem.",
+  "A group of woodcocks is called a fall.",
+  "The world's largest rainforest, the Amazon, spans nine countries.",
+  "A group of wrens is called a herd.",
+  "A group of impalas is called an implausibility.",
+  "The world's largest coral reef system can be seen from space.",
+  "A group of ladybugs is called a loveliness.",
+  "There's a tree in California so wide a car tunnel was cut through its trunk.",
+  "A group of tigers is called a streak or an ambush.",
+  "The inventor of the trampoline named it after the Spanish word for diving board.",
+  "A group of crocodiles is called a bask.",
+  "Some species of ants can build living bridges out of their own bodies.",
+  "A group of lemurs is called a conspiracy.",
+  "The world's largest flower can weigh up to 24 pounds and smells like rotting meat.",
+  "A group of weasels is called a confusion.",
+  "There's a beach in the Maldives that glows blue at night due to bioluminescent plankton.",
+  "A group of mongooses is called a pack.",
+  "The tallest sandcastle ever built was taller than a six-story building.",
+  "A group of stingrays is called a fever.",
+  "Some plants can 'hear' the sound of running water and grow toward it.",
+  "A group of eels is called a swarm.",
+  "The world's longest cave system, Mammoth Cave, has over 400 miles of mapped passages.",
+  "A group of newts is called a knot.",
+  "There's a species of octopus that can change both color and texture to mimic other animals.",
+  "A group of salamanders is called a congress.",
+  "The largest snowflake ever recorded fell in Montana in 1887.",
+  "A group of anteaters is called a parade.",
+  "Some trees can live for thousands of years by cloning themselves through root systems.",
+  "A group of armadillos is called a roll.",
+  "A group of dragonflies is called a flight.",
+  "The world's oldest surviving photograph was taken in 1826 and required an eight-hour exposure.",
+  "A group of jellyfish washing ashore together is sometimes called a bloom.",
+  "There's a lake in Iran that turns blood red in certain seasons due to algae and salt.",
+  "A group of wildebeest is called an implausibility.",
 ];
 const OTD_NEGATIVE_KEYWORDS = ['war','bomb','attack','kill','murder','assassin','invas','massacre','genocide','coup','riot','terroris','execut','died','death','dead','crash','disaster','earthquake','explosion','shoot','holocaust','slave','conflict','battle','siege','uprising','famine','plague','epidemic','collapse','sank','sinks','sinking','tsunami','hurricane','flood','fire kill','violence','abuse','captur','prison','hostage','revolt','rebellion'];
 const OTD_POSITIVE_KEYWORDS = ['discover','invent','launch','first','patent','award','achiev','breakthrough','found','open','premiere','publish','record','moon','space','vaccine','cure','wins','won','elect','peace','independence','celebrat','anniversary'];
@@ -1911,10 +2201,9 @@ function wirePhotoLightbox(container){
 }
 
 function teamNameHtml(name){
-  let extra = '';
-  if(name === 'Arsenal') extra = ' 🏆';
-  if(name === 'Tottenham Hotspur') extra = ' 💩';
-  return escapeHtml(name) + extra;
+  if(name === 'Arsenal') return `<span class="easter-egg-trigger" data-egg="arsenal">${escapeHtml(name)} 🏆</span>`;
+  if(name === 'Tottenham Hotspur') return `<span class="easter-egg-trigger" data-egg="tottenham">${escapeHtml(name)} 💩</span>`;
+  return escapeHtml(name);
 }
 function oneTableHtml(teams){
   const rows = teams.map((t, i) => `
@@ -1993,7 +2282,7 @@ function sportsHtml(){
   return `
     <div class="sports-card">
       <div class="sports-header">
-        <div class="crest"><img src="https://download.logo.wine/logo/Arsenal_F.C./Arsenal_F.C.-Logo.wine.png" alt="Arsenal FC crest" style="width:100%;height:100%;object-fit:contain;"></div>
+        <div class="crest easter-egg-trigger" data-egg="arsenal" style="cursor:pointer;"><img src="https://download.logo.wine/logo/Arsenal_F.C./Arsenal_F.C.-Logo.wine.png" alt="Arsenal FC crest" style="width:100%;height:100%;object-fit:contain;"></div>
         <div>
           <div class="name">Arsenal</div>
           <div class="sub">Next fixture</div>
@@ -2142,7 +2431,7 @@ function viewHome(){
     </section>
 
     <section>
-      <div class="section-head"><span class="emoji">${icon('star')}</span><h2>Superstars of the Week</h2></div>
+      <div class="section-head"><span class="emoji">${icon('star')}</span><h2>Superstars of the Week</h2><a class="section-link" href="#superstars">See more →</a></div>
       ${studentsHtml()}
     </section>
 
@@ -2187,7 +2476,7 @@ function viewHome(){
     </section>
 
     <section>
-      <div class="section-head"><span class="emoji">${icon('cake')}</span><h2>Birthdays</h2></div>
+      <div class="section-head"><span class="emoji">${icon('cake')}</span><h2>Birthdays</h2><a class="section-link" href="#birthdays">See more →</a></div>
       ${birthdaysHtml()}
     </section>
   `;
@@ -2265,6 +2554,51 @@ function viewWatchFaculty(key){
   `;
 }
 
+function viewSuperstars(){
+  return `
+    <a class="back-link" href="#">← Back to Mr Eric's Lounge</a>
+    <section style="padding-top:14px;">
+      <div class="section-head"><span class="emoji">${icon('star')}</span><h2>Superstars of the Week</h2></div>
+      ${studentsHtml()}
+    </section>
+  `;
+}
+function viewBirthdaysPage(){
+  return `
+    <a class="back-link" href="#">← Back to Mr Eric's Lounge</a>
+    <section style="padding-top:14px;">
+      <div class="section-head"><span class="emoji">${icon('cake')}</span><h2>Birthdays</h2></div>
+      ${birthdaysHtml()}
+    </section>
+  `;
+}
+
+/* ---- Swipe navigation between sibling pages, cyclable ---- */
+function wireSwipeNav(container, order, currentKey, hashBuilder){
+  const idx = order.indexOf(currentKey);
+  if(idx === -1) return;
+  let startX = 0, startY = 0, tracking = false;
+  container.addEventListener('touchstart', (e)=>{
+    if(e.touches.length !== 1) return;
+    startX = e.touches[0].clientX;
+    startY = e.touches[0].clientY;
+    tracking = true;
+  }, { passive:true });
+  container.addEventListener('touchend', (e)=>{
+    if(!tracking) return;
+    tracking = false;
+    const dx = e.changedTouches[0].clientX - startX;
+    const dy = e.changedTouches[0].clientY - startY;
+    if(Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy) * 1.2){
+      const dir = dx < 0 ? 1 : -1; // swipe left -> next
+      const newIdx = (idx + dir + order.length) % order.length;
+      location.hash = hashBuilder(order[newIdx]);
+    }
+  }, { passive:true });
+}
+const DOMAIN_SWIPE_ORDER = FACULTIES.map(f => f.key);
+const HUB_SWIPE_ORDER = ['watch', 'photos', 'sports', 'saved', 'superstars', 'birthdays'];
+
 /* ---- Router ---- */
 
 function renderRoute(){
@@ -2289,6 +2623,10 @@ function renderRoute(){
     html = viewPhotos();
   } else if(parts[0] === 'saved'){
     html = viewSaved();
+  } else if(parts[0] === 'superstars'){
+    html = viewSuperstars();
+  } else if(parts[0] === 'birthdays'){
+    html = viewBirthdaysPage();
   } else if(parts[0] === 'sports' && parts[1] === 'tables'){
     html = viewSports();
   } else if(parts[0] === 'sports'){
@@ -2304,10 +2642,33 @@ function renderRoute(){
   if(parts[0] === 'photos') wirePhotoLightbox(app);
   if(parts[0] === 'search') wireSearch(app);
   if(parts.length === 0){ loadOnThisDay(); loadWeather(); wireRandomButton(app); wireRandomVideoButton(app); checkAchievements(); }
+
+  // Swipe between sibling domain pages (item 1)
+  if(parts[0] === 'faculty' && parts[1] && parts[1] !== 'all'){
+    wireSwipeNav(app, DOMAIN_SWIPE_ORDER, parts[1], k => `#faculty/${k}`);
+  }
+  if(parts[0] === 'watch' && parts[1] && parts[1] !== 'all'){
+    wireSwipeNav(app, DOMAIN_SWIPE_ORDER, parts[1], k => `#watch/${k}`);
+  }
+  // Swipe between the six hub-level pages (item 5)
+  if(HUB_SWIPE_ORDER.includes(parts[0]) && !(parts[0] === 'sports' && parts[1] === 'tables')){
+    wireSwipeNav(app, HUB_SWIPE_ORDER, parts[0], k => `#${k}`);
+  }
+
   window.scrollTo(0,0);
 }
 
 document.getElementById('subtitleText').textContent = TAGLINES[Math.floor(Math.random()*TAGLINES.length)];
+
+/* ---- Back to top ---- */
+(function(){
+  const btn = document.getElementById('backToTopBtn');
+  window.addEventListener('scroll', ()=>{
+    btn.classList.toggle('visible', window.scrollY > 500);
+  }, { passive:true });
+  btn.addEventListener('click', ()=> window.scrollTo({ top:0, behavior:'smooth' }));
+})();
+
 
 /* ---- Dark mode ---- */
 (function(){
@@ -2363,6 +2724,64 @@ function burstConfetti(){
   }, 150);
   setTimeout(()=> clearInterval(waveInterval), 2000);
 }
+
+/* ---- Themed easter-egg confetti + popup (Arsenal / Tottenham) ---- */
+function spawnThemedParticle(buildFn, fallDuration){
+  const p = document.createElement('div');
+  const startX = Math.random()*100;
+  const drift = (Math.random()*60 - 30);
+  p.style.cssText = `position:fixed;left:${startX}vw;top:-40px;z-index:10001;pointer-events:none;transition:transform ${fallDuration}s cubic-bezier(.25,.46,.45,.94), opacity ${fallDuration}s ease-in;`;
+  buildFn(p);
+  document.body.appendChild(p);
+  requestAnimationFrame(()=>{
+    p.style.transform = `translate(${drift}vw, ${90+Math.random()*20}vh) rotate(${(Math.random()>0.5?1:-1)*(360+Math.random()*720)}deg)`;
+    p.style.opacity = '0';
+  });
+  setTimeout(()=> p.remove(), fallDuration*1000 + 100);
+}
+function burstThemedConfetti(buildFn, totalDuration){
+  const waveInterval = setInterval(()=>{
+    for(let i=0;i<8;i++) spawnThemedParticle(buildFn, 1.6 + Math.random()*1.2);
+  }, 220);
+  setTimeout(()=> clearInterval(waveInterval), Math.max(totalDuration - 1500, 200));
+}
+function showEasterEggPopup(text, duration){
+  const overlay = document.createElement('div');
+  overlay.style.cssText = 'position:fixed;inset:0;display:flex;align-items:center;justify-content:center;z-index:10002;pointer-events:none;padding:0 30px;';
+  const box = document.createElement('div');
+  box.textContent = text;
+  box.style.cssText = 'background:var(--ink-solid);color:#fff;padding:20px 26px;border-radius:18px;font-family:"Baloo 2",sans-serif;font-weight:700;font-size:19px;text-align:center;max-width:100%;box-shadow:0 8px 24px rgba(0,0,0,.35);opacity:0;transition:opacity .3s;';
+  overlay.appendChild(box);
+  document.body.appendChild(overlay);
+  requestAnimationFrame(()=>{ box.style.opacity = '1'; });
+  setTimeout(()=>{
+    box.style.opacity = '0';
+    setTimeout(()=> overlay.remove(), 400);
+  }, duration - 400);
+}
+function triggerArsenalEgg(){
+  showEasterEggPopup("That's right, you've just touched greatness.", 5000);
+  if(navigator.vibrate){ try{ navigator.vibrate([80,40,80]); }catch(e){} }
+  burstThemedConfetti((p)=>{
+    p.innerHTML = '<img src="https://download.logo.wine/logo/Arsenal_F.C./Arsenal_F.C.-Logo.wine.png" style="width:28px;height:28px;object-fit:contain;display:block;">';
+  }, 5000);
+}
+function triggerTottenhamEgg(){
+  showEasterEggPopup("Ew. Go wash your hands.", 5000);
+  if(navigator.vibrate){ try{ navigator.vibrate([60,30,60,30,60]); }catch(e){} }
+  burstThemedConfetti((p)=>{
+    p.textContent = '💩';
+    p.style.fontSize = '26px';
+  }, 5000);
+}
+document.body.addEventListener('click', (e)=>{
+  const trigger = e.target.closest('.easter-egg-trigger');
+  if(!trigger) return;
+  const egg = trigger.dataset.egg;
+  if(egg === 'arsenal') triggerArsenalEgg();
+  if(egg === 'tottenham') triggerTottenhamEgg();
+});
+
 
 /* ---- Achievement toasts (session-only, playful, not a real leaderboard) ---- */
 document.body.addEventListener('click', (e)=>{
