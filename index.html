@@ -161,7 +161,7 @@
     font-size:22px;
     color:var(--ink);
   }
-  .section-head .emoji{font-size:22px;}
+  .section-head .emoji{display:inline-flex; align-items:center;} .section-head .emoji svg{width:22px;height:22px;}
   .section-sub{
     font-size:13px;
     color:var(--ink-soft);
@@ -214,10 +214,14 @@
     color:var(--ink);
   }
   .fac-tile:hover{transform:translateY(-2px); box-shadow:0 6px 0 rgba(58,42,30,.1);}
-  .fac-tile .dot{
-    width:10px; height:10px; border-radius:50%;
-    display:inline-block; margin-right:8px;
+  .fac-icon{
+    display:inline-flex;
+    vertical-align:-4px;
+    margin-right:8px;
   }
+  .fac-icon svg{display:block; width:16px; height:16px;}
+  .section-head .fac-icon{margin-right:0; vertical-align:-3px;}
+  .section-head .fac-icon svg{width:20px; height:20px;}
   .fac-tile .name{font-weight:700; font-size:14.5px;}
   .fac-tile .count{
     font-family:'Space Mono', monospace;
@@ -254,6 +258,7 @@
   }
   .sport-hub-tile:hover{transform:translateY(-2px); box-shadow:0 6px 0 rgba(58,42,30,.1);}
   .sport-hub-tile .name{font-weight:700; font-size:15px; line-height:1.25;}
+  .hub-icon{display:inline-flex; vertical-align:-4px;}
 
   /* ---------- Feed ---------- */
   .day-badge{
@@ -439,7 +444,7 @@
     box-shadow:0 3px 0 rgba(58,42,30,.15);
     font-family:'Nunito', sans-serif;
   }
-  .random-tile .icon{font-size:26px;}
+  .random-tile .icon{display:inline-flex; align-items:center;} .random-tile .icon svg{width:26px;height:26px;}
   .random-tile .title{font-weight:800; font-size:17px;}
   .random-tile .sub{font-size:12px; color:#FBDFCF; font-weight:600; margin-top:2px;}
 
@@ -554,7 +559,7 @@
     text-decoration:none;
     box-shadow:0 3px 0 rgba(58,42,30,.15);
   }
-  .watch-tile .icon{font-size:30px;}
+  .watch-tile .icon{display:inline-flex; align-items:center;} .watch-tile .icon svg{width:30px;height:30px;}
   .watch-tile .title{font-weight:800; font-size:19px;}
   .watch-tile .sub{font-size:13px; color:#D8CBBB; font-weight:600; margin-top:2px;}
 
@@ -570,7 +575,7 @@
     text-decoration:none;
     box-shadow:0 3px 0 rgba(58,42,30,.15);
   }
-  .photo-tile .icon{font-size:30px;}
+  .photo-tile .icon{display:inline-flex; align-items:center;} .photo-tile .icon svg{width:30px;height:30px;}
   .photo-tile .title{font-weight:800; font-size:19px;}
   .photo-tile .sub{font-size:13px; color:#FBE4D1; font-weight:600; margin-top:2px;}
 
@@ -585,7 +590,7 @@
     text-decoration:none;
     box-shadow:0 3px 0 rgba(58,42,30,.15);
   }
-  .goodnews-tile .icon{font-size:30px;}
+  .goodnews-tile .icon{display:inline-flex; align-items:center;} .goodnews-tile .icon svg{width:30px;height:30px;}
   .goodnews-tile .title{font-weight:800; font-size:19px;}
   .goodnews-tile .sub{font-size:13px; color:#FFF3DC; font-weight:600; margin-top:2px;}
 
@@ -787,7 +792,7 @@
     text-decoration:none;
     box-shadow:0 3px 0 rgba(58,42,30,.15);
   }
-  .sports-tile .icon{font-size:30px;}
+  .sports-tile .icon{display:inline-flex; align-items:center;} .sports-tile .icon svg{width:30px;height:30px;}
   .sports-tile .title{font-weight:800; font-size:19px;}
   .sports-tile .sub{font-size:13px; color:#D8F0E9; font-weight:600; margin-top:2px;}
 
@@ -868,8 +873,8 @@
           <span class="value" id="weekendCountdown">--:--:--:--</span>
         </div>
       </div>
-      <a class="search-icon-btn" href="#search" title="Search">🔍</a>
-      <button class="search-icon-btn" id="darkModeToggle" title="Toggle dark mode">🌙</button>
+      <a class="search-icon-btn" href="#search" title="Search"><svg width="18" height="18" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.8-3.8"/></svg></a>
+      <button class="search-icon-btn" id="darkModeToggle" title="Toggle dark mode"><svg width="18" height="18" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a7 7 0 0 0 10.5 10.5Z"/></svg></button>
     </div>
   </div>
 </header>
@@ -884,19 +889,68 @@
    To add/change something, edit the relevant array/object.
    ========================================================= */
 
+// Custom line-art icon library — replaces emoji site-wide. All hand-drawn SVG, no
+// licensed/copyrighted imagery, sized to sit in the same slot an emoji used to occupy.
+const ICON_STYLE = 'stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"';
+const ICONS = {
+  trophy: `<svg width="22" height="22" viewBox="0 0 24 24" ${ICON_STYLE}><path d="M8 3h8v5a4 4 0 0 1-8 0V3Z"/><path d="M8 4H4v2a4 4 0 0 0 4 4"/><path d="M16 4h4v2a4 4 0 0 1-4 4"/><path d="M10 15v3"/><path d="M14 15v3"/><path d="M7 21h10"/><path d="M9 21v-2h6v2"/></svg>`,
+  star: `<svg width="20" height="20" viewBox="0 0 24 24" ${ICON_STYLE}><path d="m12 2 2.9 6.4 6.9.8-5.1 4.8 1.4 6.9L12 17.6l-6.1 3.3 1.4-6.9L2.2 9.2l6.9-.8L12 2Z"/></svg>`,
+  sun: `<svg width="20" height="20" viewBox="0 0 24 24" ${ICON_STYLE}><circle cx="12" cy="12" r="4.5"/><path d="M12 2v3M12 19v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2 12h3M19 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/></svg>`,
+  cake: `<svg width="20" height="20" viewBox="0 0 24 24" ${ICON_STYLE}><path d="M4 21v-7a3 3 0 0 1 3-3h10a3 3 0 0 1 3 3v7"/><path d="M4 21h16"/><path d="M4 16c1.2 1 2.3 1 3.5 0s2.3-1 3.5 0 2.3 1 3.5 0 2.3-1 3.5 0"/><path d="M12 11V7"/><path d="M12 5c1 0 1-1 0-2s-1-1 0-2"/></svg>`,
+  gradcap: `<svg width="22" height="22" viewBox="0 0 24 24" ${ICON_STYLE}><path d="M2 9.5 12 5l10 4.5-10 4.5-10-4.5Z"/><path d="M6 11.5V17c0 1.4 2.7 2.5 6 2.5s6-1.1 6-2.5v-5.5"/><path d="M22 9.5v6"/></svg>`,
+  clapper: `<svg width="20" height="20" viewBox="0 0 24 24" ${ICON_STYLE}><path d="M3 10h18v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1v-9Z"/><path d="m3 10 1.5-5h15L21 10"/><path d="m7.5 5-1.5 5M12.5 5 11 10M17.5 5 16 10"/></svg>`,
+  dice: `<svg width="20" height="20" viewBox="0 0 24 24" ${ICON_STYLE}><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8" cy="8" r="1" fill="currentColor" stroke="none"/><circle cx="16" cy="8" r="1" fill="currentColor" stroke="none"/><circle cx="12" cy="12" r="1" fill="currentColor" stroke="none"/><circle cx="8" cy="16" r="1" fill="currentColor" stroke="none"/><circle cx="16" cy="16" r="1" fill="currentColor" stroke="none"/></svg>`,
+  calendar: `<svg width="20" height="20" viewBox="0 0 24 24" ${ICON_STYLE}><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>`,
+  newspaper: `<svg width="20" height="20" viewBox="0 0 24 24" ${ICON_STYLE}><rect x="3" y="5" width="14" height="15" rx="1"/><path d="M17 8h4v10a2 2 0 0 1-2 2H8"/><path d="M6.5 9h7M6.5 12h7M6.5 15h4"/></svg>`,
+  camera: `<svg width="20" height="20" viewBox="0 0 24 24" ${ICON_STYLE}><path d="M4 8h3l1.5-2h7L17 8h3a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1Z"/><circle cx="12" cy="13" r="3.3"/></svg>`,
+  search: `<svg width="18" height="18" viewBox="0 0 24 24" ${ICON_STYLE}><circle cx="11" cy="11" r="7"/><path d="m20 20-3.8-3.8"/></svg>`,
+  bookmark: `<svg width="20" height="20" viewBox="0 0 24 24" ${ICON_STYLE}><path d="M6 3h12v18l-6-4-6 4V3Z"/></svg>`,
+  bookmarkFilled: `<svg width="20" height="20" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" fill="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h12v18l-6-4-6 4V3Z"/></svg>`,
+  barchart: `<svg width="20" height="20" viewBox="0 0 24 24" ${ICON_STYLE}><path d="M4 21V10M12 21V4M20 21v-7"/><path d="M2 21h20"/></svg>`,
+  ball: `<svg width="20" height="20" viewBox="0 0 24 24" ${ICON_STYLE}><circle cx="12" cy="12" r="9"/><path d="M12 7.5 15.5 10l-1.3 4h-4.4L8.5 10 12 7.5Z"/><path d="M12 3v4.5M8.2 14 4.6 17M15.8 14l3.6 3M6.5 6.5 9 9M17.5 6.5 15 9"/></svg>`,
+  glove: `<svg width="20" height="20" viewBox="0 0 24 24" ${ICON_STYLE}><path d="M7 11V6a2 2 0 0 1 4 0v4"/><path d="M11 10V5a2 2 0 0 1 4 0v5"/><path d="M15 10.5V6a2 2 0 0 1 4 0v7c0 4-2.5 7-7 7h-1c-3 0-5-1.8-6-4l-1.5-3.5A1.8 1.8 0 0 1 5 10a1.8 1.8 0 0 1 2.3-.3L9 11"/></svg>`,
+  stick: `<svg width="20" height="20" viewBox="0 0 24 24" ${ICON_STYLE}><path d="M17 3 8 18"/><path d="M6 18h5.5L8 21H5l1-3Z"/></svg>`,
+  moon: `<svg width="18" height="18" viewBox="0 0 24 24" ${ICON_STYLE}><path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a7 7 0 0 0 10.5 10.5Z"/></svg>`,
+  scales: `<svg width="18" height="18" viewBox="0 0 24 24" ${ICON_STYLE}><path d="M12 3v18M8 21h8"/><path d="M4 7h6M14 7h6"/><path d="M4 7 1.5 12a2.5 2.5 0 0 0 5 0L4 7Z"/><path d="M20 7l-2.5 5a2.5 2.5 0 0 0 5 0L20 7Z"/></svg>`,
+  globe: `<svg width="18" height="18" viewBox="0 0 24 24" ${ICON_STYLE}><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.5 3.8 5.7 3.8 9s-1.3 6.5-3.8 9c-2.5-2.5-3.8-5.7-3.8-9S9.5 5.5 12 3Z"/></svg>`,
+  coin: `<svg width="18" height="18" viewBox="0 0 24 24" ${ICON_STYLE}><ellipse cx="12" cy="6" rx="8" ry="3"/><path d="M4 6v6c0 1.7 3.6 3 8 3s8-1.3 8-3V6"/><path d="M4 12v6c0 1.7 3.6 3 8 3s8-1.3 8-3v-6"/></svg>`,
+  briefcase: `<svg width="18" height="18" viewBox="0 0 24 24" ${ICON_STYLE}><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><path d="M3 12h18"/></svg>`,
+  flask: `<svg width="18" height="18" viewBox="0 0 24 24" ${ICON_STYLE}><path d="M9 3h6M10 3v6.5L4.8 18a1.6 1.6 0 0 0 1.4 2.4h11.6a1.6 1.6 0 0 0 1.4-2.4L14 9.5V3"/><path d="M8 15h8"/></svg>`,
+  chip: `<svg width="18" height="18" viewBox="0 0 24 24" ${ICON_STYLE}><rect x="6" y="6" width="12" height="12" rx="1.5"/><path d="M9 3v3M15 3v3M9 18v3M15 18v3M3 9h3M3 15h3M18 9h3M18 15h3"/></svg>`,
+  brain: `<svg width="18" height="18" viewBox="0 0 24 24" ${ICON_STYLE}><path d="M9 4a3 3 0 0 0-3 3 3 3 0 0 0-1 5.8A3 3 0 0 0 8 17a3 3 0 0 0 4 0 3 3 0 0 0 3-4.2A3 3 0 0 0 14 7a3 3 0 0 0-3-3H9Z"/><path d="M9 4v13M13 7v10"/></svg>`,
+  compass2: `<svg width="18" height="18" viewBox="0 0 24 24" ${ICON_STYLE}><circle cx="12" cy="12" r="9"/><path d="m14.5 9.5-2 5-5 2 2-5 5-2Z"/></svg>`,
+  hourglass: `<svg width="18" height="18" viewBox="0 0 24 24" ${ICON_STYLE}><path d="M6 3h12M6 21h12"/><path d="M7 3c0 5 5 6 5 9s-5 4-5 9M17 3c0 5-5 6-5 9s5 4 5 9"/></svg>`,
+  plane: `<svg width="18" height="18" viewBox="0 0 24 24" ${ICON_STYLE}><path d="M3 12 21 4l-6.5 17-3-7-7-2Z"/></svg>`,
+  gear: `<svg width="18" height="18" viewBox="0 0 24 24" ${ICON_STYLE}><circle cx="12" cy="12" r="3"/><path d="M12 3v3M12 18v3M4.2 7.8l2.6 1.5M17.2 14.7l2.6 1.5M4.2 16.2l2.6-1.5M17.2 9.3l2.6-1.5M3 12h3M18 12h3"/></svg>`,
+  medal: `<svg width="18" height="18" viewBox="0 0 24 24" ${ICON_STYLE}><circle cx="12" cy="15" r="6"/><path d="m9 3 3 5 3-5M9 9l-3.5-6M15 9l3.5-6"/><path d="M12 12.5 13.5 15h-3L12 12.5Z"/></svg>`,
+};
+function icon(name){ return ICONS[name] || ''; }
+
+// Flags — hand-built SVGs (flags carry no copyright, so these are safe & accurate).
+const FLAGS = {
+  england: `<svg width="20" height="14" viewBox="0 0 60 36" style="display:inline-block;vertical-align:-2px;"><rect width="60" height="36" fill="#fff"/><rect x="24" width="12" height="36" fill="#CF142B"/><rect y="12" width="60" height="12" fill="#CF142B"/></svg>`,
+  spain: `<svg width="20" height="14" viewBox="0 0 60 36" style="display:inline-block;vertical-align:-2px;"><rect width="60" height="36" fill="#AA151B"/><rect y="9" width="60" height="18" fill="#F1BF00"/></svg>`,
+  italy: `<svg width="20" height="14" viewBox="0 0 60 36" style="display:inline-block;vertical-align:-2px;"><rect width="20" height="36" fill="#009246"/><rect x="20" width="20" height="36" fill="#fff"/><rect x="40" width="20" height="36" fill="#CE2B37"/></svg>`,
+  germany: `<svg width="20" height="14" viewBox="0 0 60 36" style="display:inline-block;vertical-align:-2px;"><rect width="60" height="12" fill="#000"/><rect y="12" width="60" height="12" fill="#DD0000"/><rect y="24" width="60" height="12" fill="#FFCE00"/></svg>`,
+  france: `<svg width="20" height="14" viewBox="0 0 60 36" style="display:inline-block;vertical-align:-2px;"><rect width="20" height="36" fill="#0055A4"/><rect x="20" width="20" height="36" fill="#fff"/><rect x="40" width="20" height="36" fill="#EF4135"/></svg>`,
+  uzbekistan: `<svg width="20" height="14" viewBox="0 0 60 36" style="display:inline-block;vertical-align:-2px;"><rect width="60" height="36" fill="#fff"/><rect width="60" height="11" fill="#0099B5"/><rect y="25" width="60" height="11" fill="#1EB53A"/><rect y="11" width="60" height="1.6" fill="#CE1126"/><rect y="23.4" width="60" height="1.6" fill="#CE1126"/><circle cx="10" cy="6" r="4" fill="#fff"/><circle cx="11.5" cy="6" r="3.4" fill="#0099B5"/></svg>`,
+  uae: `<svg width="20" height="14" viewBox="0 0 60 36" style="display:inline-block;vertical-align:-2px;"><rect width="60" height="36" fill="#fff"/><rect width="60" height="12" fill="#00732F"/><rect y="24" width="60" height="12" fill="#000"/><rect width="16" height="36" fill="#FF0000"/></svg>`,
+};
+function flagIcon(name){ return FLAGS[name] || ''; }
+
 const FACULTIES = [
-  { key:'jurisprudence', label:'Jurisprudence', color:'var(--f-jur)' },
-  { key:'international-relations', label:"Int'l Relations", color:'var(--f-ir)' },
-  { key:'economics', label:'Economics', color:'var(--f-econ)' },
-  { key:'business', label:'Business', color:'var(--f-biz)' },
-  { key:'science', label:'Science', color:'var(--f-sci)' },
-  { key:'it', label:'IT', color:'var(--f-it)' },
-  { key:'psychology', label:'Psychology', color:'var(--f-psy)' },
-  { key:'design', label:'Design', color:'var(--f-des)' },
-  { key:'history', label:'History', color:'var(--f-hist)' },
-  { key:'travel', label:'Travel', color:'var(--f-travel)' },
-  { key:'technology', label:'Technology', color:'var(--f-tech)' },
-  { key:'sport', label:'Sport', color:'var(--f-sport)' },
+  { key:'jurisprudence', label:'Jurisprudence', color:'var(--f-jur)', icon:'scales' },
+  { key:'international-relations', label:"Int'l Relations", color:'var(--f-ir)', icon:'globe' },
+  { key:'economics', label:'Economics', color:'var(--f-econ)', icon:'coin' },
+  { key:'business', label:'Business', color:'var(--f-biz)', icon:'briefcase' },
+  { key:'science', label:'Science', color:'var(--f-sci)', icon:'flask' },
+  { key:'it', label:'IT', color:'var(--f-it)', icon:'chip' },
+  { key:'psychology', label:'Psychology', color:'var(--f-psy)', icon:'brain' },
+  { key:'design', label:'Design', color:'var(--f-des)', icon:'compass2' },
+  { key:'history', label:'History', color:'var(--f-hist)', icon:'hourglass' },
+  { key:'travel', label:'Travel', color:'var(--f-travel)', icon:'plane' },
+  { key:'technology', label:'Technology', color:'var(--f-tech)', icon:'gear' },
+  { key:'sport', label:'Sport', color:'var(--f-sport)', icon:'medal' },
 ];
 const FAC_MAP = Object.fromEntries(FACULTIES.map(f=>[f.key,f]));
 
@@ -989,25 +1043,25 @@ function zeroRows(names){
 // tab), except "League Tables" which stays inside the site. These are always current since
 // they open the real thing, not a copy of it.
 const SPORTS_TILES = [
-  { emoji:"📊", name:"League Tables", sub:"All leagues, one page", url:"#sports/tables", color:"var(--teal)", internal:true },
-  { emoji:"⚽", name:"BBC Football", sub:"News, always current", url:"https://www.bbc.com/sport/football", color:"var(--coral)" },
-  { emoji:"<svg width=\"18\" height=\"12\" viewBox=\"0 0 60 36\" style=\"display:inline-block;vertical-align:-1px;\"><rect width=\"60\" height=\"36\" fill=\"#fff\"/><rect x=\"24\" width=\"12\" height=\"36\" fill=\"#CF142B\"/><rect y=\"12\" width=\"60\" height=\"12\" fill=\"#CF142B\"/></svg>", name:"Premier League", sub:"Official site", url:"https://www.premierleague.com/en", color:"var(--f-jur)" },
-  { emoji:"🇪🇸", name:"La Liga", sub:"Official news", url:"https://www.laliga.com/en-GB/news", color:"var(--f-ir)" },
-  { emoji:"🇮🇹", name:"Serie A", sub:"Official news", url:"https://en.legaseriea.it/news", color:"var(--f-econ)" },
-  { emoji:"🇩🇪", name:"Bundesliga", sub:"Official news", url:"https://www.bundesliga.com/en/bundesliga/news", color:"var(--f-biz)" },
-  { emoji:"🇫🇷", name:"Ligue 1", sub:"Official site", url:"https://ligue1.com/en", color:"var(--f-sci)" },
-  { emoji:"🇺🇿", name:"Uzbekistan Super League", sub:"Official site", url:"https://pfl.uz", color:"var(--f-it)" },
-  { emoji:"🇦🇪", name:"UAE Pro League", sub:"Official site", url:"https://www.uaeproleague.ae/en", color:"var(--f-psy)" },
-  { emoji:"🏒", name:"KHL", sub:"Official site", url:"https://en.khl.ru", color:"var(--ink)" },
-  { emoji:"🥊", name:"UFC", sub:"Official site", url:"https://www.ufc.com", color:"var(--f-des)" },
+  { emoji: icon('barchart'), name:"League Tables", sub:"All leagues, one page", url:"#sports/tables", color:"var(--teal)", internal:true },
+  { emoji:icon('ball'), name:"BBC Football", sub:"News, always current", url:"https://www.bbc.com/sport/football", color:"var(--coral)" },
+  { emoji:flagIcon('england'), name:"Premier League", sub:"Official site", url:"https://www.premierleague.com/en", color:"var(--f-jur)" },
+  { emoji: flagIcon('spain'), name:"La Liga", sub:"Official news", url:"https://www.laliga.com/en-GB/news", color:"var(--f-ir)" },
+  { emoji: flagIcon('italy'), name:"Serie A", sub:"Official news", url:"https://en.legaseriea.it/news", color:"var(--f-econ)" },
+  { emoji: flagIcon('germany'), name:"Bundesliga", sub:"Official news", url:"https://www.bundesliga.com/en/bundesliga/news", color:"var(--f-biz)" },
+  { emoji: flagIcon('france'), name:"Ligue 1", sub:"Official site", url:"https://ligue1.com/en", color:"var(--f-sci)" },
+  { emoji: flagIcon('uzbekistan'), name:"Uzbekistan Super League", sub:"Official site", url:"https://pfl.uz", color:"var(--f-it)" },
+  { emoji: flagIcon('uae'), name:"UAE Pro League", sub:"Official site", url:"https://www.uaeproleague.ae/en", color:"var(--f-psy)" },
+  { emoji: icon('stick'), name:"KHL", sub:"Official site", url:"https://en.khl.ru", color:"var(--ink)" },
+  { emoji: icon('glove'), name:"UFC", sub:"Official site", url:"https://www.ufc.com", color:"var(--f-des)" },
 ];
 const SPORTS_LEAGUES = [
   {
-    name: "English Premier League", flag: "<svg width=\"18\" height=\"12\" viewBox=\"0 0 60 36\" style=\"display:inline-block;vertical-align:-1px;\"><rect width=\"60\" height=\"36\" fill=\"#fff\"/><rect x=\"24\" width=\"12\" height=\"36\" fill=\"#CF142B\"/><rect y=\"12\" width=\"60\" height=\"12\" fill=\"#CF142B\"/></svg>", note: "Pre-season — starts 21 Aug 2026",
+    name: "English Premier League", flag: flagIcon('england'), note: "Pre-season — starts 21 Aug 2026",
     teams: zeroRows(["Arsenal","Aston Villa","Bournemouth","Brentford","Brighton","Chelsea","Coventry City","Crystal Palace","Everton","Fulham","Hull City","Ipswich Town","Leeds United","Liverpool","Manchester City","Manchester United","Newcastle United","Nottingham Forest","Sunderland","Tottenham Hotspur"]),
   },
   {
-    name: "Uzbekistan Super League", flag: "🇺🇿", note: "Live — round 11",
+    name: "Uzbekistan Super League", flag: flagIcon('uzbekistan'), note: "Live — round 11",
     teams: [
       { name:"Neftchi Fergana", pld:11, w:9, d:1, l:1, gf:25, ga:3, pts:28 },
       { name:"Pakhtakor", pld:11, w:8, d:2, l:1, gf:22, ga:12, pts:26 },
@@ -1023,27 +1077,27 @@ const SPORTS_LEAGUES = [
     ],
   },
   {
-    name: "Spanish La Liga", flag: "🇪🇸", note: "Pre-season — starts mid-Aug 2026",
+    name: "Spanish La Liga", flag: flagIcon('spain'), note: "Pre-season — starts mid-Aug 2026",
     teams: zeroRows(["Alavés","Athletic Bilbao","Atlético Madrid","Barcelona","Celta Vigo","Deportivo La Coruña","Elche","Espanyol","Getafe","Levante","Osasuna","Racing Santander","Rayo Vallecano","Real Betis","Real Madrid","Real Sociedad","Sevilla","Valencia","Villarreal","TBD (playoff winner)"]),
   },
   {
-    name: "German Bundesliga", flag: "🇩🇪", note: "Pre-season — starts 28 Aug 2026",
+    name: "German Bundesliga", flag: flagIcon('germany'), note: "Pre-season — starts 28 Aug 2026",
     teams: zeroRows(["FC Augsburg","Bayern Munich","Bayer Leverkusen","Borussia Dortmund","Eintracht Frankfurt","SC Freiburg","Hamburger SV","TSG Hoffenheim","1. FC Köln","RB Leipzig","Mainz 05","Borussia Mönchengladbach","SC Paderborn","SV Elversberg","Schalke 04","VfB Stuttgart","Union Berlin","Werder Bremen"]),
   },
   {
-    name: "Italian Serie A", flag: "🇮🇹", note: "Pre-season — starts 23 Aug 2026",
+    name: "Italian Serie A", flag: flagIcon('italy'), note: "Pre-season — starts 23 Aug 2026",
     teams: zeroRows(["Atalanta","Bologna","Cagliari","Como","Fiorentina","Frosinone","Genoa","Inter Milan","Juventus","Lazio","Lecce","AC Milan","Monza","Napoli","Parma","Roma","Sassuolo","Torino","Udinese","Venezia"]),
   },
   {
-    name: "French Ligue 1", flag: "🇫🇷", note: "Pre-season — starts 23 Aug 2026",
+    name: "French Ligue 1", flag: flagIcon('france'), note: "Pre-season — starts 23 Aug 2026",
     teams: zeroRows(["Angers","Auxerre","Brest","Le Havre","Le Mans","Lens","Lille","Lorient","Lyon","Marseille","Monaco","Nice","Paris FC","Paris Saint-Germain","Rennes","Strasbourg","Toulouse","Troyes"]),
   },
   {
-    name: "UAE Pro League", flag: "🇦🇪", note: "Pre-season — 2026-27 season not yet started",
+    name: "UAE Pro League", flag: flagIcon('uae'), note: "Pre-season — 2026-27 season not yet started",
     teams: zeroRows(["Ajman","Al Ain","Al Bataeh","Al Dhafra","Al Jazira","Al Nasr","Al Wahda","Al Wasl","Baniyas","Dibba Al Fujairah","Ittihad Kalba","Khor Fakkan","Shabab Al Ahli","Sharjah"]),
   },
   {
-    name: "KHL", flag: "🏒", note: "Off-season — regular season starts 10 Sep 2026",
+    name: "KHL", flag: icon('stick'), note: "Off-season — regular season starts 10 Sep 2026",
     divisions: [
       { label: "Western Conference", teams: zeroRows(["CSKA Moscow","Dinamo Minsk","Dynamo Moscow","Lada Togliatti","Lokomotiv Yaroslavl","HC Sochi","Severstal Cherepovets","Shanghai Dragons","SKA Saint Petersburg","Spartak Moscow","Torpedo Nizhny Novgorod"]) },
       { label: "Eastern Conference", teams: zeroRows(["Admiral Vladivostok","Ak Bars Kazan","Amur Khabarovsk","Avangard Omsk","Avtomobilist Ekaterinburg","Barys Astana","Metallurg Magnitogorsk","Neftekhimik Nizhnekamsk","Salavat Yulaev Ufa","Sibir Novosibirsk","Traktor Chelyabinsk"]) },
@@ -1174,7 +1228,7 @@ function dispatchListHtml(list){
             <button class="react-btn ${saved==='👍'?'active':''}" data-key="${key}" data-emoji="👍">👍</button>
             <button class="react-btn ${saved==='😮'?'active':''}" data-key="${key}" data-emoji="😮">😮</button>
             <button class="react-btn ${saved==='🤔'?'active':''}" data-key="${key}" data-emoji="🤔">🤔</button>
-            <button class="bookmark-btn ${isBookmarked(a.url)?'active':''}" data-url="${a.url}" data-title="${escapeHtml(a.headline)}" data-faculty="${a.faculty}" data-date="${a.date}" title="Save for later">${isBookmarked(a.url)?'🔖':'📑'}</button>
+            <button class="bookmark-btn ${isBookmarked(a.url)?'active':''}" data-url="${a.url}" data-title="${escapeHtml(a.headline)}" data-faculty="${a.faculty}" data-date="${a.date}" title="Save for later">${isBookmarked(a.url)?icon('bookmarkFilled'):icon('bookmark')}</button>
             <button class="share-btn" data-url="${a.url}" data-title="${escapeHtml(a.headline)}">Share</button>
           </div>
         </div>`;
@@ -1269,7 +1323,7 @@ function wireEntryActions(container){
       const item = { url: btn.dataset.url, headline: btn.dataset.title, faculty: btn.dataset.faculty, date: btn.dataset.date };
       const nowSaved = toggleBookmark(item);
       btn.classList.toggle('active', nowSaved);
-      btn.textContent = nowSaved ? '🔖' : '📑';
+      btn.innerHTML = nowSaved ? ICONS.bookmarkFilled : ICONS.bookmark;
     });
   });
   container.querySelectorAll('.share-btn').forEach(btn=>{
@@ -1566,7 +1620,7 @@ function viewSearch(){
   return `
     <a class="back-link" href="#">← Back to Mr Eric's Lounge</a>
     <section style="padding-top:14px;">
-      <div class="section-head"><span class="emoji">🔍</span><h2>Search</h2></div>
+      <div class="section-head"><span class="emoji">${icon('search')}</span><h2>Search</h2></div>
       <input class="search-input" id="searchInput" type="text" placeholder="Search dispatches by headline…" autofocus>
       <div id="searchResults" style="margin-top:20px;">
         <div class="empty-card">Go on, type something. We both know you're curious. (${DISPATCHES.length} dispatches waiting)</div>
@@ -1595,12 +1649,12 @@ function viewSaved(){
   const saved = getBookmarks();
   const asDispatches = saved.map(b => ({ headline: b.headline, url: b.url, faculty: b.faculty, date: b.date, read: null }));
   const html = asDispatches.length === 0
-    ? '<div class="empty-card">Nothing saved yet. Tap the 📑 icon on any article to save it here.</div>'
+    ? '<div class="empty-card">Nothing saved yet. Tap the bookmark icon on any article to save it here.</div>'
     : dispatchListHtml(asDispatches);
   return `
     <a class="back-link" href="#">← Back to Mr Eric's Lounge</a>
     <section style="padding-top:14px;">
-      <div class="section-head"><span class="emoji">🔖</span><h2>Saved Articles</h2></div>
+      <div class="section-head"><span class="emoji">${icon('bookmark')}</span><h2>Saved Articles</h2></div>
       ${html}
     </section>
   `;
@@ -1612,7 +1666,7 @@ function viewPhotos(){
     return `
       <a class="back-link" href="#">← Back to Mr Eric's Lounge</a>
       <section style="padding-top:14px;">
-        <div class="section-head"><span class="emoji">📸</span><h2>Photo Library</h2></div>
+        <div class="section-head"><span class="emoji">${icon('camera')}</span><h2>Photo Library</h2></div>
         <div class="empty-card">No photos yet. Give it time.</div>
       </section>
     `;
@@ -1628,7 +1682,7 @@ function viewPhotos(){
   return `
     <a class="back-link" href="#">← Back to Mr Eric's Lounge</a>
     <section style="padding-top:14px;">
-      <div class="section-head"><span class="emoji">📸</span><h2>Photo Library</h2></div>
+      <div class="section-head"><span class="emoji">${icon('camera')}</span><h2>Photo Library</h2></div>
       ${grid}
     </section>
     <div class="lightbox" id="photoLightbox">
@@ -1711,14 +1765,14 @@ function leagueTableHtml(league){
 function sportsTileHtml(t){
   const attrs = t.internal ? '' : ' target="_blank" rel="noopener"';
   return `<a class="sport-hub-tile" href="${t.url}"${attrs}>
-    <span class="name">${t.emoji} ${escapeHtml(t.name)}</span>
+    <span class="name"><span class="hub-icon">${t.emoji}</span> ${escapeHtml(t.name)}</span>
   </a>`;
 }
 function viewSportsHub(){
   return `
     <a class="back-link" href="#">← Back to Mr Eric's Lounge</a>
     <section style="padding-top:14px;">
-      <div class="section-head"><span class="emoji">⚽</span><h2>Sports</h2></div>
+      <div class="section-head"><span class="emoji">${icon('ball')}</span><h2>Sports</h2></div>
       <div class="sport-hub-grid">
         ${SPORTS_TILES.map(sportsTileHtml).join('')}
       </div>
@@ -1730,7 +1784,7 @@ function viewSports(){
   return `
     <a class="back-link" href="#sports">← Back to Sports</a>
     <section style="padding-top:14px;">
-      <div class="section-head"><span class="emoji">⚽</span><h2>Sports — League Tables</h2></div>
+      <div class="section-head"><span class="emoji">${icon('ball')}</span><h2>Sports — League Tables</h2></div>
       ${SPORTS_LEAGUES.map(leagueTableHtml).join('')}
     </section>
   `;
@@ -1817,14 +1871,14 @@ function viewHome(){
   const facTiles = FACULTIES.map(f=>{
     const count = DISPATCHES.filter(a=>a.faculty===f.key).length;
     return `<a class="fac-tile" href="#faculty/${f.key}">
-      <span class="name"><span class="dot" style="background:${f.color}"></span>${f.label}</span>
+      <span class="name"><span class="fac-icon" style="color:${f.color}">${icon(f.icon)}</span>${f.label}</span>
       <span class="count">${count} stories</span>
     </a>`;
   }).join('');
 
   return `
     <section>
-      <div class="section-head"><span class="emoji">🎓</span><h2>Domains</h2></div>
+      <div class="section-head"><span class="emoji">${icon('gradcap')}</span><h2>Domains</h2></div>
       <div class="faculties">
         ${facTiles}
         <a class="fac-tile all" href="#faculty/all">
@@ -1835,19 +1889,19 @@ function viewHome(){
     </section>
 
     <section>
-      <div class="section-head"><span class="emoji">🎲</span><h2>Random Fact</h2></div>
+      <div class="section-head"><span class="emoji">${icon('dice')}</span><h2>Random Fact</h2></div>
       <div class="otd-card">${randomFactHtml()}</div>
     </section>
 
     <section>
-      <div class="section-head"><span class="emoji">🌤️</span><h2>Weather</h2></div>
+      <div class="section-head"><span class="emoji">${icon('sun')}</span><h2>Weather</h2></div>
       <div class="otd-card" id="weatherCard">
         <div class="otd-text">Loading…</div>
       </div>
     </section>
 
     <section>
-      <div class="section-head"><span class="emoji">📅</span><h2>On This Day</h2></div>
+      <div class="section-head"><span class="emoji">${icon('calendar')}</span><h2>On This Day</h2></div>
       <div class="otd-card" id="otdCard">
         <div class="otd-text">Loading…</div>
       </div>
@@ -1855,14 +1909,14 @@ function viewHome(){
 
     <section>
       <button class="random-tile" id="randomBtn">
-        <span class="icon">🎲</span>
+        <span class="icon">${icon('dice')}</span>
         <div>
           <div class="title">Surprise Me</div>
           <div class="sub">Jump straight to a random article</div>
         </div>
       </button>
       <button class="random-tile" id="randomVideoBtn" style="margin-top:12px;">
-        <span class="icon">🎬</span>
+        <span class="icon">${icon('clapper')}</span>
         <div>
           <div class="title">Watch Something Random</div>
           <div class="sub">Jump straight to a random video</div>
@@ -1871,18 +1925,18 @@ function viewHome(){
     </section>
 
     <section>
-      <div class="section-head"><span class="emoji">📰</span><h2>Latest Articles</h2><a class="section-link" href="#faculty/all">See full archive →</a></div>
+      <div class="section-head"><span class="emoji">${icon('newspaper')}</span><h2>Latest Articles</h2><a class="section-link" href="#faculty/all">See full archive →</a></div>
       ${dispatchListHtml(recent)}
     </section>
 
     <section>
-      <div class="section-head"><span class="emoji">🏆</span><h2>Home of the Premier League Champions</h2></div>
+      <div class="section-head"><span class="emoji">${icon('trophy')}</span><h2>Home of the Premier League Champions</h2></div>
       ${sportsHtml()}
     </section>
 
     <section>
       <a class="goodnews-tile" href="https://www.goodgoodgood.co/goodnews" target="_blank" rel="noopener">
-        <span class="icon">🌤️</span>
+        <span class="icon">${icon('sun')}</span>
         <div>
           <div class="title">Good News Only</div>
           <div class="sub">A break from the doom and gloom</div>
@@ -1891,13 +1945,13 @@ function viewHome(){
     </section>
 
     <section>
-      <div class="section-head"><span class="emoji">🌟</span><h2>Superstars of the Week</h2></div>
+      <div class="section-head"><span class="emoji">${icon('star')}</span><h2>Superstars of the Week</h2></div>
       ${studentsHtml()}
     </section>
 
     <section>
       <a class="watch-tile" href="#watch">
-        <span class="icon">🎬</span>
+        <span class="icon">${icon('clapper')}</span>
         <div>
           <div class="title">Watch</div>
           <div class="sub">Videos by faculty — tap to browse</div>
@@ -1907,7 +1961,7 @@ function viewHome(){
 
     <section>
       <a class="photo-tile" href="#photos">
-        <span class="icon">📸</span>
+        <span class="icon">${icon('camera')}</span>
         <div>
           <div class="title">Photo Library</div>
           <div class="sub">Selfies, memes, class moments</div>
@@ -1917,7 +1971,7 @@ function viewHome(){
 
     <section>
       <a class="sports-tile" href="#sports">
-        <span class="icon">⚽</span>
+        <span class="icon">${icon('ball')}</span>
         <div>
           <div class="title">Sports</div>
           <div class="sub">League tables — EPL, Serie A, La Liga, Ligue 1, Bundesliga, Uzbek League, KHL</div>
@@ -1927,7 +1981,7 @@ function viewHome(){
 
     <section>
       <a class="photo-tile" href="#saved">
-        <span class="icon">🔖</span>
+        <span class="icon">${icon('bookmark')}</span>
         <div>
           <div class="title">Saved Articles</div>
           <div class="sub">Everything you've bookmarked</div>
@@ -1936,7 +1990,7 @@ function viewHome(){
     </section>
 
     <section>
-      <div class="section-head"><span class="emoji">🎂</span><h2>Birthdays</h2></div>
+      <div class="section-head"><span class="emoji">${icon('cake')}</span><h2>Birthdays</h2></div>
       ${birthdaysHtml()}
     </section>
   `;
@@ -1947,7 +2001,7 @@ function viewFaculty(key){
     return `
       <a class="back-link" href="#">← Back to Mr Eric's Lounge</a>
       <section style="padding-top:14px;">
-        <div class="section-head"><span class="emoji">📰</span><h2>All Domains — Full Archive</h2></div>
+        <div class="section-head"><span class="emoji">${icon('newspaper')}</span><h2>All Domains — Full Archive</h2></div>
         ${dispatchListHtml(DISPATCHES)}
       </section>
     `;
@@ -1960,7 +2014,7 @@ function viewFaculty(key){
   return `
     <a class="back-link" href="#">← Back to Mr Eric's Lounge</a>
     <section style="padding-top:14px;">
-      <div class="section-head"><span class="dot" style="width:12px;height:12px;border-radius:50%;background:${fac.color};display:inline-block;"></span><h2>${fac.label}</h2></div>
+      <div class="section-head"><span class="fac-icon" style="color:${fac.color}">${icon(fac.icon)}</span><h2>${fac.label}</h2></div>
       ${dispatchListHtml(list)}
     </section>
   `;
@@ -1970,7 +2024,7 @@ function viewWatchHub(){
   const tiles = FACULTIES.map(f=>{
     const count = WATCH_VIDEOS.filter(v=>v.faculty===f.key).length;
     return `<a class="fac-tile" href="#watch/${f.key}">
-      <span class="name"><span class="dot" style="background:${f.color}"></span>${f.label}</span>
+      <span class="name"><span class="fac-icon" style="color:${f.color}">${icon(f.icon)}</span>${f.label}</span>
       <span class="count">${count} videos</span>
     </a>`;
   }).join('');
@@ -1978,7 +2032,7 @@ function viewWatchHub(){
   return `
     <a class="back-link" href="#">← Back to Mr Eric's Lounge</a>
     <section style="padding-top:14px;">
-      <div class="section-head"><span class="emoji">🎬</span><h2>Watch — by Domain</h2></div>
+      <div class="section-head"><span class="emoji">${icon('clapper')}</span><h2>Watch — by Domain</h2></div>
       <div class="faculties">
         ${tiles}
         <a class="fac-tile all" href="#watch/all">
@@ -1995,7 +2049,7 @@ function viewWatchFaculty(key){
     return `
       <a class="back-link" href="#watch">← Back to Watch</a>
       <section style="padding-top:14px;">
-        <div class="section-head"><span class="emoji">🎬</span><h2>All Videos</h2></div>
+        <div class="section-head"><span class="emoji">${icon('clapper')}</span><h2>All Videos</h2></div>
         <div class="watch-grid" id="watchGridTarget">${watchGridHtml(WATCH_VIDEOS, 'all')}</div>
       </section>
     `;
@@ -2008,7 +2062,7 @@ function viewWatchFaculty(key){
   return `
     <a class="back-link" href="#watch">← Back to Watch</a>
     <section style="padding-top:14px;">
-      <div class="section-head"><span class="dot" style="width:12px;height:12px;border-radius:50%;background:${fac.color};display:inline-block;"></span><h2>${fac.label} — Watch</h2></div>
+      <div class="section-head"><span class="fac-icon" style="color:${fac.color}">${icon(fac.icon)}</span><h2>${fac.label} — Watch</h2></div>
       <div class="watch-grid" id="watchGridTarget">${watchGridHtml(list, key)}</div>
     </section>
   `;
@@ -2061,14 +2115,16 @@ document.getElementById('subtitleText').textContent = TAGLINES[Math.floor(Math.r
 /* ---- Dark mode ---- */
 (function(){
   const toggle = document.getElementById('darkModeToggle');
+  const SUN_SVG = '<svg width="18" height="18" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v3M12 19v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2 12h3M19 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/></svg>';
+  const MOON_SVG = '<svg width="18" height="18" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a7 7 0 0 0 10.5 10.5Z"/></svg>';
   const saved = (()=>{ try{ return localStorage.getItem('darkMode'); }catch(e){ return null; } })();
   if(saved === '1'){
     document.body.classList.add('dark-mode');
-    toggle.textContent = '☀️';
+    toggle.innerHTML = SUN_SVG;
   }
   toggle.addEventListener('click', ()=>{
     const isDark = document.body.classList.toggle('dark-mode');
-    toggle.textContent = isDark ? '☀️' : '🌙';
+    toggle.innerHTML = isDark ? SUN_SVG : MOON_SVG;
     try{ localStorage.setItem('darkMode', isDark ? '1' : '0'); }catch(e){}
   });
 })();
