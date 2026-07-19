@@ -1310,9 +1310,29 @@ function wireRandomVideoButton(container){
   btn.addEventListener('click', ()=>{
     if(WATCH_VIDEOS.length === 0) return;
     const pick = WATCH_VIDEOS[Math.floor(Math.random() * WATCH_VIDEOS.length)];
-    try{ sessionStorage.setItem('autoplayVideoId', pick.videoId); }catch(e){}
-    location.hash = '#watch/' + pick.faculty;
+    location.hash = '#play/' + pick.videoId;
   });
+}
+function viewPlaySingle(videoId){
+  const v = WATCH_VIDEOS.find(x => x.videoId === videoId);
+  const title = v ? v.title : 'Video';
+  const channel = v ? v.channel : '';
+  const fac = v ? FAC_MAP[v.faculty] : null;
+  const backHref = fac ? `#watch/${fac.key}` : '#watch';
+  return `
+    <a class="back-link" href="${backHref}">← Back to Watch</a>
+    <section style="padding-top:14px;">
+      <div class="watch-card">
+        <div class="watch-thumb">
+          <iframe src="https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&mute=1" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+        <div class="watch-info">
+          <div class="watch-title">${escapeHtml(title)}</div>
+          <div class="watch-channel">${escapeHtml(channel)}</div>
+        </div>
+      </div>
+    </section>
+  `;
 }
 
 /* ---- Search ---- */
@@ -1707,6 +1727,8 @@ function renderRoute(){
     html = viewWatchHub();
   } else if(parts[0] === 'watch' && parts[1]){
     html = viewWatchFaculty(parts[1]);
+  } else if(parts[0] === 'play' && parts[1]){
+    html = viewPlaySingle(parts[1]);
   } else if(parts[0] === 'search'){
     html = viewSearch();
   } else if(parts[0] === 'photos'){
@@ -1720,26 +1742,11 @@ function renderRoute(){
   }
 
   app.innerHTML = html;
-  document.body.classList.toggle('theme-watch', parts[0] === 'watch');
+  document.body.classList.toggle('theme-watch', parts[0] === 'watch' || parts[0] === 'play');
   wireWatchButtons(app);
   wireEntryActions(app);
   if(parts[0] === 'search') wireSearch(app);
   if(parts.length === 0){ loadOnThisDay(); wireRandomButton(app); wireRandomVideoButton(app); checkAchievements(); }
-  if(parts[0] === 'watch' && parts[1]){
-    let autoplayId = null;
-    try{ autoplayId = sessionStorage.getItem('autoplayVideoId'); }catch(e){}
-    if(autoplayId){
-      try{ sessionStorage.removeItem('autoplayVideoId'); }catch(e){}
-      const target = app.querySelector(`.watch-thumb[data-id="${autoplayId}"]`);
-      if(target){
-        const card = target.closest('.watch-card');
-        target.outerHTML = `<div class="watch-thumb"><iframe src="https://www.youtube-nocookie.com/embed/${autoplayId}?autoplay=1&mute=1" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>`;
-        if(card){
-          setTimeout(()=> card.scrollIntoView({ behavior:'smooth', block:'center' }), 50);
-        }
-      }
-    }
-  }
   window.scrollTo(0,0);
 }
 
