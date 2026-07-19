@@ -453,6 +453,10 @@
     font-weight:600;
   }
   .otd-card a{color:#fff; text-decoration:underline;}
+  .wotd-word{font-family:'Baloo 2', sans-serif; font-size:22px; font-weight:700;}
+  .wotd-type{font-family:'Space Mono', monospace; font-size:12px; color:var(--gold); font-weight:400;}
+  .wotd-def{margin-top:6px; font-size:15px; line-height:1.5; font-weight:600;}
+  .wotd-example{margin-top:8px; font-size:14px; line-height:1.5; font-style:italic; opacity:.85;}
 
 
 
@@ -952,6 +956,7 @@ const ICONS = {
   plane: `<svg width="18" height="18" viewBox="0 0 24 24" ${ICON_STYLE}><path d="M3 12 21 4l-6.5 17-3-7-7-2Z"/></svg>`,
   gear: `<svg width="18" height="18" viewBox="0 0 24 24" ${ICON_STYLE}><circle cx="12" cy="12" r="3"/><path d="M12 3v3M12 18v3M4.2 7.8l2.6 1.5M17.2 14.7l2.6 1.5M4.2 16.2l2.6-1.5M17.2 9.3l2.6-1.5M3 12h3M18 12h3"/></svg>`,
   medal: `<svg width="18" height="18" viewBox="0 0 24 24" ${ICON_STYLE}><circle cx="12" cy="15" r="6"/><path d="m9 3 3 5 3-5M9 9l-3.5-6M15 9l3.5-6"/><path d="M12 12.5 13.5 15h-3L12 12.5Z"/></svg>`,
+  book: `<svg width="20" height="20" viewBox="0 0 24 24" ${ICON_STYLE}><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v15.5a2.5 2.5 0 0 1-2.5 2.5H4V5.5Z"/><path d="M4 18.5A2.5 2.5 0 0 1 6.5 16H20"/></svg>`,
   like: `<svg width="16" height="16" viewBox="0 0 24 24" ${ICON_STYLE}><path d="M7 10v10H4V10h3Z"/><path d="M7 10l3.5-6.5a1.6 1.6 0 0 1 2.9.4L14 8h5a2 2 0 0 1 1.9 2.7l-2.4 7A2 2 0 0 1 16.6 19H10a3 3 0 0 1-3-3v-6Z"/></svg>`,
   surprised: `<svg width="16" height="16" viewBox="0 0 24 24" ${ICON_STYLE}><circle cx="12" cy="12" r="9"/><circle cx="9" cy="10.5" r="1" fill="currentColor" stroke="none"/><circle cx="15" cy="10.5" r="1" fill="currentColor" stroke="none"/><circle cx="12" cy="16" r="1.8"/></svg>`,
   thinking: `<svg width="16" height="16" viewBox="0 0 24 24" ${ICON_STYLE}><circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 0 1 4.6-1.4c.6.9.4 1.7-.4 2.4-.9.8-1.7 1.2-1.7 2.5"/><circle cx="12" cy="16.3" r="0.15" fill="currentColor" stroke="none"/></svg>`,
@@ -1976,6 +1981,80 @@ const WORLD_CITIES = [
   { city:"Lusaka", country:"Zambia", lat:-15.3875, lon:28.3228 },
   { city:"Harare", country:"Zimbabwe", lat:-17.8252, lon:31.0335 },
 ];
+// Word of the Day — deterministic by calendar date so it's the same word for everyone all day.
+// Solid academic-register vocabulary, matching the speaking/discussion level of the class.
+const WORD_OF_THE_DAY_POOL = [
+  { word:"Ambiguous", type:"adj.", def:"Open to more than one interpretation; not clearly defined.", example:"His answer was ambiguous, so nobody knew if he agreed or not." },
+  { word:"Meticulous", type:"adj.", def:"Showing great attention to detail; very careful and precise.", example:"She's meticulous about checking her work before handing it in." },
+  { word:"Resilient", type:"adj.", def:"Able to recover quickly from difficulties.", example:"The team stayed resilient even after losing the first three matches." },
+  { word:"Ubiquitous", type:"adj.", def:"Present or found everywhere.", example:"Smartphones have become ubiquitous in daily life." },
+  { word:"Eloquent", type:"adj.", def:"Fluent and persuasive in speaking or writing.", example:"Her eloquent speech convinced the whole class to vote for the trip." },
+  { word:"Skeptical", type:"adj.", def:"Not easily convinced; having doubts.", example:"He was skeptical about the claim until he saw the evidence himself." },
+  { word:"Pragmatic", type:"adj.", def:"Dealing with things sensibly and realistically.", example:"We need a pragmatic solution, not just a nice idea." },
+  { word:"Coherent", type:"adj.", def:"Logical and well-organized; easy to follow.", example:"His argument was coherent from start to finish." },
+  { word:"Redundant", type:"adj.", def:"No longer needed; superfluous.", example:"That second explanation was redundant — you'd already made the point." },
+  { word:"Plausible", type:"adj.", def:"Seeming reasonable or probable.", example:"It's a plausible theory, but we still need more proof." },
+  { word:"Candid", type:"adj.", def:"Truthful and straightforward; frank.", example:"I appreciate how candid you were about the mistake." },
+  { word:"Diligent", type:"adj.", def:"Showing careful and persistent effort.", example:"She's a diligent student who never skips her revision." },
+  { word:"Arbitrary", type:"adj.", def:"Based on random choice rather than reason.", example:"The rule felt arbitrary, with no clear logic behind it." },
+  { word:"Concise", type:"adj.", def:"Giving information clearly in few words.", example:"Try to make your summary more concise." },
+  { word:"Feasible", type:"adj.", def:"Possible to do easily or conveniently.", example:"Is it feasible to finish the project by Friday?" },
+  { word:"Inevitable", type:"adj.", def:"Certain to happen; unavoidable.", example:"With no revision at all, a bad grade was inevitable." },
+  { word:"Notorious", type:"adj.", def:"Famous for something bad.", example:"The area is notorious for its traffic jams." },
+  { word:"Objective", type:"adj.", def:"Not influenced by personal feelings; based on facts.", example:"Try to stay objective when judging the debate." },
+  { word:"Subtle", type:"adj.", def:"Not obvious; delicate or hard to notice.", example:"There was a subtle difference between the two translations." },
+  { word:"Tedious", type:"adj.", def:"Long, slow, and boring.", example:"Copying out notes by hand is tedious." },
+  { word:"Versatile", type:"adj.", def:"Able to adapt to many different functions or situations.", example:"She's a versatile player who can perform in any position." },
+  { word:"Volatile", type:"adj.", def:"Likely to change suddenly and unpredictably.", example:"The stock market has been extremely volatile this year." },
+  { word:"Ambivalent", type:"adj.", def:"Having mixed feelings about something.", example:"I feel ambivalent about moving schools — excited but also nervous." },
+  { word:"Cynical", type:"adj.", def:"Believing people are motivated only by self-interest.", example:"Don't be so cynical — not everyone is out for themselves." },
+  { word:"Empirical", type:"adj.", def:"Based on observation or experiment, not theory.", example:"We need empirical evidence, not just a guess." },
+  { word:"Prevalent", type:"adj.", def:"Widespread in a particular area or at a particular time.", example:"That opinion was prevalent among students last year." },
+  { word:"Innate", type:"adj.", def:"Existing from birth; natural rather than learned.", example:"He has an innate sense of rhythm." },
+  { word:"Sporadic", type:"adj.", def:"Occurring at irregular intervals.", example:"Attendance was sporadic during the holidays." },
+  { word:"Tentative", type:"adj.", def:"Not certain or fixed; provisional.", example:"We have a tentative plan for Saturday, but it might change." },
+  { word:"Comprehensive", type:"adj.", def:"Complete and including everything necessary.", example:"The textbook gives a comprehensive overview of the topic." },
+  { word:"Deviate", type:"v.", def:"To depart from an established course or standard.", example:"He rarely deviates from his daily routine." },
+  { word:"Substantiate", type:"v.", def:"To provide evidence to support a claim.", example:"Can you substantiate that argument with some data?" },
+  { word:"Reconcile", type:"v.", def:"To make two apparently conflicting things compatible.", example:"It's hard to reconcile those two conflicting reports." },
+  { word:"Undermine", type:"v.", def:"To weaken or damage something gradually.", example:"Constant criticism can undermine someone's confidence." },
+  { word:"Alleviate", type:"v.", def:"To make suffering or a problem less severe.", example:"The medicine helped alleviate the pain." },
+  { word:"Perpetuate", type:"v.", def:"To make something continue indefinitely.", example:"The rumor only perpetuated the misunderstanding." },
+  { word:"Scrutinize", type:"v.", def:"To examine something very closely.", example:"The teacher scrutinized every line of the essay." },
+  { word:"Advocate", type:"v.", def:"To publicly support or recommend a cause.", example:"She advocates for more funding in public schools." },
+  { word:"Corroborate", type:"v.", def:"To confirm or support with evidence.", example:"Two witnesses corroborated his story." },
+  { word:"Digress", type:"v.", def:"To leave the main subject temporarily in speech or writing.", example:"Sorry, I digressed — back to the main point." },
+  { word:"Facilitate", type:"v.", def:"To make an action or process easier.", example:"Good notes facilitate faster revision later on." },
+  { word:"Fluctuate", type:"v.", def:"To rise and fall irregularly.", example:"Prices tend to fluctuate throughout the year." },
+  { word:"Instigate", type:"v.", def:"To bring about or initiate an action.", example:"Nobody knows who instigated the argument." },
+  { word:"Mitigate", type:"v.", def:"To make something less severe or serious.", example:"We took steps to mitigate the damage." },
+  { word:"Coincide", type:"v.", def:"To occur at the same time.", example:"The exam dates coincide with the school trip." },
+  { word:"Ambiguity", type:"n.", def:"The quality of being open to more than one interpretation.", example:"There's some ambiguity in how the rule is worded." },
+  { word:"Autonomy", type:"n.", def:"The right or condition of self-governance; independence.", example:"Older students are given more autonomy over their schedules." },
+  { word:"Consensus", type:"n.", def:"General agreement among a group.", example:"The class reached a consensus on the topic for the debate." },
+  { word:"Discrepancy", type:"n.", def:"A difference between things that should be the same.", example:"There's a discrepancy between the two accounts of the event." },
+  { word:"Hypothesis", type:"n.", def:"A proposed explanation made on limited evidence, to be tested.", example:"Our hypothesis was that plants grow faster in sunlight." },
+  { word:"Implication", type:"n.", def:"A conclusion that can be drawn, though not explicitly stated.", example:"The implication of his comment was that we hadn't tried hard enough." },
+  { word:"Paradox", type:"n.", def:"A statement or situation that seems contradictory but may be true.", example:"It's a paradox: the more choices we have, the harder deciding becomes." },
+  { word:"Perspective", type:"n.", def:"A particular attitude toward or way of viewing something.", example:"Try to see the issue from her perspective too." },
+  { word:"Precedent", type:"n.", def:"An earlier event used as an example or guide for later ones.", example:"This decision sets a precedent for future cases." },
+  { word:"Rationale", type:"n.", def:"The set of reasons or logical basis for something.", example:"What's the rationale behind changing the schedule?" },
+  { word:"Repercussion", type:"n.", def:"An unintended consequence of an action.", example:"Skipping class had repercussions he didn't expect." },
+  { word:"Stigma", type:"n.", def:"A mark of disgrace associated with a particular circumstance.", example:"There's still a stigma around asking for help sometimes." },
+  { word:"Nuance", type:"n.", def:"A subtle difference in meaning, tone, or expression.", example:"Translation often loses the nuance of the original text." },
+  { word:"Anomaly", type:"n.", def:"Something that deviates from what is standard or expected.", example:"That result was an anomaly — every other test matched." },
+];
+function wordOfTheDayHtml(){
+  const now = new Date();
+  const start = new Date(now.getFullYear(), 0, 0);
+  const dayOfYear = Math.floor((now - start) / 86400000);
+  const pick = WORD_OF_THE_DAY_POOL[dayOfYear % WORD_OF_THE_DAY_POOL.length];
+  return `
+    <div class="wotd-word">${escapeHtml(pick.word)} <span class="wotd-type">${escapeHtml(pick.type)}</span></div>
+    <div class="wotd-def">${escapeHtml(pick.def)}</div>
+    <div class="wotd-example">"${escapeHtml(pick.example)}"</div>
+  `;
+}
 async function loadWeather(){
   const card = document.getElementById('weatherCard');
   if(!card) return;
@@ -2375,6 +2454,11 @@ function viewHome(){
     </section>
 
     <section>
+      <div class="section-head"><span class="emoji">${icon('book')}</span><h2>Word of the Day</h2></div>
+      <div class="otd-card">${wordOfTheDayHtml()}</div>
+    </section>
+
+    <section>
       <div class="section-head"><span class="emoji">${icon('dice')}</span><h2>Random Fact</h2></div>
       <div class="otd-card">${randomFactHtml()}</div>
     </section>
@@ -2659,6 +2743,13 @@ function renderRoute(){
 }
 
 document.getElementById('subtitleText').textContent = TAGLINES[Math.floor(Math.random()*TAGLINES.length)];
+
+/* ---- Offline support ---- */
+if('serviceWorker' in navigator){
+  window.addEventListener('load', ()=>{
+    navigator.serviceWorker.register('sw.js').catch(()=>{});
+  });
+}
 
 /* ---- Back to top ---- */
 (function(){
