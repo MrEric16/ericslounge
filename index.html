@@ -629,7 +629,17 @@
     color:var(--ink-soft);
     margin-bottom:10px;
   }
-  .league-table-wrap{overflow-x:auto; border-radius:14px; box-shadow:0 2px 0 rgba(58,42,30,.06);}
+  .league-table-wrap{overflow-x:auto; border-radius:14px; box-shadow:0 2px 0 rgba(58,42,30,.06); margin-bottom:14px;}
+  .league-table-wrap:last-child{margin-bottom:0;}
+  .division-label{
+    font-family:'Space Mono', monospace;
+    font-size:11px;
+    font-weight:700;
+    text-transform:uppercase;
+    letter-spacing:.04em;
+    color:var(--teal);
+    margin:12px 0 6px 0;
+  }
   table.league-table{
     width:100%;
     border-collapse:collapse;
@@ -835,8 +845,11 @@ const SPORTS_LEAGUES = [
     teams: zeroRows(["Ajman","Al Ain","Al Bataeh","Al Dhafra","Al Jazira","Al Nasr","Al Wahda","Al Wasl","Baniyas","Dibba Al Fujairah","Ittihad Kalba","Khor Fakkan","Shabab Al Ahli","Sharjah"]),
   },
   {
-    name: "KHL", flag: "🏒", note: "Off-season — starts 5 Sep 2026",
-    teams: zeroRows(["Admiral Vladivostok","Ak Bars Kazan","Amur Khabarovsk","Avangard Omsk","Avtomobilist Ekaterinburg","Barys Astana","CSKA Moscow","Dinamo Minsk","Dynamo Moscow","Lada Togliatti","Lokomotiv Yaroslavl","Metallurg Magnitogorsk","Neftekhimik Nizhnekamsk","Salavat Yulaev Ufa","Severstal Cherepovets","Shanghai Dragons","Sibir Novosibirsk","SKA Saint Petersburg","Spartak Moscow","HC Sochi","Torpedo Nizhny Novgorod","Traktor Chelyabinsk"]),
+    name: "KHL", flag: "🏒", note: "Off-season — regular season starts 10 Sep 2026",
+    divisions: [
+      { label: "Western Conference", teams: zeroRows(["CSKA Moscow","Dinamo Minsk","Dynamo Moscow","Lada Togliatti","Lokomotiv Yaroslavl","HC Sochi","Severstal Cherepovets","Shanghai Dragons","SKA Saint Petersburg","Spartak Moscow","Torpedo Nizhny Novgorod"]) },
+      { label: "Eastern Conference", teams: zeroRows(["Admiral Vladivostok","Ak Bars Kazan","Amur Khabarovsk","Avangard Omsk","Avtomobilist Ekaterinburg","Barys Astana","Metallurg Magnitogorsk","Neftekhimik Nizhnekamsk","Salavat Yulaev Ufa","Sibir Novosibirsk","Traktor Chelyabinsk"]) },
+    ],
   },
 ];
 // YouTube videos. videoId is the part after 'v=' or after 'youtu.be/' in the URL. Each video belongs to one faculty.
@@ -1116,8 +1129,8 @@ function teamNameHtml(name){
   if(name === 'Tottenham Hotspur') extra = ' 💩';
   return escapeHtml(name) + extra;
 }
-function leagueTableHtml(league){
-  const rows = league.teams.map((t, i) => `
+function oneTableHtml(teams){
+  const rows = teams.map((t, i) => `
     <tr>
       <td class="pos">${i + 1}</td>
       <td class="team-name">${teamNameHtml(t.name)}</td>
@@ -1131,19 +1144,30 @@ function leagueTableHtml(league){
     </tr>
   `).join('');
   return `
+    <div class="league-table-wrap">
+      <table class="league-table">
+        <thead>
+          <tr>
+            <th>#</th><th>Team</th><th>P</th><th>W</th><th>D</th><th>L</th><th>GF:GA</th><th>GD</th><th>Pts</th>
+          </tr>
+        </thead>
+        <tbody>${rows}</tbody>
+      </table>
+    </div>
+  `;
+}
+function leagueTableHtml(league){
+  const tables = league.divisions
+    ? league.divisions.map(div => `
+        <div class="division-label">${escapeHtml(div.label)}</div>
+        ${oneTableHtml(div.teams)}
+      `).join('')
+    : oneTableHtml(league.teams);
+  return `
     <div class="league-block">
       <div class="league-head"><span class="flag">${league.flag}</span><h3>${escapeHtml(league.name)}</h3></div>
       <div class="league-note">${escapeHtml(league.note)}</div>
-      <div class="league-table-wrap">
-        <table class="league-table">
-          <thead>
-            <tr>
-              <th>#</th><th>Team</th><th>P</th><th>W</th><th>D</th><th>L</th><th>GF:GA</th><th>GD</th><th>Pts</th>
-            </tr>
-          </thead>
-          <tbody>${rows}</tbody>
-        </table>
-      </div>
+      ${tables}
     </div>
   `;
 }
