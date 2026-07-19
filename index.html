@@ -811,7 +811,7 @@ const SPORTS_LEAGUES = [
     ],
   },
   {
-    name: "English Premier League", flag: "🏴", note: "Pre-season — starts 21 Aug 2026",
+    name: "English Premier League", flag: "🏴󠁧󠁢󠁥󠁮󠁧󠁿", note: "Pre-season — starts 21 Aug 2026",
     teams: zeroRows(["Arsenal","Aston Villa","Bournemouth","Brentford","Brighton","Chelsea","Coventry City","Crystal Palace","Everton","Fulham","Hull City","Ipswich Town","Leeds United","Liverpool","Manchester City","Manchester United","Newcastle United","Nottingham Forest","Sunderland","Tottenham Hotspur"]),
   },
   {
@@ -1106,11 +1106,17 @@ function viewPhotos(){
   `;
 }
 
+function teamNameHtml(name){
+  let extra = '';
+  if(name === 'Arsenal') extra = ' 🏆';
+  if(name === 'Tottenham Hotspur') extra = ' 💩';
+  return escapeHtml(name) + extra;
+}
 function leagueTableHtml(league){
   const rows = league.teams.map((t, i) => `
     <tr>
       <td class="pos">${i + 1}</td>
-      <td class="team-name">${escapeHtml(t.name)}</td>
+      <td class="team-name">${teamNameHtml(t.name)}</td>
       <td>${t.pld}</td>
       <td>${t.w}</td>
       <td>${t.d}</td>
