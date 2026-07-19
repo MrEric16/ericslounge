@@ -34,6 +34,24 @@
     --f-sport:#1E8E5A;
   }
 
+  body.dark-mode{
+    --cream:#191410;
+    --cream-2:#241C15;
+    --card:#241C15;
+    --ink:#F0E6DA;
+    --ink-soft:#B8A890;
+    --line:#3A2E22;
+  }
+  body.dark-mode header{
+    background:linear-gradient(135deg, #2A1F17 0%, #241C15 60%, #1F1712 100%);
+    border-bottom-color:#3A2E22;
+  }
+  body.dark-mode .fac-tile,
+  body.dark-mode .stat-pill,
+  body.dark-mode .sport-hub-tile{
+    box-shadow:0 3px 0 rgba(0,0,0,.3);
+  }
+
   *{box-sizing:border-box;}
   html,body{margin:0;padding:0;}
   body{
@@ -755,6 +773,7 @@
         </div>
       </div>
       <a class="search-icon-btn" href="#search" title="Search">🔍</a>
+      <button class="search-icon-btn" id="darkModeToggle" title="Toggle dark mode">🌙</button>
     </div>
   </div>
 </header>
@@ -1278,6 +1297,33 @@ const RANDOM_FACTS = [
 ];
 const OTD_NEGATIVE_KEYWORDS = ['war','bomb','attack','kill','murder','assassin','invas','massacre','genocide','coup','riot','terroris','execut','died','death','dead','crash','disaster','earthquake','explosion','shoot','holocaust','slave','conflict','battle','siege','uprising','famine','plague','epidemic','collapse','sank','sinks','sinking','tsunami','hurricane','flood','fire kill','violence','abuse','captur','prison','hostage','revolt','rebellion'];
 const OTD_POSITIVE_KEYWORDS = ['discover','invent','launch','first','patent','award','achiev','breakthrough','found','open','premiere','publish','record','moon','space','vaccine','cure','wins','won','elect','peace','independence','celebrat','anniversary'];
+const WEATHER_CODES = {
+  0: ['☀️','Clear sky'], 1: ['🌤️','Mostly clear'], 2: ['⛅','Partly cloudy'], 3: ['☁️','Overcast'],
+  45: ['🌫️','Foggy'], 48: ['🌫️','Foggy'],
+  51: ['🌦️','Light drizzle'], 53: ['🌦️','Drizzle'], 55: ['🌦️','Heavy drizzle'],
+  61: ['🌧️','Light rain'], 63: ['🌧️','Rain'], 65: ['🌧️','Heavy rain'],
+  71: ['🌨️','Light snow'], 73: ['🌨️','Snow'], 75: ['🌨️','Heavy snow'],
+  80: ['🌦️','Rain showers'], 81: ['🌦️','Rain showers'], 82: ['⛈️','Heavy showers'],
+  95: ['⛈️','Thunderstorm'],
+};
+async function loadWeather(){
+  const card = document.getElementById('weatherCard');
+  if(!card) return;
+  try{
+    const res = await fetch('https://api.open-meteo.com/v1/forecast?latitude=41.2995&longitude=69.2401&current_weather=true');
+    if(!res.ok) throw new Error('bad response');
+    const data = await res.json();
+    const cw = data.current_weather;
+    if(!cw) throw new Error('no weather data');
+    const [icon, label] = WEATHER_CODES[cw.weathercode] || ['🌡️','Current conditions'];
+    card.innerHTML = `
+      <div class="otd-year">${icon} ${Math.round(cw.temperature)}°C</div>
+      <div class="otd-text">${escapeHtml(label)} in Tashkent right now. Wind ${Math.round(cw.windspeed)} km/h.</div>
+    `;
+  }catch(e){
+    card.innerHTML = '<div class="otd-text">Couldn\'t load the weather — try refreshing.</div>';
+  }
+}
 async function loadOnThisDay(){
   const card = document.getElementById('otdCard');
   if(!card) return;
@@ -1587,6 +1633,13 @@ function viewHome(){
     </section>
 
     <section>
+      <div class="section-head"><span class="emoji">🌤️</span><h2>Tashkent Weather</h2></div>
+      <div class="otd-card" id="weatherCard">
+        <div class="otd-text">Loading…</div>
+      </div>
+    </section>
+
+    <section>
       <div class="section-head"><span class="emoji">📅</span><h2>On This Day</h2></div>
       <div class="otd-card" id="otdCard">
         <div class="otd-text">Loading…</div>
@@ -1779,11 +1832,27 @@ function renderRoute(){
   wireWatchButtons(app);
   wireEntryActions(app);
   if(parts[0] === 'search') wireSearch(app);
-  if(parts.length === 0){ loadOnThisDay(); wireRandomButton(app); wireRandomVideoButton(app); checkAchievements(); }
+  if(parts.length === 0){ loadOnThisDay(); loadWeather(); wireRandomButton(app); wireRandomVideoButton(app); checkAchievements(); }
   window.scrollTo(0,0);
 }
 
 document.getElementById('subtitleText').textContent = TAGLINES[Math.floor(Math.random()*TAGLINES.length)];
+
+/* ---- Dark mode ---- */
+(function(){
+  const toggle = document.getElementById('darkModeToggle');
+  const saved = (()=>{ try{ return localStorage.getItem('darkMode'); }catch(e){ return null; } })();
+  if(saved === '1'){
+    document.body.classList.add('dark-mode');
+    toggle.textContent = '☀️';
+  }
+  toggle.addEventListener('click', ()=>{
+    const isDark = document.body.classList.toggle('dark-mode');
+    toggle.textContent = isDark ? '☀️' : '🌙';
+    try{ localStorage.setItem('darkMode', isDark ? '1' : '0'); }catch(e){}
+  });
+})();
+
 
 /* ---- Toast + confetti (playful feedback, no backend needed) ---- */
 function showToast(msg){
