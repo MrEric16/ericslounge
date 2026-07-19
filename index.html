@@ -115,12 +115,12 @@
   section{padding:34px 0;}
   .section-head{
     display:flex;
-    align-items:baseline;
+    align-items:flex-start;
     gap:10px;
     margin-bottom:18px;
-    flex-wrap:wrap;
   }
   .section-head h2{
+    min-width:0;
     font-size:22px;
     color:var(--ink);
   }
@@ -390,17 +390,17 @@
   .sports-card{
     background:var(--card);
     border-radius:20px;
-    padding:20px;
+    padding:14px 20px;
     box-shadow:0 3px 0 rgba(58,42,30,.08);
   }
   .sports-header{
     display:flex;
     align-items:center;
     gap:12px;
-    margin-bottom:16px;
+    margin-bottom:12px;
   }
   .sports-header .crest{
-    width:144px; height:144px;
+    width:84px; height:84px;
     display:flex; align-items:center; justify-content:center;
   }
   .sports-header .crest img{width:100%; height:100%; object-fit:contain;}
@@ -950,6 +950,30 @@ const TAGLINES = [
   "Gossip, but educational",
   "Smarter in five minutes or less",
   "Come for the memes, stay for the geopolitics",
+  "News without the doom-scrolling",
+  "Class material that doesn't feel like class",
+  "The internet, but curated by a teacher",
+  "Skip the group chat, read this instead",
+  "Actually interesting, we promise",
+  "Today's dispatch, hand-picked",
+  "Better than staring at the ceiling",
+  "For the terminally curious",
+  "Read something. Anything. Start here.",
+  "Your brain will thank you later",
+  "Low effort, high reward",
+  "Five minutes well spent",
+  "Built for people who hate homework",
+  "News that doesn't feel like news",
+  "The lounge is open",
+  "Procrastinate productively",
+  "Sharper than your average scroll",
+  "Made for bored students, by a bored-ish teacher",
+  "Today's excuse to avoid revision",
+  "Zero clickbait, mostly",
+  "Where curiosity gets fed",
+  "Reading, but make it painless",
+  "The good kind of distraction",
+  "Today's dose of things worth knowing",
 ];
 
 /* ========================================================= */
@@ -1090,9 +1114,10 @@ function wireEntryActions(container){
 }
 
 /* ---- On This Day (Wikipedia public API, fetched client-side) ---- */
-const OTD_NEGATIVE_KEYWORDS = ['war','bomb','attack','kill','murder','assassin','invas','massacre','genocide','coup','riot','terroris','execut','died','death','dead','crash','disaster','earthquake','explosion','shoot','holocaust','slave','conflict','battle','siege','uprising','famine','plague','epidemic','collapse','sank','sinks','sinking','tsunami','hurricane','flood','fire kill','violence','abuse','captur','prison','hostage','revolt','rebellion'];
-const OTD_POSITIVE_KEYWORDS = ['discover','invent','launch','first','patent','award','achiev','breakthrough','found','open','premiere','publish','record','moon','space','vaccine','cure','wins','won','elect','peace','independence','celebrat','anniversary'];
-const OTD_FALLBACK = [
+// On This Day — curated pool of genuinely interesting, teen-relevant historical moments.
+// No external API — this used to pull from Wikipedia's raw feed, which surfaced obscure
+// figures nobody in class would recognize. This list is hand-picked instead.
+const ON_THIS_DAY_FACTS = [
   { year:"1969", text:"Apollo 11 entered lunar orbit, a day before Neil Armstrong and Buzz Aldrin became the first humans to walk on the Moon." },
   { year:"1928", text:"Alexander Fleming returned from holiday to find a mould had wiped out bacteria in a petri dish he'd left out — the accidental discovery behind penicillin." },
   { year:"1990", text:"The Hubble Space Telescope sent back its first images of deep space, transforming what humanity could see of the universe." },
@@ -1103,39 +1128,76 @@ const OTD_FALLBACK = [
   { year:"1928", text:"John Logie Baird gave the first public demonstration of colour television." },
   { year:"1969", text:"The first ATM opened for public use, letting people withdraw cash without a bank teller." },
   { year:"1903", text:"The Wright brothers' Flyer completed the first sustained, controlled flight of a powered aircraft." },
+  { year:"2007", text:"Steve Jobs took the stage and unveiled the first iPhone, a device that redefined what a phone could be." },
+  { year:"2005", text:"The first ever YouTube video, an 18-second clip called \"Me at the zoo,\" was uploaded." },
+  { year:"2006", text:"Jack Dorsey sent the first tweet ever posted: \"just setting up my twttr.\"" },
+  { year:"2010", text:"Instagram launched to the public — it hit 25,000 downloads on its very first day." },
+  { year:"1989", text:"Nintendo released the original Game Boy in Japan, kicking off the handheld gaming era." },
+  { year:"1994", text:"Sony launched the original PlayStation in Japan." },
+  { year:"2011", text:"Minecraft officially released after two years in development, and went on to become the best-selling video game of all time." },
+  { year:"1997", text:"The first Harry Potter book, Philosopher's Stone, was published in the UK." },
+  { year:"1995", text:"Pixar's Toy Story hit theatres — the first entirely computer-animated feature film ever made." },
+  { year:"2001", text:"Wikipedia went online for the first time." },
+  { year:"1998", text:"Larry Page and Sergey Brin founded Google in a garage in California." },
+  { year:"1993", text:"CERN announced the World Wide Web would be free for anyone to use, forever." },
+  { year:"1992", text:"The first ever text message was sent: \"Merry Christmas.\"" },
+  { year:"2008", text:"Spotify launched, changing how the world listens to music." },
+  { year:"2009", text:"Usain Bolt ran the 100m in 9.58 seconds at the World Championships, still the world record today." },
+  { year:"2008", text:"Michael Phelps won his eighth gold medal of the Beijing Olympics, the most ever at a single Games." },
+  { year:"1930", text:"The first ever FIFA World Cup kicked off in Uruguay." },
+  { year:"1967", text:"The first Super Bowl was played in Los Angeles." },
+  { year:"1896", text:"The first modern Olympic Games opened in Athens, reviving a tradition over 1,500 years dormant." },
+  { year:"1886", text:"Coca-Cola was invented by a pharmacist in Atlanta, originally sold as a medicine." },
+  { year:"1979", text:"Sony released the original Walkman, letting people carry their music with them for the first time." },
+  { year:"1972", text:"Atari released Pong, one of the first commercially successful video games ever made." },
+  { year:"1995", text:"Amazon.com opened for business, selling only books at first." },
+  { year:"1885", text:"Karl Benz built and drove the first practical automobile powered by an internal combustion engine." },
+  { year:"1969", text:"The first message was sent over ARPANET, the network that would grow into the modern internet." },
 ];
-async function loadOnThisDay(){
-  const card = document.getElementById('otdCard');
-  if(!card) return;
-  const now = new Date();
-  const mm = String(now.getMonth()+1).padStart(2,'0');
-  const dd = String(now.getDate()).padStart(2,'0');
-  try{
-    const res = await fetch(`https://api.wikimedia.org/feed/v1/wikipedia/en/onthisday/selected/${mm}/${dd}`);
-    if(!res.ok) throw new Error('bad response');
-    const data = await res.json();
-    const pool = data.selected || [];
-    const clean = pool.filter(p => {
-      const t = (p.text || '').toLowerCase();
-      return !OTD_NEGATIVE_KEYWORDS.some(k => t.includes(k));
-    });
-    let candidates = clean.filter(p => OTD_POSITIVE_KEYWORDS.some(k => (p.text || '').toLowerCase().includes(k)));
-    if(candidates.length === 0) candidates = clean;
-    if(candidates.length === 0) throw new Error('no safe candidates');
-    const pick = candidates[Math.floor(Math.random() * candidates.length)];
-    const page = pick.pages && pick.pages[0];
-    const link = page && page.content_urls && page.content_urls.desktop ? page.content_urls.desktop.page : null;
-    card.innerHTML = `
-      <div class="otd-year">${escapeHtml(String(pick.year))}</div>
-      <div class="otd-text">${escapeHtml(pick.text)}${link ? ` — <a href="${link}" rel="noopener">read more</a>` : ''}</div>
-    `;
-  }catch(e){
-    const pick = OTD_FALLBACK[Math.floor(Math.random() * OTD_FALLBACK.length)];
-    card.innerHTML = `
-      <div class="otd-year">${escapeHtml(pick.year)}</div>
-      <div class="otd-text">${escapeHtml(pick.text)}</div>
-    `;
-  }
+
+// Random Fact — general trivia, unrelated to any date, shuffles on every visit.
+const RANDOM_FACTS = [
+  "Honey never spoils — archaeologists have found 3,000-year-old honey in Egyptian tombs that's still edible.",
+  "Octopuses have three hearts and blue blood.",
+  "Bananas are technically berries, but strawberries aren't.",
+  "A bolt of lightning is hotter than the surface of the Sun.",
+  "Wombat poop is cube-shaped, which is why it doesn't roll away.",
+  "There are more possible chess games than atoms in the observable universe.",
+  "A day on Venus is longer than its entire year.",
+  "Cows form close friendships and get visibly stressed when separated from them.",
+  "Butterflies taste with their feet.",
+  "The unicorn is the official national animal of Scotland.",
+  "Hot water can sometimes freeze faster than cold water — it's called the Mpemba effect, and scientists still argue about why.",
+  "Some species of jellyfish are biologically immortal.",
+  "Bubble wrap was originally invented as a textured wallpaper.",
+  "The dot above a lowercase 'i' or 'j' has its own name: a tittle.",
+  "Scotland has been credited with over 400 different words for snow.",
+  "An octopus can taste things just by touching them with its skin.",
+  "A 'jiffy' is a real unit of time — one hundredth of a second.",
+  "Sea otters hold hands while sleeping so they don't drift apart from each other.",
+  "Peanuts aren't nuts at all — they're legumes, related to peas and lentils.",
+  "The oldest known written recipe in human history is for beer.",
+  "Sharks are older than trees — they've existed for over 400 million years.",
+  "A group of flamingos is called a flamboyance.",
+  "The human nose can distinguish roughly one trillion different scents.",
+  "The Eiffel Tower grows about 15cm taller in summer as the metal heats up and expands.",
+  "Tigers have striped skin, not just striped fur.",
+  "It rains diamonds on Saturn and Jupiter, according to atmospheric scientists.",
+  "A group of crows is called a murder.",
+  "The world's shortest scheduled commercial flight takes under two minutes, between two Scottish islands.",
+  "Cleopatra lived closer in time to the Moon landing than to the building of the Great Pyramid of Giza.",
+  "Humans share roughly 60% of their DNA with bananas.",
+];
+function onThisDayHtml(){
+  const pick = ON_THIS_DAY_FACTS[Math.floor(Math.random() * ON_THIS_DAY_FACTS.length)];
+  return `
+    <div class="otd-year">${escapeHtml(pick.year)}</div>
+    <div class="otd-text">${escapeHtml(pick.text)}</div>
+  `;
+}
+function randomFactHtml(){
+  const pick = RANDOM_FACTS[Math.floor(Math.random() * RANDOM_FACTS.length)];
+  return `<div class="otd-text">${escapeHtml(pick)}</div>`;
 }
 
 /* ---- Random ---- */
@@ -1146,6 +1208,16 @@ function wireRandomButton(container){
     if(DISPATCHES.length === 0) return;
     const pick = DISPATCHES[Math.floor(Math.random() * DISPATCHES.length)];
     location.href = pick.url;
+  });
+}
+function wireRandomVideoButton(container){
+  const btn = container.querySelector('#randomVideoBtn');
+  if(!btn) return;
+  btn.addEventListener('click', ()=>{
+    if(WATCH_VIDEOS.length === 0) return;
+    const pick = WATCH_VIDEOS[Math.floor(Math.random() * WATCH_VIDEOS.length)];
+    try{ sessionStorage.setItem('autoplayVideoId', pick.videoId); }catch(e){}
+    location.hash = '#watch/' + pick.faculty;
   });
 }
 
@@ -1373,10 +1445,13 @@ function viewHome(){
     </section>
 
     <section>
+      <div class="section-head"><span class="emoji">🎲</span><h2>Random Fact</h2></div>
+      <div class="otd-card">${randomFactHtml()}</div>
+    </section>
+
+    <section>
       <div class="section-head"><span class="emoji">📅</span><h2>On This Day</h2></div>
-      <div class="otd-card" id="otdCard">
-        <div class="otd-text">Loading…</div>
-      </div>
+      <div class="otd-card">${onThisDayHtml()}</div>
     </section>
 
     <section>
@@ -1387,6 +1462,13 @@ function viewHome(){
           <div class="sub">Jump straight to a random article</div>
         </div>
       </button>
+      <button class="random-tile" id="randomVideoBtn" style="margin-top:12px;">
+        <span class="icon">🎬</span>
+        <div>
+          <div class="title">Watch Something Random</div>
+          <div class="sub">Jump straight to a random video</div>
+        </div>
+      </button>
     </section>
 
     <section>
@@ -1395,18 +1477,13 @@ function viewHome(){
     </section>
 
     <section>
-      <div class="section-head"><span class="emoji">⚽</span><h2>Home of the Premier League Champions</h2></div>
+      <div class="section-head"><span class="emoji">🏆</span><h2>Home of the Premier League Champions</h2></div>
       ${sportsHtml()}
     </section>
 
     <section>
       <div class="section-head"><span class="emoji">🌟</span><h2>Superstars of the Week</h2></div>
       ${studentsHtml()}
-    </section>
-
-    <section>
-      <div class="section-head"><span class="emoji">👀</span><h2>Recommend You Check This Out</h2></div>
-      ${recommendationsHtml()}
     </section>
 
     <section>
@@ -1551,7 +1628,19 @@ function renderRoute(){
   wireWatchButtons(app);
   wireEntryActions(app);
   if(parts[0] === 'search') wireSearch(app);
-  if(parts.length === 0){ loadOnThisDay(); wireRandomButton(app); checkAchievements(); }
+  if(parts.length === 0){ wireRandomButton(app); wireRandomVideoButton(app); checkAchievements(); }
+  if(parts[0] === 'watch' && parts[1]){
+    let autoplayId = null;
+    try{ autoplayId = sessionStorage.getItem('autoplayVideoId'); }catch(e){}
+    if(autoplayId){
+      try{ sessionStorage.removeItem('autoplayVideoId'); }catch(e){}
+      const target = app.querySelector(`.watch-thumb[data-id="${autoplayId}"]`);
+      if(target){
+        target.click();
+        setTimeout(()=> target.closest('.watch-card').scrollIntoView({ behavior:'smooth', block:'center' }), 50);
+      }
+    }
+  }
   window.scrollTo(0,0);
 }
 
