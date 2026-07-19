@@ -49,6 +49,10 @@
     --ink:#EFE3D3;
     --ink-soft:#B8A48E;
     --line:#3E2E24;
+    --coral-dark:#E38A93;
+    --coral:#D9707B;
+    --teal:#9CB06A;
+    --gold:#E8C766;
   }
   body.dark-mode header{
     background:linear-gradient(135deg, #33241D 0%, #2A1F19 60%, #241A15 100%);
@@ -398,6 +402,10 @@
     padding:22px;
     box-shadow:0 3px 0 rgba(58,42,30,.15);
   }
+  .weather-row{padding:8px 0;}
+  .weather-row + .weather-row{border-top:1px solid rgba(255,255,255,.15);}
+  .weather-city{font-family:'Space Mono', monospace; font-size:12px; text-transform:uppercase; letter-spacing:.04em; opacity:.75; margin-bottom:2px;}
+  .weather-detail{font-weight:700; font-size:15px;}
   .otd-card .otd-year{
     font-family:'Space Mono', monospace;
     font-size:12px;
@@ -590,6 +598,10 @@
     display:block;
     text-decoration:none;
     background:var(--card);
+    border:none;
+    padding:0;
+    font:inherit;
+    cursor:pointer;
     border-radius:14px;
     overflow:hidden;
     box-shadow:0 2px 0 rgba(58,42,30,.06);
@@ -598,6 +610,56 @@
     width:100%;
     aspect-ratio:1/1;
     object-fit:cover;
+    display:block;
+  }
+
+  /* ---------- Photo lightbox ---------- */
+  .lightbox{
+    display:none;
+    position:fixed;
+    inset:0;
+    background:rgba(10,6,4,.94);
+    z-index:9999;
+  }
+  .lightbox.active{display:block;}
+  .lightbox-close{
+    position:fixed;
+    top:16px;
+    right:16px;
+    z-index:10001;
+    width:44px;
+    height:44px;
+    border-radius:50%;
+    background:rgba(255,255,255,.15);
+    color:#fff;
+    border:none;
+    font-size:20px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    cursor:pointer;
+  }
+  .lightbox-track{
+    display:flex;
+    height:100%;
+    overflow-x:auto;
+    scroll-snap-type:x mandatory;
+    -webkit-overflow-scrolling:touch;
+  }
+  .lightbox-slide{
+    flex:0 0 100%;
+    scroll-snap-align:center;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:0 20px;
+    box-sizing:border-box;
+  }
+  .lightbox-slide img{
+    max-width:100%;
+    max-height:88vh;
+    object-fit:contain;
+    border-radius:12px;
     display:block;
   }
   .photo-caption{
@@ -1368,20 +1430,53 @@ const WEATHER_CODES = {
   80: ['🌦️','Rain showers'], 81: ['🌦️','Rain showers'], 82: ['⛈️','Heavy showers'],
   95: ['⛈️','Thunderstorm'],
 };
+const WORLD_CITIES = [
+  { city:"Tokyo", country:"Japan", lat:35.6762, lon:139.6503 },
+  { city:"Paris", country:"France", lat:48.8566, lon:2.3522 },
+  { city:"Cairo", country:"Egypt", lat:30.0444, lon:31.2357 },
+  { city:"Rio de Janeiro", country:"Brazil", lat:-22.9068, lon:-43.1729 },
+  { city:"Sydney", country:"Australia", lat:-33.8688, lon:151.2093 },
+  { city:"Reykjavik", country:"Iceland", lat:64.1466, lon:-21.9426 },
+  { city:"Nairobi", country:"Kenya", lat:-1.2921, lon:36.8219 },
+  { city:"Toronto", country:"Canada", lat:43.6532, lon:-79.3832 },
+  { city:"Mumbai", country:"India", lat:19.0760, lon:72.8777 },
+  { city:"Wellington", country:"New Zealand", lat:-41.2865, lon:174.7762 },
+  { city:"Oslo", country:"Norway", lat:59.9139, lon:10.7522 },
+  { city:"Buenos Aires", country:"Argentina", lat:-34.6037, lon:-58.3816 },
+  { city:"Seoul", country:"South Korea", lat:37.5665, lon:126.9780 },
+  { city:"Cape Town", country:"South Africa", lat:-33.9249, lon:18.4241 },
+  { city:"Istanbul", country:"Turkey", lat:41.0082, lon:28.9784 },
+  { city:"Mexico City", country:"Mexico", lat:19.4326, lon:-99.1332 },
+  { city:"Bangkok", country:"Thailand", lat:13.7563, lon:100.5018 },
+  { city:"Lisbon", country:"Portugal", lat:38.7223, lon:-9.1393 },
+  { city:"Dubai", country:"UAE", lat:25.2048, lon:55.2708 },
+  { city:"Vancouver", country:"Canada", lat:49.2827, lon:-123.1207 },
+];
 async function loadWeather(){
   const card = document.getElementById('weatherCard');
   if(!card) return;
+  const randomTwo = [...WORLD_CITIES].sort(()=> Math.random() - 0.5).slice(0, 2);
+  const locations = [{ city:"Tashkent", country:"Uzbekistan", lat:41.2995, lon:69.2401 }, ...randomTwo];
+  const lats = locations.map(l => l.lat).join(',');
+  const lons = locations.map(l => l.lon).join(',');
   try{
-    const res = await fetch('https://api.open-meteo.com/v1/forecast?latitude=41.2995&longitude=69.2401&current_weather=true');
+    const res = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lats}&longitude=${lons}&current_weather=true&wind_speed_unit=kn`);
     if(!res.ok) throw new Error('bad response');
     const data = await res.json();
-    const cw = data.current_weather;
-    if(!cw) throw new Error('no weather data');
-    const [icon, label] = WEATHER_CODES[cw.weathercode] || ['🌡️','Current conditions'];
-    card.innerHTML = `
-      <div class="otd-year">${icon} ${Math.round(cw.temperature)}°C</div>
-      <div class="otd-text">${escapeHtml(label)} in Tashkent right now. Wind ${Math.round(cw.windspeed)} km/h.</div>
-    `;
+    const results = Array.isArray(data) ? data : [data];
+    const rows = results.map((r, i) => {
+      const loc = locations[i];
+      const cw = r.current_weather;
+      if(!cw) return '';
+      const [icon, label] = WEATHER_CODES[cw.weathercode] || ['🌡️','Current conditions'];
+      return `
+        <div class="weather-row">
+          <div class="weather-city">${escapeHtml(loc.city)}, ${escapeHtml(loc.country)}</div>
+          <div class="weather-detail">${icon} ${Math.round(cw.temperature)}°C — ${escapeHtml(label)}, wind ${Math.round(cw.windspeed)} kn</div>
+        </div>
+      `;
+    }).join('');
+    card.innerHTML = rows || '<div class="otd-text">Couldn\'t load the weather — try refreshing.</div>';
   }catch(e){
     card.innerHTML = '<div class="otd-text">Couldn\'t load the weather — try refreshing.</div>';
   }
@@ -1513,20 +1608,55 @@ function viewSaved(){
 
 function viewPhotos(){
   const sorted = [...PHOTOS].sort((a,b)=> b.date.localeCompare(a.date));
-  const grid = sorted.length === 0
-    ? '<div class="empty-card">No photos yet. Give it time.</div>'
-    : `<div class="photo-grid">${sorted.map(p => `
-        <a class="photo-item" href="${p.url}" target="_blank" rel="noopener">
-          <img src="${p.url}" alt="${escapeHtml(p.caption || 'Photo')}" loading="lazy">
-        </a>
-      `).join('')}</div>`;
+  if(sorted.length === 0){
+    return `
+      <a class="back-link" href="#">← Back to Mr Eric's Lounge</a>
+      <section style="padding-top:14px;">
+        <div class="section-head"><span class="emoji">📸</span><h2>Photo Library</h2></div>
+        <div class="empty-card">No photos yet. Give it time.</div>
+      </section>
+    `;
+  }
+  const grid = `<div class="photo-grid">${sorted.map((p,i) => `
+    <button class="photo-item" data-index="${i}">
+      <img src="${p.url}" alt="${escapeHtml(p.caption || 'Photo')}" loading="lazy">
+    </button>
+  `).join('')}</div>`;
+  const slides = sorted.map(p => `
+    <div class="lightbox-slide"><img src="${p.url}" alt="${escapeHtml(p.caption || 'Photo')}"></div>
+  `).join('');
   return `
     <a class="back-link" href="#">← Back to Mr Eric's Lounge</a>
     <section style="padding-top:14px;">
       <div class="section-head"><span class="emoji">📸</span><h2>Photo Library</h2></div>
       ${grid}
     </section>
+    <div class="lightbox" id="photoLightbox">
+      <button class="lightbox-close" id="lightboxClose">✕</button>
+      <div class="lightbox-track" id="lightboxTrack">${slides}</div>
+    </div>
   `;
+}
+function wirePhotoLightbox(container){
+  const lightbox = container.querySelector('#photoLightbox');
+  const track = container.querySelector('#lightboxTrack');
+  const closeBtn = container.querySelector('#lightboxClose');
+  if(!lightbox || !track) return;
+  function openAt(idx){
+    lightbox.classList.add('active');
+    document.body.style.overflow = 'hidden';
+    const slide = track.children[idx];
+    if(slide) slide.scrollIntoView({ block:'nearest', inline:'center' });
+  }
+  function closeLightbox(){
+    lightbox.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+  container.querySelectorAll('.photo-item').forEach(btn=>{
+    btn.addEventListener('click', ()=> openAt(parseInt(btn.dataset.index, 10)));
+  });
+  closeBtn.addEventListener('click', closeLightbox);
+  lightbox.addEventListener('click', (e)=>{ if(e.target === lightbox) closeLightbox(); });
 }
 
 function teamNameHtml(name){
@@ -1920,6 +2050,7 @@ function renderRoute(){
   document.body.classList.toggle('theme-watch', parts[0] === 'watch' || parts[0] === 'play');
   wireWatchButtons(app);
   wireEntryActions(app);
+  if(parts[0] === 'photos') wirePhotoLightbox(app);
   if(parts[0] === 'search') wireSearch(app);
   if(parts.length === 0){ loadOnThisDay(); loadWeather(); wireRandomButton(app); wireRandomVideoButton(app); checkAchievements(); }
   window.scrollTo(0,0);
