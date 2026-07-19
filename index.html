@@ -1732,8 +1732,11 @@ function renderRoute(){
       try{ sessionStorage.removeItem('autoplayVideoId'); }catch(e){}
       const target = app.querySelector(`.watch-thumb[data-id="${autoplayId}"]`);
       if(target){
-        target.click();
-        setTimeout(()=> target.closest('.watch-card').scrollIntoView({ behavior:'smooth', block:'center' }), 50);
+        const card = target.closest('.watch-card');
+        target.outerHTML = `<div class="watch-thumb"><iframe src="https://www.youtube-nocookie.com/embed/${autoplayId}?autoplay=1" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>`;
+        if(card){
+          setTimeout(()=> card.scrollIntoView({ behavior:'smooth', block:'center' }), 50);
+        }
       }
     }
   }
