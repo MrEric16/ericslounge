@@ -907,6 +907,30 @@
   }
   table.league-table td.pos{color:var(--ink-soft); font-weight:700;}
   table.league-table tr:last-child td{border-bottom:none;}
+  .match-section-label{
+    font-family:'Space Mono', monospace;
+    font-size:11px;
+    font-weight:700;
+    text-transform:uppercase;
+    letter-spacing:.04em;
+    color:var(--ink-soft);
+    margin:18px 0 8px 0;
+  }
+  .match-list{border-radius:14px; overflow:hidden; box-shadow:0 2px 0 rgba(58,42,30,.06);}
+  .match-row{
+    background:var(--card);
+    padding:10px 14px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+    border-bottom:1px solid var(--line);
+    font-size:13px;
+  }
+  .match-list .match-row:last-child{border-bottom:none;}
+  .match-row .match-teams{font-weight:700; color:var(--ink);}
+  .match-row .match-score{font-family:'Space Mono', monospace; font-weight:700; color:var(--teal); margin:0 6px;}
+  .match-row .match-date{font-family:'Space Mono', monospace; font-size:11px; color:var(--ink-soft); white-space:nowrap;}
 </style>
 </head>
 <body>
@@ -1177,17 +1201,19 @@ const PHOTOS = [
 function zeroRows(names){
   return names.map(name => ({ name, pld:0, w:0, d:0, l:0, gf:0, ga:0, pts:0 }));
 }
-// Sports hub tiles — each links straight to the league/site's own official page (opens in a new
-// tab), except "League Tables" which stays inside the site. These are always current since
-// they open the real thing, not a copy of it.
+// Sports hub tiles. "League Tables" and the six leagues below with Table/Fixtures/Results
+// stay inside the site, pulling live data from football-data.org. Uzbekistan Super League, UAE
+// Pro League, KHL and UFC aren't on football-data.org's free tier — no free data source for
+// them — so they still link out to their official sites.
 const SPORTS_TILES = [
   { emoji: icon('barchart'), name:"League Tables", sub:"All leagues, one page", url:"#sports/tables", color:"var(--teal)", internal:true },
   { emoji:icon('ball'), name:"BBC Football", sub:"News, always current", url:"https://www.bbc.com/sport/football", color:"var(--coral)" },
-  { emoji:flagIcon('england'), name:"Premier League", sub:"Official site", url:"https://www.premierleague.com/en", color:"var(--f-jur)" },
-  { emoji: flagIcon('spain'), name:"La Liga", sub:"Official news", url:"https://www.laliga.com/en-GB/news", color:"var(--f-ir)" },
-  { emoji: flagIcon('italy'), name:"Serie A", sub:"Official news", url:"https://en.legaseriea.it/news", color:"var(--f-econ)" },
-  { emoji: flagIcon('germany'), name:"Bundesliga", sub:"Official news", url:"https://www.bundesliga.com/en/bundesliga/news", color:"var(--f-biz)" },
-  { emoji: flagIcon('france'), name:"Ligue 1", sub:"Official site", url:"https://ligue1.com/en", color:"var(--f-sci)" },
+  { emoji:flagIcon('england'), name:"Premier League", sub:"Table, fixtures, results", url:"#sports/league/PL", color:"var(--f-jur)", internal:true },
+  { emoji: flagIcon('spain'), name:"La Liga", sub:"Table, fixtures, results", url:"#sports/league/PD", color:"var(--f-ir)", internal:true },
+  { emoji: flagIcon('italy'), name:"Serie A", sub:"Table, fixtures, results", url:"#sports/league/SA", color:"var(--f-econ)", internal:true },
+  { emoji: flagIcon('germany'), name:"Bundesliga", sub:"Table, fixtures, results", url:"#sports/league/BL1", color:"var(--f-biz)", internal:true },
+  { emoji: flagIcon('france'), name:"Ligue 1", sub:"Table, fixtures, results", url:"#sports/league/FL1", color:"var(--f-sci)", internal:true },
+  { emoji: icon('ball'), name:"Champions League", sub:"Table, fixtures, results", url:"#sports/league/CL", color:"var(--gold)", internal:true },
   { emoji: flagIcon('uzbekistan'), name:"Uzbekistan Super League", sub:"Official site", url:"https://pfl.uz", color:"var(--f-it)" },
   { emoji: flagIcon('uae'), name:"UAE Pro League", sub:"Official site", url:"https://www.uaeproleague.ae/en", color:"var(--f-psy)" },
   { emoji: icon('stick'), name:"KHL", sub:"Official site", url:"https://en.khl.ru", color:"var(--ink)" },
@@ -1247,22 +1273,27 @@ const SPORTS_LEAGUES = [
     ],
   },
 ];
-// ---- Live league tables & Arsenal fixtures (football-data.org, free tier) ----
-// Free tier covers: Premier League, La Liga, Bundesliga, Serie A, Ligue 1. Uzbekistan Super
-// League, UAE Pro League and KHL aren't on the free tier and stay manually maintained above.
+// ---- Live league tables, fixtures, results & Arsenal fixtures (football-data.org, free tier) ----
+// Free tier covers: Premier League, La Liga, Bundesliga, Serie A, Ligue 1, Champions League.
+// Uzbekistan Super League, UAE Pro League and KHL aren't on the free tier and stay manually
+// maintained above — there's no free data source for those.
 // Refreshes at most once per "day", where the day rolls over at 04:00 Tashkent time (when most
 // games from the previous evening will have finished) — not on every page load, to stay well
 // inside the free tier's 10-requests/minute limit shared across all site visitors.
 const FOOTBALL_DATA_API_KEY = "d528304b9e9948aa91dbe180beb5bdda";
-const FOOTBALL_COMPETITION_MAP = {
-  "English Premier League": "PL",
-  "Spanish La Liga": "PD",
-  "German Bundesliga": "BL1",
-  "Italian Serie A": "SA",
-  "French Ligue 1": "FL1",
+// Meta for the dedicated per-league detail pages (Table + Fixtures + Results). Includes
+// Champions League, which doesn't have a slot in the combined League Tables page (SPORTS_LEAGUES)
+// since it isn't a domestic league with a fixed team list — it's shown only on its own page.
+const LEAGUE_DETAIL_META = {
+  PL: { name: "English Premier League", flag: flagIcon('england') },
+  PD: { name: "Spanish La Liga", flag: flagIcon('spain') },
+  BL1: { name: "German Bundesliga", flag: flagIcon('germany') },
+  SA: { name: "Italian Serie A", flag: flagIcon('italy') },
+  FL1: { name: "French Ligue 1", flag: flagIcon('france') },
+  CL: { name: "UEFA Champions League", flag: icon('ball') },
 };
 const ARSENAL_TEAM_ID = 57;
-const SPORTS_CACHE_KEY = "sportsLiveCache_v1";
+const SPORTS_CACHE_KEY = "sportsLiveCache_v2";
 
 function tashkentEffectiveDay(){
   const parts = new Intl.DateTimeFormat('en-CA', {
@@ -1279,6 +1310,25 @@ function utcToTashkentISOString(utcDateStr){
   const pad = n => String(n).padStart(2,'0');
   return `${t.getUTCFullYear()}-${pad(t.getUTCMonth()+1)}-${pad(t.getUTCDate())}T${pad(t.getUTCHours())}:${pad(t.getUTCMinutes())}:${pad(t.getUTCSeconds())}+05:00`;
 }
+// Formats a Tashkent-offset ISO string ("...+05:00") for display, parsing the string components
+// directly rather than Date getters — those would show the VIEWER's own device timezone instead.
+function formatTashkentDate(isoStr){
+  const m = isoStr.match(/^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2})/);
+  if(!m) return isoStr;
+  const year = +m[1], month = +m[2], day = +m[3], hour = m[4], minute = m[5];
+  const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  return `${day} ${months[month-1]}, ${hour}:${minute}`;
+}
+function matchToRow(m){
+  return {
+    home: (m.homeTeam && (m.homeTeam.shortName || m.homeTeam.name)) || '?',
+    away: (m.awayTeam && (m.awayTeam.shortName || m.awayTeam.name)) || '?',
+    homeScore: m.score && m.score.fullTime ? m.score.fullTime.home : null,
+    awayScore: m.score && m.score.fullTime ? m.score.fullTime.away : null,
+    start: utcToTashkentISOString(m.utcDate),
+    finished: m.status === 'FINISHED',
+  };
+}
 
 let sportsDataLoadPromise = null;
 async function loadLiveSportsData(){
@@ -1291,8 +1341,8 @@ async function loadLiveSportsData(){
       try{ cache = JSON.parse(localStorage.getItem(SPORTS_CACHE_KEY)); }catch(e){}
 
       if(!cache || cache.day !== today){
-        const fresh = { day: today, leagues: {}, arsenalFixture: null };
-        for(const [leagueName, code] of Object.entries(FOOTBALL_COMPETITION_MAP)){
+        const fresh = { day: today, leagues: {}, matches: {}, arsenalFixture: null };
+        for(const code of Object.keys(LEAGUE_DETAIL_META)){
           try{
             const res = await fetch(`https://api.football-data.org/v4/competitions/${code}/standings`, {
               headers: { 'X-Auth-Token': FOOTBALL_DATA_API_KEY }
@@ -1301,13 +1351,29 @@ async function loadLiveSportsData(){
             const data = await res.json();
             const totalTable = (data.standings || []).find(s => s.type === 'TOTAL');
             if(totalTable && totalTable.table && totalTable.table.length && totalTable.table.some(row => row.playedGames > 0)){
-              fresh.leagues[leagueName] = totalTable.table.map(row => ({
+              fresh.leagues[code] = totalTable.table.map(row => ({
                 name: row.team.shortName || row.team.name,
                 pld: row.playedGames, w: row.won, d: row.draw, l: row.lost,
                 gf: row.goalsFor, ga: row.goalsAgainst, pts: row.points,
               }));
             }
-          }catch(e){ /* this league's data stays as-is (static placeholder or older cache) */ }
+          }catch(e){ /* this league's table stays as-is (static placeholder or older cache) */ }
+
+          try{
+            const res = await fetch(`https://api.football-data.org/v4/competitions/${code}/matches`, {
+              headers: { 'X-Auth-Token': FOOTBALL_DATA_API_KEY }
+            });
+            if(!res.ok) throw new Error('bad response '+res.status);
+            const data = await res.json();
+            const all = data.matches || [];
+            const fixtures = all.filter(m => m.status === 'SCHEDULED' || m.status === 'TIMED')
+              .sort((a,b) => new Date(a.utcDate) - new Date(b.utcDate))
+              .slice(0, 15).map(matchToRow);
+            const results = all.filter(m => m.status === 'FINISHED')
+              .sort((a,b) => new Date(b.utcDate) - new Date(a.utcDate))
+              .slice(0, 15).map(matchToRow);
+            fresh.matches[code] = { fixtures, results };
+          }catch(e){ /* this league's fixtures/results stay as-is */ }
         }
         try{
           const res = await fetch(`https://api.football-data.org/v4/teams/${ARSENAL_TEAM_ID}/matches?status=SCHEDULED&limit=1`, {
@@ -1329,7 +1395,7 @@ async function loadLiveSportsData(){
           }
         }catch(e){ /* Arsenal fixture stays on the static fallback list */ }
 
-        if(Object.keys(fresh.leagues).length > 0 || fresh.arsenalFixture){
+        if(Object.keys(fresh.leagues).length > 0 || Object.keys(fresh.matches).length > 0 || fresh.arsenalFixture){
           cache = fresh;
           try{ localStorage.setItem(SPORTS_CACHE_KEY, JSON.stringify(cache)); }catch(e){}
         }
@@ -1337,7 +1403,8 @@ async function loadLiveSportsData(){
 
       if(cache && cache.leagues){
         SPORTS_LEAGUES.forEach(league => {
-          const liveTeams = cache.leagues[league.name];
+          const entry = Object.entries(LEAGUE_DETAIL_META).find(([code, meta]) => meta.name === league.name);
+          const liveTeams = entry && cache.leagues[entry[0]];
           if(liveTeams && liveTeams.length){
             league.teams = liveTeams;
             league.note = "Live — updates daily at 04:00 Tashkent time";
@@ -1347,6 +1414,7 @@ async function loadLiveSportsData(){
       if(cache && cache.arsenalFixture){
         LIVE_ARSENAL_FIXTURE = cache.arsenalFixture;
       }
+      window._sportsCache = cache;
     })();
   }
   await sportsDataLoadPromise;
@@ -1356,6 +1424,50 @@ async function loadLiveSportsData(){
   if(tablesEl) tablesEl.innerHTML = SPORTS_LEAGUES.map(leagueTableHtml).join('');
   const fixtureEl = document.getElementById('nextFixtureText');
   if(fixtureEl) fixtureEl.innerHTML = arsenalFixtureText();
+  const leagueDetailEl = document.getElementById('leagueDetailContainer');
+  if(leagueDetailEl && leagueDetailEl.dataset.code){
+    leagueDetailEl.innerHTML = leagueDetailBodyHtml(leagueDetailEl.dataset.code);
+  }
+}
+function matchListHtml(rows, showScore){
+  if(!rows || rows.length === 0){
+    return '<div class="empty-card">Nothing here yet — check back once the season\'s under way.</div>';
+  }
+  const items = rows.map(m => `
+    <div class="match-row">
+      <div class="match-teams">${escapeHtml(m.home)}${showScore && m.homeScore !== null ? ` <span class="match-score">${m.homeScore} - ${m.awayScore}</span> ` : ' v '}${escapeHtml(m.away)}</div>
+      <div class="match-date">${formatTashkentDate(m.start)}</div>
+    </div>
+  `).join('');
+  return `<div class="match-list">${items}</div>`;
+}
+function leagueDetailBodyHtml(code){
+  const meta = LEAGUE_DETAIL_META[code];
+  const cache = window._sportsCache;
+  const teams = (cache && cache.leagues && cache.leagues[code]) || [];
+  const matches = (cache && cache.matches && cache.matches[code]) || { fixtures: [], results: [] };
+  return `
+    <div class="match-section-label">Table</div>
+    ${oneTableHtml(teams)}
+    <div class="match-section-label">Fixtures</div>
+    ${matchListHtml(matches.fixtures, false)}
+    <div class="match-section-label">Results</div>
+    ${matchListHtml(matches.results, true)}
+  `;
+}
+function viewLeagueDetail(code){
+  const meta = LEAGUE_DETAIL_META[code];
+  if(!meta){
+    return `<a class="back-link" href="#sports">← Back to Sports</a><section style="padding-top:14px;"><div class="empty-card">Unknown league.</div></section>`;
+  }
+  return `
+    <a class="back-link" href="#sports">← Back to Sports</a>
+    <section style="padding-top:14px;">
+      <div class="league-head"><span class="flag">${meta.flag}</span><h3 style="font-size:20px;">${escapeHtml(meta.name)}</h3></div>
+      <div class="league-note">Live — updates daily at 04:00 Tashkent time</div>
+      <div id="leagueDetailContainer" data-code="${code}">${leagueDetailBodyHtml(code)}</div>
+    </section>
+  `;
 }
 // YouTube videos. videoId is the part after 'v=' or after 'youtu.be/' in the URL. Each video belongs to one faculty.
 const WATCH_VIDEOS = [
@@ -3367,6 +3479,8 @@ function renderRoute(){
     html = viewBirthdaysPage();
   } else if(parts[0] === 'sports' && parts[1] === 'tables'){
     html = viewSports();
+  } else if(parts[0] === 'sports' && parts[1] === 'league' && parts[2]){
+    html = viewLeagueDetail(parts[2]);
   } else if(parts[0] === 'sports'){
     html = viewSportsHub();
   } else {
@@ -3381,6 +3495,7 @@ function renderRoute(){
   if(parts[0] === 'search') wireSearch(app);
   if(parts.length === 0){ loadOnThisDay(); loadWeather(); loadLiveSportsData(); wireRandomButton(app); wireRandomVideoButton(app); checkAchievements(); }
   if(parts[0] === 'sports' && parts[1] === 'tables'){ loadLiveSportsData(); }
+  if(parts[0] === 'sports' && parts[1] === 'league' && parts[2]){ loadLiveSportsData(); }
 
   // Swipe between sibling domain pages (item 1)
   if(parts[0] === 'faculty' && parts[1] && parts[1] !== 'all'){
