@@ -2820,9 +2820,10 @@ function viewPlaySingle(videoId){
   const title = v ? v.title : 'Video';
   const channel = v ? v.channel : '';
   const fac = v ? FAC_MAP[v.faculty] : null;
-  const backHref = fac ? `#watch/${fac.key}` : '#watch';
+  const backHref = fac ? `#faculty/${fac.key}` : '#';
+  const backLabel = fac ? `← Back to ${escapeHtml(fac.label)}` : '← Back to Mr Eric\'s Lounge';
   return `
-    <a class="back-link" href="${backHref}">← Back to Watch</a>
+    <a class="back-link" href="${backHref}">${backLabel}</a>
     <section style="padding-top:14px;">
       <div class="watch-card">
         <div class="watch-thumb">
@@ -3342,34 +3343,10 @@ function viewFaculty(key){
   `;
 }
 
-function viewWatchHub(){
-  const tiles = FACULTIES.map(f=>{
-    const count = WATCH_VIDEOS.filter(v=>v.faculty===f.key).length;
-    return `<a class="fac-tile" href="#watch/${f.key}">
-      <span class="name"><span class="fac-icon" style="color:${f.color}">${icon(f.icon)}</span>${f.label}</span>
-      <span class="count">${count} videos</span>
-    </a>`;
-  }).join('');
-
-  return `
-    <a class="back-link" href="#">← Back to Mr Eric's Lounge</a>
-    <section style="padding-top:14px;">
-      <div class="section-head"><span class="emoji">${icon('clapper')}</span><h2>Watch — by Domain</h2></div>
-      <div class="faculties">
-        ${tiles}
-        <a class="fac-tile all" href="#watch/all">
-          <span class="name">All Videos</span>
-          <span class="count">${WATCH_VIDEOS.length} total</span>
-        </a>
-      </div>
-    </section>
-  `;
-}
-
 function viewWatchFaculty(key){
   if(key === 'all'){
     return `
-      <a class="back-link" href="#watch">← Back to Watch</a>
+      <a class="back-link" href="#">← Back to Mr Eric's Lounge</a>
       <section style="padding-top:14px;">
         <div class="section-head"><span class="emoji">${icon('clapper')}</span><h2>All Domains — Full Video Archives</h2></div>
         <div class="watch-grid" id="watchGridTarget">${watchGridHtml(WATCH_VIDEOS, 'all')}</div>
@@ -3378,11 +3355,11 @@ function viewWatchFaculty(key){
   }
   const fac = FAC_MAP[key];
   if(!fac){
-    return `<a class="back-link" href="#watch">← Back to Watch</a><div class="empty-card" style="margin-top:20px;">Unknown domain.</div>`;
+    return `<a class="back-link" href="#">← Back to Mr Eric's Lounge</a><div class="empty-card" style="margin-top:20px;">Unknown domain.</div>`;
   }
   const list = WATCH_VIDEOS.filter(v=>v.faculty===key);
   return `
-    <a class="back-link" href="#watch">← Back to Watch</a>
+    <a class="back-link" href="#faculty/${key}">← Back to ${escapeHtml(fac.label)}</a>
     <section style="padding-top:14px;">
       <div class="section-head"><span class="fac-icon" style="color:${fac.color}">${icon(fac.icon)}</span><h2>${fac.label} — Watch</h2></div>
       <div class="watch-grid" id="watchGridTarget">${watchGridHtml(list, key)}</div>
@@ -3434,7 +3411,7 @@ function wireSwipeNav(container, order, currentKey, hashBuilder){
   }, { passive:true });
 }
 const DOMAIN_SWIPE_ORDER = FACULTIES.map(f => f.key);
-const HUB_SWIPE_ORDER = ['watch', 'photos', 'sports', 'saved', 'superstars', 'birthdays'];
+const HUB_SWIPE_ORDER = ['photos', 'sports', 'saved', 'superstars', 'birthdays'];
 
 /* ---- Router ---- */
 
@@ -3462,8 +3439,6 @@ function renderRoute(){
     html = viewHome();
   } else if(parts[0] === 'faculty' && parts[1]){
     html = viewFaculty(parts[1]);
-  } else if(parts[0] === 'watch' && !parts[1]){
-    html = viewWatchHub();
   } else if(parts[0] === 'watch' && parts[1]){
     html = viewWatchFaculty(parts[1]);
   } else if(parts[0] === 'play' && parts[1]){
