@@ -766,41 +766,31 @@
   /* ---------- Dark mode sunrise/sunset wipe ---------- */
   #daylightWipe{
     position:fixed;
-    inset:0;
+    top:50%;
+    left:50%;
+    width:500vmax;
+    height:500vmax;
+    margin-top:-250vmax;
+    margin-left:-250vmax;
     z-index:99999;
     pointer-events:none;
-    opacity:1;
+    filter:blur(80px);
+    opacity:0;
   }
-  #daylightWipe .wave{
+  #daylightWipe .core{
     position:absolute;
     inset:0;
-    transform:scale(0);
-    will-change:transform;
-  }
-  #daylightWipe .wave-a{
-    transform-origin: top left;
-    background: radial-gradient(circle at top left,
-      #1C1512 0%,
-      #1C1512 54%,
-      #7A2E22 61%,
-      #C6612E 67%,
-      #F2A65A 72%,
-      #FBDCA6 76%,
-      rgba(251,220,166,0) 85%,
-      rgba(251,220,166,0) 100%
-    );
-  }
-  #daylightWipe .wave-b{
-    transform-origin: top right;
-    background: radial-gradient(circle at top right,
-      #1C1512 0%,
-      #1C1512 56%,
-      #7A2E22 63%,
-      #C6612E 69%,
-      #F2A65A 74%,
-      #FBDCA6 78%,
-      rgba(251,220,166,0) 87%,
-      rgba(251,220,166,0) 100%
+    background-repeat:no-repeat;
+    background-image:linear-gradient(to top right,
+      transparent 0%,
+      transparent 8%,
+      rgba(122,46,34,.4) 22%,
+      rgba(198,97,46,.6) 34%,
+      rgba(230,150,90,.5) 44%,
+      rgba(90,45,34,.75) 58%,
+      rgba(40,27,22,.92) 74%,
+      rgba(28,21,18,.97) 90%,
+      rgba(28,21,18,.97) 100%
     );
   }
   @media (prefers-reduced-motion: reduce){
@@ -3916,7 +3906,7 @@ if('serviceWorker' in navigator){
     if(!el){
       el = document.createElement('div');
       el.id = 'daylightWipe';
-      el.innerHTML = '<div class="wave wave-a"></div><div class="wave wave-b"></div>';
+      el.innerHTML = '<div class="core"></div>';
       document.body.appendChild(el);
     }
     return el;
@@ -3927,6 +3917,11 @@ if('serviceWorker' in navigator){
     toggle.innerHTML = goingDark ? SUN_SVG : MOON_SVG;
     try{ localStorage.setItem('darkMode', goingDark ? '1' : '0'); }catch(e){}
   }
+
+  // A true corner-to-corner diagonal on a tall phone is barely tilted from vertical
+  // (~25° on a typical screen) and reads as "mostly vertical" rather than a visible
+  // diagonal flow. Using a square sheet with the "to top right" gradient keyword instead
+  // gives a fixed, clearly-diagonal 45° angle regardless of the device's real aspect ratio.
 
   toggle.addEventListener('click', ()=>{
     if(animating) return;
@@ -3939,58 +3934,52 @@ if('serviceWorker' in navigator){
 
     animating = true;
     const el = ensureWipeEl();
-    const waveA = el.querySelector('.wave-a');
-    const waveB = el.querySelector('.wave-b');
+    const REACH = 165; // vmax
+
+    // The sheet's gradient runs "to top right": transparent near its own bottom-left,
+    // solid dark near its own top-right. Sliding the whole sheet diagonally moves which
+    // part of that gradient sits under the viewport.
+    // goingDark (sunset, bottom-left -> top-right): starts fully transparent, ends fully dark.
+    // !goingDark (sunrise, top-right -> bottom-left): starts fully dark, ends fully transparent.
+    const startX = goingDark ? REACH : -REACH;
+    const startY = goingDark ? -REACH : REACH;
+    const endX = goingDark ? -REACH : REACH;
+    const endY = goingDark ? REACH : -REACH;
+
+    el.style.transition = 'none';
     el.style.opacity = '1';
+    el.style.transform = `translate(${startX}vmax, ${startY}vmax)`;
+    void el.offsetWidth; // force reflow before animating
 
-    // Snap both waves to their starting scale instantly, no transition, before animating.
-    waveA.style.transition = 'none';
-    waveB.style.transition = 'none';
-    const startScale = goingDark ? 0 : 1.08;
-    waveA.style.transform = `scale(${startScale})`;
-    waveB.style.transform = `scale(${startScale})`;
-    void el.offsetWidth; // force reflow
-
-    const endScale = goingDark ? 1.08 : 0;
-    // Two independent, slightly offset timings/easings so the two corners never move
-    // in perfect lockstep — a liquid, uneven convergence rather than a mirrored line.
     requestAnimationFrame(()=>{
-      waveA.style.transition = 'transform 4.8s cubic-bezier(.42,.06,.58,.94)';
-      waveA.style.transform = `scale(${endScale})`;
-      waveB.style.transition = 'transform 5s cubic-bezier(.38,.1,.5,.98) .15s';
-      waveB.style.transform = `scale(${endScale})`;
+      el.style.transition = 'transform 5s cubic-bezier(.42,.08,.4,1)';
+      el.style.transform = `translate(${endX}vmax, ${endY}vmax)`;
     });
 
     if(goingDark){
-      // Sunset: two pools of dusk converge from the top corners toward the bottom,
-      // swallowing the screen. Switch the real theme once fully covered, hidden beneath.
-      setTimeout(()=> applyTheme(true), 4900);
+      // The blend-mode wash is what makes icons visibly darken as it passes over them —
+      // but the real DOM class swap is still an instant, all-at-once event underneath.
+      // It has to fire only once the wash has swept past the ENTIRE screen (not the
+      // midpoint), or areas it hasn't reached yet would pop to their new colors unmasked.
+      setTimeout(()=> applyTheme(true), 4750);
       setTimeout(()=>{
-        // Fade the now-redundant overlay away to reveal the real dark page underneath,
-        // then reset it off-scale and ready for next time. This is the step that was
-        // missing before — without it the overlay just sat there blocking everything.
-        el.style.transition = 'opacity .35s ease';
+        el.style.transition = 'opacity .4s ease';
         el.style.opacity = '0';
-        setTimeout(()=>{
-          waveA.style.transition = 'none';
-          waveB.style.transition = 'none';
-          waveA.style.transform = 'scale(0)';
-          waveB.style.transform = 'scale(0)';
-          el.style.transition = 'none';
-          el.style.opacity = '1';
-          animating = false;
-        }, 380);
-      }, 5250);
-    } else {
-      // Sunrise: screen is already fully covered (dark). Flip the real theme to light
-      // right now, instantly, still hidden under the covering waves — then let the two
-      // pools of dusk drain back into the top corners, revealing daylight as they shrink.
-      applyTheme(false);
+      }, 4900);
       setTimeout(()=>{
-        waveA.style.transition = 'none';
-        waveB.style.transition = 'none';
+        el.style.transition = 'none';
         animating = false;
-      }, 5250);
+      }, 5350);
+    } else {
+      setTimeout(()=> applyTheme(false), 4750);
+      setTimeout(()=>{
+        el.style.transition = 'opacity .4s ease';
+        el.style.opacity = '0';
+      }, 4900);
+      setTimeout(()=>{
+        el.style.transition = 'none';
+        animating = false;
+      }, 5350);
     }
   });
 })();
