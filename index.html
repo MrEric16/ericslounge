@@ -13,6 +13,7 @@
 <meta name="apple-mobile-web-app-title" content="Eric's Lounge">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Nunito:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
   :root{
     --cream:#F3EADD;
@@ -651,6 +652,52 @@
     display:block;
   }
 
+  /* ---------- Photo upload ---------- */
+  .photo-upload-fab{
+    position:fixed;
+    right:18px;
+    bottom:24px;
+    width:56px;
+    height:56px;
+    border-radius:50%;
+    background:var(--coral);
+    color:#fff;
+    border:none;
+    font-size:28px;
+    font-weight:700;
+    line-height:1;
+    box-shadow:0 4px 14px rgba(0,0,0,.28);
+    z-index:500;
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+  .photo-upload-fab:active{ transform:scale(0.94); }
+  .photo-upload-fab.uploading{ opacity:.6; pointer-events:none; }
+  .upload-toast{
+    position:fixed;
+    left:50%;
+    bottom:92px;
+    transform:translateX(-50%) translateY(20px);
+    background:var(--ink);
+    color:var(--cream);
+    padding:10px 16px;
+    border-radius:999px;
+    font-size:13px;
+    font-family:'Space Mono', monospace;
+    opacity:0;
+    pointer-events:none;
+    transition:opacity .25s, transform .25s;
+    z-index:600;
+    max-width:80vw;
+    text-align:center;
+  }
+  .upload-toast.active{
+    opacity:1;
+    transform:translateX(-50%) translateY(0);
+  }
+
   /* ---------- Photo lightbox ---------- */
   .lightbox{
     display:none;
@@ -1249,6 +1296,18 @@ const STUDENTS_OF_WEEK = [
 const RECOMMENDATIONS = [
   // { title:"Example title", url:"https://...", note:"Why it's worth a look" },
 ];
+
+// Student photo uploads — direct-to-Supabase, no proxy through Claude/Eric's repo.
+// Students hit the "+" button on the Photos page; files land in the private "pending/"
+// folder. Only Eric (via review.html) can see pending uploads or move them to "approved/".
+// Once approved, they show up here automatically via loadSubmittedPhotos().
+const SUPABASE_URL = "https://uugjyucgeyopyvmhckdg.supabase.co";
+const SUPABASE_ANON_KEY = "sb_publishable_F-idKUOOIWIpm7sMRtR-mA_m5Zir3Na";
+const SUPABASE_BUCKET = "Photos";
+const supabaseClient = (window.supabase && window.supabase.createClient)
+  ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
+  : null;
+let SUBMITTED_PHOTOS = [];
 
 // Photo Library — selfies, memes, class photos. Only added when Eric sends them; each image is
 // uploaded to the repo (in a /photos folder) and referenced here by its relative path.
@@ -3024,7 +3083,12 @@ function viewSaved(){
 }
 
 function viewPhotos(){
-  const sorted = [...PHOTOS].sort((a,b)=> b.date.localeCompare(a.date));
+  const sorted = [...PHOTOS, ...SUBMITTED_PHOTOS].sort((a,b)=> b.date.localeCompare(a.date));
+  const uploadWidget = `
+    <input type="file" accept="image/*" capture="environment" id="photoUploadInput" style="display:none;">
+    <button class="photo-upload-fab" id="photoUploadFab" aria-label="Add a photo" title="Add a photo">+</button>
+    <div class="upload-toast" id="uploadToast"></div>
+  `;
   if(sorted.length === 0){
     return `
       <a class="back-link" href="#">← Back to Mr Eric's Lounge</a>
@@ -3032,6 +3096,7 @@ function viewPhotos(){
         <div class="section-head"><span class="emoji">${icon('camera')}</span><h2>Photo Library</h2></div>
         <div class="empty-card">No photos yet. Give it time.</div>
       </section>
+      ${uploadWidget}
     `;
   }
   const grid = `<div class="photo-grid">${sorted.map((p,i) => `
@@ -3052,7 +3117,82 @@ function viewPhotos(){
       <button class="lightbox-close" id="lightboxClose">✕</button>
       <div class="lightbox-track" id="lightboxTrack">${slides}</div>
     </div>
+    ${uploadWidget}
   `;
+}
+function showUploadToast(toastEl, message){
+  if(!toastEl) return;
+  toastEl.textContent = message;
+  toastEl.classList.add('active');
+  clearTimeout(toastEl._hideTimer);
+  toastEl._hideTimer = setTimeout(()=> toastEl.classList.remove('active'), 3200);
+}
+function wirePhotoUpload(container){
+  const fab = container.querySelector('#photoUploadFab');
+  const input = container.querySelector('#photoUploadInput');
+  const toast = container.querySelector('#uploadToast');
+  if(!fab || !input) return;
+  fab.addEventListener('click', ()=> input.click());
+  input.addEventListener('change', async ()=>{
+    const file = input.files && input.files[0];
+    input.value = '';
+    if(!file) return;
+    if(!supabaseClient){
+      showUploadToast(toast, "Upload isn't available right now.");
+      return;
+    }
+    if(!file.type || !file.type.startsWith('image/')){
+      showUploadToast(toast, "Please choose an image file.");
+      return;
+    }
+    if(file.size > 10 * 1024 * 1024){
+      showUploadToast(toast, "That photo's a bit large — try one under 10MB.");
+      return;
+    }
+    fab.disabled = true;
+    fab.classList.add('uploading');
+    try{
+      const rawExt = (file.name.split('.').pop() || 'jpg').toLowerCase();
+      const ext = /^[a-z0-9]{1,5}$/.test(rawExt) ? rawExt : 'jpg';
+      const path = `pending/${Date.now()}-${Math.random().toString(36).slice(2,8)}.${ext}`;
+      const { error } = await supabaseClient.storage.from(SUPABASE_BUCKET).upload(path, file, { contentType: file.type });
+      if(error) throw error;
+      showUploadToast(toast, "Sent for review — thanks! 📸");
+    }catch(e){
+      showUploadToast(toast, "Upload failed — check your connection and try again.");
+    }finally{
+      fab.disabled = false;
+      fab.classList.remove('uploading');
+    }
+  });
+}
+async function loadSubmittedPhotos(){
+  if(!supabaseClient) return;
+  try{
+    const { data: files, error } = await supabaseClient.storage.from(SUPABASE_BUCKET).list('approved', {
+      limit: 200,
+      sortBy: { column: 'created_at', order: 'desc' }
+    });
+    if(error || !files) return;
+    const realFiles = files.filter(f => f.name && !f.name.startsWith('.'));
+    const withUrls = await Promise.all(realFiles.map(async f=>{
+      const { data: signed } = await supabaseClient.storage.from(SUPABASE_BUCKET).createSignedUrl('approved/' + f.name, 60 * 60 * 24 * 7);
+      if(!signed) return null;
+      return {
+        url: signed.signedUrl,
+        caption: "Shared by a student",
+        date: (f.created_at || '').slice(0,10) || new Date().toISOString().slice(0,10)
+      };
+    }));
+    SUBMITTED_PHOTOS = withUrls.filter(Boolean);
+    const hash = location.hash.replace(/^#/, '');
+    if(hash.split('/')[0] === 'photos' && SUBMITTED_PHOTOS.length > 0){
+      const app = document.getElementById('app');
+      app.innerHTML = viewPhotos();
+      wirePhotoLightbox(app);
+      wirePhotoUpload(app);
+    }
+  }catch(e){ /* fail quietly — static photos still show */ }
 }
 function wirePhotoLightbox(container){
   const lightbox = container.querySelector('#photoLightbox');
@@ -3590,7 +3730,7 @@ function renderRoute(){
   document.body.classList.toggle('theme-watch', parts[0] === 'watch' || parts[0] === 'play');
   wireWatchButtons(app);
   wireEntryActions(app);
-  if(parts[0] === 'photos') wirePhotoLightbox(app);
+  if(parts[0] === 'photos'){ wirePhotoLightbox(app); wirePhotoUpload(app); loadSubmittedPhotos(); }
   if(parts[0] === 'search') wireSearch(app);
   if(parts.length === 0){ loadOnThisDay(); loadWeather(); loadLiveSportsData(); wireRandomButton(app); wireRandomVideoButton(app); checkAchievements(); }
   if(parts[0] === 'sports' && parts[1] === 'tables'){ loadLiveSportsData(); }
