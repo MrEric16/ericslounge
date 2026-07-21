@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Photo Review — Mr Eric's Lounge</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Nunito:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+  :root{
+    --cream:#F3EADD;
+    --card:#FBF5EA;
+    --ink:#3D2A22;
+    --ink-soft:#856F5C;
+    --coral:#7A2E35;
+    --coral-dark:#5C2530;
+    --teal:#6B7A3D;
+    --line:#E0CBA4;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--cream);
+    color:var(--ink);
+    font-family:'Nunito', sans-serif;
+    min-height:100vh;
+    padding:20px 16px 60px;
+  }
+  h1{
+    font-family:'Baloo 2', sans-serif;
+    font-weight:800;
+    font-size:22px;
+    margin:0 0 4px 0;
+  }
+  .sub{
+    font-family:'Space Mono', monospace;
+    font-size:12px;
+    color:var(--ink-soft);
+    margin-bottom:20px;
+  }
+  .login-box{
+    max-width:340px;
+    margin:60px auto 0;
+    background:var(--card);
+    border-radius:16px;
+    padding:24px;
+    box-shadow:0 2px 0 rgba(58,42,30,.08);
+  }
+  .login-box h1{ text-align:center; margin-bottom:18px; }
+  input{
+    width:100%;
+    font-family:'Nunito', sans-serif;
+    font-size:15px;
+    padding:12px 14px;
+    border-radius:10px;
+    border:1px solid var(--line);
+    background:#fff;
+    color:var(--ink);
+    margin-bottom:10px;
+  }
+  button{
+    font-family:'Baloo 2', sans-serif;
+    font-weight:700;
+    font-size:15px;
+    border:none;
+    border-radius:10px;
+    padding:12px 16px;
+    cursor:pointer;
+  }
+  .btn-primary{
+    width:100%;
+    background:var(--coral);
+    color:#fff;
+  }
+  .btn-primary:disabled{ opacity:.6; }
+  .error-msg{
+    color:var(--coral);
+    font-size:13px;
+    margin:-4px 0 10px;
+    min-height:16px;
+  }
+  .topbar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:18px;
+  }
+  .signout{
+    font-family:'Space Mono', monospace;
+    font-size:12px;
+    color:var(--ink-soft);
+    background:none;
+    border:none;
+    text-decoration:underline;
+    padding:4px;
+    cursor:pointer;
+  }
+  .empty-card{
+    background:var(--card);
+    border-radius:14px;
+    padding:24px;
+    text-align:center;
+    color:var(--ink-soft);
+    font-size:14px;
+  }
+  .pending-grid{
+    display:grid;
+    grid-template-columns:1fr;
+    gap:16px;
+  }
+  .pending-item{
+    background:var(--card);
+    border-radius:14px;
+    overflow:hidden;
+    box-shadow:0 2px 0 rgba(58,42,30,.08);
+  }
+  .pending-item img{
+    width:100%;
+    display:block;
+    max-height:420px;
+    object-fit:contain;
+    background:#000;
+  }
+  .pending-meta{
+    padding:8px 12px 0;
+    font-family:'Space Mono', monospace;
+    font-size:11px;
+    color:var(--ink-soft);
+  }
+  .pending-actions{
+    display:flex;
+    gap:8px;
+    padding:12px;
+  }
+  .pending-actions button{ flex:1; }
+  .btn-approve{ background:var(--teal); color:#fff; }
+  .btn-reject{ background:var(--coral-dark); color:#fff; }
+  .pending-actions button:disabled{ opacity:.5; }
+  .hidden{ display:none !important; }
+  .loading-text{
+    font-family:'Space Mono', monospace;
+    font-size:13px;
+    color:var(--ink-soft);
+    text-align:center;
+    padding:40px 0;
+  }
+</style>
+</head>
+<body>
+
+<div id="loginScreen" class="login-box">
+  <h1>Photo Review</h1>
+  <input type="email" id="loginEmail" placeholder="Email" autocomplete="username">
+  <input type="password" id="loginPassword" placeholder="Password" autocomplete="current-password">
+  <div class="error-msg" id="loginError"></div>
+  <button class="btn-primary" id="loginBtn">Sign in</button>
+</div>
+
+<div id="reviewScreen" class="hidden">
+  <div class="topbar">
+    <div>
+      <h1>Photo Review</h1>
+      <div class="sub" id="pendingCount">Loading…</div>
+    </div>
+    <button class="signout" id="signOutBtn">Sign out</button>
+  </div>
+  <div id="pendingContainer"><div class="loading-text">Loading pending photos…</div></div>
+</div>
+
+<script>
+const SUPABASE_URL = "https://uugjyucgeyopyvmhckdg.supabase.co";
+const SUPABASE_ANON_KEY = "sb_publishable_F-idKUOOIWIpm7sMRtR-mA_m5Zir3Na";
+const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+const BUCKET = "Photos";
+
+const loginScreen = document.getElementById('loginScreen');
+const reviewScreen = document.getElementById('reviewScreen');
+const loginBtn = document.getElementById('loginBtn');
+const loginError = document.getElementById('loginError');
+const pendingContainer = document.getElementById('pendingContainer');
+const pendingCount = document.getElementById('pendingCount');
+
+function escapeHtml(s){
+  const d = document.createElement('div');
+  d.textContent = s == null ? '' : String(s);
+  return d.innerHTML;
+}
+
+async function checkSession(){
+  const { data } = await sb.auth.getSession();
+  if(data.session){
+    showReview();
+  } else {
+    showLogin();
+  }
+}
+
+function showLogin(){
+  loginScreen.classList.remove('hidden');
+  reviewScreen.classList.add('hidden');
+}
+function showReview(){
+  loginScreen.classList.add('hidden');
+  reviewScreen.classList.remove('hidden');
+  loadPending();
+}
+
+loginBtn.addEventListener('click', async ()=>{
+  const email = document.getElementById('loginEmail').value.trim();
+  const password = document.getElementById('loginPassword').value;
+  loginError.textContent = '';
+  loginBtn.disabled = true;
+  loginBtn.textContent = 'Signing in…';
+  const { error } = await sb.auth.signInWithPassword({ email, password });
+  loginBtn.disabled = false;
+  loginBtn.textContent = 'Sign in';
+  if(error){
+    loginError.textContent = 'Wrong email or password.';
+    return;
+  }
+  showReview();
+});
+
+document.getElementById('signOutBtn').addEventListener('click', async ()=>{
+  await sb.auth.signOut();
+  showLogin();
+});
+
+async function loadPending(){
+  pendingContainer.innerHTML = '<div class="loading-text">Loading pending photos…</div>';
+  const { data: files, error } = await sb.storage.from(BUCKET).list('pending', {
+    limit: 200,
+    sortBy: { column: 'created_at', order: 'desc' }
+  });
+  if(error){
+    pendingContainer.innerHTML = '<div class="empty-card">Couldn\'t load photos — check your connection and reload.</div>';
+    pendingCount.textContent = 'Error';
+    return;
+  }
+  const realFiles = (files || []).filter(f => f.name && !f.name.startsWith('.'));
+  pendingCount.textContent = realFiles.length === 0
+    ? 'Nothing waiting'
+    : `${realFiles.length} waiting for review`;
+  if(realFiles.length === 0){
+    pendingContainer.innerHTML = '<div class="empty-card">No pending photos right now.</div>';
+    return;
+  }
+  const items = await Promise.all(realFiles.map(async f=>{
+    const path = 'pending/' + f.name;
+    const { data: signed } = await sb.storage.from(BUCKET).createSignedUrl(path, 3600);
+    const when = f.created_at ? new Date(f.created_at).toLocaleString() : '';
+    return `
+      <div class="pending-item" data-name="${escapeHtml(f.name)}">
+        <img src="${signed ? signed.signedUrl : ''}" alt="Pending photo" loading="lazy">
+        <div class="pending-meta">${escapeHtml(when)}</div>
+        <div class="pending-actions">
+          <button class="btn-approve" data-action="approve">Approve</button>
+          <button class="btn-reject" data-action="reject">Reject</button>
+        </div>
+      </div>
+    `;
+  }));
+  pendingContainer.innerHTML = `<div class="pending-grid">${items.join('')}</div>`;
+  pendingContainer.querySelectorAll('.pending-item').forEach(el=>{
+    const name = el.dataset.name;
+    el.querySelectorAll('button').forEach(btn=>{
+      btn.addEventListener('click', ()=> handleAction(name, btn.dataset.action, el));
+    });
+  });
+}
+
+async function handleAction(name, action, el){
+  el.querySelectorAll('button').forEach(b=> b.disabled = true);
+  const fromPath = 'pending/' + name;
+  try{
+    if(action === 'approve'){
+      const toPath = 'approved/' + name;
+      const { error } = await sb.storage.from(BUCKET).move(fromPath, toPath);
+      if(error) throw error;
+    } else {
+      const { error } = await sb.storage.from(BUCKET).remove([fromPath]);
+      if(error) throw error;
+    }
+    el.remove();
+    const remaining = pendingContainer.querySelectorAll('.pending-item').length;
+    pendingCount.textContent = remaining === 0 ? 'Nothing waiting' : `${remaining} waiting for review`;
+    if(remaining === 0){
+      pendingContainer.innerHTML = '<div class="empty-card">No pending photos right now.</div>';
+    }
+  }catch(e){
+    el.querySelectorAll('button').forEach(b=> b.disabled = false);
+    alert('Something went wrong — try again.');
+  }
+}
+
+checkSession();
+</script>
+</body>
+</html>
