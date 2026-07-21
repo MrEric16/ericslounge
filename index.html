@@ -65,7 +65,8 @@
     box-shadow:0 3px 0 rgba(0,0,0,.3);
   }
 
-  *{box-sizing:border-box;}
+  *{box-sizing:border-box; -webkit-tap-highlight-color:transparent;}
+  html{scroll-behavior:smooth;}
   html,body{margin:0;padding:0;}
   body{
     background:var(--cream);
@@ -711,6 +712,55 @@
   .upload-toast.active{
     opacity:1;
     transform:translateX(-50%) translateY(0);
+  }
+
+  /* ---------- Site-wide interactivity: hover, tap, and smooth transitions ---------- */
+  body, header, .fac-tile, .stat-pill, .sport-hub-tile, .goodnews-tile, .books-tile,
+  .photo-item, .photo-tile, .watch-tile, .watch-card, .sports-tile, .sports-card,
+  .otd-card, .sotw-card, .bday-tile-card, .bday-item, .random-tile, .rec-item,
+  .empty-card, .lightbox, .photo-upload-fab{
+    transition: background-color .25s ease, color .2s ease, border-color .25s ease,
+                box-shadow .18s ease, transform .15s ease, opacity .2s ease;
+  }
+  .back-link, .section-link, .bookmark-btn, .react-btn, .share-btn, .search-icon-btn{
+    transition: opacity .15s ease, color .15s ease, transform .15s ease;
+  }
+
+  /* Hover lift — only on devices with a real pointer, so touch taps never get stuck mid-hover */
+  @media (hover:hover){
+    .fac-tile:hover, .sport-hub-tile:hover, .goodnews-tile:hover, .books-tile:hover,
+    .photo-item:hover, .photo-tile:hover, .watch-tile:hover, .watch-card:hover,
+    .sports-tile:hover, .sports-card:hover, .otd-card:hover, .sotw-card:hover,
+    .bday-tile-card:hover, .random-tile:hover, .rec-item:hover{
+      transform: translateY(-3px);
+      box-shadow: 0 6px 14px rgba(58,42,30,.14);
+    }
+    .back-link:hover, .section-link:hover{ opacity:.65; }
+    .bookmark-btn:hover, .react-btn:hover, .share-btn:hover, .search-icon-btn:hover{
+      transform: translateY(-1px);
+      opacity:.85;
+    }
+    .photo-upload-fab:hover{ transform: scale(1.06); }
+  }
+
+  /* Tap feedback — works on touch AND desktop click alike */
+  .fac-tile:active, .sport-hub-tile:active, .goodnews-tile:active, .books-tile:active,
+  .photo-item:active, .photo-tile:active, .watch-tile:active, .watch-card:active,
+  .sports-tile:active, .sports-card:active, .otd-card:active, .sotw-card:active,
+  .bday-tile-card:active, .random-tile:active, .rec-item:active,
+  .bookmark-btn:active, .react-btn:active, .share-btn:active, .search-icon-btn:active{
+    transform: scale(0.97);
+  }
+
+  /* Page-content fade-in on every route change */
+  @keyframes routeFadeIn{
+    from{ opacity:0; transform:translateY(6px); }
+    to{ opacity:1; transform:translateY(0); }
+  }
+  #app.route-fade{ animation: routeFadeIn .3s ease; }
+  @media (prefers-reduced-motion: reduce){
+    #app.route-fade{ animation:none; }
+    html{ scroll-behavior:auto; }
   }
 
   /* ---------- Photo lightbox ---------- */
@@ -3752,6 +3802,9 @@ function renderRoute(){
   }
 
   app.innerHTML = html;
+  app.classList.remove('route-fade');
+  void app.offsetWidth; // force reflow so the animation replays every time, not just once
+  app.classList.add('route-fade');
   document.body.classList.toggle('theme-watch', parts[0] === 'watch' || parts[0] === 'play');
   wireWatchButtons(app);
   wireEntryActions(app);
