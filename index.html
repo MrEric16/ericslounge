@@ -3085,7 +3085,7 @@ function viewSaved(){
 function viewPhotos(){
   const sorted = [...PHOTOS, ...SUBMITTED_PHOTOS].sort((a,b)=> b.date.localeCompare(a.date));
   const uploadWidget = `
-    <input type="file" accept="image/*" capture="environment" id="photoUploadInput" style="display:none;">
+    <input type="file" accept="image/*" id="photoUploadInput" style="display:none;">
     <button class="photo-upload-fab" id="photoUploadFab" aria-label="Add a photo" title="Add a photo">+</button>
     <div class="upload-toast" id="uploadToast"></div>
   `;
