@@ -763,6 +763,35 @@
     html{ scroll-behavior:auto; }
   }
 
+  /* ---------- Dark mode sunrise/sunset wipe ---------- */
+  #daylightWipe{
+    position:fixed;
+    top:0;
+    left:0;
+    width:300vw;
+    height:100vh;
+    height:100dvh;
+    z-index:99999;
+    pointer-events:none;
+    transform:translateX(-200vw);
+    background:linear-gradient(to right,
+      #1C1512 0%,
+      #1C1512 33.33%,
+      #7A2E22 38%,
+      #C6612E 43%,
+      #F2A65A 47%,
+      #FBDCA6 50%,
+      rgba(251,220,166,0) 58.33%,
+      rgba(251,220,166,0) 100%
+    );
+  }
+  #daylightWipe.sweeping{
+    transition: transform 5s cubic-bezier(.45,.05,.55,.95);
+  }
+  @media (prefers-reduced-motion: reduce){
+    #daylightWipe{ display:none; }
+  }
+
   /* ---------- Photo lightbox ---------- */
   .lightbox{
     display:none;
@@ -3863,10 +3892,59 @@ if('serviceWorker' in navigator){
     document.body.classList.add('dark-mode');
     toggle.innerHTML = SUN_SVG;
   }
+
+  const prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function ensureWipeEl(){
+    let el = document.getElementById('daylightWipe');
+    if(!el){
+      el = document.createElement('div');
+      el.id = 'daylightWipe';
+      document.body.appendChild(el);
+    }
+    return el;
+  }
+
+  function applyTheme(goingDark){
+    document.body.classList.toggle('dark-mode', goingDark);
+    toggle.innerHTML = goingDark ? SUN_SVG : MOON_SVG;
+    try{ localStorage.setItem('darkMode', goingDark ? '1' : '0'); }catch(e){}
+  }
+
   toggle.addEventListener('click', ()=>{
-    const isDark = document.body.classList.toggle('dark-mode');
-    toggle.innerHTML = isDark ? SUN_SVG : MOON_SVG;
-    try{ localStorage.setItem('darkMode', isDark ? '1' : '0'); }catch(e){}
+    const goingDark = !document.body.classList.contains('dark-mode');
+
+    if(prefersReducedMotion){
+      applyTheme(goingDark);
+      return;
+    }
+
+    const el = ensureWipeEl();
+    // Snap to the correct starting edge with no transition, then kick off the 5s sweep.
+    el.style.transition = 'none';
+    el.style.transform = goingDark ? 'translateX(-200vw)' : 'translateX(0)';
+    void el.offsetWidth; // force reflow so the browser registers the snap before animating
+
+    if(goingDark){
+      // Sunset: darkness sweeps in west→east. Switch the real theme just before full
+      // coverage, hidden beneath the overlay, so the swap itself is invisible.
+      requestAnimationFrame(()=>{
+        el.style.transition = 'transform 5s cubic-bezier(.45,.05,.55,.95)';
+        el.style.transform = 'translateX(0)';
+      });
+      setTimeout(()=> applyTheme(true), 4600);
+    } else {
+      // Sunrise: screen is already fully dark-covered, so flip the real theme to light
+      // instantly right now (invisible, still hidden under the overlay), then let the
+      // sun sweep in from the east and reveal it as darkness retreats west.
+      applyTheme(false);
+      requestAnimationFrame(()=>{
+        el.style.transition = 'transform 5s cubic-bezier(.45,.05,.55,.95)';
+        el.style.transform = 'translateX(-200vw)';
+      });
+    }
+
+    setTimeout(()=>{ el.style.transition = 'none'; }, 5150);
   });
 })();
 
