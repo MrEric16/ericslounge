@@ -436,7 +436,7 @@
   .search-input:focus{outline:2px solid var(--coral);}
   #backToTopBtn{
     position:fixed;
-    bottom:22px;
+    bottom:var(--tabbar-h, 62px);
     right:18px;
     width:46px;
     height:46px;
@@ -4036,36 +4036,6 @@ function viewHome(){
     </section>
 
     <section>
-      <a class="photo-tile" href="#photos">
-        <span class="icon">${icon('camera')}</span>
-        <div>
-          <div class="title">Photo Library</div>
-          <div class="sub">Selfies, memes, class moments</div>
-        </div>
-      </a>
-    </section>
-
-    <section>
-      <a class="sports-tile" href="#sports">
-        <span class="icon">${icon('ball')}</span>
-        <div>
-          <div class="title">Sports</div>
-          <div class="sub">League tables — EPL, Serie A, La Liga, Ligue 1, Bundesliga, Uzbek League, KHL</div>
-        </div>
-      </a>
-    </section>
-
-    <section>
-      <a class="photo-tile" href="#saved">
-        <span class="icon">${icon('bookmark')}</span>
-        <div>
-          <div class="title">Saved</div>
-          <div class="sub">Everything you've bookmarked — articles and videos</div>
-        </div>
-      </a>
-    </section>
-
-    <section>
       <div class="section-head"><span class="emoji">${icon('cake')}</span><h2>Birthdays</h2><a class="section-link" href="#birthdays">See more →</a></div>
       ${upcomingBirthdayTileHtml()}
     </section>
@@ -4291,6 +4261,17 @@ if('serviceWorker' in navigator){
   }, { passive:true });
   btn.addEventListener('click', ()=> window.scrollTo({ top:0, behavior:'smooth' }));
 })();
+
+/* Keep the back-to-top button's bottom edge flush with the tab bar's top edge —
+   measured live so it stays correct across devices (safe-area varies by phone).
+   Actual first call happens further down, after the tab bar is populated and shown. */
+function syncTabBarHeight(){
+  const bar = document.getElementById('bottomTabs');
+  if(bar) document.documentElement.style.setProperty('--tabbar-h', bar.offsetHeight + 'px');
+}
+window.addEventListener('load', syncTabBarHeight);
+window.addEventListener('resize', syncTabBarHeight);
+window.addEventListener('orientationchange', syncTabBarHeight);
 
 
 /* ---- Dark mode ---- */
@@ -4521,6 +4502,10 @@ document.getElementById('bottomTabs').addEventListener('click', (e)=>{
 
 renderRoute();
 setTimeout(checkTodaysBirthdays, 700);
+// Tab bar is now populated and visible (show-bottom-tabs added during renderRoute) —
+// safe to measure its real height now.
+syncTabBarHeight();
+requestAnimationFrame(syncTabBarHeight); // catch any late font-load reflow
 
 /* ---- Pull to refresh (Instagram/Twitter style) ---- */
 (function(){
