@@ -1108,6 +1108,37 @@
   .match-row .match-teams{font-weight:700; color:var(--ink);}
   .match-row .match-score{font-family:'Space Mono', monospace; font-weight:700; color:var(--teal); margin:0 6px;}
   .match-row .match-date{font-family:'Space Mono', monospace; font-size:11px; color:var(--ink-soft); white-space:nowrap;}
+  /* ---------- Bottom tab bar (home page only) ---------- */
+  .bottom-tabs{
+    display:none;
+    position:fixed;
+    left:0; right:0; bottom:0;
+    z-index:500;
+    background:var(--card);
+    border-top:1px solid var(--line);
+    padding:8px 0 calc(8px + env(safe-area-inset-bottom));
+    box-shadow:0 -2px 10px rgba(0,0,0,.08);
+  }
+  body.show-bottom-tabs .bottom-tabs{ display:flex; }
+  body.show-bottom-tabs{ padding-bottom:70px; }
+  .bottom-tabs a{
+    flex:1;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:3px;
+    text-decoration:none;
+    color:var(--ink-soft);
+    font-family:'Nunito', sans-serif;
+    font-size:11px;
+    font-weight:700;
+    padding:4px 0;
+  }
+  .bottom-tabs a svg{ width:22px; height:22px; }
+  .bottom-tabs a:active{ opacity:.6; }
+  @media (hover:hover){
+    .bottom-tabs a:hover{ color:var(--coral); }
+  }
 </style>
 </head>
 <body>
@@ -1135,6 +1166,8 @@
 </header>
 
 <div class="wrap" id="app"></div>
+
+<nav class="bottom-tabs" id="bottomTabs"></nav>
 <button id="backToTopBtn" title="Back to top"><svg width="20" height="20" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button>
 
 <footer></footer>
@@ -3983,6 +4016,7 @@ function renderRoute(){
   void app.offsetWidth; // force reflow so the animation replays every time, not just once
   app.classList.add('route-fade');
   document.body.classList.toggle('theme-watch', parts[0] === 'watch' || parts[0] === 'play');
+  document.body.classList.toggle('show-bottom-tabs', parts.length === 0);
   wireWatchButtons(app);
   wireEntryActions(app);
   if(parts[0] === 'photos'){ wirePhotoLightbox(app); wirePhotoUpload(app); loadSubmittedPhotos(); }
@@ -4236,6 +4270,14 @@ document.getElementById('titleLink').addEventListener('click', ()=>{
   location.hash = '';
 });
 window.addEventListener('hashchange', renderRoute);
+
+// Bottom tab bar — home page only, built once from the existing icon set.
+document.getElementById('bottomTabs').innerHTML = `
+  <a href="#sports">${icon('ball')}<span>Sports</span></a>
+  <a href="#photos">${icon('camera')}<span>Photos</span></a>
+  <a href="#saved">${icon('bookmark')}<span>Saved</span></a>
+`;
+
 renderRoute();
 setTimeout(checkTodaysBirthdays, 700);
 
