@@ -249,9 +249,11 @@
     margin-top:4px;
     display:block;
   }
-  .fac-tile.all{background:var(--ink-solid); grid-column:1/-1;}
+  .fac-tile.all{background:var(--coral-dark); grid-column:1/-1; margin-top:10px;}
+  .fac-tile.all + .fac-tile.all{margin-top:0;}
   .fac-tile.all .name{color:#fff;}
-  .fac-tile.all .count{color:#D8CBBB;}
+  .fac-tile.all .count{color:#E8CCCF;}
+  body.dark-mode .fac-tile.all{background:#7A2E35; border-color:#9C4450;}
 
   /* ---------- Sports hub tiles: uniform size, dead-centered ---------- */
   .sport-hub-grid{
@@ -728,16 +730,21 @@
     transform:translateX(-50%) translateY(0);
   }
 
-  /* ---------- Site-wide interactivity: hover, tap, and smooth transitions ---------- */
+  /* ---------- Site-wide interactivity: hover, tap, and smooth transitions ----------
+     These selectors are more specific than the universal `*` rule above, so they must
+     include the theme-fade color properties themselves too — otherwise this rule's
+     transition list fully replaces (not merges with) the universal one for these
+     elements, and they'd silently lose the dark-mode crossfade entirely. */
   body, header, .fac-tile, .stat-pill, .sport-hub-tile, .goodnews-tile, .books-tile,
   .photo-item, .photo-tile, .watch-tile, .watch-card, .sports-tile, .sports-card,
   .otd-card, .sotw-card, .bday-tile-card, .bday-item, .random-tile, .rec-item,
   .empty-card, .lightbox, .photo-upload-fab{
-    transition: background-color .25s ease, color .2s ease, border-color .25s ease,
+    transition: background-color var(--theme-fade) ease, color var(--theme-fade) ease,
+                border-color var(--theme-fade) ease,
                 box-shadow .18s ease, transform .15s ease, opacity .2s ease;
   }
   .back-link, .section-link, .bookmark-btn, .react-btn, .share-btn, .search-icon-btn{
-    transition: opacity .15s ease, color .15s ease, transform .15s ease;
+    transition: color var(--theme-fade) ease, opacity .15s ease, transform .15s ease;
   }
 
   /* Hover lift — only on devices with a real pointer, so touch taps never get stuck mid-hover */
@@ -777,38 +784,20 @@
     html{ scroll-behavior:auto; }
   }
 
-  /* ---------- Dark mode sunrise/sunset wipe ---------- */
-  #daylightWipe{
-    position:fixed;
-    top:50%;
-    left:50%;
-    width:500vmax;
-    height:500vmax;
-    margin-top:-250vmax;
-    margin-left:-250vmax;
-    z-index:99999;
-    pointer-events:none;
-    filter:blur(80px);
-    opacity:0;
-  }
-  #daylightWipe .core{
-    position:absolute;
-    inset:0;
-    background-repeat:no-repeat;
-    background-image:linear-gradient(to top right,
-      transparent 0%,
-      transparent 8%,
-      rgba(122,46,34,.4) 22%,
-      rgba(198,97,46,.6) 34%,
-      rgba(230,150,90,.5) 44%,
-      rgba(90,45,34,.75) 58%,
-      rgba(40,27,22,.92) 74%,
-      rgba(28,21,18,.97) 90%,
-      rgba(28,21,18,.97) 100%
-    );
+  /* ---------- Dark mode transition ----------
+     No overlay, no moving graphic — just the real page colors gradually crossfading.
+     --theme-fade defaults to a snappy .25s for normal hover/tap use, and gets bumped to
+     5s by JS only for the brief moment the theme class actually toggles, then reset. */
+  :root{ --theme-fade: .25s; }
+  *{
+    transition: background-color var(--theme-fade) ease,
+                color var(--theme-fade) ease,
+                border-color var(--theme-fade) ease,
+                fill var(--theme-fade) ease,
+                stroke var(--theme-fade) ease;
   }
   @media (prefers-reduced-motion: reduce){
-    #daylightWipe{ display:none; }
+    :root{ --theme-fade: 0s !important; }
   }
 
   /* ---------- Photo lightbox ---------- */
@@ -3914,87 +3903,36 @@ if('serviceWorker' in navigator){
 
   const prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   let animating = false;
-
-  function ensureWipeEl(){
-    let el = document.getElementById('daylightWipe');
-    if(!el){
-      el = document.createElement('div');
-      el.id = 'daylightWipe';
-      el.innerHTML = '<div class="core"></div>';
-      document.body.appendChild(el);
-    }
-    return el;
-  }
-
-  function applyTheme(goingDark){
-    document.body.classList.toggle('dark-mode', goingDark);
-    toggle.innerHTML = goingDark ? SUN_SVG : MOON_SVG;
-    try{ localStorage.setItem('darkMode', goingDark ? '1' : '0'); }catch(e){}
-  }
-
-  // A true corner-to-corner diagonal on a tall phone is barely tilted from vertical
-  // (~25° on a typical screen) and reads as "mostly vertical" rather than a visible
-  // diagonal flow. Using a square sheet with the "to top right" gradient keyword instead
-  // gives a fixed, clearly-diagonal 45° angle regardless of the device's real aspect ratio.
+  const root = document.documentElement;
 
   toggle.addEventListener('click', ()=>{
     if(animating) return;
     const goingDark = !document.body.classList.contains('dark-mode');
 
     if(prefersReducedMotion){
-      applyTheme(goingDark);
+      document.body.classList.toggle('dark-mode', goingDark);
+      toggle.innerHTML = goingDark ? SUN_SVG : MOON_SVG;
+      try{ localStorage.setItem('darkMode', goingDark ? '1' : '0'); }catch(e){}
       return;
     }
 
+    // Every element with a background/text/border color that depends on the theme is
+    // already wired to transition over --theme-fade (see the CSS). Bump that to 5s
+    // FIRST, force the browser to register it, THEN flip the class one frame later —
+    // otherwise both changes land in the same tick and the transition never engages.
     animating = true;
-    const el = ensureWipeEl();
-    const REACH = 165; // vmax
-
-    // The sheet's gradient runs "to top right": transparent near its own bottom-left,
-    // solid dark near its own top-right. Sliding the whole sheet diagonally moves which
-    // part of that gradient sits under the viewport.
-    // goingDark (sunset, bottom-left -> top-right): starts fully transparent, ends fully dark.
-    // !goingDark (sunrise, top-right -> bottom-left): starts fully dark, ends fully transparent.
-    const startX = goingDark ? REACH : -REACH;
-    const startY = goingDark ? -REACH : REACH;
-    const endX = goingDark ? -REACH : REACH;
-    const endY = goingDark ? REACH : -REACH;
-
-    el.style.transition = 'none';
-    el.style.opacity = '1';
-    el.style.transform = `translate(${startX}vmax, ${startY}vmax)`;
-    void el.offsetWidth; // force reflow before animating
-
+    root.style.setProperty('--theme-fade', '5s');
+    void root.offsetWidth; // force reflow so the new duration is committed
     requestAnimationFrame(()=>{
-      el.style.transition = 'transform 5s cubic-bezier(.42,.08,.4,1)';
-      el.style.transform = `translate(${endX}vmax, ${endY}vmax)`;
+      document.body.classList.toggle('dark-mode', goingDark);
+      toggle.innerHTML = goingDark ? SUN_SVG : MOON_SVG;
+      try{ localStorage.setItem('darkMode', goingDark ? '1' : '0'); }catch(e){}
     });
 
-    if(goingDark){
-      // The blend-mode wash is what makes icons visibly darken as it passes over them —
-      // but the real DOM class swap is still an instant, all-at-once event underneath.
-      // It has to fire only once the wash has swept past the ENTIRE screen (not the
-      // midpoint), or areas it hasn't reached yet would pop to their new colors unmasked.
-      setTimeout(()=> applyTheme(true), 4750);
-      setTimeout(()=>{
-        el.style.transition = 'opacity .4s ease';
-        el.style.opacity = '0';
-      }, 4900);
-      setTimeout(()=>{
-        el.style.transition = 'none';
-        animating = false;
-      }, 5350);
-    } else {
-      setTimeout(()=> applyTheme(false), 4750);
-      setTimeout(()=>{
-        el.style.transition = 'opacity .4s ease';
-        el.style.opacity = '0';
-      }, 4900);
-      setTimeout(()=>{
-        el.style.transition = 'none';
-        animating = false;
-      }, 5350);
-    }
+    setTimeout(()=>{
+      root.style.setProperty('--theme-fade', '.25s');
+      animating = false;
+    }, 5100);
   });
 })();
 
