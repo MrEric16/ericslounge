@@ -187,7 +187,7 @@
   section{padding:34px 0;}
   .section-head{
     display:flex;
-    align-items:flex-start;
+    align-items:center;
     gap:10px;
     margin-bottom:18px;
   }
@@ -1180,7 +1180,9 @@
 
   /* ---------- Invite a friend / Install ---------- */
   .invite-link{
-    display:inline-block;
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
     color:var(--coral-dark);
     font-weight:700;
     text-decoration:none;
@@ -4043,7 +4045,7 @@ function viewHome(){
     </section>
 
     <section style="text-align:center; padding:20px 0 8px;">
-      <a class="invite-link" href="#invite">${icon('star')} Invite a friend</a>
+      <a class="invite-link" href="#invite">${icon('star')}<span>Invite a friend</span></a>
     </section>
   `;
 }
