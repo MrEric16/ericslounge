@@ -1420,24 +1420,41 @@ const SEARCHABLE_PAGES = [
 ];
 
 const EXPLORE_SITES = [
-  { name:"NASA Eyes", desc:"NASA's own suite of real-time 3D visualization apps — explore the solar system, Earth's climate, and the spacecraft studying them, built from real mission data.", url:"https://science.nasa.gov/eyes/" },
-  { name:"Asteroid Launcher", desc:"Pick an asteroid's size, speed, and material, aim it at any real city on Earth, and see a scientifically modeled simulation of the impact.", url:"https://neal.fun/asteroid-launcher/" },
-  { name:"Eyes on the Earth", desc:"Watch Earth's live climate data — temperature, sea level, ozone — and see exactly which NASA satellite is tracking it, in real time.", url:"https://eyes.nasa.gov/apps/earth/" },
-  { name:"The Deep Sea", desc:"A slow scroll straight down from the sunlit surface to the Mariana Trench, past every real creature at the depth it actually lives.", url:"https://neal.fun/deep-sea/" },
-  { name:"The Size of Space", desc:"A zoomable scroll from a human being out past the Moon, the Solar System, the Milky Way, all the way to the edge of the observable universe.", url:"https://neal.fun/size-of-space/" },
-  { name:"Space Elevator", desc:"A slow, real-scale ride up an imaginary elevator to space, marking exactly where planes, satellites, and the ISS actually sit above the Earth.", url:"https://neal.fun/space-elevator/" },
-  { name:"Universe Forecast", desc:"A deadpan 'weather forecast' for the universe billions of years from now, based on real astrophysics.", url:"https://neal.fun/universe-forecast/" },
-  { name:"Radio Garden", desc:"Spin a live 3D globe and land on any green dot to hear that exact city's real, currently-broadcasting local radio station — thousands of cities, real time.", url:"https://radio.garden" },
-  { name:"Wonders of Street View", desc:"A curated tour of the strangest, most beautiful, and most unexpected places Google Street View has ever captured.", url:"https://neal.fun/wonders-of-street-view/" },
-  { name:"Merriam-Webster Time Traveler", desc:"Pick any year and see every English word that entered the dictionary for the first time that year.", url:"https://www.merriam-webster.com/time-traveler/2025" },
-  { name:"Who Was Alive?", desc:"Enter any two people's birth and death years and see their lives laid out on the same timeline — how much of history they actually overlapped.", url:"https://neal.fun/who-was-alive/" },
-  { name:"Life Stats", desc:"Enter your birthdate and watch a live, ticking readout of exactly how many heartbeats, breaths, and days you've spent doing everything so far.", url:"https://neal.fun/life-stats/" },
-  { name:"The Auction Game", desc:"A fast-paced simulated auction that teaches, by feel, how bidding wars and the 'winner's curse' actually work in real economics.", url:"https://neal.fun/auction-game/" },
-  { name:"ImportYeti", desc:"Type any major company and see its actual global supply chain — which factories it imports from, what products, and how much, pulled from real shipping records.", url:"https://www.importyeti.com/" },
-  { name:"McBroken", desc:"A live, constantly-updating map of every McDonald's in the US showing whether its ice cream machine is currently working — a genuinely funny real demonstration of web scraping and live data at scale.", url:"https://mcbroken.com/" },
-  { name:"Conserve the Sound", desc:"An archive preserving the actual sounds of obsolete objects — rotary phones, typewriters, pinball machines, old game consoles — before they're gone for good.", url:"https://www.conservethesound.de/category/sound" },
-  { name:"BBC Sound Effects", desc:"Over 16,000 real BBC sound effects, free to search, listen to, and download for personal or educational use.", url:"https://sound-effects.bbcrewind.co.uk/" },
-  { name:"Earth Reviews", desc:"Real-sounding, deadpan 'customer reviews' of natural wonders and everyday phenomena on Earth, written for comic effect.", url:"https://neal.fun/earth-reviews/" },
+  { name:"NASA Eyes", desc:"NASA's own suite of real-time 3D visualization apps — explore the solar system, Earth's climate, and the spacecraft studying them, built from real mission data.", url:"https://science.nasa.gov/eyes/", fac:"science" },
+  { name:"Asteroid Launcher", desc:"Pick an asteroid's size, speed, and material, aim it at any real city on Earth, and see a scientifically modeled simulation of the impact.", url:"https://neal.fun/asteroid-launcher/", fac:"science" },
+  { name:"Eyes on the Earth", desc:"Watch Earth's live climate data — temperature, sea level, ozone — and see exactly which NASA satellite is tracking it, in real time.", url:"https://eyes.nasa.gov/apps/earth/", fac:"science" },
+  { name:"The Deep Sea", desc:"A slow scroll straight down from the sunlit surface to the Mariana Trench, past every real creature at the depth it actually lives.", url:"https://neal.fun/deep-sea/", fac:"science" },
+  { name:"The Size of Space", desc:"A zoomable scroll from a human being out past the Moon, the Solar System, the Milky Way, all the way to the edge of the observable universe.", url:"https://neal.fun/size-of-space/", fac:"science" },
+  { name:"Space Elevator", desc:"A slow, real-scale ride up an imaginary elevator to space, marking exactly where planes, satellites, and the ISS actually sit above the Earth.", url:"https://neal.fun/space-elevator/", fac:"science" },
+  { name:"Universe Forecast", desc:"A deadpan 'weather forecast' for the universe billions of years from now, based on real astrophysics.", url:"https://neal.fun/universe-forecast/", fac:"science" },
+  { name:"Radio Garden", desc:"Spin a live 3D globe and land on any green dot to hear that exact city's real, currently-broadcasting local radio station — thousands of cities, real time.", url:"https://radio.garden", fac:"travel" },
+  { name:"Wonders of Street View", desc:"A curated tour of the strangest, most beautiful, and most unexpected places Google Street View has ever captured.", url:"https://neal.fun/wonders-of-street-view/", fac:"travel" },
+  { name:"Merriam-Webster Time Traveler", desc:"Pick any year and see every English word that entered the dictionary for the first time that year.", url:"https://www.merriam-webster.com/time-traveler/2025", fac:"history" },
+  { name:"Who Was Alive?", desc:"Enter any two people's birth and death years and see their lives laid out on the same timeline — how much of history they actually overlapped.", url:"https://neal.fun/who-was-alive/", fac:"history" },
+  { name:"Life Stats", desc:"Enter your birthdate and watch a live, ticking readout of exactly how many heartbeats, breaths, and days you've spent doing everything so far.", url:"https://neal.fun/life-stats/", fac:"psychology" },
+  { name:"The Auction Game", desc:"A fast-paced simulated auction that teaches, by feel, how bidding wars and the 'winner's curse' actually work in real economics.", url:"https://neal.fun/auction-game/", fac:"economics" },
+  { name:"ImportYeti", desc:"Type any major company and see its actual global supply chain — which factories it imports from, what products, and how much, pulled from real shipping records.", url:"https://www.importyeti.com/", fac:"economics" },
+  { name:"McBroken", desc:"A live, constantly-updating map of every McDonald's in the US showing whether its ice cream machine is currently working — a genuinely funny real demonstration of web scraping and live data at scale.", url:"https://mcbroken.com/", fac:"business" },
+  { name:"Conserve the Sound", desc:"An archive preserving the actual sounds of obsolete objects — rotary phones, typewriters, pinball machines, old game consoles — before they're gone for good.", url:"https://www.conservethesound.de/category/sound", fac:"design" },
+  { name:"BBC Sound Effects", desc:"Over 16,000 real BBC sound effects, free to search, listen to, and download for personal or educational use.", url:"https://sound-effects.bbcrewind.co.uk/", fac:"design" },
+  { name:"Earth Reviews", desc:"Real-sounding, deadpan 'customer reviews' of natural wonders and everyday phenomena on Earth, written for comic effect.", url:"https://neal.fun/earth-reviews/", fac:"design" },
+  { name:"PhET Interactive Simulations", desc:"Free physics, chemistry, biology and math simulations built by the University of Colorado. Drag sliders, run experiments, see results instantly.", url:"https://phet.colorado.edu/", fac:"science" },
+  { name:"Ptable", desc:"An interactive periodic table that goes far past a wall chart: electron configurations, trends, and detailed data on every element.", url:"https://ptable.com/#Properties", fac:"science" },
+  { name:"Stellarium Web", desc:"A real-time planetarium in the browser. Shows the actual night sky for any location and date, searchable by planet, star, or constellation.", url:"https://stellarium-web.org/", fac:"science" },
+  { name:"Wolfram Alpha", desc:"A computational engine that answers questions with calculated data rather than links, covering math, science, and more.", url:"https://www.wolframalpha.com/", fac:"science" },
+  { name:"Diffchecker", desc:"Compares two pieces of text, code, or files and highlights exactly what changed between them.", url:"https://www.diffchecker.com/", fac:"it" },
+  { name:"Wokwi", desc:"A browser-based electronics simulator: build virtual circuits, flash real firmware, and debug microcontroller code with no physical hardware needed.", url:"https://wokwi.com/", fac:"technology" },
+  { name:"Uiverse", desc:"A community-built library of free, open-source UI components: buttons, cards, loaders, and more, ready to use.", url:"https://uiverse.io/", fac:"it" },
+  { name:"Terraink", desc:"Turns any city or location into print-ready map art using real OpenStreetMap data, no design skill needed.", url:"https://terraink.app/", fac:"design" },
+  { name:"Coolors", desc:"Generates color palettes instantly by pressing the spacebar, and can extract a palette straight from a photo.", url:"https://coolors.co/", fac:"design" },
+  { name:"Pattern Monster", desc:"An SVG pattern generator with a huge library of tileable backgrounds you can customize and export.", url:"https://pattern.monster/", fac:"design" },
+  { name:"Lucide", desc:"Over 1,700 clean, consistent open-source icons, free for any project.", url:"https://lucide.dev/", fac:"design" },
+  { name:"remove.bg", desc:"AI background remover — strips the background from any photo automatically in about five seconds, including tricky edges like hair.", url:"https://www.remove.bg/", fac:"design" },
+  { name:"Clipdrop", desc:"A bundle of AI image tools from Stability AI: remove backgrounds, erase objects, upscale, and relight photos.", url:"https://clipdrop.co/", fac:"design" },
+  { name:"Goblin Tools", desc:"AI helpers built with neurodivergent users in mind — its 'Magic ToDo' breaks an overwhelming task into small, doable steps.", url:"https://goblin.tools/", fac:"psychology" },
+  { name:"ncase.me", desc:"Interactive 'explorables' you play with rather than read — covering trust, game theory, and how minds and groups actually behave.", url:"https://ncase.me/", fac:"psychology" },
+  { name:"MuscleWiki", desc:"An interactive muscle map — click any muscle group and get video-demonstrated exercises for it.", url:"https://musclewiki.com/", fac:"sport" },
+  { name:"Drive & Listen", desc:"Virtually drive through over 100 real cities while listening to their actual local radio stations — filmed from inside moving cars.", url:"https://driveandlisten.app/", fac:"travel" },
 ];
 
 const DISPATCHES = [
@@ -3531,19 +3548,18 @@ function pageResultsHtml(list){
   `).join('');
 }
 
+function exploreColorFor(fac){
+  const f = FACULTIES.find(x => x.key === fac);
+  return f ? f.color : 'var(--coral)';
+}
+
 function exploreResultsHtml(list){
-  const EXPLORE_COLORS = ['--f-jur','--f-ir','--f-econ','--f-biz','--f-sci','--f-it',
-                           '--f-psy','--f-des','--f-hist','--f-travel','--f-tech','--f-sport'];
-  return list.map((s, i) => {
-    const origIndex = EXPLORE_SITES.indexOf(s);
-    const colorIdx = (origIndex >= 0 ? origIndex : i) % EXPLORE_COLORS.length;
-    return `
-      <a class="explore-card" style="background:var(${EXPLORE_COLORS[colorIdx]})" href="${s.url}" target="_blank" rel="noopener noreferrer">
-        <div class="explore-card-name">${escapeHtml(s.name)}</div>
-        <div class="explore-card-desc">${escapeHtml(s.desc)}</div>
-      </a>
-    `;
-  }).join('');
+  return list.map(s => `
+    <a class="explore-card" style="background:${exploreColorFor(s.fac)}" href="${s.url}" target="_blank" rel="noopener noreferrer">
+      <div class="explore-card-name">${escapeHtml(s.name)}</div>
+      <div class="explore-card-desc">${escapeHtml(s.desc)}</div>
+    </a>
+  `).join('');
 }
 
 function wireSearch(container){
@@ -3611,14 +3627,13 @@ function isIOSDevice(){
 const IOS_SHARE_ICON = `<svg width="20" height="20" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:-5px;"><path d="M12 3v12M8 7l4-4 4 4"/><path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7"/></svg>`;
 
 function viewExplore(){
-  // Cycle through the site's existing 12 faculty colors so every tile is visually
-  // distinct without introducing any new palette colors.
-  const EXPLORE_COLORS = ['--f-jur','--f-ir','--f-econ','--f-biz','--f-sci','--f-it',
-                           '--f-psy','--f-des','--f-hist','--f-travel','--f-tech','--f-sport'];
+  // Color each tile by its actual subject domain (reusing the same 12 faculty
+  // colors used everywhere else on the site), not by position in the list —
+  // so the same kind of tool always gets the same color.
   const html = EXPLORE_SITES.length === 0
     ? '<div class="empty-card">Nothing here yet. Mr Eric is still adding sites.</div>'
-    : EXPLORE_SITES.map((s, i) => `
-        <a class="explore-card" style="background:var(${EXPLORE_COLORS[i % EXPLORE_COLORS.length]})" href="${s.url}" target="_blank" rel="noopener noreferrer">
+    : EXPLORE_SITES.map(s => `
+        <a class="explore-card" style="background:${exploreColorFor(s.fac)}" href="${s.url}" target="_blank" rel="noopener noreferrer">
           <div class="explore-card-name">${escapeHtml(s.name)}</div>
           <div class="explore-card-desc">${escapeHtml(s.desc)}</div>
         </a>
