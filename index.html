@@ -3498,6 +3498,17 @@ function wireRandomVideoButton(container){
     location.hash = '#play/' + pick.videoId;
   });
 }
+function wireRandomExploreButton(container){
+  const btn = container.querySelector('#randomExploreBtn');
+  if(!btn) return;
+  btn.addEventListener('click', ()=>{
+    if(EXPLORE_SITES.length === 0) return;
+    const pick = EXPLORE_SITES[Math.floor(Math.random() * EXPLORE_SITES.length)];
+    // Opens in a new tab, same as every other Explore Everything link — so a
+    // random pick doesn't accidentally navigate the Lounge itself away.
+    window.open(pick.url, '_blank', 'noopener');
+  });
+}
 function viewPlaySingle(videoId){
   const v = WATCH_VIDEOS.find(x => x.videoId === videoId);
   const title = v ? v.title : 'Video';
@@ -4168,15 +4179,22 @@ function viewHome(){
       <button class="random-tile" id="randomBtn">
         <span class="icon">${icon('dice')}</span>
         <div>
-          <div class="title">Surprise Me</div>
+          <div class="title">Read something</div>
           <div class="sub">Jump straight to a random article</div>
         </div>
       </button>
       <button class="random-tile" id="randomVideoBtn" style="margin-top:12px;">
         <span class="icon">${icon('clapper')}</span>
         <div>
-          <div class="title">Watch Something Random</div>
+          <div class="title">Watch something</div>
           <div class="sub">Jump straight to a random video</div>
+        </div>
+      </button>
+      <button class="random-tile" id="randomExploreBtn" style="margin-top:12px;">
+        <span class="icon">${icon('compass2')}</span>
+        <div>
+          <div class="title">Do something</div>
+          <div class="sub">Jump straight to a random powerful website</div>
         </div>
       </button>
     </section>
@@ -4404,7 +4422,7 @@ function renderRoute(opts){
   if(parts[0] === 'photos'){ wirePhotoLightbox(app); wirePhotoUpload(app); loadSubmittedPhotos(); }
   if(parts[0] === 'search') wireSearch(app);
   if(parts[0] === 'install'){ wireInstallPage(); }
-  if(parts.length === 0){ loadOnThisDay(); loadWeather(); loadLiveSportsData(); wireRandomButton(app); wireRandomVideoButton(app); checkAchievements(); }
+  if(parts.length === 0){ loadOnThisDay(); loadWeather(); loadLiveSportsData(); wireRandomButton(app); wireRandomVideoButton(app); wireRandomExploreButton(app); checkAchievements(); }
   if(parts[0] === 'sports' && parts[1] === 'tables'){ loadLiveSportsData(); }
   if(parts[0] === 'sports' && parts[1] === 'league' && parts[2]){ loadLiveSportsData(); }
 
