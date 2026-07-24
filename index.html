@@ -65,6 +65,7 @@
   body.dark-mode .books-tile,
   body.dark-mode .explore-tile,
   body.dark-mode .explore-card,
+  body.dark-mode .page-result,
   body.dark-mode .watch-tile,
   body.dark-mode .watch-card,
   body.dark-mode .sports-tile,
@@ -726,6 +727,22 @@
     line-height:1.5;
   }
 
+  .page-result{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    background:var(--card);
+    border-radius:16px;
+    padding:14px 16px;
+    margin-bottom:10px;
+    text-decoration:none;
+    box-shadow:0 2px 0 rgba(58,42,30,.06);
+  }
+  .page-result-icon{ flex-shrink:0; display:inline-flex; align-items:center; color:var(--coral); }
+  .page-result-icon svg{ width:24px; height:24px; }
+  .page-result-name{ font-weight:700; font-size:15px; color:var(--ink); }
+  .page-result-desc{ font-size:12px; color:var(--ink-soft); margin-top:2px; }
+
   .photo-grid{
     display:grid;
     grid-template-columns:repeat(auto-fill, minmax(140px, 1fr));
@@ -802,7 +819,7 @@
      transition list fully replaces (not merges with) the universal one for these
      elements, and they'd silently lose the dark-mode crossfade entirely. */
   body, header, .fac-tile, .stat-pill, .sport-hub-tile, .goodnews-tile, .books-tile,
-  .explore-tile, .explore-card,
+  .explore-tile, .explore-card, .page-result,
   .photo-item, .photo-tile, .watch-tile, .watch-card, .sports-tile, .sports-card,
   .otd-card, .sotw-card, .bday-tile-card, .bday-item, .random-tile, .rec-item,
   .empty-card, .lightbox, .photo-upload-fab{
@@ -817,7 +834,7 @@
   /* Hover lift — only on devices with a real pointer, so touch taps never get stuck mid-hover */
   @media (hover:hover){
     .fac-tile:hover, .sport-hub-tile:hover, .goodnews-tile:hover, .books-tile:hover,
-    .explore-tile:hover, .explore-card:hover,
+    .explore-tile:hover, .explore-card:hover, .page-result:hover,
     .photo-item:hover, .photo-tile:hover, .watch-tile:hover, .watch-card:hover,
     .sports-tile:hover, .sports-card:hover, .otd-card:hover, .sotw-card:hover,
     .bday-tile-card:hover, .random-tile:hover, .rec-item:hover{
@@ -834,7 +851,7 @@
 
   /* Tap feedback — works on touch AND desktop click alike */
   .fac-tile:active, .sport-hub-tile:active, .goodnews-tile:active, .books-tile:active,
-  .explore-tile:active, .explore-card:active,
+  .explore-tile:active, .explore-card:active, .page-result:active,
   .photo-item:active, .photo-tile:active, .watch-tile:active, .watch-card:active,
   .sports-tile:active, .sports-card:active, .otd-card:active, .sotw-card:active,
   .bday-tile-card:active, .random-tile:active, .rec-item:active,
@@ -1389,6 +1406,19 @@ const FAC_MAP = Object.fromEntries(FACULTIES.map(f=>[f.key,f]));
 // One entry per headline. date format: 'YYYY-MM-DD'
 // "Explore Everything" — powerful/interesting websites, added one at a time by Mr Eric.
 // Each entry: { name, desc, url }
+// Every internal page/tile that isn't an "article" or "video" — so search covers
+// navigation too, not just content. Faculties are appended separately below since
+// they come from the FACULTIES array.
+const SEARCHABLE_PAGES = [
+  { name:"Sports", desc:"League tables, live fixtures, and Arsenal's next match.", url:"#sports", icon:"ball" },
+  { name:"Photo Library", desc:"Selfies, memes, and class moments.", url:"#photos", icon:"camera" },
+  { name:"Saved", desc:"Everything you've bookmarked — articles and videos.", url:"#saved", icon:"bookmark" },
+  { name:"Explore Everything", desc:"Powerful websites for you to explore.", url:"#explore", icon:"compass2" },
+  { name:"Superstars of the Week", desc:"This week's shoutouts.", url:"#superstars", icon:"star" },
+  { name:"Birthdays", desc:"Upcoming birthdays in class.", url:"#birthdays", icon:"cake" },
+  { name:"Invite a Friend", desc:"Get the QR code to install the Lounge on a new device.", url:"#invite", icon:"star" },
+];
+
 const EXPLORE_SITES = [
   { name:"NASA Eyes", desc:"NASA's own suite of real-time 3D visualization apps — explore the solar system, Earth's climate, and the spacecraft studying them, built from real mission data.", url:"https://science.nasa.gov/eyes/" },
   { name:"Asteroid Launcher", desc:"Pick an asteroid's size, speed, and material, aim it at any real city on Earth, and see a scientifically modeled simulation of the impact.", url:"https://neal.fun/asteroid-launcher/" },
@@ -3476,43 +3506,89 @@ function viewPlaySingle(videoId){
 
 /* ---- Search ---- */
 function viewSearch(){
+  const totalPages = SEARCHABLE_PAGES.length + FACULTIES.length;
   return `
     <a class="back-link" href="#">← Back to Mr Eric's Lounge</a>
     <section style="padding-top:14px;">
       <div class="section-head"><span class="emoji">${icon('search')}</span><h2>Search</h2></div>
-      <input class="search-input" id="searchInput" type="text" placeholder="Search articles and videos…" autofocus>
+      <input class="search-input" id="searchInput" type="text" placeholder="Search everything…" autofocus>
       <div id="searchResults" style="margin-top:20px;">
-        <div class="empty-card">Go on, type something. We both know you're curious. (${DISPATCHES.length} dispatches, ${WATCH_VIDEOS.length} videos waiting)</div>
+        <div class="empty-card">Go on, type something. We both know you're curious. (${DISPATCHES.length} dispatches, ${WATCH_VIDEOS.length} videos, ${EXPLORE_SITES.length} websites, ${totalPages} pages waiting)</div>
       </div>
     </section>
   `;
+}
+
+function pageResultsHtml(list){
+  return list.map(p => `
+    <a class="page-result" href="${p.url}">
+      <span class="page-result-icon">${icon(p.icon)}</span>
+      <div>
+        <div class="page-result-name">${escapeHtml(p.name)}</div>
+        <div class="page-result-desc">${escapeHtml(p.desc)}</div>
+      </div>
+    </a>
+  `).join('');
+}
+
+function exploreResultsHtml(list){
+  const EXPLORE_COLORS = ['--f-jur','--f-ir','--f-econ','--f-biz','--f-sci','--f-it',
+                           '--f-psy','--f-des','--f-hist','--f-travel','--f-tech','--f-sport'];
+  return list.map((s, i) => {
+    const origIndex = EXPLORE_SITES.indexOf(s);
+    const colorIdx = (origIndex >= 0 ? origIndex : i) % EXPLORE_COLORS.length;
+    return `
+      <a class="explore-card" style="background:var(${EXPLORE_COLORS[colorIdx]})" href="${s.url}" target="_blank" rel="noopener noreferrer">
+        <div class="explore-card-name">${escapeHtml(s.name)}</div>
+        <div class="explore-card-desc">${escapeHtml(s.desc)}</div>
+      </a>
+    `;
+  }).join('');
 }
 
 function wireSearch(container){
   const input = container.querySelector('#searchInput');
   const results = container.querySelector('#searchResults');
   if(!input || !results) return;
+
+  // Faculties are searchable by name too, jumping straight to that domain's page.
+  const facultyPages = FACULTIES.map(f => ({
+    name: f.label, desc: `Browse everything filed under ${f.label}.`, url: `#faculty/${f.key}`, icon: f.icon
+  }));
+  const allPages = [...SEARCHABLE_PAGES, ...facultyPages];
+
   input.addEventListener('input', ()=>{
     const q = input.value.trim().toLowerCase();
     if(q.length === 0){
-      results.innerHTML = `<div class="empty-card">Go on, type something. We both know you're curious. (${DISPATCHES.length} dispatches, ${WATCH_VIDEOS.length} videos waiting)</div>`;
+      const totalPages = SEARCHABLE_PAGES.length + FACULTIES.length;
+      results.innerHTML = `<div class="empty-card">Go on, type something. We both know you're curious. (${DISPATCHES.length} dispatches, ${WATCH_VIDEOS.length} videos, ${EXPLORE_SITES.length} websites, ${totalPages} pages waiting)</div>`;
       return;
     }
     const articleMatches = DISPATCHES.filter(a => a.headline.toLowerCase().includes(q));
     const videoMatches = WATCH_VIDEOS.filter(v => v.title.toLowerCase().includes(q) || v.channel.toLowerCase().includes(q));
+    const exploreMatches = EXPLORE_SITES.filter(s => s.name.toLowerCase().includes(q) || s.desc.toLowerCase().includes(q));
+    const pageMatches = allPages.filter(p => p.name.toLowerCase().includes(q) || p.desc.toLowerCase().includes(q));
 
-    if(articleMatches.length === 0 && videoMatches.length === 0){
+    if(articleMatches.length === 0 && videoMatches.length === 0 && exploreMatches.length === 0 && pageMatches.length === 0){
       results.innerHTML = `<div class="empty-card">Nothing found for "${escapeHtml(input.value.trim())}". Try something else.</div>`;
       return;
     }
 
     let html = '';
+    if(pageMatches.length > 0){
+      html += `<div class="section-head" style="margin-top:0;"><span class="emoji">${icon('compass2')}</span><h2>Pages</h2></div>`;
+      html += pageResultsHtml(pageMatches);
+    }
+    if(exploreMatches.length > 0){
+      html += `<div class="section-head" style="margin-top:${html?'24px':'0'};"><span class="emoji">${icon('compass2')}</span><h2>Websites</h2></div>`;
+      html += exploreResultsHtml(exploreMatches);
+    }
     if(articleMatches.length > 0){
-      html += `<div class="section-head" style="margin-top:0;"><span class="emoji">${icon('newspaper')}</span><h2>Articles</h2></div>`;
+      html += `<div class="section-head" style="margin-top:${html?'24px':'0'};"><span class="emoji">${icon('newspaper')}</span><h2>Articles</h2></div>`;
       html += dispatchListHtml(articleMatches);
     }
     if(videoMatches.length > 0){
-      html += `<div class="section-head" style="margin-top:${articleMatches.length>0?'24px':'0'};"><span class="emoji">${icon('clapper')}</span><h2>Videos</h2></div>`;
+      html += `<div class="section-head" style="margin-top:${html?'24px':'0'};"><span class="emoji">${icon('clapper')}</span><h2>Videos</h2></div>`;
       html += `<div class="watch-grid">${watchGridHtml(videoMatches, 'search')}</div>`;
     }
     results.innerHTML = html;
