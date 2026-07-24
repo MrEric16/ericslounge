@@ -3498,12 +3498,17 @@ function wireRandomVideoButton(container){
     location.hash = '#play/' + pick.videoId;
   });
 }
+// "Do something" is meant to land on an activity a random person can actually DO —
+// not a design/coding tool. Those faculties are useful, they just don't fit the button.
+const DO_SOMETHING_EXCLUDED_FACS = ['design', 'psychology', 'technology', 'it'];
+
 function wireRandomExploreButton(container){
   const btn = container.querySelector('#randomExploreBtn');
   if(!btn) return;
   btn.addEventListener('click', ()=>{
-    if(EXPLORE_SITES.length === 0) return;
-    const pick = EXPLORE_SITES[Math.floor(Math.random() * EXPLORE_SITES.length)];
+    const pool = EXPLORE_SITES.filter(s => !DO_SOMETHING_EXCLUDED_FACS.includes(s.fac));
+    if(pool.length === 0) return;
+    const pick = pool[Math.floor(Math.random() * pool.length)];
     // Opens in a new tab, same as every other Explore Everything link — so a
     // random pick doesn't accidentally navigate the Lounge itself away.
     window.open(pick.url, '_blank', 'noopener');
