@@ -63,6 +63,8 @@
   body.dark-mode .sport-hub-tile,
   body.dark-mode .goodnews-tile,
   body.dark-mode .books-tile,
+  body.dark-mode .explore-tile,
+  body.dark-mode .explore-card,
   body.dark-mode .watch-tile,
   body.dark-mode .watch-card,
   body.dark-mode .sports-tile,
@@ -688,6 +690,43 @@
   .books-tile .title{font-weight:800; font-size:19px;}
   .books-tile .sub{font-size:13px; color:#EAF3E0; font-weight:600; margin-top:2px;}
 
+  .explore-tile{
+    background:var(--coral);
+    color:#fff;
+    border-radius:20px;
+    padding:26px 22px;
+    display:flex;
+    align-items:center;
+    gap:16px;
+    text-decoration:none;
+    box-shadow:0 3px 0 rgba(58,42,30,.15);
+  }
+  .explore-tile .icon{display:inline-flex; align-items:center;} .explore-tile .icon svg{width:30px;height:30px;}
+  .explore-tile .title{font-weight:800; font-size:19px;}
+  .explore-tile .sub{font-size:13px; color:#F0D9DC; font-weight:600; margin-top:2px;}
+
+  .explore-card{
+    display:block;
+    background:var(--card);
+    border-radius:16px;
+    padding:16px 18px;
+    margin-bottom:10px;
+    box-shadow:0 2px 0 rgba(58,42,30,.06);
+    text-decoration:none;
+  }
+  .explore-card-name{
+    font-weight:700;
+    font-size:17px;
+    color:var(--ink);
+    margin-bottom:6px;
+  }
+  .explore-card:hover .explore-card-name{ color:var(--coral); }
+  .explore-card-desc{
+    font-size:13px;
+    color:var(--ink-soft);
+    line-height:1.5;
+  }
+
   .photo-grid{
     display:grid;
     grid-template-columns:repeat(auto-fill, minmax(140px, 1fr));
@@ -764,6 +803,7 @@
      transition list fully replaces (not merges with) the universal one for these
      elements, and they'd silently lose the dark-mode crossfade entirely. */
   body, header, .fac-tile, .stat-pill, .sport-hub-tile, .goodnews-tile, .books-tile,
+  .explore-tile, .explore-card,
   .photo-item, .photo-tile, .watch-tile, .watch-card, .sports-tile, .sports-card,
   .otd-card, .sotw-card, .bday-tile-card, .bday-item, .random-tile, .rec-item,
   .empty-card, .lightbox, .photo-upload-fab{
@@ -778,6 +818,7 @@
   /* Hover lift — only on devices with a real pointer, so touch taps never get stuck mid-hover */
   @media (hover:hover){
     .fac-tile:hover, .sport-hub-tile:hover, .goodnews-tile:hover, .books-tile:hover,
+    .explore-tile:hover, .explore-card:hover,
     .photo-item:hover, .photo-tile:hover, .watch-tile:hover, .watch-card:hover,
     .sports-tile:hover, .sports-card:hover, .otd-card:hover, .sotw-card:hover,
     .bday-tile-card:hover, .random-tile:hover, .rec-item:hover{
@@ -794,6 +835,7 @@
 
   /* Tap feedback — works on touch AND desktop click alike */
   .fac-tile:active, .sport-hub-tile:active, .goodnews-tile:active, .books-tile:active,
+  .explore-tile:active, .explore-card:active,
   .photo-item:active, .photo-tile:active, .watch-tile:active, .watch-card:active,
   .sports-tile:active, .sports-card:active, .otd-card:active, .sotw-card:active,
   .bday-tile-card:active, .random-tile:active, .rec-item:active,
@@ -1346,6 +1388,12 @@ const FACULTIES = [
 const FAC_MAP = Object.fromEntries(FACULTIES.map(f=>[f.key,f]));
 
 // One entry per headline. date format: 'YYYY-MM-DD'
+// "Explore Everything" — powerful/interesting websites, added one at a time by Mr Eric.
+// Each entry: { name, desc, url }
+const EXPLORE_SITES = [
+  { name:"NASA Eyes", desc:"NASA's own suite of real-time 3D visualization apps — explore the solar system, Earth's climate, and the spacecraft studying them, built from real mission data.", url:"https://science.nasa.gov/eyes/" },
+];
+
 const DISPATCHES = [
   { headline:"10 homes smarter than your architect", url:"https://www.bbc.com/culture/article/20260721-10-of-japans-most-cleverly-designed-homes", faculty:"design", date:"2026-07-23", read:"5 min" },
   { headline:"This fish remembers Shakespeare", url:"https://www.bbc.com/future/article/20260717-the-shark-that-lives-for-centuries", faculty:"science", date:"2026-07-23", read:"4 min" },
@@ -3470,6 +3518,24 @@ function isIOSDevice(){
 }
 const IOS_SHARE_ICON = `<svg width="20" height="20" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:-5px;"><path d="M12 3v12M8 7l4-4 4 4"/><path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7"/></svg>`;
 
+function viewExplore(){
+  const html = EXPLORE_SITES.length === 0
+    ? '<div class="empty-card">Nothing here yet. Mr Eric is still adding sites.</div>'
+    : EXPLORE_SITES.map(s => `
+        <a class="explore-card" href="${s.url}" target="_blank" rel="noopener noreferrer">
+          <div class="explore-card-name">${escapeHtml(s.name)}</div>
+          <div class="explore-card-desc">${escapeHtml(s.desc)}</div>
+        </a>
+      `).join('');
+  return `
+    <a class="back-link" href="#">← Back to Mr Eric's Lounge</a>
+    <section style="padding-top:14px;">
+      <div class="section-head"><span class="emoji">${icon('compass2')}</span><h2>Explore Everything</h2></div>
+      ${html}
+    </section>
+  `;
+}
+
 function viewInvite(){
   const installUrl = location.origin + location.pathname + '#install';
   const qrSrc = `https://api.qrserver.com/v1/create-qr-code/?size=280x280&margin=10&color=5C2530&bgcolor=FBF5EA&data=${encodeURIComponent(installUrl)}`;
@@ -4015,6 +4081,16 @@ function viewHome(){
     </section>
 
     <section>
+      <a class="explore-tile" href="#explore">
+        <span class="icon">${icon('compass2')}</span>
+        <div>
+          <div class="title">Explore Everything</div>
+          <div class="sub">Powerful websites for you to explore</div>
+        </div>
+      </a>
+    </section>
+
+    <section>
       <a class="goodnews-tile" href="https://www.goodgoodgood.co/goodnews" target="_blank" rel="noopener">
         <span class="icon">${icon('sun')}</span>
         <div>
@@ -4186,6 +4262,8 @@ function renderRoute(opts){
     html = viewPhotos();
   } else if(parts[0] === 'saved'){
     html = viewSaved();
+  } else if(parts[0] === 'explore'){
+    html = viewExplore();
   } else if(parts[0] === 'invite'){
     html = viewInvite();
   } else if(parts[0] === 'install'){
