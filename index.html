@@ -4836,13 +4836,13 @@ function triggerTottenhamEgg(){
 function showBirthdayPopup(names){
   const upper = names.map(n => n.toUpperCase());
   const text = 'HAPPY BIRTHDAY ' + upper.join(' & ') + '! 🎉🎂';
-  showEasterEggPopup(text, 5000);
+  showEasterEggPopup(text, 10000);
   if(navigator.vibrate){ try{ navigator.vibrate([80,40,80,40,200]); }catch(e){} }
   const bdayEmojis = ['🎉','🎂','🎈','✨','🥳'];
   burstThemedConfetti((p)=>{
     p.textContent = bdayEmojis[Math.floor(Math.random()*bdayEmojis.length)];
     p.style.fontSize = '26px';
-  }, 5000);
+  }, 10000);
 }
 function checkTodaysBirthdays(){
   const today = new Date();
