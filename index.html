@@ -4191,10 +4191,12 @@ function viewHome(){
   const facTiles = FACULTIES.map(f=>{
     const count = DISPATCHES.filter(a=>a.faculty===f.key).length;
     const videoCount = WATCH_VIDEOS.filter(v=>v.faculty===f.key).length;
+    const instrumentCount = EXPLORE_SITES.filter(s=>s.fac===f.key).length;
     return `<a class="fac-tile" href="#faculty/${f.key}">
       <span class="name"><span class="fac-icon" style="color:${f.color}">${icon(f.icon)}</span>${f.label}</span>
       <span class="count">${count} articles</span>
       <span class="count">${videoCount} videos</span>
+      <span class="count">${instrumentCount} instruments</span>
     </a>`;
   }).join('');
 
@@ -4357,26 +4359,82 @@ function viewFaculty(key){
   }
   const list = DISPATCHES.filter(a=>a.faculty===key);
   const videos = WATCH_VIDEOS.filter(v=>v.faculty===key);
+  const instruments = EXPLORE_SITES.filter(s=>s.fac===key);
   return `
     <a class="back-link" href="#">← Back to Mr Eric's Lounge</a>
     <section style="padding-top:14px;">
-      <div class="section-head"><span class="fac-icon" style="color:${fac.color}">${icon(fac.icon)}</span><h2>${fac.label} — Articles</h2></div>
-      ${dispatchListHtml(list)}
-    </section>
-    <section style="padding-top:14px;">
-      <div class="section-head"><span class="fac-icon" style="color:${fac.color}">${icon(fac.icon)}</span><h2>${fac.label} — Videos</h2></div>
-      <div class="watch-grid">${watchGridHtml(videos, 'fac-'+key)}</div>
+      <details class="domain-group" open>
+        <summary class="section-head domain-summary">
+          <span class="fac-icon" style="color:${fac.color}">${icon(fac.icon)}</span>
+          <h2>${fac.label} — Articles</h2>
+          <span class="domain-count">${list.length}</span>
+          <span class="domain-chevron">${icon('chevronDown')}</span>
+        </summary>
+        <div class="domain-group-content">
+          ${dispatchListHtml(list)}
+        </div>
+      </details>
+      <details class="domain-group" open>
+        <summary class="section-head domain-summary">
+          <span class="fac-icon" style="color:${fac.color}">${icon(fac.icon)}</span>
+          <h2>${fac.label} — Videos</h2>
+          <span class="domain-count">${videos.length}</span>
+          <span class="domain-chevron">${icon('chevronDown')}</span>
+        </summary>
+        <div class="domain-group-content">
+          <div class="watch-grid">${watchGridHtml(videos, 'fac-'+key)}</div>
+        </div>
+      </details>
+      <details class="domain-group">
+        <summary class="section-head domain-summary">
+          <span class="fac-icon" style="color:${fac.color}">${icon(fac.icon)}</span>
+          <h2>${fac.label} — Instruments</h2>
+          <span class="domain-count">${instruments.length}</span>
+          <span class="domain-chevron">${icon('chevronDown')}</span>
+        </summary>
+        <div class="domain-group-content">
+          ${instruments.length === 0
+            ? '<div class="empty-card">No powerful websites filed here yet.</div>'
+            : instruments.map(s => `
+                <a class="explore-card" style="background:${exploreColorFor(s.fac)}" href="${s.url}" target="_blank" rel="noopener noreferrer">
+                  <div class="explore-card-name">${escapeHtml(s.name)}</div>
+                  <div class="explore-card-desc">${escapeHtml(s.desc)}</div>
+                </a>
+              `).join('')
+          }
+        </div>
+      </details>
     </section>
   `;
 }
 
 function viewWatchFaculty(key){
   if(key === 'all'){
+    const groups = FACULTIES.map(fac => ({
+      fac,
+      items: WATCH_VIDEOS.filter(v => v.faculty === fac.key)
+    })).filter(g => g.items.length > 0);
+
+    const html = groups.map(g => `
+      <details class="domain-group">
+        <summary class="section-head domain-summary">
+          <span class="fac-icon" style="color:${g.fac.color}">${icon(g.fac.icon)}</span>
+          <h2>${g.fac.label}</h2>
+          <span class="domain-count">${g.items.length}</span>
+          <span class="domain-chevron">${icon('chevronDown')}</span>
+        </summary>
+        <div class="domain-group-content">
+          <div class="watch-grid">${watchGridHtml(g.items, 'watchall-' + g.fac.key)}</div>
+        </div>
+      </details>
+    `).join('');
+
     return `
       <a class="back-link" href="#">← Back to Mr Eric's Lounge</a>
       <section style="padding-top:14px;">
         <div class="section-head"><span class="emoji">${icon('clapper')}</span><h2>All Domains — Full Video Archives</h2></div>
-        <div class="watch-grid" id="watchGridTarget">${watchGridHtml(WATCH_VIDEOS, 'all')}</div>
+        <div class="empty-card" style="margin-bottom:16px;">Tap a domain to open or close it.</div>
+        ${html}
       </section>
     `;
   }
