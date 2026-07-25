@@ -3547,10 +3547,26 @@ function viewSearch(){
       <div class="section-head"><span class="emoji">${icon('search')}</span><h2>Search</h2></div>
       <input class="search-input" id="searchInput" type="text" placeholder="Search everything…" autofocus>
       <div id="searchResults" style="margin-top:20px;">
-        <div class="empty-card">Go on, type something. We both know you're curious. (${DISPATCHES.length} dispatches, ${WATCH_VIDEOS.length} videos, ${EXPLORE_SITES.length} websites, ${totalPages} pages waiting)</div>
+        <div class="empty-card">Go on, type something. We both know you're curious. (${DISPATCHES.length} dispatches, ${WATCH_VIDEOS.length} videos, ${EXPLORE_SITES.length} websites, ${BIRTHDAYS.length} names, ${totalPages} pages waiting)</div>
       </div>
     </section>
   `;
+}
+
+function birthdayResultsHtml(list){
+  return list.map(b => {
+    const dd = String(b.day).padStart(2,'0');
+    const mm = String(b.month).padStart(2,'0');
+    return `
+      <a class="page-result" href="#birthdays">
+        <span class="page-result-icon">${icon('cake')}</span>
+        <div>
+          <div class="page-result-name">${escapeHtml(b.name)}</div>
+          <div class="page-result-desc">Birthday: ${dd}/${mm}</div>
+        </div>
+      </a>
+    `;
+  }).join('');
 }
 
 function pageResultsHtml(list){
@@ -3594,22 +3610,27 @@ function wireSearch(container){
     const q = input.value.trim().toLowerCase();
     if(q.length === 0){
       const totalPages = SEARCHABLE_PAGES.length + FACULTIES.length;
-      results.innerHTML = `<div class="empty-card">Go on, type something. We both know you're curious. (${DISPATCHES.length} dispatches, ${WATCH_VIDEOS.length} videos, ${EXPLORE_SITES.length} websites, ${totalPages} pages waiting)</div>`;
+      results.innerHTML = `<div class="empty-card">Go on, type something. We both know you're curious. (${DISPATCHES.length} dispatches, ${WATCH_VIDEOS.length} videos, ${EXPLORE_SITES.length} websites, ${BIRTHDAYS.length} names, ${totalPages} pages waiting)</div>`;
       return;
     }
     const articleMatches = DISPATCHES.filter(a => a.headline.toLowerCase().includes(q));
     const videoMatches = WATCH_VIDEOS.filter(v => v.title.toLowerCase().includes(q) || v.channel.toLowerCase().includes(q));
     const exploreMatches = EXPLORE_SITES.filter(s => s.name.toLowerCase().includes(q) || s.desc.toLowerCase().includes(q));
     const pageMatches = allPages.filter(p => p.name.toLowerCase().includes(q) || p.desc.toLowerCase().includes(q));
+    const birthdayMatches = BIRTHDAYS.filter(b => b.name.toLowerCase().includes(q));
 
-    if(articleMatches.length === 0 && videoMatches.length === 0 && exploreMatches.length === 0 && pageMatches.length === 0){
+    if(articleMatches.length === 0 && videoMatches.length === 0 && exploreMatches.length === 0 && pageMatches.length === 0 && birthdayMatches.length === 0){
       results.innerHTML = `<div class="empty-card">Nothing found for "${escapeHtml(input.value.trim())}". Try something else.</div>`;
       return;
     }
 
     let html = '';
+    if(birthdayMatches.length > 0){
+      html += `<div class="section-head" style="margin-top:0;"><span class="emoji">${icon('cake')}</span><h2>Names</h2></div>`;
+      html += birthdayResultsHtml(birthdayMatches);
+    }
     if(pageMatches.length > 0){
-      html += `<div class="section-head" style="margin-top:0;"><span class="emoji">${icon('compass2')}</span><h2>Pages</h2></div>`;
+      html += `<div class="section-head" style="margin-top:${html?'24px':'0'};"><span class="emoji">${icon('compass2')}</span><h2>Pages</h2></div>`;
       html += pageResultsHtml(pageMatches);
     }
     if(exploreMatches.length > 0){
