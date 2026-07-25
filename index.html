@@ -206,6 +206,41 @@
     font-weight:600;
     margin-left:auto;
   }
+
+  /* ---------- Collapsible domain sections (All Domains archive) ---------- */
+  .domain-group{
+    margin-top:14px;
+    border-bottom:1px solid var(--line);
+    padding-bottom:14px;
+  }
+  .domain-group:first-of-type{ margin-top:6px; }
+  .domain-summary{
+    cursor:pointer;
+    list-style:none;
+    margin-bottom:0;
+    padding:4px 0;
+  }
+  .domain-summary::-webkit-details-marker{ display:none; }
+  .domain-summary::marker{ content:''; }
+  .domain-count{
+    font-size:13px;
+    font-weight:700;
+    color:var(--ink-soft);
+    margin-left:auto;
+  }
+  .domain-chevron{
+    display:inline-flex;
+    align-items:center;
+    color:var(--ink-soft);
+    transition:transform .2s ease;
+  }
+  details[open] > .domain-summary .domain-chevron{ transform:rotate(180deg); }
+  .domain-group-content{
+    padding-top:14px;
+  }
+  @media (hover:hover){
+    .domain-summary:hover h2{ color:var(--coral); }
+  }
   .section-link{
     font-size:13px;
     font-weight:700;
@@ -1343,6 +1378,7 @@ const ICONS = {
   cake: `<svg width="20" height="20" viewBox="0 0 24 24" ${ICON_STYLE}><path d="M4 21v-7a3 3 0 0 1 3-3h10a3 3 0 0 1 3 3v7"/><path d="M4 21h16"/><path d="M4 16c1.2 1 2.3 1 3.5 0s2.3-1 3.5 0 2.3 1 3.5 0 2.3-1 3.5 0"/><path d="M12 11V7"/><path d="M12 5c1 0 1-1 0-2s-1-1 0-2"/></svg>`,
   gradcap: `<svg width="22" height="22" viewBox="0 0 24 24" ${ICON_STYLE}><path d="M2 9.5 12 5l10 4.5-10 4.5-10-4.5Z"/><path d="M6 11.5V17c0 1.4 2.7 2.5 6 2.5s6-1.1 6-2.5v-5.5"/><path d="M22 9.5v6"/></svg>`,
   home: `<svg width="22" height="22" viewBox="0 0 24 24" ${ICON_STYLE}><path d="M4 11.5 12 4l8 7.5"/><path d="M6 9.8V20h12V9.8"/><path d="M10 20v-6h4v6"/></svg>`,
+  chevronDown: `<svg width="18" height="18" viewBox="0 0 24 24" ${ICON_STYLE}><path d="M6 9.5 12 15.5 18 9.5"/></svg>`,
   clapper: `<svg width="20" height="20" viewBox="0 0 24 24" ${ICON_STYLE}><path d="M3 10h18v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1v-9Z"/><path d="m3 10 1.5-5h15L21 10"/><path d="m7.5 5-1.5 5M12.5 5 11 10M17.5 5 16 10"/></svg>`,
   dice: `<svg width="20" height="20" viewBox="0 0 24 24" ${ICON_STYLE}><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8" cy="8" r="1" fill="currentColor" stroke="none"/><circle cx="16" cy="8" r="1" fill="currentColor" stroke="none"/><circle cx="12" cy="12" r="1" fill="currentColor" stroke="none"/><circle cx="8" cy="16" r="1" fill="currentColor" stroke="none"/><circle cx="16" cy="16" r="1" fill="currentColor" stroke="none"/></svg>`,
   calendar: `<svg width="20" height="20" viewBox="0 0 24 24" ${ICON_STYLE}><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>`,
@@ -4284,26 +4320,33 @@ function viewHome(){
 
 function viewFaculty(key){
   if(key === 'all'){
-    // Grouped by domain (color), not just chronological — each faculty gets its
-    // own colored header, articles within each group still sorted newest-first.
+    // Grouped by domain (color), collapsible Wikipedia-style — each section opens
+    // or closes instantly with a tap, no page reload, no JS wiring needed at all
+    // (native <details>/<summary>). Articles within each group still newest-first.
     const groups = FACULTIES.map(fac => ({
       fac,
       items: DISPATCHES.filter(a => a.faculty === fac.key)
     })).filter(g => g.items.length > 0);
 
     const html = groups.map(g => `
-      <div class="section-head" style="margin-top:22px;">
-        <span class="fac-icon" style="color:${g.fac.color}">${icon(g.fac.icon)}</span>
-        <h2>${g.fac.label}</h2>
-        <span class="section-link" style="margin-left:auto; opacity:.6; font-weight:700;">${g.items.length}</span>
-      </div>
-      ${dispatchListHtml(g.items)}
+      <details class="domain-group">
+        <summary class="section-head domain-summary">
+          <span class="fac-icon" style="color:${g.fac.color}">${icon(g.fac.icon)}</span>
+          <h2>${g.fac.label}</h2>
+          <span class="domain-count">${g.items.length}</span>
+          <span class="domain-chevron">${icon('chevronDown')}</span>
+        </summary>
+        <div class="domain-group-content">
+          ${dispatchListHtml(g.items)}
+        </div>
+      </details>
     `).join('');
 
     return `
       <a class="back-link" href="#">← Back to Mr Eric's Lounge</a>
       <section style="padding-top:14px;">
         <div class="section-head"><span class="emoji">${icon('newspaper')}</span><h2>All Domains — Full Articles Archive</h2></div>
+        <div class="empty-card" style="margin-bottom:16px;">Tap a domain to open or close it.</div>
         ${html}
       </section>
     `;
