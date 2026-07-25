@@ -1038,6 +1038,8 @@
     flex-direction:column;
     gap:4px;
     box-shadow:0 3px 0 rgba(58,42,30,.15);
+    text-decoration:none;
+    cursor:pointer;
   }
   .bday-tile-card.today{background:var(--gold);}
   .bday-tile-label{font-family:'Space Mono', monospace; font-size:11px; text-transform:uppercase; letter-spacing:.06em; color:rgba(255,255,255,.7);}
@@ -4124,15 +4126,15 @@ function recommendationsHtml(){
 
 function upcomingBirthdayTileHtml(){
   if(BIRTHDAYS.length===0){
-    return '<div class="empty-card">No birthdays yet. Nobody\'s been born apparently.</div>';
+    return '<a class="bday-tile-card" href="#birthdays"><div class="empty-card" style="margin:0;">No birthdays yet. Nobody\'s been born apparently.</div></a>';
   }
   const today = new Date();
   const todayM = today.getMonth()+1, todayD = today.getDate();
   const todays = BIRTHDAYS.filter(b => b.month===todayM && b.day===todayD);
   if(todays.length > 0){
-    return `<div class="bday-tile-card today">
+    return `<a class="bday-tile-card today" href="#birthdays">
       ${todays.map(b => `<span class="bday-tile-name bday-trigger" data-name="${escapeHtml(b.name)}">🎉 It's ${escapeHtml(b.name)}'s birthday today!</span>`).join('')}
-    </div>`;
+    </a>`;
   }
   const withNext = BIRTHDAYS.map(b=>{
     let next = new Date(today.getFullYear(), b.month-1, b.day);
@@ -4141,13 +4143,24 @@ function upcomingBirthdayTileHtml(){
     }
     return {...b, next};
   }).sort((a,b)=> a.next - b.next);
-  const soonest = withNext[0];
-  const dd = String(soonest.day).padStart(2,'0');
-  const mm = String(soonest.month).padStart(2,'0');
-  return `<div class="bday-tile-card">
+
+  // Show everyone whose birthday falls within the next 3 days, not just the single soonest.
+  // If nobody's that close, fall back to just the next one coming up so the tile isn't empty.
+  const startOfToday = new Date(today.getFullYear(), todayM-1, todayD);
+  const threeDaysOut = new Date(startOfToday);
+  threeDaysOut.setDate(threeDaysOut.getDate() + 3);
+  const withinThreeDays = withNext.filter(b => b.next <= threeDaysOut);
+  const toShow = withinThreeDays.length > 0 ? withinThreeDays : [withNext[0]];
+
+  const rows = toShow.map(b => {
+    const dd = String(b.day).padStart(2,'0');
+    const mm = String(b.month).padStart(2,'0');
+    return `<span class="bday-tile-name">${escapeHtml(b.name)}, ${dd}/${mm}</span>`;
+  }).join('');
+  return `<a class="bday-tile-card" href="#birthdays">
     <span class="bday-tile-label">Upcoming</span>
-    <span class="bday-tile-name">${escapeHtml(soonest.name)}, ${dd}/${mm}</span>
-  </div>`;
+    ${rows}
+  </a>`;
 }
 function birthdaysHtml(){
   if(BIRTHDAYS.length===0){
@@ -4310,7 +4323,7 @@ function viewHome(){
     </section>
 
     <section>
-      <div class="section-head"><span class="emoji">${icon('cake')}</span><h2>Birthdays</h2><a class="section-link" href="#birthdays">See more →</a></div>
+      <div class="section-head"><span class="emoji">${icon('cake')}</span><h2>Birthdays</h2></div>
       ${upcomingBirthdayTileHtml()}
     </section>
 
