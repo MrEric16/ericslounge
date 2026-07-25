@@ -213,7 +213,7 @@
     border-bottom:1px solid var(--line);
     padding-bottom:14px;
   }
-  .domain-group:first-of-type{ margin-top:6px; }
+  .domain-group:first-of-type{ margin-top:26px; }
   .domain-summary{
     cursor:pointer;
     list-style:none;
@@ -1451,7 +1451,7 @@ const SEARCHABLE_PAGES = [
   { name:"Sports", desc:"League tables, live fixtures, and Arsenal's next match.", url:"#sports", icon:"ball" },
   { name:"Photo Library", desc:"Selfies, memes, and class moments.", url:"#photos", icon:"camera" },
   { name:"Saved", desc:"Everything you've bookmarked — articles and videos.", url:"#saved", icon:"bookmark" },
-  { name:"Explore Everything", desc:"Powerful websites for you to explore.", url:"#explore", icon:"compass2" },
+  { name:"All Domains — Full Instruments Archive", desc:"Powerful websites for you to explore.", url:"#explore", icon:"compass2" },
   { name:"Superstars of the Week", desc:"This week's shoutouts.", url:"#superstars", icon:"star" },
   { name:"Birthdays", desc:"Upcoming birthdays in class.", url:"#birthdays", icon:"cake" },
   { name:"Invite a Friend", desc:"Get the QR code to install the Lounge on a new device.", url:"#invite", icon:"star" },
@@ -3703,21 +3703,36 @@ function isIOSDevice(){
 const IOS_SHARE_ICON = `<svg width="20" height="20" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:-5px;"><path d="M12 3v12M8 7l4-4 4 4"/><path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7"/></svg>`;
 
 function viewExplore(){
-  // Color each tile by its actual subject domain (reusing the same 12 faculty
-  // colors used everywhere else on the site), not by position in the list —
-  // so the same kind of tool always gets the same color.
-  const html = EXPLORE_SITES.length === 0
-    ? '<div class="empty-card">Nothing here yet. Mr Eric is still adding sites.</div>'
-    : EXPLORE_SITES.map(s => `
-        <a class="explore-card" style="background:${exploreColorFor(s.fac)}" href="${s.url}" target="_blank" rel="noopener noreferrer">
-          <div class="explore-card-name">${escapeHtml(s.name)}</div>
-          <div class="explore-card-desc">${escapeHtml(s.desc)}</div>
-        </a>
-      `).join('');
+  // Grouped by domain, collapsible Wikipedia-style — same pattern as the
+  // Articles and Videos archives. Each tile is colored by its actual faculty.
+  const groups = FACULTIES.map(fac => ({
+    fac,
+    items: EXPLORE_SITES.filter(s => s.fac === fac.key)
+  })).filter(g => g.items.length > 0);
+
+  const html = groups.map(g => `
+    <details class="domain-group">
+      <summary class="section-head domain-summary">
+        <span class="fac-icon" style="color:${g.fac.color}">${icon(g.fac.icon)}</span>
+        <h2>${g.fac.label}</h2>
+        <span class="domain-count">${g.items.length}</span>
+        <span class="domain-chevron">${icon('chevronDown')}</span>
+      </summary>
+      <div class="domain-group-content">
+        ${g.items.map(s => `
+          <a class="explore-card" style="background:${exploreColorFor(s.fac)}" href="${s.url}" target="_blank" rel="noopener noreferrer">
+            <div class="explore-card-name">${escapeHtml(s.name)}</div>
+            <div class="explore-card-desc">${escapeHtml(s.desc)}</div>
+          </a>
+        `).join('')}
+      </div>
+    </details>
+  `).join('');
+
   return `
     <a class="back-link" href="#">← Back to Mr Eric's Lounge</a>
     <section style="padding-top:14px;">
-      <div class="section-head"><span class="emoji">${icon('compass2')}</span><h2>Explore Everything</h2></div>
+      <div class="section-head"><span class="emoji">${icon('compass2')}</span><h2>All Domains — Full Instruments Archive</h2></div>
       ${html}
     </section>
   `;
@@ -4226,6 +4241,10 @@ function viewHome(){
           <span class="name">All Domains — Full Video Archives</span>
           <span class="count">${WATCH_VIDEOS.length} total</span>
         </a>
+        <a class="fac-tile all" href="#explore">
+          <span class="name">All Domains — Full Instruments Archive</span>
+          <span class="count">${EXPLORE_SITES.length} total</span>
+        </a>
       </div>
     </section>
 
@@ -4285,16 +4304,6 @@ function viewHome(){
     <section>
       <div class="section-head"><span class="emoji">${icon('trophy')}</span><h2>Home of the Premier League Champions</h2></div>
       ${sportsHtml()}
-    </section>
-
-    <section>
-      <a class="explore-tile" href="#explore">
-        <span class="icon">${icon('compass2')}</span>
-        <div>
-          <div class="title">Explore Everything</div>
-          <div class="sub">Powerful websites for you to explore</div>
-        </div>
-      </a>
     </section>
 
     <section>
