@@ -4214,7 +4214,13 @@ function birthdaysHtml(){
 
 function viewHome(){
   const recentCount = 5;
+  // "Latest" always means most recently added to the Lounge itself, not the
+  // source's original publish date. Articles have a real add-date to sort by;
+  // videos and instruments don't carry a date field at all, so the truthful
+  // signal is array position — new ones always get appended to the end.
   const recent = [...DISPATCHES].sort((a,b)=> b.date.localeCompare(a.date)).slice(0, recentCount);
+  const recentVideos = [...WATCH_VIDEOS].slice(-recentCount).reverse();
+  const recentInstruments = [...EXPLORE_SITES].slice(-recentCount).reverse();
 
   const facTiles = FACULTIES.map(f=>{
     const count = DISPATCHES.filter(a=>a.faculty===f.key).length;
@@ -4297,8 +4303,51 @@ function viewHome(){
     </section>
 
     <section>
-      <div class="section-head"><span class="emoji">${icon('newspaper')}</span><h2>Latest Articles</h2><a class="section-link" href="#faculty/all">See full archive →</a></div>
-      ${dispatchListHtml(recent)}
+      <div class="section-head"><span class="emoji">${icon('newspaper')}</span><h2>Latest:</h2></div>
+
+      <details class="domain-group">
+        <summary class="section-head domain-summary">
+          <span class="emoji">${icon('newspaper')}</span>
+          <h2>Articles</h2>
+          <span class="domain-count">${recent.length}</span>
+          <span class="domain-chevron">${icon('chevronDown')}</span>
+        </summary>
+        <div class="domain-group-content">
+          ${dispatchListHtml(recent)}
+          <a class="section-link" href="#faculty/all" style="display:block; text-align:right; margin-top:14px;">See full archive →</a>
+        </div>
+      </details>
+
+      <details class="domain-group">
+        <summary class="section-head domain-summary">
+          <span class="emoji">${icon('clapper')}</span>
+          <h2>Videos</h2>
+          <span class="domain-count">${recentVideos.length}</span>
+          <span class="domain-chevron">${icon('chevronDown')}</span>
+        </summary>
+        <div class="domain-group-content">
+          <div class="watch-grid">${watchGridHtml(recentVideos, 'latest-videos')}</div>
+          <a class="section-link" href="#watch/all" style="display:block; text-align:right; margin-top:14px;">See full archive →</a>
+        </div>
+      </details>
+
+      <details class="domain-group">
+        <summary class="section-head domain-summary">
+          <span class="emoji">${icon('compass2')}</span>
+          <h2>Instruments</h2>
+          <span class="domain-count">${recentInstruments.length}</span>
+          <span class="domain-chevron">${icon('chevronDown')}</span>
+        </summary>
+        <div class="domain-group-content">
+          ${recentInstruments.map(s => `
+            <a class="explore-card" style="background:${exploreColorFor(s.fac)}" href="${s.url}" target="_blank" rel="noopener noreferrer">
+              <div class="explore-card-name">${escapeHtml(s.name)}</div>
+              <div class="explore-card-desc">${escapeHtml(s.desc)}</div>
+            </a>
+          `).join('')}
+          <a class="section-link" href="#explore" style="display:block; text-align:right; margin-top:14px;">See full archive →</a>
+        </div>
+      </details>
     </section>
 
     <section>
