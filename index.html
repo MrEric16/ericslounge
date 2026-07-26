@@ -209,6 +209,26 @@
   }
 
   /* ---------- Collapsible domain sections (All Domains archive) ---------- */
+  /* ---------- Arsenal page (red/white/gold — an intentional exception to the site palette) ---------- */
+  .arsenal-page{
+    --card: #FFFFFF;
+    --ink: #1A1A1A;
+    --ink-soft: #7A1013;
+    --line: rgba(255,255,255,.35);
+    --coral: #EF0107;
+    --coral-dark: #9C0710;
+    --gold: #D4AF37;
+    background: #EF0107;
+    border-radius: 20px;
+    padding: 18px 14px 26px;
+    margin: 14px 0;
+    color: #fff;
+  }
+  .arsenal-page .domain-summary h2{ color:#fff; }
+  .arsenal-page .domain-count{ color:rgba(255,255,255,.85); }
+  .arsenal-page .domain-chevron{ color:var(--gold); }
+  .arsenal-page .emoji svg{ color:var(--gold); }
+
   .domain-group{
     margin-top:14px;
     border-bottom:1px solid var(--line);
@@ -1758,19 +1778,16 @@ function getNextArsenalFixture(){
     .sort((a,b) => a.dateObj - b.dateObj);
   return upcoming[0] || null;
 }
-function arsenalFixtureText(){
+function arsenalFixtureShortText(){
   const f = getNextArsenalFixture();
   if(!f) return "No fixtures currently loaded — ask Mr Eric to re-sync from the calendar.";
-  // Parse the Tashkent wall-clock time directly from the stored string, rather than using
-  // Date getters — those would show the VIEWER's own device timezone instead of Tashkent's,
-  // which would silently break the "(Tashkent time)" label for anyone outside Tashkent.
   const m = f.start.match(/^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2})/);
   const year = +m[1], month = +m[2], day = +m[3], hour = m[4], minute = m[5];
   const days = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
   const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
   const dayName = days[new Date(Date.UTC(year, month-1, day)).getUTCDay()];
   const dateStr = `${dayName} ${day} ${months[month-1]} ${year}`;
-  return `${f.title} ${f.venue} — ${f.competition} — ${f.stadium} — ${dateStr}, ${hour}:${minute} (Tashkent time)`;
+  return `${f.title} — ${f.competition} — ${dateStr}, ${hour}:${minute} (Tashkent time)`;
 }
 
 // Superstars archive — every winner ever added, newest first. Add a new entry each time
@@ -1983,7 +2000,7 @@ async function loadLiveSportsData(){
       try{ cache = JSON.parse(localStorage.getItem(SPORTS_CACHE_KEY)); }catch(e){}
 
       if(!cache || cache.day !== today){
-        const fresh = { day: today, leagues: {}, matches: {}, arsenalFixture: null };
+        const fresh = { day: today, leagues: {}, matches: {}, arsenalFixture: null, arsenalResults: [] };
         for(const code of Object.keys(LEAGUE_DETAIL_META)){
           try{
             const res = await fetch(`https://api.football-data.org/v4/competitions/${code}/standings`, {
@@ -2037,6 +2054,19 @@ async function loadLiveSportsData(){
           }
         }catch(e){ /* Arsenal fixture stays on the static fallback list */ }
 
+        try{
+          const res = await fetch(`https://api.football-data.org/v4/teams/${ARSENAL_TEAM_ID}/matches?status=FINISHED&limit=15`, {
+            headers: { 'X-Auth-Token': FOOTBALL_DATA_API_KEY }
+          });
+          if(!res.ok) throw new Error('bad response '+res.status);
+          const data = await res.json();
+          const gironaStart = new Date(ARSENAL_FIXTURES[0].start);
+          fresh.arsenalResults = (data.matches || [])
+            .filter(m => new Date(m.utcDate) >= gironaStart)
+            .sort((a,b) => new Date(b.utcDate) - new Date(a.utcDate))
+            .map(matchToRow);
+        }catch(e){ /* results stay empty until the API has finished matches to show */ }
+
         if(Object.keys(fresh.leagues).length > 0 || Object.keys(fresh.matches).length > 0 || fresh.arsenalFixture){
           cache = fresh;
           try{ localStorage.setItem(SPORTS_CACHE_KEY, JSON.stringify(cache)); }catch(e){}
@@ -2065,11 +2095,18 @@ async function loadLiveSportsData(){
   const tablesEl = document.getElementById('leagueTablesContainer');
   if(tablesEl) tablesEl.innerHTML = SPORTS_LEAGUES.map(leagueTableHtml).join('');
   const fixtureEl = document.getElementById('nextFixtureText');
-  if(fixtureEl) fixtureEl.innerHTML = arsenalFixtureText();
+  if(fixtureEl) fixtureEl.innerHTML = arsenalFixtureShortText();
   const leagueDetailEl = document.getElementById('leagueDetailContainer');
   if(leagueDetailEl && leagueDetailEl.dataset.code){
     leagueDetailEl.innerHTML = leagueDetailBodyHtml(leagueDetailEl.dataset.code);
   }
+  const arsResultsEl = document.getElementById('arsenalResultsContainer');
+  if(arsResultsEl){
+    const results = (window._sportsCache && window._sportsCache.arsenalResults) || [];
+    arsResultsEl.innerHTML = matchListHtml(results, true);
+  }
+  const arsTableEl = document.getElementById('arsenalTableContainer');
+  if(arsTableEl) arsTableEl.innerHTML = oneTableHtml(SPORTS_LEAGUES[0].teams);
 }
 function matchListHtml(rows, showScore){
   if(!rows || rows.length === 0){
@@ -4186,6 +4223,56 @@ function sportsTileHtml(t){
     <span class="name"><span class="hub-icon">${t.emoji}</span> ${escapeHtml(t.name)}</span>
   </a>`;
 }
+function arsenalFixtureRows(){
+  const pool = LIVE_ARSENAL_FIXTURE ? [LIVE_ARSENAL_FIXTURE, ...ARSENAL_FIXTURES] : ARSENAL_FIXTURES;
+  const now = new Date();
+  return pool
+    .map(f => { const [home, away] = f.title.split(' v '); return { home, away, start: f.start }; })
+    .filter(f => new Date(f.start) > now)
+    .sort((a,b)=> new Date(a.start) - new Date(b.start));
+}
+function viewArsenalHub(){
+  const fixtureRows = arsenalFixtureRows();
+  const results = (window._sportsCache && window._sportsCache.arsenalResults) || [];
+  return `
+    <a class="back-link" href="#">← Back to Mr Eric's Lounge</a>
+    <div class="arsenal-page">
+      <div style="text-align:center; padding:10px 0 6px;">
+        <div style="font-family:'Baloo 2',sans-serif; font-weight:800; font-size:24px; line-height:1.25;">Home of the Premier League Champions</div>
+        <div style="font-weight:700; opacity:.85; margin-top:6px; letter-spacing:.02em;">North London Forever</div>
+      </div>
+
+      <details class="domain-group" open>
+        <summary class="section-head domain-summary">
+          <span class="emoji">${icon('calendar')}</span>
+          <h2>Fixtures</h2>
+          <span class="domain-count">${fixtureRows.length}</span>
+          <span class="domain-chevron">${icon('chevronDown')}</span>
+        </summary>
+        <div class="domain-group-content">${matchListHtml(fixtureRows, false)}</div>
+      </details>
+
+      <details class="domain-group">
+        <summary class="section-head domain-summary">
+          <span class="emoji">${icon('trophy')}</span>
+          <h2>Results</h2>
+          <span class="domain-count">${results.length}</span>
+          <span class="domain-chevron">${icon('chevronDown')}</span>
+        </summary>
+        <div class="domain-group-content" id="arsenalResultsContainer">${matchListHtml(results, true)}</div>
+      </details>
+
+      <details class="domain-group">
+        <summary class="section-head domain-summary">
+          <span class="emoji">${icon('barchart')}</span>
+          <h2>Premier League Table</h2>
+          <span class="domain-chevron">${icon('chevronDown')}</span>
+        </summary>
+        <div class="domain-group-content" id="arsenalTableContainer">${oneTableHtml(SPORTS_LEAGUES[0].teams)}</div>
+      </details>
+    </div>
+  `;
+}
 function viewSportsHub(){
   return `
     <a class="back-link" href="#">← Back to Mr Eric's Lounge</a>
@@ -4212,7 +4299,7 @@ function viewSports(){
 
 function sportsHtml(){
   return `
-    <div class="sports-card">
+    <a class="sports-card" href="#arsenal" style="display:block; text-decoration:none; color:inherit;">
       <div class="sports-header">
         <div class="crest easter-egg-trigger" data-egg="arsenal" style="cursor:pointer;"><img src="https://download.logo.wine/logo/Arsenal_F.C./Arsenal_F.C.-Logo.wine.png" alt="Arsenal FC crest" style="width:100%;height:100%;object-fit:contain;"></div>
         <div>
@@ -4220,8 +4307,9 @@ function sportsHtml(){
           <div class="sub">Next fixture</div>
         </div>
       </div>
-      <div class="next-fixture"><span class="label">Next up</span><span id="nextFixtureText">${arsenalFixtureText()}</span></div>
-    </div>`;
+      <div class="next-fixture"><span class="label">Next up</span><span id="nextFixtureText">${arsenalFixtureShortText()}</span></div>
+      <div class="next-fixture"><span class="label">Starts in</span><span id="arsenalCountdown">--:--:--:--</span></div>
+    </a>`;
 }
 
 function studentsHtml(){
@@ -4759,6 +4847,8 @@ function renderRoute(opts){
     html = viewSuperstars();
   } else if(parts[0] === 'birthdays'){
     html = viewBirthdaysPage();
+  } else if(parts[0] === 'arsenal'){
+    html = viewArsenalHub();
   } else if(parts[0] === 'sports' && parts[1] === 'tables'){
     html = viewSports();
   } else if(parts[0] === 'sports' && parts[1] === 'league' && parts[2]){
@@ -4783,6 +4873,7 @@ function renderRoute(opts){
   if(parts[0] === 'stats'){ loadStats(); }
   if(parts.length === 0){ loadOnThisDay(); loadWeather(); loadLiveSportsData(); wireRandomButton(app); wireRandomVideoButton(app); wireRandomExploreButton(app); checkAchievements(); }
   if(parts[0] === 'sports' && parts[1] === 'tables'){ loadLiveSportsData(); }
+  if(parts[0] === 'arsenal'){ loadLiveSportsData(); }
   if(parts[0] === 'sports' && parts[1] === 'league' && parts[2]){ loadLiveSportsData(); }
 
   // Swipe between sibling domain pages (item 1)
@@ -5191,10 +5282,25 @@ function updateWeekendCountdown(){
   el.textContent = `${pad(dd)}:${pad(hh)}:${pad(mm)}:${pad(ss)}`;
 }
 
+function updateArsenalCountdown(){
+  const el = document.getElementById('arsenalCountdown');
+  if(!el) return;
+  const f = getNextArsenalFixture();
+  if(!f){ el.textContent = '--:--:--:--'; return; }
+  const target = new Date(f.start);
+  let diff = Math.max(0, target - new Date());
+  const dd = Math.floor(diff / 86400000); diff -= dd*86400000;
+  const hh = Math.floor(diff / 3600000); diff -= hh*3600000;
+  const mm = Math.floor(diff / 60000); diff -= mm*60000;
+  const ss = Math.floor(diff / 1000);
+  el.textContent = `${pad(dd)}:${pad(hh)}:${pad(mm)}:${pad(ss)}`;
+}
+
 updateClock();
 updateWeekendCountdown();
 setInterval(updateClock, 1000);
 setInterval(updateWeekendCountdown, 1000);
+setInterval(updateArsenalCountdown, 1000);
 </script>
 
 </body>
