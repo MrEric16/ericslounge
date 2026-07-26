@@ -2160,7 +2160,9 @@ function matchListHtml(rows, showScore){
 function leagueDetailBodyHtml(code){
   const meta = LEAGUE_DETAIL_META[code];
   const cache = window._sportsCache;
-  const teams = (cache && cache.leagues && cache.leagues[code]) || [];
+  const liveTeams = (cache && cache.leagues && cache.leagues[code]) || [];
+  const staticLeague = SPORTS_LEAGUES.find(l => l.name === meta.name);
+  const teams = liveTeams.length > 0 ? liveTeams : (staticLeague ? staticLeague.teams : []);
   const matches = (cache && cache.matches && cache.matches[code]) || { fixtures: [], results: [] };
   return `
     <div class="match-section-label">Table</div>
