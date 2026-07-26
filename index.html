@@ -14,6 +14,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Nunito:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
 <style>
   :root{
     --cream:#F3EADD;
@@ -1792,6 +1793,30 @@ const SUPABASE_BUCKET = "Photos";
 const supabaseClient = (window.supabase && window.supabase.createClient)
   ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
   : null;
+
+/* ---- Analytics (fire-and-forget, never blocks the UI) ---- */
+function getSessionId(){
+  try{
+    let id = sessionStorage.getItem('sid');
+    if(!id){ id = Math.random().toString(36).slice(2) + Date.now().toString(36); sessionStorage.setItem('sid', id); }
+    return id;
+  }catch(e){ return 'nosession'; }
+}
+function logEvent(event_type, label){
+  if(!supabaseClient) return;
+  supabaseClient.from('analytics_events').insert({
+    session_id: getSessionId(), event_type, label: label || null
+  }).then(()=>{}, ()=>{});
+}
+let sessionStart = Date.now();
+function sendSessionDuration(){
+  const seconds = Math.round((Date.now() - sessionStart) / 1000);
+  if(seconds < 2) return;
+  logEvent('session_end', String(seconds));
+}
+document.addEventListener('visibilitychange', ()=>{ if(document.visibilityState === 'hidden') sendSessionDuration(); });
+window.addEventListener('pagehide', sendSessionDuration);
+
 let SUBMITTED_PHOTOS = [];
 
 // Photo Library — selfies, memes, class photos. Only added when Eric sends them; each image is
@@ -3754,6 +3779,72 @@ function viewInvite(){
   `;
 }
 
+function viewStats(){
+  return `
+    <a class="back-link" href="#">← Back to Mr Eric's Lounge</a>
+    <section style="padding-top:14px;">
+      <div class="section-head"><span class="emoji">${icon('barchart')}</span><h2>Usage Stats</h2></div>
+      <div id="statsBody" class="empty-card">Loading…</div>
+    </section>
+  `;
+}
+async function loadStats(){
+  const body = document.getElementById('statsBody');
+  if(!body) return;
+  if(!supabaseClient){ body.textContent = 'Analytics not configured.'; return; }
+  const { data, error } = await supabaseClient.from('analytics_events').select('*').order('created_at', { ascending:true });
+  if(error || !data){ body.textContent = 'Could not load stats.'; return; }
+
+  const opens = data.filter(d=>d.event_type==='open');
+  const views = data.filter(d=>d.event_type==='view');
+  const sessions = data.filter(d=>d.event_type==='session_end');
+
+  // Opens per day (last 14 days)
+  const dayCounts = {};
+  opens.forEach(o=>{ const d = o.created_at.slice(0,10); dayCounts[d]=(dayCounts[d]||0)+1; });
+  const days = Object.keys(dayCounts).sort().slice(-14);
+
+  // Opens by hour of day (peak times) — local browser time
+  const hourCounts = new Array(24).fill(0);
+  opens.forEach(o=>{ const h = new Date(o.created_at).getHours(); hourCounts[h]++; });
+
+  // Top viewed sections
+  const viewCounts = {};
+  views.forEach(v=>{ const l = v.label || 'home'; viewCounts[l]=(viewCounts[l]||0)+1; });
+  const topViews = Object.entries(viewCounts).sort((a,b)=>b[1]-a[1]).slice(0,10);
+
+  // Average session duration
+  const avgDuration = sessions.length
+    ? Math.round(sessions.reduce((s,x)=>s+parseInt(x.label||'0',10),0) / sessions.length)
+    : 0;
+
+  body.outerHTML = `
+    <div style="margin-bottom:16px;">
+      <div class="empty-card">Total opens: <b>${opens.length}</b> · Avg session: <b>${avgDuration}s</b> · Total page views: <b>${views.length}</b></div>
+    </div>
+    <div class="entry" style="padding:16px; margin-bottom:14px;"><canvas id="chartDays" height="180"></canvas></div>
+    <div class="entry" style="padding:16px; margin-bottom:14px;"><canvas id="chartHours" height="180"></canvas></div>
+    <div class="entry" style="padding:16px; margin-bottom:14px;"><canvas id="chartViews" height="220"></canvas></div>
+  `;
+
+  new Chart(document.getElementById('chartDays'), {
+    type:'line',
+    data:{ labels: days, datasets:[{ label:'Opens per day', data: days.map(d=>dayCounts[d]||0), borderColor:'#7A2E35', backgroundColor:'rgba(122,46,53,.15)', fill:true, tension:.3 }] },
+    options:{ plugins:{ title:{ display:true, text:'Opens per day' } } }
+  });
+  new Chart(document.getElementById('chartHours'), {
+    type:'bar',
+    data:{ labels: [...Array(24).keys()].map(h=>h+':00'), datasets:[{ label:'Opens by hour (peak times)', data: hourCounts, backgroundColor:'#D4AF37' }] },
+    options:{ plugins:{ title:{ display:true, text:'Peak usage hours' } } }
+  });
+  new Chart(document.getElementById('chartViews'), {
+    type:'bar',
+    indexAxis:'y',
+    data:{ labels: topViews.map(v=>v[0]), datasets:[{ label:'Views', data: topViews.map(v=>v[1]), backgroundColor:'#6B7A3D' }] },
+    options:{ plugins:{ title:{ display:true, text:'Most-viewed sections/domains' } } }
+  });
+}
+
 function viewInstall(){
   if(isStandaloneApp()){
     return `
@@ -4581,6 +4672,7 @@ function renderRoute(opts){
   const app = document.getElementById('app');
   const hash = location.hash.replace(/^#/, '');
   const parts = hash.split('/').filter(Boolean);
+  logEvent('view', hash || 'home');
 
   // Remember where we were scrolled to on the page we're about to leave.
   if(!opts.forceTop && lastRenderedHash !== null){
@@ -4610,6 +4702,8 @@ function renderRoute(opts){
     html = viewInvite();
   } else if(parts[0] === 'install'){
     html = viewInstall();
+  } else if(parts[0] === 'stats'){
+    html = viewStats();
   } else if(parts[0] === 'superstars'){
     html = viewSuperstars();
   } else if(parts[0] === 'birthdays'){
@@ -4635,6 +4729,7 @@ function renderRoute(opts){
   if(parts[0] === 'photos'){ wirePhotoLightbox(app); wirePhotoUpload(app); loadSubmittedPhotos(); }
   if(parts[0] === 'search') wireSearch(app);
   if(parts[0] === 'install'){ wireInstallPage(); }
+  if(parts[0] === 'stats'){ loadStats(); }
   if(parts.length === 0){ loadOnThisDay(); loadWeather(); loadLiveSportsData(); wireRandomButton(app); wireRandomVideoButton(app); wireRandomExploreButton(app); checkAchievements(); }
   if(parts[0] === 'sports' && parts[1] === 'tables'){ loadLiveSportsData(); }
   if(parts[0] === 'sports' && parts[1] === 'league' && parts[2]){ loadLiveSportsData(); }
@@ -4924,6 +5019,7 @@ document.getElementById('bottomTabs').addEventListener('click', (e)=>{
   }
 });
 
+logEvent('open');
 renderRoute();
 setTimeout(checkTodaysBirthdays, 700);
 // Tab bar is now populated and visible (show-bottom-tabs added during renderRoute) —
