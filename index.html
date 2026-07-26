@@ -1944,9 +1944,11 @@ function ufcEventRowsHtml(list){
   if(!list || list.length === 0) return '<div class="empty-card">Nothing here yet.</div>';
   return `<div class="match-list">${list.map(e => {
     const location = e.venue.split(',').slice(1).join(',').trim();
+    // Strip any "UFC 330:" / "UFC Freedom 250:" style prefix — keep only "Name vs Name".
+    const cleanName = e.name.includes(':') ? e.name.split(':').slice(1).join(':').trim() : e.name;
     return `
     <div class="match-row">
-      <div class="match-teams">${escapeHtml(e.name)}</div>
+      <div class="match-teams">${escapeHtml(cleanName)}</div>
       <div class="match-date">${formatTashkentDate(e.start)} — ${escapeHtml(location)}</div>
     </div>
   `;
