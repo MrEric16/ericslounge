@@ -1913,8 +1913,67 @@ const SPORTS_TILES = [
   { emoji: flagIcon('uzbekistan'), name:"Uzbekistan Super League", sub:"Official site", url:"https://pfl.uz", color:"var(--f-it)" },
   { emoji: flagIcon('uae'), name:"UAE Pro League", sub:"Official site", url:"https://www.uaeproleague.ae/en", color:"var(--f-psy)" },
   { emoji: icon('stick'), name:"KHL", sub:"Table, fixtures, results", url:"#sports/league/KHL", color:"var(--ink)", internal:true },
-  { emoji: icon('glove'), name:"UFC", sub:"Official site", url:"https://www.ufc.com", color:"var(--f-des)" },
+  { emoji: icon('glove'), name:"UFC", sub:"Upcoming and past events", url:"#ufc", color:"var(--f-des)", internal:true },
 ];
+// UFC events — pulled directly from ufc.com/events. No fixtures/table here, just
+// Upcoming and Past, since UFC isn't a league. Update this by hand periodically.
+const UFC_EVENTS = {
+  upcoming: [
+    { name:"Ankalaev vs Guskov", start:"2026-07-25T21:00:00+05:00", venue:"Etihad Arena, Abu Dhabi, UAE" },
+    { name:"Medic vs Rodriguez", start:"2026-08-01T22:00:00+05:00", venue:"Belgrade Arena, Belgrade, Serbia" },
+    { name:"Gamrot vs Salkilld", start:"2026-08-09T05:00:00+05:00", venue:"Meta APEX, Las Vegas, USA" },
+    { name:"UFC 330: Makhachev vs Machado Garry", start:"2026-08-16T06:00:00+05:00", venue:"Xfinity Mobile Arena, Philadelphia, USA" },
+    { name:"Hernandez vs Rodrigues", start:"2026-08-23T05:00:00+05:00", venue:"Golden 1 Center, Sacramento, USA" },
+    { name:"Nurmagomedov vs Song", start:"2026-08-29T15:00:00+05:00", venue:"Oriental Sports Center, Shanghai, China" },
+    { name:"TBD vs TBD", start:"2026-09-06T00:00:00+05:00", venue:"Accor Arena, Paris, France" },
+    { name:"TBD vs TBD", start:"2026-09-13T02:00:00+05:00", venue:"Desert Diamond Arena, Glendale, USA" },
+  ],
+  past: [
+    { name:"Du Plessis vs Usman", start:"2026-07-19T05:00:00+05:00", venue:"Paycom Center, Oklahoma City, USA" },
+    { name:"UFC 329: McGregor vs Holloway 2", start:"2026-07-12T06:00:00+05:00", venue:"T-Mobile Arena, Las Vegas, USA" },
+    { name:"Fiziev vs Torres", start:"2026-06-27T21:00:00+05:00", venue:"National Gymnastics Arena, Baku, Azerbaijan" },
+    { name:"Kape vs Horiguchi", start:"2026-06-21T05:00:00+05:00", venue:"Meta APEX, Las Vegas, USA" },
+    { name:"UFC Freedom 250: Topuria vs Gaethje", start:"2026-06-15T05:00:00+05:00", venue:"The White House, Washington DC, USA" },
+    { name:"Muhammad vs Bonfim", start:"2026-06-07T05:00:00+05:00", venue:"Meta APEX, Las Vegas, USA" },
+    { name:"Song vs Figueiredo", start:"2026-05-30T16:00:00+05:00", venue:"Galaxy Arena, Macao" },
+    { name:"Allen vs Costa", start:"2026-05-17T05:00:00+05:00", venue:"Meta APEX, Las Vegas, USA" },
+  ],
+};
+function ufcEventRowsHtml(list){
+  if(!list || list.length === 0) return '<div class="empty-card">Nothing here yet.</div>';
+  return `<div class="match-list">${list.map(e => `
+    <div class="match-row">
+      <div class="match-teams">${escapeHtml(e.name)}</div>
+      <div class="match-date">${formatTashkentDate(e.start)} — ${escapeHtml(e.venue)}</div>
+    </div>
+  `).join('')}</div>`;
+}
+function viewUFC(){
+  return `
+    <a class="back-link" href="#">← Back to Mr Eric's Lounge</a>
+    <section style="padding-top:14px;">
+      <div class="section-head"><span class="emoji">${icon('glove')}</span><h2>UFC</h2></div>
+      <details class="domain-group">
+        <summary class="section-head domain-summary">
+          <span class="emoji">${icon('calendar')}</span>
+          <h2>Upcoming</h2>
+          <span class="domain-count">${UFC_EVENTS.upcoming.length}</span>
+          <span class="domain-chevron">${icon('chevronDown')}</span>
+        </summary>
+        <div class="domain-group-content">${ufcEventRowsHtml(UFC_EVENTS.upcoming)}</div>
+      </details>
+      <details class="domain-group">
+        <summary class="section-head domain-summary">
+          <span class="emoji">${icon('trophy')}</span>
+          <h2>Past</h2>
+          <span class="domain-count">${UFC_EVENTS.past.length}</span>
+          <span class="domain-chevron">${icon('chevronDown')}</span>
+        </summary>
+        <div class="domain-group-content">${ufcEventRowsHtml(UFC_EVENTS.past)}</div>
+      </details>
+    </section>
+  `;
+}
 const SPORTS_LEAGUES = [
   {
     name: "English Premier League", flag: flagIcon('england'), note: "Pre-season — starts 21 Aug 2026",
@@ -5006,6 +5065,8 @@ function renderRoute(opts){
     html = viewSuperstars();
   } else if(parts[0] === 'birthdays'){
     html = viewBirthdaysPage();
+  } else if(parts[0] === 'ufc'){
+    html = viewUFC();
   } else if(parts[0] === 'arsenal'){
     html = viewArsenalHub();
   } else if(parts[0] === 'sports' && parts[1] === 'tables'){
