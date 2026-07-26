@@ -1993,24 +1993,54 @@ const SPORTS_LEAGUES = [
     ],
   },
   {
-    name: "Uzbekistan Super League", flag: flagIcon('uzbekistan'), note: "Live — round 12",
+    name: "Uzbekistan Super League", flag: flagIcon('uzbekistan'), note: "Live — round 13",
     teams: [
-      { name:"Neftchi Fergana", pld:12, w:10, d:1, l:1, gf:27, ga:4, pts:31 },
-      { name:"Pakhtakor", pld:12, w:8, d:3, l:1, gf:23, ga:13, pts:27 },
-      { name:"Buxoro", pld:12, w:6, d:2, l:4, gf:16, ga:13, pts:20 },
-      { name:"Navbahor", pld:12, w:6, d:2, l:4, gf:16, ga:11, pts:20 },
-      { name:"Bunyodkor", pld:12, w:6, d:1, l:5, gf:14, ga:14, pts:19 },
-      { name:"AGMK", pld:12, w:5, d:4, l:3, gf:17, ga:16, pts:19 },
-      { name:"Lokomotiv Tashkent", pld:12, w:5, d:3, l:4, gf:15, ga:15, pts:18 },
-      { name:"Nasaf", pld:12, w:4, d:5, l:3, gf:15, ga:12, pts:17 },
-      { name:"Andijan", pld:12, w:5, d:1, l:6, gf:17, ga:13, pts:16 },
-      { name:"Surkhon", pld:12, w:4, d:3, l:5, gf:13, ga:19, pts:15 },
-      { name:"Dinamo Samarqand", pld:12, w:4, d:2, l:6, gf:19, ga:22, pts:14 },
-      { name:"Xorazm", pld:12, w:3, d:4, l:5, gf:9, ga:15, pts:13 },
-      { name:"Qizilqum", pld:12, w:4, d:1, l:7, gf:9, ga:17, pts:13 },
-      { name:"Sogdiana", pld:12, w:3, d:3, l:6, gf:21, ga:25, pts:12 },
-      { name:"Kokand 1912", pld:12, w:2, d:5, l:5, gf:10, ga:16, pts:11 },
-      { name:"Mash'al", pld:12, w:1, d:0, l:11, gf:5, ga:21, pts:3 },
+      { name:"Neftchi Fergana", pld:13, w:11, d:1, l:1, gf:32, ga:5, pts:34 },
+      { name:"Pakhtakor", pld:13, w:9, d:3, l:1, gf:25, ga:14, pts:30 },
+      { name:"Buxoro", pld:13, w:7, d:2, l:4, gf:17, ga:13, pts:23 },
+      { name:"OKMK", pld:13, w:6, d:4, l:3, gf:21, ga:17, pts:22 },
+      { name:"Navbahor", pld:13, w:6, d:3, l:4, gf:17, ga:12, pts:21 },
+      { name:"Lokomotiv Tashkent", pld:13, w:5, d:4, l:4, gf:18, ga:18, pts:19 },
+      { name:"Bunyodkor", pld:13, w:6, d:1, l:6, gf:14, ga:15, pts:19 },
+      { name:"Nasaf", pld:13, w:4, d:6, l:3, gf:16, ga:13, pts:18 },
+      { name:"Andijon", pld:13, w:5, d:2, l:6, gf:20, ga:16, pts:17 },
+      { name:"Dinamo Samarqand", pld:13, w:5, d:2, l:6, gf:21, ga:23, pts:17 },
+      { name:"Surkhon", pld:13, w:4, d:3, l:6, gf:14, ga:21, pts:15 },
+      { name:"Qizilqum", pld:13, w:4, d:2, l:7, gf:10, ga:18, pts:14 },
+      { name:"Xorazm", pld:13, w:3, d:4, l:6, gf:10, ga:17, pts:13 },
+      { name:"Sogdiana", pld:13, w:3, d:3, l:7, gf:22, ga:30, pts:12 },
+      { name:"Kokand 1912", pld:13, w:2, d:5, l:6, gf:11, ga:20, pts:11 },
+      { name:"Mashal", pld:13, w:1, d:1, l:11, gf:6, ga:22, pts:4 },
+    ],
+    // Fixtures/results computed from the full match log on terrikon.com — table above
+    // is a real calculated standings table (104 matches processed), not a placeholder.
+    fixtures: [
+      { home:"Bunyodkor", away:"Pakhtakor", start:"2026-07-26T18:00:00+05:00" },
+      { home:"OKMK", away:"Mashal", start:"2026-07-27T18:00:00+05:00" },
+      { home:"Lokomotiv Tashkent", away:"Sogdiana", start:"2026-07-27T18:00:00+05:00" },
+      { home:"Andijon", away:"Buxoro", start:"2026-07-27T18:00:00+05:00" },
+      { home:"Neftchi Fergana", away:"Navbahor", start:"2026-07-28T18:00:00+05:00" },
+      { home:"Nasaf", away:"Qizilqum", start:"2026-07-28T18:00:00+05:00" },
+      { home:"Xorazm", away:"Surkhon", start:"2026-07-28T18:00:00+05:00" },
+      { home:"Dinamo Samarqand", away:"Kokand 1912", start:"2026-07-29T18:00:00+05:00" },
+    ],
+    results: [
+      { home:"Navbahor", away:"Qizilqum", homeScore:1, awayScore:1, start:"2026-07-23T18:00:00+05:00" },
+      { home:"Surkhon", away:"Dinamo Samarqand", homeScore:1, awayScore:2, start:"2026-07-23T18:00:00+05:00" },
+      { home:"Lokomotiv Tashkent", away:"Andijon", homeScore:3, awayScore:3, start:"2026-07-22T18:00:00+05:00" },
+      { home:"Mashal", away:"Nasaf", homeScore:1, awayScore:1, start:"2026-07-22T18:00:00+05:00" },
+      { home:"Kokand 1912", away:"OKMK", homeScore:1, awayScore:4, start:"2026-07-22T18:00:00+05:00" },
+      { home:"Pakhtakor", away:"Xorazm", homeScore:2, awayScore:1, start:"2026-07-21T18:00:00+05:00" },
+      { home:"Buxoro", away:"Bunyodkor", homeScore:1, awayScore:0, start:"2026-07-21T18:00:00+05:00" },
+      { home:"Sogdiana", away:"Neftchi Fergana", homeScore:1, awayScore:5, start:"2026-07-21T18:00:00+05:00" },
+      { home:"Qizilqum", away:"Dinamo Samarqand", homeScore:1, awayScore:2, start:"2026-07-18T18:00:00+05:00" },
+      { home:"Andijon", away:"Surkhon", homeScore:1, awayScore:2, start:"2026-07-18T18:00:00+05:00" },
+      { home:"Navbahor", away:"OKMK", homeScore:2, awayScore:3, start:"2026-07-17T18:00:00+05:00" },
+      { home:"Mashal", away:"Kokand 1912", homeScore:1, awayScore:0, start:"2026-07-17T18:00:00+05:00" },
+      { home:"Pakhtakor", away:"Lokomotiv Tashkent", homeScore:1, awayScore:1, start:"2026-07-17T18:00:00+05:00" },
+      { home:"Sogdiana", away:"Xorazm", homeScore:2, awayScore:0, start:"2026-07-16T18:00:00+05:00" },
+      { home:"Neftchi Fergana", away:"Buxoro", homeScore:2, awayScore:1, start:"2026-07-16T18:00:00+05:00" },
+      { home:"Bunyodkor", away:"Nasaf", homeScore:1, awayScore:3, start:"2026-07-16T18:00:00+05:00" },
     ],
   },
   {
@@ -2077,7 +2107,17 @@ const SPORTS_LEAGUES = [
   },
   {
     name: "UAE Pro League", flag: flagIcon('uae'), note: "Pre-season — 2026-27 season not yet started",
-    teams: zeroRows(["Ajman","Al Ain","Al Bataeh","Al Dhafra","Al Jazira","Al Nasr","Al Wahda","Al Wasl","Baniyas","Dibba Al Fujairah","Ittihad Kalba","Khor Fakkan","Shabab Al Ahli","Sharjah"]),
+    teams: zeroRows(["Ajman","Al Ain","Al Dhafra","Al Jazira","Al Nasr","Al Wahda","Al Wasl","Bani Yas","Hatta","Ittihad Kalba","Khor Fakkan","Shabab Al Ahli","Sharjah","United FC"]),
+    // Matchday 1 — verified against TNT Sports' own fixture listing.
+    fixtures: [
+      { home:"Al Nasr", away:"Ittihad Kalba", start:"2026-08-14T16:10:00+05:00" },
+      { home:"Al Wahda", away:"Ajman", start:"2026-08-14T18:45:00+05:00" },
+      { home:"Al Dhafra", away:"Sharjah", start:"2026-08-15T16:10:00+05:00" },
+      { home:"Khor Fakkan", away:"Shabab Al Ahli", start:"2026-08-15T18:45:00+05:00" },
+      { home:"Al Wasl", away:"United FC", start:"2026-08-15T18:45:00+05:00" },
+      { home:"Hatta", away:"Al Jazira", start:"2026-08-16T16:10:00+05:00" },
+      { home:"Bani Yas", away:"Al Ain", start:"2026-08-16T18:45:00+05:00" },
+    ],
   },
   {
     name: "KHL", flag: icon('stick'), note: "Off-season — regular season starts 10 Sep 2026",
@@ -2313,6 +2353,7 @@ function leagueDetailBodyHtml(code){
       : oneTableHtml((staticLeague && staticLeague.teams) || []);
   const matches = (cache && cache.matches && cache.matches[code]) || { fixtures: [], results: [] };
   const fixtures = matches.fixtures.length > 0 ? matches.fixtures : ((staticLeague && staticLeague.fixtures) || []);
+  const results = matches.results.length > 0 ? matches.results : ((staticLeague && staticLeague.results) || []);
   return `
     <details class="domain-group">
       <summary class="section-head domain-summary">
@@ -2335,10 +2376,10 @@ function leagueDetailBodyHtml(code){
       <summary class="section-head domain-summary">
         <span class="emoji">${icon('trophy')}</span>
         <h2>Results</h2>
-        <span class="domain-count">${matches.results.length}</span>
+        <span class="domain-count">${results.length}</span>
         <span class="domain-chevron">${icon('chevronDown')}</span>
       </summary>
-      <div class="domain-group-content">${matchListHtml(matches.results, true)}</div>
+      <div class="domain-group-content">${matchListHtml(results, true)}</div>
     </details>
   `;
 }
@@ -4427,12 +4468,24 @@ function leagueTableHtml(league){
       <div class="domain-group-content">${matchListHtml(league.fixtures, false)}</div>
     </details>
   ` : '';
+  const resultsBlock = (league.results && league.results.length > 0) ? `
+    <details class="domain-group">
+      <summary class="section-head domain-summary">
+        <span class="emoji">${icon('trophy')}</span>
+        <h2>Results</h2>
+        <span class="domain-count">${league.results.length}</span>
+        <span class="domain-chevron">${icon('chevronDown')}</span>
+      </summary>
+      <div class="domain-group-content">${matchListHtml(league.results, true)}</div>
+    </details>
+  ` : '';
   return `
     <div class="league-block">
       <div class="league-head"><span class="flag">${league.flag}</span><h3>${escapeHtml(league.name)}</h3></div>
       <div class="league-note">${escapeHtml(league.note)}</div>
       ${tables}
       ${fixturesBlock}
+      ${resultsBlock}
     </div>
   `;
 }
