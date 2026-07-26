@@ -1225,14 +1225,15 @@
     display:flex;
     align-items:center;
     justify-content:space-between;
-    gap:10px;
+    gap:6px 10px;
     border-bottom:1px solid var(--line);
     font-size:13px;
+    flex-wrap:wrap;
   }
   .match-list .match-row:last-child{border-bottom:none;}
   .match-row .match-teams{font-weight:700; color:var(--ink);}
   .match-row .match-score{font-family:'Space Mono', monospace; font-weight:700; color:var(--teal); margin:0 6px;}
-  .match-row .match-date{font-family:'Space Mono', monospace; font-size:11px; color:var(--ink-soft); white-space:nowrap;}
+  .match-row .match-date{font-family:'Space Mono', monospace; font-size:11px; color:var(--ink-soft); white-space:normal; text-align:right;}
   /* ---------- Bottom tab bar (all pages) ---------- */
   .bottom-tabs{
     display:none;
@@ -1941,12 +1942,15 @@ const UFC_EVENTS = {
 };
 function ufcEventRowsHtml(list){
   if(!list || list.length === 0) return '<div class="empty-card">Nothing here yet.</div>';
-  return `<div class="match-list">${list.map(e => `
+  return `<div class="match-list">${list.map(e => {
+    const location = e.venue.split(',').slice(1).join(',').trim();
+    return `
     <div class="match-row">
       <div class="match-teams">${escapeHtml(e.name)}</div>
-      <div class="match-date">${formatTashkentDate(e.start)} — ${escapeHtml(e.venue)}</div>
+      <div class="match-date">${formatTashkentDate(e.start)} — ${escapeHtml(location)}</div>
     </div>
-  `).join('')}</div>`;
+  `;
+  }).join('')}</div>`;
 }
 function viewUFC(){
   return `
@@ -2357,11 +2361,12 @@ function leagueDetailBodyHtml(code){
   return `
     <details class="domain-group">
       <summary class="section-head domain-summary">
-        <span class="emoji">${icon('barchart')}</span>
-        <h2>Table</h2>
+        <span class="emoji">${icon('trophy')}</span>
+        <h2>Results</h2>
+        <span class="domain-count">${results.length}</span>
         <span class="domain-chevron">${icon('chevronDown')}</span>
       </summary>
-      <div class="domain-group-content">${tableHtml}</div>
+      <div class="domain-group-content">${matchListHtml(results, true)}</div>
     </details>
     <details class="domain-group">
       <summary class="section-head domain-summary">
@@ -2374,12 +2379,11 @@ function leagueDetailBodyHtml(code){
     </details>
     <details class="domain-group">
       <summary class="section-head domain-summary">
-        <span class="emoji">${icon('trophy')}</span>
-        <h2>Results</h2>
-        <span class="domain-count">${results.length}</span>
+        <span class="emoji">${icon('barchart')}</span>
+        <h2>Table</h2>
         <span class="domain-chevron">${icon('chevronDown')}</span>
       </summary>
-      <div class="domain-group-content">${matchListHtml(results, true)}</div>
+      <div class="domain-group-content">${tableHtml}</div>
     </details>
   `;
 }
@@ -4457,6 +4461,16 @@ function leagueTableHtml(league){
         ${oneTableHtml(div.teams)}
       `).join('')
     : oneTableHtml(league.teams);
+  const tableBlock = `
+    <details class="domain-group">
+      <summary class="section-head domain-summary">
+        <span class="emoji">${icon('barchart')}</span>
+        <h2>Table</h2>
+        <span class="domain-chevron">${icon('chevronDown')}</span>
+      </summary>
+      <div class="domain-group-content">${tables}</div>
+    </details>
+  `;
   const fixturesBlock = (league.fixtures && league.fixtures.length > 0) ? `
     <details class="domain-group">
       <summary class="section-head domain-summary">
@@ -4483,9 +4497,9 @@ function leagueTableHtml(league){
     <div class="league-block">
       <div class="league-head"><span class="flag">${league.flag}</span><h3>${escapeHtml(league.name)}</h3></div>
       <div class="league-note">${escapeHtml(league.note)}</div>
-      ${tables}
-      ${fixturesBlock}
       ${resultsBlock}
+      ${fixturesBlock}
+      ${tableBlock}
     </div>
   `;
 }
@@ -4517,22 +4531,22 @@ function viewArsenalHub(){
 
       <details class="domain-group">
         <summary class="section-head domain-summary">
-          <span class="emoji">${icon('calendar')}</span>
-          <h2>Fixtures</h2>
-          <span class="domain-count">${fixtureRows.length}</span>
-          <span class="domain-chevron">${icon('chevronDown')}</span>
-        </summary>
-        <div class="domain-group-content">${matchListHtml(fixtureRows, false)}</div>
-      </details>
-
-      <details class="domain-group">
-        <summary class="section-head domain-summary">
           <span class="emoji">${icon('trophy')}</span>
           <h2>Results</h2>
           <span class="domain-count">${results.length}</span>
           <span class="domain-chevron">${icon('chevronDown')}</span>
         </summary>
         <div class="domain-group-content" id="arsenalResultsContainer">${matchListHtml(results, true)}</div>
+      </details>
+
+      <details class="domain-group">
+        <summary class="section-head domain-summary">
+          <span class="emoji">${icon('calendar')}</span>
+          <h2>Fixtures</h2>
+          <span class="domain-count">${fixtureRows.length}</span>
+          <span class="domain-chevron">${icon('chevronDown')}</span>
+        </summary>
+        <div class="domain-group-content">${matchListHtml(fixtureRows, false)}</div>
       </details>
 
       <details class="domain-group">
@@ -5043,10 +5057,9 @@ function viewBirthdaysPage(){
   `;
 }
 
-/* ---- Swipe navigation between sibling pages, cyclable ---- */
-function wireSwipeNav(container, order, currentKey, hashBuilder){
-  const idx = order.indexOf(currentKey);
-  if(idx === -1) return;
+/* ---- Swipe right to go back to Home — wired once; only acts when Home was the previous page ---- */
+let cameFromHome = false;
+function wireSwipeBackToHome(container){
   let startX = 0, startY = 0, tracking = false;
   container.addEventListener('touchstart', (e)=>{
     if(e.touches.length !== 1) return;
@@ -5058,17 +5071,17 @@ function wireSwipeNav(container, order, currentKey, hashBuilder){
   container.addEventListener('touchend', (e)=>{
     if(!tracking) return;
     tracking = false;
+    if(!cameFromHome) return;
+    const hereNow = location.hash.replace(/^#/, '');
+    if(hereNow === '') return; // already home
     const dx = e.changedTouches[0].clientX - startX;
     const dy = e.changedTouches[0].clientY - startY;
-    if(Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy) * 1.2){
-      const dir = dx < 0 ? 1 : -1; // swipe left -> next
-      const newIdx = (idx + dir + order.length) % order.length;
-      location.hash = hashBuilder(order[newIdx]);
+    // Left-to-right swipe only (dx positive), not up/down, not the reverse direction.
+    if(dx > 60 && dx > Math.abs(dy) * 1.2){
+      location.hash = '#';
     }
   }, { passive:true });
 }
-const DOMAIN_SWIPE_ORDER = FACULTIES.map(f => f.key);
-const HUB_SWIPE_ORDER = ['photos', 'sports', 'saved', 'superstars', 'birthdays'];
 
 /* ---- Router ---- */
 
@@ -5151,17 +5164,8 @@ function renderRoute(opts){
   if(parts[0] === 'arsenal'){ loadLiveSportsData(); }
   if(parts[0] === 'sports' && parts[1] === 'league' && parts[2]){ loadLiveSportsData(); }
 
-  // Swipe between sibling domain pages (item 1)
-  if(parts[0] === 'faculty' && parts[1] && parts[1] !== 'all'){
-    wireSwipeNav(app, DOMAIN_SWIPE_ORDER, parts[1], k => `#faculty/${k}`);
-  }
-  if(parts[0] === 'watch' && parts[1] && parts[1] !== 'all'){
-    wireSwipeNav(app, DOMAIN_SWIPE_ORDER, parts[1], k => `#watch/${k}`);
-  }
-  // Swipe between the six hub-level pages (item 5)
-  if(HUB_SWIPE_ORDER.includes(parts[0]) && !(parts[0] === 'sports' && parts[1] === 'tables')){
-    wireSwipeNav(app, HUB_SWIPE_ORDER, parts[0], k => `#${k}`);
-  }
+  // Swipe right to go back — only when the page we arrived from was Home itself.
+  cameFromHome = (lastRenderedHash === '');
 
   // Restore the scroll position we were at last time we visited this page,
   // or start at the top if we've never been here this session — unless a
@@ -5493,6 +5497,7 @@ document.getElementById('bottomTabs').addEventListener('click', (e)=>{
 });
 
 logEvent('open');
+wireSwipeBackToHome(document.getElementById('app'));
 renderRoute();
 setTimeout(checkTodaysBirthdays, 700);
 // Tab bar is now populated and visible (show-bottom-tabs added during renderRoute) —
