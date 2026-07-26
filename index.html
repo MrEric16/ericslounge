@@ -4979,22 +4979,31 @@ function triggerTottenhamEgg(){
 }
 
 /* ---- Birthday popup ---- */
-function showBirthdayPopup(names){
+function showBirthdayPopup(names, duration){
+  duration = duration || 5000;
   const upper = names.map(n => n.toUpperCase());
   const text = 'HAPPY BIRTHDAY ' + upper.join(' & ') + '! 🎉🎂';
-  showEasterEggPopup(text, 10000);
+  showEasterEggPopup(text, duration);
   if(navigator.vibrate){ try{ navigator.vibrate([80,40,80,40,200]); }catch(e){} }
   const bdayEmojis = ['🎉','🎂','🎈','✨','🥳'];
   burstThemedConfetti((p)=>{
     p.textContent = bdayEmojis[Math.floor(Math.random()*bdayEmojis.length)];
     p.style.fontSize = '26px';
-  }, 10000);
+  }, duration);
 }
 function checkTodaysBirthdays(){
   const today = new Date();
   const todayM = today.getMonth()+1, todayD = today.getDate();
   const todays = BIRTHDAYS.filter(b => b.month===todayM && b.day===todayD);
-  if(todays.length > 0) showBirthdayPopup(todays.map(b => b.name));
+  if(todays.length === 0) return;
+  // First open of the day gets the long 10s version; every open after that today gets 5s.
+  let isFirstOpenToday = true;
+  try{
+    const todayKey = today.toISOString().slice(0,10);
+    isFirstOpenToday = localStorage.getItem('bdayPopupSeenDate') !== todayKey;
+    if(isFirstOpenToday) localStorage.setItem('bdayPopupSeenDate', todayKey);
+  }catch(e){}
+  showBirthdayPopup(todays.map(b => b.name), isFirstOpenToday ? 10000 : 5000);
 }
 document.body.addEventListener('click', (e)=>{
   const bdayTrigger = e.target.closest('.bday-trigger');
