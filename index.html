@@ -535,6 +535,20 @@
     padding:22px;
     box-shadow:0 3px 0 rgba(58,42,30,.15);
   }
+  .vox-question{ font-weight:700; font-size:15px; margin-bottom:14px; line-height:1.4; }
+  .vox-options{ display:flex; flex-direction:column; gap:8px; }
+  .vox-option-btn{
+    background:transparent; border:2px solid var(--gold); color:var(--gold);
+    font-family:'Baloo 2', sans-serif; font-weight:700; font-size:14px;
+    padding:10px 14px; border-radius:12px; cursor:pointer; text-align:left;
+    width:100%;
+  }
+  .vox-results{ display:flex; flex-direction:column; gap:12px; }
+  .vox-result-label{ display:flex; justify-content:space-between; font-weight:700; font-size:13px; margin-bottom:5px; }
+  .vox-my-pick .vox-result-label{ color:var(--gold); }
+  .vox-bar-track{ background:rgba(255,255,255,.15); border-radius:8px; height:10px; overflow:hidden; }
+  .vox-bar-fill{ background:var(--gold); height:100%; border-radius:8px; transition:width .4s ease; }
+  .vox-total{ font-family:'Space Mono', monospace; font-size:11px; color:rgba(255,255,255,.6); margin-top:4px; }
   .weather-row{padding:8px 0;}
   .weather-row + .weather-row{border-top:1px solid rgba(255,255,255,.15);}
   .weather-city{font-family:'Space Mono', monospace; font-size:12px; text-transform:uppercase; letter-spacing:.04em; opacity:.75; margin-bottom:2px;}
@@ -2569,6 +2583,21 @@ const WATCH_VIDEOS = [
 ];
 
 // Birthdays: month is 1-12.
+// Vox Populi — daily poll. One question per day, cycling through this pool.
+// question_id for vote-locking is the calendar date, not the array index, so
+// "one vote per day" holds regardless of which question the pool lands on.
+const POLL_QUESTIONS = [
+  { question:"Pineapple on pizza — yes or no?", options:["Yes","No"] },
+  { question:"Which is worse: a spider in your room, or a wasp in your room?", options:["Spider","Wasp"] },
+  { question:"Would you rather have unlimited money or unlimited free time?", options:["Unlimited money","Unlimited time"] },
+  { question:"Books or movies — which tells a story better?", options:["Books","Movies"] },
+  { question:"Is a hot dog a sandwich?", options:["Yes","No"] },
+  { question:"Would you rather be able to fly, or be invisible?", options:["Fly","Invisible"] },
+  { question:"Best kind of breakfast?", options:["Sweet","Savoury"] },
+  { question:"Should school start later in the morning?", options:["Yes","No"] },
+  { question:"Cats or dogs?", options:["Cats","Dogs"] },
+  { question:"Would you rather lose social media forever, or lose movies and shows forever?", options:["Lose social media","Lose movies/shows"] },
+];
 const BIRTHDAYS = [
   { name:"John Doe", month:7, day:26 },
   { name:"Jane Doe", month:7, day:27 },
@@ -3807,6 +3836,87 @@ async function loadWeather(){
     card.innerHTML = '<div class="otd-text">Couldn\'t load the weather — try refreshing.</div>';
   }
 }
+/* ---- Vox Populi — one poll question per day, locked after voting ---- */
+function getTashkentDateKey(){
+  const parts = new Intl.DateTimeFormat('en-CA', {
+    timeZone: 'Asia/Tashkent', year:'numeric', month:'2-digit', day:'2-digit'
+  }).formatToParts(new Date());
+  const get = t => parts.find(p=>p.type===t).value;
+  return `${get('year')}-${get('month')}-${get('day')}`;
+}
+function getTodaysPoll(){
+  const now = new Date();
+  const start = new Date(now.getFullYear(), 0, 0);
+  const dayOfYear = Math.floor((now - start) / 86400000);
+  return POLL_QUESTIONS[((dayOfYear - 1) % POLL_QUESTIONS.length + POLL_QUESTIONS.length) % POLL_QUESTIONS.length];
+}
+async function fetchPollCounts(dateKey, numOptions){
+  const counts = new Array(numOptions).fill(0);
+  const { data } = await supabaseClient.from('poll_votes').select('option_index').eq('question_id', dateKey);
+  (data || []).forEach(r => { if(counts[r.option_index] !== undefined) counts[r.option_index]++; });
+  return counts;
+}
+function voxResultsHtml(poll, counts, myIndex){
+  const total = counts.reduce((a,b)=>a+b, 0);
+  const rows = poll.options.map((opt, i) => {
+    const pct = total > 0 ? Math.round(counts[i] / total * 100) : 0;
+    return `
+      <div class="vox-result-row ${i === myIndex ? 'vox-my-pick' : ''}">
+        <div class="vox-result-label"><span>${escapeHtml(opt)}${i === myIndex ? ' ✓' : ''}</span><span>${pct}%</span></div>
+        <div class="vox-bar-track"><div class="vox-bar-fill" style="width:${pct}%"></div></div>
+      </div>
+    `;
+  }).join('');
+  return `
+    <div class="vox-question">${escapeHtml(poll.question)}</div>
+    <div class="vox-results">${rows}</div>
+    <div class="vox-total">${total} vote${total === 1 ? '' : 's'} today</div>
+  `;
+}
+function wireVoxOptions(card, poll, dateKey){
+  card.querySelectorAll('.vox-option-btn').forEach(btn => {
+    btn.addEventListener('click', async () => {
+      const i = parseInt(btn.dataset.i, 10);
+      card.innerHTML = '<div class="vox-question">Submitting…</div>';
+      try{
+        const { error } = await supabaseClient.from('poll_votes').insert({
+          user_id: getUserId(), question_id: dateKey, option_index: i
+        });
+        if(error) throw error;
+        logEvent('vote_poll', poll.question);
+        const counts = await fetchPollCounts(dateKey, poll.options.length);
+        card.innerHTML = voxResultsHtml(poll, counts, i);
+      }catch(e){
+        card.innerHTML = '<div class="vox-question">Couldn\'t submit your vote — try again in a moment.</div>';
+      }
+    });
+  });
+}
+async function loadVoxPopuli(){
+  const card = document.getElementById('voxPopuliCard');
+  if(!card) return;
+  if(!supabaseClient){ card.innerHTML = '<div class="vox-question">Voting isn\'t available right now.</div>'; return; }
+  const poll = getTodaysPoll();
+  const dateKey = getTashkentDateKey();
+  try{
+    const { data: mine } = await supabaseClient.from('poll_votes').select('option_index')
+      .eq('user_id', getUserId()).eq('question_id', dateKey).maybeSingle();
+    if(mine){
+      const counts = await fetchPollCounts(dateKey, poll.options.length);
+      card.innerHTML = voxResultsHtml(poll, counts, mine.option_index);
+    } else {
+      card.innerHTML = `
+        <div class="vox-question">${escapeHtml(poll.question)}</div>
+        <div class="vox-options">
+          ${poll.options.map((opt, i) => `<button class="vox-option-btn" data-i="${i}">${escapeHtml(opt)}</button>`).join('')}
+        </div>
+      `;
+      wireVoxOptions(card, poll, dateKey);
+    }
+  }catch(e){
+    card.innerHTML = '<div class="vox-question">Couldn\'t load today\'s question — try refreshing.</div>';
+  }
+}
 async function loadOnThisDay(){
   const card = document.getElementById('otdCard');
   if(!card) return;
@@ -4802,6 +4912,13 @@ function viewHome(){
     </section>
 
     <section>
+      <div class="section-head"><span class="emoji">${icon('barchart')}</span><h2>Vox Populi</h2></div>
+      <div class="otd-card" id="voxPopuliCard">
+        <div class="vox-question">Loading…</div>
+      </div>
+    </section>
+
+    <section>
       <button class="random-tile" id="randomBtn">
         <span class="icon">${icon('dice')}</span>
         <div>
@@ -5165,7 +5282,7 @@ function renderRoute(opts){
   if(parts[0] === 'search') wireSearch(app);
   if(parts[0] === 'install'){ wireInstallPage(); }
   if(parts[0] === 'stats'){ loadStats(); }
-  if(parts.length === 0){ loadOnThisDay(); loadWeather(); loadLiveSportsData(); wireRandomButton(app); wireRandomVideoButton(app); wireRandomExploreButton(app); checkAchievements(); }
+  if(parts.length === 0){ loadOnThisDay(); loadWeather(); loadVoxPopuli(); loadLiveSportsData(); wireRandomButton(app); wireRandomVideoButton(app); wireRandomExploreButton(app); checkAchievements(); }
   if(parts[0] === 'sports' && parts[1] === 'tables'){ loadLiveSportsData(); }
   if(parts[0] === 'arsenal'){ loadLiveSportsData(); }
   if(parts[0] === 'sports' && parts[1] === 'league' && parts[2]){ loadLiveSportsData(); }
