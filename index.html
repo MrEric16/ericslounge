@@ -1919,6 +1919,19 @@ const SPORTS_LEAGUES = [
   {
     name: "English Premier League", flag: flagIcon('england'), note: "Pre-season — starts 21 Aug 2026",
     teams: zeroRows(["Arsenal","Aston Villa","Bournemouth","Brentford","Brighton","Chelsea","Coventry City","Crystal Palace","Everton","Fulham","Hull City","Ipswich Town","Leeds United","Liverpool","Manchester City","Manchester United","Newcastle United","Nottingham Forest","Sunderland","Tottenham Hotspur"]),
+    // Matchweek 1 — verified against the official Premier League fixture release.
+    fixtures: [
+      { home:"Arsenal", away:"Coventry City", start:"2026-08-22T00:00:00+05:00" },
+      { home:"Hull City", away:"Manchester United", start:"2026-08-22T16:30:00+05:00" },
+      { home:"Everton", away:"Crystal Palace", start:"2026-08-22T16:30:00+05:00" },
+      { home:"Ipswich Town", away:"Sunderland", start:"2026-08-22T16:30:00+05:00" },
+      { home:"Nottingham Forest", away:"Leeds United", start:"2026-08-22T16:30:00+05:00" },
+      { home:"Brentford", away:"Tottenham Hotspur", start:"2026-08-22T21:30:00+05:00" },
+      { home:"Brighton and Hove Albion", away:"Aston Villa", start:"2026-08-23T18:00:00+05:00" },
+      { home:"Manchester City", away:"Bournemouth", start:"2026-08-23T18:00:00+05:00" },
+      { home:"Newcastle United", away:"Liverpool", start:"2026-08-23T20:30:00+05:00" },
+      { home:"Fulham", away:"Chelsea", start:"2026-08-25T00:00:00+05:00" },
+    ],
   },
   {
     name: "Uzbekistan Super League", flag: flagIcon('uzbekistan'), note: "Live — round 12",
@@ -2023,6 +2036,7 @@ function matchToRow(m){
     awayScore: m.score && m.score.fullTime ? m.score.fullTime.away : null,
     start: utcToTashkentISOString(m.utcDate),
     finished: m.status === 'FINISHED',
+    matchday: m.matchday || null,
   };
 }
 
@@ -2062,9 +2076,17 @@ async function loadLiveSportsData(){
             if(!res.ok) throw new Error('bad response '+res.status);
             const data = await res.json();
             const all = data.matches || [];
-            const fixtures = all.filter(m => m.status === 'SCHEDULED' || m.status === 'TIMED')
+            let fixtures = all.filter(m => m.status === 'SCHEDULED' || m.status === 'TIMED')
               .sort((a,b) => new Date(a.utcDate) - new Date(b.utcDate))
-              .slice(0, 15).map(matchToRow);
+              .map(matchToRow);
+            // Keep only the single soonest matchday, so this reads as "this week's
+            // fixtures" rather than a long flat list — same idea for every league.
+            if(fixtures.length > 0 && fixtures[0].matchday !== null){
+              const soonest = fixtures[0].matchday;
+              fixtures = fixtures.filter(f => f.matchday === soonest);
+            } else {
+              fixtures = fixtures.slice(0, 15);
+            }
             const results = all.filter(m => m.status === 'FINISHED')
               .sort((a,b) => new Date(b.utcDate) - new Date(a.utcDate))
               .slice(0, 15).map(matchToRow);
@@ -2164,13 +2186,34 @@ function leagueDetailBodyHtml(code){
   const staticLeague = SPORTS_LEAGUES.find(l => l.name === meta.name);
   const teams = liveTeams.length > 0 ? liveTeams : (staticLeague ? staticLeague.teams : []);
   const matches = (cache && cache.matches && cache.matches[code]) || { fixtures: [], results: [] };
+  const fixtures = matches.fixtures.length > 0 ? matches.fixtures : ((staticLeague && staticLeague.fixtures) || []);
   return `
-    <div class="match-section-label">Table</div>
-    ${oneTableHtml(teams)}
-    <div class="match-section-label">Fixtures</div>
-    ${matchListHtml(matches.fixtures, false)}
-    <div class="match-section-label">Results</div>
-    ${matchListHtml(matches.results, true)}
+    <details class="domain-group">
+      <summary class="section-head domain-summary">
+        <span class="emoji">${icon('barchart')}</span>
+        <h2>Table</h2>
+        <span class="domain-chevron">${icon('chevronDown')}</span>
+      </summary>
+      <div class="domain-group-content">${oneTableHtml(teams)}</div>
+    </details>
+    <details class="domain-group">
+      <summary class="section-head domain-summary">
+        <span class="emoji">${icon('calendar')}</span>
+        <h2>Fixtures</h2>
+        <span class="domain-count">${fixtures.length}</span>
+        <span class="domain-chevron">${icon('chevronDown')}</span>
+      </summary>
+      <div class="domain-group-content">${matchListHtml(fixtures, false)}</div>
+    </details>
+    <details class="domain-group">
+      <summary class="section-head domain-summary">
+        <span class="emoji">${icon('trophy')}</span>
+        <h2>Results</h2>
+        <span class="domain-count">${matches.results.length}</span>
+        <span class="domain-chevron">${icon('chevronDown')}</span>
+      </summary>
+      <div class="domain-group-content">${matchListHtml(matches.results, true)}</div>
+    </details>
   `;
 }
 function viewLeagueDetail(code){
