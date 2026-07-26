@@ -1802,10 +1802,17 @@ function getSessionId(){
     return id;
   }catch(e){ return 'nosession'; }
 }
+function getUserId(){
+  try{
+    let id = localStorage.getItem('uid');
+    if(!id){ id = Math.random().toString(36).slice(2) + Date.now().toString(36); localStorage.setItem('uid', id); }
+    return id;
+  }catch(e){ return 'nouser'; }
+}
 function logEvent(event_type, label){
   if(!supabaseClient) return;
   supabaseClient.from('analytics_events').insert({
-    session_id: getSessionId(), event_type, label: label || null
+    session_id: getSessionId(), user_id: getUserId(), event_type, label: label || null
   }).then(()=>{}, ()=>{});
 }
 let sessionStart = Date.now();
@@ -2403,6 +2410,8 @@ function wireWatchButtons(container){
   container.querySelectorAll('.watch-thumb').forEach(btn=>{
     btn.addEventListener('click', ()=>{
       const id = btn.dataset.id;
+      const video = WATCH_VIDEOS.find(v=>v.videoId===id);
+      logEvent('click_video', video ? video.title : id);
       btn.outerHTML = `<div class="watch-thumb"><iframe src="https://www.youtube-nocookie.com/embed/${id}?autoplay=1&playsinline=1" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>`;
     });
   });
@@ -3798,33 +3807,61 @@ async function loadStats(){
   const opens = data.filter(d=>d.event_type==='open');
   const views = data.filter(d=>d.event_type==='view');
   const sessions = data.filter(d=>d.event_type==='session_end');
+  const articleClicks = data.filter(d=>d.event_type==='click_article');
+  const videoClicks = data.filter(d=>d.event_type==='click_video');
+  const instrumentClicks = data.filter(d=>d.event_type==='click_instrument');
 
-  // Opens per day (last 14 days)
   const dayCounts = {};
   opens.forEach(o=>{ const d = o.created_at.slice(0,10); dayCounts[d]=(dayCounts[d]||0)+1; });
   const days = Object.keys(dayCounts).sort().slice(-14);
 
-  // Opens by hour of day (peak times) — local browser time
   const hourCounts = new Array(24).fill(0);
   opens.forEach(o=>{ const h = new Date(o.created_at).getHours(); hourCounts[h]++; });
 
-  // Top viewed sections
-  const viewCounts = {};
-  views.forEach(v=>{ const l = v.label || 'home'; viewCounts[l]=(viewCounts[l]||0)+1; });
-  const topViews = Object.entries(viewCounts).sort((a,b)=>b[1]-a[1]).slice(0,10);
+  // Most-clicked domain: pull the faculty key out of view labels like "faculty/science"
+  const domainCounts = {};
+  views.forEach(v=>{
+    const m = (v.label||'').match(/^faculty\/([a-z-]+)$/);
+    if(m && m[1] !== 'all'){ domainCounts[m[1]] = (domainCounts[m[1]]||0) + 1; }
+  });
+  const topDomains = Object.entries(domainCounts).sort((a,b)=>b[1]-a[1]).slice(0,10);
 
-  // Average session duration
-  const avgDuration = sessions.length
-    ? Math.round(sessions.reduce((s,x)=>s+parseInt(x.label||'0',10),0) / sessions.length)
-    : 0;
+  function topN(list, n){
+    const counts = {};
+    list.forEach(x=>{ const l = x.label || '(untitled)'; counts[l]=(counts[l]||0)+1; });
+    return Object.entries(counts).sort((a,b)=>b[1]-a[1]).slice(0,n);
+  }
+  const topArticles = topN(articleClicks, 10);
+  const topVideos = topN(videoClicks, 10);
+  const topInstruments = topN(instrumentClicks, 10);
+
+  const durations = sessions.map(x=>parseInt(x.label||'0',10));
+  const totalSeconds = durations.reduce((s,x)=>s+x,0);
+  const avgDuration = sessions.length ? Math.round(totalSeconds/sessions.length) : 0;
+  const totalMinutes = Math.round(totalSeconds/60);
+
+  const uniqueUsers = new Set(data.map(d=>d.user_id).filter(Boolean));
+  const userDays = {};
+  data.forEach(d=>{ if(!d.user_id) return; const day = d.created_at.slice(0,10); (userDays[d.user_id] = userDays[d.user_id] || new Set()).add(day); });
+  const returningUsers = Object.values(userDays).filter(s=>s.size>1).length;
+
+  function barChart(id, labels, values, color, title){
+    return `<div class="entry" style="padding:16px; margin-bottom:14px;"><canvas id="${id}" height="${Math.max(140, labels.length*26)}"></canvas></div>`;
+  }
 
   body.outerHTML = `
     <div style="margin-bottom:16px;">
-      <div class="empty-card">Total opens: <b>${opens.length}</b> · Avg session: <b>${avgDuration}s</b> · Total page views: <b>${views.length}</b></div>
+      <div class="empty-card">
+        Total opens: <b>${opens.length}</b> · Unique users: <b>${uniqueUsers.size}</b> · Returning users: <b>${returningUsers}</b><br>
+        Total time on site: <b>${totalMinutes} min</b> · Avg session: <b>${avgDuration}s</b> · Total page views: <b>${views.length}</b>
+      </div>
     </div>
     <div class="entry" style="padding:16px; margin-bottom:14px;"><canvas id="chartDays" height="180"></canvas></div>
     <div class="entry" style="padding:16px; margin-bottom:14px;"><canvas id="chartHours" height="180"></canvas></div>
-    <div class="entry" style="padding:16px; margin-bottom:14px;"><canvas id="chartViews" height="220"></canvas></div>
+    ${barChart('chartDomains', topDomains.map(v=>v[0]), topDomains.map(v=>v[1]))}
+    ${barChart('chartArticles', topArticles.map(v=>v[0]), topArticles.map(v=>v[1]))}
+    ${barChart('chartVideos', topVideos.map(v=>v[0]), topVideos.map(v=>v[1]))}
+    ${barChart('chartInstruments', topInstruments.map(v=>v[0]), topInstruments.map(v=>v[1]))}
   `;
 
   new Chart(document.getElementById('chartDays'), {
@@ -3837,11 +3874,25 @@ async function loadStats(){
     data:{ labels: [...Array(24).keys()].map(h=>h+':00'), datasets:[{ label:'Opens by hour (peak times)', data: hourCounts, backgroundColor:'#D4AF37' }] },
     options:{ plugins:{ title:{ display:true, text:'Peak usage hours' } } }
   });
-  new Chart(document.getElementById('chartViews'), {
-    type:'bar',
-    indexAxis:'y',
-    data:{ labels: topViews.map(v=>v[0]), datasets:[{ label:'Views', data: topViews.map(v=>v[1]), backgroundColor:'#6B7A3D' }] },
-    options:{ plugins:{ title:{ display:true, text:'Most-viewed sections/domains' } } }
+  new Chart(document.getElementById('chartDomains'), {
+    type:'bar', indexAxis:'y',
+    data:{ labels: topDomains.map(v=>v[0]), datasets:[{ label:'Views', data: topDomains.map(v=>v[1]), backgroundColor:'#6B7A3D' }] },
+    options:{ plugins:{ title:{ display:true, text:'Most-clicked domain' } } }
+  });
+  new Chart(document.getElementById('chartArticles'), {
+    type:'bar', indexAxis:'y',
+    data:{ labels: topArticles.map(v=>v[0]), datasets:[{ label:'Clicks', data: topArticles.map(v=>v[1]), backgroundColor:'#7A2E35' }] },
+    options:{ plugins:{ title:{ display:true, text:'Most-clicked articles' } } }
+  });
+  new Chart(document.getElementById('chartVideos'), {
+    type:'bar', indexAxis:'y',
+    data:{ labels: topVideos.map(v=>v[0]), datasets:[{ label:'Clicks', data: topVideos.map(v=>v[1]), backgroundColor:'#A8A090' }] },
+    options:{ plugins:{ title:{ display:true, text:'Most-clicked videos' } } }
+  });
+  new Chart(document.getElementById('chartInstruments'), {
+    type:'bar', indexAxis:'y',
+    data:{ labels: topInstruments.map(v=>v[0]), datasets:[{ label:'Clicks', data: topInstruments.map(v=>v[1]), backgroundColor:'#D4AF37' }] },
+    options:{ plugins:{ title:{ display:true, text:'Most-clicked instruments' } } }
   });
 }
 
@@ -4951,6 +5002,13 @@ document.body.addEventListener('click', (e)=>{
 });
 
 document.body.addEventListener('click', (e)=>{
+  const card = e.target.closest('.explore-card');
+  if(!card) return;
+  const nameEl = card.querySelector('.explore-card-name');
+  logEvent('click_instrument', nameEl ? nameEl.textContent.trim() : card.href);
+});
+
+document.body.addEventListener('click', (e)=>{
   const trigger = e.target.closest('.easter-egg-trigger');
   if(!trigger) return;
   const egg = trigger.dataset.egg;
@@ -4963,6 +5021,7 @@ document.body.addEventListener('click', (e)=>{
 document.body.addEventListener('click', (e)=>{
   const link = e.target.closest('a.headline');
   if(!link) return;
+  logEvent('click_article', link.textContent.trim());
   try{
     let count = parseInt(sessionStorage.getItem('dispatchOpens') || '0', 10) + 1;
     sessionStorage.setItem('dispatchOpens', String(count));
