@@ -228,6 +228,10 @@
   .arsenal-page .domain-count{ color:rgba(255,255,255,.85); }
   .arsenal-page .domain-chevron{ color:var(--gold); }
   .arsenal-page .emoji svg{ color:var(--gold); }
+  .arsenal-page .league-table th,
+  .arsenal-page .league-table td{ color:var(--ink); }
+  .arsenal-page .match-teams,
+  .arsenal-page .match-date{ color:var(--ink); }
 
   .domain-group{
     margin-top:14px;
@@ -1761,10 +1765,43 @@ const ARSENAL_FIXTURES = [
   { title:"Arsenal v Como 1907", venue:"(Home)", competition:"Pre-season Friendly", stadium:"Emirates Stadium", start:"2026-08-12T23:30:00+05:00" },
   { title:"Arsenal v Manchester City", venue:"(Neutral)", competition:"Pre-season Friendly", stadium:"Principality Stadium", start:"2026-08-16T19:00:00+05:00" },
   { title:"Arsenal v Coventry City", venue:"(Home)", competition:"Premier League", stadium:"Emirates Stadium", start:"2026-08-22T00:00:00+05:00" },
-  { title:"Aston Villa v Arsenal", venue:"(Away)", competition:"Premier League", stadium:"Villa Park", start:"2026-09-01T00:00:00+05:00" },
-  { title:"Arsenal v Chelsea", venue:"(Home)", competition:"Premier League", stadium:"Emirates Stadium", start:"2026-09-06T20:30:00+05:00" },
-  { title:"Sunderland v Arsenal", venue:"(Away)", competition:"Premier League", stadium:"Stadium of Light", start:"2026-09-13T00:00:00+05:00" },
+  { title:"Aston Villa v Arsenal", venue:"(Away)", competition:"Premier League", stadium:"Villa Park", start:"2026-08-29T19:00:00+05:00" },
+  { title:"Arsenal v Chelsea", venue:"(Home)", competition:"Premier League", stadium:"Emirates Stadium", start:"2026-09-05T19:00:00+05:00" },
+  { title:"Sunderland v Arsenal", venue:"(Away)", competition:"Premier League", stadium:"Stadium of Light", start:"2026-09-12T19:00:00+05:00" },
   { title:"Brighton and Hove Albion v Arsenal", venue:"(Away)", competition:"Premier League", stadium:"American Express Stadium", start:"2026-09-19T19:00:00+05:00" },
+  { title:"Arsenal v Leeds United", venue:"(Home)", competition:"Premier League", stadium:"Emirates Stadium", start:"2026-10-10T19:00:00+05:00" },
+  { title:"Nottingham Forest v Arsenal", venue:"(Away)", competition:"Premier League", stadium:"The City Ground", start:"2026-10-17T19:00:00+05:00" },
+  { title:"Arsenal v Everton", venue:"(Home)", competition:"Premier League", stadium:"Emirates Stadium", start:"2026-10-24T19:00:00+05:00" },
+  { title:"Liverpool v Arsenal", venue:"(Away)", competition:"Premier League", stadium:"Anfield", start:"2026-10-31T20:00:00+05:00" },
+  { title:"Arsenal v Hull City", venue:"(Home)", competition:"Premier League", stadium:"Emirates Stadium", start:"2026-11-07T20:00:00+05:00" },
+  { title:"Newcastle United v Arsenal", venue:"(Away)", competition:"Premier League", stadium:"St. James' Park", start:"2026-11-21T20:00:00+05:00" },
+  { title:"Arsenal v Manchester City", venue:"(Home)", competition:"Premier League", stadium:"Emirates Stadium", start:"2026-11-28T20:00:00+05:00" },
+  { title:"Brentford v Arsenal", venue:"(Away)", competition:"Premier League", stadium:"Gtech Community Stadium", start:"2026-12-03T01:00:00+05:00" },
+  { title:"Tottenham Hotspur v Arsenal", venue:"(Away)", competition:"Premier League", stadium:"Tottenham Hotspur Stadium", start:"2026-12-05T20:00:00+05:00" },
+  { title:"Arsenal v Bournemouth", venue:"(Home)", competition:"Premier League", stadium:"Emirates Stadium", start:"2026-12-12T20:00:00+05:00" },
+  { title:"Arsenal v Manchester United", venue:"(Home)", competition:"Premier League", stadium:"Emirates Stadium", start:"2026-12-19T20:00:00+05:00" },
+  { title:"Crystal Palace v Arsenal", venue:"(Away)", competition:"Premier League", stadium:"Selhurst Park", start:"2026-12-26T20:00:00+05:00" },
+  { title:"Fulham v Arsenal", venue:"(Away)", competition:"Premier League", stadium:"Craven Cottage", start:"2026-12-31T01:00:00+05:00" },
+  { title:"Arsenal v Ipswich Town", venue:"(Home)", competition:"Premier League", stadium:"Emirates Stadium", start:"2027-01-02T20:00:00+05:00" },
+  { title:"Arsenal v Brentford", venue:"(Home)", competition:"Premier League", stadium:"Emirates Stadium", start:"2027-01-07T01:00:00+05:00" },
+  { title:"Hull City v Arsenal", venue:"(Away)", competition:"Premier League", stadium:"MKM Stadium", start:"2027-01-16T20:00:00+05:00" },
+  { title:"Arsenal v Newcastle United", venue:"(Home)", competition:"Premier League", stadium:"Emirates Stadium", start:"2027-01-23T20:00:00+05:00" },
+  { title:"Manchester City v Arsenal", venue:"(Away)", competition:"Premier League", stadium:"Etihad Stadium", start:"2027-01-30T20:00:00+05:00" },
+  { title:"Arsenal v Liverpool", venue:"(Home)", competition:"Premier League", stadium:"Emirates Stadium", start:"2027-02-06T20:00:00+05:00" },
+  { title:"Ipswich Town v Arsenal", venue:"(Away)", competition:"Premier League", stadium:"Portman Road", start:"2027-02-11T01:00:00+05:00" },
+  { title:"Arsenal v Fulham", venue:"(Home)", competition:"Premier League", stadium:"Emirates Stadium", start:"2027-02-20T20:00:00+05:00" },
+  { title:"Manchester United v Arsenal", venue:"(Away)", competition:"Premier League", stadium:"Old Trafford", start:"2027-02-27T20:00:00+05:00" },
+  { title:"Arsenal v Crystal Palace", venue:"(Home)", competition:"Premier League", stadium:"Emirates Stadium", start:"2027-03-04T01:00:00+05:00" },
+  { title:"Chelsea v Arsenal", venue:"(Away)", competition:"Premier League", stadium:"Stamford Bridge", start:"2027-03-13T20:00:00+05:00" },
+  { title:"Arsenal v Sunderland", venue:"(Home)", competition:"Premier League", stadium:"Emirates Stadium", start:"2027-03-20T20:00:00+05:00" },
+  { title:"Coventry City v Arsenal", venue:"(Away)", competition:"Premier League", stadium:"Coventry Building Society Arena", start:"2027-04-10T19:00:00+05:00" },
+  { title:"Arsenal v Aston Villa", venue:"(Home)", competition:"Premier League", stadium:"Emirates Stadium", start:"2027-04-17T19:00:00+05:00" },
+  { title:"Bournemouth v Arsenal", venue:"(Away)", competition:"Premier League", stadium:"Vitality Stadium", start:"2027-04-24T19:00:00+05:00" },
+  { title:"Arsenal v Tottenham Hotspur", venue:"(Home)", competition:"Premier League", stadium:"Emirates Stadium", start:"2027-05-01T19:00:00+05:00" },
+  { title:"Leeds United v Arsenal", venue:"(Away)", competition:"Premier League", stadium:"Elland Road", start:"2027-05-08T19:00:00+05:00" },
+  { title:"Arsenal v Nottingham Forest", venue:"(Home)", competition:"Premier League", stadium:"Emirates Stadium", start:"2027-05-15T19:00:00+05:00" },
+  { title:"Everton v Arsenal", venue:"(Away)", competition:"Premier League", stadium:"Hill Dickinson Stadium", start:"2027-05-23T19:00:00+05:00" },
+  { title:"Arsenal v Brighton and Hove Albion", venue:"(Home)", competition:"Premier League", stadium:"Emirates Stadium", start:"2027-05-30T20:00:00+05:00" },
 ];
 // Set by loadLiveSportsData() once a real fetched fixture is available; takes priority over the
 // static list above (which stays as a fallback for when the API is unreachable or not yet loaded).
