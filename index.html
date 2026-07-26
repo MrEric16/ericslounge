@@ -1912,7 +1912,7 @@ const SPORTS_TILES = [
   { emoji: icon('ball'), name:"Champions League", sub:"Table, fixtures, results", url:"#sports/league/CL", color:"var(--gold)", internal:true },
   { emoji: flagIcon('uzbekistan'), name:"Uzbekistan Super League", sub:"Official site", url:"https://pfl.uz", color:"var(--f-it)" },
   { emoji: flagIcon('uae'), name:"UAE Pro League", sub:"Official site", url:"https://www.uaeproleague.ae/en", color:"var(--f-psy)" },
-  { emoji: icon('stick'), name:"KHL", sub:"Official site", url:"https://en.khl.ru", color:"var(--ink)" },
+  { emoji: icon('stick'), name:"KHL", sub:"Table, fixtures, results", url:"#sports/league/KHL", color:"var(--ink)", internal:true },
   { emoji: icon('glove'), name:"UFC", sub:"Official site", url:"https://www.ufc.com", color:"var(--f-des)" },
 ];
 const SPORTS_LEAGUES = [
@@ -2057,6 +2057,7 @@ const LEAGUE_DETAIL_META = {
   SA: { name: "Italian Serie A", flag: flagIcon('italy') },
   FL1: { name: "French Ligue 1", flag: flagIcon('france') },
   CL: { name: "UEFA Champions League", flag: icon('ball') },
+  KHL: { name: "KHL", flag: icon('stick') },
 };
 const ARSENAL_TEAM_ID = 57;
 const SPORTS_CACHE_KEY = "sportsLiveCache_v2";
@@ -2241,7 +2242,14 @@ function leagueDetailBodyHtml(code){
   const cache = window._sportsCache;
   const liveTeams = (cache && cache.leagues && cache.leagues[code]) || [];
   const staticLeague = SPORTS_LEAGUES.find(l => l.name === meta.name);
-  const teams = liveTeams.length > 0 ? liveTeams : (staticLeague ? staticLeague.teams : []);
+  const tableHtml = liveTeams.length > 0
+    ? oneTableHtml(liveTeams)
+    : (staticLeague && staticLeague.divisions)
+      ? staticLeague.divisions.map(div => `
+          <div class="division-label">${escapeHtml(div.label)}</div>
+          ${oneTableHtml(div.teams)}
+        `).join('')
+      : oneTableHtml((staticLeague && staticLeague.teams) || []);
   const matches = (cache && cache.matches && cache.matches[code]) || { fixtures: [], results: [] };
   const fixtures = matches.fixtures.length > 0 ? matches.fixtures : ((staticLeague && staticLeague.fixtures) || []);
   return `
@@ -2251,7 +2259,7 @@ function leagueDetailBodyHtml(code){
         <h2>Table</h2>
         <span class="domain-chevron">${icon('chevronDown')}</span>
       </summary>
-      <div class="domain-group-content">${oneTableHtml(teams)}</div>
+      <div class="domain-group-content">${tableHtml}</div>
     </details>
     <details class="domain-group">
       <summary class="section-head domain-summary">
