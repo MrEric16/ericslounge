@@ -1869,14 +1869,24 @@ function getSessionId(){
     let id = sessionStorage.getItem('sid');
     if(!id){ id = Math.random().toString(36).slice(2) + Date.now().toString(36); sessionStorage.setItem('sid', id); }
     return id;
-  }catch(e){ return 'nosession'; }
+  }catch(e){
+    // sessionStorage blocked — fall back to a random ID that's at least unique per
+    // page load, so different people never collide on one shared identity.
+    if(!window._fallbackSid) window._fallbackSid = Math.random().toString(36).slice(2) + Date.now().toString(36);
+    return window._fallbackSid;
+  }
 }
 function getUserId(){
   try{
     let id = localStorage.getItem('uid');
     if(!id){ id = Math.random().toString(36).slice(2) + Date.now().toString(36); localStorage.setItem('uid', id); }
     return id;
-  }catch(e){ return 'nouser'; }
+  }catch(e){
+    // localStorage blocked — same fix. A hardcoded fallback string here would mean
+    // every visitor whose storage fails shares one identity and one vote lock.
+    if(!window._fallbackUid) window._fallbackUid = Math.random().toString(36).slice(2) + Date.now().toString(36);
+    return window._fallbackUid;
+  }
 }
 function logEvent(event_type, label){
   if(!supabaseClient) return;
