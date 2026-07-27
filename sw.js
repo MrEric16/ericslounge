@@ -7,7 +7,7 @@
 // win on the first load after a change. Network-first means you always get the latest push
 // immediately when there's a connection; the cache only kicks in when there's genuinely none.
 
-const CACHE_NAME = 'erics-lounge-v2';
+const CACHE_NAME = 'erics-lounge-v3';
 const SHELL_FILES = [
   './',
   './index.html',
@@ -41,7 +41,7 @@ self.addEventListener('fetch', (event) => {
 
   if (isShellFile) {
     event.respondWith(
-      fetch(req)
+      fetch(req, { cache: 'no-store' })
         .then((res) => {
           if (res && res.status === 200) {
             caches.open(CACHE_NAME).then((cache) => cache.put(req, res.clone()));
