@@ -436,22 +436,6 @@
     gap:6px;
     margin-right:12px;
   }
-  .react-btn{
-    background:var(--cream-2);
-    border:none;
-    border-radius:999px;
-    box-sizing:border-box;
-    height:32px;
-    padding:0 10px;
-    display:inline-flex;
-    align-items:center;
-    justify-content:center;
-    color:var(--ink-soft);
-    cursor:pointer;
-    line-height:1;
-  }
-  .react-btn svg{display:block;}
-  .react-btn.active{background:var(--coral); color:#fff;}
   .bookmark-btn{
     background:var(--cream-2);
     border:none;
@@ -484,6 +468,13 @@
     cursor:pointer;
   }
   .share-btn:hover{color:var(--coral);}
+  .share-btn.icon-only{
+    width:32px;
+    padding:0;
+  }
+  .share-btn.icon-only svg{display:block;}
+  .watch-channel-row .share-btn.icon-only{ width:28px; height:28px; flex-shrink:0; }
+  .watch-channel-row .share-btn.icon-only svg{ width:15px; height:15px; }
 
   /* ---------- Search ---------- */
   .search-input{
@@ -793,6 +784,10 @@
     padding:16px 18px;
     margin-bottom:10px;
     box-shadow:0 3px 0 rgba(58,42,30,.15);
+  }
+  .explore-card-link{
+    display:block;
+    color:#fff;
     text-decoration:none;
   }
   .explore-card-name{
@@ -805,6 +800,24 @@
     font-size:13px;
     color:rgba(255,255,255,.88);
     line-height:1.5;
+  }
+  .explore-card-actions{
+    display:flex;
+    gap:8px;
+    margin-top:12px;
+  }
+  .explore-card .bookmark-btn,
+  .explore-card .share-btn{
+    background:rgba(255,255,255,.18);
+    color:#fff;
+  }
+  .explore-card .bookmark-btn.active{
+    background:rgba(255,255,255,.92);
+    color:var(--ink);
+  }
+  .explore-card .share-btn:hover{
+    background:rgba(255,255,255,.3);
+    color:#fff;
   }
 
   .page-result{
@@ -907,7 +920,7 @@
                 border-color var(--theme-fade) ease,
                 box-shadow .18s ease, transform .15s ease, opacity .2s ease;
   }
-  .back-link, .section-link, .bookmark-btn, .react-btn, .share-btn, .search-icon-btn{
+  .back-link, .section-link, .bookmark-btn, .share-btn, .search-icon-btn{
     transition: color var(--theme-fade) ease, opacity .15s ease, transform .15s ease;
   }
 
@@ -922,7 +935,7 @@
       box-shadow: 0 6px 14px rgba(58,42,30,.14);
     }
     .back-link:hover, .section-link:hover{ opacity:.65; }
-    .bookmark-btn:hover, .react-btn:hover, .share-btn:hover, .search-icon-btn:hover{
+    .bookmark-btn:hover, .share-btn:hover, .search-icon-btn:hover{
       transform: translateY(-1px);
       opacity:.85;
     }
@@ -935,7 +948,7 @@
   .photo-item:active, .photo-tile:active, .watch-tile:active, .watch-card:active,
   .sports-tile:active, .sports-card:active, .otd-card:active, .sotw-card:active,
   .bday-tile-card:active, .random-tile:active, .rec-item:active,
-  .bookmark-btn:active, .react-btn:active, .share-btn:active, .search-icon-btn:active{
+  .bookmark-btn:active, .share-btn:active, .search-icon-btn:active{
     transform: scale(0.97);
   }
 
@@ -1450,6 +1463,7 @@ const ICONS = {
   search: `<svg width="18" height="18" viewBox="0 0 24 24" ${ICON_STYLE}><circle cx="11" cy="11" r="7"/><path d="m20 20-3.8-3.8"/></svg>`,
   bookmark: `<svg width="20" height="20" viewBox="0 0 24 24" ${ICON_STYLE}><path d="M6 3h12v18l-6-4-6 4V3Z"/></svg>`,
   bookmarkFilled: `<svg width="20" height="20" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" fill="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h12v18l-6-4-6 4V3Z"/></svg>`,
+  share: `<svg width="17" height="17" viewBox="0 0 24 24" ${ICON_STYLE}><path d="M12 15V4"/><path d="m7 8 5-5 5 5"/><path d="M5 13v6a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-6"/></svg>`,
   barchart: `<svg width="20" height="20" viewBox="0 0 24 24" ${ICON_STYLE}><path d="M4 21V10M12 21V4M20 21v-7"/><path d="M2 21h20"/></svg>`,
   ball: `<svg width="20" height="20" viewBox="0 0 24 24" ${ICON_STYLE}><circle cx="12" cy="12" r="9"/><path d="M12 7.5 15.5 10l-1.3 4h-4.4L8.5 10 12 7.5Z"/><path d="M12 3v4.5M8.2 14 4.6 17M15.8 14l3.6 3M6.5 6.5 9 9M17.5 6.5 15 9"/></svg>`,
   glove: `<svg width="20" height="20" viewBox="0 0 24 24" ${ICON_STYLE}><path d="M7 11V6a2 2 0 0 1 4 0v4"/><path d="M11 10V5a2 2 0 0 1 4 0v5"/><path d="M15 10.5V6a2 2 0 0 1 4 0v7c0 4-2.5 7-7 7h-1c-3 0-5-1.8-6-4l-1.5-3.5A1.8 1.8 0 0 1 5 10a1.8 1.8 0 0 1 2.3-.3L9 11"/></svg>`,
@@ -1468,9 +1482,7 @@ const ICONS = {
   gear: `<svg width="18" height="18" viewBox="0 0 24 24" ${ICON_STYLE}><circle cx="12" cy="12" r="3"/><path d="M12 3v3M12 18v3M4.2 7.8l2.6 1.5M17.2 14.7l2.6 1.5M4.2 16.2l2.6-1.5M17.2 9.3l2.6-1.5M3 12h3M18 12h3"/></svg>`,
   medal: `<svg width="18" height="18" viewBox="0 0 24 24" ${ICON_STYLE}><circle cx="12" cy="15" r="6"/><path d="m9 3 3 5 3-5M9 9l-3.5-6M15 9l3.5-6"/><path d="M12 12.5 13.5 15h-3L12 12.5Z"/></svg>`,
   book: `<svg width="20" height="20" viewBox="0 0 24 24" ${ICON_STYLE}><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v15.5a2.5 2.5 0 0 1-2.5 2.5H4V5.5Z"/><path d="M4 18.5A2.5 2.5 0 0 1 6.5 16H20"/></svg>`,
-  like: `<svg width="16" height="16" viewBox="0 0 24 24" ${ICON_STYLE}><path d="M7 10v10H4V10h3Z"/><path d="M7 10l3.5-6.5a1.6 1.6 0 0 1 2.9.4L14 8h5a2 2 0 0 1 1.9 2.7l-2.4 7A2 2 0 0 1 16.6 19H10a3 3 0 0 1-3-3v-6Z"/></svg>`,
-  surprised: `<svg width="16" height="16" viewBox="0 0 24 24" ${ICON_STYLE}><circle cx="12" cy="12" r="9"/><circle cx="9" cy="10.5" r="1" fill="currentColor" stroke="none"/><circle cx="15" cy="10.5" r="1" fill="currentColor" stroke="none"/><circle cx="12" cy="16" r="1.8"/></svg>`,
-  thinking: `<svg width="16" height="16" viewBox="0 0 24 24" ${ICON_STYLE}><circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 0 1 4.6-1.4c.6.9.4 1.7-.4 2.4-.9.8-1.7 1.2-1.7 2.5"/><circle cx="12" cy="16.3" r="0.15" fill="currentColor" stroke="none"/></svg>`,
+
 };
 function icon(name){ return ICONS[name] || ''; }
 
@@ -3106,8 +3118,6 @@ function dispatchListHtml(list){
   let html = '';
   sorted.forEach(a=>{
     const fac = FAC_MAP[a.faculty] || { label:a.faculty, color:'#999' };
-    const key = reactionKey(a.url);
-    const saved = getReaction(key);
     const readLabel = a.read ? `${a.read} read` : '';
     html += `
       <div class="entry">
@@ -3120,9 +3130,6 @@ function dispatchListHtml(list){
               <div>${escapeHtml(sourceName(a.url))}</div>
             </div>
             <div class="entry-actions">
-              <button class="react-btn ${saved==='like'?'active':''}" data-key="${key}" data-emoji="like" title="Liked it">${icon('like')}</button>
-              <button class="react-btn ${saved==='surprised'?'active':''}" data-key="${key}" data-emoji="surprised" title="Surprised me">${icon('surprised')}</button>
-              <button class="react-btn ${saved==='thinking'?'active':''}" data-key="${key}" data-emoji="thinking" title="Made me think">${icon('thinking')}</button>
               <button class="bookmark-btn ${isBookmarked(a.url)?'active':''}" data-key="${a.url}" data-type="article" data-url="${a.url}" data-title="${escapeHtml(a.headline)}" data-faculty="${a.faculty}" data-date="${a.date}" title="Save for later">${isBookmarked(a.url)?icon('bookmarkFilled'):icon('bookmark')}</button>
               <button class="share-btn" data-url="${a.url}" data-title="${escapeHtml(a.headline)}">Share</button>
             </div>
@@ -3150,6 +3157,7 @@ function watchGridHtml(list, idPrefix){
         <div class="watch-channel-row">
           <div class="watch-channel">${escapeHtml(v.channel)}</div>
           <button class="bookmark-btn video-bookmark-btn ${isBookmarked(vKey)?'active':''}" data-key="${vKey}" data-type="video" data-videoid="${v.videoId}" data-title="${escapeHtml(v.title)}" data-channel="${escapeHtml(v.channel)}" data-faculty="${v.faculty}" title="Save for later">${isBookmarked(vKey)?icon('bookmarkFilled'):icon('bookmark')}</button>
+          <button class="share-btn icon-only" data-url="https://www.youtube.com/watch?v=${v.videoId}" data-title="${escapeHtml(v.title)}" title="Share">${icon('share')}</button>
         </div>
       </div>
     </div>
@@ -3168,21 +3176,7 @@ function wireWatchButtons(container){
   });
 }
 
-/* ---- Reactions (stored per-device only — not a shared class tally) ---- */
-function reactionKey(url){ return 'reaction:' + url; }
-function getReaction(key){
-  try{ return localStorage.getItem(key); }catch(e){ return null; }
-}
-function setReaction(key, emoji){
-  try{
-    const current = localStorage.getItem(key);
-    if(current === emoji){ localStorage.removeItem(key); return null; }
-    localStorage.setItem(key, emoji);
-    return emoji;
-  }catch(e){ return null; }
-}
-
-/* ---- Bookmarks (stored per-device only, via localStorage) — articles AND videos ---- */
+/* ---- Bookmarks (stored per-device only, via localStorage) — articles, videos, AND instruments ---- */
 function getBookmarks(){
   try{ return JSON.parse(localStorage.getItem('bookmarks') || '[]'); }catch(e){ return []; }
 }
@@ -3218,22 +3212,17 @@ function shareEntry(url, title){
 }
 
 function wireEntryActions(container){
-  container.querySelectorAll('.react-btn').forEach(btn=>{
-    btn.addEventListener('click', ()=>{
-      const key = btn.dataset.key;
-      const emoji = btn.dataset.emoji;
-      const result = setReaction(key, emoji);
-      container.querySelectorAll(`.react-btn[data-key="${CSS.escape(key)}"]`).forEach(b=>{
-        b.classList.toggle('active', result === b.dataset.emoji);
-      });
-    });
-  });
   container.querySelectorAll('.bookmark-btn').forEach(btn=>{
     btn.addEventListener('click', ()=>{
       const type = btn.dataset.type;
-      const item = type === 'video'
-        ? { key: btn.dataset.key, type:'video', videoId: btn.dataset.videoid, title: btn.dataset.title, channel: btn.dataset.channel, faculty: btn.dataset.faculty }
-        : { key: btn.dataset.key, type:'article', url: btn.dataset.url, headline: btn.dataset.title, faculty: btn.dataset.faculty, date: btn.dataset.date };
+      let item;
+      if(type === 'video'){
+        item = { key: btn.dataset.key, type:'video', videoId: btn.dataset.videoid, title: btn.dataset.title, channel: btn.dataset.channel, faculty: btn.dataset.faculty };
+      } else if(type === 'instrument'){
+        item = { key: btn.dataset.key, type:'instrument', url: btn.dataset.url, name: btn.dataset.title, desc: btn.dataset.desc, fac: btn.dataset.fac };
+      } else {
+        item = { key: btn.dataset.key, type:'article', url: btn.dataset.url, headline: btn.dataset.title, faculty: btn.dataset.faculty, date: btn.dataset.date };
+      }
       const nowSaved = toggleBookmark(item);
       btn.classList.toggle('active', nowSaved);
       btn.innerHTML = nowSaved ? ICONS.bookmarkFilled : ICONS.bookmark;
@@ -4504,12 +4493,21 @@ function exploreColorFor(fac){
 }
 
 function exploreResultsHtml(list){
-  return list.map(s => `
-    <a class="explore-card" style="background:${exploreColorFor(s.fac)}" href="${s.url}" target="_blank" rel="noopener noreferrer">
-      <div class="explore-card-name">${escapeHtml(s.name)}</div>
-      <div class="explore-card-desc">${escapeHtml(s.desc)}</div>
-    </a>
-  `).join('');
+  return list.map(s => {
+    const key = 'instrument:' + s.url;
+    return `
+    <div class="explore-card" style="background:${exploreColorFor(s.fac)}">
+      <a class="explore-card-link" href="${s.url}" target="_blank" rel="noopener noreferrer">
+        <div class="explore-card-name">${escapeHtml(s.name)}</div>
+        <div class="explore-card-desc">${escapeHtml(s.desc)}</div>
+      </a>
+      <div class="explore-card-actions">
+        <button class="bookmark-btn ${isBookmarked(key)?'active':''}" data-key="${key}" data-type="instrument" data-url="${s.url}" data-title="${escapeHtml(s.name)}" data-desc="${escapeHtml(s.desc)}" data-fac="${s.fac}" title="Save for later">${isBookmarked(key)?icon('bookmarkFilled'):icon('bookmark')}</button>
+        <button class="share-btn icon-only" data-url="${s.url}" data-title="${escapeHtml(s.name)}" title="Share">${icon('share')}</button>
+      </div>
+    </div>
+  `;
+  }).join('');
 }
 
 function wireSearch(container){
@@ -4598,12 +4596,7 @@ function viewExplore(){
         <span class="domain-chevron">${icon('chevronDown')}</span>
       </summary>
       <div class="domain-group-content">
-        ${g.items.map(s => `
-          <a class="explore-card" style="background:${exploreColorFor(s.fac)}" href="${s.url}" target="_blank" rel="noopener noreferrer">
-            <div class="explore-card-name">${escapeHtml(s.name)}</div>
-            <div class="explore-card-desc">${escapeHtml(s.desc)}</div>
-          </a>
-        `).join('')}
+        ${exploreResultsHtml(g.items)}
       </div>
     </details>
   `).join('');
@@ -4800,21 +4793,23 @@ function wireInstallPage(){
 
 function viewSaved(){
   const saved = getBookmarks();
-  const savedArticles = saved.filter(b => b.type === 'article' || (!b.type && b.url));
+  const savedArticles = saved.filter(b => b.type === 'article' || (!b.type && b.url && !b.videoId));
   const savedVideos = saved.filter(b => b.type === 'video');
+  const savedInstruments = saved.filter(b => b.type === 'instrument');
 
   if(saved.length === 0){
     return `
       <a class="back-link" href="#">← Back to Mr Eric's Lounge</a>
       <section style="padding-top:14px;">
         <div class="section-head"><span class="emoji">${icon('bookmark')}</span><h2>Saved</h2></div>
-        <div class="empty-card">Nothing saved yet. Tap the bookmark icon on any article or video to save it here.</div>
+        <div class="empty-card">Nothing saved yet. Tap the bookmark icon on any article, video, or instrument to save it here.</div>
       </section>
     `;
   }
 
   const asDispatches = savedArticles.map(b => ({ headline: b.headline, url: b.url, faculty: b.faculty, date: b.date, read: null }));
   const asVideos = savedVideos.map(b => ({ title: b.title, channel: b.channel, videoId: b.videoId, faculty: b.faculty }));
+  const asInstruments = savedInstruments.map(b => ({ name: b.name, desc: b.desc, url: b.url, fac: b.fac }));
 
   return `
     <a class="back-link" href="#">← Back to Mr Eric's Lounge</a>
@@ -4822,6 +4817,7 @@ function viewSaved(){
       <div class="section-head"><span class="emoji">${icon('bookmark')}</span><h2>Saved</h2></div>
       ${savedArticles.length ? `<h3 style="margin:16px 0 8px;">Articles</h3>${dispatchListHtml(asDispatches)}` : ''}
       ${savedVideos.length ? `<h3 style="margin:20px 0 8px;">Videos</h3><div class="watch-grid">${watchGridHtml(asVideos, 'saved')}</div>` : ''}
+      ${savedInstruments.length ? `<h3 style="margin:20px 0 8px;">Instruments</h3>${exploreResultsHtml(asInstruments)}` : ''}
     </section>
   `;
 }
@@ -5416,12 +5412,7 @@ function viewHome(){
           <span class="domain-chevron" style="margin-left:auto;">${icon('chevronDown')}</span>
         </summary>
         <div class="domain-group-content">
-          ${recentInstruments.map(s => `
-            <a class="explore-card" style="background:${exploreColorFor(s.fac)}" href="${s.url}" target="_blank" rel="noopener noreferrer">
-              <div class="explore-card-name">${escapeHtml(s.name)}</div>
-              <div class="explore-card-desc">${escapeHtml(s.desc)}</div>
-            </a>
-          `).join('')}
+          ${exploreResultsHtml(recentInstruments)}
           <a class="section-link" href="#explore" style="display:block; text-align:right; margin-top:14px;">See full archive →</a>
         </div>
       </details>
@@ -5542,12 +5533,7 @@ function viewFaculty(key){
         <div class="domain-group-content">
           ${instruments.length === 0
             ? '<div class="empty-card">No powerful websites filed here yet.</div>'
-            : instruments.map(s => `
-                <a class="explore-card" style="background:${exploreColorFor(s.fac)}" href="${s.url}" target="_blank" rel="noopener noreferrer">
-                  <div class="explore-card-name">${escapeHtml(s.name)}</div>
-                  <div class="explore-card-desc">${escapeHtml(s.desc)}</div>
-                </a>
-              `).join('')
+            : exploreResultsHtml(instruments)
           }
         </div>
       </details>
@@ -5980,10 +5966,10 @@ document.body.addEventListener('click', (e)=>{
 });
 
 document.body.addEventListener('click', (e)=>{
-  const card = e.target.closest('.explore-card');
-  if(!card) return;
-  const nameEl = card.querySelector('.explore-card-name');
-  logEvent('click_instrument', nameEl ? nameEl.textContent.trim() : card.href);
+  const link = e.target.closest('.explore-card-link');
+  if(!link) return;
+  const nameEl = link.querySelector('.explore-card-name');
+  logEvent('click_instrument', nameEl ? nameEl.textContent.trim() : link.href);
 });
 
 document.body.addEventListener('click', (e)=>{
