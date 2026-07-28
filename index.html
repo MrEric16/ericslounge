@@ -492,6 +492,7 @@
     border-radius:16px;
     border:none;
     background:var(--card);
+    color:var(--ink);
     font-family:'Nunito', sans-serif;
     font-size:15px;
     box-shadow:0 3px 0 rgba(58,42,30,.08);
@@ -640,6 +641,11 @@
     padding:12px 14px;
     font-size:13.5px;
     font-weight:700;
+  }
+  .next-fixture-row + .next-fixture-row{
+    margin-top:10px;
+    padding-top:10px;
+    border-top:1px solid var(--line);
   }
   .next-fixture .label{
     display:block;
@@ -1295,22 +1301,37 @@
     z-index:600;
     pointer-events:none;
   }
-  .pull-refresh-spinner{
-    width:16px; height:16px;
-    border-radius:50%;
-    border:2.5px solid var(--line);
-    border-top-color:var(--coral-dark);
-    transition:transform .15s ease;
+  .pull-refresh-tiles{
+    position:relative;
+    width:20px; height:20px;
+    transition:transform .2s ease;
   }
-  .pull-refresh-indicator.ready .pull-refresh-spinner{
-    border-top-color:var(--gold);
-    transform:rotate(180deg);
+  .pull-refresh-tile{
+    position:absolute;
+    width:8px; height:8px;
+    border-radius:2px;
+    top:0; left:0;
   }
-  .pull-refresh-indicator.spinning .pull-refresh-spinner{
-    animation:pull-refresh-spin .6s linear infinite;
+  .pull-refresh-tile:nth-child(1){ background:var(--coral-dark); top:0; left:0; }
+  .pull-refresh-tile:nth-child(2){ background:var(--gold); top:0; left:12px; }
+  .pull-refresh-tile:nth-child(3){ background:var(--coral); top:12px; left:12px; }
+  .pull-refresh-tile:nth-child(4){ background:var(--line); top:12px; left:0; }
+  .pull-refresh-indicator.ready .pull-refresh-tiles{
+    transform:scale(1.15) rotate(180deg);
   }
-  @keyframes pull-refresh-spin{
-    to{ transform:rotate(360deg); }
+  .pull-refresh-indicator.spinning .pull-refresh-tile{
+    animation:tile-shuffle 1.1s steps(1,end) infinite;
+  }
+  .pull-refresh-indicator.spinning .pull-refresh-tile:nth-child(1){ animation-delay:0s; }
+  .pull-refresh-indicator.spinning .pull-refresh-tile:nth-child(2){ animation-delay:-.275s; }
+  .pull-refresh-indicator.spinning .pull-refresh-tile:nth-child(3){ animation-delay:-.55s; }
+  .pull-refresh-indicator.spinning .pull-refresh-tile:nth-child(4){ animation-delay:-.825s; }
+  @keyframes tile-shuffle{
+    0%{ top:0; left:0; }
+    25%{ top:0; left:12px; }
+    50%{ top:12px; left:12px; }
+    75%{ top:12px; left:0; }
+    100%{ top:0; left:0; }
   }
 
   /* ---------- Invite a friend / Install ---------- */
@@ -1360,7 +1381,7 @@
 </style>
 </head>
 <body>
-<div class="pull-refresh-indicator" id="pullRefresh"><span class="pull-refresh-spinner"></span></div>
+<div class="pull-refresh-indicator" id="pullRefresh"><div class="pull-refresh-tiles"><span class="pull-refresh-tile"></span><span class="pull-refresh-tile"></span><span class="pull-refresh-tile"></span><span class="pull-refresh-tile"></span></div></div>
 
 <header>
   <div class="wrap masthead">
@@ -1497,6 +1518,12 @@ const SEARCHABLE_PAGES = [
   { name:"Invite a Friend", desc:"Get the QR code to install the Lounge on a new device.", url:"#invite", icon:"star" },
 ];
 
+// HARD RULE: always APPEND new entries at the very end of this array, never insert
+// mid-array. The homepage "Latest" section identifies recency purely by array
+// position (last 5 = latest) since these entries have no date field. Inserting
+// anywhere but the end silently breaks "Latest Instruments" without any error —
+// this already happened once (confirmed 2026-07-28, current last-5 treated as
+// correct going forward, no retroactive reorder done).
 const EXPLORE_SITES = [
   { name:"Electude Engine Simulator", desc:"A free, fully interactive engine management simulator — diagnose real automotive faults using a virtual oscilloscope, scan tool, and wiring diagrams, just like a working mechanic.", url:"https://simulator.electude.com/simulator", fac:"technology" },
   { name:"Loot Drop", desc:"A database of over 1,200 failed startups, breaking down exactly why each one collapsed and what could be rebuilt from the wreckage.", url:"https://www.loot-drop.io/", fac:"business" },
@@ -2039,54 +2066,66 @@ const SPORTS_LEAGUES = [
     ],
   },
   {
-    name: "Uzbekistan Super League", flag: flagIcon('uzbekistan'), note: "Live — round 13",
+    name: "Uzbekistan Super League", flag: flagIcon('uzbekistan'), note: "Live — round 14",
     teams: [
       { name:"Neftchi Fergana", pld:13, w:11, d:1, l:1, gf:32, ga:5, pts:34 },
-      { name:"Pakhtakor", pld:13, w:9, d:3, l:1, gf:25, ga:14, pts:30 },
-      { name:"Buxoro", pld:13, w:7, d:2, l:4, gf:17, ga:13, pts:23 },
-      { name:"OKMK", pld:13, w:6, d:4, l:3, gf:21, ga:17, pts:22 },
+      { name:"Pakhtakor", pld:14, w:10, d:3, l:1, gf:26, ga:14, pts:33 },
+      { name:"OKMK", pld:14, w:7, d:4, l:3, gf:23, ga:18, pts:25 },
+      { name:"Buxoro", pld:14, w:7, d:2, l:5, gf:17, ga:15, pts:23 },
+      { name:"Lokomotiv Tashkent", pld:14, w:6, d:4, l:4, gf:21, ga:19, pts:22 },
       { name:"Navbahor", pld:13, w:6, d:3, l:4, gf:17, ga:12, pts:21 },
-      { name:"Lokomotiv Tashkent", pld:13, w:5, d:4, l:4, gf:18, ga:18, pts:19 },
-      { name:"Bunyodkor", pld:13, w:6, d:1, l:6, gf:14, ga:15, pts:19 },
+      { name:"Andijon", pld:14, w:6, d:2, l:6, gf:22, ga:16, pts:20 },
+      { name:"Bunyodkor", pld:14, w:6, d:1, l:7, gf:14, ga:16, pts:19 },
       { name:"Nasaf", pld:13, w:4, d:6, l:3, gf:16, ga:13, pts:18 },
-      { name:"Andijon", pld:13, w:5, d:2, l:6, gf:20, ga:16, pts:17 },
       { name:"Dinamo Samarqand", pld:13, w:5, d:2, l:6, gf:21, ga:23, pts:17 },
       { name:"Surkhon", pld:13, w:4, d:3, l:6, gf:14, ga:21, pts:15 },
       { name:"Qizilqum", pld:13, w:4, d:2, l:7, gf:10, ga:18, pts:14 },
       { name:"Xorazm", pld:13, w:3, d:4, l:6, gf:10, ga:17, pts:13 },
-      { name:"Sogdiana", pld:13, w:3, d:3, l:7, gf:22, ga:30, pts:12 },
+      { name:"Sogdiana", pld:14, w:3, d:3, l:8, gf:23, ga:33, pts:12 },
       { name:"Kokand 1912", pld:13, w:2, d:5, l:6, gf:11, ga:20, pts:11 },
-      { name:"Mashal", pld:13, w:1, d:1, l:11, gf:6, ga:22, pts:4 },
+      { name:"Mashal", pld:14, w:1, d:1, l:12, gf:7, ga:24, pts:4 },
     ],
-    // Fixtures/results computed from the full match log on terrikon.com — table above
-    // is a real calculated standings table (104 matches processed), not a placeholder.
+    // Table cross-verified against tribuna.uz and sofascore.com (agree on points/GD for
+    // every team) — updated 2026-07-28. Some teams show pld13, others pld14: round 14 is
+    // staggered across several days rather than played on one date, so this is a genuine
+    // mid-round snapshot, not an inconsistency.
+    //
+    // Three round-14 results (AGMK/OKMK v Mashal, Lokomotiv v Sogdiana, Andijon v Buxoro —
+    // all played 2026-07-27) are confirmed to have happened but their exact scorelines
+    // could not be verified via available sources in this session. Deliberately left out
+    // of results below rather than guessed — same restraint principle as the other gaps
+    // noted in the handover doc. Fill in once a reliable source is found.
     fixtures: [
-      { home:"Bunyodkor", away:"Pakhtakor", start:"2026-07-26T18:00:00+05:00" },
-      { home:"OKMK", away:"Mashal", start:"2026-07-27T18:00:00+05:00" },
-      { home:"Lokomotiv Tashkent", away:"Sogdiana", start:"2026-07-27T18:00:00+05:00" },
-      { home:"Andijon", away:"Buxoro", start:"2026-07-27T18:00:00+05:00" },
-      { home:"Neftchi Fergana", away:"Navbahor", start:"2026-07-28T18:00:00+05:00" },
-      { home:"Nasaf", away:"Qizilqum", start:"2026-07-28T18:00:00+05:00" },
-      { home:"Xorazm", away:"Surkhon", start:"2026-07-28T18:00:00+05:00" },
-      { home:"Dinamo Samarqand", away:"Kokand 1912", start:"2026-07-29T18:00:00+05:00" },
+      { home:"Xorazm", away:"Surkhon", start:"2026-07-29T20:00:00+05:00" },
+      { home:"Neftchi Fergana", away:"Navbahor", start:"2026-07-29T20:00:00+05:00" },
+      { home:"Nasaf", away:"Qizilqum", start:"2026-07-29T20:00:00+05:00" },
+      { home:"Dinamo Samarqand", away:"Kokand 1912", start:"2026-07-29T20:00:00+05:00" },
+      { home:"Andijon", away:"Pakhtakor", start:"2026-08-01T20:00:00+05:00" },
+      { home:"Buxoro", away:"Lokomotiv Tashkent", start:"2026-08-01T20:00:00+05:00" },
+      { home:"Navbahor", away:"Xorazm", start:"2026-08-02T20:00:00+05:00" },
+      { home:"Mashal", away:"Sogdiana", start:"2026-08-02T20:00:00+05:00" },
     ],
+    // Kickoff time set to 20:00 Tashkent — confirmed as the standard evening slot for
+    // several July 2026 matches via official-adjacent sources (sports.uz, pakhtakor.uz),
+    // but not individually re-verified per fixture above. Flagged here the same way the
+    // KHL 19:00 kickoff approximation is flagged elsewhere in this file.
     results: [
+      { home:"Bunyodkor", away:"Pakhtakor", homeScore:0, awayScore:1, start:"2026-07-26T20:00:00+05:00" },
       { home:"Navbahor", away:"Qizilqum", homeScore:1, awayScore:1, start:"2026-07-23T18:00:00+05:00" },
-      { home:"Surkhon", away:"Dinamo Samarqand", homeScore:1, awayScore:2, start:"2026-07-23T18:00:00+05:00" },
+      { home:"Dinamo Samarqand", away:"Surkhon", homeScore:2, awayScore:1, start:"2026-07-23T18:00:00+05:00" },
       { home:"Lokomotiv Tashkent", away:"Andijon", homeScore:3, awayScore:3, start:"2026-07-22T18:00:00+05:00" },
       { home:"Mashal", away:"Nasaf", homeScore:1, awayScore:1, start:"2026-07-22T18:00:00+05:00" },
       { home:"Kokand 1912", away:"OKMK", homeScore:1, awayScore:4, start:"2026-07-22T18:00:00+05:00" },
-      { home:"Pakhtakor", away:"Xorazm", homeScore:2, awayScore:1, start:"2026-07-21T18:00:00+05:00" },
-      { home:"Buxoro", away:"Bunyodkor", homeScore:1, awayScore:0, start:"2026-07-21T18:00:00+05:00" },
-      { home:"Sogdiana", away:"Neftchi Fergana", homeScore:1, awayScore:5, start:"2026-07-21T18:00:00+05:00" },
+      { home:"Pakhtakor", away:"Xorazm", homeScore:2, awayScore:1, start:"2026-07-21T20:00:00+05:00" },
+      { home:"Buxoro", away:"Bunyodkor", homeScore:1, awayScore:0, start:"2026-07-21T20:00:00+05:00" },
+      { home:"Sogdiana", away:"Neftchi Fergana", homeScore:1, awayScore:5, start:"2026-07-21T20:00:00+05:00" },
       { home:"Qizilqum", away:"Dinamo Samarqand", homeScore:1, awayScore:2, start:"2026-07-18T18:00:00+05:00" },
       { home:"Andijon", away:"Surkhon", homeScore:1, awayScore:2, start:"2026-07-18T18:00:00+05:00" },
       { home:"Navbahor", away:"OKMK", homeScore:2, awayScore:3, start:"2026-07-17T18:00:00+05:00" },
       { home:"Mashal", away:"Kokand 1912", homeScore:1, awayScore:0, start:"2026-07-17T18:00:00+05:00" },
-      { home:"Pakhtakor", away:"Lokomotiv Tashkent", homeScore:1, awayScore:1, start:"2026-07-17T18:00:00+05:00" },
+      { home:"Pakhtakor", away:"Lokomotiv Tashkent", homeScore:1, awayScore:1, start:"2026-07-17T20:00:00+05:00" },
       { home:"Sogdiana", away:"Xorazm", homeScore:2, awayScore:0, start:"2026-07-16T18:00:00+05:00" },
       { home:"Neftchi Fergana", away:"Buxoro", homeScore:2, awayScore:1, start:"2026-07-16T18:00:00+05:00" },
-      { home:"Bunyodkor", away:"Nasaf", homeScore:1, awayScore:3, start:"2026-07-16T18:00:00+05:00" },
     ],
   },
   {
@@ -5097,11 +5136,12 @@ function sportsHtml(){
         <div class="crest easter-egg-trigger" data-egg="arsenal" style="cursor:pointer;"><img src="https://download.logo.wine/logo/Arsenal_F.C./Arsenal_F.C.-Logo.wine.png" alt="Arsenal FC crest" style="width:100%;height:100%;object-fit:contain;"></div>
         <div>
           <div class="name">Arsenal</div>
-          <div class="sub">Next fixture</div>
         </div>
       </div>
-      <div class="next-fixture"><span class="label">Next up</span><span id="nextFixtureText">${arsenalFixtureShortText()}</span></div>
-      <div class="next-fixture"><span class="label">Starts in</span><span id="arsenalCountdown">--:--:--:--</span></div>
+      <div class="next-fixture next-fixture-combined">
+        <div class="next-fixture-row"><span class="label">Next up</span><span id="nextFixtureText">${arsenalFixtureShortText()}</span></div>
+        <div class="next-fixture-row"><span class="label">Starts in</span><span id="arsenalCountdown">--:--:--:--</span></div>
+      </div>
     </a>`;
 }
 
@@ -5339,8 +5379,7 @@ function viewHome(){
         <summary class="section-head domain-summary">
           <span class="emoji">${icon('newspaper')}</span>
           <h2>Articles</h2>
-          <span class="domain-count">${recent.length}</span>
-          <span class="domain-chevron">${icon('chevronDown')}</span>
+          <span class="domain-chevron" style="margin-left:auto;">${icon('chevronDown')}</span>
         </summary>
         <div class="domain-group-content">
           ${dispatchListHtml(recent)}
@@ -5352,8 +5391,7 @@ function viewHome(){
         <summary class="section-head domain-summary">
           <span class="emoji">${icon('clapper')}</span>
           <h2>Videos</h2>
-          <span class="domain-count">${recentVideos.length}</span>
-          <span class="domain-chevron">${icon('chevronDown')}</span>
+          <span class="domain-chevron" style="margin-left:auto;">${icon('chevronDown')}</span>
         </summary>
         <div class="domain-group-content">
           <div class="watch-grid">${watchGridHtml(recentVideos, 'latest-videos')}</div>
@@ -5365,8 +5403,7 @@ function viewHome(){
         <summary class="section-head domain-summary">
           <span class="emoji">${icon('compass2')}</span>
           <h2>Instruments</h2>
-          <span class="domain-count">${recentInstruments.length}</span>
-          <span class="domain-chevron">${icon('chevronDown')}</span>
+          <span class="domain-chevron" style="margin-left:auto;">${icon('chevronDown')}</span>
         </summary>
         <div class="domain-group-content">
           ${recentInstruments.map(s => `
