@@ -176,27 +176,41 @@
     cursor:pointer;
   }
   .sr-only{ position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; }
-  .i-tittle{ position:relative; display:inline-block; }
+  .i-tittle{ position:relative; display:inline-block; line-height:1; }
   .i-tittle::before{
-    content:''; position:absolute; left:50%; top:0.20em;
+    content:''; position:absolute; left:50%; top:-0.14em;
     width:0.16em; height:0.16em; background:var(--teal);
     border-radius:1.5px; transform:translateX(-50%);
   }
   .flip-letter{ position:relative; display:inline-block; }
   .flip-cover{
-    position:absolute; inset:-1px -1px;
-    background:var(--teal); border-radius:3px;
+    position:absolute; inset:-2px -2px; border-radius:4px;
+    box-shadow:0 3px 6px rgba(0,0,0,.3), inset 0 1px 0 rgba(255,255,255,.25);
     transform-origin:top; animation:flip-cover-cycle 14s ease-in-out infinite;
+    overflow:hidden;
   }
+  .flip-cover::after{
+    content:''; position:absolute; top:0; left:-60%; width:40%; height:100%;
+    background:linear-gradient(100deg, transparent, rgba(255,255,255,.55), transparent);
+    animation:flip-shimmer 14s ease-in-out infinite;
+  }
+  .flip-cover.fc1{ background:linear-gradient(155deg, var(--gold), #B88A1E); }
+  .flip-cover.fc2{ background:linear-gradient(155deg, var(--coral), var(--coral-dark)); }
+  .flip-cover.fc3{ background:linear-gradient(155deg, var(--teal), #4F5B2C); }
+  .flip-cover.fc4{ background:linear-gradient(155deg, #D8B98A, #B08D57); }
   @keyframes flip-cover-cycle{
-    0%{ transform:scaleY(1); }
-    4%{ transform:scaleY(0); }
-    92%{ transform:scaleY(0); }
-    96%{ transform:scaleY(1); }
-    100%{ transform:scaleY(1); }
+    0%{ transform:scaleY(1) rotateZ(0deg); }
+    8%{ transform:scaleY(0) rotateZ(-4deg); }
+    90%{ transform:scaleY(0) rotateZ(-4deg); }
+    96%{ transform:scaleY(1) rotateZ(0deg); }
+    100%{ transform:scaleY(1) rotateZ(0deg); }
+  }
+  @keyframes flip-shimmer{
+    0%{ left:-60%; } 6%{ left:130%; } 100%{ left:130%; }
   }
   @media (prefers-reduced-motion: reduce){
     .flip-cover{ animation:none; transform:scaleY(0); }
+    .flip-cover::after{ animation:none; display:none; }
   }
   .subtitle{
     font-size:16px;
@@ -1473,7 +1487,7 @@
         <span class="tl-3"></span>
         <span class="tl-4"></span><span class="tl-5"></span>
       </div>
-      <h1 class="title"><span aria-hidden="true"><span class="flip-letter">M<span class="flip-cover" style="animation-delay:0s"></span></span><span class="flip-letter">r<span class="flip-cover" style="animation-delay:.06s"></span></span> <span class="flip-letter">E<span class="flip-cover" style="animation-delay:.18s"></span></span><span class="flip-letter">r<span class="flip-cover" style="animation-delay:.24s"></span></span><span class="flip-letter i-tittle">ı<span class="flip-cover" style="animation-delay:.30s"></span></span><span class="flip-letter">c<span class="flip-cover" style="animation-delay:.36s"></span></span>'<span class="flip-letter">s<span class="flip-cover" style="animation-delay:.42s"></span></span> <span class="flip-letter">L<span class="flip-cover" style="animation-delay:.54s"></span></span><span class="flip-letter">o<span class="flip-cover" style="animation-delay:.60s"></span></span><span class="flip-letter">u<span class="flip-cover" style="animation-delay:.66s"></span></span><span class="flip-letter">n<span class="flip-cover" style="animation-delay:.72s"></span></span><span class="flip-letter">g<span class="flip-cover" style="animation-delay:.78s"></span></span><span class="flip-letter">e<span class="flip-cover" style="animation-delay:.84s"></span></span></span><span class="sr-only">Mr Eric's Lounge</span></h1>
+      <h1 class="title"><span aria-hidden="true"><span class="flip-letter">M<span class="flip-cover fc1" style="animation-delay:0s"></span></span><span class="flip-letter">r<span class="flip-cover fc2" style="animation-delay:.06s"></span></span> <span class="flip-letter">E<span class="flip-cover fc3" style="animation-delay:.18s"></span></span><span class="flip-letter">r<span class="flip-cover fc4" style="animation-delay:.24s"></span></span><span class="flip-letter i-tittle">ı<span class="flip-cover fc1" style="animation-delay:.30s"></span></span><span class="flip-letter">c<span class="flip-cover fc2" style="animation-delay:.36s"></span></span>'<span class="flip-letter">s<span class="flip-cover fc3" style="animation-delay:.42s"></span></span> <span class="flip-letter">L<span class="flip-cover fc4" style="animation-delay:.54s"></span></span><span class="flip-letter">o<span class="flip-cover fc1" style="animation-delay:.60s"></span></span><span class="flip-letter">u<span class="flip-cover fc2" style="animation-delay:.66s"></span></span><span class="flip-letter">n<span class="flip-cover fc3" style="animation-delay:.72s"></span></span><span class="flip-letter">g<span class="flip-cover fc4" style="animation-delay:.78s"></span></span><span class="flip-letter">e<span class="flip-cover fc1" style="animation-delay:.84s"></span></span></span><span class="sr-only">Mr Eric's Lounge</span></h1>
     </div>
     <div class="subtitle" id="subtitleText">Today's news, fresh off the press</div>
     <div class="stat-row">
