@@ -60,7 +60,6 @@
     border-bottom-color:#54402F;
   }
   body.dark-mode .fac-tile,
-  body.dark-mode .stat-pill,
   body.dark-mode .sport-hub-tile,
   body.dark-mode .goodnews-tile,
   body.dark-mode .books-tile,
@@ -111,18 +110,49 @@
     z-index:-1;
   }
   header::before{
-    background:linear-gradient(135deg, #E8CFAE 0%, #DEBE93 60%, #D0AA79 100%);
+    background-image:
+      linear-gradient(135deg, #E8CFAE 0%, #DEBE93 60%, #D0AA79 100%),
+      linear-gradient(rgba(92,37,48,.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(92,37,48,.05) 1px, transparent 1px);
+    background-size:auto, 26px 26px, 26px 26px;
     opacity:1;
     transition: opacity var(--theme-fade) ease;
   }
   header::after{
-    background:linear-gradient(135deg, #33241D 0%, #2A1F19 60%, #241A15 100%);
+    background-image:
+      linear-gradient(135deg, #33241D 0%, #2A1F19 60%, #241A15 100%),
+      linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px);
+    background-size:auto, 26px 26px, 26px 26px;
     opacity:0;
     transition: opacity var(--theme-fade) ease;
   }
   body.dark-mode header::before{ opacity:0; }
   body.dark-mode header::after{ opacity:1; }
   .masthead{text-align:center;}
+  .title-row{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:14px;
+    cursor:pointer;
+  }
+  .tile-logo{
+    width:clamp(34px,6vw,46px);
+    height:clamp(34px,6vw,46px);
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    grid-template-rows:repeat(3,1fr);
+    gap:3px;
+    flex-shrink:0;
+    cursor:pointer;
+  }
+  .tile-logo span{ border-radius:4px; display:block; }
+  .tile-logo .tl-1{ background:var(--coral-dark); grid-column:1/3; grid-row:1/3; }
+  .tile-logo .tl-2{ background:var(--gold); }
+  .tile-logo .tl-3{ background:var(--line); }
+  .tile-logo .tl-4{ background:var(--coral); grid-column:1/3; }
+  .tile-logo .tl-5{ background:var(--gold); opacity:.55; }
   h1.title{
     font-size:clamp(38px,7vw,62px);
     font-weight:800;
@@ -144,48 +174,46 @@
     gap:14px;
     margin-top:24px;
   }
-  .stat-pills{
-    display:flex;
-    gap:14px;
-    flex:1;
-    max-width:520px;
+  .board{
+    background:#4A1F28;
+    border-radius:16px;
+    padding:12px 22px;
+    display:inline-flex;
+    box-shadow:0 3px 0 rgba(58,42,30,.15), inset 0 0 0 1px rgba(255,255,255,.05);
   }
-  .stat-pill{
-    background:var(--card);
-    border-radius:18px;
-    padding:10px 14px;
-    display:flex;
-    flex:1;
-    flex-direction:column;
-    align-items:center;
-    justify-content:center;
-    gap:2px;
-    box-shadow:0 3px 0 rgba(58,42,30,.08);
-    text-align:center;
+  .board-cell{
+    padding:0 18px;
+    text-align:left;
   }
-  .stat-pill .label{
-    font-size:10px;
+  .board-cell + .board-cell{
+    border-left:1px dashed rgba(255,255,255,.18);
+  }
+  .board-cell .label{
+    font-size:9px;
     font-weight:700;
     text-transform:uppercase;
-    letter-spacing:.06em;
-    color:var(--ink-soft);
+    letter-spacing:.08em;
+    color:var(--gold);
+    opacity:.85;
     white-space:nowrap;
   }
-  .stat-pill .value{
+  .board-cell .value{
     font-family:'Space Mono', monospace;
     font-weight:700;
-    font-size:15px;
-    color:var(--coral-dark);
+    font-size:19px;
+    color:#FBF5EA;
     white-space:nowrap;
+    display:block;
+    margin-top:2px;
   }
-  .stat-pill .date{
+  .board-cell .date{
     font-family:'Space Mono', monospace;
     font-weight:600;
-    font-size:11px;
-    color:var(--ink-soft);
+    font-size:10px;
+    color:rgba(251,245,234,.6);
     white-space:nowrap;
+    margin-top:2px;
   }
-  .stat-pill.weekend .value{color:var(--teal);}
 
   /* ---------- Section shell ---------- */
   section{padding:34px 0;}
@@ -900,7 +928,7 @@
      include the theme-fade color properties themselves too — otherwise this rule's
      transition list fully replaces (not merges with) the universal one for these
      elements, and they'd silently lose the dark-mode crossfade entirely. */
-  body, header, .fac-tile, .stat-pill, .sport-hub-tile, .goodnews-tile, .books-tile,
+  body, header, .fac-tile, .sport-hub-tile, .goodnews-tile, .books-tile,
   .explore-tile, .explore-card, .page-result,
   .photo-item, .photo-tile, .watch-tile, .watch-card, .sports-tile, .sports-card,
   .otd-card, .sotw-card, .bday-tile-card, .bday-item, .random-tile, .rec-item,
@@ -1387,16 +1415,23 @@
 
 <header>
   <div class="wrap masthead">
-    <h1 class="title" id="titleLink">Mr Eric's Lounge</h1>
+    <div class="title-row" id="titleLink" title="Mr Eric's Lounge">
+      <div class="tile-logo">
+        <span class="tl-1"></span><span class="tl-2"></span>
+        <span class="tl-3"></span>
+        <span class="tl-4"></span><span class="tl-5"></span>
+      </div>
+      <h1 class="title">Mr Eric's Lounge</h1>
+    </div>
     <div class="subtitle" id="subtitleText">Today's news, fresh off the press</div>
     <div class="stat-row">
-      <div class="stat-pills">
-        <div class="stat-pill">
+      <div class="board">
+        <div class="board-cell">
           <span class="label">Local time</span>
           <span class="value" id="clock">--:--:--</span>
           <span class="date" id="clockDate">--/--/----</span>
         </div>
-        <div class="stat-pill weekend">
+        <div class="board-cell">
           <span class="label">Weekend in</span>
           <span class="value" id="weekendCountdown">--:--:--:--</span>
         </div>
