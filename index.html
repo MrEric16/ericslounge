@@ -176,6 +176,15 @@
     cursor:pointer;
     white-space:nowrap;
   }
+  @media (max-width:639px){
+    .tile-logo{
+      width:clamp(54px,8vw,74px);
+      height:clamp(54px,8vw,74px);
+    }
+    h1.title{
+      font-size:clamp(24px,7.15vw,46px);
+    }
+  }
   .sr-only{ position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; }
   .i-tittle{ position:relative; display:inline-block; line-height:1; }
   .i-tittle::before{
