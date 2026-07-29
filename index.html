@@ -6201,7 +6201,7 @@ document.getElementById('bottomTabs').addEventListener('click', (e)=>{
 
 logEvent('open');
 wireSwipeBackToHome(document.getElementById('app'));
-renderRoute();
+renderRoute({ forceTop:true });
 setTimeout(checkTodaysBirthdays, 700);
 // Tab bar is now populated and visible (show-bottom-tabs added during renderRoute) —
 // safe to measure its real height now.
