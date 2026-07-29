@@ -6116,18 +6116,26 @@ function checkAchievements(){
 }
 
 /* ---- Tittle cycle: the dot on the i alternates every second between its resting
-   olive state and every icon in the site's icon library (34 total), cycling through. ---- */
+   olive state and every icon in the site's icon library (34 total), cycling through.
+   Each icon is clickable and navigates to the real page it represents, where one exists. ---- */
 (function(){
   const el = document.getElementById('tittleCycle');
   if(!el) return;
-  const OTHER_ICON_KEYS = ['trophy','star','sun','cake','gradcap','home','chevronDown','clapper','dice','calendar','newspaper','camera','search','bookmark','bookmarkFilled','share','barchart','ball','glove','stick','moon','book'];
+  const OTHER_ICON_ROUTES = {
+    trophy:'#superstars', clapper:'#watch/all', camera:'#photos', search:'#search',
+    bookmark:'#saved', bookmarkFilled:'#saved', home:'#', cake:'#birthdays',
+    ball:'#sports', glove:'#ufc', stick:'#sports', gradcap:'#faculty/all', barchart:'#stats',
+    newspaper:'#faculty/all',
+    star:null, sun:null, chevronDown:null, dice:null, calendar:null, moon:null, share:null, book:null
+  };
   const PALETTE = ['var(--f-jur)','var(--f-ir)','var(--f-econ)','var(--f-biz)','var(--f-sci)','var(--f-it)','var(--f-psy)','var(--f-des)','var(--f-hist)','var(--f-travel)','var(--f-tech)','var(--f-sport)'];
   const beats = [
-    ...FACULTIES.map(f => ({ icon:f.icon, color:f.color })),
-    ...OTHER_ICON_KEYS.map((icon, idx) => ({ icon, color: PALETTE[idx % PALETTE.length] }))
+    ...FACULTIES.map(f => ({ icon:f.icon, color:f.color, route:'#faculty/'+f.key })),
+    ...Object.keys(OTHER_ICON_ROUTES).map((icon, idx) => ({ icon, color: PALETTE[idx % PALETTE.length], route: OTHER_ICON_ROUTES[icon] }))
   ];
   let i = 0;
   let showingIcon = false;
+  let currentRoute = null;
   function tick(){
     if(!showingIcon){
       const beat = beats[i % beats.length];
@@ -6135,15 +6143,25 @@ function checkAchievements(){
       el.style.backgroundColor = beat.color;
       el.style.color = '#fff';
       el.innerHTML = ICONS[beat.icon] || '';
+      currentRoute = beat.route;
+      el.style.cursor = currentRoute ? 'pointer' : '';
       i++;
     } else {
       el.classList.remove('icon-mode');
       el.style.backgroundColor = 'var(--teal)';
       el.innerHTML = '';
+      currentRoute = null;
+      el.style.cursor = '';
     }
     showingIcon = !showingIcon;
   }
   setInterval(tick, 1000);
+  el.addEventListener('click', (e) => {
+    if(currentRoute){
+      e.stopPropagation();
+      location.hash = currentRoute;
+    }
+  });
 })();
 
 /* ---- Easter egg: tap the title 5 times fast ---- */
