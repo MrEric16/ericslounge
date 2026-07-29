@@ -191,15 +191,25 @@
     position:absolute; left:50%; top:-0.14em;
     width:0.16em; height:0.16em; background:var(--teal);
     border-radius:1.5px; transform:translateX(-50%) scale(1);
+    transform-origin:center center;
     transition:transform .35s cubic-bezier(.34,1.56,.64,1), background-color .35s ease, border-radius .35s ease;
-    display:flex; align-items:center; justify-content:center;
-    overflow:hidden; z-index:3; transform-origin:center bottom;
+    overflow:hidden; z-index:3;
   }
   .tittle-cycle.icon-mode{
     transform:translateX(-50%) scale(2.6);
     border-radius:3px;
   }
-  .tittle-cycle svg{ width:68%; height:68%; display:block; }
+  .tittle-cycle svg{
+    position:absolute; top:50%; left:50%;
+    width:0.11em !important; height:0.11em !important;
+    transform:translate(-50%,-50%);
+    display:block;
+  }
+  @media (max-width:639px){
+    .tittle-cycle.icon-mode{
+      transform:translateX(-50%) scale(3.9);
+    }
+  }
   @media (prefers-reduced-motion: reduce){
     .tittle-cycle{ transition:none; }
   }
@@ -6135,33 +6145,28 @@ function checkAchievements(){
 }
 
 /* ---- Tittle cycle: the dot on the i alternates every second between its resting
-   olive state and each faculty icon in turn (plus Arsenal), cycling through all 13. ---- */
+   olive state and every icon in the site's icon library (34 total), cycling through. ---- */
 (function(){
   const el = document.getElementById('tittleCycle');
   if(!el) return;
-  const beats = FACULTIES.map(f => ({ type:'faculty', color:f.color, icon:f.icon }));
-  beats.push({ type:'arsenal' });
+  const OTHER_ICON_KEYS = ['trophy','star','sun','cake','gradcap','home','chevronDown','clapper','dice','calendar','newspaper','camera','search','bookmark','bookmarkFilled','share','barchart','ball','glove','stick','moon','book'];
+  const PALETTE = ['var(--f-jur)','var(--f-ir)','var(--f-econ)','var(--f-biz)','var(--f-sci)','var(--f-it)','var(--f-psy)','var(--f-des)','var(--f-hist)','var(--f-travel)','var(--f-tech)','var(--f-sport)'];
+  const beats = [
+    ...FACULTIES.map(f => ({ icon:f.icon, color:f.color })),
+    ...OTHER_ICON_KEYS.map((icon, idx) => ({ icon, color: PALETTE[idx % PALETTE.length] }))
+  ];
   let i = 0;
   let showingIcon = false;
   function tick(){
     if(!showingIcon){
       const beat = beats[i % beats.length];
       el.classList.add('icon-mode');
-      if(beat.type === 'arsenal'){
-        el.style.backgroundImage = "url('https://download.logo.wine/logo/Arsenal_F.C./Arsenal_F.C.-Logo.wine.png')";
-        el.style.backgroundSize = 'cover';
-        el.style.backgroundColor = '#fff';
-        el.innerHTML = '';
-      } else {
-        el.style.backgroundImage = 'none';
-        el.style.backgroundColor = beat.color;
-        el.style.color = '#fff';
-        el.innerHTML = ICONS[beat.icon] || '';
-      }
+      el.style.backgroundColor = beat.color;
+      el.style.color = '#fff';
+      el.innerHTML = ICONS[beat.icon] || '';
       i++;
     } else {
       el.classList.remove('icon-mode');
-      el.style.backgroundImage = 'none';
       el.style.backgroundColor = 'var(--teal)';
       el.innerHTML = '';
     }
