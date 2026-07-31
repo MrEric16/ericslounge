@@ -678,6 +678,36 @@
   .wotd-def{margin-top:6px; font-size:15px; line-height:1.5; font-weight:600;}
   .wotd-example{margin-top:8px; font-size:14px; line-height:1.5; font-style:italic; opacity:.85;}
 
+  .carousel-wrap{ position:relative; min-height:158px; cursor:pointer; user-select:none; }
+  .carousel-slide{
+    position:absolute; inset:0;
+    transition:transform .35s cubic-bezier(.34,1.2,.64,1), opacity .35s ease;
+    overflow:hidden;
+  }
+  .carousel-slide[data-pos="0"]{ transform:translateY(0) scale(1); z-index:3; box-shadow:0 8px 20px rgba(0,0,0,.2); }
+  .carousel-slide[data-pos="1"]{ transform:translateY(8px) scale(.965); z-index:2; opacity:.72; }
+  .carousel-slide[data-pos="2"]{ transform:translateY(15px) scale(.93); z-index:1; opacity:.45; }
+  @media (hover:hover){
+    .carousel-wrap:hover .carousel-slide[data-pos="0"]{ transform:translateY(-2px) scale(1.005); }
+  }
+  .carousel-label{
+    display:flex; align-items:center; gap:6px;
+    font-family:'Space Mono', monospace; font-size:10px;
+    text-transform:uppercase; letter-spacing:.06em; opacity:.75;
+    margin-bottom:8px;
+  }
+  .carousel-label svg{ width:13px; height:13px; }
+  .carousel-dots{ display:flex; gap:6px; justify-content:center; margin-top:14px; }
+  .carousel-dot{
+    width:6px; height:6px; border-radius:50%;
+    background:var(--line); cursor:pointer;
+    transition:all .2s ease;
+  }
+  .carousel-dot.active{ background:var(--coral-dark); width:18px; border-radius:4px; }
+  @media (min-width:640px){
+    .carousel-wrap{ min-height:130px; }
+  }
+
 
 
   /* ---------- Random tile ---------- */
@@ -4598,6 +4628,39 @@ function wireRandomExploreButton(container){
     window.open(pick.url, '_blank', 'noopener');
   });
 }
+function wireExtrasCarousel(container){
+  const wrap = container.querySelector('#extrasCarousel');
+  const dotsWrap = container.querySelector('#extrasDots');
+  if(!wrap || !dotsWrap) return;
+  const slides = [...wrap.querySelectorAll('.carousel-slide')];
+  const dots = [...dotsWrap.querySelectorAll('.carousel-dot')];
+  let order = [0, 1, 2]; // order[0] is the slide index currently on top
+
+  function render(){
+    order.forEach((slideIdx, pos) => { slides[slideIdx].dataset.pos = pos; });
+    dots.forEach((d, i) => d.classList.toggle('active', i === order[0]));
+  }
+
+  function advanceTo(targetIdx){
+    while(order[0] !== targetIdx){
+      order.push(order.shift());
+    }
+    render();
+  }
+
+  wrap.addEventListener('click', (e)=>{
+    if(e.target.closest('a')) return; // let "read more" links work normally
+    order.push(order.shift());
+    render();
+  });
+
+  dots.forEach((d, i) => {
+    d.addEventListener('click', (e)=>{
+      e.stopPropagation();
+      advanceTo(i);
+    });
+  });
+}
 function viewPlaySingle(videoId){
   const v = WATCH_VIDEOS.find(x => x.videoId === videoId);
   const title = v ? v.title : 'Video';
@@ -5501,25 +5564,31 @@ function viewHome(){
     </section>
 
     <section>
-      <div class="section-head"><span class="emoji">${icon('book')}</span><h2>Word of the Day</h2></div>
-      <div class="otd-card">${wordOfTheDayHtml()}</div>
-    </section>
-
-    <section>
-      <div class="section-head"><span class="emoji">${icon('dice')}</span><h2>Random Fact</h2></div>
-      <div class="otd-card otd-card--fact">${randomFactHtml()}</div>
+      <div class="section-head"><span class="emoji">${icon('dice')}</span><h2>Today's Extras</h2></div>
+      <div class="carousel-wrap" id="extrasCarousel">
+        <div class="carousel-slide otd-card" data-pos="0" data-type="wotd">
+          <div class="carousel-label">${icon('book')} Word of the Day</div>
+          ${wordOfTheDayHtml()}
+        </div>
+        <div class="carousel-slide otd-card otd-card--fact" data-pos="1" data-type="fact">
+          <div class="carousel-label">${icon('dice')} Random Fact</div>
+          ${randomFactHtml()}
+        </div>
+        <div class="carousel-slide otd-card otd-card--otd" data-pos="2" data-type="otd">
+          <div class="carousel-label">${icon('calendar')} On This Day</div>
+          <div id="otdCard"><div class="otd-text">Loading…</div></div>
+        </div>
+      </div>
+      <div class="carousel-dots" id="extrasDots">
+        <span class="carousel-dot active" data-idx="0"></span>
+        <span class="carousel-dot" data-idx="1"></span>
+        <span class="carousel-dot" data-idx="2"></span>
+      </div>
     </section>
 
     <section>
       <div class="section-head"><span class="emoji">${icon('sun')}</span><h2>Weather</h2></div>
       <div class="otd-card otd-card--weather" id="weatherCard">
-        <div class="otd-text">Loading…</div>
-      </div>
-    </section>
-
-    <section>
-      <div class="section-head"><span class="emoji">${icon('calendar')}</span><h2>On This Day</h2></div>
-      <div class="otd-card otd-card--otd" id="otdCard">
         <div class="otd-text">Loading…</div>
       </div>
     </section>
@@ -5885,7 +5954,7 @@ function renderRoute(opts){
   if(parts[0] === 'search') wireSearch(app);
   if(parts[0] === 'install'){ wireInstallPage(); }
   if(parts[0] === 'stats'){ loadStats(); }
-  if(parts.length === 0){ loadOnThisDay(); loadWeather(); loadVoxPopuli(); loadLiveSportsData(); wireRandomButton(app); wireRandomVideoButton(app); wireRandomExploreButton(app); checkAchievements(); }
+  if(parts.length === 0){ loadOnThisDay(); loadWeather(); loadVoxPopuli(); loadLiveSportsData(); wireRandomButton(app); wireRandomVideoButton(app); wireRandomExploreButton(app); wireExtrasCarousel(app); checkAchievements(); }
   if(parts[0] === 'sports' && parts[1] === 'tables'){ loadLiveSportsData(); }
   if(parts[0] === 'arsenal'){ loadLiveSportsData(); }
   if(parts[0] === 'sports' && parts[1] === 'league' && parts[2]){ loadLiveSportsData(); }
