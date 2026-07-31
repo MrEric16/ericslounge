@@ -691,6 +691,12 @@
   .carousel-slide[data-pos="3"], .carousel-slide[data-pos="4"], .carousel-slide[data-pos="5"], .carousel-slide[data-pos="6"]{
     transform:translateY(15px) scale(.93); z-index:0; opacity:0; pointer-events:none;
   }
+  @media (max-width:639px){
+    .carousel-slide{
+      overflow-y:auto;
+      -webkit-overflow-scrolling:touch;
+    }
+  }
   @media (hover:hover){
     .carousel-wrap:hover .carousel-slide[data-pos="0"]{ transform:translateY(-2px) scale(1.005); }
   }
@@ -5876,6 +5882,13 @@ function viewHome(){
     </section>
 
     <section>
+      <div class="section-head"><span class="emoji">${icon('barchart')}</span><h2>Vox Populi</h2></div>
+      <div class="otd-card otd-card--vox" id="voxPopuliCard">
+        <div class="vox-question">Loading…</div>
+      </div>
+    </section>
+
+    <section>
       <div class="section-head"><span class="emoji">${icon('dice')}</span><h2>Today's Extras</h2></div>
       <div class="carousel-wrap" id="extrasCarousel">
         <div class="carousel-slide otd-card" data-pos="0" data-type="wotd">
@@ -5922,13 +5935,6 @@ function viewHome(){
       <div class="section-head"><span class="emoji">${icon('sun')}</span><h2>Weather</h2></div>
       <div class="otd-card otd-card--weather" id="weatherCard">
         <div class="otd-text">Loading…</div>
-      </div>
-    </section>
-
-    <section>
-      <div class="section-head"><span class="emoji">${icon('barchart')}</span><h2>Vox Populi</h2></div>
-      <div class="otd-card otd-card--vox" id="voxPopuliCard">
-        <div class="vox-question">Loading…</div>
       </div>
     </section>
 
