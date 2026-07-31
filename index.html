@@ -628,7 +628,8 @@
     padding:22px;
     box-shadow:0 3px 0 rgba(58,42,30,.15);
   }
-  .otd-card--fact{ background:#4F5B2C; }
+  .otd-card--fact{ background:#4F5B2C; display:flex; flex-direction:column; justify-content:center; }
+  .otd-card--fact .otd-text{ font-size:19px; line-height:1.5; }
   .otd-card--weather{ background:#5C2530; }
   .otd-card--otd{ background:#6B4423; }
   .otd-card--vox{ background:#7A2E35; }
@@ -687,6 +688,9 @@
   .carousel-slide[data-pos="0"]{ transform:translateY(0) scale(1); z-index:3; box-shadow:0 8px 20px rgba(0,0,0,.2); }
   .carousel-slide[data-pos="1"]{ transform:translateY(8px) scale(.965); z-index:2; opacity:.72; }
   .carousel-slide[data-pos="2"]{ transform:translateY(15px) scale(.93); z-index:1; opacity:.45; }
+  .carousel-slide[data-pos="3"], .carousel-slide[data-pos="4"], .carousel-slide[data-pos="5"], .carousel-slide[data-pos="6"]{
+    transform:translateY(15px) scale(.93); z-index:0; opacity:0; pointer-events:none;
+  }
   @media (hover:hover){
     .carousel-wrap:hover .carousel-slide[data-pos="0"]{ transform:translateY(-2px) scale(1.005); }
   }
@@ -704,6 +708,29 @@
     transition:all .2s ease;
   }
   .carousel-dot.active{ background:var(--coral-dark); width:18px; border-radius:4px; }
+
+  .otd-card--idiom{ background:#5C2530; }
+  .otd-card--mixup{ background:#7A2E35; display:flex; flex-direction:column; justify-content:center; }
+  .otd-card--riddle{ background:#8a6d1f; }
+  .otd-card--quote{ background:#4A3B36; display:flex; flex-direction:column; justify-content:center; }
+
+  .mixup-pair{ font-family:'Baloo 2', sans-serif; font-size:20px; font-weight:700; }
+  .mixup-vs{ font-family:'Space Mono', monospace; font-size:12px; font-weight:400; opacity:.65; margin:0 4px; }
+
+  .riddle-question{ font-size:16px; font-weight:600; line-height:1.5; }
+  .riddle-reveal-btn{
+    margin-top:12px;
+    background:rgba(255,255,255,.18); border:none; border-radius:10px;
+    color:#fff; font-family:'Space Mono', monospace; font-size:11px;
+    text-transform:uppercase; letter-spacing:.05em;
+    padding:8px 14px; cursor:pointer;
+  }
+  .riddle-reveal-btn:hover{ background:rgba(255,255,255,.28); }
+  .riddle-answer{ margin-top:10px; font-size:15px; font-weight:700; line-height:1.5; }
+  .riddle-answer[hidden]{ display:none; }
+
+  .quote-text{ font-size:17px; font-weight:700; line-height:1.45; font-style:italic; }
+  .quote-author{ margin-top:10px; font-family:'Space Mono', monospace; font-size:12px; opacity:.8; }
 
 
 
@@ -4419,6 +4446,249 @@ const WORD_OF_THE_DAY_POOL = [
   { word:"Wistful", type:"adj.", def:"Having or showing a feeling of vague longing.", example:"She gave a wistful look at her old school photos." },
   { word:"Zeal", type:"n.", def:"Great energy or enthusiasm for a cause.", example:"She approached every project with real zeal." },
 ];
+
+const IDIOM_OF_THE_DAY_POOL = [
+  { idiom:"Break the ice", meaning:"To do or say something that relieves tension or awkwardness, especially when meeting someone new.", example:"He told a joke to break the ice at the start of the meeting." },
+  { idiom:"Hit the books", meaning:"To start studying seriously.", example:"I have an exam tomorrow, so I need to hit the books tonight." },
+  { idiom:"Piece of cake", meaning:"Something very easy to do.", example:"Don't worry about the test — it'll be a piece of cake." },
+  { idiom:"Under the weather", meaning:"Feeling slightly ill.", example:"She stayed home today because she was feeling under the weather." },
+  { idiom:"Once in a blue moon", meaning:"Something that happens very rarely.", example:"He visits his hometown once in a blue moon." },
+  { idiom:"Cost an arm and a leg", meaning:"To be very expensive.", example:"That new phone cost an arm and a leg." },
+  { idiom:"Hit the nail on the head", meaning:"To describe exactly what is causing a situation or problem.", example:"You hit the nail on the head when you said we needed more practice." },
+  { idiom:"Let the cat out of the bag", meaning:"To reveal a secret by accident.", example:"He let the cat out of the bag about the surprise party." },
+  { idiom:"On the ball", meaning:"Alert, competent, and quick to understand things.", example:"She's really on the ball when it comes to deadlines." },
+  { idiom:"Speak of the devil", meaning:"Said when a person who was just mentioned suddenly appears.", example:"Speak of the devil, here comes Sarah now." },
+  { idiom:"Burn the midnight oil", meaning:"To work or study late into the night.", example:"He burned the midnight oil to finish his essay before the deadline." },
+  { idiom:"Bite the bullet", meaning:"To force yourself to do something unpleasant or difficult.", example:"I finally bit the bullet and went to the dentist." },
+  { idiom:"Call it a day", meaning:"To stop working on something for the rest of the day.", example:"We've done enough for now — let's call it a day." },
+  { idiom:"Get the ball rolling", meaning:"To start something or get a process moving.", example:"Let's get the ball rolling on the group project this week." },
+  { idiom:"Miss the boat", meaning:"To miss an opportunity because you acted too slowly.", example:"If you don't apply this week, you'll miss the boat." },
+  { idiom:"On thin ice", meaning:"In a risky or precarious situation, likely to face trouble.", example:"He's on thin ice with his teacher after missing two assignments." },
+  { idiom:"Pull yourself together", meaning:"To calm down and behave normally after being upset.", example:"Take a deep breath and pull yourself together before the interview." },
+  { idiom:"Spill the beans", meaning:"To reveal secret information.", example:"Come on, spill the beans — what happened at the party?" },
+  { idiom:"Take it with a grain of salt", meaning:"To not take something too seriously or literally.", example:"He exaggerates a lot, so take his story with a grain of salt." },
+  { idiom:"The ball is in your court", meaning:"It's your turn to take action or make a decision.", example:"I've done my part — the ball is in your court now." },
+  { idiom:"Throw in the towel", meaning:"To give up on something.", example:"After three failed attempts, he finally threw in the towel." },
+  { idiom:"Under your belt", meaning:"Something you have already achieved or experienced.", example:"With two years of experience under her belt, she felt ready for the promotion." },
+  { idiom:"Cut corners", meaning:"To do something in the easiest or cheapest way, often lowering quality.", example:"They cut corners on the renovation and it shows." },
+  { idiom:"Get cold feet", meaning:"To become nervous or hesitant about doing something you had planned.", example:"He got cold feet right before his speech." },
+  { idiom:"Go the extra mile", meaning:"To make a special effort to achieve something.", example:"She always goes the extra mile to help her classmates." },
+  { idiom:"Jump on the bandwagon", meaning:"To join others in doing something popular.", example:"Once one team started using the new app, everyone jumped on the bandwagon." },
+  { idiom:"Keep an eye on", meaning:"To watch or monitor something carefully.", example:"Can you keep an eye on my bag while I get coffee?" },
+  { idiom:"Kill two birds with one stone", meaning:"To achieve two things with a single action.", example:"By walking to school, he kills two birds with one stone — exercise and saving money." },
+  { idiom:"Lose track of time", meaning:"To not notice how much time has passed.", example:"I lost track of time reading and missed the bus." },
+  { idiom:"Make a long story short", meaning:"To summarize something briefly.", example:"To make a long story short, we missed the flight." },
+  { idiom:"On the same page", meaning:"To agree with someone or understand a situation the same way.", example:"Let's make sure we're on the same page before the presentation." },
+  { idiom:"Out of the blue", meaning:"Unexpectedly, without warning.", example:"She called me out of the blue after years of silence." },
+  { idiom:"Play it by ear", meaning:"To decide how to act as a situation develops, without a fixed plan.", example:"We don't have a set schedule — we're just playing it by ear." },
+  { idiom:"Pull someone's leg", meaning:"To joke with or tease someone.", example:"Relax, I was just pulling your leg." },
+  { idiom:"See eye to eye", meaning:"To agree with someone.", example:"The two of them finally saw eye to eye on the project plan." },
+  { idiom:"Sit on the fence", meaning:"To avoid making a decision or taking a side.", example:"He kept sitting on the fence instead of picking a team." },
+  { idiom:"Straight from the horse's mouth", meaning:"Information heard directly from the person who knows the facts.", example:"I heard it straight from the horse's mouth — she's transferring schools." },
+  { idiom:"Take the plunge", meaning:"To decide to do something you have been hesitant about.", example:"He finally took the plunge and applied for the scholarship." },
+  { idiom:"The best of both worlds", meaning:"A situation combining the advantages of two different things.", example:"Living near campus but close to the city gives her the best of both worlds." },
+  { idiom:"Time flies", meaning:"Time passes very quickly.", example:"Time flies when you're having fun." },
+  { idiom:"Blow off steam", meaning:"To release built-up energy or anger.", example:"He went for a run to blow off steam after the exam." },
+  { idiom:"By the skin of your teeth", meaning:"To narrowly succeed at something.", example:"We caught the train by the skin of our teeth." },
+  { idiom:"Come rain or shine", meaning:"No matter what happens.", example:"He jogs every morning, come rain or shine." },
+  { idiom:"Cut to the chase", meaning:"To get to the point without wasting time.", example:"Let's cut to the chase — do we have a deal or not?" },
+  { idiom:"Down to earth", meaning:"Sensible, practical, and modest.", example:"Despite being famous, she's very down to earth." },
+  { idiom:"Every cloud has a silver lining", meaning:"Even bad situations have some positive aspect.", example:"Losing that job was hard, but every cloud has a silver lining — I found a better one." },
+  { idiom:"Give someone the benefit of the doubt", meaning:"To believe someone's explanation without proof, trusting them.", example:"I'll give him the benefit of the doubt this time." },
+  { idiom:"Go back to the drawing board", meaning:"To start planning something again because the previous attempt failed.", example:"The design didn't work, so it's back to the drawing board." },
+  { idiom:"Hang in there", meaning:"To stay positive during a difficult situation.", example:"I know exams are tough — just hang in there." },
+  { idiom:"In the same boat", meaning:"In the same difficult situation as someone else.", example:"Don't worry, we're all in the same boat with this assignment." },
+  { idiom:"It's not rocket science", meaning:"Something is not difficult to understand.", example:"Just follow the instructions — it's not rocket science." },
+  { idiom:"Keep your chin up", meaning:"To stay positive despite difficulty.", example:"Keep your chin up — the results will get better." },
+  { idiom:"Let sleeping dogs lie", meaning:"To avoid bringing up an old problem that could cause trouble.", example:"They apologized already, so just let sleeping dogs lie." },
+  { idiom:"No pain, no gain", meaning:"You must work hard or suffer to achieve something worthwhile.", example:"Training every day is tough, but no pain, no gain." },
+  { idiom:"Off the top of my head", meaning:"Without checking facts or thinking carefully; from memory.", example:"Off the top of my head, I'd say the meeting is at 3pm." },
+  { idiom:"Practice makes perfect", meaning:"Doing something repeatedly improves your skill.", example:"Keep rehearsing your lines — practice makes perfect." },
+  { idiom:"Put all your eggs in one basket", meaning:"To risk everything on a single plan.", example:"Apply to more than one university — don't put all your eggs in one basket." },
+  { idiom:"Read between the lines", meaning:"To understand the hidden meaning behind what is said.", example:"He didn't say he was upset, but you could read between the lines." },
+  { idiom:"Ring a bell", meaning:"To sound familiar.", example:"That name rings a bell, but I can't remember where I heard it." },
+  { idiom:"Rule of thumb", meaning:"A general, practical guideline, not an exact rule.", example:"As a rule of thumb, arrive fifteen minutes early." },
+  { idiom:"Sit tight", meaning:"To wait patiently without doing anything yet.", example:"Sit tight — the results will be posted soon." },
+  { idiom:"Stick to your guns", meaning:"To hold firmly to your position despite pressure to change.", example:"She stuck to her guns even when others disagreed." },
+  { idiom:"The tip of the iceberg", meaning:"A small, visible part of a much larger problem or situation.", example:"The delayed project is just the tip of the iceberg — there are bigger issues." },
+  { idiom:"Water under the bridge", meaning:"A past problem that is no longer important and has been forgotten.", example:"We argued last year, but that's water under the bridge now." },
+];
+
+const MIXUP_OF_THE_DAY_POOL = [
+  { a:"Affect", b:"Effect", explanation:"'Affect' is usually a verb meaning to influence something. 'Effect' is usually a noun meaning the result. The heat can affect your mood; the effect of the heat was a headache." },
+  { a:"Your", b:"You're", explanation:"'Your' shows possession (your book). 'You're' is short for 'you are' (you're late)." },
+  { a:"Its", b:"It's", explanation:"'Its' shows possession (the dog wagged its tail). 'It's' is short for 'it is' or 'it has' (it's raining)." },
+  { a:"Their", b:"They're / There", explanation:"'Their' shows possession (their house). 'They're' is short for 'they are'. 'There' refers to a place (over there)." },
+  { a:"Then", b:"Than", explanation:"'Then' relates to time or sequence (first this, then that). 'Than' is used for comparisons (bigger than)." },
+  { a:"Fewer", b:"Less", explanation:"Use 'fewer' for countable things (fewer books). Use 'less' for uncountable amounts (less water)." },
+  { a:"Who", b:"Whom", explanation:"'Who' is the subject of a sentence (Who called you?). 'Whom' is the object (To whom did you speak?)." },
+  { a:"Lie", b:"Lay", explanation:"'Lie' means to recline and doesn't take an object (I lie down). 'Lay' means to put something down and needs an object (I lay the book down)." },
+  { a:"Advice", b:"Advise", explanation:"'Advice' is a noun (some good advice). 'Advise' is a verb (I advise you to wait)." },
+  { a:"Accept", b:"Except", explanation:"'Accept' means to agree to receive something. 'Except' means excluding something. I accept everyone's answer except yours." },
+  { a:"Loose", b:"Lose", explanation:"'Loose' means not tight (loose shoelaces). 'Lose' means to no longer have something (don't lose your keys)." },
+  { a:"Farther", b:"Further", explanation:"'Farther' refers to physical distance (farther down the road). 'Further' refers to figurative or additional extent (further discussion needed)." },
+  { a:"Compliment", b:"Complement", explanation:"A 'compliment' is a nice remark. A 'complement' is something that completes or goes well with something else." },
+  { a:"Principal", b:"Principle", explanation:"A school 'principal' is a person. A 'principle' is a rule or belief." },
+  { a:"Stationary", b:"Stationery", explanation:"'Stationary' means not moving. 'Stationery' refers to paper and writing materials." },
+  { a:"Desert", b:"Dessert", explanation:"A 'desert' is a dry, sandy area. 'Dessert' is the sweet course after a meal. (Tip: dessert has two S's because you want seconds.)" },
+  { a:"Bare", b:"Bear", explanation:"'Bare' means uncovered or empty. 'Bear' is either the animal or the verb meaning to carry or endure." },
+  { a:"Breath", b:"Breathe", explanation:"'Breath' is the noun (take a deep breath). 'Breathe' is the verb (remember to breathe)." },
+  { a:"Weather", b:"Whether", explanation:"'Weather' refers to climate conditions. 'Whether' is used to introduce a choice or possibility (I don't know whether to go)." },
+  { a:"Allowed", b:"Aloud", explanation:"'Allowed' means permitted. 'Aloud' means spoken out loud rather than silently." },
+  { a:"Beside", b:"Besides", explanation:"'Beside' means next to (sit beside me). 'Besides' means in addition to (besides math, I study English)." },
+  { a:"Between", b:"Among", explanation:"Use 'between' for two things (between you and me). Use 'among' for three or more (among the students)." },
+  { a:"Borrow", b:"Lend", explanation:"You 'borrow' something FROM someone. You 'lend' something TO someone. I borrowed a pen; she lent me a pen." },
+  { a:"Bring", b:"Take", explanation:"'Bring' means moving something toward the speaker. 'Take' means moving something away from the speaker." },
+  { a:"Continual", b:"Continuous", explanation:"'Continual' means happening repeatedly with breaks. 'Continuous' means happening without any interruption at all." },
+  { a:"Council", b:"Counsel", explanation:"A 'council' is a group of people who make decisions. 'Counsel' means advice, or the verb to advise." },
+  { a:"Elicit", b:"Illicit", explanation:"'Elicit' means to draw out a response. 'Illicit' means illegal or forbidden." },
+  { a:"Emigrate", b:"Immigrate", explanation:"'Emigrate' means to leave your own country. 'Immigrate' means to move into a new country." },
+  { a:"Envy", b:"Jealousy", explanation:"'Envy' is wanting what someone else has. 'Jealousy' usually involves fear of losing something you already have, like a relationship." },
+  { a:"Historic", b:"Historical", explanation:"'Historic' means important in history (a historic treaty). 'Historical' simply means relating to the past (historical records)." },
+  { a:"Imply", b:"Infer", explanation:"A speaker 'implies' something (hints at it). A listener 'infers' something (concludes it from clues)." },
+  { a:"Later", b:"Latter", explanation:"'Later' refers to time (see you later). 'Latter' refers to the second of two things already mentioned." },
+  { a:"Literally", b:"Figuratively", explanation:"'Literally' means exactly as stated, not exaggerated. 'Figuratively' means using a metaphor or exaggeration, not the literal truth." },
+  { a:"Moral", b:"Morale", explanation:"A 'moral' is a lesson about right and wrong. 'Morale' refers to a group's confidence or spirit." },
+  { a:"Numerous", b:"Various", explanation:"'Numerous' emphasizes a large quantity. 'Various' emphasizes variety or difference among items." },
+  { a:"Passed", b:"Past", explanation:"'Passed' is the past tense of the verb 'to pass' (she passed the test). 'Past' refers to time before now or a location (in the past; walk past the shop)." },
+  { a:"Personal", b:"Personnel", explanation:"'Personal' means private or individual. 'Personnel' refers to the staff or employees of an organization." },
+  { a:"Precede", b:"Proceed", explanation:"'Precede' means to come before something. 'Proceed' means to continue or move forward." },
+  { a:"Quiet", b:"Quite", explanation:"'Quiet' means making little noise. 'Quite' means fairly or completely (quite good; quite finished)." },
+  { a:"Sight", b:"Site / Cite", explanation:"'Sight' relates to seeing. A 'site' is a location. To 'cite' means to quote or reference a source." },
+  { a:"Statue", b:"Stature / Statute", explanation:"A 'statue' is a sculpture. 'Stature' refers to height or reputation. A 'statute' is a law." },
+  { a:"Suit", b:"Suite", explanation:"A 'suit' is an outfit of clothing. A 'suite' is a set of connected rooms." },
+  { a:"Threw", b:"Through / Thorough", explanation:"'Threw' is the past tense of throw. 'Through' means passing from one side to another. 'Thorough' means complete and detailed." },
+  { a:"Waist", b:"Waste", explanation:"'Waist' is the part of the body. 'Waste' means to use something carelessly, or unwanted material." },
+  { a:"Weary", b:"Wary", explanation:"'Weary' means very tired. 'Wary' means cautious or suspicious of something." },
+  { a:"Whose", b:"Who's", explanation:"'Whose' shows possession (whose bag is this?). 'Who's' is short for 'who is' or 'who has' (who's coming?)." },
+  { a:"Adverse", b:"Averse", explanation:"'Adverse' describes something harmful or unfavorable (adverse weather). 'Averse' describes a person's strong dislike or opposition (averse to risk)." },
+  { a:"Defuse", b:"Diffuse", explanation:"'Defuse' means to make a dangerous situation calmer, like defusing a bomb. 'Diffuse' means to spread out widely." },
+  { a:"Discreet", b:"Discrete", explanation:"'Discreet' means careful not to attract attention. 'Discrete' means separate and distinct." },
+  { a:"Flaunt", b:"Flout", explanation:"'Flaunt' means to show off. 'Flout' means to openly disregard a rule." },
+  { a:"Nauseous", b:"Nauseated", explanation:"Strictly, 'nauseous' means causing sickness, and 'nauseated' means feeling sick — though 'nauseous' is now widely used both ways in casual speech." },
+  { a:"Assure", b:"Ensure / Insure", explanation:"'Assure' means to tell someone confidently to remove doubt. 'Ensure' means to make certain something happens. 'Insure' relates to insurance policies." },
+];
+
+const RIDDLE_OF_THE_DAY_POOL = [
+  { riddle:"What has keys but no locks, space but no room, and you can enter but not go in?", answer:"A keyboard." },
+  { riddle:"The more you take, the more you leave behind. What am I?", answer:"Footsteps." },
+  { riddle:"What has to be broken before you can use it?", answer:"An egg." },
+  { riddle:"I speak without a mouth and hear without ears. I have no body, but I come alive with the wind. What am I?", answer:"An echo." },
+  { riddle:"What gets wetter the more it dries?", answer:"A towel." },
+  { riddle:"What can travel around the world while staying in a corner?", answer:"A stamp." },
+  { riddle:"What has a neck but no head?", answer:"A bottle." },
+  { riddle:"What comes once in a minute, twice in a moment, but never in a thousand years?", answer:"The letter M." },
+  { riddle:"What has many teeth but cannot bite?", answer:"A comb." },
+  { riddle:"What building has the most stories?", answer:"A library." },
+  { riddle:"What can you catch but not throw?", answer:"A cold." },
+  { riddle:"What has one eye but cannot see?", answer:"A needle." },
+  { riddle:"What is full of holes but still holds water?", answer:"A sponge." },
+  { riddle:"What has hands but cannot clap?", answer:"A clock." },
+  { riddle:"What runs but never walks, has a bed but never sleeps?", answer:"A river." },
+  { riddle:"What can fill a room but takes up no space?", answer:"Light." },
+  { riddle:"I'm tall when I'm young and short when I'm old. What am I?", answer:"A candle." },
+  { riddle:"What has a heart that doesn't beat?", answer:"An artichoke." },
+  { riddle:"What gets bigger the more you take away from it?", answer:"A hole." },
+  { riddle:"What has words but never speaks?", answer:"A book." },
+  { riddle:"What invention lets you look right through a wall?", answer:"A window." },
+  { riddle:"You see a boat filled with people, yet there isn't a single person on board. How is that possible?", answer:"All the people on the boat are married, so nobody is single." },
+  { riddle:"What five-letter word becomes shorter when you add two letters to it?", answer:"'Short' — adding 'er' makes 'shorter'." },
+  { riddle:"What month of the year has 28 days?", answer:"All of them — every month has at least 28 days." },
+  { riddle:"What can you break without ever touching it?", answer:"A promise." },
+  { riddle:"What has a thumb and four fingers but isn't alive?", answer:"A glove." },
+  { riddle:"What kind of room has no doors or windows?", answer:"A mushroom." },
+  { riddle:"What goes up but never comes down?", answer:"Your age." },
+  { riddle:"What is always in front of you but can't be seen?", answer:"The future." },
+  { riddle:"What has a face and two hands but no arms or legs?", answer:"A clock." },
+  { riddle:"What can you hold without ever touching it?", answer:"Your breath." },
+  { riddle:"I have branches but no fruit, trunk, or leaves. What am I?", answer:"A bank." },
+  { riddle:"What has an eye but can't see?", answer:"A storm (the eye of a storm)." },
+  { riddle:"What is so fragile that saying its name breaks it?", answer:"Silence." },
+  { riddle:"What can be cracked, made, told, and played?", answer:"A joke." },
+  { riddle:"What flies without wings?", answer:"Time." },
+  { riddle:"What has a bottom at the top?", answer:"Your legs." },
+  { riddle:"What starts with an E, ends with an E, but only has one letter in it?", answer:"An envelope." },
+  { riddle:"What can go through glass without breaking it?", answer:"Light." },
+  { riddle:"What is easy to get into but hard to get out of?", answer:"Trouble." },
+  { riddle:"What has a spine but no bones?", answer:"A book." },
+  { riddle:"What goes through cities and fields but never moves?", answer:"A road." },
+  { riddle:"What can you keep after giving it to someone else?", answer:"Your word (a promise)." },
+  { riddle:"What has many keys but can't open a single lock?", answer:"A piano." },
+  { riddle:"What is black when clean and white when dirty?", answer:"A chalkboard." },
+  { riddle:"What kind of tree can you carry in your hand?", answer:"A palm (of your hand)." },
+  { riddle:"What has 13 hearts but no other organs?", answer:"A deck of cards." },
+  { riddle:"What word in the dictionary is spelled incorrectly?", answer:"'Incorrectly.'" },
+  { riddle:"What can you never eat for breakfast?", answer:"Lunch and dinner." },
+  { riddle:"What belongs to you but is used more by others?", answer:"Your name." },
+  { riddle:"What has four legs in the morning, two legs at noon, and three legs in the evening?", answer:"A human — crawling as a baby, walking as an adult, using a cane in old age." },
+  { riddle:"What is always coming but never arrives?", answer:"Tomorrow." },
+  { riddle:"What can't talk but will reply when spoken to?", answer:"An echo." },
+  { riddle:"What has a ring but no finger?", answer:"A telephone." },
+  { riddle:"What is at the end of a rainbow?", answer:"The letter W." },
+  { riddle:"What tastes better than it smells?", answer:"Your tongue." },
+  { riddle:"What can you serve but never eat?", answer:"A tennis ball." },
+  { riddle:"What has a head and a tail but no body?", answer:"A coin." },
+  { riddle:"What goes up when the rain comes down?", answer:"An umbrella." },
+];
+
+const QUOTE_OF_THE_DAY_POOL = [
+  { quote:"The only way to do great work is to love what you do.", author:"Steve Jobs" },
+  { quote:"In the middle of difficulty lies opportunity.", author:"Albert Einstein" },
+  { quote:"It always seems impossible until it's done.", author:"Nelson Mandela" },
+  { quote:"The mind is everything. What you think you become.", author:"Buddha" },
+  { quote:"Whether you think you can or you think you can't, you're right.", author:"Henry Ford" },
+  { quote:"Do what you can, with what you have, where you are.", author:"Theodore Roosevelt" },
+  { quote:"The best way to predict the future is to create it.", author:"Peter Drucker" },
+  { quote:"You miss 100% of the shots you don't take.", author:"Wayne Gretzky" },
+  { quote:"The only limit to our realization of tomorrow is our doubts of today.", author:"Franklin D. Roosevelt" },
+  { quote:"It does not matter how slowly you go as long as you do not stop.", author:"Confucius" },
+  { quote:"Success is not final, failure is not fatal: it is the courage to continue that counts.", author:"Winston Churchill" },
+  { quote:"What we know is a drop, what we don't know is an ocean.", author:"Isaac Newton" },
+  { quote:"I have not failed. I've just found 10,000 ways that won't work.", author:"Thomas Edison" },
+  { quote:"Perfection is not attainable, but if we chase perfection we can catch excellence.", author:"Vince Lombardi" },
+  { quote:"Genius is one percent inspiration and ninety-nine percent perspiration.", author:"Thomas Edison" },
+  { quote:"Life is what happens when you're busy making other plans.", author:"John Lennon" },
+  { quote:"Not all those who wander are lost.", author:"J.R.R. Tolkien" },
+  { quote:"The future belongs to those who believe in the beauty of their dreams.", author:"Eleanor Roosevelt" },
+  { quote:"Tell me and I forget. Teach me and I remember. Involve me and I learn.", author:"Benjamin Franklin" },
+  { quote:"An investment in knowledge pays the best interest.", author:"Benjamin Franklin" },
+  { quote:"The unexamined life is not worth living.", author:"Socrates" },
+  { quote:"Knowing yourself is the beginning of all wisdom.", author:"Aristotle" },
+  { quote:"Give me six hours to chop down a tree and I will spend the first four sharpening the axe.", author:"Abraham Lincoln" },
+  { quote:"The journey of a thousand miles begins with a single step.", author:"Lao Tzu" },
+  { quote:"Simplicity is the ultimate sophistication.", author:"Leonardo da Vinci" },
+  { quote:"I think, therefore I am.", author:"René Descartes" },
+  { quote:"That which does not kill us makes us stronger.", author:"Friedrich Nietzsche" },
+  { quote:"Imagination is more important than knowledge.", author:"Albert Einstein" },
+  { quote:"A room without books is like a body without a soul.", author:"Cicero" },
+  { quote:"He who has a why to live can bear almost any how.", author:"Friedrich Nietzsche" },
+  { quote:"The only true wisdom is in knowing you know nothing.", author:"Socrates" },
+  { quote:"Fortune favors the bold.", author:"Latin proverb" },
+  { quote:"Well done is better than well said.", author:"Benjamin Franklin" },
+  { quote:"A goal without a plan is just a wish.", author:"Antoine de Saint-Exupéry" },
+  { quote:"The best time to plant a tree was twenty years ago. The second best time is now.", author:"Chinese proverb" },
+  { quote:"Discipline is the bridge between goals and accomplishment.", author:"Jim Rohn" },
+  { quote:"Little by little, one travels far.", author:"J.R.R. Tolkien" },
+  { quote:"The expert in anything was once a beginner.", author:"Helen Hayes" },
+  { quote:"You are never too old to set another goal or dream a new dream.", author:"C.S. Lewis" },
+  { quote:"Do not wait to strike till the iron is hot, but make it hot by striking.", author:"William Butler Yeats" },
+  { quote:"Nothing in life is to be feared, it is only to be understood.", author:"Marie Curie" },
+  { quote:"He who is not courageous enough to take risks will accomplish nothing in life.", author:"Muhammad Ali" },
+  { quote:"Either you run the day, or the day runs you.", author:"Jim Rohn" },
+  { quote:"Learning never exhausts the mind.", author:"Leonardo da Vinci" },
+  { quote:"There is nothing permanent except change.", author:"Heraclitus" },
+  { quote:"Winning isn't everything, but wanting to win is.", author:"Vince Lombardi" },
+  { quote:"Comparison is the thief of joy.", author:"Theodore Roosevelt" },
+  { quote:"Do or do not. There is no try.", author:"Yoda, Star Wars" },
+  { quote:"With great power comes great responsibility.", author:"Spider-Man" },
+  { quote:"The only thing we have to fear is fear itself.", author:"Franklin D. Roosevelt" },
+  { quote:"Ask not what your country can do for you — ask what you can do for your country.", author:"John F. Kennedy" },
+  { quote:"I have a dream.", author:"Martin Luther King Jr." },
+  { quote:"Float like a butterfly, sting like a bee.", author:"Muhammad Ali" },
+  { quote:"Stay hungry, stay foolish.", author:"Steve Jobs" },
+  { quote:"That's one small step for man, one giant leap for mankind.", author:"Neil Armstrong" },
+];
+
 function wordOfTheDayHtml(){
   const now = new Date();
   const start = new Date(now.getFullYear(), 0, 0);
@@ -4589,6 +4859,41 @@ function randomFactHtml(){
   const pick = RANDOM_FACTS[Math.floor(Math.random() * RANDOM_FACTS.length)];
   return `<div class="otd-text">${escapeHtml(pick)}</div>`;
 }
+function dayOfYearIndex(){
+  const now = new Date();
+  const start = new Date(now.getFullYear(), 0, 0);
+  return Math.floor((now - start) / 86400000);
+}
+function idiomOfTheDayHtml(){
+  const pick = IDIOM_OF_THE_DAY_POOL[dayOfYearIndex() % IDIOM_OF_THE_DAY_POOL.length];
+  return `
+    <div class="wotd-word">${escapeHtml(pick.idiom)}</div>
+    <div class="wotd-def">${escapeHtml(pick.meaning)}</div>
+    <div class="wotd-example">"${escapeHtml(pick.example)}"</div>
+  `;
+}
+function mixupOfTheDayHtml(){
+  const pick = MIXUP_OF_THE_DAY_POOL[dayOfYearIndex() % MIXUP_OF_THE_DAY_POOL.length];
+  return `
+    <div class="mixup-pair">${escapeHtml(pick.a)}<span class="mixup-vs">vs</span>${escapeHtml(pick.b)}</div>
+    <div class="wotd-def">${escapeHtml(pick.explanation)}</div>
+  `;
+}
+function riddleOfTheDayHtml(){
+  const pick = RIDDLE_OF_THE_DAY_POOL[dayOfYearIndex() % RIDDLE_OF_THE_DAY_POOL.length];
+  return `
+    <div class="riddle-question">${escapeHtml(pick.riddle)}</div>
+    <button class="riddle-reveal-btn" type="button">Tap to reveal answer</button>
+    <div class="riddle-answer" hidden>${escapeHtml(pick.answer)}</div>
+  `;
+}
+function quoteOfTheDayHtml(){
+  const pick = QUOTE_OF_THE_DAY_POOL[dayOfYearIndex() % QUOTE_OF_THE_DAY_POOL.length];
+  return `
+    <div class="quote-text">"${escapeHtml(pick.quote)}"</div>
+    <div class="quote-author">— ${escapeHtml(pick.author)}</div>
+  `;
+}
 
 /* ---- Random ---- */
 function wireRandomButton(container){
@@ -4631,7 +4936,7 @@ function wireExtrasCarousel(container){
   if(!wrap || !dotsWrap) return;
   const slides = [...wrap.querySelectorAll('.carousel-slide')];
   const dots = [...dotsWrap.querySelectorAll('.carousel-dot')];
-  let order = [0, 1, 2]; // order[0] is the slide index currently on top
+  let order = slides.map((_, i) => i); // order[0] is the slide index currently on top
 
   function render(){
     order.forEach((slideIdx, pos) => { slides[slideIdx].dataset.pos = pos; });
@@ -4647,6 +4952,16 @@ function wireExtrasCarousel(container){
 
   wrap.addEventListener('click', (e)=>{
     if(e.target.closest('a')) return; // let "read more" links work normally
+    const revealBtn = e.target.closest('.riddle-reveal-btn');
+    if(revealBtn){
+      const answer = revealBtn.nextElementSibling;
+      if(answer && answer.classList.contains('riddle-answer')){
+        const showing = !answer.hasAttribute('hidden');
+        if(showing){ answer.setAttribute('hidden',''); revealBtn.textContent = 'Tap to reveal answer'; }
+        else{ answer.removeAttribute('hidden'); revealBtn.textContent = 'Hide answer'; }
+      }
+      return; // don't also advance the carousel
+    }
     order.push(order.shift());
     render();
   });
@@ -5575,11 +5890,31 @@ function viewHome(){
           <div class="carousel-label">${icon('calendar')} On This Day</div>
           <div id="otdCard"><div class="otd-text">Loading…</div></div>
         </div>
+        <div class="carousel-slide otd-card otd-card--idiom" data-pos="3" data-type="idiom">
+          <div class="carousel-label">${icon('newspaper')} Idiom of the Day</div>
+          ${idiomOfTheDayHtml()}
+        </div>
+        <div class="carousel-slide otd-card otd-card--mixup" data-pos="4" data-type="mixup">
+          <div class="carousel-label">${icon('scales')} Common Mix-Up</div>
+          ${mixupOfTheDayHtml()}
+        </div>
+        <div class="carousel-slide otd-card otd-card--riddle" data-pos="5" data-type="riddle">
+          <div class="carousel-label">${icon('brain')} Riddle of the Day</div>
+          ${riddleOfTheDayHtml()}
+        </div>
+        <div class="carousel-slide otd-card otd-card--quote" data-pos="6" data-type="quote">
+          <div class="carousel-label">${icon('star')} Quote of the Day</div>
+          ${quoteOfTheDayHtml()}
+        </div>
       </div>
       <div class="carousel-dots" id="extrasDots">
         <span class="carousel-dot active" data-idx="0"></span>
         <span class="carousel-dot" data-idx="1"></span>
         <span class="carousel-dot" data-idx="2"></span>
+        <span class="carousel-dot" data-idx="3"></span>
+        <span class="carousel-dot" data-idx="4"></span>
+        <span class="carousel-dot" data-idx="5"></span>
+        <span class="carousel-dot" data-idx="6"></span>
       </div>
     </section>
 
