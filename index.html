@@ -357,6 +357,21 @@
     transition:transform .2s ease;
   }
   details[open] > .domain-summary .domain-chevron{ transform:rotate(180deg); }
+  .random-btn{
+    background:var(--cream-2);
+    border:none;
+    border-radius:999px;
+    width:30px; height:30px;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    color:var(--ink-soft);
+    cursor:pointer;
+    flex-shrink:0;
+  }
+  .random-btn svg{ width:15px; height:15px; display:block; }
+  .random-btn:hover{ color:var(--coral); }
+  .random-btn:active{ transform:scale(.92); }
   .domain-group-content{
     padding-top:14px;
   }
@@ -5668,6 +5683,7 @@ function viewFaculty(key){
           <span class="fac-icon" style="color:${fac.color}">${icon(fac.icon)}</span>
           <h2>${fac.label} — Articles</h2>
           <span class="domain-count">${list.length}</span>
+          ${list.length > 0 ? `<button class="random-btn" data-random-type="article" data-random-fac="${key}" title="Random article from ${fac.label}">${icon('dice')}</button>` : ''}
           <span class="domain-chevron">${icon('chevronDown')}</span>
         </summary>
         <div class="domain-group-content">
@@ -5679,6 +5695,7 @@ function viewFaculty(key){
           <span class="fac-icon" style="color:${fac.color}">${icon(fac.icon)}</span>
           <h2>${fac.label} — Videos</h2>
           <span class="domain-count">${videos.length}</span>
+          ${videos.length > 0 ? `<button class="random-btn" data-random-type="video" data-random-fac="${key}" title="Random video from ${fac.label}">${icon('dice')}</button>` : ''}
           <span class="domain-chevron">${icon('chevronDown')}</span>
         </summary>
         <div class="domain-group-content">
@@ -5690,6 +5707,7 @@ function viewFaculty(key){
           <span class="fac-icon" style="color:${fac.color}">${icon(fac.icon)}</span>
           <h2>${fac.label} — Instruments</h2>
           <span class="domain-count">${instruments.length}</span>
+          ${instruments.length > 0 ? `<button class="random-btn" data-random-type="instrument" data-random-fac="${key}" title="Random instrument from ${fac.label}">${icon('dice')}</button>` : ''}
           <span class="domain-chevron">${icon('chevronDown')}</span>
         </summary>
         <div class="domain-group-content">
@@ -6132,6 +6150,29 @@ document.body.addEventListener('click', (e)=>{
   if(!link) return;
   const nameEl = link.querySelector('.explore-card-name');
   logEvent('click_instrument', nameEl ? nameEl.textContent.trim() : link.href);
+});
+
+document.body.addEventListener('click', (e)=>{
+  const btn = e.target.closest('.random-btn');
+  if(!btn) return;
+  e.preventDefault();
+  e.stopPropagation();
+  const type = btn.dataset.randomType;
+  const fac = btn.dataset.randomFac;
+  let pool = [];
+  if(type === 'article') pool = DISPATCHES.filter(a => a.faculty === fac);
+  else if(type === 'video') pool = WATCH_VIDEOS.filter(v => v.faculty === fac);
+  else if(type === 'instrument') pool = EXPLORE_SITES.filter(s => s.fac === fac);
+  if(pool.length === 0) return;
+  const pick = pool[Math.floor(Math.random() * pool.length)];
+  logEvent('random_'+type, fac);
+  if(type === 'article'){
+    location.href = pick.url;
+  } else if(type === 'video'){
+    location.hash = '#play/' + pick.videoId;
+  } else if(type === 'instrument'){
+    window.open(pick.url, '_blank', 'noopener,noreferrer');
+  }
 });
 
 document.body.addEventListener('click', (e)=>{
