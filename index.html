@@ -6058,12 +6058,20 @@ function virtualEventsDatedWindow(){
   }).sort((a,b)=> a.startDate.localeCompare(b.startDate));
 }
 
+// Standing format for all short dates on the site: "19 Aug" -- no year, no leading zero.
+function formatShortDate(dateStr){
+  const m = (dateStr||'').match(/^(\d{4})-(\d{2})-(\d{2})$/);
+  if(!m) return dateStr;
+  const monthNames = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  return `${+m[3]} ${monthNames[+m[2]-1]}`;
+}
+
 function virtualEventCardHtml(e){
   return `<a class="event-card" href="${e.url}" target="_blank" rel="noopener">
     <div class="event-title">${escapeHtml(e.title)}</div>
     <div class="event-meta">
       <span class="event-cat-badge" style="background:var(--teal)">${escapeHtml(e.org)}</span>
-      ${e.startDate ? `<span class="event-venue">${e.startDate}${e.time ? ' · ' + escapeHtml(e.time) : ''}</span>` : ''}
+      ${e.startDate ? `<span class="event-venue">${formatShortDate(e.startDate)}${e.time ? ' · ' + escapeHtml(e.time) : ''}</span>` : ''}
     </div>
     <div class="event-venue" style="margin-top:4px;">${escapeHtml(e.description)}</div>
   </a>`;
