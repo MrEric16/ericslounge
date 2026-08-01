@@ -1452,11 +1452,6 @@
     100%{transform:translateX(0) rotate(0deg);}
   }
   #ufcGloveIcon.egg-punch{display:inline-block; animation:ufcPunch .45s ease-in-out;}
-  #scrollDoodle{
-    position:fixed; left:50%; bottom:-70px; transform:translateX(-50%);
-    z-index:9998; pointer-events:none; transition:bottom .5s cubic-bezier(.34,1.56,.64,1);
-  }
-  #scrollDoodle.peek{bottom:-6px;}
   #eggBrokenOverlay{
     position:fixed; inset:0; background:#000; z-index:9990;
     opacity:0; transition:opacity .4s ease;
@@ -6883,13 +6878,13 @@ function triggerBrokenEgg(){
 /* ---- 2: Konami code opens a tiny Snake game ---- */
 (function(){
   let buffer = '';
-  const KONAMI = ['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a'];
+  const KONAMI = ['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowLeft','ArrowRight','ArrowRight'];
   let konamiProgress = 0;
 
   document.addEventListener('keydown', (e)=>{
     const key = e.key;
     const expected = KONAMI[konamiProgress];
-    if(key === expected || (key.length === 1 && key.toLowerCase() === expected)){
+    if(key === expected){
       konamiProgress++;
       if(konamiProgress === KONAMI.length){
         konamiProgress = 0;
@@ -7023,35 +7018,6 @@ function openSnakeGame(){
       }
     });
   }
-})();
-
-/* ---- 13: scroll to the bottom of any page → a small doodle peeks up ---- */
-(function(){
-  const doodle = document.createElement('div');
-  doodle.id = 'scrollDoodle';
-  doodle.innerHTML = `<svg width="70" height="58" viewBox="0 0 70 58" fill="none">
-    <ellipse cx="35" cy="46" rx="30" ry="14" fill="#8B5E3C"/>
-    <circle cx="35" cy="24" r="18" fill="#B98354"/>
-    <ellipse cx="18" cy="11" rx="6" ry="8" fill="#B98354"/>
-    <ellipse cx="52" cy="11" rx="6" ry="8" fill="#B98354"/>
-    <circle cx="27" cy="21" r="2.6" fill="#3A2A1E"/>
-    <circle cx="43" cy="21" r="2.6" fill="#3A2A1E"/>
-    <path d="M27 31 Q35 36 43 31" stroke="#3A2A1E" stroke-width="2" fill="none" stroke-linecap="round"/>
-  </svg>`;
-  document.body.appendChild(doodle);
-
-  let shown = false, hideTimer = null;
-  window.addEventListener('scroll', ()=>{
-    const nearBottom = (window.innerHeight + window.scrollY) >= (document.body.scrollHeight - 40);
-    if(nearBottom && !shown){
-      shown = true;
-      doodle.classList.add('peek');
-      clearTimeout(hideTimer);
-      hideTimer = setTimeout(()=>{ doodle.classList.remove('peek'); }, 2600);
-    } else if(!nearBottom && shown){
-      shown = false;
-    }
-  }, { passive: true });
 })();
 
 /* ---- 15: click the UFC glove icon 5x fast → punch animation ---- */
