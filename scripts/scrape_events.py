@@ -121,6 +121,40 @@ def is_excluded(text):
             return True
     return False
 
+# Confirmed by direct observation (2026-08-02): these are standing "buy general
+# admission" listings on iticket.uz, not dated events -- they show up with
+# every single day's date because there's no real event date, just a
+# perpetual ticket-sales page. One is even in Samarkand, not Tashkent.
+PERPETUAL_VENUE_TITLES_EXACT = {
+    "imam bukhari innovation museum",
+    "center of islamic civilization",
+}
+
+
+def is_generic_venue_listing(title, venue):
+    """Catches the general pattern behind the two confirmed cases above: when
+    an event's title IS the venue name (a 'buy a ticket to this place' page),
+    it's not a real dated event. Legitimate concerts/shows almost always have
+    a title that differs from their venue."""
+    if norm(title) in PERPETUAL_VENUE_TITLES_EXACT:
+        return True
+    if not venue:
+        return False
+    nt, nv = norm(title), norm(venue)
+    if not nt or not nv:
+        return False
+    if nt == nv:
+        return True
+    # significant word overlap between title and venue (e.g. "Imam Bukhari
+    # Innovation Museum" vs "Memorial Complex of Imam Al Bukhari")
+    t_words = set(w for w in nt.split() if len(w) > 3)
+    v_words = set(w for w in nv.split() if len(w) > 3)
+    if t_words and v_words:
+        overlap = t_words & v_words
+        if len(overlap) >= 2 and len(overlap) >= len(t_words) * 0.6:
+            return True
+    return False
+
 
 MONTHS_RU = {
     "января": 1, "февраля": 2, "марта": 3, "апреля": 4, "мая": 5, "июня": 6,
@@ -393,6 +427,8 @@ def scrape_with_playwright():
                     except ValueError:
                         continue
                     if start > WINDOW_END or start < TODAY_MIDNIGHT:
+                        continue
+                    if is_generic_venue_listing(title_raw.strip(), venue):
                         continue
                     full_url = href if href.startswith("http") else f"https://iticket.uz{href}"
                     seen.add(href)
