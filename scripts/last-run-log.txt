@@ -1,19 +1,15 @@
 [scrape] Run started. Today (Tashkent): 2026-08-02  Window end: 2026-08-16
-[scrape] tashkent.uz cat=concert: 4 events kept
-[scrape] tashkent.uz cat=theatre: 4 events kept
-[scrape] tashkent.uz cat=exhibition: 4 events kept
-[scrape] tashkent.uz cat=sport: 4 events kept
-[scrape] tashkent.uz cat=lecture: 4 events kept
-[scrape] tashkent.uz cat=festival: 4 events kept
+[scrape] NOTE: tashkent.uz disabled -- its /en/afisha/{id} pages are not actually server-side category-filtered (confirmed by inspecting real output); afisha.uz's own /ru/{category} pages ARE genuinely filtered and cover the same content.
 [scrape] afisha.uz cat=concert: 8 events kept
 [scrape] afisha.uz cat=theatre: 1 events kept
-[scrape] afisha.uz cat=exhibition: 0 events kept
+[scrape] afisha.uz cat=exhibition: 2 events kept
 [scrape] afisha.uz cat=sport: 0 events kept
 [scrape] afisha.uz cat=lecture: 0 events kept
-[scrape] iticket.uz cat=concert: 0 events kept
+[scrape] iticket.uz cat=concert: 8 events kept
 [scrape] iticket.uz cat=theatre: 0 events kept
-[scrape] iticket.uz cat=exhibition: 0 events kept
-[scrape] ticketon.uz: 0 events kept
+[scrape] iticket.uz cat=exhibition: 1 events kept
+[scrape] ticketon.uz: CONFIRMED BLOCKED (Cloudflare challenge, page title='Just a moment...'). 0 events -- this is expected, not a bug to fix.
+[scrape] eventbrite.com: CONFIRMED BLOCKED (AWS WAF CAPTCHA, page title='Human Verification'). 0 events -- this is expected, not a bug to fix. Same category of block as ticketon.uz.
 [scrape] eventbrite.com: 0 events found (dates NOT yet parsed -- see note in script)
-[scrape] TOTAL before dedup: 33  |  after dedup: 13
+[scrape] TOTAL before dedup: 20  |  after dedup: 20
 [scrape] Wrote data/events-tashkent.json

@@ -1,19 +1,59 @@
 {
-  "generatedAt": "2026-08-01T20:25:32.492793Z",
+  "generatedAt": "2026-08-01T20:35:41.541610Z",
   "events": [
     {
-      "title": "Летний кулинарный лагерь в Cook Book",
-      "titleRu": null,
-      "category": "concert",
+      "title": "Выставка «Фотохроника XX века»",
+      "titleRu": "Выставка «Фотохроника XX века»",
+      "category": "exhibition",
       "venue": null,
-      "startDate": "2026-08-03",
-      "endDate": "2026-08-08",
-      "url": "https://www.afisha.uz/ru/children/2026/08/01/letnii-kulinarnyi-lager-v-cook-book",
-      "source": "tashkent.uz"
+      "startDate": "2026-06-25",
+      "endDate": "2026-08-25",
+      "url": "https://www.afisha.uz/ru/exhibitions/2026/06/25/photo-chronicle-xx",
+      "source": "afisha.uz"
     },
     {
-      "title": "Шоу NE PROSTO CARTOONS 4 августа Дворец искусств «Туркистон»",
-      "titleRu": "Шоу NE PROSTO CARTOONS 4 августа Дворец искусств «Туркистон»",
+      "title": "Выставка «Поколение Z» в Andakulova Gallery",
+      "titleRu": "Выставка «Поколение Z» в Andakulova Gallery",
+      "category": "exhibition",
+      "venue": null,
+      "startDate": "2026-07-25",
+      "endDate": "2026-08-09",
+      "url": "https://www.afisha.uz/ru/exhibitions/2026/07/23/pokolenie-z-andakulova-gallery",
+      "source": "afisha.uz"
+    },
+    {
+      "title": "Imam Bukhari Innovation Museum",
+      "titleRu": null,
+      "category": "concert",
+      "venue": "Memorial Complex of Imam Al Bukhari",
+      "startDate": "2026-08-02",
+      "endDate": null,
+      "url": "https://iticket.uz/en/events/concerts/imam-bukhari-innovation-museum",
+      "source": "iticket.uz"
+    },
+    {
+      "title": "Center of Islamic Civilization",
+      "titleRu": null,
+      "category": "concert",
+      "venue": "Center of Islamic civilization",
+      "startDate": "2026-08-02",
+      "endDate": null,
+      "url": "https://iticket.uz/en/events/concerts/center-of-islamic-civilization",
+      "source": "iticket.uz"
+    },
+    {
+      "title": "Walk around Tashkent - \"Tashkent Speaks\"",
+      "titleRu": null,
+      "category": "exhibition",
+      "venue": "Ташкент, Набережная Анхора 2, рядом с Hammersmith",
+      "startDate": "2026-08-02",
+      "endDate": null,
+      "url": "https://iticket.uz/en/events/cultural-events/walk-around-tashkent-tashkent-speaks",
+      "source": "iticket.uz"
+    },
+    {
+      "title": "Шоу NE PROSTO CARTOONS",
+      "titleRu": "Шоу NE PROSTO CARTOONS",
       "category": "concert",
       "venue": null,
       "startDate": "2026-08-04",
@@ -22,28 +62,18 @@
       "source": "afisha.uz"
     },
     {
-      "title": "«Музыкальное лото» в Beerbasha",
+      "title": "NE PROSTO CARTOONS",
       "titleRu": null,
       "category": "concert",
-      "venue": null,
-      "startDate": "2026-08-05",
+      "venue": "Turkiston Concert Hall",
+      "startDate": "2026-08-04",
       "endDate": null,
-      "url": "https://www.afisha.uz/ru/restaurants/2026/08/01/muzykalnoe-loto-v-beerbasha-5-avgusta",
-      "source": "tashkent.uz"
+      "url": "https://iticket.uz/en/events/concerts/ne-prosto-cartoons-2026",
+      "source": "iticket.uz"
     },
     {
-      "title": "Встреча о профессии медсестры в Гете-Институте",
-      "titleRu": null,
-      "category": "concert",
-      "venue": null,
-      "startDate": "2026-08-06",
-      "endDate": null,
-      "url": "https://www.afisha.uz/ru/znaniya/2026/08/01/vstrecha-o-professii-medsestry-v-gete-institute",
-      "source": "tashkent.uz"
-    },
-    {
-      "title": "Концерт группы Guthrie Govan Trio 6 августа Дворец искусств «Туркистон»",
-      "titleRu": "Концерт группы Guthrie Govan Trio 6 августа Дворец искусств «Туркистон»",
+      "title": "Концерт группы Guthrie Govan Trio",
+      "titleRu": "Концерт группы Guthrie Govan Trio",
       "category": "concert",
       "venue": null,
       "startDate": "2026-08-06",
@@ -52,8 +82,8 @@
       "source": "afisha.uz"
     },
     {
-      "title": "Выступление MakSim в Хиве 8 августа",
-      "titleRu": "Выступление MakSim в Хиве 8 августа",
+      "title": "Выступление MakSim в Хиве",
+      "titleRu": "Выступление MakSim в Хиве",
       "category": "concert",
       "venue": null,
       "startDate": "2026-08-08",
@@ -62,8 +92,8 @@
       "source": "afisha.uz"
     },
     {
-      "title": "Спектакль Out of Order 8 августа Human House",
-      "titleRu": "Спектакль Out of Order 8 августа Human House",
+      "title": "Спектакль Out of Order",
+      "titleRu": "Спектакль Out of Order",
       "category": "theatre",
       "venue": null,
       "startDate": "2026-08-08",
@@ -72,18 +102,18 @@
       "source": "afisha.uz"
     },
     {
-      "title": "Шоу «Устный экзамен» в SAHNA stand-up club",
+      "title": "Bunyodkor vs OKMK",
       "titleRu": null,
       "category": "concert",
-      "venue": null,
-      "startDate": "2026-08-13",
+      "venue": "«Bunyodkor» stadium",
+      "startDate": "2026-08-08",
       "endDate": null,
-      "url": "https://www.afisha.uz/ru/standup/2026/07/31/shou-ustnyy-ekzamen-sahna-stand-up-club",
-      "source": "tashkent.uz"
+      "url": "https://iticket.uz/en/events/concerts/bunyodkor-vs-okmk",
+      "source": "iticket.uz"
     },
     {
-      "title": "Концерт рок-хитов от Tynda.music 13 августа Дворец искусств «Туркистон»",
-      "titleRu": "Концерт рок-хитов от Tynda.music 13 августа Дворец искусств «Туркистон»",
+      "title": "Концерт рок-хитов от Tynda.music",
+      "titleRu": "Концерт рок-хитов от Tynda.music",
       "category": "concert",
       "venue": null,
       "startDate": "2026-08-13",
@@ -92,8 +122,8 @@
       "source": "afisha.uz"
     },
     {
-      "title": "Рок-концерт во дворце искусств «Туркистон» 13 августа Дворец искусств «Туркистон»",
-      "titleRu": "Рок-концерт во дворце искусств «Туркистон» 13 августа Дворец искусств «Туркистон»",
+      "title": "Рок-концерт во дворце искусств «Туркистон»",
+      "titleRu": "Рок-концерт во дворце искусств «Туркистон»",
       "category": "concert",
       "venue": null,
       "startDate": "2026-08-13",
@@ -102,8 +132,18 @@
       "source": "afisha.uz"
     },
     {
-      "title": "Концерт Абдижаппара Алкожи 14 августа Дворец искусств «Туркистон»",
-      "titleRu": "Концерт Абдижаппара Алкожи 14 августа Дворец искусств «Туркистон»",
+      "title": "Rock Consert",
+      "titleRu": null,
+      "category": "concert",
+      "venue": "Turkiston Concert Hall",
+      "startDate": "2026-08-13",
+      "endDate": null,
+      "url": "https://iticket.uz/en/events/concerts/rock-consert2026",
+      "source": "iticket.uz"
+    },
+    {
+      "title": "Концерт Абдижаппара Алкожи",
+      "titleRu": "Концерт Абдижаппара Алкожи",
       "category": "concert",
       "venue": null,
       "startDate": "2026-08-14",
@@ -112,8 +152,18 @@
       "source": "afisha.uz"
     },
     {
-      "title": "Open-air концерт Amirsoy Paradiso с 15 по 16 августа Amirsoy Resort",
-      "titleRu": "Open-air концерт Amirsoy Paradiso с 15 по 16 августа Amirsoy Resort",
+      "title": "ABDIZHAPPAR ALKOZHA",
+      "titleRu": null,
+      "category": "concert",
+      "venue": "Turkiston Concert Hall",
+      "startDate": "2026-08-14",
+      "endDate": null,
+      "url": "https://iticket.uz/en/events/concerts/abdizhappar-alkozha",
+      "source": "iticket.uz"
+    },
+    {
+      "title": "Open-air концерт Amirsoy Paradiso с 15 по",
+      "titleRu": "Open-air концерт Amirsoy Paradiso с 15 по",
       "category": "concert",
       "venue": null,
       "startDate": "2026-08-15",
@@ -122,14 +172,34 @@
       "source": "afisha.uz"
     },
     {
-      "title": "Фестиваль IOSIS ROCK BATTLE 15 августа SAHNA stand-up club",
-      "titleRu": "Фестиваль IOSIS ROCK BATTLE 15 августа SAHNA stand-up club",
+      "title": "Фестиваль IOSIS ROCK BATTLE",
+      "titleRu": "Фестиваль IOSIS ROCK BATTLE",
       "category": "concert",
       "venue": null,
       "startDate": "2026-08-15",
       "endDate": null,
       "url": "https://www.afisha.uz/ru/concerts/2026/07/16/iosis-rock-battle",
       "source": "afisha.uz"
+    },
+    {
+      "title": "IOSIS ROCK BATTLE",
+      "titleRu": null,
+      "category": "concert",
+      "venue": "\"SAHNA\" StandUp Club",
+      "startDate": "2026-08-15",
+      "endDate": null,
+      "url": "https://iticket.uz/en/events/concerts/iosis-rock-battle2026",
+      "source": "iticket.uz"
+    },
+    {
+      "title": "Amirsoy Paradiso",
+      "titleRu": null,
+      "category": "concert",
+      "venue": "Amirsoy Resort",
+      "startDate": "2026-08-15",
+      "endDate": null,
+      "url": "https://iticket.uz/en/events/concerts/amirsoy-paradiso",
+      "source": "iticket.uz"
     }
   ]
 }
