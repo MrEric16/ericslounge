@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-01T20:35:41.541610Z",
+  "generatedAt": "2026-08-01T20:38:30.496140Z",
   "events": [
     {
       "title": "Выставка «Фотохроника XX века»",
@@ -12,6 +12,16 @@
       "source": "afisha.uz"
     },
     {
+      "title": "Фотовыставка «Из Иордании в Узбекистан с любовью»",
+      "titleRu": "Фотовыставка «Из Иордании в Узбекистан с любовью»",
+      "category": "exhibition",
+      "venue": null,
+      "startDate": "2026-07-24",
+      "endDate": "2026-08-02",
+      "url": "https://www.afisha.uz/ru/exhibitions/2026/07/23/iz-iordanii-v-uzbekistan",
+      "source": "afisha.uz"
+    },
+    {
       "title": "Выставка «Поколение Z» в Andakulova Gallery",
       "titleRu": "Выставка «Поколение Z» в Andakulova Gallery",
       "category": "exhibition",
@@ -19,6 +29,136 @@
       "startDate": "2026-07-25",
       "endDate": "2026-08-09",
       "url": "https://www.afisha.uz/ru/exhibitions/2026/07/23/pokolenie-z-andakulova-gallery",
+      "source": "afisha.uz"
+    },
+    {
+      "title": "«Восточный базар» с 1 по",
+      "titleRu": "«Восточный базар» с 1 по",
+      "category": "exhibition",
+      "venue": null,
+      "startDate": "2026-08-01",
+      "endDate": "2026-08-02",
+      "url": "https://www.afisha.uz/ru/exhibitions/2026/07/31/vostochniy-bazar",
+      "source": "afisha.uz"
+    },
+    {
+      "title": "Концерт Candle Fire: Einaudi",
+      "titleRu": "Концерт Candle Fire: Einaudi",
+      "category": "concert",
+      "venue": null,
+      "startDate": "2026-08-02",
+      "endDate": null,
+      "url": "https://www.afisha.uz/ru/concerts/2026/07/28/candle-fire-einaudi",
+      "source": "afisha.uz"
+    },
+    {
+      "title": "Ярмарка Next Market",
+      "titleRu": "Ярмарка Next Market",
+      "category": "exhibition",
+      "venue": null,
+      "startDate": "2026-08-02",
+      "endDate": null,
+      "url": "https://www.afisha.uz/ru/exhibitions/2026/07/24/next-market",
+      "source": "afisha.uz"
+    },
+    {
+      "title": "Забег с препятствиями Befit Race",
+      "titleRu": "Забег с препятствиями Befit Race",
+      "category": "sport",
+      "venue": null,
+      "startDate": "2026-08-02",
+      "endDate": null,
+      "url": "https://www.afisha.uz/ru/sport/2026/07/16/befit-race-2026",
+      "source": "afisha.uz"
+    },
+    {
+      "title": "Открытие Alpha Sport Sergeli Fit",
+      "titleRu": "Открытие Alpha Sport Sergeli Fit",
+      "category": "sport",
+      "venue": null,
+      "startDate": "2026-08-02",
+      "endDate": null,
+      "url": "https://www.afisha.uz/ru/sport/2026/07/30/alpha-sport-sergeli-fit",
+      "source": "afisha.uz"
+    },
+    {
+      "title": "Беговая Лига Die Hard",
+      "titleRu": "Беговая Лига Die Hard",
+      "category": "sport",
+      "venue": null,
+      "startDate": "2026-08-02",
+      "endDate": null,
+      "url": "https://www.afisha.uz/ru/sport/2026/07/30/die-hard",
+      "source": "afisha.uz"
+    },
+    {
+      "title": "Мастер-класс «Пчёлки»",
+      "titleRu": "Мастер-класс «Пчёлки»",
+      "category": "lecture",
+      "venue": null,
+      "startDate": "2026-08-02",
+      "endDate": null,
+      "url": "https://www.afisha.uz/ru/znaniya/2026/07/27/kiara-art",
+      "source": "afisha.uz"
+    },
+    {
+      "title": "Мастер-классы в Dvoe Ceramics",
+      "titleRu": "Мастер-классы в Dvoe Ceramics",
+      "category": "lecture",
+      "venue": null,
+      "startDate": "2026-08-02",
+      "endDate": null,
+      "url": "https://www.afisha.uz/ru/znaniya/2026/07/28/dvoe-ceramics",
+      "source": "afisha.uz"
+    },
+    {
+      "title": "Мастер-класс «Сам себе парфюмер» в Human House",
+      "titleRu": "Мастер-класс «Сам себе парфюмер» в Human House",
+      "category": "lecture",
+      "venue": null,
+      "startDate": "2026-08-02",
+      "endDate": null,
+      "url": "https://www.afisha.uz/ru/znaniya/2026/07/27/sam-sebe-parfumer-human-house",
+      "source": "afisha.uz"
+    },
+    {
+      "title": "Арт-бранч «Минойский Крит. Искусство вне рамок»",
+      "titleRu": "Арт-бранч «Минойский Крит. Искусство вне рамок»",
+      "category": "lecture",
+      "venue": null,
+      "startDate": "2026-08-02",
+      "endDate": null,
+      "url": "https://www.afisha.uz/ru/znaniya/2026/07/29/art-brunch",
+      "source": "afisha.uz"
+    },
+    {
+      "title": "Игра-тренинг Flixa в Founders cafe",
+      "titleRu": "Игра-тренинг Flixa в Founders cafe",
+      "category": "lecture",
+      "venue": null,
+      "startDate": "2026-08-02",
+      "endDate": null,
+      "url": "https://www.afisha.uz/ru/znaniya/2026/07/31/igra-trening-flixa-founders-cafe",
+      "source": "afisha.uz"
+    },
+    {
+      "title": "Лекция о концептуализме в Human House Gallery",
+      "titleRu": "Лекция о концептуализме в Human House Gallery",
+      "category": "lecture",
+      "venue": null,
+      "startDate": "2026-08-02",
+      "endDate": null,
+      "url": "https://www.afisha.uz/ru/znaniya/2026/07/31/lektsiya-kontseptualizm-human-house-gallery",
+      "source": "afisha.uz"
+    },
+    {
+      "title": "Лекция «Концептуализм: как понимать современное искусство»",
+      "titleRu": "Лекция «Концептуализм: как понимать современное искусство»",
+      "category": "lecture",
+      "venue": null,
+      "startDate": "2026-08-02",
+      "endDate": null,
+      "url": "https://www.afisha.uz/ru/znaniya/2026/07/28/kontseptualizm-human-house-gallery",
       "source": "afisha.uz"
     },
     {
