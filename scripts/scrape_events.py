@@ -172,6 +172,9 @@ def scrape_tashkent_uz():
         except Exception as e:
             log(f"tashkent.uz cat={category}: REQUEST FAILED ({e})")
             continue
+        if cat_id == "11":  # dump one category's raw HTML for pagination inspection
+            with open("scripts/debug-tashkent-uz.html", "w", encoding="utf-8") as f:
+                f.write(r.text)
         soup = BeautifulSoup(r.text, "html.parser")
         cards = soup.select("a[href*='afisha.uz']")
         seen_urls = set()
@@ -232,6 +235,9 @@ def scrape_afisha_uz():
             log(f"afisha.uz cat={category}: REQUEST FAILED ({e})")
             continue
         soup = BeautifulSoup(r.text, "html.parser")
+        if slug == "exhibitions":
+            with open("scripts/debug-afisha-uz.html", "w", encoding="utf-8") as f:
+                f.write(r.text)
         links = soup.select(f"a[href*='/ru/{slug}/']")
         seen = set()
         count = 0
@@ -306,6 +312,9 @@ def scrape_with_playwright():
                             break
                     except Exception:
                         break
+                if slug == "concerts":
+                    with open("scripts/debug-iticket-uz.html", "w", encoding="utf-8") as f:
+                        f.write(page.content())
                 anchors = page.query_selector_all("a[href*='/en/event/']")
                 count = 0
                 seen = set()
@@ -355,11 +364,14 @@ def scrape_with_playwright():
         # --- ticketon.uz (best effort, bot-detection likely to still block this) ---
         page = context.new_page()
         try:
-            page.goto("https://ticketon.uz/en/tashkent", wait_until="networkidle", timeout=30000)
+            page.goto("https://ticketon.uz/en/tashkent", wait_until="domcontentloaded", timeout=20000)
+            page.wait_for_timeout(3000)
             title_check = page.title()
             if "access denied" in title_check.lower() or "blocked" in title_check.lower():
                 log("ticketon.uz: BLOCKED even via headless browser (bot detection). 0 events.")
             else:
+                with open("scripts/debug-ticketon-uz.html", "w", encoding="utf-8") as f:
+                    f.write(page.content())
                 anchors = page.query_selector_all("a[href*='/event']")
                 count = 0
                 seen = set()
@@ -409,6 +421,8 @@ def scrape_with_playwright():
                 "https://www.eventbrite.com/d/uzbekistan--tashkent--85680429/events/",
                 wait_until="networkidle", timeout=30000,
             )
+            with open("scripts/debug-eventbrite.html", "w", encoding="utf-8") as f:
+                f.write(page.content())
             anchors = page.query_selector_all("a[href*='eventbrite.com/e/']")
             count = 0
             seen = set()
