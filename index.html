@@ -1432,6 +1432,9 @@
   .match-row .match-teams{font-weight:700; color:var(--ink);}
   .match-row .match-score{font-family:'Space Mono', monospace; font-weight:700; color:var(--teal); margin:0 6px;}
   .match-row .match-date{font-family:'Space Mono', monospace; font-size:11px; color:var(--ink-soft); white-space:normal; text-align:right;}
+  .match-row.centered{flex-direction:column; align-items:center; justify-content:center; text-align:center;}
+  .match-row.centered .match-teams{white-space:nowrap;}
+  .match-row.centered .match-date{text-align:center;}
   /* ---------- Bottom tab bar (all pages) ---------- */
   .bottom-tabs{
     display:none;
@@ -2653,12 +2656,12 @@ async function loadLiveSportsData(){
   const arsTableEl = document.getElementById('arsenalTableContainer');
   if(arsTableEl) arsTableEl.innerHTML = oneTableHtml(SPORTS_LEAGUES[0].teams);
 }
-function matchListHtml(rows, showScore){
+function matchListHtml(rows, showScore, centered){
   if(!rows || rows.length === 0){
     return '<div class="empty-card">Nothing here yet — check back once the season\'s under way.</div>';
   }
   const items = rows.map(m => `
-    <div class="match-row">
+    <div class="match-row${centered ? ' centered' : ''}">
       <div class="match-teams">${escapeHtml(m.home)}${showScore && m.homeScore !== null ? ` <span class="match-score">${m.homeScore} - ${m.awayScore}</span> ` : ' v '}${escapeHtml(m.away)}</div>
       <div class="match-date">${formatTashkentDate(m.start)}</div>
     </div>
@@ -2689,7 +2692,7 @@ function leagueDetailBodyHtml(code){
         <span class="domain-count">${results.length}</span>
         <span class="domain-chevron">${icon('chevronDown')}</span>
       </summary>
-      <div class="domain-group-content">${matchListHtml(results, true)}</div>
+      <div class="domain-group-content">${matchListHtml(results, true, code === 'UZ' || code === 'KHL')}</div>
     </details>
     <details class="domain-group">
       <summary class="section-head domain-summary">
@@ -2698,7 +2701,7 @@ function leagueDetailBodyHtml(code){
         <span class="domain-count">${fixtures.length}</span>
         <span class="domain-chevron">${icon('chevronDown')}</span>
       </summary>
-      <div class="domain-group-content">${matchListHtml(fixtures, false)}</div>
+      <div class="domain-group-content">${matchListHtml(fixtures, false, code === 'KHL')}</div>
     </details>
     <details class="domain-group">
       <summary class="section-head domain-summary">
