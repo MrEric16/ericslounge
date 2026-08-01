@@ -2129,6 +2129,19 @@ const DISPATCHES = [
 // Arsenal fixtures — synced from Eric's Arsenal FC calendar subscription. Auto-advances
 // to whichever is soonest still in the future — no manual "next fixture" string to keep
 // updating. Re-sync from the calendar periodically (or whenever asked) to keep this fed.
+// football-data.org's free tier only covers official competitions (Premier League,
+// Champions League, etc.) -- pre-season friendlies are NOT tracked by the API at all,
+// confirmed by checking their coverage docs directly (2026-08-02). This means results
+// for the 4 pre-season friendlies below can NEVER come from the live API automatically,
+// no matter how the fetch/cache logic is written -- they have to be entered by hand as
+// each one is confirmed from real match reports, same pattern as the Uzbek league.
+// Once the real Premier League season starts (Arsenal v Coventry, Aug 22), those matches
+// ARE covered by the API and will update automatically -- see the kickoff+120min check
+// in loadLiveSportsData().
+const ARSENAL_FRIENDLY_RESULTS = [
+  { home:"Girona", away:"Arsenal", homeScore:1, awayScore:4, start:"2026-08-01T23:00:00+05:00", finished:true },
+];
+
 const ARSENAL_FIXTURES = [
   { title:"Girona v Arsenal", venue:"(Away)", competition:"Pre-season Friendly", stadium:"Estadi Municipal de Montilivi", start:"2026-08-01T23:00:00+05:00" },
   { title:"Arsenal v Real Betis", venue:"(Neutral)", competition:"Pre-season Friendly", stadium:"Aviva Stadium", start:"2026-08-05T23:30:00+05:00" },
@@ -2606,7 +2619,24 @@ async function loadLiveSportsData(){
       let cache = null;
       try{ cache = JSON.parse(localStorage.getItem(SPORTS_CACHE_KEY)); }catch(e){}
 
-      if(!cache || cache.day !== today){
+      // A known Arsenal fixture kicked off 120+ minutes ago -- force a refresh even if
+      // the calendar day hasn't rolled over yet, so results land same-day rather than
+      // waiting for the next 04:00 Tashkent refresh. Only applies to fixtures in
+      // ARSENAL_FIXTURES (real competitive matches the API actually covers) -- pre-season
+      // friendlies are handled separately via ARSENAL_FRIENDLY_RESULTS since the API
+      // never returns them at all, so no amount of refresh timing fixes that.
+      const now = new Date();
+      const pendingFixtureOverdue = ARSENAL_FIXTURES.some(f => {
+        const kickoff = new Date(f.start);
+        const minutesSinceKickoff = (now - kickoff) / 60000;
+        if(minutesSinceKickoff < 120) return false; // hasn't been 2 hours yet
+        if(minutesSinceKickoff > 60 * 24) return false; // more than a day old -- already covered by the daily refresh
+        const alreadyHaveResult = cache && cache.arsenalResults &&
+          cache.arsenalResults.some(r => new Date(r.start).getTime() === kickoff.getTime());
+        return !alreadyHaveResult;
+      });
+
+      if(!cache || cache.day !== today || pendingFixtureOverdue){
         const fresh = { day: today, leagues: {}, matches: {}, arsenalFixture: null, arsenalResults: [] };
         for(const code of Object.keys(LEAGUE_DETAIL_META)){
           try{
@@ -2721,12 +2751,34 @@ async function loadLiveSportsData(){
   }
   const arsResultsEl = document.getElementById('arsenalResultsContainer');
   if(arsResultsEl){
-    const results = (window._sportsCache && window._sportsCache.arsenalResults) || [];
+    const results = arsenalAllResults();
     arsResultsEl.innerHTML = matchListHtml(results, true);
   }
   const arsTableEl = document.getElementById('arsenalTableContainer');
   if(arsTableEl) arsTableEl.innerHTML = oneTableHtml(SPORTS_LEAGUES[0].teams);
 }
+// Merges live API-sourced results with the manually-entered friendly results
+// (see ARSENAL_FRIENDLY_RESULTS comment for why friendlies can't come from the API),
+// deduped by team pairing + date so a friendly that somehow later appears via the API
+// doesn't show twice, sorted newest first.
+function arsenalAllResults(){
+  const live = (window._sportsCache && window._sportsCache.arsenalResults) || [];
+  const friendly = ARSENAL_FRIENDLY_RESULTS.map(m => ({
+    home: m.home, away: m.away, homeScore: m.homeScore, awayScore: m.awayScore,
+    start: m.start, finished: true,
+  }));
+  const seen = new Set();
+  const merged = [];
+  [...live, ...friendly].forEach(m => {
+    const key = `${m.home}|${m.away}|${m.start.slice(0,10)}`;
+    if(seen.has(key)) return;
+    seen.add(key);
+    merged.push(m);
+  });
+  merged.sort((a,b) => new Date(b.start) - new Date(a.start));
+  return merged;
+}
+
 function matchListHtml(rows, showScore, centered){
   if(!rows || rows.length === 0){
     return '<div class="empty-card">Nothing here yet — check back once the season\'s under way.</div>';
@@ -5707,7 +5759,7 @@ function arsenalFixtureRows(){
 }
 function viewArsenalHub(){
   const fixtureRows = arsenalFixtureRows();
-  const results = (window._sportsCache && window._sportsCache.arsenalResults) || [];
+  const results = arsenalAllResults();
   return `
     <a class="back-link" href="#">← Back to Mr Eric's Lounge</a>
     <div class="arsenal-page">
