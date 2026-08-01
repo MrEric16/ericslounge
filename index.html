@@ -942,6 +942,41 @@
   .explore-tile .title{font-weight:800; font-size:19px;}
   .explore-tile .sub{font-size:13px; color:#F0D9DC; font-weight:600; margin-top:2px;}
 
+  .events-tile{
+    background:var(--gold);
+    color:#3D2A22;
+    border-radius:20px;
+    padding:26px 22px;
+    display:flex;
+    align-items:center;
+    gap:16px;
+    text-decoration:none;
+    box-shadow:0 3px 0 rgba(58,42,30,.15);
+  }
+  .events-tile .icon{display:inline-flex; align-items:center;} .events-tile .icon svg{width:30px;height:30px;}
+  .events-tile .title{font-weight:800; font-size:19px;}
+  .events-tile .sub{font-size:13px; color:#5C4A2E; font-weight:600; margin-top:2px;}
+
+  .events-day-group{margin-bottom:22px;}
+  .events-day-header{
+    font-weight:800; font-size:15px; color:var(--ink);
+    margin-bottom:8px; padding-bottom:6px; border-bottom:2px solid var(--line);
+    display:flex; align-items:baseline; gap:8px;
+  }
+  .events-day-header .day-sub{font-size:12px; font-weight:600; color:var(--ink-soft);}
+  .event-card{
+    display:block; background:var(--card); border-radius:14px; padding:12px 14px;
+    margin-bottom:8px; text-decoration:none; color:var(--ink);
+    box-shadow:0 2px 0 rgba(58,42,30,.06);
+  }
+  .event-card .event-title{font-weight:700; font-size:14px;}
+  .event-card .event-meta{display:flex; align-items:center; gap:8px; margin-top:5px;}
+  .event-cat-badge{
+    font-size:10px; font-weight:800; text-transform:uppercase; letter-spacing:.04em;
+    padding:2px 8px; border-radius:999px; color:#fff;
+  }
+  .event-venue{font-size:12px; color:var(--ink-soft);}
+
   .explore-card{
     display:block;
     color:#fff;
@@ -5805,6 +5840,135 @@ function recommendationsHtml(){
   `).join('')}</div>`;
 }
 
+/* ---- Tashkent Events (auto-scraped, see scripts/scrape_events.py) ---- */
+let EVENTS_TASHKENT = [];
+let eventsTashkentLoaded = false;
+
+const EVENT_CATEGORY_COLORS = {
+  concert: '#6B7A3D',   // teal
+  theatre: '#7A2E35',   // coral
+  exhibition: '#D4AF37',// gold
+  sport: '#3D7A5C',     // green
+  lecture: '#3D5A7A',   // blue
+  festival: '#B85C1F',  // orange
+};
+const EVENT_CATEGORY_LABELS = {
+  concert: 'Concert', theatre: 'Theatre', exhibition: 'Exhibition',
+  sport: 'Sport', lecture: 'Lecture', festival: 'Festival',
+};
+
+async function loadTashkentEvents(){
+  if(eventsTashkentLoaded) return;
+  try{
+    const res = await fetch('./data/events-tashkent.json', { cache: 'no-store' });
+    if(!res.ok) throw new Error('fetch failed');
+    const data = await res.json();
+    EVENTS_TASHKENT = data.events || [];
+    eventsTashkentLoaded = true;
+  }catch(e){
+    EVENTS_TASHKENT = [];
+  }
+  const body = document.getElementById('eventsTashkentBody');
+  if(body){ body.outerHTML = eventsTashkentListHtml(); }
+}
+
+// Buckets events into the rolling 7-day window: today + next 6 days. An event
+// already in progress (startDate in the past, endDate still upcoming) is
+// pinned to "today" rather than disappearing. This is recomputed fresh from
+// the current date on every render, so the window rolls forward on its own
+// every 24 hours -- no separate "refresh" logic needed.
+function tashkentEventsWindow(){
+  const now = new Date();
+  const startOfToday = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  const buckets = [];
+  for(let i=0;i<7;i++){
+    const d = new Date(startOfToday);
+    d.setDate(d.getDate()+i);
+    buckets.push({ date: d, events: [] });
+  }
+  const windowEnd = buckets[6].date;
+
+  EVENTS_TASHKENT.forEach(e=>{
+    const m = (e.startDate||'').match(/^(\d{4})-(\d{2})-(\d{2})$/);
+    if(!m) return;
+    const start = new Date(+m[1], +m[2]-1, +m[3]);
+    let end = start;
+    if(e.endDate){
+      const m2 = e.endDate.match(/^(\d{4})-(\d{2})-(\d{2})$/);
+      if(m2) end = new Date(+m2[1], +m2[2]-1, +m2[3]);
+    }
+    if(end < startOfToday) return;       // already finished
+    if(start > windowEnd) return;         // too far in the future
+    const displayDate = start < startOfToday ? startOfToday : start;
+    const dayIndex = Math.round((displayDate - startOfToday) / 86400000);
+    if(dayIndex >= 0 && dayIndex < 7){
+      buckets[dayIndex].events.push(e);
+    }
+  });
+  return buckets;
+}
+
+function eventsTashkentTileHtml(){
+  return `<a class="events-tile" href="#events-tashkent">
+    <span class="icon">${icon('calendar')}</span>
+    <div>
+      <div class="title">Events This Week</div>
+      <div class="sub">Concerts, theatre, exhibitions & more in Tashkent</div>
+    </div>
+  </a>`;
+}
+
+function eventsTashkentListHtml(){
+  const buckets = tashkentEventsWindow();
+  const dayNames = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+  const monthNames = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  const totalCount = buckets.reduce((n,b)=>n+b.events.length, 0);
+
+  if(!eventsTashkentLoaded){
+    return `<div id="eventsTashkentBody" class="empty-card">Loading this week's events…</div>`;
+  }
+  if(totalCount === 0){
+    return `<div id="eventsTashkentBody" class="empty-card">Nothing on the list for the next 7 days. Check back tomorrow.</div>`;
+  }
+
+  const groups = buckets.map((b, i)=>{
+    if(b.events.length === 0) return '';
+    const label = i === 0 ? 'Today' : i === 1 ? 'Tomorrow' : dayNames[b.date.getDay()];
+    const dateSub = `${b.date.getDate()} ${monthNames[b.date.getMonth()]}`;
+    const cards = b.events.map(e=>{
+      const color = EVENT_CATEGORY_COLORS[e.category] || 'var(--teal)';
+      const catLabel = EVENT_CATEGORY_LABELS[e.category] || e.category;
+      return `<a class="event-card" href="${e.url}" target="_blank" rel="noopener">
+        <div class="event-title">${escapeHtml(e.title)}</div>
+        <div class="event-meta">
+          <span class="event-cat-badge" style="background:${color}">${catLabel}</span>
+          ${e.venue ? `<span class="event-venue">${escapeHtml(e.venue)}</span>` : ''}
+        </div>
+      </a>`;
+    }).join('');
+    return `<div class="events-day-group">
+      <div class="events-day-header">${label} <span class="day-sub">${dateSub}</span></div>
+      ${cards}
+    </div>`;
+  }).join('');
+
+  return `<div id="eventsTashkentBody">${groups}</div>`;
+}
+
+function viewEventsTashkent(){
+  return `
+    <a class="back-link" href="#">← Back to Mr Eric's Lounge</a>
+    <section style="padding-top:14px;">
+      <div class="section-head"><span class="emoji">${icon('calendar')}</span><h2>Events This Week</h2></div>
+      <p style="font-size:13px; color:var(--ink-soft); margin:-6px 0 16px;">
+        Concerts, theatre, exhibitions, sport & lectures happening in Tashkent over the next 7 days.
+        Tap any event to view tickets on the site it's sourced from.
+      </p>
+      ${eventsTashkentListHtml()}
+    </section>
+  `;
+}
+
 function upcomingBirthdayTileHtml(){
   if(BIRTHDAYS.length===0){
     return '<a class="bday-tile-card" href="#birthdays"><div class="empty-card" style="margin:0;">No birthdays yet. Nobody\'s been born apparently.</div></a>';
@@ -6072,6 +6236,11 @@ function viewHome(){
     </section>
 
     <section>
+      <div class="section-head"><span class="emoji">${icon('calendar')}</span><h2>Events This Week</h2><a class="section-link" href="#events-tashkent">See more →</a></div>
+      ${eventsTashkentTileHtml()}
+    </section>
+
+    <section>
       <div class="section-head"><span class="emoji">${icon('cake')}</span><h2>Birthdays</h2></div>
       ${upcomingBirthdayTileHtml()}
     </section>
@@ -6305,6 +6474,8 @@ function renderRoute(opts){
     html = viewSuperstars();
   } else if(parts[0] === 'birthdays'){
     html = viewBirthdaysPage();
+  } else if(parts[0] === 'events-tashkent'){
+    html = viewEventsTashkent();
   } else if(parts[0] === 'ufc'){
     html = viewUFC();
   } else if(parts[0] === 'arsenal'){
@@ -6331,6 +6502,7 @@ function renderRoute(opts){
   if(parts[0] === 'search') wireSearch(app);
   if(parts[0] === 'install'){ wireInstallPage(); }
   if(parts[0] === 'stats'){ loadStats(); }
+  if(parts[0] === 'events-tashkent'){ loadTashkentEvents(); }
   if(parts.length === 0){ loadOnThisDay(); loadWeather(); loadVoxPopuli(); loadLiveSportsData(); wireRandomButton(app); wireRandomVideoButton(app); wireRandomExploreButton(app); wireExtrasCarousel(app); checkAchievements(); }
   if(parts[0] === 'sports' && parts[1] === 'tables'){ loadLiveSportsData(); }
   if(parts[0] === 'arsenal'){ loadLiveSportsData(); }
