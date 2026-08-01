@@ -103,35 +103,59 @@ def is_excluded(text):
     return False
 
 
+MONTHS_RU = {
+    "января": 1, "февраля": 2, "марта": 3, "апреля": 4, "мая": 5, "июня": 6,
+    "июля": 7, "августа": 8, "сентября": 9, "октября": 10, "ноября": 11, "декабря": 12,
+}
+_MONTH_PATTERN_RU = "|".join(MONTHS_RU.keys())
+
+
 def parse_ru_date_range(text, ref_year=None):
-    """Parses Russian date strings like '25 июля', 'с 15 по 16 августа' into (start,end)."""
-    months = {
-        "январ": 1, "феврал": 2, "март": 3, "апрел": 4, "ма": 5, "июн": 6,
-        "июл": 7, "август": 8, "сентябр": 9, "октябр": 10, "ноябр": 11, "декабр": 12,
-    }
+    """Parses Russian date strings, including cross-month ranges like
+    'с 24 июля по 2 августа', same-month ranges 'с 1 по 2 августа', and
+    single dates '25 июля'. Uses full genitive month words (not short stems)
+    to avoid false substring matches (e.g. 'ма' inside 'ярмарка')."""
     ref_year = ref_year or TODAY.year
     text = text.strip().lower()
-    nums = re.findall(r"\d{1,2}", text)
-    month = None
-    for stem, m in months.items():
-        if stem in text:
-            month = m
-            break
-    if not month or not nums:
-        return None, None
-    day_start = int(nums[0])
-    day_end = int(nums[1]) if len(nums) > 1 else day_start
-    try:
-        start = datetime(ref_year, month, day_start)
-        end = datetime(ref_year, month, day_end)
-    except ValueError:
-        return None, None
-    # roll year forward if the parsed date is more than ~2 months in the past
-    # (source pages sometimes list a date without a year, defaulting to "this year")
-    if start < TODAY - timedelta(days=60):
-        start = start.replace(year=ref_year + 1)
-        end = end.replace(year=ref_year + 1)
-    return start, end
+
+    m = re.search(rf"(\d{{1,2}})\s+({_MONTH_PATTERN_RU})\s*(?:по|-)\s*(\d{{1,2}})\s+({_MONTH_PATTERN_RU})", text)
+    if m:
+        d1, mon1, d2, mon2 = m.groups()
+        try:
+            start = datetime(ref_year, MONTHS_RU[mon1], int(d1))
+            end = datetime(ref_year, MONTHS_RU[mon2], int(d2))
+        except ValueError:
+            return None, None
+        if start < TODAY - timedelta(days=60):
+            start = start.replace(year=ref_year + 1)
+            end = end.replace(year=ref_year + 1)
+        return start, end
+
+    m = re.search(rf"(\d{{1,2}})\s*(?:по|-)\s*(\d{{1,2}})\s+({_MONTH_PATTERN_RU})", text)
+    if m:
+        d1, d2, mon = m.groups()
+        try:
+            start = datetime(ref_year, MONTHS_RU[mon], int(d1))
+            end = datetime(ref_year, MONTHS_RU[mon], int(d2))
+        except ValueError:
+            return None, None
+        if start < TODAY - timedelta(days=60):
+            start = start.replace(year=ref_year + 1)
+            end = end.replace(year=ref_year + 1)
+        return start, end
+
+    m = re.search(rf"(\d{{1,2}})\s+({_MONTH_PATTERN_RU})", text)
+    if m:
+        d, mon = m.groups()
+        try:
+            start = datetime(ref_year, MONTHS_RU[mon], int(d))
+        except ValueError:
+            return None, None
+        if start < TODAY - timedelta(days=60):
+            start = start.replace(year=ref_year + 1)
+        return start, start
+
+    return None, None
 
 
 def parse_en_date_range(text, ref_year=None):
@@ -249,9 +273,11 @@ def scrape_afisha_uz():
             title = re.sub(r"Купить билеты", "", title).strip()
             if not title or len(title) < 3:
                 continue
-            m = re.search(r"\*\s*([^*]+?)(?:\s*\*|$)", title)
-            date_text = m.group(1) if m else title
-            start, end = parse_ru_date_range(date_text)
+            date_match = re.search(
+                rf"(?:с\s+)?\d{{1,2}}\s+(?:{_MONTH_PATTERN_RU})(?:\s*(?:по|-)\s*\d{{1,2}}\s+(?:{_MONTH_PATTERN_RU}))?",
+                title.lower(),
+            )
+            start, end = parse_ru_date_range(title)
             if not start:
                 continue
             if start > WINDOW_END or (end or start) < TODAY:
@@ -260,7 +286,14 @@ def scrape_afisha_uz():
                 continue
             seen.add(href)
             full_url = href if href.startswith("http") else f"https://www.afisha.uz{href}"
-            clean_title = re.split(r"\s*\*\s*\d", title)[0].strip()
+            if date_match:
+                clean_title = title[:date_match.start()].strip(" *-")
+            else:
+                clean_title = title
+            # afisha.uz link text often repeats the title twice back-to-back (link + alt text)
+            half = len(clean_title) // 2
+            if half > 4 and clean_title[:half].strip() == clean_title[half:].strip():
+                clean_title = clean_title[:half].strip()
             events.append({
                 "title": clean_title,
                 "titleRu": clean_title,
@@ -475,11 +508,9 @@ def dedup(events):
 def main():
     all_events = []
     log(f"Run started. Today (Tashkent): {TODAY.date()}  Window end: {WINDOW_END.date()}")
-
-    try:
-        all_events += scrape_tashkent_uz()
-    except Exception as e:
-        log(f"tashkent.uz: TOTAL FAILURE ({e})")
+    log("NOTE: tashkent.uz disabled -- its /en/afisha/{id} pages are not actually "
+        "server-side category-filtered (confirmed by inspecting real output); "
+        "afisha.uz's own /ru/{category} pages ARE genuinely filtered and cover the same content.")
 
     try:
         all_events += scrape_afisha_uz()
