@@ -2315,16 +2315,16 @@ const SPORTS_LEAGUES = [
     ],
   },
   {
-    name: "Uzbekistan Super League", flag: flagIcon('uzbekistan'), note: "Round 14 complete",
+    name: "Uzbekistan Super League", flag: flagIcon('uzbekistan'), note: "Live — round 15",
     teams: [
       { name:"Neftchi Fergana", pld:14, w:11, d:2, l:1, gf:33, ga:6, pts:35 },
-      { name:"Pakhtakor", pld:14, w:10, d:3, l:1, gf:26, ga:14, pts:33 },
+      { name:"Pakhtakor", pld:15, w:10, d:4, l:1, gf:26, ga:14, pts:34 },
+      { name:"Buxoro", pld:15, w:8, d:2, l:5, gf:19, ga:16, pts:26 },
       { name:"OKMK", pld:14, w:7, d:4, l:3, gf:23, ga:18, pts:25 },
-      { name:"Buxoro", pld:14, w:7, d:2, l:5, gf:17, ga:15, pts:23 },
       { name:"Navbahor", pld:14, w:6, d:4, l:4, gf:18, ga:13, pts:22 },
-      { name:"Lokomotiv Tashkent", pld:14, w:6, d:4, l:4, gf:21, ga:19, pts:22 },
+      { name:"Lokomotiv Tashkent", pld:15, w:6, d:4, l:5, gf:22, ga:21, pts:22 },
+      { name:"Andijon", pld:15, w:6, d:3, l:6, gf:22, ga:16, pts:21 },
       { name:"Nasaf", pld:14, w:5, d:6, l:3, gf:17, ga:13, pts:21 },
-      { name:"Andijon", pld:14, w:6, d:2, l:6, gf:22, ga:16, pts:20 },
       { name:"Dinamo Samarqand", pld:14, w:6, d:2, l:6, gf:24, ga:25, pts:20 },
       { name:"Bunyodkor", pld:14, w:6, d:1, l:7, gf:14, ga:16, pts:19 },
       { name:"Xorazm", pld:14, w:4, d:4, l:6, gf:11, ga:17, pts:16 },
@@ -2334,27 +2334,33 @@ const SPORTS_LEAGUES = [
       { name:"Kokand 1912", pld:14, w:2, d:5, l:7, gf:13, ga:23, pts:11 },
       { name:"Mashal", pld:14, w:1, d:1, l:12, gf:7, ga:24, pts:4 },
     ],
-    // Table sourced from AiScore (thesports.com data feed), cross-checked against its own
-    // full standings page — updated 2026-08-01. Round 14 is now fully complete: every team
-    // shows pld14, resolving the prior staggered snapshot. A round-15 fixture (Andijon v
-    // Pakhtakor, 2026-08-01 19:30 Tashkent) was in progress/ambiguous across sources at
-    // update time and is deliberately excluded from the table above until its result is
-    // confirmed clean — same restraint principle as the other gaps noted in the handover doc.
+    // Table sourced from AiScore (thesports.com data feed) — updated 2026-08-01 22:xx
+    // Tashkent. Round 15 has begun: Andijon 0-0 Pakhtakor and Buxoro 2-1 Lokomotiv Tashkent
+    // are both confirmed FT (pulled from AiScore's live schedule block, not just the
+    // standings page, which lagged behind by a few minutes at fetch time — schedule block
+    // takes priority over standings when the two disagree on whether a match has finished).
+    // Remaining 6 round-15 fixtures are below. AiScore's own displayed kickoff times run on
+    // UTC+8; converted to Tashkent (UTC+5) by subtracting 3 hours throughout, cross-checked
+    // against the one match (Andijon v Pakhtakor) independently confirmed at 14:30 UTC
+    // elsewhere = 19:30 Tashkent, which matches the conversion.
     fixtures: [
-      { home:"Xorazm", away:"Surkhon", start:"2026-07-29T20:00:00+05:00" },
-      { home:"Neftchi Fergana", away:"Navbahor", start:"2026-07-29T20:00:00+05:00" },
-      { home:"Nasaf", away:"Qizilqum", start:"2026-07-29T20:00:00+05:00" },
-      { home:"Dinamo Samarqand", away:"Kokand 1912", start:"2026-07-29T20:00:00+05:00" },
-      { home:"Andijon", away:"Pakhtakor", start:"2026-08-01T20:00:00+05:00" },
-      { home:"Buxoro", away:"Lokomotiv Tashkent", start:"2026-08-01T20:00:00+05:00" },
-      { home:"Navbahor", away:"Xorazm", start:"2026-08-02T20:00:00+05:00" },
+      { home:"Navbahor", away:"Xorazm", start:"2026-08-02T19:30:00+05:00" },
       { home:"Mashal", away:"Sogdiana", start:"2026-08-02T20:00:00+05:00" },
+      { home:"Qizilqum", away:"Bunyodkor", start:"2026-08-02T20:30:00+05:00" },
+      { home:"Kokand 1912", away:"Surkhon", start:"2026-08-03T19:30:00+05:00" },
+      { home:"OKMK", away:"Nasaf", start:"2026-08-03T20:00:00+05:00" },
+      { home:"Dinamo Samarqand", away:"Neftchi Fergana", start:"2026-08-03T20:30:00+05:00" },
     ],
-    // Kickoff time set to 20:00 Tashkent — confirmed as the standard evening slot for
-    // several July 2026 matches via official-adjacent sources (sports.uz, pakhtakor.uz),
-    // but not individually re-verified per fixture above. Flagged here the same way the
-    // KHL 19:00 kickoff approximation is flagged elsewhere in this file.
     results: [
+      { home:"Buxoro", away:"Lokomotiv Tashkent", homeScore:2, awayScore:1, start:"2026-08-01T20:30:00+05:00" },
+      { home:"Andijon", away:"Pakhtakor", homeScore:0, awayScore:0, start:"2026-08-01T19:30:00+05:00" },
+      { home:"Dinamo Samarqand", away:"Kokand 1912", homeScore:3, awayScore:2, start:"2026-07-29T20:00:00+05:00" },
+      { home:"Nasaf", away:"Qizilqum", homeScore:1, awayScore:0, start:"2026-07-29T20:00:00+05:00" },
+      { home:"Neftchi Fergana", away:"Navbahor", homeScore:1, awayScore:1, start:"2026-07-29T20:00:00+05:00" },
+      { home:"Xorazm", away:"Surkhon", homeScore:1, awayScore:0, start:"2026-07-28T20:00:00+05:00" },
+      { home:"Lokomotiv Tashkent", away:"Sogdiana", homeScore:3, awayScore:1, start:"2026-07-27T20:00:00+05:00" },
+      { home:"Andijon", away:"Buxoro", homeScore:2, awayScore:0, start:"2026-07-27T20:00:00+05:00" },
+      { home:"OKMK", away:"Mashal", homeScore:2, awayScore:1, start:"2026-07-27T20:00:00+05:00" },
       { home:"Bunyodkor", away:"Pakhtakor", homeScore:0, awayScore:1, start:"2026-07-26T20:00:00+05:00" },
       { home:"Navbahor", away:"Qizilqum", homeScore:1, awayScore:1, start:"2026-07-23T18:00:00+05:00" },
       { home:"Dinamo Samarqand", away:"Surkhon", homeScore:2, awayScore:1, start:"2026-07-23T18:00:00+05:00" },
@@ -2362,15 +2368,6 @@ const SPORTS_LEAGUES = [
       { home:"Mashal", away:"Nasaf", homeScore:1, awayScore:1, start:"2026-07-22T18:00:00+05:00" },
       { home:"Kokand 1912", away:"OKMK", homeScore:1, awayScore:4, start:"2026-07-22T18:00:00+05:00" },
       { home:"Pakhtakor", away:"Xorazm", homeScore:2, awayScore:1, start:"2026-07-21T20:00:00+05:00" },
-      { home:"Buxoro", away:"Bunyodkor", homeScore:1, awayScore:0, start:"2026-07-21T20:00:00+05:00" },
-      { home:"Sogdiana", away:"Neftchi Fergana", homeScore:1, awayScore:5, start:"2026-07-21T20:00:00+05:00" },
-      { home:"Qizilqum", away:"Dinamo Samarqand", homeScore:1, awayScore:2, start:"2026-07-18T18:00:00+05:00" },
-      { home:"Andijon", away:"Surkhon", homeScore:1, awayScore:2, start:"2026-07-18T18:00:00+05:00" },
-      { home:"Navbahor", away:"OKMK", homeScore:2, awayScore:3, start:"2026-07-17T18:00:00+05:00" },
-      { home:"Mashal", away:"Kokand 1912", homeScore:1, awayScore:0, start:"2026-07-17T18:00:00+05:00" },
-      { home:"Pakhtakor", away:"Lokomotiv Tashkent", homeScore:1, awayScore:1, start:"2026-07-17T20:00:00+05:00" },
-      { home:"Sogdiana", away:"Xorazm", homeScore:2, awayScore:0, start:"2026-07-16T18:00:00+05:00" },
-      { home:"Neftchi Fergana", away:"Buxoro", homeScore:2, awayScore:1, start:"2026-07-16T18:00:00+05:00" },
     ],
   },
   {
