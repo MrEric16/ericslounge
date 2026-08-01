@@ -348,40 +348,39 @@ def scrape_with_playwright():
                 if slug == "concerts":
                     with open("scripts/debug-iticket-uz.html", "w", encoding="utf-8") as f:
                         f.write(page.content())
-                anchors = page.query_selector_all("a[href*='/en/event/']")
+                anchors = page.query_selector_all(f"a[href*='/en/events/{slug}/']")
                 count = 0
                 seen = set()
                 for a in anchors:
                     href = a.get_attribute("href") or ""
-                    if not href or href in seen:
+                    if not href or href in seen or href.rstrip("/").endswith(f"/{slug}"):
                         continue
-                    text = (a.inner_text() or "").strip()
+                    text = (a.inner_text() or "").strip().replace("\n", " ")
                     if not text or len(text) < 3:
                         continue
                     if is_excluded(text):
                         continue
-                    date_match = re.search(r"\d{1,2}\s+[A-Za-z]{3,}", text)
-                    start = None
-                    if date_match:
-                        try:
-                            start = datetime.strptime(f"{date_match.group(0)} {TODAY.year}", "%d %B %Y")
-                        except ValueError:
-                            try:
-                                start = datetime.strptime(f"{date_match.group(0)} {TODAY.year}", "%d %b %Y")
-                            except ValueError:
-                                start = None
-                    if start and start < TODAY - timedelta(days=60):
-                        start = start.replace(year=TODAY.year + 1)
-                    if not start or start > WINDOW_END or start < TODAY - timedelta(days=1):
+                    # format: "from 200 000 UZS BY ИНДИЯ 01 August 2026 • BlaBlaBar"
+                    m = re.match(
+                        r"(?:from\s+[\d\s]+UZS\s+)?(.+?)\s+(\d{1,2}\s+[A-Za-z]+\s+\d{4})\s*(?:•\s*(.+))?$",
+                        text,
+                    )
+                    if not m:
+                        continue
+                    title_raw, date_str, venue = m.group(1), m.group(2), m.group(3)
+                    try:
+                        start = datetime.strptime(date_str, "%d %B %Y")
+                    except ValueError:
+                        continue
+                    if start > WINDOW_END or start < TODAY - timedelta(days=1):
                         continue
                     full_url = href if href.startswith("http") else f"https://iticket.uz{href}"
                     seen.add(href)
-                    title_clean = re.split(r"\d{1,2}\s+[A-Za-z]{3,}", text)[0].strip() or text
                     events.append({
-                        "title": title_clean,
+                        "title": title_raw.strip(),
                         "titleRu": None,
                         "category": category,
-                        "venue": None,
+                        "venue": venue.strip() if venue else None,
                         "startDate": start.strftime("%Y-%m-%d"),
                         "endDate": None,
                         "url": full_url,
@@ -394,14 +393,21 @@ def scrape_with_playwright():
             finally:
                 page.close()
 
-        # --- ticketon.uz (best effort, bot-detection likely to still block this) ---
+        # --- ticketon.uz: CONFIRMED (2026-08-02) behind a Cloudflare "Just a moment..."
+        # JS-challenge page. This is not simple bot detection -- it's an active
+        # challenge that a plain headless browser cannot pass. Getting past it
+        # would require stealth-automation tooling and/or paid CAPTCHA-solving
+        # services, which is not appropriate to build into this. Left in place
+        # as a monthly-recheck in case the site changes its protection, but do
+        # not expect this to ever return events without a different approach. ---
         page = context.new_page()
         try:
             page.goto("https://ticketon.uz/en/tashkent", wait_until="domcontentloaded", timeout=20000)
             page.wait_for_timeout(3000)
             title_check = page.title()
-            if "access denied" in title_check.lower() or "blocked" in title_check.lower():
-                log("ticketon.uz: BLOCKED even via headless browser (bot detection). 0 events.")
+            if any(w in title_check.lower() for w in ("just a moment", "access denied", "blocked", "verification")):
+                log(f"ticketon.uz: CONFIRMED BLOCKED (Cloudflare challenge, page title='{title_check}'). "
+                    f"0 events -- this is expected, not a bug to fix.")
             else:
                 with open("scripts/debug-ticketon-uz.html", "w", encoding="utf-8") as f:
                     f.write(page.content())
@@ -456,7 +462,13 @@ def scrape_with_playwright():
             )
             with open("scripts/debug-eventbrite.html", "w", encoding="utf-8") as f:
                 f.write(page.content())
-            anchors = page.query_selector_all("a[href*='eventbrite.com/e/']")
+            page_title = page.title()
+            if "verification" in page_title.lower() or "human" in page_title.lower():
+                log(f"eventbrite.com: CONFIRMED BLOCKED (AWS WAF CAPTCHA, page title='{page_title}'). "
+                    f"0 events -- this is expected, not a bug to fix. Same category of block as ticketon.uz.")
+                anchors = []
+            else:
+                anchors = page.query_selector_all("a[href*='eventbrite.com/e/']")
             count = 0
             seen = set()
             for a in anchors:
