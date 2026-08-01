@@ -87,6 +87,18 @@ ITICKET_CATEGORIES = {
 }
 
 
+def guess_category(title, source_category):
+    """Some sources file things under the wrong category by URL (e.g. iticket.uz
+    lists 'Bunyodkor vs OKMK' under /events/concerts). Override with a content
+    check for unambiguous sport markers."""
+    t = title.lower()
+    sport_markers = [" vs ", " vs. ", "матч", "марафон", "полумарафон", "турнир",
+                      "чемпионат", "кубок", "финал"]
+    if any(m in t for m in sport_markers):
+        return "sport"
+    return source_category
+
+
 def log(msg):
     print(f"[scrape] {msg}", flush=True)
 
@@ -279,7 +291,8 @@ def scrape_afisha_uz():
             if not title or len(title) < 3:
                 continue
             date_match = re.search(
-                rf"(?:с\s+)?\d{{1,2}}\s+(?:{_MONTH_PATTERN_RU})(?:\s*(?:по|-)\s*\d{{1,2}}\s+(?:{_MONTH_PATTERN_RU}))?",
+                rf"(?:с\s+)?\d{{1,2}}\s+(?:{_MONTH_PATTERN_RU})(?:\s*(?:по|-)\s*\d{{1,2}}\s+(?:{_MONTH_PATTERN_RU}))?"
+                rf"|(?:с\s+)?\d{{1,2}}\s*(?:по|-)\s*\d{{1,2}}\s+(?:{_MONTH_PATTERN_RU})",
                 title.lower(),
             )
             start, end = parse_ru_date_range(title)
@@ -302,7 +315,7 @@ def scrape_afisha_uz():
             events.append({
                 "title": clean_title,
                 "titleRu": clean_title,
-                "category": category,
+                "category": guess_category(clean_title, category),
                 "venue": None,
                 "startDate": start.strftime("%Y-%m-%d"),
                 "endDate": end.strftime("%Y-%m-%d") if end and end != start else None,
@@ -384,7 +397,7 @@ def scrape_with_playwright():
                     events.append({
                         "title": title_raw.strip(),
                         "titleRu": None,
-                        "category": category,
+                        "category": guess_category(title_raw, category),
                         "venue": venue.strip() if venue else None,
                         "startDate": start.strftime("%Y-%m-%d"),
                         "endDate": None,
