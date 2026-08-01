@@ -34,6 +34,6 @@ jobs:
         run: |
           git config user.name "events-bot"
           git config user.email "actions@github.com"
-          git add data/events-tashkent.json scripts/last-run-log.txt || true
+          git add data/events-tashkent.json scripts/last-run-log.txt scripts/debug-*.html || true
           git diff --cached --quiet && echo "No changes to commit" || git commit -m "Auto-update Tashkent events [skip ci]"
           git push
