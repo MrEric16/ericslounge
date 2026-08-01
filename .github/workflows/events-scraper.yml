@@ -26,12 +26,14 @@ jobs:
         run: python -m playwright install --with-deps chromium
 
       - name: Run scraper
-        run: python scripts/scrape_events.py
+        run: python scripts/scrape_events.py > scripts/last-run-log.txt 2>&1 || echo "SCRAPER_FAILED_SEE_LOG" >> scripts/last-run-log.txt
+        continue-on-error: true
 
-      - name: Commit updated events data
+      - name: Commit results and log
+        if: always()
         run: |
           git config user.name "events-bot"
           git config user.email "actions@github.com"
-          git add data/events-tashkent.json
+          git add data/events-tashkent.json scripts/last-run-log.txt || true
           git diff --cached --quiet && echo "No changes to commit" || git commit -m "Auto-update Tashkent events [skip ci]"
           git push
