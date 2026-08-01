@@ -1452,6 +1452,16 @@
     100%{transform:translateX(0) rotate(0deg);}
   }
   #ufcGloveIcon.egg-punch{display:inline-block; animation:ufcPunch .45s ease-in-out;}
+  @keyframes eggShakeRattle{
+    0%{transform:translate(0,0) rotate(0deg);}
+    15%{transform:translate(-6px,2px) rotate(-1deg);}
+    30%{transform:translate(6px,-2px) rotate(1deg);}
+    45%{transform:translate(-5px,1px) rotate(-1deg);}
+    60%{transform:translate(5px,-1px) rotate(1deg);}
+    75%{transform:translate(-3px,1px) rotate(0deg);}
+    100%{transform:translate(0,0) rotate(0deg);}
+  }
+  header.egg-shake, #app.egg-shake{animation:eggShakeRattle .5s ease-in-out;}
   #eggBrokenOverlay{
     position:fixed; inset:0; background:#000; z-index:9990;
     opacity:0; transition:opacity .4s ease;
@@ -6819,6 +6829,7 @@ function nextFridayEighteen(now){
   return d;
 }
 function updateWeekendCountdown(){
+  if(window._weekendEggPlaying) return;
   const now = new Date();
   const el = document.getElementById('weekendCountdown');
   if(isWeekendNow(now)){
@@ -7035,6 +7046,145 @@ function openSnakeGame(){
       void glove.offsetWidth;
       glove.classList.add('egg-punch');
       if(navigator.vibrate){ try{ navigator.vibrate(60); }catch(e){} }
+    }
+  });
+})();
+
+/* ---- 4: click the weekend countdown 3x → joke popup, then a fast movie-style count-up ---- */
+(function(){
+  let clickCount = 0, clickTimer = null;
+  const el = document.getElementById('weekendCountdown');
+  if(!el) return;
+  const cell = el.closest('.board-cell') || el;
+  cell.style.cursor = 'pointer';
+  cell.addEventListener('click', ()=>{
+    clickCount++;
+    clearTimeout(clickTimer);
+    clickTimer = setTimeout(()=>{ clickCount = 0; }, 1000);
+    if(clickCount >= 3){
+      clickCount = 0;
+      triggerWeekendEgg();
+    }
+  });
+})();
+function triggerWeekendEgg(){
+  showEasterEggPopup("Good things come to those who wait. Be patient", 2600);
+  window._weekendEggPlaying = true;
+  const el = document.getElementById('weekendCountdown');
+  if(!el) return;
+  let fakeSeconds = 0;
+  const start = performance.now();
+  const durationMs = 1400;
+  function frame(now){
+    const elapsed = now - start;
+    if(elapsed >= durationMs){
+      window._weekendEggPlaying = false;
+      updateWeekendCountdown();
+      return;
+    }
+    fakeSeconds += Math.floor(80 + Math.random() * 500);
+    let s = fakeSeconds;
+    const dd = Math.floor(s / 86400); s -= dd * 86400;
+    const hh = Math.floor(s / 3600); s -= hh * 3600;
+    const mm = Math.floor(s / 60); s -= mm * 60;
+    const ss = s;
+    el.textContent = `${pad(dd)}:${pad(hh)}:${pad(mm)}:${pad(ss)}`;
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+}
+
+/* ---- 9: shake the phone → a little rattle animation ---- */
+(function(){
+  let lastX = null, lastY = null, lastZ = null, lastTime = 0;
+  let shakeEggPlaying = false;
+  function triggerShakeEgg(){
+    if(shakeEggPlaying) return;
+    shakeEggPlaying = true;
+    const header = document.querySelector('header');
+    const app = document.getElementById('app');
+    if(header) header.classList.add('egg-shake');
+    if(app) app.classList.add('egg-shake');
+    if(navigator.vibrate){ try{ navigator.vibrate([50,30,50,30,50]); }catch(e){} }
+    setTimeout(()=>{
+      if(header) header.classList.remove('egg-shake');
+      if(app) app.classList.remove('egg-shake');
+      shakeEggPlaying = false;
+    }, 500);
+  }
+  function handleMotion(e){
+    const acc = e.accelerationIncludingGravity || e.acceleration;
+    if(!acc || acc.x === null) return;
+    const now = Date.now();
+    if(now - lastTime < 100) return;
+    if(lastX !== null){
+      const delta = Math.abs(acc.x - lastX) + Math.abs(acc.y - lastY) + Math.abs(acc.z - lastZ);
+      if(delta > 22) triggerShakeEgg();
+    }
+    lastX = acc.x; lastY = acc.y; lastZ = acc.z; lastTime = now;
+  }
+  function enableShake(){
+    window.addEventListener('devicemotion', handleMotion);
+  }
+  let askedPermission = false;
+  document.addEventListener('click', function(){
+    if(askedPermission) return;
+    askedPermission = true;
+    if(typeof DeviceMotionEvent !== 'undefined' && typeof DeviceMotionEvent.requestPermission === 'function'){
+      DeviceMotionEvent.requestPermission().then(state => {
+        if(state === 'granted') enableShake();
+      }).catch(()=>{});
+    } else {
+      enableShake();
+    }
+  });
+})();
+
+/* ---- 11: fast repeated swipe-up → "Eyo, slow down" ---- */
+(function(){
+  let touchStartY = null, touchStartTime = null;
+  let swipeUpTimes = [];
+  document.addEventListener('touchstart', (e)=>{
+    if(e.touches.length !== 1) return;
+    touchStartY = e.touches[0].clientY;
+    touchStartTime = Date.now();
+  }, { passive: true });
+  document.addEventListener('touchend', (e)=>{
+    if(touchStartY === null) return;
+    const endY = (e.changedTouches && e.changedTouches[0]) ? e.changedTouches[0].clientY : touchStartY;
+    const dy = touchStartY - endY;
+    const dt = Date.now() - touchStartTime;
+    touchStartY = null;
+    if(dy > 100 && dt < 250){
+      const now = Date.now();
+      swipeUpTimes.push(now);
+      swipeUpTimes = swipeUpTimes.filter(t => now - t < 1400);
+      if(swipeUpTimes.length >= 4){
+        swipeUpTimes = [];
+        showToast("Eyo, slow down");
+      }
+    }
+  }, { passive: true });
+})();
+
+/* ---- 12: rage-click any tile 5x fast → "OK, OK, chill" ---- */
+(function(){
+  let lastTarget = null, clickTimes = [];
+  const tileSelector = '.fac-tile, .sport-hub-tile, .goodnews-tile, .books-tile, .explore-tile, .explore-card, .watch-tile, .watch-card, .sports-tile, .sports-card, .photo-tile, .bday-tile-card, .random-tile, .otd-card, .sotw-card, .rec-item';
+  document.body.addEventListener('click', (e)=>{
+    const tile = e.target.closest(tileSelector);
+    if(!tile) return;
+    const now = Date.now();
+    if(tile !== lastTarget){
+      lastTarget = tile;
+      clickTimes = [now];
+      return;
+    }
+    clickTimes.push(now);
+    clickTimes = clickTimes.filter(t => now - t < 1000);
+    if(clickTimes.length >= 5){
+      clickTimes = [];
+      showToast("OK, OK, chill");
     }
   });
 })();
