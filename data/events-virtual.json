@@ -1,0 +1,251 @@
+{
+  "curatedAt": "2026-08-02",
+  "note": "Manually curated and vetted by Claude per Mr Eric's strict content rules (free, educational, non-controversial, teen-appropriate, zero tolerance for banned topics). Refreshed on request, not auto-scraped -- this content type requires human judgment per-item, unlike the Tashkent ticketing feed.",
+  "dated": [
+    {
+      "title": "NASA CTE Day: Armstrong Flight Research Center",
+      "org": "NASA",
+      "description": "Live virtual panel with NASA professionals on technical career pathways -- aviation mechanics, welding, and more.",
+      "startDate": "2026-08-19",
+      "time": "Time TBD (check registration page)",
+      "category": "careers",
+      "url": "https://stemgateway.nasa.gov/s/course-offering/a0BSJ000006rIEf/virtual-event-nasas-cte-day-at-armstrong-flight-research-center"
+    },
+    {
+      "title": "NASA CTE Day: Johnson Space Center",
+      "org": "NASA",
+      "description": "Live virtual session on robotics, rovers, and space exploration career pathways.",
+      "startDate": "2026-08-28",
+      "time": "Time TBD (check registration page)",
+      "category": "careers",
+      "url": "https://stemgateway.nasa.gov/s/course-offering/a0BSJ0000075yxB/virtual-event-nasas-cte-day-at-johnson-space-center"
+    },
+    {
+      "title": "NOAA Integrated Ocean and Coastal Mapping Seminar",
+      "org": "NOAA",
+      "description": "Live seminar on ocean and coastal mapping science, hosted by NOAA Library.",
+      "startDate": "2026-08-13",
+      "time": "1:00 PM ET",
+      "category": "science",
+      "url": "https://library.noaa.gov/seminars"
+    },
+    {
+      "title": "The Science of Neuroplasticity",
+      "org": "Road Scholar",
+      "description": "Free one-hour lecture and live Q&A on how the brain adapts and rewires itself.",
+      "startDate": "2026-08-13",
+      "time": "11:00 AM ET",
+      "category": "science",
+      "url": "https://www.roadscholar.org/collections/online-lectures/free/"
+    },
+    {
+      "title": "Ancient Andean Cosmovision",
+      "org": "Road Scholar",
+      "description": "Free one-hour lecture and live Q&A exploring Andean culture and cosmology.",
+      "startDate": "2026-09-14",
+      "time": "3:00 PM ET",
+      "category": "culture",
+      "url": "https://www.roadscholar.org/collections/online-lectures/free/"
+    },
+    {
+      "title": "International Observe the Moon Night",
+      "org": "NASA",
+      "description": "Global participatory event -- join observers worldwide learning about lunar science and making celestial observations.",
+      "startDate": "2026-09-19",
+      "time": "Check event page for local times",
+      "category": "science",
+      "url": "https://science.nasa.gov/moon/observe-the-moon-night/"
+    }
+  ],
+  "perpetual": [
+    {
+      "title": "NASA x Hack Club: Stardance Challenge",
+      "org": "NASA / Hack Club",
+      "description": "Ages 13-18. Build anything from code to circuit boards using real NASA mission data. Open through Sept 30, 2026.",
+      "category": "creativity",
+      "url": "https://stardance.hackclub.com/"
+    },
+    {
+      "title": "National Geographic Slingshot Challenge",
+      "org": "National Geographic Society",
+      "description": "Ages 13-18. Create a one-minute video sharing your solution to an environmental problem.",
+      "category": "environment",
+      "url": "https://www.nationalgeographic.org/society/learn/for-learners/"
+    },
+    {
+      "title": "Galaxy Zoo",
+      "org": "Zooniverse",
+      "description": "Classify real galaxy images to help astronomers understand the universe.",
+      "category": "science",
+      "url": "https://www.zooniverse.org/projects"
+    },
+    {
+      "title": "Snapshot Safari",
+      "org": "Zooniverse",
+      "description": "Identify wildlife in trail camera images from across the African plains.",
+      "category": "environment",
+      "url": "https://www.zooniverse.org/projects"
+    },
+    {
+      "title": "Planet Four",
+      "org": "Zooniverse",
+      "description": "Help researchers explore the surface, climate, and history of Mars.",
+      "category": "science",
+      "url": "https://www.zooniverse.org/projects"
+    },
+    {
+      "title": "Disk Detective",
+      "org": "Zooniverse",
+      "description": "Spot the disks around nearby stars where planets form.",
+      "category": "science",
+      "url": "https://www.zooniverse.org/projects"
+    },
+    {
+      "title": "Chimp&See",
+      "org": "Zooniverse",
+      "description": "Watch and classify camera-trap videos of chimps, elephants, leopards and more in tropical Africa.",
+      "category": "environment",
+      "url": "https://www.zooniverse.org/projects"
+    },
+    {
+      "title": "Chirp Check",
+      "org": "Zooniverse",
+      "description": "Help ecologists study bird diversity by checking whether AI is identifying bird song correctly.",
+      "category": "environment",
+      "url": "https://www.zooniverse.org/projects"
+    },
+    {
+      "title": "Notes from Nature",
+      "org": "Zooniverse",
+      "description": "Transcribe historical museum specimen records to support real research.",
+      "category": "science",
+      "url": "https://www.zooniverse.org/projects"
+    },
+    {
+      "title": "Nest Quest Go!",
+      "org": "Zooniverse",
+      "description": "Help discover the dynamic lives of nesting birds through historical nest record cards.",
+      "category": "environment",
+      "url": "https://www.zooniverse.org/projects"
+    },
+    {
+      "title": "Bird Cams Lab",
+      "org": "Zooniverse",
+      "description": "Classify footage from live bird cams to help shape future ornithology research.",
+      "category": "environment",
+      "url": "https://www.zooniverse.org/projects"
+    },
+    {
+      "title": "Redshift Wrangler",
+      "org": "Zooniverse",
+      "description": "Use light from distant galaxies to help look back in time to the early universe.",
+      "category": "science",
+      "url": "https://www.zooniverse.org/projects"
+    },
+    {
+      "title": "Burst Chaser",
+      "org": "Zooniverse",
+      "description": "Help unveil the mysterious origin of gamma-ray bursts.",
+      "category": "science",
+      "url": "https://www.zooniverse.org/projects"
+    },
+    {
+      "title": "Cetalingua Project",
+      "org": "Zooniverse",
+      "description": "Help decode marine mammal communication using citizen science and AI.",
+      "category": "science",
+      "url": "https://www.zooniverse.org/projects"
+    },
+    {
+      "title": "Mars Cloud Projects",
+      "org": "Zooniverse",
+      "description": "Help find and characterize clouds in the atmosphere of Mars.",
+      "category": "science",
+      "url": "https://www.zooniverse.org/projects"
+    },
+    {
+      "title": "Science Scribbler",
+      "org": "Zooniverse",
+      "description": "Investigate real 3D image data with the power of citizen science and AI.",
+      "category": "science",
+      "url": "https://www.zooniverse.org/projects"
+    },
+    {
+      "title": "Etch A Cell",
+      "org": "Zooniverse",
+      "description": "Analyse electron microscope images of biological samples to support real cell biology research.",
+      "category": "science",
+      "url": "https://www.zooniverse.org/projects"
+    },
+    {
+      "title": "Dolphin Spotting",
+      "org": "Zooniverse",
+      "description": "Describe dolphin behaviour in video clips to help build a behaviour library for researchers.",
+      "category": "environment",
+      "url": "https://www.zooniverse.org/projects"
+    },
+    {
+      "title": "WWT Wetlands",
+      "org": "Zooniverse",
+      "description": "Contribute to wetland conservation research.",
+      "category": "environment",
+      "url": "https://www.zooniverse.org/projects"
+    },
+    {
+      "title": "Snapshot Dubuque Iowa",
+      "org": "Zooniverse",
+      "description": "Classify trail camera images to help track wildlife in conservation areas.",
+      "category": "environment",
+      "url": "https://www.zooniverse.org/projects"
+    },
+    {
+      "title": "Planet Hunters",
+      "org": "Zooniverse",
+      "description": "Join the search for undiscovered worlds beyond our solar system.",
+      "category": "science",
+      "url": "https://www.zooniverse.org/projects"
+    },
+    {
+      "title": "Fossil Atmospheres",
+      "org": "Zooniverse",
+      "description": "Compare fossilized and living plants to help scientists understand ancient atmospheres.",
+      "category": "science",
+      "url": "https://www.zooniverse.org/projects"
+    },
+    {
+      "title": "Weddell Seals",
+      "org": "Zooniverse",
+      "description": "Help researchers count and track Weddell seal populations in Antarctica.",
+      "category": "environment",
+      "url": "https://www.zooniverse.org/projects"
+    },
+    {
+      "title": "Backyard Worlds: Binaries",
+      "org": "NASA Citizen Science",
+      "description": "Help scientists discover rare brown dwarf-star pairs using real NASA data.",
+      "category": "science",
+      "url": "https://science.nasa.gov/citizen-science/backyard-worlds-binaries/"
+    },
+    {
+      "title": "Galaxy Zoo: Clump Scout II",
+      "org": "NASA Citizen Science",
+      "description": "Help train a machine learning model to identify bright star-forming clumps in galaxy images.",
+      "category": "science",
+      "url": "https://science.nasa.gov/citizen-science/galaxy-zoo-clump-scout-ii/"
+    },
+    {
+      "title": "Shock Detectives",
+      "org": "NASA Citizen Science",
+      "description": "Help scientists examine NASA data on Earth's magnetic 'bow shock' from the solar wind.",
+      "category": "science",
+      "url": "https://science.nasa.gov/citizen-science/shock-detectives/"
+    },
+    {
+      "title": "Space Umbrella",
+      "org": "NASA Citizen Science",
+      "description": "Help scientists examine mission data to understand how Earth's magnetic field shields us from solar storms.",
+      "category": "science",
+      "url": "https://science.nasa.gov/get-involved/citizen-science/map-the-earths-magnetic-shield-with-the-space-umbrella-project/"
+    }
+  ]
+}
