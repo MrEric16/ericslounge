@@ -29,6 +29,11 @@ import requests
 from bs4 import BeautifulSoup
 
 TODAY = datetime.utcnow() + timedelta(hours=5)  # Tashkent is UTC+5, no DST
+TODAY_MIDNIGHT = TODAY.replace(hour=0, minute=0, second=0, microsecond=0)
+# All scraped event dates default to midnight (no time-of-day data available).
+# Comparing them against TODAY (which has a real time-of-day) would wrongly
+# exclude events happening later today, since "today 00:00" < "today 14:32".
+# Use TODAY_MIDNIGHT for all "is this event still upcoming" checks.
 HORIZON_DAYS = 14  # pull a wider window than the 7 shown; lets the site roll forward without a re-scrape
 WINDOW_END = TODAY + timedelta(days=HORIZON_DAYS)
 
@@ -216,7 +221,7 @@ def scrape_tashkent_uz():
             start, end = parse_en_date_range(block_text)
             if not start:
                 continue
-            if start > WINDOW_END or (end or start) < TODAY:
+            if start > WINDOW_END or (end or start) < TODAY_MIDNIGHT:
                 continue
             if is_excluded(title) or is_excluded(block_text):
                 continue
@@ -280,7 +285,7 @@ def scrape_afisha_uz():
             start, end = parse_ru_date_range(title)
             if not start:
                 continue
-            if start > WINDOW_END or (end or start) < TODAY:
+            if start > WINDOW_END or (end or start) < TODAY_MIDNIGHT:
                 continue
             if is_excluded(title):
                 continue
@@ -372,7 +377,7 @@ def scrape_with_playwright():
                         start = datetime.strptime(date_str, "%d %B %Y")
                     except ValueError:
                         continue
-                    if start > WINDOW_END or start < TODAY - timedelta(days=1):
+                    if start > WINDOW_END or start < TODAY_MIDNIGHT:
                         continue
                     full_url = href if href.startswith("http") else f"https://iticket.uz{href}"
                     seen.add(href)
@@ -433,7 +438,7 @@ def scrape_with_playwright():
                         continue
                     if start < TODAY - timedelta(days=60):
                         start = start.replace(year=TODAY.year + 1)
-                    if start > WINDOW_END or start < TODAY - timedelta(days=1):
+                    if start > WINDOW_END or start < TODAY_MIDNIGHT:
                         continue
                     full_url = href if href.startswith("http") else f"https://ticketon.uz{href}"
                     events.append({
