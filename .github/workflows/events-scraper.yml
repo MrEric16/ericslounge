@@ -1,0 +1,37 @@
+name: Scrape Tashkent events
+
+on:
+  schedule:
+    # 19:00 UTC = 00:00 Tashkent (UTC+5) -- daily midnight refresh
+    - cron: '0 19 * * *'
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install Python deps
+        run: pip install -r scripts/requirements.txt
+
+      - name: Install Playwright browser
+        run: python -m playwright install --with-deps chromium
+
+      - name: Run scraper
+        run: python scripts/scrape_events.py
+
+      - name: Commit updated events data
+        run: |
+          git config user.name "events-bot"
+          git config user.email "actions@github.com"
+          git add data/events-tashkent.json
+          git diff --cached --quiet && echo "No changes to commit" || git commit -m "Auto-update Tashkent events [skip ci]"
+          git push
