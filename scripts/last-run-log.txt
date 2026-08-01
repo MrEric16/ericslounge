@@ -13,10 +13,7 @@
 [scrape] iticket.uz cat=concert: 0 events kept
 [scrape] iticket.uz cat=theatre: 0 events kept
 [scrape] iticket.uz cat=exhibition: 0 events kept
-[scrape] ticketon.uz: FAILED (Page.goto: Timeout 30000ms exceeded.
-Call log:
-  - navigating to "https://ticketon.uz/en/tashkent", waiting until "networkidle"
-)
+[scrape] ticketon.uz: 0 events kept
 [scrape] eventbrite.com: 0 events found (dates NOT yet parsed -- see note in script)
 [scrape] TOTAL before dedup: 33  |  after dedup: 13
 [scrape] Wrote data/events-tashkent.json
