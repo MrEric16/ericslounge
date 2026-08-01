@@ -2228,18 +2228,25 @@ const SPORTS_TILES = [
 ];
 // UFC events — pulled directly from ufc.com/events. No fixtures/table here, just
 // Upcoming and Past, since UFC isn't a league. Update this by hand periodically.
+// Refreshed 2026-08-01 22:xx Tashkent. Medic vs Rodriguez (Belgrade) kicked off its main
+// card minutes before this update — main event result not yet confirmed across sources,
+// so it stays in "upcoming" rather than being guessed into "past". UFC 331 (Sept 19-20
+// Tashkent, Crypto.com Arena LA) added; its main event (Oliveira vs Tsarukyan 2, rumored
+// for the BMF title) is still unofficial per multiple outlets as of this update, so the
+// event is listed without a fighter name rather than asserting an unconfirmed main event.
 const UFC_EVENTS = {
   upcoming: [
-    { name:"Ankalaev vs Guskov", start:"2026-07-25T21:00:00+05:00", venue:"Etihad Arena, Abu Dhabi, UAE" },
     { name:"Medic vs Rodriguez", start:"2026-08-01T22:00:00+05:00", venue:"Belgrade Arena, Belgrade, Serbia" },
     { name:"Gamrot vs Salkilld", start:"2026-08-09T05:00:00+05:00", venue:"Meta APEX, Las Vegas, USA" },
     { name:"UFC 330: Makhachev vs Machado Garry", start:"2026-08-16T06:00:00+05:00", venue:"Xfinity Mobile Arena, Philadelphia, USA" },
     { name:"Hernandez vs Rodrigues", start:"2026-08-23T05:00:00+05:00", venue:"Golden 1 Center, Sacramento, USA" },
     { name:"Nurmagomedov vs Song", start:"2026-08-29T15:00:00+05:00", venue:"Oriental Sports Center, Shanghai, China" },
-    { name:"TBD vs TBD", start:"2026-09-06T00:00:00+05:00", venue:"Accor Arena, Paris, France" },
-    { name:"TBD vs TBD", start:"2026-09-13T02:00:00+05:00", venue:"Desert Diamond Arena, Glendale, USA" },
+    { name:"UFC Fight Night: Hooker vs Parnasse", start:"2026-09-06T00:00:00+05:00", venue:"Accor Arena, Paris, France" },
+    { name:"Noche UFC (main event TBD)", start:"2026-09-13T02:00:00+05:00", venue:"Desert Diamond Arena, Glendale, USA" },
+    { name:"UFC 331", start:"2026-09-20T02:00:00+05:00", venue:"Crypto.com Arena, Los Angeles, USA" },
   ],
   past: [
+    { name:"Ankalaev vs Guskov", start:"2026-07-25T21:00:00+05:00", venue:"Etihad Arena, Abu Dhabi, UAE" },
     { name:"Du Plessis vs Usman", start:"2026-07-19T05:00:00+05:00", venue:"Paycom Center, Oklahoma City, USA" },
     { name:"UFC 329: McGregor vs Holloway 2", start:"2026-07-12T06:00:00+05:00", venue:"T-Mobile Arena, Las Vegas, USA" },
     { name:"Fiziev vs Torres", start:"2026-06-27T21:00:00+05:00", venue:"National Gymnastics Arena, Baku, Azerbaijan" },
@@ -2247,7 +2254,6 @@ const UFC_EVENTS = {
     { name:"UFC Freedom 250: Topuria vs Gaethje", start:"2026-06-15T05:00:00+05:00", venue:"The White House, Washington DC, USA" },
     { name:"Muhammad vs Bonfim", start:"2026-06-07T05:00:00+05:00", venue:"Meta APEX, Las Vegas, USA" },
     { name:"Song vs Figueiredo", start:"2026-05-30T16:00:00+05:00", venue:"Galaxy Arena, Macao" },
-    { name:"Allen vs Costa", start:"2026-05-17T05:00:00+05:00", venue:"Meta APEX, Las Vegas, USA" },
   ],
 };
 function ufcEventRowsHtml(list){
@@ -2309,35 +2315,31 @@ const SPORTS_LEAGUES = [
     ],
   },
   {
-    name: "Uzbekistan Super League", flag: flagIcon('uzbekistan'), note: "Live — round 14",
+    name: "Uzbekistan Super League", flag: flagIcon('uzbekistan'), note: "Round 14 complete",
     teams: [
-      { name:"Neftchi Fergana", pld:13, w:11, d:1, l:1, gf:32, ga:5, pts:34 },
+      { name:"Neftchi Fergana", pld:14, w:11, d:2, l:1, gf:33, ga:6, pts:35 },
       { name:"Pakhtakor", pld:14, w:10, d:3, l:1, gf:26, ga:14, pts:33 },
       { name:"OKMK", pld:14, w:7, d:4, l:3, gf:23, ga:18, pts:25 },
       { name:"Buxoro", pld:14, w:7, d:2, l:5, gf:17, ga:15, pts:23 },
+      { name:"Navbahor", pld:14, w:6, d:4, l:4, gf:18, ga:13, pts:22 },
       { name:"Lokomotiv Tashkent", pld:14, w:6, d:4, l:4, gf:21, ga:19, pts:22 },
-      { name:"Navbahor", pld:13, w:6, d:3, l:4, gf:17, ga:12, pts:21 },
+      { name:"Nasaf", pld:14, w:5, d:6, l:3, gf:17, ga:13, pts:21 },
       { name:"Andijon", pld:14, w:6, d:2, l:6, gf:22, ga:16, pts:20 },
+      { name:"Dinamo Samarqand", pld:14, w:6, d:2, l:6, gf:24, ga:25, pts:20 },
       { name:"Bunyodkor", pld:14, w:6, d:1, l:7, gf:14, ga:16, pts:19 },
-      { name:"Nasaf", pld:13, w:4, d:6, l:3, gf:16, ga:13, pts:18 },
-      { name:"Dinamo Samarqand", pld:13, w:5, d:2, l:6, gf:21, ga:23, pts:17 },
-      { name:"Surkhon", pld:13, w:4, d:3, l:6, gf:14, ga:21, pts:15 },
-      { name:"Qizilqum", pld:13, w:4, d:2, l:7, gf:10, ga:18, pts:14 },
-      { name:"Xorazm", pld:13, w:3, d:4, l:6, gf:10, ga:17, pts:13 },
+      { name:"Xorazm", pld:14, w:4, d:4, l:6, gf:11, ga:17, pts:16 },
+      { name:"Surkhon", pld:14, w:4, d:3, l:7, gf:14, ga:22, pts:15 },
+      { name:"Qizilqum", pld:14, w:4, d:2, l:8, gf:10, ga:19, pts:14 },
       { name:"Sogdiana", pld:14, w:3, d:3, l:8, gf:23, ga:33, pts:12 },
-      { name:"Kokand 1912", pld:13, w:2, d:5, l:6, gf:11, ga:20, pts:11 },
+      { name:"Kokand 1912", pld:14, w:2, d:5, l:7, gf:13, ga:23, pts:11 },
       { name:"Mashal", pld:14, w:1, d:1, l:12, gf:7, ga:24, pts:4 },
     ],
-    // Table cross-verified against tribuna.uz and sofascore.com (agree on points/GD for
-    // every team) — updated 2026-07-28. Some teams show pld13, others pld14: round 14 is
-    // staggered across several days rather than played on one date, so this is a genuine
-    // mid-round snapshot, not an inconsistency.
-    //
-    // Three round-14 results (AGMK/OKMK v Mashal, Lokomotiv v Sogdiana, Andijon v Buxoro —
-    // all played 2026-07-27) are confirmed to have happened but their exact scorelines
-    // could not be verified via available sources in this session. Deliberately left out
-    // of results below rather than guessed — same restraint principle as the other gaps
-    // noted in the handover doc. Fill in once a reliable source is found.
+    // Table sourced from AiScore (thesports.com data feed), cross-checked against its own
+    // full standings page — updated 2026-08-01. Round 14 is now fully complete: every team
+    // shows pld14, resolving the prior staggered snapshot. A round-15 fixture (Andijon v
+    // Pakhtakor, 2026-08-01 19:30 Tashkent) was in progress/ambiguous across sources at
+    // update time and is deliberately excluded from the table above until its result is
+    // confirmed clean — same restraint principle as the other gaps noted in the handover doc.
     fixtures: [
       { home:"Xorazm", away:"Surkhon", start:"2026-07-29T20:00:00+05:00" },
       { home:"Neftchi Fergana", away:"Navbahor", start:"2026-07-29T20:00:00+05:00" },
