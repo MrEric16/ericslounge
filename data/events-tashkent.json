@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-01T20:42:36.007359Z",
+  "generatedAt": "2026-08-01T20:49:23.668374Z",
   "events": [
     {
       "title": "Выставка «Фотохроника XX века»",
@@ -142,16 +142,6 @@
       "source": "afisha.uz"
     },
     {
-      "title": "Лекция о концептуализме в Human House Gallery",
-      "titleRu": "Лекция о концептуализме в Human House Gallery",
-      "category": "lecture",
-      "venue": null,
-      "startDate": "2026-08-02",
-      "endDate": null,
-      "url": "https://www.afisha.uz/ru/znaniya/2026/07/31/lektsiya-kontseptualizm-human-house-gallery",
-      "source": "afisha.uz"
-    },
-    {
       "title": "Лекция «Концептуализм: как понимать современное искусство»",
       "titleRu": "Лекция «Концептуализм: как понимать современное искусство»",
       "category": "lecture",
@@ -180,26 +170,6 @@
       "endDate": null,
       "url": "https://iticket.uz/en/events/concerts/center-of-islamic-civilization",
       "source": "iticket.uz"
-    },
-    {
-      "title": "Walk around Tashkent - \"Tashkent Speaks\"",
-      "titleRu": null,
-      "category": "exhibition",
-      "venue": "Ташкент, Набережная Анхора 2, рядом с Hammersmith",
-      "startDate": "2026-08-02",
-      "endDate": null,
-      "url": "https://iticket.uz/en/events/cultural-events/walk-around-tashkent-tashkent-speaks",
-      "source": "iticket.uz"
-    },
-    {
-      "title": "Шоу NE PROSTO CARTOONS",
-      "titleRu": "Шоу NE PROSTO CARTOONS",
-      "category": "concert",
-      "venue": null,
-      "startDate": "2026-08-04",
-      "endDate": null,
-      "url": "https://www.afisha.uz/ru/concerts/2026/07/21/ne-prosto-cartoons-turkiston",
-      "source": "afisha.uz"
     },
     {
       "title": "NE PROSTO CARTOONS",
@@ -302,24 +272,14 @@
       "source": "iticket.uz"
     },
     {
-      "title": "Open-air концерт Amirsoy Paradiso",
-      "titleRu": "Open-air концерт Amirsoy Paradiso",
+      "title": "Amirsoy Paradiso",
+      "titleRu": null,
       "category": "concert",
-      "venue": null,
-      "startDate": "2026-08-15",
-      "endDate": "2026-08-16",
-      "url": "https://www.afisha.uz/ru/concerts/2026/07/02/open-air-amirsoy-paradiso",
-      "source": "afisha.uz"
-    },
-    {
-      "title": "Фестиваль IOSIS ROCK BATTLE",
-      "titleRu": "Фестиваль IOSIS ROCK BATTLE",
-      "category": "concert",
-      "venue": null,
+      "venue": "Amirsoy Resort",
       "startDate": "2026-08-15",
       "endDate": null,
-      "url": "https://www.afisha.uz/ru/concerts/2026/07/16/iosis-rock-battle",
-      "source": "afisha.uz"
+      "url": "https://iticket.uz/en/events/concerts/amirsoy-paradiso",
+      "source": "iticket.uz"
     },
     {
       "title": "IOSIS ROCK BATTLE",
@@ -329,16 +289,6 @@
       "startDate": "2026-08-15",
       "endDate": null,
       "url": "https://iticket.uz/en/events/concerts/iosis-rock-battle2026",
-      "source": "iticket.uz"
-    },
-    {
-      "title": "Amirsoy Paradiso",
-      "titleRu": null,
-      "category": "concert",
-      "venue": "Amirsoy Resort",
-      "startDate": "2026-08-15",
-      "endDate": null,
-      "url": "https://iticket.uz/en/events/concerts/amirsoy-paradiso",
       "source": "iticket.uz"
     }
   ]
