@@ -2675,9 +2675,13 @@ async function loadLiveSportsData(){
           });
           if(!res.ok) throw new Error('bad response '+res.status);
           const data = await res.json();
-          const gironaStart = new Date(ARSENAL_FIXTURES[0].start);
+          // Deliberately NOT filtering against ARSENAL_FIXTURES[0].start (a static,
+          // hand-typed placeholder date) -- that caused a real bug: if the live API's
+          // actual kickoff time differed even slightly from the guessed static value,
+          // real finished matches got silently dropped from the results list. The API
+          // call above already returns only the most recent 15 finished matches,
+          // sorted newest-first, so no extra date filtering is needed here at all.
           fresh.arsenalResults = (data.matches || [])
-            .filter(m => new Date(m.utcDate) >= gironaStart)
             .sort((a,b) => new Date(b.utcDate) - new Date(a.utcDate))
             .map(matchToRow);
         }catch(e){ /* results stay empty until the API has finished matches to show */ }
