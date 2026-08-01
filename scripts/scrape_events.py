@@ -58,6 +58,7 @@ EXCLUDE_KEYWORDS_RU = [
     "квест", "escape room", "квест-рум",               # quests
     "аквапарк", "waterpark",                            # waterparks
     "экскурси", " тур ", "туристич",                   # tours
+    "аудиоспектакль",                                    # self-guided audio walking tours (recurring daily, not a real event)
     "скидк", "распродаж",                                # shop discounts (not events)
     "билет в музей", "музейный билет",                  # permanent museum tickets
 ]
@@ -68,6 +69,7 @@ EXCLUDE_KEYWORDS_EN = [
     "quest room", "escape room", "horror quest",
     "waterpark", "water park",
     "guided tour", "city tour", "excursion",
+    "walk around tashkent", "tashkent speaks", "audio walk", "self-guided",
     "discount", "sale",
 ]
 
@@ -522,8 +524,9 @@ def scrape_with_playwright():
 # Dedup + assemble
 # ---------------------------------------------------------------------------
 def dedup(events):
+    # Pass 1: exact-prefix dedup (same as before, catches identical-source repeats)
     seen = {}
-    out = []
+    stage1 = []
     for e in events:
         if not e.get("startDate"):
             continue  # can't place it on the 7-day list without a date
@@ -531,8 +534,53 @@ def dedup(events):
         if key in seen:
             continue
         seen[key] = True
-        out.append(e)
-    return out
+        stage1.append(e)
+
+    # Pass 2: same-date fuzzy dedup across sources. Cross-source titles are often
+    # in different languages (afisha.uz = Russian, iticket.uz = English), so we
+    # can't rely on general string-similarity -- but Latin brand/artist names are
+    # frequently left untranslated in both, so a shared substring of 8+ chars is
+    # a reliable signal ("NE PROSTO CARTOONS", "IOSIS ROCK BATTLE", "Amirsoy
+    # Paradiso" all matched this way). Full Cyrillic-transliteration mismatches
+    # (e.g. "ABDIZHAPPAR ALKOZHA" vs "Абдижаппара Алкожи") are NOT caught by
+    # this -- that needs a transliteration library, which isn't in place, so
+    # those will still appear as separate entries. Flagging, not hiding, that gap.
+    by_date = {}
+    for e in stage1:
+        by_date.setdefault(e["startDate"], []).append(e)
+
+    SOURCE_PRIORITY = {"iticket.uz": 0, "afisha.uz": 1}  # lower = preferred when merging
+
+    def latin_tokens(title, min_len=8):
+        return {w for w in re.findall(r"[A-Za-z]{3,}", title) if len(w) >= 3}
+
+    final = []
+    for date, group in by_date.items():
+        merged_out = []
+        used = [False] * len(group)
+        for i, e1 in enumerate(group):
+            if used[i]:
+                continue
+            cluster = [i]
+            t1 = latin_tokens(e1["title"])
+            for j in range(i + 1, len(group)):
+                if used[j]:
+                    continue
+                e2 = group[j]
+                t2 = latin_tokens(e2["title"])
+                shared = t1 & t2
+                shared_len = sum(len(w) for w in shared)
+                if shared and shared_len >= 8:
+                    cluster.append(j)
+            for idx in cluster:
+                used[idx] = True
+            # keep the best-priority source in the cluster
+            best = min((group[idx] for idx in cluster),
+                       key=lambda e: SOURCE_PRIORITY.get(e["source"], 9))
+            merged_out.append(best)
+        final.extend(merged_out)
+
+    return final
 
 
 def main():
