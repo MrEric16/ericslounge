@@ -5969,6 +5969,114 @@ function viewEventsTashkent(){
   `;
 }
 
+/* ---- Virtual Events (manually curated, see data/events-virtual.json) ---- */
+let VIRTUAL_EVENTS = { dated: [], perpetual: [] };
+let virtualEventsLoaded = false;
+
+async function loadVirtualEvents(){
+  if(virtualEventsLoaded) return;
+  try{
+    const res = await fetch('./data/events-virtual.json', { cache: 'no-store' });
+    if(!res.ok) throw new Error('fetch failed');
+    const data = await res.json();
+    VIRTUAL_EVENTS = { dated: data.dated || [], perpetual: data.perpetual || [] };
+    virtualEventsLoaded = true;
+  }catch(e){
+    VIRTUAL_EVENTS = { dated: [], perpetual: [] };
+  }
+  const body = document.getElementById('virtualEventsBody');
+  if(body){ body.outerHTML = virtualEventsBodyHtml(); }
+}
+
+// Same rolling-window logic as Tashkent events, applied to the dated pool only.
+function virtualEventsDatedWindow(){
+  const now = new Date();
+  const startOfToday = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  const windowEnd = new Date(startOfToday);
+  windowEnd.setDate(windowEnd.getDate() + 6);
+  return VIRTUAL_EVENTS.dated.filter(e=>{
+    const m = (e.startDate||'').match(/^(\d{4})-(\d{2})-(\d{2})$/);
+    if(!m) return false;
+    const d = new Date(+m[1], +m[2]-1, +m[3]);
+    return d >= startOfToday && d <= windowEnd;
+  }).sort((a,b)=> a.startDate.localeCompare(b.startDate));
+}
+
+function virtualEventCardHtml(e){
+  return `<a class="event-card" href="${e.url}" target="_blank" rel="noopener">
+    <div class="event-title">${escapeHtml(e.title)}</div>
+    <div class="event-meta">
+      <span class="event-cat-badge" style="background:var(--teal)">${escapeHtml(e.org)}</span>
+      ${e.startDate ? `<span class="event-venue">${e.startDate}${e.time ? ' · ' + escapeHtml(e.time) : ''}</span>` : ''}
+    </div>
+    <div class="event-venue" style="margin-top:4px;">${escapeHtml(e.description)}</div>
+  </a>`;
+}
+
+function virtualEventsBodyHtml(){
+  if(!virtualEventsLoaded){
+    return `<div id="virtualEventsBody" class="empty-card">Loading virtual events…</div>`;
+  }
+  const datedInWindow = virtualEventsDatedWindow();
+  const datedHtml = datedInWindow.length
+    ? datedInWindow.map(virtualEventCardHtml).join('')
+    : '<div class="empty-card">No dated sessions fall in the next 7 days -- check the ongoing list below, or check back soon.</div>';
+  const perpetualHtml = VIRTUAL_EVENTS.perpetual.length
+    ? VIRTUAL_EVENTS.perpetual.map(virtualEventCardHtml).join('')
+    : '<div class="empty-card">Nothing here yet.</div>';
+
+  return `<div id="virtualEventsBody">
+    <details class="domain-group" open>
+      <summary class="section-head domain-summary">
+        <span class="emoji">${icon('calendar')}</span>
+        <h2>This Week's Sessions</h2>
+        <span class="domain-count">${datedInWindow.length}</span>
+        <span class="domain-chevron">${icon('chevronDown')}</span>
+      </summary>
+      <div class="domain-group-content">
+        <p style="font-size:12px; color:var(--ink-soft); margin:0 0 10px;">Live sessions with a specific start time, happening in the next 7 days.</p>
+        ${datedHtml}
+      </div>
+    </details>
+    <details class="domain-group">
+      <summary class="section-head domain-summary">
+        <span class="emoji">${icon('globe')}</span>
+        <h2>Always Open</h2>
+        <span class="domain-count">${VIRTUAL_EVENTS.perpetual.length}</span>
+        <span class="domain-chevron">${icon('chevronDown')}</span>
+      </summary>
+      <div class="domain-group-content">
+        <p style="font-size:12px; color:var(--ink-soft); margin:0 0 10px;">Real ongoing projects you can join any day -- no fixed session time, active participation in real research.</p>
+        ${perpetualHtml}
+      </div>
+    </details>
+  </div>`;
+}
+
+function virtualEventsTileHtml(){
+  return `<a class="events-tile" href="#events-virtual" style="background:var(--teal); color:#fff;">
+    <span class="icon">${icon('globe')}</span>
+    <div>
+      <div class="title" style="color:#fff;">Online Events</div>
+      <div class="sub" style="color:#EAF3E0;">NASA, National Geographic, real citizen science & more</div>
+    </div>
+  </a>`;
+}
+
+function viewEventsVirtual(){
+  return `
+    <a class="back-link" href="#">← Back to Mr Eric's Lounge</a>
+    <section style="padding-top:14px;">
+      <div class="section-head"><span class="emoji">${icon('globe')}</span><h2>Online Events</h2></div>
+      <p style="font-size:13px; color:var(--ink-soft); margin:-6px 0 16px;">
+        Free, safe, teen-relevant virtual events -- NASA, National Geographic, real citizen-science research, and more.
+        Every event is checked by hand before it's added here.
+      </p>
+      ${virtualEventsBodyHtml()}
+    </section>
+  `;
+}
+
 function upcomingBirthdayTileHtml(){
   if(BIRTHDAYS.length===0){
     return '<a class="bday-tile-card" href="#birthdays"><div class="empty-card" style="margin:0;">No birthdays yet. Nobody\'s been born apparently.</div></a>';
@@ -6241,6 +6349,11 @@ function viewHome(){
     </section>
 
     <section>
+      <div class="section-head"><span class="emoji">${icon('globe')}</span><h2>Online Events</h2></div>
+      ${virtualEventsTileHtml()}
+    </section>
+
+    <section>
       <div class="section-head"><span class="emoji">${icon('cake')}</span><h2>Birthdays</h2></div>
       ${upcomingBirthdayTileHtml()}
     </section>
@@ -6476,6 +6589,8 @@ function renderRoute(opts){
     html = viewBirthdaysPage();
   } else if(parts[0] === 'events-tashkent'){
     html = viewEventsTashkent();
+  } else if(parts[0] === 'events-virtual'){
+    html = viewEventsVirtual();
   } else if(parts[0] === 'ufc'){
     html = viewUFC();
   } else if(parts[0] === 'arsenal'){
@@ -6503,6 +6618,7 @@ function renderRoute(opts){
   if(parts[0] === 'install'){ wireInstallPage(); }
   if(parts[0] === 'stats'){ loadStats(); }
   if(parts[0] === 'events-tashkent'){ loadTashkentEvents(); }
+  if(parts[0] === 'events-virtual'){ loadVirtualEvents(); }
   if(parts.length === 0){ loadOnThisDay(); loadWeather(); loadVoxPopuli(); loadLiveSportsData(); wireRandomButton(app); wireRandomVideoButton(app); wireRandomExploreButton(app); wireExtrasCarousel(app); checkAchievements(); }
   if(parts[0] === 'sports' && parts[1] === 'tables'){ loadLiveSportsData(); }
   if(parts[0] === 'arsenal'){ loadLiveSportsData(); }
