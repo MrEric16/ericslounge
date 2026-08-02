@@ -109,6 +109,107 @@
     inset:0;
     z-index:-1;
   }
+  .aurora-layer{
+    position:absolute; inset:0; z-index:-1; overflow:hidden; pointer-events:none;
+  }
+  .aurora-layer::before, .aurora-layer::after{
+    content:''; position:absolute; width:140%; height:140%; border-radius:50%;
+    filter:blur(60px); opacity:.28;
+    animation: auroraDrift 24s ease-in-out infinite alternate;
+  }
+  .aurora-layer::before{
+    background:radial-gradient(circle, var(--coral) 0%, transparent 70%);
+    top:-45%; left:-35%;
+  }
+  .aurora-layer::after{
+    background:radial-gradient(circle, var(--gold) 0%, transparent 70%);
+    bottom:-45%; right:-35%;
+    animation-delay:-12s;
+  }
+  @keyframes auroraDrift{
+    0%{ transform:translate(0,0) scale(1); }
+    50%{ transform:translate(6%,4%) scale(1.1); }
+    100%{ transform:translate(-4%,-6%) scale(.95); }
+  }
+  #particleCanvas{
+    position:absolute; inset:0; z-index:-1; pointer-events:none;
+    opacity:.5;
+  }
+  #weatherOverlay{
+    position:absolute; inset:0; z-index:-1; pointer-events:none; overflow:hidden; opacity:0;
+    transition:opacity .8s ease;
+  }
+  #weatherOverlay.active{ opacity:.5; }
+  .weather-drop{
+    position:absolute; top:-20px; width:2px; height:14px;
+    background:rgba(255,255,255,.5); border-radius:2px;
+    animation:weatherFall linear infinite;
+  }
+  .weather-drop.snow{
+    width:5px; height:5px; border-radius:50%; background:rgba(255,255,255,.75);
+    animation-name:weatherFallSnow;
+  }
+  @keyframes weatherFall{
+    to{ transform:translateY(220px); opacity:0; }
+  }
+  @keyframes weatherFallSnow{
+    to{ transform:translate(12px,220px); opacity:0; }
+  }
+
+  /* ---- Story bar: horizontal scrollable "today" cards ---- */
+  .story-bar{
+    display:flex; gap:12px; overflow-x:auto; padding:4px 2px 10px;
+    -webkit-overflow-scrolling:touch; scrollbar-width:none;
+  }
+  .story-bar::-webkit-scrollbar{ display:none; }
+  .story-circle{
+    flex:0 0 auto; width:64px; text-align:center; cursor:pointer;
+    background:none; border:none; font-family:'Nunito',sans-serif;
+  }
+  .story-circle .story-ring{
+    width:60px; height:60px; border-radius:50%;
+    background:linear-gradient(135deg, var(--coral), var(--gold));
+    display:flex; align-items:center; justify-content:center; margin:0 auto 6px;
+    box-shadow:0 3px 0 rgba(58,42,30,.12);
+  }
+  .story-circle .story-ring-inner{
+    width:52px; height:52px; border-radius:50%; background:var(--card);
+    display:flex; align-items:center; justify-content:center; font-size:22px;
+  }
+  .story-circle .story-label{ font-size:10px; font-weight:700; color:var(--ink-soft); }
+
+  /* ---- Streak badge ---- */
+  .streak-badge{
+    display:inline-flex; align-items:center; gap:6px;
+    background:var(--card); border:1px solid var(--line); border-radius:999px;
+    padding:6px 14px; font-family:'Nunito',sans-serif; font-weight:800; font-size:13px;
+    color:var(--ink);
+  }
+  .streak-badge .streak-flame{ font-size:16px; }
+  @keyframes streakPop{
+    0%{ transform:scale(1); }
+    30%{ transform:scale(1.35); }
+    60%{ transform:scale(.95); }
+    100%{ transform:scale(1); }
+  }
+  .streak-badge.pop{ animation:streakPop .5s ease; }
+
+  /* ---- Achievement badges ---- */
+  .badge-grid{ display:grid; grid-template-columns:repeat(auto-fill, minmax(78px, 1fr)); gap:10px; }
+  .badge-item{
+    text-align:center; padding:10px 4px; border-radius:14px;
+    background:var(--card); border:1px solid var(--line);
+    font-family:'Nunito',sans-serif;
+  }
+  .badge-item.locked{ opacity:.35; filter:grayscale(1); }
+  .badge-item .badge-emoji{ font-size:26px; margin-bottom:4px; }
+  .badge-item .badge-name{ font-size:10px; font-weight:700; color:var(--ink-soft); line-height:1.3; }
+  @keyframes badgePopIn{
+    0%{ transform:scale(.3) rotate(-8deg); opacity:0; }
+    60%{ transform:scale(1.15) rotate(4deg); opacity:1; }
+    100%{ transform:scale(1) rotate(0deg); opacity:1; }
+  }
+  .badge-item.just-unlocked{ animation:badgePopIn .5s ease; }
   header::before{
     background-image:
       linear-gradient(135deg, #E8CFAE 0%, #DEBE93 60%, #D0AA79 100%),
@@ -176,6 +277,17 @@
     cursor:pointer;
     white-space:nowrap;
   }
+  @keyframes titleGlitchIn{
+    0%{ opacity:0; transform:translateX(-4px); filter:hue-rotate(0deg) saturate(1); }
+    12%{ opacity:1; transform:translateX(3px); filter:hue-rotate(100deg) saturate(2.4); }
+    24%{ transform:translateX(-3px); filter:hue-rotate(-80deg) saturate(2.4); }
+    36%{ transform:translateX(2px); filter:hue-rotate(60deg) saturate(1.6); }
+    48%{ transform:translateX(-2px); filter:none; }
+    60%{ transform:translateX(1px); }
+    75%{ transform:translateX(-1px); }
+    100%{ transform:translateX(0); filter:none; opacity:1; }
+  }
+  h1.title.glitch-in{ animation: titleGlitchIn .7s ease-out; }
   @media (max-width:639px){
     .tile-logo{
       width:clamp(54px,8vw,74px);
@@ -237,11 +349,13 @@
     gap:12px;
   }
   .board{
-    background:#4A1F28;
+    background:rgba(74,31,40,.62);
+    backdrop-filter:blur(14px) saturate(1.3);
+    -webkit-backdrop-filter:blur(14px) saturate(1.3);
     border-radius:16px;
     padding:12px 22px;
     display:inline-flex;
-    box-shadow:0 3px 0 rgba(58,42,30,.15), inset 0 0 0 1px rgba(255,255,255,.05);
+    box-shadow:0 3px 0 rgba(58,42,30,.15), inset 0 0 0 1px rgba(255,255,255,.08);
   }
   @media (min-width:640px){
     .board{ padding:18px 44px; }
@@ -1645,6 +1759,9 @@
 <div class="pull-refresh-indicator" id="pullRefresh"><div class="pull-refresh-tiles"><span class="pull-refresh-tile"></span><span class="pull-refresh-tile"></span><span class="pull-refresh-tile"></span><span class="pull-refresh-tile"></span></div></div>
 
 <header>
+  <div class="aurora-layer" aria-hidden="true"></div>
+  <canvas id="particleCanvas" aria-hidden="true"></canvas>
+  <div id="weatherOverlay" aria-hidden="true"></div>
   <div class="wrap masthead">
     <div class="title-row" id="titleLink" title="Mr Eric's Lounge">
       <div class="tile-logo" id="siteLogoMark">
@@ -4973,6 +5090,7 @@ async function loadWeather(){
       const cw = r.current_weather;
       if(!cw) return '';
       const [icon, label] = WEATHER_CODES[cw.weathercode] || ['🌡️','Current conditions'];
+      if(i === 0) applyWeatherOverlay(label); // Tashkent is always locations[0]
       return `
         <div class="weather-row">
           <a class="weather-city weather-city-link" href="https://www.windy.com/?temp,${loc.lat},${loc.lon},8" target="_blank" rel="noopener">${escapeHtml(loc.city)}, ${escapeHtml(loc.country)} ↗</a>
@@ -5486,6 +5604,10 @@ function viewStats(){
     <section style="padding-top:14px;">
       <div class="section-head"><span class="emoji">${icon('barchart')}</span><h2>Usage Stats</h2></div>
       <div id="statsBody" class="empty-card">Loading…</div>
+    </section>
+    <section>
+      <div class="section-head"><span class="emoji">🏅</span><h2>Badges</h2></div>
+      <div id="badgeGridContainer">${badgeGridHtml()}</div>
     </section>
   `;
 }
@@ -6403,6 +6525,34 @@ function viewHome(){
   }).join('');
 
   return `
+    <div class="story-bar">
+      <button class="story-circle" onclick="document.getElementById('weatherCard')?.scrollIntoView({behavior:'smooth', block:'center'})">
+        <div class="story-ring"><div class="story-ring-inner">☀️</div></div>
+        <div class="story-label">Weather</div>
+      </button>
+      <button class="story-circle" onclick="document.getElementById('extrasCarousel')?.scrollIntoView({behavior:'smooth', block:'center'})">
+        <div class="story-ring"><div class="story-ring-inner">📖</div></div>
+        <div class="story-label">Word</div>
+      </button>
+      <button class="story-circle" onclick="document.getElementById('extrasCarousel')?.scrollIntoView({behavior:'smooth', block:'center'})">
+        <div class="story-ring"><div class="story-ring-inner">🎲</div></div>
+        <div class="story-label">Fact</div>
+      </button>
+      <button class="story-circle" onclick="document.getElementById('extrasCarousel')?.scrollIntoView({behavior:'smooth', block:'center'})">
+        <div class="story-ring"><div class="story-ring-inner">💬</div></div>
+        <div class="story-label">Quote</div>
+      </button>
+      <button class="story-circle" onclick="location.hash='#birthdays'">
+        <div class="story-ring"><div class="story-ring-inner">🎂</div></div>
+        <div class="story-label">B'days</div>
+      </button>
+      <button class="story-circle" onclick="location.hash='#events-tashkent'">
+        <div class="story-ring"><div class="story-ring-inner">🎫</div></div>
+        <div class="story-label">Events</div>
+      </button>
+    </div>
+    <div id="streakBadgeContainer" style="margin-bottom:16px;"></div>
+
     <section>
       <div class="section-head"><span class="emoji">${icon('gradcap')}</span><h2>Domains</h2></div>
       <div class="faculties">
@@ -6795,6 +6945,7 @@ function renderRoute(opts){
     html = viewHome();
   } else if(parts[0] === 'faculty' && parts[1]){
     html = viewFaculty(parts[1]);
+    if(parts[1] !== 'all') trackFacultyVisit(parts[1]);
   } else if(parts[0] === 'watch' && parts[1]){
     html = viewWatchFaculty(parts[1]);
   } else if(parts[0] === 'play' && parts[1]){
@@ -6850,7 +7001,7 @@ function renderRoute(opts){
   if(parts[0] === 'events-tashkent'){ loadTashkentEvents(); }
   if(parts[0] === 'invite'){ wireNativeShareButton(); }
   if(parts[0] === 'events-virtual'){ loadVirtualEvents(); }
-  if(parts.length === 0){ loadOnThisDay(); loadWeather(); loadVoxPopuli(); loadLiveSportsData(); wireRandomButton(app); wireRandomVideoButton(app); wireRandomExploreButton(app); wireExtrasCarousel(app); checkAchievements(); }
+  if(parts.length === 0){ loadOnThisDay(); loadWeather(); loadVoxPopuli(); loadLiveSportsData(); wireRandomButton(app); wireRandomVideoButton(app); wireRandomExploreButton(app); wireExtrasCarousel(app); checkAchievements(); renderStreakBadge(); checkNewBadges(); }
   if(parts[0] === 'sports' && parts[1] === 'tables'){ loadLiveSportsData(); }
   if(parts[0] === 'arsenal'){ loadLiveSportsData(); loadGoalResults(); }
   if(parts[0] === 'sports' && parts[1] === 'league' && parts[2]){ loadLiveSportsData(); loadGoalResults(); }
@@ -7518,6 +7669,267 @@ function updateArsenalCountdown(){
   const ss = Math.floor(diff / 1000);
   el.textContent = `${pad(dd)}:${pad(hh)}:${pad(mm)}:${pad(ss)}`;
 }
+
+/* ---- Wow-factor batch: card tilt-on-touch ---- */
+(function(){
+  const TILT_SELECTOR = '.fac-tile, .events-tile, .bday-tile-card, .books-tile, ' +
+    '.explore-card, .explore-tile, .goodnews-tile, .otd-card, .photo-tile, ' +
+    '.random-tile, .sotw-card, .sport-hub-tile, .sports-card, .sports-tile, ' +
+    '.watch-card, .watch-tile';
+  const MAX_TILT_DEG = 8;
+  let activeTile = null;
+
+  function applyTilt(el, clientX, clientY){
+    const rect = el.getBoundingClientRect();
+    const px = (clientX - rect.left) / rect.width;
+    const py = (clientY - rect.top) / rect.height;
+    const rotateY = (px - 0.5) * MAX_TILT_DEG * 2;
+    const rotateX = (0.5 - py) * MAX_TILT_DEG * 2;
+    el.style.transform = `perspective(600px) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg) scale(1.02)`;
+  }
+  function resetTilt(el){
+    if(!el) return;
+    el.style.transform = '';
+  }
+
+  document.body.addEventListener('pointerdown', (e)=>{
+    const tile = e.target.closest(TILT_SELECTOR);
+    if(!tile) return;
+    activeTile = tile;
+    applyTilt(tile, e.clientX, e.clientY);
+  });
+  document.body.addEventListener('pointermove', (e)=>{
+    if(!activeTile) return;
+    applyTilt(activeTile, e.clientX, e.clientY);
+  });
+  document.body.addEventListener('pointerup', ()=>{
+    resetTilt(activeTile);
+    activeTile = null;
+  });
+  document.body.addEventListener('pointercancel', ()=>{
+    resetTilt(activeTile);
+    activeTile = null;
+  });
+})();
+
+/* ==================== Wow-factor batch: streaks, badges, ambient effects ==================== */
+
+/* ---- 11: Daily visit streak ---- */
+function updateStreak(){
+  try{
+    const today = new Date().toISOString().slice(0,10);
+    const yesterday = new Date(Date.now() - 86400000).toISOString().slice(0,10);
+    let data = JSON.parse(localStorage.getItem('visitStreak') || 'null') || { lastVisit: null, count: 0 };
+    let justIncremented = false;
+    if(data.lastVisit !== today){
+      data.count = (data.lastVisit === yesterday) ? data.count + 1 : 1;
+      data.lastVisit = today;
+      localStorage.setItem('visitStreak', JSON.stringify(data));
+      justIncremented = true;
+    }
+    return { count: data.count, justIncremented };
+  }catch(e){ return { count: 1, justIncremented: false }; }
+}
+function renderStreakBadge(){
+  const el = document.getElementById('streakBadgeContainer');
+  if(!el) return;
+  const { count, justIncremented } = updateStreak();
+  el.innerHTML = `<div class="streak-badge${justIncremented ? ' pop' : ''}"><span class="streak-flame">🔥</span><span>${count} day${count===1?'':'s'} streak</span></div>`;
+}
+
+/* ---- 12: Achievement badges ---- */
+const BADGES = [
+  { id:'first_visit', emoji:'🌅', name:'First Visit', check: ()=> true },
+  { id:'streak_3', emoji:'🔥', name:'3-Day Streak', check: (s)=> s.streakCount >= 3 },
+  { id:'streak_7', emoji:'🔥🔥', name:'Week Streak', check: (s)=> s.streakCount >= 7 },
+  { id:'explorer', emoji:'🧭', name:'Explorer', check: (s)=> s.visitedFaculties.size >= FACULTIES.length },
+  { id:'night_owl', emoji:'🦉', name:'Night Owl', check: (s)=> { const h = new Date().getHours(); return h >= 0 && h < 4; } },
+  { id:'curious_mind', emoji:'📚', name:'Curious Mind', check: (s)=> s.facultyVisitCount >= 20 },
+];
+function getUnlockedBadges(){
+  try{ return new Set(JSON.parse(localStorage.getItem('unlockedBadges') || '[]')); }catch(e){ return new Set(); }
+}
+function trackFacultyVisit(key){
+  try{
+    const visited = new Set(JSON.parse(localStorage.getItem('visitedFaculties') || '[]'));
+    visited.add(key);
+    localStorage.setItem('visitedFaculties', JSON.stringify([...visited]));
+    const count = parseInt(localStorage.getItem('facultyVisitCount') || '0', 10) + 1;
+    localStorage.setItem('facultyVisitCount', String(count));
+  }catch(e){}
+}
+function checkNewBadges(){
+  try{
+    const streakCount = JSON.parse(localStorage.getItem('visitStreak') || '{"count":1}').count;
+    const visitedFaculties = new Set(JSON.parse(localStorage.getItem('visitedFaculties') || '[]'));
+    const facultyVisitCount = parseInt(localStorage.getItem('facultyVisitCount') || '0', 10);
+    const stats = { streakCount, visitedFaculties, facultyVisitCount };
+    const unlocked = getUnlockedBadges();
+    let newlyUnlocked = null;
+    BADGES.forEach(b=>{
+      if(!unlocked.has(b.id) && b.check(stats)){
+        unlocked.add(b.id);
+        newlyUnlocked = b;
+      }
+    });
+    localStorage.setItem('unlockedBadges', JSON.stringify([...unlocked]));
+    if(newlyUnlocked){
+      burstConfetti();
+      showToast(`${newlyUnlocked.emoji} Badge unlocked: ${newlyUnlocked.name}`);
+    }
+  }catch(e){}
+}
+function badgeGridHtml(){
+  const unlocked = getUnlockedBadges();
+  return `<div class="badge-grid">${BADGES.map(b=>`
+    <div class="badge-item${unlocked.has(b.id) ? '' : ' locked'}">
+      <div class="badge-emoji">${unlocked.has(b.id) ? b.emoji : '🔒'}</div>
+      <div class="badge-name">${b.name}</div>
+    </div>`).join('')}</div>`;
+}
+
+/* ---- 2: Particle constellation background (header only, lightweight) ---- */
+(function(){
+  const canvas = document.getElementById('particleCanvas');
+  if(!canvas || !canvas.getContext) return;
+  const ctx = canvas.getContext('2d');
+  let particles = [];
+  function resize(){
+    const header = canvas.closest('header');
+    if(!header) return;
+    canvas.width = header.offsetWidth;
+    canvas.height = header.offsetHeight;
+  }
+  function initParticles(){
+    const count = Math.min(28, Math.floor((canvas.width * canvas.height) / 14000));
+    particles = Array.from({length: count}, () => ({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      vx: (Math.random() - 0.5) * 0.25,
+      vy: (Math.random() - 0.5) * 0.25,
+    }));
+  }
+  function frame(){
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    particles.forEach(p=>{
+      p.x += p.vx; p.y += p.vy;
+      if(p.x < 0 || p.x > canvas.width) p.vx *= -1;
+      if(p.y < 0 || p.y > canvas.height) p.vy *= -1;
+    });
+    ctx.fillStyle = 'rgba(255,255,255,.55)';
+    particles.forEach(p=>{
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, 1.4, 0, Math.PI * 2);
+      ctx.fill();
+    });
+    ctx.strokeStyle = 'rgba(255,255,255,.12)';
+    ctx.lineWidth = 1;
+    for(let i = 0; i < particles.length; i++){
+      for(let j = i + 1; j < particles.length; j++){
+        const dx = particles[i].x - particles[j].x, dy = particles[i].y - particles[j].y;
+        const dist = Math.sqrt(dx*dx + dy*dy);
+        if(dist < 90){
+          ctx.beginPath();
+          ctx.moveTo(particles[i].x, particles[i].y);
+          ctx.lineTo(particles[j].x, particles[j].y);
+          ctx.stroke();
+        }
+      }
+    }
+    requestAnimationFrame(frame);
+  }
+  resize();
+  initParticles();
+  frame();
+  window.addEventListener('resize', ()=>{ resize(); initParticles(); }, { passive:true });
+})();
+
+/* ---- 3: Weather-reactive header overlay ---- */
+function applyWeatherOverlay(conditionText){
+  const el = document.getElementById('weatherOverlay');
+  if(!el) return;
+  const cond = (conditionText || '').toLowerCase();
+  const isRain = /rain|drizzle|shower/.test(cond);
+  const isSnow = /snow|sleet/.test(cond);
+  if(!isRain && !isSnow){
+    el.classList.remove('active');
+    el.innerHTML = '';
+    return;
+  }
+  el.innerHTML = '';
+  for(let i = 0; i < 24; i++){
+    const d = document.createElement('div');
+    d.className = 'weather-drop' + (isSnow ? ' snow' : '');
+    d.style.left = `${Math.random() * 100}%`;
+    d.style.animationDuration = `${isSnow ? 3 + Math.random()*2 : 0.6 + Math.random()*0.5}s`;
+    d.style.animationDelay = `${Math.random() * 3}s`;
+    el.appendChild(d);
+  }
+  el.classList.add('active');
+}
+
+/* ---- 15: Time-of-day ambient hue shift on the aurora layer ---- */
+(function(){
+  const hour = new Date().getHours();
+  let hueDeg = 0;
+  if(hour >= 5 && hour < 9) hueDeg = -12;
+  else if(hour >= 9 && hour < 17) hueDeg = 0;
+  else if(hour >= 17 && hour < 21) hueDeg = 14;
+  else hueDeg = -18;
+  const layer = document.querySelector('.aurora-layer');
+  if(layer) layer.style.filter = `hue-rotate(${hueDeg}deg)`;
+})();
+
+/* ---- 13: Glitch-text title reveal on load ---- */
+(function(){
+  const title = document.querySelector('h1.title');
+  if(!title) return;
+  title.classList.add('glitch-in');
+  setTimeout(()=> title.classList.remove('glitch-in'), 800);
+})();
+
+/* ---- 16: Toggleable tiny sound effects (off by default) ---- */
+let soundEnabled = (function(){
+  try{ return localStorage.getItem('soundEffectsEnabled') === '1'; }catch(e){ return false; }
+})();
+let audioCtx = null;
+function playTinyBlip(freq){
+  if(!soundEnabled) return;
+  try{
+    if(!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    const osc = audioCtx.createOscillator();
+    const gain = audioCtx.createGain();
+    osc.type = 'sine';
+    osc.frequency.value = freq || 440;
+    gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.12);
+    osc.connect(gain);
+    gain.connect(audioCtx.destination);
+    osc.start();
+    osc.stop(audioCtx.currentTime + 0.12);
+  }catch(e){}
+}
+function wireSoundToggle(){
+  const searchRow = document.querySelector('.header-icon-row');
+  if(!searchRow || document.getElementById('soundToggleBtn')) return;
+  const btn = document.createElement('button');
+  btn.className = 'search-icon-btn';
+  btn.id = 'soundToggleBtn';
+  btn.title = 'Toggle sound effects';
+  btn.textContent = soundEnabled ? '🔊' : '🔇';
+  btn.addEventListener('click', ()=>{
+    soundEnabled = !soundEnabled;
+    try{ localStorage.setItem('soundEffectsEnabled', soundEnabled ? '1' : '0'); }catch(e){}
+    btn.textContent = soundEnabled ? '🔊' : '🔇';
+    if(soundEnabled) playTinyBlip(660);
+  });
+  searchRow.appendChild(btn);
+}
+document.body.addEventListener('pointerdown', (e)=>{
+  const tile = e.target.closest('.fac-tile, .events-tile, .bday-tile-card, .books-tile, .explore-card, .explore-tile, .goodnews-tile, .sport-hub-tile, .watch-card, .watch-tile');
+  if(tile) playTinyBlip(520);
+});
+wireSoundToggle();
 
 updateClock();
 updateWeekendCountdown();
