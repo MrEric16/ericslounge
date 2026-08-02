@@ -15,6 +15,7 @@ of calling football-data.org at all.
 import json
 import os
 import sys
+import time
 from datetime import datetime
 
 import requests
@@ -27,13 +28,28 @@ LEAGUE_CODES = ["PL", "PD", "BL1", "SA", "FL1", "CL"]
 ARSENAL_TEAM_ID = 57
 OUTPUT_PATH = "data/football-live.json"
 
+# Free tier is rate-limited to roughly 10 requests/minute -- confirmed for real via
+# 429 errors on the first live run of this script (3 of 13 requests got rate-limited
+# because they all fired back-to-back with no pacing). 7 seconds between requests
+# keeps us safely under that regardless of exact limit, at the cost of this script
+# taking a bit longer to run -- worth it for reliability over speed here.
+REQUEST_DELAY_SECONDS = 7
+
 
 def log(msg):
     print(f"[football-fetch] {msg}", flush=True)
 
 
 def get(url):
-    r = requests.get(url, headers=HEADERS, timeout=20)
+    for attempt in range(3):
+        r = requests.get(url, headers=HEADERS, timeout=20)
+        if r.status_code == 429:
+            wait = int(r.headers.get("Retry-After", 15))
+            log(f"429 rate-limited, waiting {wait}s before retry (attempt {attempt+1}/3)")
+            time.sleep(wait)
+            continue
+        r.raise_for_status()
+        return r.json()
     r.raise_for_status()
     return r.json()
 
@@ -59,6 +75,7 @@ def main():
             log(f"standings[{code}]: OK")
         except Exception as e:
             log(f"standings[{code}]: FAILED ({e})")
+        time.sleep(REQUEST_DELAY_SECONDS)
 
         try:
             data = get(f"{BASE}/competitions/{code}/matches")
@@ -66,6 +83,7 @@ def main():
             log(f"matches[{code}]: OK ({len(output['matches'][code])} matches)")
         except Exception as e:
             log(f"matches[{code}]: FAILED ({e})")
+        time.sleep(REQUEST_DELAY_SECONDS)
 
     try:
         data = get(f"{BASE}/teams/{ARSENAL_TEAM_ID}/matches?status=SCHEDULED&limit=1")
@@ -74,6 +92,7 @@ def main():
         log("arsenalNextFixture: OK")
     except Exception as e:
         log(f"arsenalNextFixture: FAILED ({e})")
+    time.sleep(REQUEST_DELAY_SECONDS)
 
     try:
         data = get(f"{BASE}/teams/{ARSENAL_TEAM_ID}/matches?status=FINISHED&limit=15")
