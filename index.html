@@ -7160,18 +7160,7 @@ function checkAchievements(){
   });
 })();
 
-/* ---- Easter egg: tap the title 5 times fast ---- */
-let titleTapCount = 0;
-let titleTapTimer = null;
 document.getElementById('titleLink').addEventListener('click', ()=>{
-  titleTapCount++;
-  clearTimeout(titleTapTimer);
-  titleTapTimer = setTimeout(()=>{ titleTapCount = 0; }, 1200);
-  if(titleTapCount >= 5){
-    titleTapCount = 0;
-    burstConfetti();
-    showToast("🐣 You found the secret. Mr Eric is mildly impressed.");
-  }
   location.hash = '';
 });
 window.addEventListener('hashchange', () => renderRoute());
