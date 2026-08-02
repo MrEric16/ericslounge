@@ -8227,20 +8227,15 @@ function triggerWeekendEgg(){
   window._weekendEggPlaying = true;
   const el = document.getElementById('weekendCountdown');
   if(!el) return;
-  const start = performance.now();
-  const durationMs = 10000;
   function randSeg(){ return pad(Math.floor(Math.random() * 100)); } // 00-99, always 2 digits -- fixed width, no layout flicker
-  function frame(now){
-    const elapsed = now - start;
-    if(elapsed >= durationMs){
-      window._weekendEggPlaying = false;
-      updateWeekendCountdown();
-      return;
-    }
+  const intervalId = setInterval(()=>{
     el.textContent = `${randSeg()}:${randSeg()}:${randSeg()}:${randSeg()}`;
-    requestAnimationFrame(frame);
-  }
-  requestAnimationFrame(frame);
+  }, 50); // fixed 20 updates/sec from tick one -- no ramp-up, unlike requestAnimationFrame
+  setTimeout(()=>{
+    clearInterval(intervalId);
+    window._weekendEggPlaying = false;
+    updateWeekendCountdown();
+  }, 10000);
 }
 
 /* ---- 11: fast repeated swipe-up → "Eyo, slow down" ---- */
