@@ -476,6 +476,136 @@ def scrape_special_tracked_events():
 # ---------------------------------------------------------------------------
 # Source 3, 4, 5: JS-rendered / bot-protected sites via Playwright
 # ---------------------------------------------------------------------------
+# ---------------------------------------------------------------------------
+# NEW primary source: afisha.uz's own calendar view, one real day at a time.
+# Replaces the old per-category-listing-page approach entirely -- that one
+# could only ever see whatever was on the front page of each category, and
+# had no way to discover older-but-still-relevant posts once newer ones
+# pushed them down. The calendar view solves this by directly asking "what's
+# happening on this exact date", which is exactly what we need, across every
+# category in one place.
+#
+# The catch: calendar URLs use a #YYYY-MM-DD fragment, and fragments never
+# reach the server at all (this is a basic property of how URLs work, not
+# specific to this site) -- the real per-day content only renders after
+# client-side JavaScript runs. So this needs a real browser (Playwright),
+# same as iticket.uz already required elsewhere in this script.
+#
+# Category is inferred directly from each link's URL (e.g. /ru/concerts/...),
+# which has proven to be a stable pattern across this whole project -- more
+# robust than trying to match on visible section-header text.
+# ---------------------------------------------------------------------------
+CALENDAR_DAYS = 10  # small buffer beyond the 8 days the site actually displays
+
+# None = category is deliberately excluded entirely, per explicit direction:
+# no bars/clubs, no standup (no reliable 18+ signal, see earlier notes), no
+# shops, no cinema (except the one separately-approved discount-day exception
+# still handled by scrape_special_tracked_events), and a few categories that
+# were simply never in scope (techno, fashion, tourism, media, premium, photo).
+CALENDAR_CATEGORY_MAP = {
+    "concerts": "concert",
+    "theatres": "theatre",
+    "exhibitions": "exhibition",
+    "sport": "sport",
+    "znaniya": "lecture",
+    "gorod": "festival",
+    "children": "kids",
+    "restaurants": "concert",
+    "cinema": None,
+    "standup": None,
+    "shops": None,
+    "discount": None,
+    "clubs": None,
+    "techno": None,
+    "fashion": None,
+    "tourism": None,
+    "media": None,
+    "premium": None,
+    "photo": None,
+}
+
+
+def scrape_afisha_calendar():
+    events = []
+    try:
+        from playwright.sync_api import sync_playwright
+    except ImportError:
+        log("playwright NOT INSTALLED -- skipping calendar scrape entirely")
+        return events
+
+    with sync_playwright() as p:
+        browser = p.chromium.launch(headless=True)
+        context = browser.new_context(
+            user_agent=HEADERS["User-Agent"],
+            viewport={"width": 1280, "height": 2400},
+            locale="ru-RU",
+        )
+        page = context.new_page()
+
+        for i in range(CALENDAR_DAYS):
+            date_obj = TODAY_MIDNIGHT + timedelta(days=i)
+            date_str = date_obj.strftime("%Y-%m-%d")
+            url = f"https://www.afisha.uz/ru/calendar#{date_str}"
+            try:
+                page.goto(url, wait_until="networkidle", timeout=30000)
+                page.wait_for_timeout(2500)  # extra buffer for client-side render
+            except Exception as e:
+                log(f"calendar {date_str}: FAILED to load ({e})")
+                continue
+
+            if i == 0:
+                with open("scripts/debug-afisha-calendar.html", "w", encoding="utf-8") as f:
+                    f.write(page.content())
+
+            anchors = page.query_selector_all("a[href]")
+            seen_hrefs = set()
+            day_count = 0
+            for a in anchors:
+                href = a.get_attribute("href") or ""
+                m = re.search(r"/ru/([a-z]+)/\d{4}/\d{2}/\d{2}/", href)
+                if not m:
+                    continue
+                slug = m.group(1)
+                if slug not in CALENDAR_CATEGORY_MAP:
+                    continue
+                category = CALENDAR_CATEGORY_MAP[slug]
+                if category is None:
+                    continue  # deliberately excluded category
+                if href in seen_hrefs:
+                    continue
+                seen_hrefs.add(href)
+                title_text = (a.inner_text() or "").strip()
+                if not title_text or len(title_text) < 3:
+                    continue
+                if is_excluded(title_text):
+                    continue
+                # afisha.uz link text sometimes repeats the title twice (link + alt text)
+                clean_title = title_text
+                half = len(clean_title) // 2
+                if half > 4 and clean_title[:half].strip() == clean_title[half:].strip():
+                    clean_title = clean_title[:half].strip()
+                full_url = href if href.startswith("http") else f"https://www.afisha.uz{href}"
+                english_title = translate_ru_to_en(clean_title)
+                resolved_category = guess_category(clean_title, category)
+                events.append({
+                    "title": english_title,
+                    "titleRu": clean_title,
+                    "category": resolved_category,
+                    "venue": None,
+                    "startDate": date_str,
+                    "endDate": None,
+                    "time": None,
+                    "url": full_url,
+                    "source": "afisha.uz (calendar)",
+                })
+                day_count += 1
+            log(f"calendar {date_str}: {day_count} events kept")
+            time.sleep(0.5)
+
+        browser.close()
+    return events
+
+
 def scrape_with_playwright():
     events = []
     try:
@@ -732,14 +862,16 @@ def dedup(events):
 def main():
     all_events = []
     log(f"Run started. Today (Tashkent): {TODAY.date()}  Window end: {WINDOW_END.date()}")
-    log("NOTE: tashkent.uz disabled -- its /en/afisha/{id} pages are not actually "
-        "server-side category-filtered (confirmed by inspecting real output); "
-        "afisha.uz's own /ru/{category} pages ARE genuinely filtered and cover the same content.")
+    log("NOTE: switched from per-category listing pages to afisha.uz's calendar view "
+        "(one real day at a time, via Playwright) -- the old approach could only ever "
+        "see whatever was on the current front page of each category, missing anything "
+        "pushed down by newer posts. The calendar view asks for each specific date "
+        "directly instead.")
 
     try:
-        all_events += scrape_afisha_uz()
+        all_events += scrape_afisha_calendar()
     except Exception as e:
-        log(f"afisha.uz: TOTAL FAILURE ({e})")
+        log(f"afisha.uz calendar: TOTAL FAILURE ({e})")
 
     try:
         all_events += scrape_special_tracked_events()
