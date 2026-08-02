@@ -23,7 +23,7 @@ of which scrape produced them).
 import json
 import re
 import sys
-from datetime import datetime
+from datetime import datetime, timedelta
 
 import requests
 from bs4 import BeautifulSoup
@@ -175,6 +175,13 @@ def process_source(source_url, existing_urls, results_out, debug_tag):
             continue
         parsed = parse_match_page(mr.text, url)
         if parsed:
+            if parsed.get("date"):
+                match_dt = datetime.strptime(parsed["date"], "%Y-%m-%d")
+                if match_dt < datetime.utcnow() - timedelta(days=45):
+                    log(f"[{debug_tag}] Skipping stale match (older than 45 days): "
+                        f"{parsed['home']} vs {parsed['away']} on {parsed['date']}")
+                    existing_urls.add(url)  # don't retry it every run
+                    continue
             parsed["competition"] = debug_tag
             results_out.append(parsed)
             existing_urls.add(url)
