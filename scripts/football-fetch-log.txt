@@ -1,15 +1,15 @@
-[football-fetch] standings[PL]: OK
-[football-fetch] matches[PL]: OK (380 matches)
-[football-fetch] standings[PD]: OK
-[football-fetch] matches[PD]: OK (380 matches)
-[football-fetch] standings[BL1]: OK
-[football-fetch] matches[BL1]: OK (306 matches)
-[football-fetch] standings[SA]: OK
-[football-fetch] matches[SA]: OK (380 matches)
-[football-fetch] standings[FL1]: OK
-[football-fetch] matches[FL1]: OK (306 matches)
-[football-fetch] standings[CL]: OK
-[football-fetch] matches[CL]: OK (189 matches)
+[football-fetch] standings[PL]: OK (20 rows)
+[football-fetch] matches[PL]: OK (trimmed from 380 to 10 fixtures + 0 results)
+[football-fetch] standings[PD]: OK (20 rows)
+[football-fetch] matches[PD]: OK (trimmed from 380 to 10 fixtures + 0 results)
+[football-fetch] standings[BL1]: OK (18 rows)
+[football-fetch] matches[BL1]: OK (trimmed from 306 to 9 fixtures + 0 results)
+[football-fetch] standings[SA]: OK (0 rows)
+[football-fetch] matches[SA]: OK (trimmed from 380 to 10 fixtures + 0 results)
+[football-fetch] standings[FL1]: OK (0 rows)
+[football-fetch] matches[FL1]: OK (trimmed from 306 to 9 fixtures + 0 results)
+[football-fetch] standings[CL]: OK (36 rows)
+[football-fetch] matches[CL]: OK (trimmed from 189 to 0 fixtures + 15 results)
 [football-fetch] arsenalNextFixture: OK
 [football-fetch] arsenalFinishedMatches: OK (0 matches)
-[football-fetch] Wrote data/football-live.json
+[football-fetch] Wrote data/football-live.json (64.7 KB)
