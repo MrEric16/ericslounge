@@ -2559,6 +2559,12 @@ const FOOTBALL_DATA_API_KEY = "d528304b9e9948aa91dbe180beb5bdda";
 // Meta for the dedicated per-league detail pages (Table + Fixtures + Results). Includes
 // Champions League, which doesn't have a slot in the combined League Tables page (SPORTS_LEAGUES)
 // since it isn't a domestic league with a fixed team list — it's shown only on its own page.
+// Leagues covered by scripts/scrape_goal_results.py (scorer name + minute
+// detail available). KHL is ice hockey -- goal.com is football-only, no
+// coverage possible there. UZ and UAE leagues have unconfirmed/thin goal.com
+// coverage and aren't scraped for detail yet.
+const GOAL_SCRAPED_LEAGUES = ['PL', 'PD', 'BL1', 'SA', 'FL1', 'CL'];
+
 const LEAGUE_DETAIL_META = {
   PL: { name: "English Premier League", flag: flagIcon('england') },
   PD: { name: "Spanish La Liga", flag: flagIcon('spain') },
@@ -2749,10 +2755,10 @@ async function loadLiveSportsData(){
   if(leagueDetailEl && leagueDetailEl.dataset.code){
     leagueDetailEl.innerHTML = leagueDetailBodyHtml(leagueDetailEl.dataset.code);
   }
-  const arsResultsEl = document.getElementById('arsenalResultsContainer');
+  const arsResultsEl = document.getElementById('resultsDetailContainer');
   if(arsResultsEl){
     const results = arsenalAllResults();
-    arsResultsEl.outerHTML = arsenalResultsHtml(results);
+    arsResultsEl.outerHTML = resultsWithDetailHtml(results);
   }
   const arsTableEl = document.getElementById('arsenalTableContainer');
   if(arsTableEl) arsTableEl.innerHTML = oneTableHtml(SPORTS_LEAGUES[0].teams);
@@ -2780,56 +2786,56 @@ function arsenalAllResults(){
 }
 
 /* ---- Arsenal detailed results (scorer + minute, from goal.com scraper) ---- */
-let ARSENAL_DETAILED_RESULTS = [];
-let arsenalDetailedLoaded = false;
+let GOAL_RESULTS = [];
+let goalResultsLoaded = false;
 
-async function loadArsenalDetailedResults(){
-  if(arsenalDetailedLoaded) return;
+async function loadGoalResults(){
+  if(goalResultsLoaded) return;
   try{
-    const res = await fetch('./data/arsenal-results.json', { cache: 'no-store' });
+    const res = await fetch('./data/goal-results.json', { cache: 'no-store' });
     if(!res.ok) throw new Error('fetch failed');
     const data = await res.json();
-    ARSENAL_DETAILED_RESULTS = data.results || [];
-    arsenalDetailedLoaded = true;
-  }catch(e){ ARSENAL_DETAILED_RESULTS = []; }
-  const el = document.getElementById('arsenalResultsContainer');
-  if(el){ el.outerHTML = arsenalResultsHtml(arsenalAllResults()); }
+    GOAL_RESULTS = data.results || [];
+    goalResultsLoaded = true;
+  }catch(e){ GOAL_RESULTS = []; }
+  const el = document.getElementById('resultsDetailContainer');
+  if(el){ el.outerHTML = resultsWithDetailHtml(arsenalAllResults()); }
 }
 
-function findArsenalDetail(m){
+function findGoalResultDetail(m){
   if(!m.start) return null;
   const dateStr = new Date(m.start).toISOString().slice(0,10);
   const norm = s => (s||'').toLowerCase().trim();
-  return ARSENAL_DETAILED_RESULTS.find(d => {
+  return GOAL_RESULTS.find(d => {
     if(d.date !== dateStr) return false;
     const dh = norm(d.home), da = norm(d.away), mh = norm(m.home), ma = norm(m.away);
     return (dh.includes(mh) || mh.includes(dh)) && (da.includes(ma) || ma.includes(da));
   }) || null;
 }
 
-window._arsenalDetailLookup = [];
+window._goalDetailLookup = [];
 
-function arsenalResultsHtml(results){
+function resultsWithDetailHtml(results){
   if(!results || results.length === 0){
-    return '<div id="arsenalResultsContainer" class="empty-card">Nothing here yet — check back once the season\'s under way.</div>';
+    return '<div id="resultsDetailContainer" class="empty-card">Nothing here yet — check back once the season\'s under way.</div>';
   }
-  window._arsenalDetailLookup = [];
+  window._goalDetailLookup = [];
   const items = results.map(m => {
-    const detail = findArsenalDetail(m);
-    const idx = window._arsenalDetailLookup.length;
-    if(detail) window._arsenalDetailLookup.push(detail);
-    const clickAttr = detail ? ` onclick="showArsenalMatchDetail(${idx})" style="cursor:pointer;"` : '';
+    const detail = findGoalResultDetail(m);
+    const idx = window._goalDetailLookup.length;
+    if(detail) window._goalDetailLookup.push(detail);
+    const clickAttr = detail ? ` onclick="showGoalMatchDetail(${idx})" style="cursor:pointer;"` : '';
     return `
     <div class="match-row"${clickAttr}>
       <div class="match-teams">${escapeHtml(m.home)}${m.homeScore !== null ? ` <span class="match-score">${m.homeScore} - ${m.awayScore}</span> ` : ' v '}${escapeHtml(m.away)}</div>
       <div class="match-date">${formatTashkentDate(m.start)}</div>
     </div>`;
   }).join('');
-  return `<div id="arsenalResultsContainer">${items}</div>`;
+  return `<div id="resultsDetailContainer">${items}</div>`;
 }
 
-function showArsenalMatchDetail(idx){
-  const d = window._arsenalDetailLookup[idx];
+function showGoalMatchDetail(idx){
+  const d = window._goalDetailLookup[idx];
   if(!d) return;
   const goalLine = g => `<div style="font-size:13px; padding:3px 0;">${escapeHtml(g.scorer)} <span style="opacity:.6;">${g.minute}'</span></div>`;
   const homeGoals = d.homeGoals.length ? d.homeGoals.map(goalLine).join('') : '<div style="font-size:13px; opacity:.5;">No goals</div>';
@@ -2894,7 +2900,7 @@ function leagueDetailBodyHtml(code){
         <span class="domain-count">${results.length}</span>
         <span class="domain-chevron">${icon('chevronDown')}</span>
       </summary>
-      <div class="domain-group-content">${matchListHtml(results, true, code === 'UZ' || code === 'KHL')}</div>
+      <div class="domain-group-content">${GOAL_SCRAPED_LEAGUES.includes(code) ? resultsWithDetailHtml(results) : matchListHtml(results, true, code === 'UZ' || code === 'KHL')}</div>
     </details>
     <details class="domain-group">
       <summary class="section-head domain-summary">
@@ -5854,7 +5860,7 @@ function viewArsenalHub(){
           <span class="domain-count">${results.length}</span>
           <span class="domain-chevron">${icon('chevronDown')}</span>
         </summary>
-        <div class="domain-group-content">${arsenalResultsHtml(results)}</div>
+        <div class="domain-group-content">${resultsWithDetailHtml(results)}</div>
       </details>
 
       <details class="domain-group">
@@ -6764,8 +6770,8 @@ function renderRoute(opts){
   if(parts[0] === 'events-virtual'){ loadVirtualEvents(); }
   if(parts.length === 0){ loadOnThisDay(); loadWeather(); loadVoxPopuli(); loadLiveSportsData(); wireRandomButton(app); wireRandomVideoButton(app); wireRandomExploreButton(app); wireExtrasCarousel(app); checkAchievements(); }
   if(parts[0] === 'sports' && parts[1] === 'tables'){ loadLiveSportsData(); }
-  if(parts[0] === 'arsenal'){ loadLiveSportsData(); loadArsenalDetailedResults(); }
-  if(parts[0] === 'sports' && parts[1] === 'league' && parts[2]){ loadLiveSportsData(); }
+  if(parts[0] === 'arsenal'){ loadLiveSportsData(); loadGoalResults(); }
+  if(parts[0] === 'sports' && parts[1] === 'league' && parts[2]){ loadLiveSportsData(); loadGoalResults(); }
 
   // Swipe right to go back — only when the page we arrived from was Home itself.
   cameFromHome = (lastRenderedHash === '');
