@@ -8205,19 +8205,24 @@ function openSnakeGame(){
   });
 })();
 
-/* ---- 4: click the weekend countdown 3x → joke popup, then a fast movie-style count-up ---- */
+/* ---- 4: tap the weekend countdown 3x → joke popup, then a fast movie-style count-up ---- */
 (function(){
-  let clickCount = 0, clickTimer = null;
+  let tapCount = 0, tapTimer = null;
   const el = document.getElementById('weekendCountdown');
   if(!el) return;
   const cell = el.closest('.board-cell') || el;
   cell.style.cursor = 'pointer';
-  cell.addEventListener('click', ()=>{
-    clickCount++;
-    clearTimeout(clickTimer);
-    clickTimer = setTimeout(()=>{ clickCount = 0; }, 1000);
-    if(clickCount >= 3){
-      clickCount = 0;
+  // Using 'pointerup' instead of 'click' -- 'click' is a synthesized event that can
+  // carry an extra delay on some mobile browsers even with touch-action set, since
+  // it still goes through the browser's full click-synthesis pipeline. 'pointerup'
+  // fires directly on touch/mouse release with nothing in between.
+  cell.addEventListener('pointerup', ()=>{
+    tapCount++;
+    clearTimeout(tapTimer);
+    tapTimer = setTimeout(()=>{ tapCount = 0; }, 1000);
+    if(tapCount >= 3){
+      tapCount = 0;
+      clearTimeout(tapTimer);
       triggerWeekendEgg();
     }
   });
