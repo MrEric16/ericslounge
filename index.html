@@ -2756,7 +2756,7 @@ async function loadLiveSportsData(){
     leagueDetailEl.innerHTML = leagueDetailBodyHtml(leagueDetailEl.dataset.code);
   }
   const arsResultsEl = document.getElementById('resultsDetailContainer');
-  if(arsResultsEl){
+  if(arsResultsEl && location.hash.replace('#','').split('/')[0] === 'arsenal'){
     const results = arsenalAllResults();
     arsResultsEl.outerHTML = resultsWithDetailHtml(results);
   }
