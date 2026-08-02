@@ -5,11 +5,13 @@
 [scrape] afisha.uz cat=exhibition: 3 events kept
 [scrape] afisha.uz cat=sport: 2 events kept
 [scrape] afisha.uz cat=lecture: 6 events kept
+[scrape] afisha.uz cat=standup: 12 events kept
+[scrape] afisha.uz cat=festival: 8 events kept
 [scrape] iticket.uz cat=concert: 6 events kept
 [scrape] iticket.uz cat=theatre: 0 events kept
 [scrape] iticket.uz cat=exhibition: 0 events kept
 [scrape] ticketon.uz: CONFIRMED BLOCKED (Cloudflare challenge, page title='Just a moment...'). 0 events -- this is expected, not a bug to fix.
 [scrape] eventbrite.com: CONFIRMED BLOCKED (AWS WAF CAPTCHA, page title='Human Verification'). 0 events -- this is expected, not a bug to fix. Same category of block as ticketon.uz.
 [scrape] eventbrite.com: 0 events found (dates NOT yet parsed -- see note in script)
-[scrape] TOTAL before dedup: 26  |  after dedup: 23
+[scrape] TOTAL before dedup: 46  |  after dedup: 42
 [scrape] Wrote data/events-tashkent.json
