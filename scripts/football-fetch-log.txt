@@ -1,0 +1,15 @@
+[football-fetch] standings[PL]: OK
+[football-fetch] matches[PL]: OK (380 matches)
+[football-fetch] standings[PD]: OK
+[football-fetch] matches[PD]: OK (380 matches)
+[football-fetch] standings[BL1]: OK
+[football-fetch] matches[BL1]: OK (306 matches)
+[football-fetch] standings[SA]: OK
+[football-fetch] matches[SA]: OK (380 matches)
+[football-fetch] standings[FL1]: OK
+[football-fetch] matches[FL1]: OK (306 matches)
+[football-fetch] standings[CL]: OK
+[football-fetch] matches[CL]: FAILED (429 Client Error:  for url: https://api.football-data.org/v4/competitions/CL/matches)
+[football-fetch] arsenalNextFixture: FAILED (429 Client Error:  for url: https://api.football-data.org/v4/teams/57/matches?status=SCHEDULED&limit=1)
+[football-fetch] arsenalFinishedMatches: FAILED (429 Client Error:  for url: https://api.football-data.org/v4/teams/57/matches?status=FINISHED&limit=15)
+[football-fetch] Wrote data/football-live.json
