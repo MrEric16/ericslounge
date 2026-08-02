@@ -326,6 +326,10 @@ AFISHA_CATEGORIES = {
     "znaniya": "lecture",
     "gorod": "festival",
     "children": "kids",
+    "restaurants": "concert",  # confirmed legitimate content here too (e.g. PAUL's
+                                # free live music evenings) -- relies on the alcohol-
+                                # specific exclusion keywords to filter out actual
+                                # nightlife/drinking content within this category
     # "standup" deliberately NOT included: afisha.uz has no reliable per-event
     # 18+ marker to detect against (confirmed by inspecting real event pages --
     # "18+" only appears in the site-wide footer disclaimer, identically on
@@ -333,6 +337,58 @@ AFISHA_CATEGORIES = {
     # skews adult-content by genre convention regardless of explicit labeling,
     # so this category is excluded by default rather than guessed at per-event.
 }
+
+
+def fetch_event_detail(url):
+    """Fetches an event's own detail page and returns (clean_title, occurrences),
+    where occurrences is a list of (date, time_str) tuples -- one per date listed
+    in the page's own "Расписание" (Schedule) section. This is the real fix for
+    recurring events (weekly book clubs, weekly live music nights, etc.) that
+    were previously collapsing to a single guessed date from the listing page.
+    Returns (None, []) on any fetch failure."""
+    try:
+        r = requests.get(url, headers=HEADERS, timeout=20)
+        r.raise_for_status()
+    except Exception as e:
+        log(f"  detail fetch failed for {url}: {e}")
+        return None, []
+
+    soup = BeautifulSoup(r.text, "html.parser")
+    h1 = soup.find("h1")
+    clean_title = h1.get_text(strip=True) if h1 else None
+    full_text = soup.get_text("\n", strip=True)
+
+    idx = full_text.rfind("Расписание")
+    if idx == -1:
+        return clean_title, []
+    section = full_text[idx:idx + 4000]
+    for stop_marker in ("Подпишитесь на наш Telegram", "©"):
+        cut = section.find(stop_marker)
+        if cut != -1:
+            section = section[:cut]
+            break
+
+    occurrences = []
+    date_pattern = re.compile(rf"(\d{{1,2}})\s+({_MONTH_PATTERN_RU})", re.IGNORECASE)
+    time_pattern = re.compile(r"^(\d{1,2}):(\d{2})")
+    matches = list(date_pattern.finditer(section))
+    for i, m in enumerate(matches):
+        day = int(m.group(1))
+        month = MONTHS_RU[m.group(2).lower()]
+        tail_start = m.end()
+        tail_end = matches[i + 1].start() if i + 1 < len(matches) else len(section)
+        tail = section[tail_start:tail_end].strip()[:20]
+        time_match = time_pattern.search(tail)
+        time_str = f"{time_match.group(1)}:{time_match.group(2)}" if time_match else None
+        try:
+            year = TODAY.year
+            date_obj = datetime(year, month, day)
+        except ValueError:
+            continue
+        if date_obj < TODAY_MIDNIGHT - timedelta(days=60):
+            date_obj = date_obj.replace(year=year + 1)
+        occurrences.append((date_obj, time_str))
+    return clean_title, occurrences
 
 
 def scrape_afisha_uz():
@@ -346,55 +402,74 @@ def scrape_afisha_uz():
             log(f"afisha.uz cat={category}: REQUEST FAILED ({e})")
             continue
         soup = BeautifulSoup(r.text, "html.parser")
-        if slug == "exhibitions":
-            with open("scripts/debug-afisha-uz.html", "w", encoding="utf-8") as f:
-                f.write(r.text)
         links = soup.select(f"a[href*='/ru/{slug}/']")
-        seen = set()
-        count = 0
+        seen_hrefs = set()
+        candidates = []
         for a in links:
             href = a.get("href", "")
-            if href in seen:
+            if not href or href in seen_hrefs or href.rstrip("/").endswith(f"/{slug}"):
                 continue
-            title = a.get_text(" ", strip=True)
-            title = re.sub(r"Купить билеты", "", title).strip()
-            if not title or len(title) < 3:
-                continue
-            date_match = re.search(
-                rf"(?:с\s+)?\d{{1,2}}\s+(?:{_MONTH_PATTERN_RU})(?:\s*(?:по|-)\s*\d{{1,2}}\s+(?:{_MONTH_PATTERN_RU}))?"
-                rf"|(?:с\s+)?\d{{1,2}}\s*(?:по|-)\s*\d{{1,2}}\s+(?:{_MONTH_PATTERN_RU})",
-                title.lower(),
-            )
-            start, end = parse_ru_date_range(title)
-            if not start:
-                continue
-            if start > WINDOW_END or (end or start) < TODAY_MIDNIGHT:
-                continue
-            if is_excluded(title):
-                continue
-            seen.add(href)
+            seen_hrefs.add(href)
             full_url = href if href.startswith("http") else f"https://www.afisha.uz{href}"
-            if date_match:
-                clean_title = title[:date_match.start()].strip(" *-")
-            else:
-                clean_title = title
-            # afisha.uz link text often repeats the title twice back-to-back (link + alt text)
-            half = len(clean_title) // 2
-            if half > 4 and clean_title[:half].strip() == clean_title[half:].strip():
-                clean_title = clean_title[:half].strip()
+            candidates.append(full_url)
+
+        count = 0
+        for full_url in candidates:
+            clean_title, occurrences = fetch_event_detail(full_url)
+            time.sleep(0.3)  # polite pacing -- now visiting far more pages per run than before
+            if not clean_title or is_excluded(clean_title):
+                continue
             english_title = translate_ru_to_en(clean_title)
+            resolved_category = guess_category(clean_title, category)
+            in_window = [(d, t) for d, t in occurrences if TODAY_MIDNIGHT <= d <= WINDOW_END]
+            for date_obj, time_str in in_window:
+                events.append({
+                    "title": english_title,
+                    "titleRu": clean_title,
+                    "category": resolved_category,
+                    "venue": None,
+                    "startDate": date_obj.strftime("%Y-%m-%d"),
+                    "endDate": None,
+                    "time": time_str,
+                    "url": full_url,
+                    "source": "afisha.uz",
+                })
+                count += 1
+        log(f"afisha.uz cat={category}: {count} events kept ({len(candidates)} pages checked)")
+    return events
+
+
+# Narrow, specifically-approved exceptions to the normal category rules --
+# not a blanket category opt-in (e.g. NOT "include all cinema content"), just
+# this one confirmed-good recurring discount day, per explicit direction.
+SPECIAL_TRACKED_EVENTS = [
+    ("https://www.afisha.uz/ru/cinema/2026/07/16/kinoprazdnik-v-sredu", "festival"),
+]
+
+
+def scrape_special_tracked_events():
+    events = []
+    for url, category in SPECIAL_TRACKED_EVENTS:
+        clean_title, occurrences = fetch_event_detail(url)
+        time.sleep(0.3)
+        if not clean_title:
+            log(f"special-tracked: FAILED to fetch {url}")
+            continue
+        english_title = translate_ru_to_en(clean_title)
+        in_window = [(d, t) for d, t in occurrences if TODAY_MIDNIGHT <= d <= WINDOW_END]
+        for date_obj, time_str in in_window:
             events.append({
                 "title": english_title,
                 "titleRu": clean_title,
-                "category": guess_category(clean_title, category),
+                "category": category,
                 "venue": None,
-                "startDate": start.strftime("%Y-%m-%d"),
-                "endDate": end.strftime("%Y-%m-%d") if end and end != start else None,
-                "url": full_url,
+                "startDate": date_obj.strftime("%Y-%m-%d"),
+                "endDate": None,
+                "time": time_str,
+                "url": url,
                 "source": "afisha.uz",
             })
-            count += 1
-        log(f"afisha.uz cat={category}: {count} events kept")
+        log(f"special-tracked: {clean_title!r} -> {len(in_window)} events kept")
     return events
 
 
@@ -665,6 +740,11 @@ def main():
         all_events += scrape_afisha_uz()
     except Exception as e:
         log(f"afisha.uz: TOTAL FAILURE ({e})")
+
+    try:
+        all_events += scrape_special_tracked_events()
+    except Exception as e:
+        log(f"special-tracked events: TOTAL FAILURE ({e})")
 
     try:
         all_events += scrape_with_playwright()
