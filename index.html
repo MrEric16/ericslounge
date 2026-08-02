@@ -2690,7 +2690,8 @@ const SPORTS_LEAGUES = [
 // Refreshes at most once per "day", where the day rolls over at 04:00 Tashkent time (when most
 // games from the previous evening will have finished) — not on every page load, to stay well
 // inside the free tier's 10-requests/minute limit shared across all site visitors.
-const FOOTBALL_DATA_API_KEY = "d528304b9e9948aa91dbe180beb5bdda";
+// Live football data now comes from data/football-live.json (fetched server-side
+// by scripts/fetch_football_data.py) -- no API key needed or present client-side.
 // Meta for the dedicated per-league detail pages (Table + Fixtures + Results). Includes
 // Champions League, which doesn't have a slot in the combined League Tables page (SPORTS_LEAGUES)
 // since it isn't a domestic league with a fixed team list — it's shown only on its own page.
@@ -2778,84 +2779,67 @@ async function loadLiveSportsData(){
       });
 
       if(!cache || cache.day !== today || pendingFixtureOverdue){
+        // Server-side fetched data (scripts/fetch_football_data.py, key stored as a
+        // GitHub secret, never exposed to the browser) -- this replaces per-visitor
+        // client-side calls to football-data.org that used to ship the API key in
+        // plain text in this file's source, and also meant every visitor's browser
+        // shared the same rate limit against football-data.org directly.
         const fresh = { day: today, leagues: {}, matches: {}, arsenalFixture: null, arsenalResults: [] };
-        for(const code of Object.keys(LEAGUE_DETAIL_META)){
-          try{
-            const res = await fetch(`https://api.football-data.org/v4/competitions/${code}/standings`, {
-              headers: { 'X-Auth-Token': FOOTBALL_DATA_API_KEY }
-            });
-            if(!res.ok) throw new Error('bad response '+res.status);
-            const data = await res.json();
-            const totalTable = (data.standings || []).find(s => s.type === 'TOTAL');
-            if(totalTable && totalTable.table && totalTable.table.length && totalTable.table.some(row => row.playedGames > 0)){
-              fresh.leagues[code] = totalTable.table.map(row => ({
-                name: row.team.shortName || row.team.name,
-                pld: row.playedGames, w: row.won, d: row.draw, l: row.lost,
-                gf: row.goalsFor, ga: row.goalsAgainst, pts: row.points,
-              }));
-            }
-          }catch(e){ /* this league's table stays as-is (static placeholder or older cache) */ }
-
-          try{
-            const res = await fetch(`https://api.football-data.org/v4/competitions/${code}/matches`, {
-              headers: { 'X-Auth-Token': FOOTBALL_DATA_API_KEY }
-            });
-            if(!res.ok) throw new Error('bad response '+res.status);
-            const data = await res.json();
-            const all = data.matches || [];
-            let fixtures = all.filter(m => m.status === 'SCHEDULED' || m.status === 'TIMED')
-              .sort((a,b) => new Date(a.utcDate) - new Date(b.utcDate))
-              .map(matchToRow);
-            // Keep only the single soonest matchday, so this reads as "this week's
-            // fixtures" rather than a long flat list — same idea for every league.
-            if(fixtures.length > 0 && fixtures[0].matchday !== null){
-              const soonest = fixtures[0].matchday;
-              fixtures = fixtures.filter(f => f.matchday === soonest);
-            } else {
-              fixtures = fixtures.slice(0, 15);
-            }
-            const results = all.filter(m => m.status === 'FINISHED')
-              .sort((a,b) => new Date(b.utcDate) - new Date(a.utcDate))
-              .slice(0, 15).map(matchToRow);
-            fresh.matches[code] = { fixtures, results };
-          }catch(e){ /* this league's fixtures/results stay as-is */ }
-        }
         try{
-          const res = await fetch(`https://api.football-data.org/v4/teams/${ARSENAL_TEAM_ID}/matches?status=SCHEDULED&limit=1`, {
-            headers: { 'X-Auth-Token': FOOTBALL_DATA_API_KEY }
-          });
+          const res = await fetch('./data/football-live.json', { cache: 'no-store' });
           if(!res.ok) throw new Error('bad response '+res.status);
-          const data = await res.json();
-          const m = (data.matches || [])[0];
-          if(m && m.homeTeam && m.awayTeam){
-            const isHome = m.homeTeam.id === ARSENAL_TEAM_ID;
-            const opponent = isHome ? (m.awayTeam.shortName || m.awayTeam.name) : (m.homeTeam.shortName || m.homeTeam.name);
+          const live = await res.json();
+
+          for(const code of Object.keys(LEAGUE_DETAIL_META)){
+            const standingsData = live.standings && live.standings[code];
+            if(standingsData){
+              const totalTable = (standingsData.standings || []).find(s => s.type === 'TOTAL');
+              if(totalTable && totalTable.table && totalTable.table.length && totalTable.table.some(row => row.playedGames > 0)){
+                fresh.leagues[code] = totalTable.table.map(row => ({
+                  name: row.team.shortName || row.team.name,
+                  pld: row.playedGames, w: row.won, d: row.draw, l: row.lost,
+                  gf: row.goalsFor, ga: row.goalsAgainst, pts: row.points,
+                }));
+              }
+            }
+
+            const all = (live.matches && live.matches[code]) || [];
+            if(all.length){
+              let fixtures = all.filter(m => m.status === 'SCHEDULED' || m.status === 'TIMED')
+                .sort((a,b) => new Date(a.utcDate) - new Date(b.utcDate))
+                .map(matchToRow);
+              if(fixtures.length > 0 && fixtures[0].matchday !== null){
+                const soonest = fixtures[0].matchday;
+                fixtures = fixtures.filter(f => f.matchday === soonest);
+              } else {
+                fixtures = fixtures.slice(0, 15);
+              }
+              const results = all.filter(m => m.status === 'FINISHED')
+                .sort((a,b) => new Date(b.utcDate) - new Date(a.utcDate))
+                .slice(0, 15).map(matchToRow);
+              fresh.matches[code] = { fixtures, results };
+            }
+          }
+
+          const nextFixture = live.arsenalNextFixture;
+          if(nextFixture && nextFixture.homeTeam && nextFixture.awayTeam){
+            const isHome = nextFixture.homeTeam.id === ARSENAL_TEAM_ID;
+            const opponent = isHome
+              ? (nextFixture.awayTeam.shortName || nextFixture.awayTeam.name)
+              : (nextFixture.homeTeam.shortName || nextFixture.homeTeam.name);
             fresh.arsenalFixture = {
               title: isHome ? `Arsenal v ${opponent}` : `${opponent} v Arsenal`,
               venue: isHome ? "(Home)" : "(Away)",
-              competition: m.competition ? m.competition.name : "",
-              stadium: m.venue || "",
-              start: utcToTashkentISOString(m.utcDate),
+              competition: nextFixture.competition ? nextFixture.competition.name : "",
+              stadium: nextFixture.venue || "",
+              start: utcToTashkentISOString(nextFixture.utcDate),
             };
           }
-        }catch(e){ /* Arsenal fixture stays on the static fallback list */ }
 
-        try{
-          const res = await fetch(`https://api.football-data.org/v4/teams/${ARSENAL_TEAM_ID}/matches?status=FINISHED&limit=15`, {
-            headers: { 'X-Auth-Token': FOOTBALL_DATA_API_KEY }
-          });
-          if(!res.ok) throw new Error('bad response '+res.status);
-          const data = await res.json();
-          // Deliberately NOT filtering against ARSENAL_FIXTURES[0].start (a static,
-          // hand-typed placeholder date) -- that caused a real bug: if the live API's
-          // actual kickoff time differed even slightly from the guessed static value,
-          // real finished matches got silently dropped from the results list. The API
-          // call above already returns only the most recent 15 finished matches,
-          // sorted newest-first, so no extra date filtering is needed here at all.
-          fresh.arsenalResults = (data.matches || [])
+          fresh.arsenalResults = (live.arsenalFinishedMatches || [])
             .sort((a,b) => new Date(b.utcDate) - new Date(a.utcDate))
             .map(matchToRow);
-        }catch(e){ /* results stay empty until the API has finished matches to show */ }
+        }catch(e){ /* static data file unavailable or malformed -- cache stays as-is */ }
 
         if(Object.keys(fresh.leagues).length > 0 || Object.keys(fresh.matches).length > 0 || fresh.arsenalFixture){
           cache = fresh;
