@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-08-02T19:29:52.871879Z",
+  "generatedAt": "2026-08-02T19:42:32.610256Z",
   "events": [
     {
-      "title": "Выставка «Фотохроника XX века»",
+      "title": "Exhibition “Photochronicles of the 20th century”",
       "titleRu": "Выставка «Фотохроника XX века»",
       "category": "exhibition",
       "venue": null,
@@ -12,7 +12,7 @@
       "source": "afisha.uz"
     },
     {
-      "title": "Пляж Palma & Chilla в парке Milliy Bog’",
+      "title": "Palma & Chilla beach in Milliy Bog’ park",
       "titleRu": "Пляж Palma & Chilla в парке Milliy Bog’",
       "category": "festival",
       "venue": null,
@@ -22,7 +22,7 @@
       "source": "afisha.uz"
     },
     {
-      "title": "Ярмарка Uzbegim Market в парке Tashkent City",
+      "title": "Uzbegim Market fair in Tashkent City Park",
       "titleRu": "Ярмарка Uzbegim Market в парке Tashkent City",
       "category": "festival",
       "venue": null,
@@ -32,7 +32,7 @@
       "source": "afisha.uz"
     },
     {
-      "title": "Выставка «Поколение Z» в Andakulova Gallery",
+      "title": "Exhibition “Generation Z” at Andakulova Gallery",
       "titleRu": "Выставка «Поколение Z» в Andakulova Gallery",
       "category": "exhibition",
       "venue": null,
@@ -42,7 +42,17 @@
       "source": "afisha.uz"
     },
     {
-      "title": "Творческие мастер-классы в Potterville",
+      "title": "Theater and circus show Nova Circus",
+      "titleRu": "Театрально-цирковое шоу Nova Circus",
+      "category": "kids",
+      "venue": null,
+      "startDate": "2026-07-28",
+      "endDate": "2026-08-31",
+      "url": "https://www.afisha.uz/ru/children/2026/07/28/nova-circus-tashkent-city",
+      "source": "afisha.uz"
+    },
+    {
+      "title": "Creative workshops in Potterville",
       "titleRu": "Творческие мастер-классы в Potterville",
       "category": "lecture",
       "venue": null,
@@ -52,7 +62,7 @@
       "source": "afisha.uz"
     },
     {
-      "title": "Открытие Alpha Sport Sergeli Fit",
+      "title": "Opening of Alpha Sport Sergeli Fit",
       "titleRu": "Открытие Alpha Sport Sergeli Fit",
       "category": "sport",
       "venue": null,
@@ -62,13 +72,33 @@
       "source": "afisha.uz"
     },
     {
-      "title": "Golden Summer в курортном комплексе Layner",
+      "title": "Golden Summer at Layner Resort",
       "titleRu": "Golden Summer в курортном комплексе Layner",
       "category": "festival",
       "venue": null,
       "startDate": "2026-08-03",
       "endDate": null,
       "url": "https://www.afisha.uz/ru/gorod/2026/07/30/golden-summer",
+      "source": "afisha.uz"
+    },
+    {
+      "title": "Children's day at the Sinbad pool",
+      "titleRu": "Детский день в бассейне Sinbad",
+      "category": "kids",
+      "venue": null,
+      "startDate": "2026-08-03",
+      "endDate": null,
+      "url": "https://www.afisha.uz/ru/children/2026/07/16/detskiy-den-sinbad-2026",
+      "source": "afisha.uz"
+    },
+    {
+      "title": "Summer Cooking Camp at Cook Book",
+      "titleRu": "Летний кулинарный лагерь в Cook Book",
+      "category": "kids",
+      "venue": null,
+      "startDate": "2026-08-03",
+      "endDate": "2026-08-08",
+      "url": "https://www.afisha.uz/ru/children/2026/08/01/letnii-kulinarnyi-lager-v-cook-book",
       "source": "afisha.uz"
     },
     {
@@ -82,7 +112,7 @@
       "source": "iticket.uz"
     },
     {
-      "title": "Мастер-классы в Dvoe Ceramics",
+      "title": "Master classes at Dvoe Ceramics",
       "titleRu": "Мастер-классы в Dvoe Ceramics",
       "category": "lecture",
       "venue": null,
@@ -92,7 +122,7 @@
       "source": "afisha.uz"
     },
     {
-      "title": "Мастер-класс «Римская мозаика»",
+      "title": "Master class “Roman mosaic”",
       "titleRu": "Мастер-класс «Римская мозаика»",
       "category": "lecture",
       "venue": null,
@@ -102,27 +132,7 @@
       "source": "afisha.uz"
     },
     {
-      "title": "Открытый микрофон",
-      "titleRu": "Открытый микрофон",
-      "category": "standup",
-      "venue": null,
-      "startDate": "2026-08-04",
-      "endDate": null,
-      "url": "https://www.afisha.uz/ru/standup/2026/07/29/open-mic-show",
-      "source": "afisha.uz"
-    },
-    {
-      "title": "Музыкальное шоу Muzlab",
-      "titleRu": "Музыкальное шоу Muzlab",
-      "category": "standup",
-      "venue": null,
-      "startDate": "2026-08-04",
-      "endDate": null,
-      "url": "https://www.afisha.uz/ru/standup/2026/08/01/muzykalnoe-shou-muzlab-4-avgusta",
-      "source": "afisha.uz"
-    },
-    {
-      "title": "Акция «Женский день» в водном комплексе More",
+      "title": "“Women’s Day” campaign at the More water complex",
       "titleRu": "Акция «Женский день» в водном комплексе More",
       "category": "festival",
       "venue": null,
@@ -132,7 +142,7 @@
       "source": "afisha.uz"
     },
     {
-      "title": "Проект «Другие игры. Импровизация»",
+      "title": "Project “Other Games. Improvisation\"",
       "titleRu": "Проект «Другие игры. Импровизация»",
       "category": "festival",
       "venue": null,
@@ -142,7 +152,17 @@
       "source": "afisha.uz"
     },
     {
-      "title": "Лекция о Мирзо Улугбеке",
+      "title": "Free game development course Game Dev Lab for teenagers",
+      "titleRu": "Бесплатный курс по разработке игр Game Dev Lab для подростков",
+      "category": "kids",
+      "venue": null,
+      "startDate": "2026-08-04",
+      "endDate": null,
+      "url": "https://www.afisha.uz/ru/children/2026/07/31/besplatnyy-kurs-game-dev-lab-dlya-podrostkov",
+      "source": "afisha.uz"
+    },
+    {
+      "title": "Lecture on Mirzo Ulugbek",
       "titleRu": "Лекция о Мирзо Улугбеке",
       "category": "lecture",
       "venue": null,
@@ -152,17 +172,17 @@
       "source": "afisha.uz"
     },
     {
-      "title": "Интерактивное шоу O’zuzanikila",
-      "titleRu": "Интерактивное шоу O’zuzanikila",
-      "category": "standup",
+      "title": "Course \"Digital Poetry\"",
+      "titleRu": "Курс «Цифровая Поэзия»",
+      "category": "kids",
       "venue": null,
       "startDate": "2026-08-05",
       "endDate": null,
-      "url": "https://www.afisha.uz/ru/standup/2026/07/28/o-zuzanikila",
+      "url": "https://www.afisha.uz/ru/children/2026/07/07/digital-poetry-course",
       "source": "afisha.uz"
     },
     {
-      "title": "Концерт группы Guthrie Govan Trio",
+      "title": "Guthrie Govan Trio concert",
       "titleRu": "Концерт группы Guthrie Govan Trio",
       "category": "concert",
       "venue": null,
@@ -172,7 +192,7 @@
       "source": "afisha.uz"
     },
     {
-      "title": "Встреча о профессии медсестры в Гете-Институте",
+      "title": "Meeting on the nursing profession at the Goethe-Institut",
       "titleRu": "Встреча о профессии медсестры в Гете-Институте",
       "category": "lecture",
       "venue": null,
@@ -182,7 +202,7 @@
       "source": "afisha.uz"
     },
     {
-      "title": "Лекция «Богини Луны» в Human House",
+      "title": "Lecture “Moon Goddess” at Human House",
       "titleRu": "Лекция «Богини Луны» в Human House",
       "category": "lecture",
       "venue": null,
@@ -192,37 +212,7 @@
       "source": "afisha.uz"
     },
     {
-      "title": "Шоу «ChatGPT против комиков»",
-      "titleRu": "Шоу «ChatGPT против комиков»",
-      "category": "standup",
-      "venue": null,
-      "startDate": "2026-08-06",
-      "endDate": null,
-      "url": "https://www.afisha.uz/ru/standup/2026/07/21/chat-gpt-komiklarga-qarshi",
-      "source": "afisha.uz"
-    },
-    {
-      "title": "Weekend Stand-up",
-      "titleRu": "Weekend Stand-up",
-      "category": "standup",
-      "venue": null,
-      "startDate": "2026-08-07",
-      "endDate": null,
-      "url": "https://www.afisha.uz/ru/standup/2026/08/01/weekend-stand-up-7-avgusta",
-      "source": "afisha.uz"
-    },
-    {
-      "title": "Stand-up шоу «Черновики»",
-      "titleRu": "Stand-up шоу «Черновики»",
-      "category": "standup",
-      "venue": null,
-      "startDate": "2026-08-07",
-      "endDate": null,
-      "url": "https://www.afisha.uz/ru/standup/2026/08/01/stand-up-shou-chernoviki-7-avgusta",
-      "source": "afisha.uz"
-    },
-    {
-      "title": "Фестиваль дыни 2026 в Хиве",
+      "title": "Melon Festival 2026 in Khiva",
       "titleRu": "Фестиваль дыни 2026 в Хиве",
       "category": "festival",
       "venue": null,
@@ -232,7 +222,7 @@
       "source": "afisha.uz"
     },
     {
-      "title": "Выступление MakSim в Хиве",
+      "title": "MakSim performance in Khiva",
       "titleRu": "Выступление MakSim в Хиве",
       "category": "concert",
       "venue": null,
@@ -242,7 +232,7 @@
       "source": "afisha.uz"
     },
     {
-      "title": "Спектакль Out of Order",
+      "title": "Performance Out of Order",
       "titleRu": "Спектакль Out of Order",
       "category": "theatre",
       "venue": null,
@@ -252,53 +242,13 @@
       "source": "afisha.uz"
     },
     {
-      "title": "Ярмарка Next Market",
+      "title": "Next Market Fair",
       "titleRu": "Ярмарка Next Market",
       "category": "exhibition",
       "venue": null,
       "startDate": "2026-08-08",
       "endDate": null,
       "url": "https://www.afisha.uz/ru/exhibitions/2026/07/24/next-market",
-      "source": "afisha.uz"
-    },
-    {
-      "title": "Футбольный матч «Бунёдкор» — ОКМК",
-      "titleRu": "Футбольный матч «Бунёдкор» — ОКМК",
-      "category": "sport",
-      "venue": null,
-      "startDate": "2026-08-08",
-      "endDate": null,
-      "url": "https://www.afisha.uz/ru/sport/2026/08/03/futbolnyi-match-bunyodkor-okmk-8-avgusta",
-      "source": "afisha.uz"
-    },
-    {
-      "title": "Стендап-шоу «Проверка нового»",
-      "titleRu": "Стендап-шоу «Проверка нового»",
-      "category": "standup",
-      "venue": null,
-      "startDate": "2026-08-08",
-      "endDate": null,
-      "url": "https://www.afisha.uz/ru/standup/2026/07/31/standup-proverka-novogo",
-      "source": "afisha.uz"
-    },
-    {
-      "title": "Шоу «Импровизация» с Бекзодом Юсуповым",
-      "titleRu": "Шоу «Импровизация» с Бекзодом Юсуповым",
-      "category": "standup",
-      "venue": null,
-      "startDate": "2026-08-08",
-      "endDate": null,
-      "url": "https://www.afisha.uz/ru/standup/2026/07/31/shou-improvizatsiya-s-bekzodom-yusupovym",
-      "source": "afisha.uz"
-    },
-    {
-      "title": "Юмористическое шоу «Есть две новости»",
-      "titleRu": "Юмористическое шоу «Есть две новости»",
-      "category": "standup",
-      "venue": null,
-      "startDate": "2026-08-08",
-      "endDate": null,
-      "url": "https://www.afisha.uz/ru/standup/2026/07/31/there-are-two-pieces-of-news",
       "source": "afisha.uz"
     },
     {
@@ -312,27 +262,17 @@
       "source": "iticket.uz"
     },
     {
-      "title": "Импровизационное шоу «Экзамен по Мужчинам»",
-      "titleRu": "Импровизационное шоу «Экзамен по Мужчинам»",
-      "category": "standup",
+      "title": "Children's culinary master classes at PRO.Khinkali",
+      "titleRu": "Детские кулинарные мастер-классы в PRO.Хинкали",
+      "category": "kids",
       "venue": null,
-      "startDate": "2026-08-09",
+      "startDate": "2026-08-08",
       "endDate": null,
-      "url": "https://www.afisha.uz/ru/standup/2026/07/29/the-men-exam",
+      "url": "https://www.afisha.uz/ru/children/2026/07/15/detskie-master-klassy-pro-hinkali",
       "source": "afisha.uz"
     },
     {
-      "title": "Открытый микрофон",
-      "titleRu": "Открытый микрофон",
-      "category": "standup",
-      "venue": null,
-      "startDate": "2026-08-11",
-      "endDate": null,
-      "url": "https://www.afisha.uz/ru/standup/2026/07/29/open-mic",
-      "source": "afisha.uz"
-    },
-    {
-      "title": "Концерт рок-хитов от Tynda.music",
+      "title": "Concert of rock hits from Tynda.music",
       "titleRu": "Концерт рок-хитов от Tynda.music",
       "category": "concert",
       "venue": null,
@@ -342,23 +282,13 @@
       "source": "afisha.uz"
     },
     {
-      "title": "Рок-концерт во дворце искусств «Туркистон»",
+      "title": "Rock concert at the Turkiston Palace of Arts",
       "titleRu": "Рок-концерт во дворце искусств «Туркистон»",
       "category": "concert",
       "venue": null,
       "startDate": "2026-08-13",
       "endDate": null,
       "url": "https://www.afisha.uz/ru/concerts/2026/07/14/rok-koncert-turkiston-avgust",
-      "source": "afisha.uz"
-    },
-    {
-      "title": "Шоу «Устный экзамен» в SAHNA stand-up club",
-      "titleRu": "Шоу «Устный экзамен» в SAHNA stand-up club",
-      "category": "standup",
-      "venue": null,
-      "startDate": "2026-08-13",
-      "endDate": null,
-      "url": "https://www.afisha.uz/ru/standup/2026/07/31/shou-ustnyy-ekzamen-sahna-stand-up-club",
       "source": "afisha.uz"
     },
     {
@@ -372,7 +302,7 @@
       "source": "iticket.uz"
     },
     {
-      "title": "Концерт Абдижаппара Алкожи",
+      "title": "Concert by Abdizhappar Alkozhi",
       "titleRu": "Концерт Абдижаппара Алкожи",
       "category": "concert",
       "venue": null,
@@ -419,6 +349,16 @@
       "startDate": "2026-08-15",
       "endDate": null,
       "url": "https://www.afisha.uz/ru/gorod/2026/07/02/comic-con-tashkent",
+      "source": "afisha.uz"
+    },
+    {
+      "title": "Children's play \"The Golden Egg\"",
+      "titleRu": "Детский спектакль «Золотое яйцо»",
+      "category": "kids",
+      "venue": null,
+      "startDate": "2026-08-16",
+      "endDate": null,
+      "url": "https://www.afisha.uz/ru/children/2026/07/27/zolotoe-yaico-art-mirage",
       "source": "afisha.uz"
     }
   ]
