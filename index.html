@@ -6044,12 +6044,12 @@ function tashkentEventsWindow(){
   const now = new Date();
   const startOfToday = new Date(now.getFullYear(), now.getMonth(), now.getDate());
   const buckets = [];
-  for(let i=0;i<7;i++){
+  for(let i=0;i<8;i++){
     const d = new Date(startOfToday);
     d.setDate(d.getDate()+i);
     buckets.push({ date: d, events: [] });
   }
-  const windowEnd = buckets[6].date;
+  const windowEnd = buckets[7].date;
 
   EVENTS_TASHKENT.forEach(e=>{
     const m = (e.startDate||'').match(/^(\d{4})-(\d{2})-(\d{2})$/);
@@ -6064,7 +6064,7 @@ function tashkentEventsWindow(){
     if(start > windowEnd) return;         // too far in the future
     const displayDate = start < startOfToday ? startOfToday : start;
     const dayIndex = Math.round((displayDate - startOfToday) / 86400000);
-    if(dayIndex >= 0 && dayIndex < 7){
+    if(dayIndex >= 0 && dayIndex < 8){
       buckets[dayIndex].events.push(e);
     }
   });
@@ -6091,7 +6091,7 @@ function eventsTashkentListHtml(){
     return `<div id="eventsTashkentBody" class="empty-card">Loading this week's events…</div>`;
   }
   if(totalCount === 0){
-    return `<div id="eventsTashkentBody" class="empty-card">Nothing on the list for the next 7 days. Check back tomorrow.</div>`;
+    return `<div id="eventsTashkentBody" class="empty-card">Nothing on the list for the next 8 days. Check back tomorrow.</div>`;
   }
 
   const groups = buckets.map((b, i)=>{
@@ -6124,7 +6124,7 @@ function viewEventsTashkent(){
     <section style="padding-top:14px;">
       <div class="section-head"><span class="emoji">${icon('calendar')}</span><h2>Events This Week</h2></div>
       <p style="font-size:13px; color:var(--ink-soft); margin:-6px 0 16px;">
-        Concerts, theatre, exhibitions, sport & lectures happening in Tashkent over the next 7 days.
+        Concerts, theatre, exhibitions, sport & lectures happening in Tashkent over the next 8 days.
         Tap any event to view tickets on the site it's sourced from.
       </p>
       ${eventsTashkentListHtml()}
@@ -6156,7 +6156,7 @@ function virtualEventsDatedWindow(){
   const now = new Date();
   const startOfToday = new Date(now.getFullYear(), now.getMonth(), now.getDate());
   const windowEnd = new Date(startOfToday);
-  windowEnd.setDate(windowEnd.getDate() + 6);
+  windowEnd.setDate(windowEnd.getDate() + 7);
   return VIRTUAL_EVENTS.dated.filter(e=>{
     const m = (e.startDate||'').match(/^(\d{4})-(\d{2})-(\d{2})$/);
     if(!m) return false;
@@ -6191,7 +6191,7 @@ function virtualEventsBodyHtml(){
   const datedInWindow = virtualEventsDatedWindow();
   const datedHtml = datedInWindow.length
     ? datedInWindow.map(virtualEventCardHtml).join('')
-    : '<div class="empty-card">No dated sessions fall in the next 7 days -- check the ongoing list below, or check back soon.</div>';
+    : '<div class="empty-card">No dated sessions fall in the next 8 days -- check the ongoing list below, or check back soon.</div>';
   const perpetualHtml = VIRTUAL_EVENTS.perpetual.length
     ? VIRTUAL_EVENTS.perpetual.map(virtualEventCardHtml).join('')
     : '<div class="empty-card">Nothing here yet.</div>';
@@ -6205,7 +6205,7 @@ function virtualEventsBodyHtml(){
         <span class="domain-chevron">${icon('chevronDown')}</span>
       </summary>
       <div class="domain-group-content">
-        <p style="font-size:12px; color:var(--ink-soft); margin:0 0 10px;">Live sessions with a specific start time, happening in the next 7 days.</p>
+        <p style="font-size:12px; color:var(--ink-soft); margin:0 0 10px;">Live sessions with a specific start time, happening in the next 8 days.</p>
         ${datedHtml}
       </div>
     </details>
