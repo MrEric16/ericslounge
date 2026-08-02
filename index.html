@@ -2752,7 +2752,7 @@ async function loadLiveSportsData(){
   const arsResultsEl = document.getElementById('arsenalResultsContainer');
   if(arsResultsEl){
     const results = arsenalAllResults();
-    arsResultsEl.innerHTML = matchListHtml(results, true);
+    arsResultsEl.outerHTML = arsenalResultsHtml(results);
   }
   const arsTableEl = document.getElementById('arsenalTableContainer');
   if(arsTableEl) arsTableEl.innerHTML = oneTableHtml(SPORTS_LEAGUES[0].teams);
@@ -2777,6 +2777,85 @@ function arsenalAllResults(){
   });
   merged.sort((a,b) => new Date(b.start) - new Date(a.start));
   return merged;
+}
+
+/* ---- Arsenal detailed results (scorer + minute, from goal.com scraper) ---- */
+let ARSENAL_DETAILED_RESULTS = [];
+let arsenalDetailedLoaded = false;
+
+async function loadArsenalDetailedResults(){
+  if(arsenalDetailedLoaded) return;
+  try{
+    const res = await fetch('./data/arsenal-results.json', { cache: 'no-store' });
+    if(!res.ok) throw new Error('fetch failed');
+    const data = await res.json();
+    ARSENAL_DETAILED_RESULTS = data.results || [];
+    arsenalDetailedLoaded = true;
+  }catch(e){ ARSENAL_DETAILED_RESULTS = []; }
+  const el = document.getElementById('arsenalResultsContainer');
+  if(el){ el.outerHTML = arsenalResultsHtml(arsenalAllResults()); }
+}
+
+function findArsenalDetail(m){
+  if(!m.start) return null;
+  const dateStr = new Date(m.start).toISOString().slice(0,10);
+  const norm = s => (s||'').toLowerCase().trim();
+  return ARSENAL_DETAILED_RESULTS.find(d => {
+    if(d.date !== dateStr) return false;
+    const dh = norm(d.home), da = norm(d.away), mh = norm(m.home), ma = norm(m.away);
+    return (dh.includes(mh) || mh.includes(dh)) && (da.includes(ma) || ma.includes(da));
+  }) || null;
+}
+
+window._arsenalDetailLookup = [];
+
+function arsenalResultsHtml(results){
+  if(!results || results.length === 0){
+    return '<div id="arsenalResultsContainer" class="empty-card">Nothing here yet — check back once the season\'s under way.</div>';
+  }
+  window._arsenalDetailLookup = [];
+  const items = results.map(m => {
+    const detail = findArsenalDetail(m);
+    const idx = window._arsenalDetailLookup.length;
+    if(detail) window._arsenalDetailLookup.push(detail);
+    const clickAttr = detail ? ` onclick="showArsenalMatchDetail(${idx})" style="cursor:pointer;"` : '';
+    return `
+    <div class="match-row"${clickAttr}>
+      <div class="match-teams">${escapeHtml(m.home)}${m.homeScore !== null ? ` <span class="match-score">${m.homeScore} - ${m.awayScore}</span> ` : ' v '}${escapeHtml(m.away)}</div>
+      <div class="match-date">${formatTashkentDate(m.start)}</div>
+    </div>`;
+  }).join('');
+  return `<div id="arsenalResultsContainer">${items}</div>`;
+}
+
+function showArsenalMatchDetail(idx){
+  const d = window._arsenalDetailLookup[idx];
+  if(!d) return;
+  const goalLine = g => `<div style="font-size:13px; padding:3px 0;">${escapeHtml(g.scorer)} <span style="opacity:.6;">${g.minute}'</span></div>`;
+  const homeGoals = d.homeGoals.length ? d.homeGoals.map(goalLine).join('') : '<div style="font-size:13px; opacity:.5;">No goals</div>';
+  const awayGoals = d.awayGoals.length ? d.awayGoals.map(goalLine).join('') : '<div style="font-size:13px; opacity:.5;">No goals</div>';
+  const overlay = document.createElement('div');
+  overlay.id = 'arsenalDetailOverlay';
+  overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:10010;display:flex;align-items:center;justify-content:center;padding:20px;';
+  overlay.innerHTML = `
+    <div style="background:var(--card);border-radius:16px;padding:22px 20px;max-width:360px;width:100%;color:var(--ink);">
+      <div style="text-align:center; font-weight:800; font-size:19px; margin-bottom:2px;">${escapeHtml(d.home)} ${d.ftHome} - ${d.ftAway} ${escapeHtml(d.away)}</div>
+      <div style="text-align:center; font-size:12px; color:var(--ink-soft); margin-bottom:16px;">HT ${d.htHome} - ${d.htAway} · FT</div>
+      <div style="display:flex; gap:18px;">
+        <div style="flex:1;">
+          <div style="font-weight:700; font-size:12px; text-transform:uppercase; letter-spacing:.03em; color:var(--ink-soft); margin-bottom:6px;">${escapeHtml(d.home)}</div>
+          ${homeGoals}
+        </div>
+        <div style="flex:1;">
+          <div style="font-weight:700; font-size:12px; text-transform:uppercase; letter-spacing:.03em; color:var(--ink-soft); margin-bottom:6px;">${escapeHtml(d.away)}</div>
+          ${awayGoals}
+        </div>
+      </div>
+      <button onclick="document.getElementById('arsenalDetailOverlay').remove()" style="margin-top:18px; width:100%; padding:11px; border-radius:999px; border:none; background:var(--coral); color:#fff; font-weight:700; font-family:'Nunito',sans-serif;">Close</button>
+    </div>
+  `;
+  document.body.appendChild(overlay);
+  overlay.addEventListener('click', (e)=>{ if(e.target === overlay) overlay.remove(); });
 }
 
 function matchListHtml(rows, showScore, centered){
@@ -5775,7 +5854,7 @@ function viewArsenalHub(){
           <span class="domain-count">${results.length}</span>
           <span class="domain-chevron">${icon('chevronDown')}</span>
         </summary>
-        <div class="domain-group-content" id="arsenalResultsContainer">${matchListHtml(results, true)}</div>
+        <div class="domain-group-content">${arsenalResultsHtml(results)}</div>
       </details>
 
       <details class="domain-group">
@@ -6685,7 +6764,7 @@ function renderRoute(opts){
   if(parts[0] === 'events-virtual'){ loadVirtualEvents(); }
   if(parts.length === 0){ loadOnThisDay(); loadWeather(); loadVoxPopuli(); loadLiveSportsData(); wireRandomButton(app); wireRandomVideoButton(app); wireRandomExploreButton(app); wireExtrasCarousel(app); checkAchievements(); }
   if(parts[0] === 'sports' && parts[1] === 'tables'){ loadLiveSportsData(); }
-  if(parts[0] === 'arsenal'){ loadLiveSportsData(); }
+  if(parts[0] === 'arsenal'){ loadLiveSportsData(); loadArsenalDetailedResults(); }
   if(parts[0] === 'sports' && parts[1] === 'league' && parts[2]){ loadLiveSportsData(); }
 
   // Swipe right to go back — only when the page we arrived from was Home itself.
