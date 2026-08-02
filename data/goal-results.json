@@ -1,1 +1,53 @@
-{"generatedAt": null, "results": []}
+{
+  "generatedAt": "2026-08-02T09:00:43.030475Z",
+  "results": [
+    {
+      "url": "https://www.goal.com/en/match/girona-vs-arsenal/__LS8d9Oc6I1wXn9g8956",
+      "date": "2026-08-01",
+      "home": "Girona",
+      "away": "Arsenal",
+      "htHome": 0,
+      "htAway": 2,
+      "ftHome": 1,
+      "ftAway": 4,
+      "homeGoals": [
+        {
+          "scorer": "A. Martinez",
+          "minute": 50
+        }
+      ],
+      "awayGoals": [
+        {
+          "scorer": "K. Havertz",
+          "minute": 16
+        },
+        {
+          "scorer": "C. Tzolis",
+          "minute": 30
+        },
+        {
+          "scorer": "M. Dowman",
+          "minute": 53
+        },
+        {
+          "scorer": "G. Jesus",
+          "minute": 55
+        }
+      ],
+      "competition": "arsenal-friendlies"
+    },
+    {
+      "url": "https://www.goal.com/en/match/paris-saint-germain-vs-arsenal/ugWugY2_bPeXkOmUCLC9s",
+      "date": "2026-05-30",
+      "home": "Paris Saint Germain",
+      "away": "Arsenal",
+      "htHome": 0,
+      "htAway": 1,
+      "ftHome": 1,
+      "ftAway": 1,
+      "homeGoals": [],
+      "awayGoals": [],
+      "competition": "CL"
+    }
+  ]
+}

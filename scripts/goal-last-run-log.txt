@@ -1,0 +1,14 @@
+[goal-scraper] Run started.
+[goal-scraper] [arsenal-friendlies] Found 1 finished-match links
+[goal-scraper] [arsenal-friendlies] Added: Girona 1-4 Arsenal
+[goal-scraper] [PL] Found 0 finished-match links
+[goal-scraper] [PD] Found 0 finished-match links
+[goal-scraper] [BL1] Found 0 finished-match links
+[goal-scraper] [SA] Found 0 finished-match links
+[goal-scraper] [FL1] Found 0 finished-match links
+[goal-scraper] [CL] Found 1 finished-match links
+[goal-scraper] WARNING: could not assign scorer 'O. Dembele' to home or away for https://www.goal.com/en/match/paris-saint-germain-vs-arsenal/ugWugY2_bPeXkOmUCLC9s
+[goal-scraper] WARNING: could not assign scorer 'K. Havertz' to home or away for https://www.goal.com/en/match/paris-saint-germain-vs-arsenal/ugWugY2_bPeXkOmUCLC9s
+[goal-scraper] [CL] Added: Paris Saint Germain 1-1 Arsenal
+[goal-scraper] TOTAL new results added this run: 2
+[goal-scraper] Wrote data/goal-results.json
