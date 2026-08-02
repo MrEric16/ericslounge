@@ -115,25 +115,17 @@
   .aurora-layer::before, .aurora-layer::after{
     content:''; position:absolute; width:140%; height:140%; border-radius:50%;
     filter:blur(60px); opacity:.28;
-    animation: auroraDrift 24s ease-in-out infinite alternate;
+    /* No longer animating -- this ran forever, every frame, competing with real
+       interactions for the main thread. Static positioning keeps the visual
+       without the ongoing cost. */
   }
   .aurora-layer::before{
     background:radial-gradient(circle, var(--coral) 0%, transparent 70%);
-    top:-45%; left:-35%;
+    top:-40%; left:-30%;
   }
   .aurora-layer::after{
     background:radial-gradient(circle, var(--gold) 0%, transparent 70%);
-    bottom:-45%; right:-35%;
-    animation-delay:-12s;
-  }
-  @keyframes auroraDrift{
-    0%{ transform:translate(0,0) scale(1); }
-    50%{ transform:translate(6%,4%) scale(1.1); }
-    100%{ transform:translate(-4%,-6%) scale(.95); }
-  }
-  #particleCanvas{
-    position:absolute; inset:0; z-index:-1; pointer-events:none;
-    opacity:.5;
+    bottom:-40%; right:-30%;
   }
   #weatherOverlay{
     position:absolute; inset:0; z-index:-1; pointer-events:none; overflow:hidden; opacity:0;
@@ -1766,7 +1758,6 @@
 
 <header>
   <div class="aurora-layer" aria-hidden="true"></div>
-  <canvas id="particleCanvas" aria-hidden="true"></canvas>
   <div id="weatherOverlay" aria-hidden="true"></div>
   <div class="wrap masthead">
     <div class="title-row" id="titleLink" title="Mr Eric's Lounge">
@@ -7870,111 +7861,6 @@ function badgeGridHtml(){
     </div>`).join('')}</div>`;
 }
 
-/* ---- 2: Particle constellation background (header only) ----
-   Performance note: this used to run requestAnimationFrame forever, all the
-   time, even while scrolled past the header or the tab was in the background
-   -- a real, continuous cost on weaker devices. Now it only runs while the
-   header is actually visible in the viewport AND the tab is active. */
-(function(){
-  const canvas = document.getElementById('particleCanvas');
-  if(!canvas || !canvas.getContext) return;
-  const ctx = canvas.getContext('2d');
-  let particles = [];
-  let running = false;
-  let rafId = null;
-  let frameSkip = 0;
-  function resize(){
-    const header = canvas.closest('header');
-    if(!header) return;
-    canvas.width = header.offsetWidth;
-    canvas.height = header.offsetHeight;
-  }
-  function initParticles(){
-    const count = Math.min(16, Math.floor((canvas.width * canvas.height) / 22000));
-    particles = Array.from({length: count}, () => ({
-      x: Math.random() * canvas.width,
-      y: Math.random() * canvas.height,
-      vx: (Math.random() - 0.5) * 0.25,
-      vy: (Math.random() - 0.5) * 0.25,
-    }));
-  }
-  function frame(){
-    if(!running) return;
-    // Throttle to ~1-in-3 frames (~20fps) -- the constellation doesn't need
-    // 60fps to look right, and this frees up real thread budget for actual
-    // interactions (tapping tiles, the weekend-egg animation, etc).
-    // Also pause entirely while the weekend-egg chaos animation is running,
-    // since that's already a demanding rAF loop of its own -- no reason to
-    // make it compete for frames.
-    frameSkip = (frameSkip + 1) % 3;
-    if(frameSkip !== 0 || window._weekendEggPlaying){
-      rafId = requestAnimationFrame(frame);
-      return;
-    }
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    particles.forEach(p=>{
-      p.x += p.vx; p.y += p.vy;
-      if(p.x < 0 || p.x > canvas.width) p.vx *= -1;
-      if(p.y < 0 || p.y > canvas.height) p.vy *= -1;
-    });
-    ctx.fillStyle = 'rgba(255,255,255,.55)';
-    particles.forEach(p=>{
-      ctx.beginPath();
-      ctx.arc(p.x, p.y, 1.4, 0, Math.PI * 2);
-      ctx.fill();
-    });
-    ctx.strokeStyle = 'rgba(255,255,255,.12)';
-    ctx.lineWidth = 1;
-    for(let i = 0; i < particles.length; i++){
-      for(let j = i + 1; j < particles.length; j++){
-        const dx = particles[i].x - particles[j].x, dy = particles[i].y - particles[j].y;
-        const dist = Math.sqrt(dx*dx + dy*dy);
-        if(dist < 90){
-          ctx.beginPath();
-          ctx.moveTo(particles[i].x, particles[i].y);
-          ctx.lineTo(particles[j].x, particles[j].y);
-          ctx.stroke();
-        }
-      }
-    }
-    rafId = requestAnimationFrame(frame);
-  }
-  function start(){
-    if(running) return;
-    running = true;
-    frame();
-  }
-  function stop(){
-    running = false;
-    if(rafId) cancelAnimationFrame(rafId);
-    rafId = null;
-  }
-  let hasStartedOnce = false;
-  function startDeferredFirstTime(){
-    if(hasStartedOnce){ start(); return; }
-    hasStartedOnce = true;
-    setTimeout(start, 800); // let initial page load/data fetches finish first
-  }
-  resize();
-  initParticles();
-
-  const header = canvas.closest('header');
-  let headerVisible = true;
-  if(header && 'IntersectionObserver' in window){
-    const io = new IntersectionObserver((entries)=>{
-      headerVisible = entries[0].isIntersecting;
-      if(headerVisible && !document.hidden) startDeferredFirstTime(); else stop();
-    }, { threshold: 0 });
-    io.observe(header);
-  } else {
-    startDeferredFirstTime();
-  }
-  document.addEventListener('visibilitychange', ()=>{
-    if(document.hidden) stop();
-    else if(headerVisible) start();
-  });
-  window.addEventListener('resize', ()=>{ resize(); initParticles(); }, { passive:true });
-})();
 
 /* ---- 3: Weather-reactive header overlay ---- */
 function applyWeatherOverlay(conditionText){
