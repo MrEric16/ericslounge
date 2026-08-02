@@ -171,6 +171,11 @@
     background:linear-gradient(135deg, var(--coral), var(--gold));
     display:flex; align-items:center; justify-content:center; margin:0 auto 6px;
     box-shadow:0 3px 0 rgba(58,42,30,.12);
+    transition:background .3s ease;
+  }
+  .story-circle .story-ring.seen{
+    background:var(--line);
+    box-shadow:none;
   }
   .story-circle .story-ring-inner{
     width:52px; height:52px; border-radius:50%; background:var(--card);
@@ -6526,33 +6531,31 @@ function viewHome(){
 
   return `
     <div class="story-bar">
-      <button class="story-circle" onclick="document.getElementById('weatherCard')?.scrollIntoView({behavior:'smooth', block:'center'})">
+      <button class="story-circle" data-story-id="weather" onclick="openStory('weather')">
         <div class="story-ring"><div class="story-ring-inner">☀️</div></div>
         <div class="story-label">Weather</div>
       </button>
-      <button class="story-circle" onclick="document.getElementById('extrasCarousel')?.scrollIntoView({behavior:'smooth', block:'center'})">
+      <button class="story-circle" data-story-id="word" onclick="openStory('word')">
         <div class="story-ring"><div class="story-ring-inner">📖</div></div>
         <div class="story-label">Word</div>
       </button>
-      <button class="story-circle" onclick="document.getElementById('extrasCarousel')?.scrollIntoView({behavior:'smooth', block:'center'})">
+      <button class="story-circle" data-story-id="fact" onclick="openStory('fact')">
         <div class="story-ring"><div class="story-ring-inner">🎲</div></div>
         <div class="story-label">Fact</div>
       </button>
-      <button class="story-circle" onclick="document.getElementById('extrasCarousel')?.scrollIntoView({behavior:'smooth', block:'center'})">
+      <button class="story-circle" data-story-id="quote" onclick="openStory('quote')">
         <div class="story-ring"><div class="story-ring-inner">💬</div></div>
         <div class="story-label">Quote</div>
       </button>
-      <button class="story-circle" onclick="location.hash='#birthdays'">
+      <button class="story-circle" data-story-id="birthdays" onclick="openStory('birthdays')">
         <div class="story-ring"><div class="story-ring-inner">🎂</div></div>
         <div class="story-label">B'days</div>
       </button>
-      <button class="story-circle" onclick="location.hash='#events-tashkent'">
+      <button class="story-circle" data-story-id="events" onclick="openStory('events')">
         <div class="story-ring"><div class="story-ring-inner">🎫</div></div>
         <div class="story-label">Events</div>
       </button>
     </div>
-    <div id="streakBadgeContainer" style="margin-bottom:16px;"></div>
-
     <section>
       <div class="section-head"><span class="emoji">${icon('gradcap')}</span><h2>Domains</h2></div>
       <div class="faculties">
@@ -6741,6 +6744,8 @@ function viewHome(){
     <section style="text-align:center; padding:20px 0 8px;">
       <a class="invite-link" href="#invite">${icon('star')}<span>Invite a friend</span></a>
     </section>
+
+    <div id="streakBadgeContainer" style="text-align:center; padding:4px 0 24px; opacity:.7;"></div>
   `;
 }
 
@@ -7001,7 +7006,7 @@ function renderRoute(opts){
   if(parts[0] === 'events-tashkent'){ loadTashkentEvents(); }
   if(parts[0] === 'invite'){ wireNativeShareButton(); }
   if(parts[0] === 'events-virtual'){ loadVirtualEvents(); }
-  if(parts.length === 0){ loadOnThisDay(); loadWeather(); loadVoxPopuli(); loadLiveSportsData(); wireRandomButton(app); wireRandomVideoButton(app); wireRandomExploreButton(app); wireExtrasCarousel(app); checkAchievements(); renderStreakBadge(); checkNewBadges(); }
+  if(parts.length === 0){ loadOnThisDay(); loadWeather(); loadVoxPopuli(); loadLiveSportsData(); wireRandomButton(app); wireRandomVideoButton(app); wireRandomExploreButton(app); wireExtrasCarousel(app); checkAchievements(); renderStreakBadge(); checkNewBadges(); updateStoryRings(); }
   if(parts[0] === 'sports' && parts[1] === 'tables'){ loadLiveSportsData(); }
   if(parts[0] === 'arsenal'){ loadLiveSportsData(); loadGoalResults(); }
   if(parts[0] === 'sports' && parts[1] === 'league' && parts[2]){ loadLiveSportsData(); loadGoalResults(); }
@@ -7713,6 +7718,58 @@ function updateArsenalCountdown(){
 })();
 
 /* ==================== Wow-factor batch: streaks, badges, ambient effects ==================== */
+
+/* ---- 10: Story bar -- opens actual content, tracks seen state (resets daily) ---- */
+function getTodayKeyLocal(){ return new Date().toISOString().slice(0,10); }
+function getSeenStories(){
+  try{
+    const data = JSON.parse(localStorage.getItem('seenStories') || 'null');
+    if(!data || data.date !== getTodayKeyLocal()) return new Set();
+    return new Set(data.ids);
+  }catch(e){ return new Set(); }
+}
+function markStorySeen(id){
+  try{
+    const seen = getSeenStories();
+    seen.add(id);
+    localStorage.setItem('seenStories', JSON.stringify({ date: getTodayKeyLocal(), ids: [...seen] }));
+  }catch(e){}
+  updateStoryRings();
+}
+function updateStoryRings(){
+  const seen = getSeenStories();
+  document.querySelectorAll('.story-circle').forEach(el=>{
+    const id = el.dataset.storyId;
+    const ring = el.querySelector('.story-ring');
+    if(!id || !ring) return;
+    ring.classList.toggle('seen', seen.has(id));
+  });
+}
+const STORY_CONTENT = {
+  weather: { title:'Weather', getHtml: ()=> (document.getElementById('weatherCard') && document.getElementById('weatherCard').innerHTML) || '<div class="empty-card">Still loading — try again in a second.</div>' },
+  word: { title:'Word of the Day', getHtml: ()=> wordOfTheDayHtml() },
+  fact: { title:'Random Fact', getHtml: ()=> randomFactHtml() },
+  quote: { title:'Quote of the Day', getHtml: ()=> quoteOfTheDayHtml() },
+  birthdays: { title:'Birthdays', getHtml: ()=> upcomingBirthdayTileHtml() },
+  events: { title:'Events This Week', getHtml: ()=> eventsTashkentListHtml() },
+};
+function openStory(id){
+  const cfg = STORY_CONTENT[id];
+  if(!cfg) return;
+  markStorySeen(id);
+  const overlay = document.createElement('div');
+  overlay.id = 'storyOverlay';
+  overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:10020;display:flex;align-items:center;justify-content:center;padding:20px;';
+  overlay.innerHTML = `
+    <div style="background:var(--card);border-radius:20px;padding:20px;max-width:400px;width:100%;max-height:80vh;overflow-y:auto;color:var(--ink);position:relative;">
+      <button onclick="document.getElementById('storyOverlay').remove()" style="position:absolute;top:10px;right:10px;background:none;border:none;font-size:26px;color:var(--ink-soft);cursor:pointer;line-height:1;padding:4px;">×</button>
+      <div style="font-family:'Baloo 2',sans-serif;font-weight:800;font-size:18px;margin-bottom:14px;padding-right:28px;">${cfg.title}</div>
+      <div>${cfg.getHtml()}</div>
+    </div>
+  `;
+  document.body.appendChild(overlay);
+  overlay.addEventListener('click', (e)=>{ if(e.target === overlay) overlay.remove(); });
+}
 
 /* ---- 11: Daily visit streak ---- */
 function updateStreak(){
