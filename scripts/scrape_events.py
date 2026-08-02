@@ -298,6 +298,8 @@ AFISHA_CATEGORIES = {
     "exhibitions": "exhibition",
     "sport": "sport",
     "znaniya": "lecture",
+    "standup": "standup",
+    "gorod": "festival",
 }
 
 
