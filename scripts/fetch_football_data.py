@@ -6,8 +6,15 @@ secret) -- never exposed to visitors' browsers.
 
 This replaces the previous architecture where every visitor's browser called
 football-data.org directly with a hardcoded key sitting in the public page
-source. That was a real exposure: anyone could copy the key from view-source,
-and every visitor's own request shared the same rate limit regardless.
+source -- a real exposure, and one that meant every visitor's request shared
+the same rate limit regardless of who was visiting.
+
+IMPORTANT: this also trims the data down server-side (only the soonest
+matchday's fixtures, only the last 15 results, only the fields actually used)
+instead of shipping entire raw season match lists to every visitor. The first
+version of this script did NOT do this and produced a 3.2MB JSON file -- way
+too large to ship on every page load. Trimmed output is a small fraction of
+that.
 
 Output: data/football-live.json -- the client reads this static file instead
 of calling football-data.org at all.
@@ -28,11 +35,6 @@ LEAGUE_CODES = ["PL", "PD", "BL1", "SA", "FL1", "CL"]
 ARSENAL_TEAM_ID = 57
 OUTPUT_PATH = "data/football-live.json"
 
-# Free tier is rate-limited to roughly 10 requests/minute -- confirmed for real via
-# 429 errors on the first live run of this script (3 of 13 requests got rate-limited
-# because they all fired back-to-back with no pacing). 7 seconds between requests
-# keeps us safely under that regardless of exact limit, at the cost of this script
-# taking a bit longer to run -- worth it for reliability over speed here.
 REQUEST_DELAY_SECONDS = 7
 
 
@@ -54,10 +56,62 @@ def get(url):
     return r.json()
 
 
+def trim_match(m):
+    home = m.get("homeTeam") or {}
+    away = m.get("awayTeam") or {}
+    comp = m.get("competition") or {}
+    return {
+        "utcDate": m.get("utcDate"),
+        "status": m.get("status"),
+        "matchday": m.get("matchday"),
+        "homeTeam": {"id": home.get("id"), "name": home.get("name"), "shortName": home.get("shortName")},
+        "awayTeam": {"id": away.get("id"), "name": away.get("name"), "shortName": away.get("shortName")},
+        "score": m.get("score"),
+        "competition": {"name": comp.get("name")} if comp else None,
+        "venue": m.get("venue"),
+    }
+
+
+def process_league_matches(all_matches):
+    fixtures = sorted(
+        [m for m in all_matches if m.get("status") in ("SCHEDULED", "TIMED")],
+        key=lambda m: m.get("utcDate") or "",
+    )
+    if fixtures and fixtures[0].get("matchday") is not None:
+        soonest = fixtures[0]["matchday"]
+        fixtures = [m for m in fixtures if m.get("matchday") == soonest]
+    else:
+        fixtures = fixtures[:15]
+    results = sorted(
+        [m for m in all_matches if m.get("status") == "FINISHED"],
+        key=lambda m: m.get("utcDate") or "",
+        reverse=True,
+    )[:15]
+    return {
+        "fixtures": [trim_match(m) for m in fixtures],
+        "results": [trim_match(m) for m in results],
+    }
+
+
+def process_standings(data):
+    total_table = next((s for s in data.get("standings", []) if s.get("type") == "TOTAL"), None)
+    if not total_table or not total_table.get("table"):
+        return None
+    if not any(row.get("playedGames", 0) > 0 for row in total_table["table"]):
+        return None
+    return [
+        {
+            "name": row["team"].get("shortName") or row["team"].get("name"),
+            "pld": row.get("playedGames"), "w": row.get("won"), "d": row.get("draw"), "l": row.get("lost"),
+            "gf": row.get("goalsFor"), "ga": row.get("goalsAgainst"), "pts": row.get("points"),
+        }
+        for row in total_table["table"]
+    ]
+
+
 def main():
     if not API_KEY:
-        log("FATAL: FOOTBALL_DATA_API_KEY environment variable not set. "
-            "Add it as a GitHub Actions repository secret.")
+        log("FATAL: FOOTBALL_DATA_API_KEY environment variable not set.")
         sys.exit(1)
 
     output = {
@@ -71,16 +125,21 @@ def main():
     for code in LEAGUE_CODES:
         try:
             data = get(f"{BASE}/competitions/{code}/standings")
-            output["standings"][code] = data
-            log(f"standings[{code}]: OK")
+            trimmed = process_standings(data)
+            if trimmed:
+                output["standings"][code] = trimmed
+            log(f"standings[{code}]: OK ({len(trimmed) if trimmed else 0} rows)")
         except Exception as e:
             log(f"standings[{code}]: FAILED ({e})")
         time.sleep(REQUEST_DELAY_SECONDS)
 
         try:
             data = get(f"{BASE}/competitions/{code}/matches")
-            output["matches"][code] = data.get("matches", [])
-            log(f"matches[{code}]: OK ({len(output['matches'][code])} matches)")
+            all_matches = data.get("matches", [])
+            output["matches"][code] = process_league_matches(all_matches)
+            log(f"matches[{code}]: OK (trimmed from {len(all_matches)} to "
+                f"{len(output['matches'][code]['fixtures'])} fixtures + "
+                f"{len(output['matches'][code]['results'])} results)")
         except Exception as e:
             log(f"matches[{code}]: FAILED ({e})")
         time.sleep(REQUEST_DELAY_SECONDS)
@@ -88,7 +147,7 @@ def main():
     try:
         data = get(f"{BASE}/teams/{ARSENAL_TEAM_ID}/matches?status=SCHEDULED&limit=1")
         matches = data.get("matches", [])
-        output["arsenalNextFixture"] = matches[0] if matches else None
+        output["arsenalNextFixture"] = trim_match(matches[0]) if matches else None
         log("arsenalNextFixture: OK")
     except Exception as e:
         log(f"arsenalNextFixture: FAILED ({e})")
@@ -96,7 +155,7 @@ def main():
 
     try:
         data = get(f"{BASE}/teams/{ARSENAL_TEAM_ID}/matches?status=FINISHED&limit=15")
-        output["arsenalFinishedMatches"] = data.get("matches", [])
+        output["arsenalFinishedMatches"] = [trim_match(m) for m in data.get("matches", [])]
         log(f"arsenalFinishedMatches: OK ({len(output['arsenalFinishedMatches'])} matches)")
     except Exception as e:
         log(f"arsenalFinishedMatches: FAILED ({e})")
@@ -104,7 +163,8 @@ def main():
     os.makedirs("data", exist_ok=True)
     with open(OUTPUT_PATH, "w", encoding="utf-8") as f:
         json.dump(output, f, ensure_ascii=False, indent=2)
-    log(f"Wrote {OUTPUT_PATH}")
+    size_kb = os.path.getsize(OUTPUT_PATH) / 1024
+    log(f"Wrote {OUTPUT_PATH} ({size_kb:.1f} KB)")
 
 
 if __name__ == "__main__":
