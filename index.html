@@ -7512,7 +7512,7 @@ function triggerWeekendEgg(){
   if(!el) return;
   const start = performance.now();
   const durationMs = 10000;
-  function randSeg(){ return Math.floor(Math.random() * 1000); } // 0-999, no padding -- digit count itself flickers
+  function randSeg(){ return pad(Math.floor(Math.random() * 100)); } // 00-99, always 2 digits -- fixed width, no layout flicker
   function frame(now){
     const elapsed = now - start;
     if(elapsed >= durationMs){
