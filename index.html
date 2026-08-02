@@ -2798,8 +2798,30 @@ async function loadGoalResults(){
     GOAL_RESULTS = data.results || [];
     goalResultsLoaded = true;
   }catch(e){ GOAL_RESULTS = []; }
+  // Re-render whichever results list is actually on screen, using the SAME
+  // results data that page would normally compute -- never hardcode which
+  // page's data this is, or it silently overwrites the wrong page's results
+  // (this exact bug happened: Arsenal's friendly result was appearing on
+  // every league page because this refresh used to always call
+  // arsenalAllResults() regardless of which page was visible).
   const el = document.getElementById('resultsDetailContainer');
-  if(el){ el.outerHTML = resultsWithDetailHtml(arsenalAllResults()); }
+  if(!el) return;
+  const hash = location.hash.replace('#', '');
+  const parts = hash.split('/').filter(Boolean);
+  let results = null;
+  if(parts[0] === 'arsenal'){
+    results = arsenalAllResults();
+  } else if(parts[0] === 'sports' && parts[1] === 'league' && parts[2]){
+    const code = parts[2];
+    const meta = LEAGUE_DETAIL_META[code];
+    const cache = window._sportsCache;
+    const staticLeague = meta ? SPORTS_LEAGUES.find(l => l.name === meta.name) : null;
+    const matches = (cache && cache.matches && cache.matches[code]) || { results: [] };
+    results = matches.results.length > 0 ? matches.results : ((staticLeague && staticLeague.results) || []);
+  }
+  if(results !== null){
+    el.outerHTML = resultsWithDetailHtml(results);
+  }
 }
 
 function findGoalResultDetail(m){
