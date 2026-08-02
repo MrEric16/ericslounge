@@ -2,8 +2,15 @@ name: Scrape Tashkent events
 
 on:
   schedule:
-    # 19:00 UTC = 00:00 Tashkent (UTC+5) -- daily midnight refresh
-    - cron: '0 19 * * *'
+    # Every 30 minutes, matching the other scrapers -- NOT because we need
+    # data every 30 min (this data only meaningfully changes once a day), but
+    # because a once-daily cron slot ('0 19 * * *') never once fired
+    # successfully: GitHub's schedule trigger is documented to be unreliable,
+    # especially exactly on the hour, and with only 1-2 chances a day both got
+    # silently skipped. The other scrapers on this repo use */30 and have
+    # fired successfully many times -- more opportunities per day means the
+    # same unreliable trigger actually succeeds at least a few times.
+    - cron: '*/30 * * * *'
   workflow_dispatch: {}
 
 permissions:
