@@ -27,6 +27,7 @@ from datetime import datetime, timedelta
 
 import requests
 from bs4 import BeautifulSoup
+from deep_translator import GoogleTranslator
 
 TODAY = datetime.utcnow() + timedelta(hours=5)  # Tashkent is UTC+5, no DST
 TODAY_MIDNIGHT = TODAY.replace(hour=0, minute=0, second=0, microsecond=0)
@@ -53,7 +54,12 @@ INCLUDE_HINT_RU = [
 ]
 EXCLUDE_KEYWORDS_RU = [
     "кино", "кинопоказ", "премьера фильма",           # cinema
-    "вечеринк", "клуб", "паб", "бар ", "dj ", "ночн",  # nightclub/nightlife
+    "ночной клуб", "паб", "бар ", "dj-сет", "dj сет",   # nightclub/nightlife (narrowed --
+                                                          # bare "клуб"/"party" was too broad,
+                                                          # caught "Muzqaymoq Party" (an ice
+                                                          # cream festival) and would catch
+                                                          # any "stand-up club" venue name too
+    "алкогол", "спиртн", "пиво", "коктейл",              # alcohol, specifically
     "квиз",                                             # quiz nights
     "квест", "escape room", "квест-рум",               # quests
     "аквапарк", "waterpark",                            # waterparks
@@ -64,7 +70,10 @@ EXCLUDE_KEYWORDS_RU = [
 ]
 EXCLUDE_KEYWORDS_EN = [
     "cinema", "movie premiere", "screening",
-    "nightclub", "night club", "party", "club night",
+    "nightclub", "night club",                          # narrowed from bare "party"/"club night" --
+                                                          # too many false positives on legitimate
+                                                          # brand-name events (e.g. "X Party" fairs)
+    "alcohol", "cocktail night", "beer fest", "wine tasting",
     "quiz night", "trivia night",
     "quest room", "escape room", "horror quest",
     "waterpark", "water park",
@@ -103,6 +112,23 @@ def guess_category(title, source_category):
 
 def log(msg):
     print(f"[scrape] {msg}", flush=True)
+
+
+_translator = GoogleTranslator(source="ru", target="en")
+
+
+def translate_ru_to_en(text):
+    """Translates a Russian title to English. Falls back to the original
+    Russian text on any failure (network issue, translation service down,
+    etc.) rather than dropping the event or crashing the whole run."""
+    if not text:
+        return text
+    try:
+        result = _translator.translate(text)
+        return result if result else text
+    except Exception as e:
+        log(f"Translation failed for {text[:40]!r}: {e}")
+        return text
 
 
 def norm(s):
@@ -298,8 +324,14 @@ AFISHA_CATEGORIES = {
     "exhibitions": "exhibition",
     "sport": "sport",
     "znaniya": "lecture",
-    "standup": "standup",
     "gorod": "festival",
+    "children": "kids",
+    # "standup" deliberately NOT included: afisha.uz has no reliable per-event
+    # 18+ marker to detect against (confirmed by inspecting real event pages --
+    # "18+" only appears in the site-wide footer disclaimer, identically on
+    # family-friendly pages too, so it's not a usable signal). Standup comedy
+    # skews adult-content by genre convention regardless of explicit labeling,
+    # so this category is excluded by default rather than guessed at per-event.
 }
 
 
@@ -350,8 +382,9 @@ def scrape_afisha_uz():
             half = len(clean_title) // 2
             if half > 4 and clean_title[:half].strip() == clean_title[half:].strip():
                 clean_title = clean_title[:half].strip()
+            english_title = translate_ru_to_en(clean_title)
             events.append({
-                "title": clean_title,
+                "title": english_title,
                 "titleRu": clean_title,
                 "category": guess_category(clean_title, category),
                 "venue": None,
