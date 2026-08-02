@@ -7506,13 +7506,13 @@ function openSnakeGame(){
   });
 })();
 function triggerWeekendEgg(){
-  showEasterEggPopup("Good things come to those who wait. Be patient", 2600);
+  showEasterEggPopup("Good things come to those who wait. Be patient", 10000);
   window._weekendEggPlaying = true;
   const el = document.getElementById('weekendCountdown');
   if(!el) return;
-  let fakeSeconds = 0;
   const start = performance.now();
-  const durationMs = 1400;
+  const durationMs = 10000;
+  function randSeg(){ return Math.floor(Math.random() * 1000); } // 0-999, no padding -- digit count itself flickers
   function frame(now){
     const elapsed = now - start;
     if(elapsed >= durationMs){
@@ -7520,13 +7520,7 @@ function triggerWeekendEgg(){
       updateWeekendCountdown();
       return;
     }
-    fakeSeconds += Math.floor(80 + Math.random() * 500);
-    let s = fakeSeconds;
-    const dd = Math.floor(s / 86400); s -= dd * 86400;
-    const hh = Math.floor(s / 3600); s -= hh * 3600;
-    const mm = Math.floor(s / 60); s -= mm * 60;
-    const ss = s;
-    el.textContent = `${pad(dd)}:${pad(hh)}:${pad(mm)}:${pad(ss)}`;
+    el.textContent = `${randSeg()}:${randSeg()}:${randSeg()}:${randSeg()}`;
     requestAnimationFrame(frame);
   }
   requestAnimationFrame(frame);
