@@ -266,6 +266,15 @@
     opacity:.85;
     white-space:nowrap;
   }
+  .board-cell .label.label-city-mode{
+    display:flex;
+    flex-direction:column;
+    white-space:normal;
+    line-height:1.25;
+    gap:1px;
+  }
+  .board-cell .label-city{ font-size:10px; }
+  .board-cell .label-country{ font-size:8px; opacity:.75; letter-spacing:.05em; }
   .board-cell .value{
     font-family:'Space Mono', monospace;
     font-weight:700;
@@ -7304,8 +7313,153 @@ requestAnimationFrame(syncTabBarHeight); // catch any late font-load reflow
 /* ---- Live clock ---- */
 function pad(n){ return n.toString().padStart(2,'0'); }
 
+/* ---- Local time tile: tap to cycle through capital cities ---- */
+const CAPITAL_CITIES = [
+  { city:"London", country:"United Kingdom", tz:"Europe/London" },
+  { city:"Paris", country:"France", tz:"Europe/Paris" },
+  { city:"Berlin", country:"Germany", tz:"Europe/Berlin" },
+  { city:"Madrid", country:"Spain", tz:"Europe/Madrid" },
+  { city:"Rome", country:"Italy", tz:"Europe/Rome" },
+  { city:"Moscow", country:"Russia", tz:"Europe/Moscow" },
+  { city:"Washington, D.C.", country:"United States", tz:"America/New_York" },
+  { city:"Ottawa", country:"Canada", tz:"America/Toronto" },
+  { city:"Mexico City", country:"Mexico", tz:"America/Mexico_City" },
+  { city:"Brasília", country:"Brazil", tz:"America/Sao_Paulo" },
+  { city:"Buenos Aires", country:"Argentina", tz:"America/Argentina/Buenos_Aires" },
+  { city:"Beijing", country:"China", tz:"Asia/Shanghai" },
+  { city:"Tokyo", country:"Japan", tz:"Asia/Tokyo" },
+  { city:"Seoul", country:"South Korea", tz:"Asia/Seoul" },
+  { city:"New Delhi", country:"India", tz:"Asia/Kolkata" },
+  { city:"Islamabad", country:"Pakistan", tz:"Asia/Karachi" },
+  { city:"Jakarta", country:"Indonesia", tz:"Asia/Jakarta" },
+  { city:"Bangkok", country:"Thailand", tz:"Asia/Bangkok" },
+  { city:"Hanoi", country:"Vietnam", tz:"Asia/Ho_Chi_Minh" },
+  { city:"Manila", country:"Philippines", tz:"Asia/Manila" },
+  { city:"Canberra", country:"Australia", tz:"Australia/Sydney" },
+  { city:"Wellington", country:"New Zealand", tz:"Pacific/Auckland" },
+  { city:"Cairo", country:"Egypt", tz:"Africa/Cairo" },
+  { city:"Pretoria", country:"South Africa", tz:"Africa/Johannesburg" },
+  { city:"Nairobi", country:"Kenya", tz:"Africa/Nairobi" },
+  { city:"Abuja", country:"Nigeria", tz:"Africa/Lagos" },
+  { city:"Addis Ababa", country:"Ethiopia", tz:"Africa/Addis_Ababa" },
+  { city:"Riyadh", country:"Saudi Arabia", tz:"Asia/Riyadh" },
+  { city:"Abu Dhabi", country:"UAE", tz:"Asia/Dubai" },
+  { city:"Doha", country:"Qatar", tz:"Asia/Qatar" },
+  { city:"Tehran", country:"Iran", tz:"Asia/Tehran" },
+  { city:"Ankara", country:"Turkey", tz:"Europe/Istanbul" },
+  { city:"Athens", country:"Greece", tz:"Europe/Athens" },
+  { city:"Lisbon", country:"Portugal", tz:"Europe/Lisbon" },
+  { city:"Amsterdam", country:"Netherlands", tz:"Europe/Amsterdam" },
+  { city:"Brussels", country:"Belgium", tz:"Europe/Brussels" },
+  { city:"Bern", country:"Switzerland", tz:"Europe/Zurich" },
+  { city:"Vienna", country:"Austria", tz:"Europe/Vienna" },
+  { city:"Stockholm", country:"Sweden", tz:"Europe/Stockholm" },
+  { city:"Oslo", country:"Norway", tz:"Europe/Oslo" },
+  { city:"Copenhagen", country:"Denmark", tz:"Europe/Copenhagen" },
+  { city:"Helsinki", country:"Finland", tz:"Europe/Helsinki" },
+  { city:"Warsaw", country:"Poland", tz:"Europe/Warsaw" },
+  { city:"Prague", country:"Czechia", tz:"Europe/Prague" },
+  { city:"Budapest", country:"Hungary", tz:"Europe/Budapest" },
+  { city:"Dublin", country:"Ireland", tz:"Europe/Dublin" },
+  { city:"Kyiv", country:"Ukraine", tz:"Europe/Kyiv" },
+  { city:"Reykjavik", country:"Iceland", tz:"Atlantic/Reykjavik" },
+  { city:"Havana", country:"Cuba", tz:"America/Havana" },
+  { city:"Bogotá", country:"Colombia", tz:"America/Bogota" },
+  { city:"Lima", country:"Peru", tz:"America/Lima" },
+  { city:"Santiago", country:"Chile", tz:"America/Santiago" },
+  { city:"Caracas", country:"Venezuela", tz:"America/Caracas" },
+  { city:"Kingston", country:"Jamaica", tz:"America/Jamaica" },
+  { city:"Astana", country:"Kazakhstan", tz:"Asia/Almaty" },
+  { city:"Baku", country:"Azerbaijan", tz:"Asia/Baku" },
+  { city:"Yerevan", country:"Armenia", tz:"Asia/Yerevan" },
+  { city:"Tbilisi", country:"Georgia", tz:"Asia/Tbilisi" },
+  { city:"Ulaanbaatar", country:"Mongolia", tz:"Asia/Ulaanbaatar" },
+  { city:"Kathmandu", country:"Nepal", tz:"Asia/Kathmandu" },
+  { city:"Dhaka", country:"Bangladesh", tz:"Asia/Dhaka" },
+  { city:"Colombo", country:"Sri Lanka", tz:"Asia/Colombo" },
+  { city:"Kuala Lumpur", country:"Malaysia", tz:"Asia/Kuala_Lumpur" },
+  { city:"Singapore", country:"Singapore", tz:"Asia/Singapore" },
+  { city:"Suva", country:"Fiji", tz:"Pacific/Fiji" },
+  { city:"Kabul", country:"Afghanistan", tz:"Asia/Kabul" },
+];
+
+function shuffleCities(arr){
+  const a = arr.slice();
+  for(let i = a.length - 1; i > 0; i--){
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+// Freshly reshuffled every page load, per spec -- a new random traversal order
+// each time, but every capital is shown once before any repeat within that load.
+let clockCityQueue = shuffleCities(CAPITAL_CITIES);
+let clockCityIndex = 0;
+let clockActiveCity = null; // null = default Tashkent/device-local time
+
+function updateClockLabel(){
+  const labelEl = document.querySelector('.board-cell .label');
+  if(!labelEl) return;
+  if(!clockActiveCity){
+    labelEl.classList.remove('label-city-mode');
+    labelEl.textContent = 'Local time';
+    return;
+  }
+  const combined = `${clockActiveCity.city}, ${clockActiveCity.country}`;
+  if(combined.length > 20){
+    labelEl.classList.add('label-city-mode');
+    labelEl.innerHTML = `<span class="label-city">${escapeHtml(clockActiveCity.city)}</span><span class="label-country">${escapeHtml(clockActiveCity.country)}</span>`;
+  } else {
+    labelEl.classList.remove('label-city-mode');
+    labelEl.textContent = combined;
+  }
+}
+
+let clockTapCount = 0;
+let clockTapTimer = null;
+function wireClockTapCycling(){
+  const clockEl = document.getElementById('clock');
+  const cell = clockEl && clockEl.closest('.board-cell');
+  if(!cell) return;
+  cell.style.cursor = 'pointer';
+  cell.addEventListener('click', ()=>{
+    clockTapCount++;
+    if(clockTapCount === 1){
+      clockTapTimer = setTimeout(()=>{
+        clockActiveCity = clockCityQueue[clockCityIndex];
+        clockCityIndex++;
+        if(clockCityIndex >= clockCityQueue.length){
+          clockCityIndex = 0;
+          clockCityQueue = shuffleCities(CAPITAL_CITIES);
+        }
+        updateClockLabel();
+        updateClock();
+        clockTapCount = 0;
+      }, 320);
+    } else if(clockTapCount >= 2){
+      clearTimeout(clockTapTimer);
+      clockActiveCity = null;
+      updateClockLabel();
+      updateClock();
+      clockTapCount = 0;
+    }
+  });
+}
+
 function updateClock(){
   const now = new Date();
+  if(clockActiveCity){
+    const parts = new Intl.DateTimeFormat('en-GB', {
+      timeZone: clockActiveCity.tz,
+      hour:'2-digit', minute:'2-digit', second:'2-digit',
+      day:'2-digit', month:'2-digit', year:'numeric', hour12:false,
+    }).formatToParts(now);
+    const get = t => (parts.find(p=>p.type===t) || {}).value || '--';
+    document.getElementById('clock').textContent = `${get('hour')}:${get('minute')}:${get('second')}`;
+    document.getElementById('clockDate').textContent = `${get('day')}/${get('month')}/${get('year')}`;
+    return;
+  }
   document.getElementById('clock').textContent =
     `${pad(now.getHours())}:${pad(now.getMinutes())}:${pad(now.getSeconds())}`;
   document.getElementById('clockDate').textContent =
@@ -7367,6 +7521,7 @@ function updateArsenalCountdown(){
 
 updateClock();
 updateWeekendCountdown();
+wireClockTapCycling();
 setInterval(updateClock, 1000);
 setInterval(updateWeekendCountdown, 1000);
 setInterval(updateArsenalCountdown, 1000);
