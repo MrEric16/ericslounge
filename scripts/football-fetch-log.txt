@@ -9,7 +9,7 @@
 [football-fetch] standings[FL1]: OK
 [football-fetch] matches[FL1]: OK (306 matches)
 [football-fetch] standings[CL]: OK
-[football-fetch] matches[CL]: FAILED (429 Client Error:  for url: https://api.football-data.org/v4/competitions/CL/matches)
-[football-fetch] arsenalNextFixture: FAILED (429 Client Error:  for url: https://api.football-data.org/v4/teams/57/matches?status=SCHEDULED&limit=1)
-[football-fetch] arsenalFinishedMatches: FAILED (429 Client Error:  for url: https://api.football-data.org/v4/teams/57/matches?status=FINISHED&limit=15)
+[football-fetch] matches[CL]: OK (189 matches)
+[football-fetch] arsenalNextFixture: OK
+[football-fetch] arsenalFinishedMatches: OK (0 matches)
 [football-fetch] Wrote data/football-live.json
