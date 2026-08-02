@@ -2790,34 +2790,21 @@ async function loadLiveSportsData(){
           if(!res.ok) throw new Error('bad response '+res.status);
           const live = await res.json();
 
+          // Server-side script now pre-filters this (soonest matchday only, last 15
+          // results, trimmed standings fields) before writing the JSON, so no
+          // client-side filtering is needed here anymore -- just map to display rows.
           for(const code of Object.keys(LEAGUE_DETAIL_META)){
-            const standingsData = live.standings && live.standings[code];
-            if(standingsData){
-              const totalTable = (standingsData.standings || []).find(s => s.type === 'TOTAL');
-              if(totalTable && totalTable.table && totalTable.table.length && totalTable.table.some(row => row.playedGames > 0)){
-                fresh.leagues[code] = totalTable.table.map(row => ({
-                  name: row.team.shortName || row.team.name,
-                  pld: row.playedGames, w: row.won, d: row.draw, l: row.lost,
-                  gf: row.goalsFor, ga: row.goalsAgainst, pts: row.points,
-                }));
-              }
+            const standingsRows = live.standings && live.standings[code];
+            if(standingsRows && standingsRows.length){
+              fresh.leagues[code] = standingsRows;
             }
 
-            const all = (live.matches && live.matches[code]) || [];
-            if(all.length){
-              let fixtures = all.filter(m => m.status === 'SCHEDULED' || m.status === 'TIMED')
-                .sort((a,b) => new Date(a.utcDate) - new Date(b.utcDate))
-                .map(matchToRow);
-              if(fixtures.length > 0 && fixtures[0].matchday !== null){
-                const soonest = fixtures[0].matchday;
-                fixtures = fixtures.filter(f => f.matchday === soonest);
-              } else {
-                fixtures = fixtures.slice(0, 15);
-              }
-              const results = all.filter(m => m.status === 'FINISHED')
-                .sort((a,b) => new Date(b.utcDate) - new Date(a.utcDate))
-                .slice(0, 15).map(matchToRow);
-              fresh.matches[code] = { fixtures, results };
+            const leagueMatches = live.matches && live.matches[code];
+            if(leagueMatches){
+              fresh.matches[code] = {
+                fixtures: (leagueMatches.fixtures || []).map(matchToRow),
+                results: (leagueMatches.results || []).map(matchToRow),
+              };
             }
           }
 
