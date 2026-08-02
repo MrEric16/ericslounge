@@ -1,66 +1,6 @@
 {
-  "generatedAt": "2026-08-02T19:42:32.610256Z",
+  "generatedAt": "2026-08-02T20:11:48.756301Z",
   "events": [
-    {
-      "title": "Exhibition “Photochronicles of the 20th century”",
-      "titleRu": "Выставка «Фотохроника XX века»",
-      "category": "exhibition",
-      "venue": null,
-      "startDate": "2026-06-25",
-      "endDate": "2026-08-25",
-      "url": "https://www.afisha.uz/ru/exhibitions/2026/06/25/photo-chronicle-xx",
-      "source": "afisha.uz"
-    },
-    {
-      "title": "Palma & Chilla beach in Milliy Bog’ park",
-      "titleRu": "Пляж Palma & Chilla в парке Milliy Bog’",
-      "category": "festival",
-      "venue": null,
-      "startDate": "2026-07-16",
-      "endDate": "2026-08-31",
-      "url": "https://www.afisha.uz/ru/gorod/2026/07/16/palma-chilla-milliy-bog-2026",
-      "source": "afisha.uz"
-    },
-    {
-      "title": "Uzbegim Market fair in Tashkent City Park",
-      "titleRu": "Ярмарка Uzbegim Market в парке Tashkent City",
-      "category": "festival",
-      "venue": null,
-      "startDate": "2026-07-16",
-      "endDate": "2026-09-30",
-      "url": "https://www.afisha.uz/ru/gorod/2026/07/16/uzbegim-market-2026",
-      "source": "afisha.uz"
-    },
-    {
-      "title": "Exhibition “Generation Z” at Andakulova Gallery",
-      "titleRu": "Выставка «Поколение Z» в Andakulova Gallery",
-      "category": "exhibition",
-      "venue": null,
-      "startDate": "2026-07-25",
-      "endDate": "2026-08-09",
-      "url": "https://www.afisha.uz/ru/exhibitions/2026/07/23/pokolenie-z-andakulova-gallery",
-      "source": "afisha.uz"
-    },
-    {
-      "title": "Theater and circus show Nova Circus",
-      "titleRu": "Театрально-цирковое шоу Nova Circus",
-      "category": "kids",
-      "venue": null,
-      "startDate": "2026-07-28",
-      "endDate": "2026-08-31",
-      "url": "https://www.afisha.uz/ru/children/2026/07/28/nova-circus-tashkent-city",
-      "source": "afisha.uz"
-    },
-    {
-      "title": "Creative workshops in Potterville",
-      "titleRu": "Творческие мастер-классы в Potterville",
-      "category": "lecture",
-      "venue": null,
-      "startDate": "2026-08-01",
-      "endDate": "2026-08-31",
-      "url": "https://www.afisha.uz/ru/znaniya/2026/07/29/potterville-avgust-2026",
-      "source": "afisha.uz"
-    },
     {
       "title": "Opening of Alpha Sport Sergeli Fit",
       "titleRu": "Открытие Alpha Sport Sergeli Fit",
@@ -68,6 +8,7 @@
       "venue": null,
       "startDate": "2026-08-03",
       "endDate": null,
+      "time": null,
       "url": "https://www.afisha.uz/ru/sport/2026/07/30/alpha-sport-sergeli-fit",
       "source": "afisha.uz"
     },
@@ -78,6 +19,7 @@
       "venue": null,
       "startDate": "2026-08-03",
       "endDate": null,
+      "time": null,
       "url": "https://www.afisha.uz/ru/gorod/2026/07/30/golden-summer",
       "source": "afisha.uz"
     },
@@ -88,17 +30,8 @@
       "venue": null,
       "startDate": "2026-08-03",
       "endDate": null,
+      "time": null,
       "url": "https://www.afisha.uz/ru/children/2026/07/16/detskiy-den-sinbad-2026",
-      "source": "afisha.uz"
-    },
-    {
-      "title": "Summer Cooking Camp at Cook Book",
-      "titleRu": "Летний кулинарный лагерь в Cook Book",
-      "category": "kids",
-      "venue": null,
-      "startDate": "2026-08-03",
-      "endDate": "2026-08-08",
-      "url": "https://www.afisha.uz/ru/children/2026/08/01/letnii-kulinarnyi-lager-v-cook-book",
       "source": "afisha.uz"
     },
     {
@@ -112,12 +45,24 @@
       "source": "iticket.uz"
     },
     {
+      "title": "Opening of Alpha Sport Sergeli Fit",
+      "titleRu": "Открытие Alpha Sport Sergeli Fit",
+      "category": "sport",
+      "venue": null,
+      "startDate": "2026-08-04",
+      "endDate": null,
+      "time": null,
+      "url": "https://www.afisha.uz/ru/sport/2026/07/30/alpha-sport-sergeli-fit",
+      "source": "afisha.uz"
+    },
+    {
       "title": "Master classes at Dvoe Ceramics",
       "titleRu": "Мастер-классы в Dvoe Ceramics",
       "category": "lecture",
       "venue": null,
       "startDate": "2026-08-04",
       "endDate": null,
+      "time": "14:30",
       "url": "https://www.afisha.uz/ru/znaniya/2026/07/28/dvoe-ceramics",
       "source": "afisha.uz"
     },
@@ -128,6 +73,7 @@
       "venue": null,
       "startDate": "2026-08-04",
       "endDate": null,
+      "time": "18:30",
       "url": "https://www.afisha.uz/ru/znaniya/2026/07/23/kira-mosaic",
       "source": "afisha.uz"
     },
@@ -138,6 +84,7 @@
       "venue": null,
       "startDate": "2026-08-04",
       "endDate": null,
+      "time": null,
       "url": "https://www.afisha.uz/ru/gorod/2026/07/17/zhenskiy-den-more-2026",
       "source": "afisha.uz"
     },
@@ -148,6 +95,7 @@
       "venue": null,
       "startDate": "2026-08-04",
       "endDate": null,
+      "time": "19:30",
       "url": "https://www.afisha.uz/ru/gorod/2026/07/28/drugie-igry-improvizatsiya-avgust",
       "source": "afisha.uz"
     },
@@ -158,7 +106,30 @@
       "venue": null,
       "startDate": "2026-08-04",
       "endDate": null,
+      "time": "11:00",
       "url": "https://www.afisha.uz/ru/children/2026/07/31/besplatnyy-kurs-game-dev-lab-dlya-podrostkov",
+      "source": "afisha.uz"
+    },
+    {
+      "title": "Opening of Alpha Sport Sergeli Fit",
+      "titleRu": "Открытие Alpha Sport Sergeli Fit",
+      "category": "sport",
+      "venue": null,
+      "startDate": "2026-08-05",
+      "endDate": null,
+      "time": null,
+      "url": "https://www.afisha.uz/ru/sport/2026/07/30/alpha-sport-sergeli-fit",
+      "source": "afisha.uz"
+    },
+    {
+      "title": "Master classes at Dvoe Ceramics",
+      "titleRu": "Мастер-классы в Dvoe Ceramics",
+      "category": "lecture",
+      "venue": null,
+      "startDate": "2026-08-05",
+      "endDate": null,
+      "time": "12:00",
+      "url": "https://www.afisha.uz/ru/znaniya/2026/07/28/dvoe-ceramics",
       "source": "afisha.uz"
     },
     {
@@ -168,6 +139,7 @@
       "venue": null,
       "startDate": "2026-08-05",
       "endDate": null,
+      "time": "18:30",
       "url": "https://www.afisha.uz/ru/znaniya/2026/07/17/mirzo-ulugbek",
       "source": "afisha.uz"
     },
@@ -178,7 +150,41 @@
       "venue": null,
       "startDate": "2026-08-05",
       "endDate": null,
+      "time": null,
       "url": "https://www.afisha.uz/ru/children/2026/07/07/digital-poetry-course",
+      "source": "afisha.uz"
+    },
+    {
+      "title": "Musical evenings at PAUL",
+      "titleRu": "Музыкальные вечера в PAUL",
+      "category": "concert",
+      "venue": null,
+      "startDate": "2026-08-05",
+      "endDate": null,
+      "time": "19:00",
+      "url": "https://www.afisha.uz/ru/restaurants/2026/07/17/paul-music-evenings",
+      "source": "afisha.uz"
+    },
+    {
+      "title": "\"Musical Lotto\" at Beerbasha",
+      "titleRu": "«Музыкальное лото» в Beerbasha",
+      "category": "concert",
+      "venue": null,
+      "startDate": "2026-08-05",
+      "endDate": null,
+      "time": "19:45",
+      "url": "https://www.afisha.uz/ru/restaurants/2026/08/01/muzykalnoe-loto-v-beerbasha-5-avgusta",
+      "source": "afisha.uz"
+    },
+    {
+      "title": "Promotion “Cinema Holiday on Wednesday”",
+      "titleRu": "Акция «Кинопраздник в среду»",
+      "category": "festival",
+      "venue": null,
+      "startDate": "2026-08-05",
+      "endDate": null,
+      "time": null,
+      "url": "https://www.afisha.uz/ru/cinema/2026/07/16/kinoprazdnik-v-sredu",
       "source": "afisha.uz"
     },
     {
@@ -188,7 +194,19 @@
       "venue": null,
       "startDate": "2026-08-06",
       "endDate": null,
+      "time": "19:00",
       "url": "https://www.afisha.uz/ru/concerts/2026/06/23/guthrie-govan-trio",
+      "source": "afisha.uz"
+    },
+    {
+      "title": "Master classes at Dvoe Ceramics",
+      "titleRu": "Мастер-классы в Dvoe Ceramics",
+      "category": "lecture",
+      "venue": null,
+      "startDate": "2026-08-06",
+      "endDate": null,
+      "time": "17:00",
+      "url": "https://www.afisha.uz/ru/znaniya/2026/07/28/dvoe-ceramics",
       "source": "afisha.uz"
     },
     {
@@ -198,6 +216,7 @@
       "venue": null,
       "startDate": "2026-08-06",
       "endDate": null,
+      "time": "17:00",
       "url": "https://www.afisha.uz/ru/znaniya/2026/08/01/vstrecha-o-professii-medsestry-v-gete-institute",
       "source": "afisha.uz"
     },
@@ -208,7 +227,63 @@
       "venue": null,
       "startDate": "2026-08-06",
       "endDate": null,
+      "time": "18:30",
       "url": "https://www.afisha.uz/ru/znaniya/2026/07/31/lektsiya-bogini-luny-human-house-6-avgusta",
+      "source": "afisha.uz"
+    },
+    {
+      "title": "Free game development course Game Dev Lab for teenagers",
+      "titleRu": "Бесплатный курс по разработке игр Game Dev Lab для подростков",
+      "category": "kids",
+      "venue": null,
+      "startDate": "2026-08-06",
+      "endDate": null,
+      "time": "11:00",
+      "url": "https://www.afisha.uz/ru/children/2026/07/31/besplatnyy-kurs-game-dev-lab-dlya-podrostkov",
+      "source": "afisha.uz"
+    },
+    {
+      "title": "Musical evenings at PAUL",
+      "titleRu": "Музыкальные вечера в PAUL",
+      "category": "concert",
+      "venue": null,
+      "startDate": "2026-08-06",
+      "endDate": null,
+      "time": "19:00",
+      "url": "https://www.afisha.uz/ru/restaurants/2026/07/17/paul-music-evenings",
+      "source": "afisha.uz"
+    },
+    {
+      "title": "Party of the 2000s at Ugolyok",
+      "titleRu": "Вечеринка 2000-х в «Уголёк»",
+      "category": "concert",
+      "venue": null,
+      "startDate": "2026-08-06",
+      "endDate": null,
+      "time": "18:00",
+      "url": "https://www.afisha.uz/ru/restaurants/2026/07/27/ugolek-2000",
+      "source": "afisha.uz"
+    },
+    {
+      "title": "Game \"Brain Slaughterhouse: Office\"",
+      "titleRu": "Игра «Мозгобойня: Офис»",
+      "category": "concert",
+      "venue": null,
+      "startDate": "2026-08-06",
+      "endDate": null,
+      "time": "19:00",
+      "url": "https://www.afisha.uz/ru/restaurants/2026/07/23/mozgoboynya-ofis",
+      "source": "afisha.uz"
+    },
+    {
+      "title": "Master classes at Dvoe Ceramics",
+      "titleRu": "Мастер-классы в Dvoe Ceramics",
+      "category": "lecture",
+      "venue": null,
+      "startDate": "2026-08-07",
+      "endDate": null,
+      "time": "17:00",
+      "url": "https://www.afisha.uz/ru/znaniya/2026/07/28/dvoe-ceramics",
       "source": "afisha.uz"
     },
     {
@@ -218,7 +293,74 @@
       "venue": null,
       "startDate": "2026-08-07",
       "endDate": null,
+      "time": null,
       "url": "https://www.afisha.uz/ru/gorod/2026/07/14/qovun-sayli",
+      "source": "afisha.uz"
+    },
+    {
+      "title": "“Women’s Day” campaign at the More water complex",
+      "titleRu": "Акция «Женский день» в водном комплексе More",
+      "category": "festival",
+      "venue": null,
+      "startDate": "2026-08-07",
+      "endDate": null,
+      "time": null,
+      "url": "https://www.afisha.uz/ru/gorod/2026/07/17/zhenskiy-den-more-2026",
+      "source": "afisha.uz"
+    },
+    {
+      "title": "Course \"Digital Poetry\"",
+      "titleRu": "Курс «Цифровая Поэзия»",
+      "category": "kids",
+      "venue": null,
+      "startDate": "2026-08-07",
+      "endDate": null,
+      "time": null,
+      "url": "https://www.afisha.uz/ru/children/2026/07/07/digital-poetry-course",
+      "source": "afisha.uz"
+    },
+    {
+      "title": "Musical evenings at PAUL",
+      "titleRu": "Музыкальные вечера в PAUL",
+      "category": "concert",
+      "venue": null,
+      "startDate": "2026-08-07",
+      "endDate": null,
+      "time": "19:00",
+      "url": "https://www.afisha.uz/ru/restaurants/2026/07/17/paul-music-evenings",
+      "source": "afisha.uz"
+    },
+    {
+      "title": "Parties at Oko",
+      "titleRu": "Вечеринки в Oko",
+      "category": "concert",
+      "venue": null,
+      "startDate": "2026-08-07",
+      "endDate": null,
+      "time": null,
+      "url": "https://www.afisha.uz/ru/restaurants/2026/07/24/oko-tashkent-avgust-2026",
+      "source": "afisha.uz"
+    },
+    {
+      "title": "90's themed party at H.A.V.O.",
+      "titleRu": "Вечеринка в стиле 90-х в H.A.V.O.",
+      "category": "concert",
+      "venue": null,
+      "startDate": "2026-08-07",
+      "endDate": null,
+      "time": null,
+      "url": "https://www.afisha.uz/ru/restaurants/2026/07/30/90s-themed-party",
+      "source": "afisha.uz"
+    },
+    {
+      "title": "Performance by KALIN Brothers",
+      "titleRu": "Выступление KALIN Brothers",
+      "category": "concert",
+      "venue": null,
+      "startDate": "2026-08-07",
+      "endDate": null,
+      "time": "00:30",
+      "url": "https://www.afisha.uz/ru/restaurants/2026/07/17/kalin-brothers",
       "source": "afisha.uz"
     },
     {
@@ -228,6 +370,7 @@
       "venue": null,
       "startDate": "2026-08-08",
       "endDate": null,
+      "time": "19:00",
       "url": "https://www.afisha.uz/ru/concerts/2026/07/13/maksim",
       "source": "afisha.uz"
     },
@@ -238,6 +381,7 @@
       "venue": null,
       "startDate": "2026-08-08",
       "endDate": null,
+      "time": "19:00",
       "url": "https://www.afisha.uz/ru/theatres/2026/07/20/out-of-order",
       "source": "afisha.uz"
     },
@@ -248,6 +392,7 @@
       "venue": null,
       "startDate": "2026-08-08",
       "endDate": null,
+      "time": null,
       "url": "https://www.afisha.uz/ru/exhibitions/2026/07/24/next-market",
       "source": "afisha.uz"
     },
@@ -262,23 +407,179 @@
       "source": "iticket.uz"
     },
     {
+      "title": "Master classes at Dvoe Ceramics",
+      "titleRu": "Мастер-классы в Dvoe Ceramics",
+      "category": "lecture",
+      "venue": null,
+      "startDate": "2026-08-08",
+      "endDate": null,
+      "time": "12:00",
+      "url": "https://www.afisha.uz/ru/znaniya/2026/07/28/dvoe-ceramics",
+      "source": "afisha.uz"
+    },
+    {
+      "title": "Melon Festival 2026 in Khiva",
+      "titleRu": "Фестиваль дыни 2026 в Хиве",
+      "category": "festival",
+      "venue": null,
+      "startDate": "2026-08-08",
+      "endDate": null,
+      "time": null,
+      "url": "https://www.afisha.uz/ru/gorod/2026/07/14/qovun-sayli",
+      "source": "afisha.uz"
+    },
+    {
+      "title": "Summer Cooking Camp at Cook Book",
+      "titleRu": "Летний кулинарный лагерь в Cook Book",
+      "category": "kids",
+      "venue": null,
+      "startDate": "2026-08-08",
+      "endDate": null,
+      "time": "12:00",
+      "url": "https://www.afisha.uz/ru/children/2026/08/01/letnii-kulinarnyi-lager-v-cook-book",
+      "source": "afisha.uz"
+    },
+    {
       "title": "Children's culinary master classes at PRO.Khinkali",
       "titleRu": "Детские кулинарные мастер-классы в PRO.Хинкали",
       "category": "kids",
       "venue": null,
       "startDate": "2026-08-08",
       "endDate": null,
+      "time": "11:00",
       "url": "https://www.afisha.uz/ru/children/2026/07/15/detskie-master-klassy-pro-hinkali",
       "source": "afisha.uz"
     },
     {
-      "title": "Muzqaymoq Party at Anhor Park",
-      "titleRu": "Muzqaymoq Party в парке Anhor",
-      "category": "festival",
-      "venue": "Anhor Park",
+      "title": "Parties at Oko",
+      "titleRu": "Вечеринки в Oko",
+      "category": "concert",
+      "venue": null,
       "startDate": "2026-08-08",
-      "endDate": "2026-08-09",
-      "url": "https://www.afisha.uz/ru/gorod/2026/07/29/muzqaymoq-party-anhor",
+      "endDate": null,
+      "time": null,
+      "url": "https://www.afisha.uz/ru/restaurants/2026/07/24/oko-tashkent-avgust-2026",
+      "source": "afisha.uz"
+    },
+    {
+      "title": "Concert of the performer Kislo-Sladky at Spletni Bar",
+      "titleRu": "Концерт исполнителя Кисло-Сладкий в Spletni Bar",
+      "category": "concert",
+      "venue": null,
+      "startDate": "2026-08-08",
+      "endDate": null,
+      "time": null,
+      "url": "https://www.afisha.uz/ru/restaurants/2026/07/30/spletni-bar",
+      "source": "afisha.uz"
+    },
+    {
+      "title": "Exhibition “Generation Z” at Andakulova Gallery",
+      "titleRu": "Выставка «Поколение Z» в Andakulova Gallery",
+      "category": "exhibition",
+      "venue": null,
+      "startDate": "2026-08-09",
+      "endDate": null,
+      "time": null,
+      "url": "https://www.afisha.uz/ru/exhibitions/2026/07/23/pokolenie-z-andakulova-gallery",
+      "source": "afisha.uz"
+    },
+    {
+      "title": "Next Market Fair",
+      "titleRu": "Ярмарка Next Market",
+      "category": "exhibition",
+      "venue": null,
+      "startDate": "2026-08-09",
+      "endDate": null,
+      "time": null,
+      "url": "https://www.afisha.uz/ru/exhibitions/2026/07/24/next-market",
+      "source": "afisha.uz"
+    },
+    {
+      "title": "Master classes at Dvoe Ceramics",
+      "titleRu": "Мастер-классы в Dvoe Ceramics",
+      "category": "lecture",
+      "venue": null,
+      "startDate": "2026-08-09",
+      "endDate": null,
+      "time": "12:00",
+      "url": "https://www.afisha.uz/ru/znaniya/2026/07/28/dvoe-ceramics",
+      "source": "afisha.uz"
+    },
+    {
+      "title": "Melon Festival 2026 in Khiva",
+      "titleRu": "Фестиваль дыни 2026 в Хиве",
+      "category": "festival",
+      "venue": null,
+      "startDate": "2026-08-09",
+      "endDate": null,
+      "time": null,
+      "url": "https://www.afisha.uz/ru/gorod/2026/07/14/qovun-sayli",
+      "source": "afisha.uz"
+    },
+    {
+      "title": "Children's day at the Sinbad pool",
+      "titleRu": "Детский день в бассейне Sinbad",
+      "category": "kids",
+      "venue": null,
+      "startDate": "2026-08-10",
+      "endDate": null,
+      "time": null,
+      "url": "https://www.afisha.uz/ru/children/2026/07/16/detskiy-den-sinbad-2026",
+      "source": "afisha.uz"
+    },
+    {
+      "title": "“Women’s Day” campaign at the More water complex",
+      "titleRu": "Акция «Женский день» в водном комплексе More",
+      "category": "festival",
+      "venue": null,
+      "startDate": "2026-08-11",
+      "endDate": null,
+      "time": null,
+      "url": "https://www.afisha.uz/ru/gorod/2026/07/17/zhenskiy-den-more-2026",
+      "source": "afisha.uz"
+    },
+    {
+      "title": "Free game development course Game Dev Lab for teenagers",
+      "titleRu": "Бесплатный курс по разработке игр Game Dev Lab для подростков",
+      "category": "kids",
+      "venue": null,
+      "startDate": "2026-08-11",
+      "endDate": null,
+      "time": "11:00",
+      "url": "https://www.afisha.uz/ru/children/2026/07/31/besplatnyy-kurs-game-dev-lab-dlya-podrostkov",
+      "source": "afisha.uz"
+    },
+    {
+      "title": "Course \"Digital Poetry\"",
+      "titleRu": "Курс «Цифровая Поэзия»",
+      "category": "kids",
+      "venue": null,
+      "startDate": "2026-08-12",
+      "endDate": null,
+      "time": null,
+      "url": "https://www.afisha.uz/ru/children/2026/07/07/digital-poetry-course",
+      "source": "afisha.uz"
+    },
+    {
+      "title": "Musical evenings at PAUL",
+      "titleRu": "Музыкальные вечера в PAUL",
+      "category": "concert",
+      "venue": null,
+      "startDate": "2026-08-12",
+      "endDate": null,
+      "time": "19:00",
+      "url": "https://www.afisha.uz/ru/restaurants/2026/07/17/paul-music-evenings",
+      "source": "afisha.uz"
+    },
+    {
+      "title": "Promotion “Cinema Holiday on Wednesday”",
+      "titleRu": "Акция «Кинопраздник в среду»",
+      "category": "festival",
+      "venue": null,
+      "startDate": "2026-08-12",
+      "endDate": null,
+      "time": null,
+      "url": "https://www.afisha.uz/ru/cinema/2026/07/16/kinoprazdnik-v-sredu",
       "source": "afisha.uz"
     },
     {
@@ -288,6 +589,7 @@
       "venue": null,
       "startDate": "2026-08-13",
       "endDate": null,
+      "time": "19:00",
       "url": "https://www.afisha.uz/ru/concerts/2026/07/16/tynda-music-rok-khity-13-avgusta",
       "source": "afisha.uz"
     },
@@ -298,7 +600,30 @@
       "venue": null,
       "startDate": "2026-08-13",
       "endDate": null,
+      "time": "19:00",
       "url": "https://www.afisha.uz/ru/concerts/2026/07/14/rok-koncert-turkiston-avgust",
+      "source": "afisha.uz"
+    },
+    {
+      "title": "Free game development course Game Dev Lab for teenagers",
+      "titleRu": "Бесплатный курс по разработке игр Game Dev Lab для подростков",
+      "category": "kids",
+      "venue": null,
+      "startDate": "2026-08-13",
+      "endDate": null,
+      "time": "11:00",
+      "url": "https://www.afisha.uz/ru/children/2026/07/31/besplatnyy-kurs-game-dev-lab-dlya-podrostkov",
+      "source": "afisha.uz"
+    },
+    {
+      "title": "Musical evenings at PAUL",
+      "titleRu": "Музыкальные вечера в PAUL",
+      "category": "concert",
+      "venue": null,
+      "startDate": "2026-08-13",
+      "endDate": null,
+      "time": "19:00",
+      "url": "https://www.afisha.uz/ru/restaurants/2026/07/17/paul-music-evenings",
       "source": "afisha.uz"
     },
     {
@@ -318,7 +643,52 @@
       "venue": null,
       "startDate": "2026-08-14",
       "endDate": null,
+      "time": "19:00",
       "url": "https://www.afisha.uz/ru/concerts/2026/07/14/abdizhappar-alkozha",
+      "source": "afisha.uz"
+    },
+    {
+      "title": "“Women’s Day” campaign at the More water complex",
+      "titleRu": "Акция «Женский день» в водном комплексе More",
+      "category": "festival",
+      "venue": null,
+      "startDate": "2026-08-14",
+      "endDate": null,
+      "time": null,
+      "url": "https://www.afisha.uz/ru/gorod/2026/07/17/zhenskiy-den-more-2026",
+      "source": "afisha.uz"
+    },
+    {
+      "title": "Course \"Digital Poetry\"",
+      "titleRu": "Курс «Цифровая Поэзия»",
+      "category": "kids",
+      "venue": null,
+      "startDate": "2026-08-14",
+      "endDate": null,
+      "time": null,
+      "url": "https://www.afisha.uz/ru/children/2026/07/07/digital-poetry-course",
+      "source": "afisha.uz"
+    },
+    {
+      "title": "Musical evenings at PAUL",
+      "titleRu": "Музыкальные вечера в PAUL",
+      "category": "concert",
+      "venue": null,
+      "startDate": "2026-08-14",
+      "endDate": null,
+      "time": "19:00",
+      "url": "https://www.afisha.uz/ru/restaurants/2026/07/17/paul-music-evenings",
+      "source": "afisha.uz"
+    },
+    {
+      "title": "Parties at Oko",
+      "titleRu": "Вечеринки в Oko",
+      "category": "concert",
+      "venue": null,
+      "startDate": "2026-08-14",
+      "endDate": null,
+      "time": null,
+      "url": "https://www.afisha.uz/ru/restaurants/2026/07/24/oko-tashkent-avgust-2026",
       "source": "afisha.uz"
     },
     {
@@ -332,16 +702,6 @@
       "source": "iticket.uz"
     },
     {
-      "title": "Amirsoy Paradiso",
-      "titleRu": null,
-      "category": "concert",
-      "venue": "Amirsoy Resort",
-      "startDate": "2026-08-15",
-      "endDate": null,
-      "url": "https://iticket.uz/en/events/concerts/amirsoy-paradiso",
-      "source": "iticket.uz"
-    },
-    {
       "title": "IOSIS ROCK BATTLE",
       "titleRu": null,
       "category": "concert",
@@ -352,12 +712,78 @@
       "source": "iticket.uz"
     },
     {
+      "title": "Next Market Fair",
+      "titleRu": "Ярмарка Next Market",
+      "category": "exhibition",
+      "venue": null,
+      "startDate": "2026-08-15",
+      "endDate": null,
+      "time": null,
+      "url": "https://www.afisha.uz/ru/exhibitions/2026/07/24/next-market",
+      "source": "afisha.uz"
+    },
+    {
       "title": "Comic Con Tashkent 2026",
       "titleRu": "Comic Con Tashkent 2026",
       "category": "festival",
       "venue": null,
       "startDate": "2026-08-15",
       "endDate": null,
+      "time": "14:30",
+      "url": "https://www.afisha.uz/ru/gorod/2026/07/02/comic-con-tashkent",
+      "source": "afisha.uz"
+    },
+    {
+      "title": "Parties at Oko",
+      "titleRu": "Вечеринки в Oko",
+      "category": "concert",
+      "venue": null,
+      "startDate": "2026-08-15",
+      "endDate": null,
+      "time": null,
+      "url": "https://www.afisha.uz/ru/restaurants/2026/07/24/oko-tashkent-avgust-2026",
+      "source": "afisha.uz"
+    },
+    {
+      "title": "Amirsoy Paradiso",
+      "titleRu": null,
+      "category": "concert",
+      "venue": "Amirsoy Resort",
+      "startDate": "2026-08-15",
+      "endDate": null,
+      "url": "https://iticket.uz/en/events/concerts/amirsoy-paradiso",
+      "source": "iticket.uz"
+    },
+    {
+      "title": "Open-air concert Amirsoy Paradiso",
+      "titleRu": "Open-air концерт Amirsoy Paradiso",
+      "category": "concert",
+      "venue": null,
+      "startDate": "2026-08-16",
+      "endDate": null,
+      "time": null,
+      "url": "https://www.afisha.uz/ru/concerts/2026/07/02/open-air-amirsoy-paradiso",
+      "source": "afisha.uz"
+    },
+    {
+      "title": "Next Market Fair",
+      "titleRu": "Ярмарка Next Market",
+      "category": "exhibition",
+      "venue": null,
+      "startDate": "2026-08-16",
+      "endDate": null,
+      "time": null,
+      "url": "https://www.afisha.uz/ru/exhibitions/2026/07/24/next-market",
+      "source": "afisha.uz"
+    },
+    {
+      "title": "Comic Con Tashkent 2026",
+      "titleRu": "Comic Con Tashkent 2026",
+      "category": "festival",
+      "venue": null,
+      "startDate": "2026-08-16",
+      "endDate": null,
+      "time": "14:30",
       "url": "https://www.afisha.uz/ru/gorod/2026/07/02/comic-con-tashkent",
       "source": "afisha.uz"
     },
@@ -368,7 +794,19 @@
       "venue": null,
       "startDate": "2026-08-16",
       "endDate": null,
+      "time": "11:00",
       "url": "https://www.afisha.uz/ru/children/2026/07/27/zolotoe-yaico-art-mirage",
+      "source": "afisha.uz"
+    },
+    {
+      "title": "Children's day at the Sinbad pool",
+      "titleRu": "Детский день в бассейне Sinbad",
+      "category": "kids",
+      "venue": null,
+      "startDate": "2026-08-17",
+      "endDate": null,
+      "time": null,
+      "url": "https://www.afisha.uz/ru/children/2026/07/16/detskiy-den-sinbad-2026",
       "source": "afisha.uz"
     }
   ]
