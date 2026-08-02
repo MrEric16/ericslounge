@@ -1602,6 +1602,20 @@
   }
   .invite-title{ font-family:'Baloo 2', sans-serif; font-weight:700; font-size:20px; color:var(--ink); margin-bottom:8px; }
   .invite-sub{ font-size:13px; color:var(--ink-soft); line-height:1.5; max-width:320px; margin:0 auto; }
+  .invite-share-btn{
+    display:flex; align-items:center; justify-content:center; gap:6px;
+    flex:1; min-width:0;
+    background:var(--card); border:1px solid var(--line); color:var(--ink);
+    border-radius:999px; padding:12px 10px; font-weight:700; font-size:13px;
+    font-family:'Nunito',sans-serif; text-decoration:none; cursor:pointer;
+    white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+  }
+  .invite-share-btn svg{ width:16px; height:16px; flex-shrink:0; }
+  .invite-share-primary{
+    width:100%; margin-bottom:10px;
+    background:var(--coral); border-color:var(--coral); color:#fff;
+  }
+  .invite-share-row{ display:flex; gap:8px; }
   .install-text{ color:var(--ink-soft); font-size:14px; line-height:1.6; max-width:340px; margin:10px auto 0; }
   .install-steps{ max-width:340px; margin:20px auto 0; text-align:left; }
   .install-step{
@@ -5398,6 +5412,9 @@ function viewExplore(){
 function viewInvite(){
   const installUrl = location.origin + location.pathname + '#install';
   const qrSrc = `https://api.qrserver.com/v1/create-qr-code/?size=280x280&margin=10&color=5C2530&bgcolor=FBF5EA&data=${encodeURIComponent(installUrl)}`;
+  const shareText = "Check out Mr Eric's Lounge";
+  const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(shareText + ' ' + installUrl)}`;
+  const telegramUrl = `https://t.me/share/url?url=${encodeURIComponent(installUrl)}&text=${encodeURIComponent(shareText)}`;
   return `
     <a class="back-link" href="#">← Back to Mr Eric's Lounge</a>
     <section style="padding-top:14px;">
@@ -5407,8 +5424,51 @@ function viewInvite(){
         <div class="invite-title">Scan to download</div>
         <div class="invite-sub">Point their camera at this code — it'll walk them straight through adding it to their Home Screen as an app.</div>
       </div>
+
+      <div class="invite-title" style="margin:22px 0 4px;">Or share via</div>
+      <div class="invite-sub" style="margin-bottom:12px;">No scanner handy? Send it straight through a messaging app instead.</div>
+
+      <button id="nativeShareBtn" class="invite-share-btn invite-share-primary" style="display:none;">
+        ${icon('share')} Share via…
+      </button>
+      <div class="invite-share-row">
+        <a class="invite-share-btn" href="${whatsappUrl}" target="_blank" rel="noopener">WhatsApp</a>
+        <a class="invite-share-btn" href="${telegramUrl}" target="_blank" rel="noopener">Telegram</a>
+        <button class="invite-share-btn" onclick="copyInviteLink(this)">Copy Link</button>
+      </div>
     </section>
   `;
+}
+
+function copyInviteLink(btn){
+  const installUrl = location.origin + location.pathname + '#install';
+  navigator.clipboard.writeText(installUrl).then(()=>{
+    const original = btn.textContent;
+    btn.textContent = 'Copied ✓';
+    setTimeout(()=>{ btn.textContent = original; }, 1800);
+  }).catch(()=>{
+    showToast('Could not copy — long-press the link to copy manually.');
+  });
+}
+
+// Show the native "Share via..." button only when the Web Share API is actually
+// available (iOS Safari, Android Chrome, etc.) -- this is what surfaces
+// Instagram, Messages, Mail and anything else the OS has registered as a share
+// target, without needing a separate hand-built link per app.
+function wireNativeShareButton(){
+  const btn = document.getElementById('nativeShareBtn');
+  if(!btn) return;
+  if(navigator.share){
+    btn.style.display = '';
+    btn.addEventListener('click', ()=>{
+      const installUrl = location.origin + location.pathname + '#install';
+      navigator.share({
+        title: "Mr Eric's Lounge",
+        text: "Check out Mr Eric's Lounge",
+        url: installUrl,
+      }).catch(()=>{ /* user cancelled the share sheet -- fine, do nothing */ });
+    });
+  }
 }
 
 function viewStats(){
@@ -6779,6 +6839,7 @@ function renderRoute(opts){
   if(parts[0] === 'install'){ wireInstallPage(); }
   if(parts[0] === 'stats'){ loadStats(); }
   if(parts[0] === 'events-tashkent'){ loadTashkentEvents(); }
+  if(parts[0] === 'invite'){ wireNativeShareButton(); }
   if(parts[0] === 'events-virtual'){ loadVirtualEvents(); }
   if(parts.length === 0){ loadOnThisDay(); loadWeather(); loadVoxPopuli(); loadLiveSportsData(); wireRandomButton(app); wireRandomVideoButton(app); wireRandomExploreButton(app); wireExtrasCarousel(app); checkAchievements(); }
   if(parts[0] === 'sports' && parts[1] === 'tables'){ loadLiveSportsData(); }
