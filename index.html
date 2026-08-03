@@ -7117,7 +7117,7 @@ window.addEventListener('orientationchange', syncTabBarHeight);
 
   toggle.addEventListener('click', ()=>{
     breakClickCount++;
-    if(breakClickCount === 10){
+    if(breakClickCount === 3){
       triggerBrokenEgg();
       return;
     }
@@ -7211,6 +7211,7 @@ function burstThemedConfetti(buildFn, totalDuration){
 }
 function showEasterEggPopup(text, duration){
   const overlay = document.createElement('div');
+  overlay.dataset.eggPopup = 'true';
   overlay.style.cssText = 'position:fixed;inset:0;display:flex;align-items:center;justify-content:center;z-index:10002;pointer-events:none;padding:0 30px;';
   const box = document.createElement('div');
   box.textContent = text;
@@ -7984,6 +7985,19 @@ function applyWeatherOverlay(conditionText){
   title.classList.add('glitch-in');
   setTimeout(()=> title.classList.remove('glitch-in'), 800);
 })();
+
+/* ---- Escape key closes whichever overlay/popup/small window is currently open ---- */
+document.addEventListener('keydown', (e)=>{
+  if(e.key !== 'Escape') return;
+  const storyOv = document.getElementById('storyOverlay');
+  if(storyOv){ closeStory(); return; }
+  const arsenalOv = document.getElementById('arsenalDetailOverlay');
+  if(arsenalOv){ arsenalOv.remove(); return; }
+  const snakeOv = document.getElementById('snakeOverlay');
+  if(snakeOv){ snakeOv.remove(); return; }
+  const eggPopup = document.querySelector('[data-egg-popup]');
+  if(eggPopup){ eggPopup.remove(); return; }
+});
 
 updateClock();
 updateWeekendCountdown();
