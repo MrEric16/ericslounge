@@ -97,6 +97,20 @@ def process_standings(data):
     total_table = next((s for s in data.get("standings", []) if s.get("type") == "TOTAL"), None)
     if not total_table or not total_table.get("table"):
         return None
+    # BUG FIX: previously only checked "has anyone played a game", which is true
+    # for a fully-finished PAST season too -- so once the 2025-26 season ended,
+    # its final standings kept showing as if they were current, because every
+    # team obviously had played games last season. The real check needed is
+    # whether the season this data belongs to has actually ended.
+    season = data.get("season") or {}
+    end_date_str = season.get("endDate")
+    if end_date_str:
+        try:
+            season_end = datetime.strptime(end_date_str, "%Y-%m-%d")
+            if season_end < datetime.utcnow():
+                return None  # this season is over -- don't show it as current
+        except ValueError:
+            pass
     if not any(row.get("playedGames", 0) > 0 for row in total_table["table"]):
         return None
     return [
@@ -125,6 +139,8 @@ def main():
     for code in LEAGUE_CODES:
         try:
             data = get(f"{BASE}/competitions/{code}/standings")
+            season_debug = data.get("season") or {}
+            log(f"standings[{code}]: raw season field = {season_debug}")
             trimmed = process_standings(data)
             if trimmed:
                 output["standings"][code] = trimmed
