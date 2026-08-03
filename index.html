@@ -2724,7 +2724,9 @@ const LEAGUE_DETAIL_META = {
   UAE: { name: "UAE Pro League", flag: flagIcon('uae') },
 };
 const ARSENAL_TEAM_ID = 57;
-const SPORTS_CACHE_KEY = "sportsLiveCache_v2";
+const SPORTS_CACHE_KEY = "sportsLiveCache_v3"; // bumped from v2 -- forces every
+// browser to discard whatever stale standings it cached before today's fix,
+// instead of waiting up to 24h for the normal daily refresh to notice.
 
 function tashkentEffectiveDay(){
   const parts = new Intl.DateTimeFormat('en-CA', {
