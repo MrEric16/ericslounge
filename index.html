@@ -94,6 +94,17 @@
   body.dark-mode{
     cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpath d='M3 3 L21 12 L3 21 Z' fill='%23E8C766' stroke='%23241A15' stroke-width='2' stroke-linejoin='round'/%3E%3C/svg%3E") 21 12, auto;
   }
+  /* Clickable elements get the same chevron plus a small accent dot near the
+     tip, signaling "this is interactive" while staying visually part of the
+     same cursor family. !important is needed here because several elements
+     set cursor:pointer inline (via style attribute or JS), which otherwise
+     outranks a plain external stylesheet rule. */
+  a, button, [role="button"], summary, .board-cell, label{
+    cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='28' viewBox='0 0 28 28'%3E%3Cpath d='M3 3 L21 12 L3 21 Z' fill='%235C2530' stroke='%23FBF5EA' stroke-width='2' stroke-linejoin='round'/%3E%3Ccircle cx='24' cy='12' r='3' fill='%23D4AF37' stroke='%23FBF5EA' stroke-width='1'/%3E%3C/svg%3E") 21 12, pointer !important;
+  }
+  body.dark-mode a, body.dark-mode button, body.dark-mode [role="button"], body.dark-mode summary, body.dark-mode .board-cell, body.dark-mode label{
+    cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='28' viewBox='0 0 28 28'%3E%3Cpath d='M3 3 L21 12 L3 21 Z' fill='%23E8C766' stroke='%23241A15' stroke-width='2' stroke-linejoin='round'/%3E%3Ccircle cx='24' cy='12' r='3' fill='%23D85A30' stroke='%23241A15' stroke-width='1'/%3E%3C/svg%3E") 21 12, pointer !important;
+  }
   h1,h2,h3{font-family:'Baloo 2', sans-serif; margin:0;}
   a{color:inherit;}
 
