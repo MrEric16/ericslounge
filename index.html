@@ -7986,17 +7986,26 @@ function applyWeatherOverlay(conditionText){
   setTimeout(()=> title.classList.remove('glitch-in'), 800);
 })();
 
-/* ---- Escape key closes whichever overlay/popup/small window is currently open ---- */
+/* ---- Keyboard navigation: Escape closes overlays, arrow keys navigate/close stories ---- */
 document.addEventListener('keydown', (e)=>{
-  if(e.key !== 'Escape') return;
-  const storyOv = document.getElementById('storyOverlay');
-  if(storyOv){ closeStory(); return; }
-  const arsenalOv = document.getElementById('arsenalDetailOverlay');
-  if(arsenalOv){ arsenalOv.remove(); return; }
-  const snakeOv = document.getElementById('snakeOverlay');
-  if(snakeOv){ snakeOv.remove(); return; }
-  const eggPopup = document.querySelector('[data-egg-popup]');
-  if(eggPopup){ eggPopup.remove(); return; }
+  if(e.key === 'Escape'){
+    const storyOv = document.getElementById('storyOverlay');
+    if(storyOv){ closeStory(); return; }
+    const arsenalOv = document.getElementById('arsenalDetailOverlay');
+    if(arsenalOv){ arsenalOv.remove(); return; }
+    const snakeOv = document.getElementById('snakeOverlay');
+    if(snakeOv){ snakeOv.remove(); return; }
+    const eggPopup = document.querySelector('[data-egg-popup]');
+    if(eggPopup){ eggPopup.remove(); return; }
+    return;
+  }
+  // Arrow keys inside the story viewer -- same behavior as tap zones and swipes:
+  // left/right navigate, up/down close.
+  if(document.getElementById('storyOverlay')){
+    if(e.key === 'ArrowRight'){ e.preventDefault(); nextStory(); }
+    else if(e.key === 'ArrowLeft'){ e.preventDefault(); prevStory(); }
+    else if(e.key === 'ArrowUp' || e.key === 'ArrowDown'){ e.preventDefault(); closeStory(); }
+  }
 });
 
 updateClock();
