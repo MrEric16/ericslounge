@@ -157,6 +157,13 @@ BANNED_TERMS_SUBSTRING = [
     "spletni", "сплетни",   # Spletni Bar ("Gossip Bar")
     "kalin", "калин",       # Kalin Brothers
     "2000-х", "2000s",      # decade-themed nightlife party nights
+    "islamic civilization", "исламской цивилизации",  # perpetual venue-ticket
+                             # listing, not a real dated event -- was only
+                             # banned in English before, but this check runs
+                             # on the original Russian title (translation
+                             # happens afterward), so the English-only entry
+                             # in PERPETUAL_VENUE_TITLES_EXACT never actually
+                             # matched anything on this scraper
 ]
 BANNED_TERMS_WORD_BOUNDARY = [
     # short/ambiguous words that need a word-boundary match, not a bare
