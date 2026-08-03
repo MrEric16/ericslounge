@@ -1,15 +1,15 @@
 [scrape] Run started. Today (Tashkent): 2026-08-03  Window end: 2026-08-17
 [scrape] NOTE: switched from per-category listing pages to afisha.uz's calendar view (one real day at a time, via Playwright) -- the old approach could only ever see whatever was on the current front page of each category, missing anything pushed down by newer posts. The calendar view asks for each specific date directly instead.
-[scrape] calendar 2026-08-03: 12 events kept
-[scrape] calendar 2026-08-04: 17 events kept
-[scrape] calendar 2026-08-05: 15 events kept
-[scrape] calendar 2026-08-06: 18 events kept
-[scrape] calendar 2026-08-07: 16 events kept
-[scrape] calendar 2026-08-08: 21 events kept
-[scrape] calendar 2026-08-09: 14 events kept
-[scrape] calendar 2026-08-10: 9 events kept
-[scrape] calendar 2026-08-11: 12 events kept
-[scrape] calendar 2026-08-12: 11 events kept
+[scrape] calendar 2026-08-03: 11 events kept
+[scrape] calendar 2026-08-04: 16 events kept
+[scrape] calendar 2026-08-05: 14 events kept
+[scrape] calendar 2026-08-06: 17 events kept
+[scrape] calendar 2026-08-07: 15 events kept
+[scrape] calendar 2026-08-08: 20 events kept
+[scrape] calendar 2026-08-09: 13 events kept
+[scrape] calendar 2026-08-10: 8 events kept
+[scrape] calendar 2026-08-11: 11 events kept
+[scrape] calendar 2026-08-12: 10 events kept
 [scrape] special-tracked: 'Акция «Кинопраздник в среду»' -> 2 events kept
 [scrape] iticket.uz cat=concert: 6 events kept
 [scrape] iticket.uz cat=theatre: 0 events kept
@@ -17,5 +17,5 @@
 [scrape] ticketon.uz: CONFIRMED BLOCKED (Cloudflare challenge, page title='Just a moment...'). 0 events -- this is expected, not a bug to fix.
 [scrape] eventbrite.com: CONFIRMED BLOCKED (AWS WAF CAPTCHA, page title='Human Verification'). 0 events -- this is expected, not a bug to fix. Same category of block as ticketon.uz.
 [scrape] eventbrite.com: 0 events found (dates NOT yet parsed -- see note in script)
-[scrape] TOTAL before dedup: 153  |  after dedup: 123
+[scrape] TOTAL before dedup: 143  |  after dedup: 113
 [scrape] Wrote data/events-tashkent.json
