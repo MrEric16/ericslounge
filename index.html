@@ -1895,13 +1895,14 @@ const FAC_MAP = Object.fromEntries(FACULTIES.map(f=>[f.key,f]));
 // navigation too, not just content. Faculties are appended separately below since
 // they come from the FACULTIES array.
 const SEARCHABLE_PAGES = [
-  { name:"Sports", desc:"League tables, live fixtures, and Arsenal's next match.", url:"#sports", icon:"ball" },
-  { name:"Photo Library", desc:"Selfies, memes, and class moments.", url:"#photos", icon:"camera" },
-  { name:"Saved", desc:"Everything you've bookmarked — articles and videos.", url:"#saved", icon:"bookmark" },
-  { name:"All Domains — Full Instruments Archive", desc:"Powerful websites for you to explore.", url:"#explore", icon:"compass2" },
-  { name:"Superstars of the Week", desc:"This week's shoutouts.", url:"#superstars", icon:"star" },
-  { name:"Birthdays", desc:"Upcoming birthdays in class.", url:"#birthdays", icon:"cake" },
-  { name:"Invite a Friend", desc:"Get the QR code to install the Lounge on a new device.", url:"#invite", icon:"star" },
+  { name:"Events — Tashkent and Online", desc:"What's on in the city this week, and free online sessions worth joining.", url:"#events-hub", icon:"calendar", keywords:["events","tashkent events","online events","calendar","what's on","concerts","exhibitions","theatre"] },
+  { name:"Sports", desc:"League tables, live fixtures, and Arsenal's next match.", url:"#sports", icon:"ball", keywords:["arsenal","football","premier league","standings","fixtures","results","scores","tottenham"] },
+  { name:"Photo Library", desc:"Selfies, memes, and class moments.", url:"#photos", icon:"camera", keywords:["photos","pictures","memes","gallery"] },
+  { name:"Saved", desc:"Everything you've bookmarked — articles and videos.", url:"#saved", icon:"bookmark", keywords:["bookmarks","favourites","favorites"] },
+  { name:"All Domains — Full Instruments Archive", desc:"Powerful websites for you to explore.", url:"#explore", icon:"compass2", keywords:["tools","instruments","apps","websites","explore"] },
+  { name:"Superstars of the Week", desc:"This week's shoutouts.", url:"#superstars", icon:"star", keywords:["superstars","shoutouts","students of the week"] },
+  { name:"Birthdays", desc:"Upcoming birthdays in class.", url:"#birthdays", icon:"cake", keywords:["birthdays","bday"] },
+  { name:"Invite a Friend", desc:"Get the QR code to install the Lounge on a new device.", url:"#invite", icon:"star", keywords:["invite","share","qr code","install"] },
 ];
 
 // HARD RULE: always APPEND new entries at the very end of this array, never insert
@@ -5434,7 +5435,7 @@ function wireSearch(container){
     const articleMatches = DISPATCHES.filter(a => a.headline.toLowerCase().includes(q));
     const videoMatches = WATCH_VIDEOS.filter(v => v.title.toLowerCase().includes(q) || v.channel.toLowerCase().includes(q));
     const exploreMatches = EXPLORE_SITES.filter(s => s.name.toLowerCase().includes(q) || s.desc.toLowerCase().includes(q));
-    const pageMatches = allPages.filter(p => p.name.toLowerCase().includes(q) || p.desc.toLowerCase().includes(q));
+    const pageMatches = allPages.filter(p => p.name.toLowerCase().includes(q) || p.desc.toLowerCase().includes(q) || (p.keywords||[]).some(k => k.includes(q)));
     const birthdayMatches = BIRTHDAYS.filter(b => b.name.toLowerCase().includes(q));
     // Matches on title OR category (e.g. typing "theatre" finds every theatre
     // event, even ones whose title doesn't literally contain that word).
