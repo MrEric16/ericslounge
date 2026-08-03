@@ -1,94 +1,6 @@
 {
-  "generatedAt": "2026-08-03T02:49:25.764045Z",
+  "generatedAt": "2026-08-03T22:18:31.013718Z",
   "events": [
-    {
-      "title": "Exhibition “Generation Z” at Andakulova Gallery",
-      "titleRu": "Выставка «Поколение Z» в Andakulova Gallery",
-      "category": "exhibition",
-      "venue": "Andakulova gallery",
-      "startDate": "2026-08-03",
-      "endDate": null,
-      "time": null,
-      "url": "https://www.afisha.uz/ru/exhibitions/2026/07/23/pokolenie-z-andakulova-gallery",
-      "source": "afisha.uz (calendar)"
-    },
-    {
-      "title": "Opening of Alpha Sport Sergeli Fit",
-      "titleRu": "Открытие Alpha Sport Sergeli Fit",
-      "category": "sport",
-      "venue": null,
-      "startDate": "2026-08-03",
-      "endDate": null,
-      "time": null,
-      "url": "https://www.afisha.uz/ru/sport/2026/07/30/alpha-sport-sergeli-fit",
-      "source": "afisha.uz (calendar)"
-    },
-    {
-      "title": "Summer Cooking Camp at Cook Book",
-      "titleRu": "Летний кулинарный лагерь в Cook Book",
-      "category": "kids",
-      "venue": "Cookbook workshop",
-      "startDate": "2026-08-03",
-      "endDate": null,
-      "time": null,
-      "url": "https://www.afisha.uz/ru/children/2026/08/01/letnii-kulinarnyi-lager-v-cook-book",
-      "source": "afisha.uz (calendar)"
-    },
-    {
-      "title": "Theater and circus show Nova Circus",
-      "titleRu": "Театрально-цирковое шоу Nova Circus",
-      "category": "kids",
-      "venue": "Tashkent City",
-      "startDate": "2026-08-03",
-      "endDate": null,
-      "time": null,
-      "url": "https://www.afisha.uz/ru/children/2026/07/28/nova-circus-tashkent-city",
-      "source": "afisha.uz (calendar)"
-    },
-    {
-      "title": "Children's day at the Sinbad pool",
-      "titleRu": "Детский день в бассейне Sinbad",
-      "category": "kids",
-      "venue": "Sinbad",
-      "startDate": "2026-08-03",
-      "endDate": null,
-      "time": null,
-      "url": "https://www.afisha.uz/ru/children/2026/07/16/detskiy-den-sinbad-2026",
-      "source": "afisha.uz (calendar)"
-    },
-    {
-      "title": "Musical fountain in Magic City Park",
-      "titleRu": "Музыкальный фонтан в парке Magic City",
-      "category": "festival",
-      "venue": "Magic City",
-      "startDate": "2026-08-03",
-      "endDate": null,
-      "time": null,
-      "url": "https://www.afisha.uz/ru/gorod/2026/07/17/muzykalnyy-fontan-magic-city-2026",
-      "source": "afisha.uz (calendar)"
-    },
-    {
-      "title": "Palma & Chilla beach in Milliy Bog’ park",
-      "titleRu": "Пляж Palma & Chilla в парке Milliy Bog’",
-      "category": "festival",
-      "venue": "Milliy bog‘",
-      "startDate": "2026-08-03",
-      "endDate": null,
-      "time": null,
-      "url": "https://www.afisha.uz/ru/gorod/2026/07/16/palma-chilla-milliy-bog-2026",
-      "source": "afisha.uz (calendar)"
-    },
-    {
-      "title": "Creative workshops in Potterville",
-      "titleRu": "Творческие мастер-классы в Potterville",
-      "category": "lecture",
-      "venue": "Potterville",
-      "startDate": "2026-08-03",
-      "endDate": null,
-      "time": null,
-      "url": "https://www.afisha.uz/ru/znaniya/2026/07/29/potterville-avgust-2026",
-      "source": "afisha.uz (calendar)"
-    },
     {
       "title": "NE PROSTO CARTOONS",
       "titleRu": null,
@@ -111,6 +23,17 @@
       "source": "afisha.uz (calendar)"
     },
     {
+      "title": "Выставка «Фотохроника XX века»",
+      "titleRu": "Выставка «Фотохроника XX века»",
+      "category": "exhibition",
+      "venue": "Bonum Factum Gallery",
+      "startDate": "2026-08-04",
+      "endDate": null,
+      "time": null,
+      "url": "https://www.afisha.uz/ru/exhibitions/2026/06/25/photo-chronicle-xx",
+      "source": "afisha.uz (calendar)"
+    },
+    {
       "title": "Opening of Alpha Sport Sergeli Fit",
       "titleRu": "Открытие Alpha Sport Sergeli Fit",
       "category": "sport",
@@ -122,7 +45,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Summer Cooking Camp at Cook Book",
+      "title": "Летний кулинарный лагерь в Cook Book",
       "titleRu": "Летний кулинарный лагерь в Cook Book",
       "category": "kids",
       "venue": "Cookbook workshop",
@@ -133,7 +56,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Free game development course Game Dev Lab for teenagers",
+      "title": "Бесплатный курс по разработке игр Game Dev Lab для подростков",
       "titleRu": "Бесплатный курс по разработке игр Game Dev Lab для подростков",
       "category": "kids",
       "venue": "Республиканская детская библиотека",
@@ -144,7 +67,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Theater and circus show Nova Circus",
+      "title": "Театрально-цирковое шоу Nova Circus",
       "titleRu": "Театрально-цирковое шоу Nova Circus",
       "category": "kids",
       "venue": "Tashkent City",
@@ -155,7 +78,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Project “Other Games. Improvisation\"",
+      "title": "Проект «Другие игры. Импровизация»",
       "titleRu": "Проект «Другие игры. Импровизация»",
       "category": "festival",
       "venue": "Human House",
@@ -166,7 +89,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "“Women’s Day” campaign at the More water complex",
+      "title": "Акция «Женский день» в водном комплексе More",
       "titleRu": "Акция «Женский день» в водном комплексе More",
       "category": "festival",
       "venue": "Водный комплекс «Море»",
@@ -177,7 +100,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Musical fountain in Magic City Park",
+      "title": "Музыкальный фонтан в парке Magic City",
       "titleRu": "Музыкальный фонтан в парке Magic City",
       "category": "festival",
       "venue": "Magic City",
@@ -185,6 +108,17 @@
       "endDate": null,
       "time": null,
       "url": "https://www.afisha.uz/ru/gorod/2026/07/17/muzykalnyy-fontan-magic-city-2026",
+      "source": "afisha.uz (calendar)"
+    },
+    {
+      "title": "Музыкальный фонтан в парке Tashkent City",
+      "titleRu": "Музыкальный фонтан в парке Tashkent City",
+      "category": "festival",
+      "venue": "Tashkent City",
+      "startDate": "2026-08-04",
+      "endDate": null,
+      "time": null,
+      "url": "https://www.afisha.uz/ru/gorod/2026/07/16/muzykalnyy-fontan-tashkent-city-2026",
       "source": "afisha.uz (calendar)"
     },
     {
@@ -199,7 +133,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Creative workshops in Potterville",
+      "title": "Творческие мастер-классы в Potterville",
       "titleRu": "Творческие мастер-классы в Potterville",
       "category": "lecture",
       "venue": "Potterville",
@@ -210,7 +144,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Master classes at Dvoe Ceramics",
+      "title": "Мастер-классы в Dvoe Ceramics",
       "titleRu": "Мастер-классы в Dvoe Ceramics",
       "category": "lecture",
       "venue": "DVOE",
@@ -221,7 +155,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Master class “Roman mosaic”",
+      "title": "Мастер-класс «Римская мозаика»",
       "titleRu": "Мастер-класс «Римская мозаика»",
       "category": "lecture",
       "venue": "Navruz park",
@@ -243,7 +177,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Exhibition “Generation Z” at Andakulova Gallery",
+      "title": "Выставка «Поколение Z» в Andakulova Gallery",
       "titleRu": "Выставка «Поколение Z» в Andakulova Gallery",
       "category": "exhibition",
       "venue": "Andakulova gallery",
@@ -251,6 +185,17 @@
       "endDate": null,
       "time": null,
       "url": "https://www.afisha.uz/ru/exhibitions/2026/07/23/pokolenie-z-andakulova-gallery",
+      "source": "afisha.uz (calendar)"
+    },
+    {
+      "title": "Выставка «Фотохроника XX века»",
+      "titleRu": "Выставка «Фотохроника XX века»",
+      "category": "exhibition",
+      "venue": "Bonum Factum Gallery",
+      "startDate": "2026-08-05",
+      "endDate": null,
+      "time": null,
+      "url": "https://www.afisha.uz/ru/exhibitions/2026/06/25/photo-chronicle-xx",
       "source": "afisha.uz (calendar)"
     },
     {
@@ -265,7 +210,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Summer Cooking Camp at Cook Book",
+      "title": "Летний кулинарный лагерь в Cook Book",
       "titleRu": "Летний кулинарный лагерь в Cook Book",
       "category": "kids",
       "venue": "Cookbook workshop",
@@ -276,7 +221,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Theater and circus show Nova Circus",
+      "title": "Театрально-цирковое шоу Nova Circus",
       "titleRu": "Театрально-цирковое шоу Nova Circus",
       "category": "kids",
       "venue": "Tashkent City",
@@ -309,7 +254,18 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Palma & Chilla beach in Milliy Bog’ park",
+      "title": "Музыкальный фонтан в парке Tashkent City",
+      "titleRu": "Музыкальный фонтан в парке Tashkent City",
+      "category": "festival",
+      "venue": "Tashkent City",
+      "startDate": "2026-08-05",
+      "endDate": null,
+      "time": null,
+      "url": "https://www.afisha.uz/ru/gorod/2026/07/16/muzykalnyy-fontan-tashkent-city-2026",
+      "source": "afisha.uz (calendar)"
+    },
+    {
+      "title": "Пляж Palma & Chilla в парке Milliy Bog’",
       "titleRu": "Пляж Palma & Chilla в парке Milliy Bog’",
       "category": "festival",
       "venue": "Milliy bog‘",
@@ -320,7 +276,18 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Creative workshops in Potterville",
+      "title": "Женский арт-релакс «Лотосы. Акварель» в Human House",
+      "titleRu": "Женский арт-релакс «Лотосы. Акварель» в Human House",
+      "category": "lecture",
+      "venue": "Human House",
+      "startDate": "2026-08-05",
+      "endDate": null,
+      "time": null,
+      "url": "https://www.afisha.uz/ru/znaniya/2026/08/03/art-relaks-lotosy-akvarel-human-house-5-avgusta",
+      "source": "afisha.uz (calendar)"
+    },
+    {
+      "title": "Творческие мастер-классы в Potterville",
       "titleRu": "Творческие мастер-классы в Potterville",
       "category": "lecture",
       "venue": "Potterville",
@@ -331,7 +298,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Master classes at Dvoe Ceramics",
+      "title": "Мастер-классы в Dvoe Ceramics",
       "titleRu": "Мастер-классы в Dvoe Ceramics",
       "category": "lecture",
       "venue": "DVOE",
@@ -342,7 +309,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Lecture on Mirzo Ulugbek",
+      "title": "Лекция о Мирзо Улугбеке",
       "titleRu": "Лекция о Мирзо Улугбеке",
       "category": "lecture",
       "venue": "Human House",
@@ -375,7 +342,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Musical evenings at PAUL",
+      "title": "Музыкальные вечера в PAUL",
       "titleRu": "Музыкальные вечера в PAUL",
       "category": "concert",
       "venue": "Paul",
@@ -386,7 +353,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Guthrie Govan Trio concert",
+      "title": "Концерт группы Guthrie Govan Trio",
       "titleRu": "Концерт группы Guthrie Govan Trio",
       "category": "concert",
       "venue": "Дворец искусств «Туркистон»",
@@ -397,7 +364,29 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Exhibition “Generation Z” at Andakulova Gallery",
+      "title": "Exhibition “Along the Great Silk Road”",
+      "titleRu": "Выставка «По Великому шелковому пути»",
+      "category": "exhibition",
+      "venue": "Международный Караван-Сарай культуры Икуо Хираямы",
+      "startDate": "2026-08-06",
+      "endDate": null,
+      "time": null,
+      "url": "https://www.afisha.uz/ru/exhibitions/2026/08/03/vystavka-po-velikomu-shelkovomu-puti-avgust",
+      "source": "afisha.uz (calendar)"
+    },
+    {
+      "title": "Выставка Qimmat",
+      "titleRu": "Выставка Qimmat",
+      "category": "exhibition",
+      "venue": "Zanmakon",
+      "startDate": "2026-08-06",
+      "endDate": null,
+      "time": null,
+      "url": "https://www.afisha.uz/ru/exhibitions/2026/08/03/zanmakon",
+      "source": "afisha.uz (calendar)"
+    },
+    {
+      "title": "Выставка «Поколение Z» в Andakulova Gallery",
       "titleRu": "Выставка «Поколение Z» в Andakulova Gallery",
       "category": "exhibition",
       "venue": "Andakulova gallery",
@@ -419,7 +408,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Free game development course Game Dev Lab for teenagers",
+      "title": "Бесплатный курс по разработке игр Game Dev Lab для подростков",
       "titleRu": "Бесплатный курс по разработке игр Game Dev Lab для подростков",
       "category": "kids",
       "venue": "Республиканская детская библиотека",
@@ -430,7 +419,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Theater and circus show Nova Circus",
+      "title": "Театрально-цирковое шоу Nova Circus",
       "titleRu": "Театрально-цирковое шоу Nova Circus",
       "category": "kids",
       "venue": "Tashkent City",
@@ -441,7 +430,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Musical fountain in Magic City Park",
+      "title": "Музыкальный фонтан в парке Magic City",
       "titleRu": "Музыкальный фонтан в парке Magic City",
       "category": "festival",
       "venue": "Magic City",
@@ -452,7 +441,18 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Palma & Chilla beach in Milliy Bog’ park",
+      "title": "Musical fountain in Tashkent City park",
+      "titleRu": "Музыкальный фонтан в парке Tashkent City",
+      "category": "festival",
+      "venue": "Tashkent City",
+      "startDate": "2026-08-06",
+      "endDate": null,
+      "time": null,
+      "url": "https://www.afisha.uz/ru/gorod/2026/07/16/muzykalnyy-fontan-tashkent-city-2026",
+      "source": "afisha.uz (calendar)"
+    },
+    {
+      "title": "Пляж Palma & Chilla в парке Milliy Bog’",
       "titleRu": "Пляж Palma & Chilla в парке Milliy Bog’",
       "category": "festival",
       "venue": "Milliy bog‘",
@@ -463,7 +463,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Meeting on the nursing profession at the Goethe-Institut",
+      "title": "Встреча о профессии медсестры в Гете-Институте",
       "titleRu": "Встреча о профессии медсестры в Гете-Институте",
       "category": "lecture",
       "venue": "Гёте-Институт",
@@ -474,7 +474,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Lecture “Moon Goddess” at Human House",
+      "title": "Лекция «Богини Луны» в Human House",
       "titleRu": "Лекция «Богини Луны» в Human House",
       "category": "lecture",
       "venue": "Human House",
@@ -496,7 +496,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Master classes at Dvoe Ceramics",
+      "title": "Мастер-классы в Dvoe Ceramics",
       "titleRu": "Мастер-классы в Dvoe Ceramics",
       "category": "lecture",
       "venue": "DVOE",
@@ -507,7 +507,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Literary project \"NOT a book club.\"",
+      "title": "Литературный проект «НЕ книжный клуб».",
       "titleRu": "Литературный проект «НЕ книжный клуб».",
       "category": "lecture",
       "venue": null,
@@ -518,7 +518,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "90's themed party at H.A.V.O.",
+      "title": "Вечеринка в стиле 90-х в H.A.V.O.",
       "titleRu": "Вечеринка в стиле 90-х в H.A.V.O.",
       "category": "concert",
       "venue": "H.A.V.O.",
@@ -529,7 +529,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Musical evenings at PAUL",
+      "title": "Музыкальные вечера в PAUL",
       "titleRu": "Музыкальные вечера в PAUL",
       "category": "concert",
       "venue": "Paul",
@@ -540,7 +540,29 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Exhibition “Generation Z” at Andakulova Gallery",
+      "title": "Выставка «По Великому шелковому пути»",
+      "titleRu": "Выставка «По Великому шелковому пути»",
+      "category": "exhibition",
+      "venue": "Международный Караван-Сарай культуры Икуо Хираямы",
+      "startDate": "2026-08-07",
+      "endDate": null,
+      "time": null,
+      "url": "https://www.afisha.uz/ru/exhibitions/2026/08/03/vystavka-po-velikomu-shelkovomu-puti-avgust",
+      "source": "afisha.uz (calendar)"
+    },
+    {
+      "title": "Exhibition Qimmat",
+      "titleRu": "Выставка Qimmat",
+      "category": "exhibition",
+      "venue": "Zanmakon",
+      "startDate": "2026-08-07",
+      "endDate": null,
+      "time": null,
+      "url": "https://www.afisha.uz/ru/exhibitions/2026/08/03/zanmakon",
+      "source": "afisha.uz (calendar)"
+    },
+    {
+      "title": "Выставка «Поколение Z» в Andakulova Gallery",
       "titleRu": "Выставка «Поколение Z» в Andakulova Gallery",
       "category": "exhibition",
       "venue": "Andakulova gallery",
@@ -551,7 +573,29 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Summer Cooking Camp at Cook Book",
+      "title": "Выставка «Фотохроника XX века»",
+      "titleRu": "Выставка «Фотохроника XX века»",
+      "category": "exhibition",
+      "venue": "Bonum Factum Gallery",
+      "startDate": "2026-08-07",
+      "endDate": null,
+      "time": null,
+      "url": "https://www.afisha.uz/ru/exhibitions/2026/06/25/photo-chronicle-xx",
+      "source": "afisha.uz (calendar)"
+    },
+    {
+      "title": "Cultural program at the Republican Children's Library",
+      "titleRu": "Культурная программа в Республиканской детской библиотеке",
+      "category": "kids",
+      "venue": "Республиканская детская библиотека",
+      "startDate": "2026-08-07",
+      "endDate": null,
+      "time": null,
+      "url": "https://www.afisha.uz/ru/children/2026/08/03/kulturnaya-programma-v-detskoi-biblioteke-7-9-avgusta",
+      "source": "afisha.uz (calendar)"
+    },
+    {
+      "title": "Летний кулинарный лагерь в Cook Book",
       "titleRu": "Летний кулинарный лагерь в Cook Book",
       "category": "kids",
       "venue": "Cookbook workshop",
@@ -562,7 +606,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Theater and circus show Nova Circus",
+      "title": "Театрально-цирковое шоу Nova Circus",
       "titleRu": "Театрально-цирковое шоу Nova Circus",
       "category": "kids",
       "venue": "Tashkent City",
@@ -573,7 +617,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Course \"Digital Poetry\"",
+      "title": "Курс «Цифровая Поэзия»",
       "titleRu": "Курс «Цифровая Поэзия»",
       "category": "kids",
       "venue": "Республиканская детская библиотека",
@@ -595,7 +639,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Musical fountain in Magic City Park",
+      "title": "Музыкальный фонтан в парке Magic City",
       "titleRu": "Музыкальный фонтан в парке Magic City",
       "category": "festival",
       "venue": "Magic City",
@@ -603,6 +647,17 @@
       "endDate": null,
       "time": null,
       "url": "https://www.afisha.uz/ru/gorod/2026/07/17/muzykalnyy-fontan-magic-city-2026",
+      "source": "afisha.uz (calendar)"
+    },
+    {
+      "title": "Музыкальный фонтан в парке Tashkent City",
+      "titleRu": "Музыкальный фонтан в парке Tashkent City",
+      "category": "festival",
+      "venue": "Tashkent City",
+      "startDate": "2026-08-07",
+      "endDate": null,
+      "time": null,
+      "url": "https://www.afisha.uz/ru/gorod/2026/07/16/muzykalnyy-fontan-tashkent-city-2026",
       "source": "afisha.uz (calendar)"
     },
     {
@@ -628,7 +683,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Creative workshops in Potterville",
+      "title": "Творческие мастер-классы в Potterville",
       "titleRu": "Творческие мастер-классы в Potterville",
       "category": "lecture",
       "venue": "Potterville",
@@ -639,7 +694,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Master classes at Dvoe Ceramics",
+      "title": "Мастер-классы в Dvoe Ceramics",
       "titleRu": "Мастер-классы в Dvoe Ceramics",
       "category": "lecture",
       "venue": "DVOE",
@@ -661,6 +716,17 @@
       "source": "afisha.uz (calendar)"
     },
     {
+      "title": "RAMEEN в Bla Bla Bar",
+      "titleRu": "RAMEEN в Bla Bla Bar",
+      "category": "concert",
+      "venue": "Bla Bla Bar",
+      "startDate": "2026-08-08",
+      "endDate": null,
+      "time": null,
+      "url": "https://www.afisha.uz/ru/concerts/2026/08/03/rameen-bla-bla-bar-avgust",
+      "source": "afisha.uz (calendar)"
+    },
+    {
       "title": "MakSim performance in Khiva",
       "titleRu": "Выступление MakSim в Хиве",
       "category": "concert",
@@ -672,7 +738,29 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Next Market Fair",
+      "title": "Exhibition “Along the Great Silk Road”",
+      "titleRu": "Выставка «По Великому шелковому пути»",
+      "category": "exhibition",
+      "venue": "Международный Караван-Сарай культуры Икуо Хираямы",
+      "startDate": "2026-08-08",
+      "endDate": null,
+      "time": null,
+      "url": "https://www.afisha.uz/ru/exhibitions/2026/08/03/vystavka-po-velikomu-shelkovomu-puti-avgust",
+      "source": "afisha.uz (calendar)"
+    },
+    {
+      "title": "Выставка Qimmat",
+      "titleRu": "Выставка Qimmat",
+      "category": "exhibition",
+      "venue": "Zanmakon",
+      "startDate": "2026-08-08",
+      "endDate": null,
+      "time": null,
+      "url": "https://www.afisha.uz/ru/exhibitions/2026/08/03/zanmakon",
+      "source": "afisha.uz (calendar)"
+    },
+    {
+      "title": "Ярмарка Next Market",
       "titleRu": "Ярмарка Next Market",
       "category": "exhibition",
       "venue": null,
@@ -683,7 +771,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Exhibition “Generation Z” at Andakulova Gallery",
+      "title": "Выставка «Поколение Z» в Andakulova Gallery",
       "titleRu": "Выставка «Поколение Z» в Andakulova Gallery",
       "category": "exhibition",
       "venue": "Andakulova gallery",
@@ -694,7 +782,18 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Performance Out of Order",
+      "title": "Выставка «Фотохроника XX века»",
+      "titleRu": "Выставка «Фотохроника XX века»",
+      "category": "exhibition",
+      "venue": "Bonum Factum Gallery",
+      "startDate": "2026-08-08",
+      "endDate": null,
+      "time": null,
+      "url": "https://www.afisha.uz/ru/exhibitions/2026/06/25/photo-chronicle-xx",
+      "source": "afisha.uz (calendar)"
+    },
+    {
+      "title": "Спектакль Out of Order",
       "titleRu": "Спектакль Out of Order",
       "category": "theatre",
       "venue": "Human House",
@@ -705,17 +804,29 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Bunyodkor vs OKMK",
-      "titleRu": null,
+      "title": "Футбольный матч «Бунёдкор» — ОКМК",
+      "titleRu": "Футбольный матч «Бунёдкор» — ОКМК",
       "category": "sport",
-      "venue": "«Bunyodkor» stadium",
+      "venue": "Бунёдкор",
       "startDate": "2026-08-08",
       "endDate": null,
-      "url": "https://iticket.uz/en/events/concerts/bunyodkor-vs-okmk",
-      "source": "iticket.uz"
+      "time": null,
+      "url": "https://www.afisha.uz/ru/sport/2026/08/03/futbolnyi-match-bunyodkor-okmk-8-avgusta",
+      "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Summer Cooking Camp at Cook Book",
+      "title": "Культурная программа в Республиканской детской библиотеке",
+      "titleRu": "Культурная программа в Республиканской детской библиотеке",
+      "category": "kids",
+      "venue": "Республиканская детская библиотека",
+      "startDate": "2026-08-08",
+      "endDate": null,
+      "time": null,
+      "url": "https://www.afisha.uz/ru/children/2026/08/03/kulturnaya-programma-v-detskoi-biblioteke-7-9-avgusta",
+      "source": "afisha.uz (calendar)"
+    },
+    {
+      "title": "Летний кулинарный лагерь в Cook Book",
       "titleRu": "Летний кулинарный лагерь в Cook Book",
       "category": "kids",
       "venue": "Cookbook workshop",
@@ -726,7 +837,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Theater and circus show Nova Circus",
+      "title": "Театрально-цирковое шоу Nova Circus",
       "titleRu": "Театрально-цирковое шоу Nova Circus",
       "category": "kids",
       "venue": "Tashkent City",
@@ -737,7 +848,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Children's culinary master classes at PRO.Khinkali",
+      "title": "Детские кулинарные мастер-классы в PRO.Хинкали",
       "titleRu": "Детские кулинарные мастер-классы в PRO.Хинкали",
       "category": "kids",
       "venue": "PRO.Хинкали",
@@ -781,6 +892,17 @@
       "source": "afisha.uz (calendar)"
     },
     {
+      "title": "Спектакль «Мадагаскар» в парке Tashkent City",
+      "titleRu": "Спектакль «Мадагаскар» в парке Tashkent City",
+      "category": "festival",
+      "venue": "Tashkent City",
+      "startDate": "2026-08-08",
+      "endDate": null,
+      "time": null,
+      "url": "https://www.afisha.uz/ru/gorod/2026/07/16/madagaskar-tashkent-city-2026",
+      "source": "afisha.uz (calendar)"
+    },
+    {
       "title": "Melon Festival 2026 in Khiva",
       "titleRu": "Фестиваль дыни 2026 в Хиве",
       "category": "festival",
@@ -789,6 +911,17 @@
       "endDate": null,
       "time": null,
       "url": "https://www.afisha.uz/ru/gorod/2026/07/14/qovun-sayli",
+      "source": "afisha.uz (calendar)"
+    },
+    {
+      "title": "Women's art relaxation “From the depths of the ocean” at Human House",
+      "titleRu": "Женский арт-релакс «Из глубины океана» в Human House",
+      "category": "lecture",
+      "venue": "Human House",
+      "startDate": "2026-08-08",
+      "endDate": null,
+      "time": null,
+      "url": "https://www.afisha.uz/ru/znaniya/2026/08/03/art-relaks-iz-glubiny-okeana-human-house-8-avgusta",
       "source": "afisha.uz (calendar)"
     },
     {
@@ -803,7 +936,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Master classes at Dvoe Ceramics",
+      "title": "Мастер-классы в Dvoe Ceramics",
       "titleRu": "Мастер-классы в Dvoe Ceramics",
       "category": "lecture",
       "venue": "DVOE",
@@ -814,7 +947,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Master class on replanting house plants",
+      "title": "Мастер-класс по пересадке домашних растений",
       "titleRu": "Мастер-класс по пересадке домашних растений",
       "category": "lecture",
       "venue": null,
@@ -825,7 +958,50 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Next Market Fair",
+      "title": "Bunyodkor vs OKMK",
+      "titleRu": null,
+      "category": "sport",
+      "venue": "«Bunyodkor» stadium",
+      "startDate": "2026-08-08",
+      "endDate": null,
+      "url": "https://iticket.uz/en/events/concerts/bunyodkor-vs-okmk",
+      "source": "iticket.uz"
+    },
+    {
+      "title": "Concert Candle Fire: Summer",
+      "titleRu": "Концерт Candle Fire: Summer",
+      "category": "concert",
+      "venue": "Центральный экопарк Ташкента имени З.М. Бабура",
+      "startDate": "2026-08-09",
+      "endDate": null,
+      "time": null,
+      "url": "https://www.afisha.uz/ru/concerts/2026/08/03/koncert-candle-fire-summer-9-avgusta",
+      "source": "afisha.uz (calendar)"
+    },
+    {
+      "title": "Выставка «По Великому шелковому пути»",
+      "titleRu": "Выставка «По Великому шелковому пути»",
+      "category": "exhibition",
+      "venue": "Международный Караван-Сарай культуры Икуо Хираямы",
+      "startDate": "2026-08-09",
+      "endDate": null,
+      "time": null,
+      "url": "https://www.afisha.uz/ru/exhibitions/2026/08/03/vystavka-po-velikomu-shelkovomu-puti-avgust",
+      "source": "afisha.uz (calendar)"
+    },
+    {
+      "title": "Выставка Qimmat",
+      "titleRu": "Выставка Qimmat",
+      "category": "exhibition",
+      "venue": "Zanmakon",
+      "startDate": "2026-08-09",
+      "endDate": null,
+      "time": null,
+      "url": "https://www.afisha.uz/ru/exhibitions/2026/08/03/zanmakon",
+      "source": "afisha.uz (calendar)"
+    },
+    {
+      "title": "Ярмарка Next Market",
       "titleRu": "Ярмарка Next Market",
       "category": "exhibition",
       "venue": null,
@@ -836,7 +1012,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Exhibition “Generation Z” at Andakulova Gallery",
+      "title": "Выставка «Поколение Z» в Andakulova Gallery",
       "titleRu": "Выставка «Поколение Z» в Andakulova Gallery",
       "category": "exhibition",
       "venue": "Andakulova gallery",
@@ -844,6 +1020,28 @@
       "endDate": null,
       "time": null,
       "url": "https://www.afisha.uz/ru/exhibitions/2026/07/23/pokolenie-z-andakulova-gallery",
+      "source": "afisha.uz (calendar)"
+    },
+    {
+      "title": "Exhibition “Photochronicles of the 20th century”",
+      "titleRu": "Выставка «Фотохроника XX века»",
+      "category": "exhibition",
+      "venue": "Bonum Factum Gallery",
+      "startDate": "2026-08-09",
+      "endDate": null,
+      "time": null,
+      "url": "https://www.afisha.uz/ru/exhibitions/2026/06/25/photo-chronicle-xx",
+      "source": "afisha.uz (calendar)"
+    },
+    {
+      "title": "Cultural program at the Republican Children's Library",
+      "titleRu": "Культурная программа в Республиканской детской библиотеке",
+      "category": "kids",
+      "venue": "Республиканская детская библиотека",
+      "startDate": "2026-08-09",
+      "endDate": null,
+      "time": null,
+      "url": "https://www.afisha.uz/ru/children/2026/08/03/kulturnaya-programma-v-detskoi-biblioteke-7-9-avgusta",
       "source": "afisha.uz (calendar)"
     },
     {
@@ -869,7 +1067,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Musical fountain in Magic City Park",
+      "title": "Музыкальный фонтан в парке Magic City",
       "titleRu": "Музыкальный фонтан в парке Magic City",
       "category": "festival",
       "venue": "Magic City",
@@ -880,7 +1078,18 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Palma & Chilla beach in Milliy Bog’ park",
+      "title": "Музыкальный фонтан в парке Tashkent City",
+      "titleRu": "Музыкальный фонтан в парке Tashkent City",
+      "category": "festival",
+      "venue": "Tashkent City",
+      "startDate": "2026-08-09",
+      "endDate": null,
+      "time": null,
+      "url": "https://www.afisha.uz/ru/gorod/2026/07/16/muzykalnyy-fontan-tashkent-city-2026",
+      "source": "afisha.uz (calendar)"
+    },
+    {
+      "title": "Пляж Palma & Chilla в парке Milliy Bog’",
       "titleRu": "Пляж Palma & Chilla в парке Milliy Bog’",
       "category": "festival",
       "venue": "Milliy bog‘",
@@ -891,7 +1100,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Melon Festival 2026 in Khiva",
+      "title": "Фестиваль дыни 2026 в Хиве",
       "titleRu": "Фестиваль дыни 2026 в Хиве",
       "category": "festival",
       "venue": "Ichan Qala",
@@ -899,6 +1108,17 @@
       "endDate": null,
       "time": null,
       "url": "https://www.afisha.uz/ru/gorod/2026/07/14/qovun-sayli",
+      "source": "afisha.uz (calendar)"
+    },
+    {
+      "title": "Aroma master class at Human House",
+      "titleRu": "Арома мастер-класс в Human House",
+      "category": "lecture",
+      "venue": "Human House",
+      "startDate": "2026-08-09",
+      "endDate": null,
+      "time": null,
+      "url": "https://www.afisha.uz/ru/znaniya/2026/08/03/aroma-master-klass-human-house-9-avgusta",
       "source": "afisha.uz (calendar)"
     },
     {
@@ -935,7 +1155,29 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Exhibition “Photochronicles of the 20th century”",
+      "title": "Выставка «По Великому шелковому пути»",
+      "titleRu": "Выставка «По Великому шелковому пути»",
+      "category": "exhibition",
+      "venue": "Международный Караван-Сарай культуры Икуо Хираямы",
+      "startDate": "2026-08-10",
+      "endDate": null,
+      "time": null,
+      "url": "https://www.afisha.uz/ru/exhibitions/2026/08/03/vystavka-po-velikomu-shelkovomu-puti-avgust",
+      "source": "afisha.uz (calendar)"
+    },
+    {
+      "title": "Выставка Qimmat",
+      "titleRu": "Выставка Qimmat",
+      "category": "exhibition",
+      "venue": "Zanmakon",
+      "startDate": "2026-08-10",
+      "endDate": null,
+      "time": null,
+      "url": "https://www.afisha.uz/ru/exhibitions/2026/08/03/zanmakon",
+      "source": "afisha.uz (calendar)"
+    },
+    {
+      "title": "Выставка «Фотохроника XX века»",
       "titleRu": "Выставка «Фотохроника XX века»",
       "category": "exhibition",
       "venue": "Bonum Factum Gallery",
@@ -957,7 +1199,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Children's day at the Sinbad pool",
+      "title": "Детский день в бассейне Sinbad",
       "titleRu": "Детский день в бассейне Sinbad",
       "category": "kids",
       "venue": "Sinbad",
@@ -1001,7 +1243,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Brain Slaughter: Classic",
+      "title": "Мозгобойня: Классическая",
       "titleRu": "Мозгобойня: Классическая",
       "category": "concert",
       "venue": "Terrace100",
@@ -1012,18 +1254,29 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Exhibition “Photochronicles of the 20th century”",
-      "titleRu": "Выставка «Фотохроника XX века»",
+      "title": "Exhibition “Along the Great Silk Road”",
+      "titleRu": "Выставка «По Великому шелковому пути»",
       "category": "exhibition",
-      "venue": "Bonum Factum Gallery",
+      "venue": "Международный Караван-Сарай культуры Икуо Хираямы",
       "startDate": "2026-08-11",
       "endDate": null,
       "time": null,
-      "url": "https://www.afisha.uz/ru/exhibitions/2026/06/25/photo-chronicle-xx",
+      "url": "https://www.afisha.uz/ru/exhibitions/2026/08/03/vystavka-po-velikomu-shelkovomu-puti-avgust",
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Free game development course Game Dev Lab for teenagers",
+      "title": "Football match \"Pakhtakor\" - \"Al-Hussein\"",
+      "titleRu": "Футбольный матч «Пахтакор» — «Аль-Хусейн»",
+      "category": "sport",
+      "venue": "Спортивный комплекс «Пахтакор»",
+      "startDate": "2026-08-11",
+      "endDate": null,
+      "time": null,
+      "url": "https://www.afisha.uz/ru/sport/2026/08/03/futbolnyi-match-paxtakor-al-hussein-11-avgusta",
+      "source": "afisha.uz (calendar)"
+    },
+    {
+      "title": "Бесплатный курс по разработке игр Game Dev Lab для подростков",
       "titleRu": "Бесплатный курс по разработке игр Game Dev Lab для подростков",
       "category": "kids",
       "venue": "Республиканская детская библиотека",
@@ -1056,7 +1309,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Musical fountain in Magic City Park",
+      "title": "Музыкальный фонтан в парке Magic City",
       "titleRu": "Музыкальный фонтан в парке Magic City",
       "category": "festival",
       "venue": "Magic City",
@@ -1067,7 +1320,18 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Palma & Chilla beach in Milliy Bog’ park",
+      "title": "Музыкальный фонтан в парке Tashkent City",
+      "titleRu": "Музыкальный фонтан в парке Tashkent City",
+      "category": "festival",
+      "venue": "Tashkent City",
+      "startDate": "2026-08-11",
+      "endDate": null,
+      "time": null,
+      "url": "https://www.afisha.uz/ru/gorod/2026/07/16/muzykalnyy-fontan-tashkent-city-2026",
+      "source": "afisha.uz (calendar)"
+    },
+    {
+      "title": "Пляж Palma & Chilla в парке Milliy Bog’",
       "titleRu": "Пляж Palma & Chilla в парке Milliy Bog’",
       "category": "festival",
       "venue": "Milliy bog‘",
@@ -1089,7 +1353,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Master classes at Dvoe Ceramics",
+      "title": "Мастер-классы в Dvoe Ceramics",
       "titleRu": "Мастер-классы в Dvoe Ceramics",
       "category": "lecture",
       "venue": "DVOE",
@@ -1098,6 +1362,16 @@
       "time": null,
       "url": "https://www.afisha.uz/ru/znaniya/2026/07/28/dvoe-ceramics-2",
       "source": "afisha.uz (calendar)"
+    },
+    {
+      "title": "Paxtakor vs Al-Hussein",
+      "titleRu": null,
+      "category": "sport",
+      "venue": "Pakhtakor Stadium",
+      "startDate": "2026-08-11",
+      "endDate": null,
+      "url": "https://iticket.uz/en/events/concerts/paxtakor-vs-al-hussein26",
+      "source": "iticket.uz"
     },
     {
       "title": "Musical evenings at PAUL",
@@ -1111,18 +1385,29 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Exhibition “Photochronicles of the 20th century”",
-      "titleRu": "Выставка «Фотохроника XX века»",
+      "title": "Выставка «По Великому шелковому пути»",
+      "titleRu": "Выставка «По Великому шелковому пути»",
       "category": "exhibition",
-      "venue": "Bonum Factum Gallery",
+      "venue": "Международный Караван-Сарай культуры Икуо Хираямы",
       "startDate": "2026-08-12",
       "endDate": null,
       "time": null,
-      "url": "https://www.afisha.uz/ru/exhibitions/2026/06/25/photo-chronicle-xx",
+      "url": "https://www.afisha.uz/ru/exhibitions/2026/08/03/vystavka-po-velikomu-shelkovomu-puti-avgust",
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Theater and circus show Nova Circus",
+      "title": "Exhibition Qimmat",
+      "titleRu": "Выставка Qimmat",
+      "category": "exhibition",
+      "venue": "Zanmakon",
+      "startDate": "2026-08-12",
+      "endDate": null,
+      "time": null,
+      "url": "https://www.afisha.uz/ru/exhibitions/2026/08/03/zanmakon",
+      "source": "afisha.uz (calendar)"
+    },
+    {
+      "title": "Театрально-цирковое шоу Nova Circus",
       "titleRu": "Театрально-цирковое шоу Nova Circus",
       "category": "kids",
       "venue": "Tashkent City",
@@ -1144,7 +1429,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Musical fountain in Magic City Park",
+      "title": "Музыкальный фонтан в парке Magic City",
       "titleRu": "Музыкальный фонтан в парке Magic City",
       "category": "festival",
       "venue": "Magic City",
@@ -1152,6 +1437,17 @@
       "endDate": null,
       "time": null,
       "url": "https://www.afisha.uz/ru/gorod/2026/07/17/muzykalnyy-fontan-magic-city-2026",
+      "source": "afisha.uz (calendar)"
+    },
+    {
+      "title": "Musical fountain in Tashkent City park",
+      "titleRu": "Музыкальный фонтан в парке Tashkent City",
+      "category": "festival",
+      "venue": "Tashkent City",
+      "startDate": "2026-08-12",
+      "endDate": null,
+      "time": null,
+      "url": "https://www.afisha.uz/ru/gorod/2026/07/16/muzykalnyy-fontan-tashkent-city-2026",
       "source": "afisha.uz (calendar)"
     },
     {
@@ -1199,6 +1495,138 @@
       "source": "afisha.uz"
     },
     {
+      "title": "Musical evenings at PAUL",
+      "titleRu": "Музыкальные вечера в PAUL",
+      "category": "concert",
+      "venue": "Paul",
+      "startDate": "2026-08-13",
+      "endDate": null,
+      "time": null,
+      "url": "https://www.afisha.uz/ru/restaurants/2026/07/17/paul-music-evenings",
+      "source": "afisha.uz (calendar)"
+    },
+    {
+      "title": "Концерт рок-хитов от Tynda.music",
+      "titleRu": "Концерт рок-хитов от Tynda.music",
+      "category": "concert",
+      "venue": "Дворец искусств «Туркистон»",
+      "startDate": "2026-08-13",
+      "endDate": null,
+      "time": null,
+      "url": "https://www.afisha.uz/ru/concerts/2026/07/16/tynda-music-rok-khity-13-avgusta",
+      "source": "afisha.uz (calendar)"
+    },
+    {
+      "title": "Rock concert at the Turkiston Palace of Arts",
+      "titleRu": "Рок-концерт во дворце искусств «Туркистон»",
+      "category": "concert",
+      "venue": "Дворец искусств «Туркистон»",
+      "startDate": "2026-08-13",
+      "endDate": null,
+      "time": null,
+      "url": "https://www.afisha.uz/ru/concerts/2026/07/14/rok-koncert-turkiston-avgust",
+      "source": "afisha.uz (calendar)"
+    },
+    {
+      "title": "Exhibition “Along the Great Silk Road”",
+      "titleRu": "Выставка «По Великому шелковому пути»",
+      "category": "exhibition",
+      "venue": "Международный Караван-Сарай культуры Икуо Хираямы",
+      "startDate": "2026-08-13",
+      "endDate": null,
+      "time": null,
+      "url": "https://www.afisha.uz/ru/exhibitions/2026/08/03/vystavka-po-velikomu-shelkovomu-puti-avgust",
+      "source": "afisha.uz (calendar)"
+    },
+    {
+      "title": "Free game development course Game Dev Lab for teenagers",
+      "titleRu": "Бесплатный курс по разработке игр Game Dev Lab для подростков",
+      "category": "kids",
+      "venue": "Республиканская детская библиотека",
+      "startDate": "2026-08-13",
+      "endDate": null,
+      "time": null,
+      "url": "https://www.afisha.uz/ru/children/2026/07/31/besplatnyy-kurs-game-dev-lab-dlya-podrostkov",
+      "source": "afisha.uz (calendar)"
+    },
+    {
+      "title": "Theater and circus show Nova Circus",
+      "titleRu": "Театрально-цирковое шоу Nova Circus",
+      "category": "kids",
+      "venue": "Tashkent City",
+      "startDate": "2026-08-13",
+      "endDate": null,
+      "time": null,
+      "url": "https://www.afisha.uz/ru/children/2026/07/28/nova-circus-tashkent-city",
+      "source": "afisha.uz (calendar)"
+    },
+    {
+      "title": "Musical fountain in Magic City Park",
+      "titleRu": "Музыкальный фонтан в парке Magic City",
+      "category": "festival",
+      "venue": "Magic City",
+      "startDate": "2026-08-13",
+      "endDate": null,
+      "time": null,
+      "url": "https://www.afisha.uz/ru/gorod/2026/07/17/muzykalnyy-fontan-magic-city-2026",
+      "source": "afisha.uz (calendar)"
+    },
+    {
+      "title": "Музыкальный фонтан в парке Tashkent City",
+      "titleRu": "Музыкальный фонтан в парке Tashkent City",
+      "category": "festival",
+      "venue": "Tashkent City",
+      "startDate": "2026-08-13",
+      "endDate": null,
+      "time": null,
+      "url": "https://www.afisha.uz/ru/gorod/2026/07/16/muzykalnyy-fontan-tashkent-city-2026",
+      "source": "afisha.uz (calendar)"
+    },
+    {
+      "title": "Palma & Chilla beach in Milliy Bog’ park",
+      "titleRu": "Пляж Palma & Chilla в парке Milliy Bog’",
+      "category": "festival",
+      "venue": "Milliy bog‘",
+      "startDate": "2026-08-13",
+      "endDate": null,
+      "time": null,
+      "url": "https://www.afisha.uz/ru/gorod/2026/07/16/palma-chilla-milliy-bog-2026",
+      "source": "afisha.uz (calendar)"
+    },
+    {
+      "title": "Creative workshops in Potterville",
+      "titleRu": "Творческие мастер-классы в Potterville",
+      "category": "lecture",
+      "venue": "Potterville",
+      "startDate": "2026-08-13",
+      "endDate": null,
+      "time": null,
+      "url": "https://www.afisha.uz/ru/znaniya/2026/07/29/potterville-avgust-2026",
+      "source": "afisha.uz (calendar)"
+    },
+    {
+      "title": "Master classes at Dvoe Ceramics",
+      "titleRu": "Мастер-классы в Dvoe Ceramics",
+      "category": "lecture",
+      "venue": "DVOE",
+      "startDate": "2026-08-13",
+      "endDate": null,
+      "time": null,
+      "url": "https://www.afisha.uz/ru/znaniya/2026/07/28/dvoe-ceramics-2",
+      "source": "afisha.uz (calendar)"
+    },
+    {
+      "title": "Literary project \"NOT a book club.\"",
+      "titleRu": "Литературный проект «НЕ книжный клуб».",
+      "category": "lecture",
+      "venue": null,
+      "startDate": "2026-08-13",
+      "endDate": null,
+      "time": null,
+      "url": "https://www.afisha.uz/ru/znaniya/2026/07/27/not-a-book-club",
+      "source": "afisha.uz (calendar)"
+    },
+    {
       "title": "Rock Consert",
       "titleRu": null,
       "category": "concert",
@@ -1216,6 +1644,16 @@
       "startDate": "2026-08-14",
       "endDate": null,
       "url": "https://iticket.uz/en/events/concerts/abdizhappar-alkozha",
+      "source": "iticket.uz"
+    },
+    {
+      "title": "YE LIVE IN ALMATY",
+      "titleRu": null,
+      "category": "concert",
+      "venue": "Central Stadium (Almaty)",
+      "startDate": "2026-08-14",
+      "endDate": null,
+      "url": "https://iticket.uz/en/events/concerts/ye-live-in-almaty",
       "source": "iticket.uz"
     },
     {
