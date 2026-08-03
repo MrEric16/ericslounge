@@ -153,6 +153,9 @@
     display:flex; gap:12px; overflow-x:auto; padding:4px 2px 10px;
     -webkit-overflow-scrolling:touch; scrollbar-width:none;
   }
+  @media (min-width:640px){
+    .story-bar{ justify-content:center; }
+  }
   .story-bar::-webkit-scrollbar{ display:none; }
   .story-circle{
     flex:0 0 auto; width:64px; text-align:center; cursor:pointer;
@@ -5427,8 +5430,16 @@ function wireSearch(container){
     const exploreMatches = EXPLORE_SITES.filter(s => s.name.toLowerCase().includes(q) || s.desc.toLowerCase().includes(q));
     const pageMatches = allPages.filter(p => p.name.toLowerCase().includes(q) || p.desc.toLowerCase().includes(q));
     const birthdayMatches = BIRTHDAYS.filter(b => b.name.toLowerCase().includes(q));
+    // Matches on title OR category (e.g. typing "theatre" finds every theatre
+    // event, even ones whose title doesn't literally contain that word).
+    const tashkentEventMatches = EVENTS_TASHKENT.filter(e =>
+      (e.title||'').toLowerCase().includes(q) || (e.category||'').toLowerCase().includes(q)
+    );
+    const virtualEventMatches = [...VIRTUAL_EVENTS.dated, ...VIRTUAL_EVENTS.perpetual].filter(e =>
+      (e.title||'').toLowerCase().includes(q) || (e.category||'').toLowerCase().includes(q)
+    );
 
-    if(articleMatches.length === 0 && videoMatches.length === 0 && exploreMatches.length === 0 && pageMatches.length === 0 && birthdayMatches.length === 0){
+    if(articleMatches.length === 0 && videoMatches.length === 0 && exploreMatches.length === 0 && pageMatches.length === 0 && birthdayMatches.length === 0 && tashkentEventMatches.length === 0 && virtualEventMatches.length === 0){
       results.innerHTML = `<div class="empty-card">Nothing found for "${escapeHtml(input.value.trim())}". Try something else.</div>`;
       return;
     }
@@ -5441,6 +5452,30 @@ function wireSearch(container){
     if(pageMatches.length > 0){
       html += `<div class="section-head" style="margin-top:${html?'24px':'0'};"><span class="emoji">${icon('compass2')}</span><h2>Pages</h2></div>`;
       html += pageResultsHtml(pageMatches);
+    }
+    if(tashkentEventMatches.length > 0){
+      html += `<div class="section-head" style="margin-top:${html?'24px':'0'};"><span class="emoji">${icon('calendar')}</span><h2>Events in Tashkent</h2></div>`;
+      html += tashkentEventMatches.map(e => `
+        <a class="page-result" href="${e.url || '#events-tashkent'}" target="${e.url ? '_blank' : '_self'}" rel="noopener">
+          <span class="page-result-icon">${icon('calendar')}</span>
+          <div>
+            <div class="page-result-name">${escapeHtml(e.title)}</div>
+            <div class="page-result-desc">${escapeHtml(e.category || '')}${e.startDate ? ' · ' + formatShortDate(e.startDate) : ''}</div>
+          </div>
+        </a>
+      `).join('');
+    }
+    if(virtualEventMatches.length > 0){
+      html += `<div class="section-head" style="margin-top:${html?'24px':'0'};"><span class="emoji">${icon('globe')}</span><h2>Online Events</h2></div>`;
+      html += virtualEventMatches.map(e => `
+        <a class="page-result" href="${e.url || '#events-virtual'}" target="${e.url ? '_blank' : '_self'}" rel="noopener">
+          <span class="page-result-icon">${icon('globe')}</span>
+          <div>
+            <div class="page-result-name">${escapeHtml(e.title)}</div>
+            <div class="page-result-desc">${escapeHtml(e.category || e.org || '')}${e.startDate ? ' · ' + formatShortDate(e.startDate) : ' · ongoing'}</div>
+          </div>
+        </a>
+      `).join('');
     }
     if(exploreMatches.length > 0){
       html += `<div class="section-head" style="margin-top:${html?'24px':'0'};"><span class="emoji">${icon('compass2')}</span><h2>Websites</h2></div>`;
@@ -6182,6 +6217,17 @@ async function loadTashkentEvents(){
   }
   const body = document.getElementById('eventsTashkentBody');
   if(body){ body.outerHTML = eventsTashkentListHtml(); }
+  refreshSearchIfActive();
+}
+
+// If the person is on the search page with a query already typed when events
+// data finishes loading in the background, re-run the search so event
+// results appear without them needing to retype anything.
+function refreshSearchIfActive(){
+  const input = document.getElementById('searchInput');
+  if(input && input.value.trim()){
+    input.dispatchEvent(new Event('input'));
+  }
 }
 
 // Buckets events into the rolling 7-day window: today + next 6 days. An event
@@ -6228,6 +6274,41 @@ function eventsTashkentTileHtml(){
       <div class="sub">Concerts, theatre, exhibitions & more in Tashkent</div>
     </div>
   </a>`;
+}
+
+function eventsHubTileHtml(){
+  return `<a class="events-tile" href="#events-hub">
+    <span class="icon">${icon('calendar')}</span>
+    <div>
+      <div class="title">Events — Tashkent and Online</div>
+      <div class="sub">What's on in the city this week, and free online sessions worth joining</div>
+    </div>
+  </a>`;
+}
+
+function viewEventsHub(){
+  return `
+    <a class="back-link" href="#">← Back to Mr Eric's Lounge</a>
+    <section style="padding-top:14px;">
+      <div class="section-head"><span class="emoji">${icon('calendar')}</span><h2>Events</h2></div>
+      <div style="display:flex; flex-direction:column; gap:14px;">
+        <a class="events-tile" href="#events-tashkent">
+          <span class="icon">${icon('calendar')}</span>
+          <div>
+            <div class="title">Upcoming Events in Tashkent</div>
+            <div class="sub">Concerts, theatre, exhibitions & more, happening in the city this week</div>
+          </div>
+        </a>
+        <a class="events-tile" href="#events-virtual" style="background:var(--teal); color:#fff;">
+          <span class="icon">${icon('globe')}</span>
+          <div>
+            <div class="title" style="color:#fff;">Upcoming and Current Online Events</div>
+            <div class="sub" style="color:#EAF3E0;">Free live sessions this week, plus real ongoing projects you can join any day</div>
+          </div>
+        </a>
+      </div>
+    </section>
+  `;
 }
 
 function eventsTashkentListHtml(){
@@ -6298,6 +6379,7 @@ async function loadVirtualEvents(){
   }
   const body = document.getElementById('virtualEventsBody');
   if(body){ body.outerHTML = virtualEventsBodyHtml(); }
+  refreshSearchIfActive();
 }
 
 // Same rolling-window logic as Tashkent events, applied to the dated pool only.
@@ -6686,13 +6768,8 @@ function viewHome(){
     </section>
 
     <section>
-      <div class="section-head"><span class="emoji">${icon('calendar')}</span><h2>Events This Week</h2></div>
-      ${eventsTashkentTileHtml()}
-    </section>
-
-    <section>
-      <div class="section-head"><span class="emoji">${icon('globe')}</span><h2>Online Events</h2></div>
-      ${virtualEventsTileHtml()}
+      <div class="section-head"><span class="emoji">${icon('calendar')}</span><h2>Events</h2></div>
+      ${eventsHubTileHtml()}
     </section>
 
     <section>
@@ -6932,6 +7009,8 @@ function renderRoute(opts){
     html = viewSuperstars();
   } else if(parts[0] === 'birthdays'){
     html = viewBirthdaysPage();
+  } else if(parts[0] === 'events-hub'){
+    html = viewEventsHub();
   } else if(parts[0] === 'events-tashkent'){
     html = viewEventsTashkent();
   } else if(parts[0] === 'events-virtual'){
@@ -6959,7 +7038,7 @@ function renderRoute(opts){
   wireWatchButtons(app);
   wireEntryActions(app);
   if(parts[0] === 'photos'){ wirePhotoLightbox(app); wirePhotoUpload(app); loadSubmittedPhotos(); }
-  if(parts[0] === 'search') wireSearch(app);
+  if(parts[0] === 'search'){ wireSearch(app); loadTashkentEvents(); loadVirtualEvents(); }
   if(parts[0] === 'install'){ wireInstallPage(); }
   if(parts[0] === 'stats'){ loadStats(); }
   if(parts[0] === 'events-tashkent'){ loadTashkentEvents(); }
