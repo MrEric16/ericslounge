@@ -3,6 +3,15 @@
   "note": "Manually curated and vetted by Claude per Mr Eric's strict content rules (free, educational, non-controversial, teen-appropriate, zero tolerance for banned topics). Refreshed on request, not auto-scraped -- this content type requires human judgment per-item, unlike the Tashkent ticketing feed.",
   "dated": [
     {
+      "title": "Walking Political History in London's Westminster District",
+      "org": "Road Scholar",
+      "description": "Free one-hour lecture and live Q&A on how England's Parliament developed over 800 years.",
+      "startDate": "2026-08-03",
+      "time": "22:00 Tashkent",
+      "category": "history",
+      "url": "https://www.roadscholar.org/find-an-adventure/24416/Online-Lecture-Walking-Political-History-in-London-s-Westminster-District"
+    },
+    {
       "title": "Rome's Artistic Treasures",
       "org": "Road Scholar",
       "description": "Free one-hour lecture and live Q&A on centuries of Roman art and artistic achievement.",
@@ -30,6 +39,24 @@
       "url": "https://www.roadscholar.org/collections/online-lectures/free/"
     },
     {
+      "title": "NOAA Integrated Ocean and Coastal Mapping Seminar",
+      "org": "NOAA",
+      "description": "Live seminar on ocean and coastal mapping science, hosted by NOAA Library.",
+      "startDate": "2026-08-13",
+      "time": "22:00 Tashkent",
+      "category": "science",
+      "url": "https://library.noaa.gov/seminars"
+    },
+    {
+      "title": "The Science of Neuroplasticity",
+      "org": "Road Scholar",
+      "description": "Free one-hour lecture and live Q&A on how the brain adapts and rewires itself.",
+      "startDate": "2026-08-13",
+      "time": "20:00 Tashkent",
+      "category": "science",
+      "url": "https://www.roadscholar.org/collections/online-lectures/free/"
+    },
+    {
       "title": "NASA CTE Day: Armstrong Flight Research Center",
       "org": "NASA",
       "description": "Live virtual panel with NASA professionals on technical career pathways -- aviation mechanics, welding, and more.",
@@ -48,22 +75,31 @@
       "url": "https://stemgateway.nasa.gov/s/course-offering/a0BSJ0000075yxB/virtual-event-nasas-cte-day-at-johnson-space-center"
     },
     {
-      "title": "NOAA Integrated Ocean and Coastal Mapping Seminar",
-      "org": "NOAA",
-      "description": "Live seminar on ocean and coastal mapping science, hosted by NOAA Library.",
-      "startDate": "2026-08-13",
+      "title": "Why Do We Need Empathy?",
+      "org": "Gresham College",
+      "description": "Free lecture exploring empathy through theatre, visual art, literature and music, and the philosophy of Adam Smith, Iris Murdoch and Martha Nussbaum.",
+      "startDate": "2026-09-07",
       "time": "22:00 Tashkent",
-      "category": "science",
-      "url": "https://library.noaa.gov/seminars"
+      "category": "culture",
+      "url": "https://www.gresham.ac.uk/whats-on/why-empathy"
     },
     {
-      "title": "The Science of Neuroplasticity",
-      "org": "Road Scholar",
-      "description": "Free one-hour lecture and live Q&A on how the brain adapts and rewires itself.",
-      "startDate": "2026-08-13",
-      "time": "20:00 Tashkent",
+      "title": "Cello — In Search of a Voice",
+      "org": "Gresham College",
+      "description": "Free lecture tracing the stories of cellos and their players across history, from silencing to survival.",
+      "startDate": "2026-09-09",
+      "time": "22:00 Tashkent",
+      "category": "culture",
+      "url": "https://www.gresham.ac.uk/whats-on/cello-voice"
+    },
+    {
+      "title": "The Sky at Night, Tonight: A New View of the Changing Sky",
+      "org": "Gresham College",
+      "description": "Free astronomy lecture on the Vera Rubin Observatory's deepest-ever survey of the sky, covering the latest discoveries.",
+      "startDate": "2026-09-14",
+      "time": "23:00 Tashkent",
       "category": "science",
-      "url": "https://www.roadscholar.org/collections/online-lectures/free/"
+      "url": "https://www.gresham.ac.uk/whats-on/sky-night"
     },
     {
       "title": "Ancient Andean Cosmovision",
@@ -84,22 +120,31 @@
       "url": "https://science.nasa.gov/moon/observe-the-moon-night/"
     },
     {
-      "title": "Walking Political History in London's Westminster District",
-      "org": "Road Scholar",
-      "description": "Free one-hour lecture and live Q&A on how England's Parliament developed over 800 years.",
-      "startDate": "2026-08-03",
+      "title": "The Future of Creativity",
+      "org": "Gresham College",
+      "description": "Free lecture on whether AI systems can be genuinely creative, and what that means for the future of human ideas.",
+      "startDate": "2026-09-22",
       "time": "22:00 Tashkent",
-      "category": "history",
-      "url": "https://www.roadscholar.org/find-an-adventure/24416/Online-Lecture-Walking-Political-History-in-London-s-Westminster-District"
+      "category": "science",
+      "url": "https://www.gresham.ac.uk/whats-on/future-creativity"
     },
     {
-      "title": "Santa Muerte & The Day of the Dead",
-      "org": "Road Scholar",
-      "description": "Free one-hour lecture and live Q&A exploring the traditions of Santa Muerte and Dia de los Muertos in Mexican culture.",
-      "startDate": "2026-10-26",
+      "title": "Cosmology's Mad Idea: Inflation & the Creation of Our Universe",
+      "org": "Gresham College",
+      "description": "Free physics lecture on cosmic inflation, the evidence behind it, and the fate of the universe.",
+      "startDate": "2026-09-23",
       "time": "23:00 Tashkent",
-      "category": "culture",
-      "url": "https://www.roadscholar.org/find-an-adventure/24526/Online-Lecture-Santa-Muerte-The-Day-of-the-Dead"
+      "category": "science",
+      "url": "https://www.gresham.ac.uk/whats-on/cosmology-mad"
+    },
+    {
+      "title": "Carbon: Our Flexible Friend that Built the Natural World",
+      "org": "Gresham College",
+      "description": "Free lecture on how the carbon cycle actually works, and strategies for managing carbon in the future.",
+      "startDate": "2026-09-24",
+      "time": "22:00 Tashkent",
+      "category": "science",
+      "url": "https://www.gresham.ac.uk/whats-on/carbon"
     },
     {
       "title": "The Science of Brain Health",
@@ -109,6 +154,15 @@
       "time": "23:00 Tashkent",
       "category": "science",
       "url": "https://www.roadscholar.org/find-an-adventure/31152/Age-Well-The-Science-of-Brain-Health-Proven-Ways-to-Protect-Your-Mind"
+    },
+    {
+      "title": "Santa Muerte & The Day of the Dead",
+      "org": "Road Scholar",
+      "description": "Free one-hour lecture and live Q&A exploring the traditions of Santa Muerte and Dia de los Muertos in Mexican culture.",
+      "startDate": "2026-10-26",
+      "time": "23:00 Tashkent",
+      "category": "culture",
+      "url": "https://www.roadscholar.org/find-an-adventure/24526/Online-Lecture-Santa-Muerte-The-Day-of-the-Dead"
     },
     {
       "title": "Florida's Gentle Giants: Protecting Manatees",
