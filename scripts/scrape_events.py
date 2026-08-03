@@ -147,6 +147,34 @@ def is_excluded(text):
             return True
     return False
 
+
+# Permanently banned, regardless of category or any other rule. Confirmed bad
+# by direct instruction -- these should never appear again.
+BANNED_TERMS_SUBSTRING = [
+    "layner",               # Layner Resort
+    "beerbasha",            # bar (also covered by the "beer" keyword, kept
+                             # here too for clarity and redundancy)
+    "spletni", "сплетни",   # Spletni Bar ("Gossip Bar")
+    "kalin", "калин",       # Kalin Brothers
+    "2000-х", "2000s",      # decade-themed nightlife party nights
+]
+BANNED_TERMS_WORD_BOUNDARY = [
+    # short/ambiguous words that need a word-boundary match, not a bare
+    # substring match (e.g. "oko" is inside the unrelated Russian word "около")
+    "oko", "око",           # Oko restaurant parties
+]
+
+
+def is_banned(text):
+    t = (text or "").lower()
+    for term in BANNED_TERMS_SUBSTRING:
+        if term in t:
+            return True
+    for term in BANNED_TERMS_WORD_BOUNDARY:
+        if re.search(rf"\b{re.escape(term)}\b", t):
+            return True
+    return False
+
 # Confirmed by direct observation (2026-08-02): these are standing "buy general
 # admission" listings on iticket.uz, not dated events -- they show up with
 # every single day's date because there's no real event date, just a
@@ -574,13 +602,26 @@ def scrape_afisha_calendar():
                 if href in seen_hrefs:
                     continue
                 seen_hrefs.add(href)
-                title_text = (a.inner_text() or "").strip()
-                if not title_text or len(title_text) < 3:
+                raw_text = (a.inner_text() or "").strip()
+                if not raw_text:
                     continue
-                if is_excluded(title_text):
+                # The calendar view's event links contain title + date-range + venue
+                # all concatenated with newlines in one block -- e.g.
+                # "Title\nfrom July 25 to August 9\nVenue". Take the title as the
+                # first line; the last line (if there's a third one) is the venue.
+                lines = [ln.strip() for ln in raw_text.split("\n") if ln.strip()]
+                if not lines:
                     continue
-                # afisha.uz link text sometimes repeats the title twice (link + alt text)
-                clean_title = title_text
+                clean_title = lines[0]
+                venue_text = lines[-1] if len(lines) >= 3 else None
+                if len(clean_title) < 3:
+                    continue
+                combined_check_text = clean_title + " " + (venue_text or "")
+                if is_excluded(combined_check_text) or is_banned(combined_check_text):
+                    continue
+                if is_generic_venue_listing(clean_title, venue_text):
+                    continue
+                # afisha.uz occasionally repeats a title twice back-to-back
                 half = len(clean_title) // 2
                 if half > 4 and clean_title[:half].strip() == clean_title[half:].strip():
                     clean_title = clean_title[:half].strip()
@@ -591,7 +632,7 @@ def scrape_afisha_calendar():
                     "title": english_title,
                     "titleRu": clean_title,
                     "category": resolved_category,
-                    "venue": None,
+                    "venue": venue_text,
                     "startDate": date_str,
                     "endDate": None,
                     "time": None,
