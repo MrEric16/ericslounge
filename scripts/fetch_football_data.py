@@ -97,18 +97,31 @@ def process_standings(data):
     total_table = next((s for s in data.get("standings", []) if s.get("type") == "TOTAL"), None)
     if not total_table or not total_table.get("table"):
         return None
-    # BUG FIX: previously only checked "has anyone played a game", which is true
-    # for a fully-finished PAST season too -- so once the 2025-26 season ended,
-    # its final standings kept showing as if they were current, because every
-    # team obviously had played games last season. The real check needed is
-    # whether the season this data belongs to has actually ended.
+    # REAL BUG FOUND (confirmed via actual live data, not assumption): checking
+    # only endDate wasn't enough -- a season that hasn't started yet can still have
+    # a future endDate, so that check alone let through stale not-yet-started
+    # leagues (PL showed a fully-completed 38-game table, Arsenal 85pts, despite
+    # the 2026-27 season not kicking off until Aug 21). Checking only startDate
+    # isn't enough either -- Champions League's stale season started back in Sep
+    # 2025 (safely in the past) but ALSO already ended, so startDate alone missed
+    # it. The correct check is both together: only trust the standings if today
+    # actually falls within [startDate, endDate] -- anything outside that window
+    # is either a not-yet-started or already-finished season, and its table data
+    # (whatever it shows) is not "current" no matter what the numbers look like.
     season = data.get("season") or {}
+    start_date_str = season.get("startDate")
     end_date_str = season.get("endDate")
+    now = datetime.utcnow()
+    if start_date_str:
+        try:
+            if datetime.strptime(start_date_str, "%Y-%m-%d") > now:
+                return None  # season hasn't started yet
+        except ValueError:
+            pass
     if end_date_str:
         try:
-            season_end = datetime.strptime(end_date_str, "%Y-%m-%d")
-            if season_end < datetime.utcnow():
-                return None  # this season is over -- don't show it as current
+            if datetime.strptime(end_date_str, "%Y-%m-%d") < now:
+                return None  # season has already finished
         except ValueError:
             pass
     if not any(row.get("playedGames", 0) > 0 for row in total_table["table"]):
