@@ -3701,7 +3701,7 @@ function dispatchListHtml(list){
         <div class="entry-row">
           <div class="tag" style="background:${fac.color}">${fac.label}</div>
           <div class="entry-body">
-            <a class="headline" href="${a.url}" rel="noopener">${escapeHtml(a.headline)}</a>
+            <a class="headline" href="${a.url}" target="_blank" rel="noopener" onclick="trackArticleOpen('${a.url.replace(/'/g,"\\'")}')">${escapeHtml(a.headline)}</a>
             <div class="entry-meta">
               ${readLabel ? `<div>${readLabel}</div>` : ''}
               <div>${escapeHtml(sourceName(a.url))}</div>
@@ -6789,7 +6789,9 @@ function viewHome(){
       <a class="invite-link" href="#invite">${icon('star')}<span>Invite a friend</span></a>
     </section>
 
-    <div id="streakBadgeContainer" style="text-align:center; padding:4px 0 24px; opacity:.7;"></div>
+    <div style="text-align:center; padding:4px 0 24px;">
+      <a href="#my-stats" style="display:inline-flex; align-items:center; gap:6px; background:var(--card); border:1px solid var(--line); border-radius:999px; padding:8px 16px; font-family:'Nunito',sans-serif; font-weight:700; font-size:13px; color:var(--ink); text-decoration:none; opacity:.85;">📊 My Stats</a>
+    </div>
   `;
 }
 
@@ -6999,6 +7001,7 @@ function renderRoute(opts){
     html = viewWatchFaculty(parts[1]);
   } else if(parts[0] === 'play' && parts[1]){
     html = viewPlaySingle(parts[1]);
+    trackVideoOpen(parts[1]);
   } else if(parts[0] === 'search'){
     html = viewSearch();
   } else if(parts[0] === 'photos'){
@@ -7017,6 +7020,8 @@ function renderRoute(opts){
     html = viewSuperstars();
   } else if(parts[0] === 'birthdays'){
     html = viewBirthdaysPage();
+  } else if(parts[0] === 'my-stats'){
+    html = viewMyStats();
   } else if(parts[0] === 'events-hub'){
     html = viewEventsHub();
   } else if(parts[0] === 'events-tashkent'){
@@ -7892,9 +7897,9 @@ function updateStreak(){
   }catch(e){ return { count: 1, justIncremented: false }; }
 }
 function renderStreakBadge(){
+  const { count, justIncremented } = updateStreak();
   const el = document.getElementById('streakBadgeContainer');
   if(!el) return;
-  const { count, justIncremented } = updateStreak();
   el.innerHTML = `<div class="streak-badge${justIncremented ? ' pop' : ''}"><span class="streak-flame">🔥</span><span>${count} day${count===1?'':'s'} streak</span></div>`;
 }
 
@@ -7910,6 +7915,147 @@ const BADGES = [
 function getUnlockedBadges(){
   try{ return new Set(JSON.parse(localStorage.getItem('unlockedBadges') || '[]')); }catch(e){ return new Set(); }
 }
+/* ---- My Stats: unique reads/watches, active time, open count ---- */
+function getReadArticles(){
+  try{ return new Set(JSON.parse(localStorage.getItem('readArticles') || '[]')); }catch(e){ return new Set(); }
+}
+function getWatchedVideos(){
+  try{ return new Set(JSON.parse(localStorage.getItem('watchedVideos') || '[]')); }catch(e){ return new Set(); }
+}
+const ARTICLE_READ_THRESHOLD_MS = 60000;   // 60 seconds
+const VIDEO_WATCH_THRESHOLD_MS = 180000;   // 3 minutes
+
+// Articles open in a new tab and navigate away from this page entirely, so
+// there's no way to run a foreground timer against the article itself. The
+// reliable proxy: how long THIS tab stays hidden after the click, on the
+// assumption the person is reading the article in the tab that just opened.
+let pendingArticleUrl = null;
+let pendingArticleClickTime = null;
+function trackArticleOpen(url){
+  pendingArticleUrl = url;
+  pendingArticleClickTime = Date.now();
+}
+document.addEventListener('visibilitychange', ()=>{
+  if(document.visibilityState === 'visible' && pendingArticleUrl && pendingArticleClickTime){
+    const elapsed = Date.now() - pendingArticleClickTime;
+    if(elapsed >= ARTICLE_READ_THRESHOLD_MS){
+      const read = getReadArticles();
+      read.add(pendingArticleUrl);
+      try{ localStorage.setItem('readArticles', JSON.stringify([...read])); }catch(e){}
+    }
+    pendingArticleUrl = null;
+    pendingArticleClickTime = null;
+  }
+});
+
+// Videos play in an embedded player on this same page, so a straightforward
+// foreground timer works -- only counts while the tab is actually visible.
+let videoWatchTimer = null;
+function trackVideoOpen(videoId){
+  clearTimeout(videoWatchTimer);
+  const startedAt = Date.now();
+  let accumulatedMs = 0;
+  let lastResumeTime = document.visibilityState === 'visible' ? Date.now() : null;
+  function tick(){
+    if(document.visibilityState === 'visible' && lastResumeTime){
+      accumulatedMs += Date.now() - lastResumeTime;
+      lastResumeTime = Date.now();
+    }
+    if(accumulatedMs >= VIDEO_WATCH_THRESHOLD_MS){
+      const watched = getWatchedVideos();
+      watched.add(videoId);
+      try{ localStorage.setItem('watchedVideos', JSON.stringify([...watched])); }catch(e){}
+      return; // done, no need to keep ticking
+    }
+    // Stop entirely if the person has navigated away from this video's page
+    if(!location.hash.includes(videoId)) return;
+    videoWatchTimer = setTimeout(tick, 2000);
+  }
+  document.addEventListener('visibilitychange', function onVis(){
+    if(!location.hash.includes(videoId)){
+      document.removeEventListener('visibilitychange', onVis);
+      return;
+    }
+    if(document.visibilityState === 'visible'){
+      lastResumeTime = Date.now();
+    } else if(lastResumeTime){
+      accumulatedMs += Date.now() - lastResumeTime;
+      lastResumeTime = null;
+    }
+  });
+  tick();
+}
+
+// Total active time on the site -- only counts while the tab is actually
+// visible/focused, matching "count only active time on the app".
+let activeTimeLastResume = document.visibilityState === 'visible' ? Date.now() : null;
+function flushActiveTime(){
+  if(activeTimeLastResume){
+    const elapsed = Date.now() - activeTimeLastResume;
+    const total = parseInt(localStorage.getItem('totalActiveTimeMs') || '0', 10) + elapsed;
+    try{ localStorage.setItem('totalActiveTimeMs', String(total)); }catch(e){}
+    activeTimeLastResume = Date.now();
+  }
+}
+document.addEventListener('visibilitychange', ()=>{
+  if(document.visibilityState === 'visible'){
+    activeTimeLastResume = Date.now();
+  } else {
+    flushActiveTime();
+    activeTimeLastResume = null;
+  }
+});
+window.addEventListener('beforeunload', flushActiveTime);
+setInterval(flushActiveTime, 30000); // periodic flush so long sessions aren't lost if the tab is killed
+
+// Site-open count -- once per fresh page load, not per route change within a session.
+(function(){
+  const count = parseInt(localStorage.getItem('siteOpenCount') || '0', 10) + 1;
+  try{ localStorage.setItem('siteOpenCount', String(count)); }catch(e){}
+})();
+
+function resetMyStats(){
+  ['readArticles','watchedVideos','totalActiveTimeMs','siteOpenCount','visitStreak'].forEach(k=>{
+    try{ localStorage.removeItem(k); }catch(e){}
+  });
+  location.hash = '';
+  location.reload();
+}
+
+function formatActiveTime(ms){
+  const totalMinutes = Math.floor(ms / 60000);
+  const hours = Math.floor(totalMinutes / 60);
+  const minutes = totalMinutes % 60;
+  if(hours > 0) return `${hours}h ${minutes}m`;
+  return `${minutes}m`;
+}
+
+function viewMyStats(){
+  const readCount = getReadArticles().size;
+  const watchedCount = getWatchedVideos().size;
+  const activeMs = parseInt(localStorage.getItem('totalActiveTimeMs') || '0', 10);
+  const openCount = parseInt(localStorage.getItem('siteOpenCount') || '0', 10);
+  let streakCount = 1;
+  try{ streakCount = (JSON.parse(localStorage.getItem('visitStreak') || '{"count":1}')).count; }catch(e){}
+  return `
+    <a class="back-link" href="#">← Back to Mr Eric's Lounge</a>
+    <section style="padding-top:14px;">
+      <div class="section-head"><span class="emoji">📊</span><h2>My Stats</h2></div>
+      <div class="empty-card" style="text-align:left; font-size:13px; opacity:.75; margin-bottom:16px;">
+        These stats live on this device only. Clearing your browser data, reinstalling, or using a different device starts fresh — there's no account to sync across devices.
+      </div>
+      <div class="badge-grid">
+        <div class="badge-item"><div class="badge-emoji">🔥</div><div class="badge-name">${streakCount} day streak</div></div>
+        <div class="badge-item"><div class="badge-emoji">📖</div><div class="badge-name">${readCount} article${readCount===1?'':'s'} read</div></div>
+        <div class="badge-item"><div class="badge-emoji">🎬</div><div class="badge-name">${watchedCount} video${watchedCount===1?'':'s'} watched</div></div>
+        <div class="badge-item"><div class="badge-emoji">⏱️</div><div class="badge-name">${formatActiveTime(activeMs)} active time</div></div>
+        <div class="badge-item"><div class="badge-emoji">📱</div><div class="badge-name">Opened ${openCount} time${openCount===1?'':'s'}</div></div>
+      </div>
+      <button onclick="if(confirm('Reset all your stats? This cannot be undone.')) resetMyStats();" style="margin-top:20px; width:100%; padding:12px; border-radius:999px; border:1px solid var(--line); background:var(--card); color:var(--ink); font-weight:700; font-family:'Nunito',sans-serif; cursor:pointer;">Reset my stats</button>
+    </section>
+  `;
+}
+
 function trackFacultyVisit(key){
   try{
     const visited = new Set(JSON.parse(localStorage.getItem('visitedFaculties') || '[]'));
