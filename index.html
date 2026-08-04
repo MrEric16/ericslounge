@@ -7056,6 +7056,7 @@ function renderRoute(opts){
   if(parts[0] === 'stats'){ loadStats(); }
   if(parts[0] === 'events-tashkent'){ loadTashkentEvents(); }
   if(parts[0] === 'invite'){ wireNativeShareButton(); }
+  if(parts[0] === 'my-stats'){ submitStatsSnapshot(); renderComparisonBox(); }
   if(parts[0] === 'events-virtual'){ loadVirtualEvents(); }
   if(parts.length === 0){ loadOnThisDay(); loadWeather(); loadVoxPopuli(); loadLiveSportsData(); wireRandomButton(app); wireRandomVideoButton(app); wireRandomExploreButton(app); wireExtrasCarousel(app); checkAchievements(); renderStreakBadge(); checkNewBadges(); updateStoryRings(); }
   if(parts[0] === 'sports' && parts[1] === 'tables'){ loadLiveSportsData(); }
@@ -7893,6 +7894,10 @@ function updateStreak(){
       localStorage.setItem('visitStreak', JSON.stringify(data));
       justIncremented = true;
     }
+    const longest = parseInt(localStorage.getItem('longestStreak') || '0', 10);
+    if(data.count > longest){
+      try{ localStorage.setItem('longestStreak', String(data.count)); }catch(e){}
+    }
     return { count: data.count, justIncremented };
   }catch(e){ return { count: 1, justIncremented: false }; }
 }
@@ -8014,6 +8019,54 @@ setInterval(flushActiveTime, 30000); // periodic flush so long sessions aren't l
   try{ localStorage.setItem('siteOpenCount', String(count)); }catch(e){}
 })();
 
+function getFavoriteDomain(){
+  const tally = {};
+  const readUrls = getReadArticles();
+  DISPATCHES.forEach(a => { if(readUrls.has(a.url) && a.faculty){ tally[a.faculty] = (tally[a.faculty]||0) + 1; } });
+  const watchedIds = getWatchedVideos();
+  WATCH_VIDEOS.forEach(v => { if(watchedIds.has(v.videoId) && v.faculty){ tally[v.faculty] = (tally[v.faculty]||0) + 1; } });
+  let best = null, bestCount = 0;
+  for(const key in tally){ if(tally[key] > bestCount){ best = key; bestCount = tally[key]; } }
+  return best && FAC_MAP[best] ? FAC_MAP[best].label : null;
+}
+
+/* ---- Comparison feature (top 20%+ only) -- EXPERIMENTAL, easy to remove:
+   everything for this lives in this one block plus its single call site in
+   viewMyStats(). If it needs to be pulled later, delete this block and the
+   #comparisonBox div + its script call. No other code depends on it. ----*/
+function submitStatsSnapshot(){
+  if(!supabaseClient) return;
+  const reads = getReadArticles().size;
+  const watches = getWatchedVideos().size;
+  logEvent('stats_snapshot', JSON.stringify({ reads, watches }));
+}
+async function renderComparisonBox(){
+  const box = document.getElementById('comparisonBox');
+  if(!box || !supabaseClient) return;
+  try{
+    const { data, error } = await supabaseClient.from('analytics_events')
+      .select('user_id,label,created_at')
+      .eq('event_type', 'stats_snapshot')
+      .order('created_at', { ascending: true });
+    if(error || !data || data.length === 0){ box.innerHTML = ''; return; }
+    // Keep only the latest snapshot per anonymous device
+    const latestByUser = {};
+    data.forEach(row => { latestByUser[row.user_id] = row; });
+    const scores = Object.values(latestByUser).map(row => {
+      try{ const p = JSON.parse(row.label); return (p.reads||0) + (p.watches||0); }catch(e){ return 0; }
+    }).sort((a,b) => a - b);
+    if(scores.length < 5){ box.innerHTML = ''; return; } // not enough data yet to mean anything
+    const myScore = getReadArticles().size + getWatchedVideos().size;
+    const rank = scores.filter(s => s <= myScore).length;
+    const percentile = Math.round((rank / scores.length) * 100);
+    if(percentile >= 80){
+      box.innerHTML = `<div class="badge-item just-unlocked" style="grid-column:1/-1;"><div class="badge-emoji">🏅</div><div class="badge-name">Top ${100 - percentile + 1}% of readers on the site</div></div>`;
+    } else {
+      box.innerHTML = ''; // silent for everyone else -- no discouraging message
+    }
+  }catch(e){ box.innerHTML = ''; }
+}
+
 function resetMyStats(){
   ['readArticles','watchedVideos','totalActiveTimeMs','siteOpenCount','visitStreak'].forEach(k=>{
     try{ localStorage.removeItem(k); }catch(e){}
@@ -8035,6 +8088,9 @@ function viewMyStats(){
   const watchedCount = getWatchedVideos().size;
   const activeMs = parseInt(localStorage.getItem('totalActiveTimeMs') || '0', 10);
   const openCount = parseInt(localStorage.getItem('siteOpenCount') || '0', 10);
+  const savedCount = getBookmarks().length;
+  const longestStreak = parseInt(localStorage.getItem('longestStreak') || '0', 10);
+  const favoriteDomain = getFavoriteDomain();
   let streakCount = 1;
   try{ streakCount = (JSON.parse(localStorage.getItem('visitStreak') || '{"count":1}')).count; }catch(e){}
   return `
@@ -8044,12 +8100,16 @@ function viewMyStats(){
       <div class="empty-card" style="text-align:left; font-size:13px; opacity:.75; margin-bottom:16px;">
         These stats live on this device only. Clearing your browser data, reinstalling, or using a different device starts fresh — there's no account to sync across devices.
       </div>
+      <div id="comparisonBox" class="badge-grid" style="margin-bottom:${10}px;"></div>
       <div class="badge-grid">
         <div class="badge-item"><div class="badge-emoji">🔥</div><div class="badge-name">${streakCount} day streak</div></div>
+        <div class="badge-item"><div class="badge-emoji">🏆</div><div class="badge-name">${longestStreak} day longest streak</div></div>
         <div class="badge-item"><div class="badge-emoji">📖</div><div class="badge-name">${readCount} article${readCount===1?'':'s'} read</div></div>
         <div class="badge-item"><div class="badge-emoji">🎬</div><div class="badge-name">${watchedCount} video${watchedCount===1?'':'s'} watched</div></div>
         <div class="badge-item"><div class="badge-emoji">⏱️</div><div class="badge-name">${formatActiveTime(activeMs)} active time</div></div>
         <div class="badge-item"><div class="badge-emoji">📱</div><div class="badge-name">Opened ${openCount} time${openCount===1?'':'s'}</div></div>
+        <div class="badge-item"><div class="badge-emoji">🔖</div><div class="badge-name">${savedCount} saved item${savedCount===1?'':'s'}</div></div>
+        ${favoriteDomain ? `<div class="badge-item"><div class="badge-emoji">⭐</div><div class="badge-name">Favorite: ${escapeHtml(favoriteDomain)}</div></div>` : ''}
       </div>
       <button onclick="if(confirm('Reset all your stats? This cannot be undone.')) resetMyStats();" style="margin-top:20px; width:100%; padding:12px; border-radius:999px; border:1px solid var(--line); background:var(--card); color:var(--ink); font-weight:700; font-family:'Nunito',sans-serif; cursor:pointer;">Reset my stats</button>
     </section>
