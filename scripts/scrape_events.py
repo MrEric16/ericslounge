@@ -526,25 +526,46 @@ def fetch_event_detail(url):
                 section = section[:cut]
                 break
 
-        date_pattern = re.compile(rf"(\d{{1,2}})\s+({_MONTH_PATTERN_RU})", re.IGNORECASE)
-        time_pattern = re.compile(r"^(\d{1,2}):(\d{2})")
-        matches = list(date_pattern.finditer(section))
-        for i, m in enumerate(matches):
-            day = int(m.group(1))
-            month = MONTHS_RU[m.group(2).lower()]
-            tail_start = m.end()
-            tail_end = matches[i + 1].start() if i + 1 < len(matches) else len(section)
-            tail = section[tail_start:tail_end].strip()[:20]
-            time_match = time_pattern.search(tail)
-            time_str = f"{time_match.group(1)}:{time_match.group(2)}" if time_match else None
-            try:
-                year = TODAY.year
-                date_obj = datetime(year, month, day)
-            except ValueError:
-                continue
-            if date_obj < TODAY_MIDNIGHT - timedelta(days=60):
-                date_obj = date_obj.replace(year=year + 1)
-            occurrences.append((date_obj, time_str))
+        # Real bug found and fixed via a real test run: some events (Qimmat
+        # confirmed directly) list their "Расписание" as a continuous date
+        # range ("с 6 по 25 августа") rather than individual dates. The old
+        # code went straight to the discrete day+month parser below, which
+        # only matches a bare "day month" pattern -- for "с 6 по 25 августа"
+        # that means it grabbed just "25 августа" as if it were the one and
+        # only occurrence, completely missing "6" (not immediately followed
+        # by a month word in this phrasing) and every date in between. A
+        # long-running exhibition's actual END date frequently falls outside
+        # the scraper's ~14-day window even though the exhibition is running
+        # RIGHT NOW -- which is exactly why it kept showing "no dates found"
+        # despite being live. Check for the range pattern first; only fall
+        # back to the discrete list parser if this section isn't a range.
+        range_start, range_end = parse_ru_date_range(section[:200])
+        if range_start and range_end and range_start != range_end:
+            day = range_start
+            while day <= range_end:
+                occurrences.append((day, None))
+                day += timedelta(days=1)
+
+        if not occurrences:
+            date_pattern = re.compile(rf"(\d{{1,2}})\s+({_MONTH_PATTERN_RU})", re.IGNORECASE)
+            time_pattern = re.compile(r"^(\d{1,2}):(\d{2})")
+            matches = list(date_pattern.finditer(section))
+            for i, m in enumerate(matches):
+                day = int(m.group(1))
+                month = MONTHS_RU[m.group(2).lower()]
+                tail_start = m.end()
+                tail_end = matches[i + 1].start() if i + 1 < len(matches) else len(section)
+                tail = section[tail_start:tail_end].strip()[:20]
+                time_match = time_pattern.search(tail)
+                time_str = f"{time_match.group(1)}:{time_match.group(2)}" if time_match else None
+                try:
+                    year = TODAY.year
+                    date_obj = datetime(year, month, day)
+                except ValueError:
+                    continue
+                if date_obj < TODAY_MIDNIGHT - timedelta(days=60):
+                    date_obj = date_obj.replace(year=year + 1)
+                occurrences.append((date_obj, time_str))
 
     if not occurrences:
         # No discrete "Расписание" list -- likely a long-running exhibition
