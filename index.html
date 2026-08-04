@@ -42,6 +42,9 @@
     --f-travel:#9A9280;
     --f-tech:#7A6656;
     --f-sport:#6B7A3D;
+    --f-space:#4A4368;
+    --f-aviation:#6B8299;
+    --f-lang:#A65D3F;
   }
 
   body.dark-mode{
@@ -1885,6 +1888,9 @@ const FACULTIES = [
   { key:'travel', label:'Travel & Environment', color:'var(--f-travel)', icon:'plane' },
   { key:'technology', label:'Technology', color:'var(--f-tech)', icon:'gear' },
   { key:'sport', label:'Sport', color:'var(--f-sport)', icon:'medal' },
+  { key:'space-astronomy', label:'Space & Astronomy', color:'var(--f-space)', icon:'moon' },
+  { key:'aviation', label:'Aviation', color:'var(--f-aviation)', icon:'plane' },
+  { key:'languages', label:'Languages', color:'var(--f-lang)', icon:'book' },
 ];
 const FAC_MAP = Object.fromEntries(FACULTIES.map(f=>[f.key,f]));
 
@@ -1924,17 +1930,17 @@ const EXPLORE_SITES = [
   { name:"Shot And Forgot", desc:"Upload a mystery photo and an AI tries to work out where and when it was taken, based on real visual clues.", url:"https://shotandforgot.com/analyze", fac:"history" },
   { name:"The Toymaker", desc:"Free printable paper toy templates — print, cut, fold, and glue your own 3D models.", url:"https://thetoymaker.com/", fac:"design" },
   { name:"Your Name in Landsat", desc:"Type your name and see it spelled out using real NASA satellite images of rivers, coastlines, and canyons shaped like each letter.", url:"https://science.nasa.gov/mission/landsat/outreach/your-name-in-landsat/", fac:"science" },
-  { name:"100,000 Stars", desc:"A 3D, zoomable map of over 100,000 real stars in our stellar neighbourhood, built by Google.", url:"https://stars.chromeexperiments.com/", fac:"science" },
+  { name:"100,000 Stars", desc:"A 3D, zoomable map of over 100,000 real stars in our stellar neighbourhood, built by Google.", url:"https://stars.chromeexperiments.com/", fac:"space-astronomy" },
   { name:"LonelyWiki", desc:"Every day, one real Wikipedia article that fewer than 2,000 people read all year — genuinely obscure, genuinely well-written.", url:"https://www.lonelywiki.com/", fac:"history" },
   { name:"Human Benchmark", desc:"Test your reaction time, memory, and reflexes against real cognitive benchmarks, then compare your score to everyone else.", url:"https://humanbenchmark.com/", fac:"psychology" },
   { name:"GeoFS", desc:"A free, realistic flight simulator that runs in your browser — fly real aircraft anywhere on Earth using real satellite imagery, no install required.", url:"https://www.geo-fs.com/", fac:"travel" },
-  { name:"NASA Eyes", desc:"NASA's own suite of real-time 3D visualization apps — explore the solar system, Earth's climate, and the spacecraft studying them, built from real mission data.", url:"https://science.nasa.gov/eyes/", fac:"science" },
-  { name:"Asteroid Launcher", desc:"Pick an asteroid's size, speed, and material, aim it at any real city on Earth, and see a scientifically modeled simulation of the impact.", url:"https://neal.fun/asteroid-launcher/", fac:"science" },
+  { name:"NASA Eyes", desc:"NASA's own suite of real-time 3D visualization apps — explore the solar system, Earth's climate, and the spacecraft studying them, built from real mission data.", url:"https://science.nasa.gov/eyes/", fac:"space-astronomy" },
+  { name:"Asteroid Launcher", desc:"Pick an asteroid's size, speed, and material, aim it at any real city on Earth, and see a scientifically modeled simulation of the impact.", url:"https://neal.fun/asteroid-launcher/", fac:"space-astronomy" },
   { name:"Eyes on the Earth", desc:"Watch Earth's live climate data — temperature, sea level, ozone — and see exactly which NASA satellite is tracking it, in real time.", url:"https://eyes.nasa.gov/apps/earth/", fac:"science" },
   { name:"The Deep Sea", desc:"A slow scroll straight down from the sunlit surface to the Mariana Trench, past every real creature at the depth it actually lives.", url:"https://neal.fun/deep-sea/", fac:"science" },
-  { name:"The Size of Space", desc:"A zoomable scroll from a human being out past the Moon, the Solar System, the Milky Way, all the way to the edge of the observable universe.", url:"https://neal.fun/size-of-space/", fac:"science" },
-  { name:"Space Elevator", desc:"A slow, real-scale ride up an imaginary elevator to space, marking exactly where planes, satellites, and the ISS actually sit above the Earth.", url:"https://neal.fun/space-elevator/", fac:"science" },
-  { name:"Universe Forecast", desc:"A deadpan 'weather forecast' for the universe billions of years from now, based on real astrophysics.", url:"https://neal.fun/universe-forecast/", fac:"science" },
+  { name:"The Size of Space", desc:"A zoomable scroll from a human being out past the Moon, the Solar System, the Milky Way, all the way to the edge of the observable universe.", url:"https://neal.fun/size-of-space/", fac:"space-astronomy" },
+  { name:"Space Elevator", desc:"A slow, real-scale ride up an imaginary elevator to space, marking exactly where planes, satellites, and the ISS actually sit above the Earth.", url:"https://neal.fun/space-elevator/", fac:"space-astronomy" },
+  { name:"Universe Forecast", desc:"A deadpan 'weather forecast' for the universe billions of years from now, based on real astrophysics.", url:"https://neal.fun/universe-forecast/", fac:"space-astronomy" },
   { name:"Radio Garden", desc:"Spin a live 3D globe and land on any green dot to hear that exact city's real, currently-broadcasting local radio station — thousands of cities, real time.", url:"https://radio.garden", fac:"travel" },
   { name:"Wonders of Street View", desc:"A curated tour of the strangest, most beautiful, and most unexpected places Google Street View has ever captured.", url:"https://neal.fun/wonders-of-street-view/", fac:"travel" },
   { name:"Merriam-Webster Time Traveler", desc:"Pick any year and see every English word that entered the dictionary for the first time that year.", url:"https://www.merriam-webster.com/time-traveler/2025", fac:"history" },
@@ -1983,15 +1989,15 @@ const EXPLORE_SITES = [
   { name:"Akinator", desc:"A genie asks you a series of yes/no questions and guesses which real or fictional character you're thinking of. Unnervingly good at it.", url:"https://en.akinator.com/", fac:"it" },
   { name:"Window Swap", desc:"Look out a real window from a random stranger's home somewhere in the world, filmed by them. Oddly calming, genuinely beautiful.", url:"https://www.window-swap.com/", fac:"travel" },
   { name:"The Wiki Game", desc:"Race from one random Wikipedia article to another using only internal links. Turns into a real rabbit hole in the best way.", url:"https://www.thewikigame.com/play/", fac:"history" },
-  { name:"The Scale of the Universe 2", desc:"Zoom continuously from the smallest known particle to the edge of the observable universe on one slider. Genuinely jaw-dropping scale.", url:"https://htwins.net/scale2/", fac:"science" },
+  { name:"The Scale of the Universe 2", desc:"Zoom continuously from the smallest known particle to the edge of the observable universe on one slider. Genuinely jaw-dropping scale.", url:"https://htwins.net/scale2/", fac:"space-astronomy" },
   { name:"Google Arts & Culture", desc:"Zoom into gigapixel-resolution scans of famous paintings in museums worldwide, closer than you could ever get in person.", url:"https://artsandculture.google.com/", fac:"design" },
   { name:"Flexbox Froggy", desc:"Learn CSS flexbox by guiding frogs onto lily pads using real flexbox code. The rare coding tutorial that's actually a game.", url:"https://flexboxfroggy.com/", fac:"it" },
   { name:"EarthCam Network", desc:"Live streaming webcams from famous locations worldwide — Times Square, safari parks, ski resorts — updating in real time.", url:"https://www.earthcam.com/network/", fac:"travel" },
   { name:"The Password Game", desc:"Test your patience. You lose if your gadget flies out of the window.", url:"https://neal.fun/password-game/", fac:"it" },
-  { name:"SpaceWeatherLive", desc:"Real-time solar activity, aurora forecasts, and geomagnetic storm tracking, with live visuals of the sun itself.", url:"https://www.spaceweatherlive.com/", fac:"science" },
+  { name:"SpaceWeatherLive", desc:"Real-time solar activity, aurora forecasts, and geomagnetic storm tracking, with live visuals of the sun itself.", url:"https://www.spaceweatherlive.com/", fac:"space-astronomy" },
   { name:"ToneMatrix Redux", desc:"Click cells on a 16×16 grid to build a looping musical pattern. Simple, satisfying, sounds good no matter what you make.", url:"https://tonematrix.lupine.dev/", fac:"design" },
   { name:"Freerice", desc:"Answer trivia questions correctly and the UN World Food Programme donates rice to fight hunger, funded by advertisers. Trivia with actual stakes.", url:"https://freerice.com/", fac:"international-relations" },
-  { name:"Solar System Scope", desc:"A fully 3D, rotatable, zoomable model of the solar system you can fly through and explore planet by planet.", url:"https://www.solarsystemscope.com/", fac:"science" },
+  { name:"Solar System Scope", desc:"A fully 3D, rotatable, zoomable model of the solar system you can fly through and explore planet by planet.", url:"https://www.solarsystemscope.com/", fac:"space-astronomy" },
   { name:"AirPano", desc:"Stunning 360° aerial panoramas of famous places worldwide — drag to look around as if you were floating above them.", url:"https://www.airpano.com/", fac:"travel" },
   { name:"Nautilus Live", desc:"A live streaming video feed from an actual deep-sea research submarine exploring the ocean floor right now.", url:"https://nautiluslive.org/", fac:"science" },
   { name:"MapCrunch", desc:"Drops you into a totally random real Street View location with no game, no score — just explore and teleport again.", url:"https://www.mapcrunch.com/", fac:"travel" },
@@ -2005,8 +2011,8 @@ const EXPLORE_SITES = [
   { name:"Boids", desc:"A simple, beautiful simulation of how flocking birds move as a group using only three basic rules. Watch it self-organize.", url:"https://eater.net/boids", fac:"science" },
   { name:"Nikon Small World", desc:"Winning entries from the world's top microscope photography competition — jellyfish larvae, snowflakes, insect eyes, all in stunning color.", url:"https://www.nikonsmallworld.com/", fac:"science" },
   { name:"Submarine Cable Map", desc:"An interactive map of the actual physical undersea cables carrying nearly all of the world's internet traffic between continents.", url:"https://www.submarinecablemap.com/", fac:"technology" },
-  { name:"Flightradar24", desc:"Track real flights live worldwide, centered on Tashkent — click any plane in the sky to see its route, altitude, speed, and exactly what aircraft it is.", url:"https://www.flightradar24.com/41.26,69.22/6", fac:"travel" },
-  { name:"NASA ISS Live Video Feed", desc:"A genuine 24/7 live camera mounted externally on the International Space Station, streaming real views of Earth from orbit. Goes black during night-side passes — that's normal, not a glitch.", url:"https://www.youtube.com/watch?v=awQzjn72bI0", fac:"science" },
+  { name:"Flightradar24", desc:"Track real flights live worldwide, centered on Tashkent — click any plane in the sky to see its route, altitude, speed, and exactly what aircraft it is.", url:"https://www.flightradar24.com/41.26,69.22/6", fac:"aviation" },
+  { name:"NASA ISS Live Video Feed", desc:"A genuine 24/7 live camera mounted externally on the International Space Station, streaming real views of Earth from orbit. Goes black during night-side passes — that's normal, not a glitch.", url:"https://www.youtube.com/watch?v=awQzjn72bI0", fac:"space-astronomy" },
   { name:"ESO Webcams", desc:"Real 24/7 live feeds from the Very Large Telescope and Paranal Observatory in Chile's Atacama Desert, one of the clearest-sky places on Earth.", url:"https://www.eso.org/public/outreach/webcams/", fac:"science" },
   { name:"MarineTraffic", desc:"A live map of real ships worldwide, tracked via their AIS transponders — cargo vessels, tankers, cruise ships, updating continuously.", url:"https://www.marinetraffic.com/en/ais/home/centerx:-12.0/centery:25.0/zoom:4", fac:"travel" },
   { name:"UN Web TV", desc:"The United Nations' official streaming platform — live General Assembly, Security Council, and ICJ sessions when in session, available 24 hours a day.", url:"https://webtv.un.org/", fac:"international-relations" },
@@ -2085,7 +2091,7 @@ const DISPATCHES = [
   { headline:"My fitness tracker knew I was pregnant before I did", url:"https://www.bbc.com/news/articles/cr474z1qyn6o", faculty:"technology", date:"2026-07-20", read:"5 min" },
 
   { headline:"Is your tech giving you 'phone bodies'?", url:"https://www.bbc.com/future/article/20260630-is-your-tech-giving-you-phone-body", faculty:"science", date:"2026-07-20", read:"5 min" },
-  { headline:"What happens to your brain in space?", url:"https://www.bbc.com/future/article/20260707-what-happens-to-your-brain-in-space", faculty:"science", date:"2026-07-20", read:"5 min" },
+  { headline:"What happens to your brain in space?", url:"https://www.bbc.com/future/article/20260707-what-happens-to-your-brain-in-space", faculty:"space-astronomy", date:"2026-07-20", read:"5 min" },
   { headline:"Good at maths and into jazz: nine extraordinary things you probably didn't know about sharks", url:"https://www.bbc.com/future/article/20260713-nine-extraordinary-things-you-probably-didnt-know-about-sharks", faculty:"science", date:"2026-07-20", read:"5 min" },
   { headline:"Tyrannosaurus rex most expensive dinosaur ever sold", url:"https://www.bbc.com/news/articles/c0qyq800n44o", faculty:"science", date:"2026-07-20", read:"5 min" },
 
@@ -2117,7 +2123,7 @@ const DISPATCHES = [
   { headline:"No selfies, no phones: Why wildlife destinations are starting to say 'no' to tourists", url:"https://www.bbc.com/travel/article/20260422-no-selfies-no-phones-the-new-rules-of-the-safari", faculty:"travel", date:"2026-07-20", read:"5 min" },
   { headline:"Inside the 'darecation': Why travellers are choosing holidays that hurt", url:"https://www.bbc.com/travel/article/20260604-why-travellers-are-choosing-holidays-that-hurt", faculty:"travel", date:"2026-07-20", read:"5 min" },
 
-  { headline:"Inside the world's best airport: Why does Changi keep winning?", url:"https://www.bbc.com/travel/article/20260421-what-makes-changi-the-worlds-best-airport-singapore", faculty:"design", date:"2026-07-20", read:"4 min" },
+  { headline:"Inside the world's best airport: Why does Changi keep winning?", url:"https://www.bbc.com/travel/article/20260421-what-makes-changi-the-worlds-best-airport-singapore", faculty:"aviation", date:"2026-07-20", read:"4 min" },
 
   { headline:"The Evolution of Money, From Feathers to Credit Cards", url:"https://www.smithsonianmag.com/smithsonian-institution/evolution-money-feathers-credit-cards-180955602/", faculty:"economics", date:"2026-07-20", read:"5 min" },
   { headline:"The Archaeology of Wealth Inequality", url:"https://www.smithsonianmag.com/history/aracheology-wealth-inequality-180968072/", faculty:"economics", date:"2026-07-20", read:"4 min" },
@@ -3085,7 +3091,7 @@ const WATCH_VIDEOS = [
   { title:"The Complete History of the Football Jersey", channel:"Tifo Football", videoId:"tqeyD1qzmjk", faculty:"sport" },
   { title:"The Illegal Business of Fake World Cup Jerseys", channel:"Business Insider", videoId:"RZGsfvFXStY", faculty:"business" },
   { title:"Why Africa Hates McDonald's", channel:"Fern", videoId:"xV82vkJ5Pjw", faculty:"economics" },
-  { title:"The Terrible Design of Newark Airport", channel:"Wendover Productions", videoId:"EpzzTNhKXAg", faculty:"design" },
+  { title:"The Terrible Design of Newark Airport", channel:"Wendover Productions", videoId:"EpzzTNhKXAg", faculty:"aviation" },
   { title:"How Earth Moves", channel:"Vsauce", videoId:"IJhgZBn-LHg", faculty:"science" },
   { title:"The Last Human — A Glimpse Into The Far Future", channel:"Kurzgesagt", videoId:"Oofy2tTi764", faculty:"science" },
   { title:"The Big Misconception About Electricity", channel:"Veritasium", videoId:"bHIhgxav9LY", faculty:"science" },
@@ -3097,7 +3103,7 @@ const WATCH_VIDEOS = [
   { title:"What Makes a Good Life?", channel:"Robert Waldinger (TED)", videoId:"q-7zAkwAOYg", faculty:"psychology" },
   { title:"Timelapse of the Future: A Journey to the End of Time", channel:"melodysheep", videoId:"uD4izuDMUQA", faculty:"science" },
   { title:"The Mathematics of Love", channel:"Hannah Fry (TED)", videoId:"yFVXsjVdvmY", faculty:"psychology" },
-  { title:"Satellite Navigation: HOW does it Work?", channel:"BBC Earth Science", videoId:"AIELdEhiskc", faculty:"technology" },
+  { title:"Satellite Navigation: HOW does it Work?", channel:"BBC Earth Science", videoId:"AIELdEhiskc", faculty:"space-astronomy" },
   { title:"Why Are Some People Left-Handed?", channel:"BBC Earth Science", videoId:"x0vRI8YGgQs", faculty:"science" },
   { title:"How Do Magnets Work?", channel:"BBC Earth Science", videoId:"hcORdjvxvDg", faculty:"science" },
   { title:"What Is Fire?", channel:"BBC Earth Science", videoId:"fFWSlAP2NVk", faculty:"science" },
@@ -3121,12 +3127,12 @@ const WATCH_VIDEOS = [
   { title:"What did democracy really mean in Athens?", channel:"TED-Ed", videoId:"0fivQUlC7-8", faculty:"history" },
   { title:"LegalEagle's Devin Stone Answers Criminal Law Questions | Tech Support | WIRED", channel:"WIRED", videoId:"yfePuqHaJlE", faculty:"jurisprudence" },
   { title:"How Maritime Law Works", channel:"Wendover Productions", videoId:"N7CvEt51fz4", faculty:"jurisprudence" },
-  { title:"Space Law - What Laws are There in Space?", channel:"Wendover Productions", videoId:"h6AWAoc_Lr0", faculty:"jurisprudence" },
+  { title:"Space Law - What Laws are There in Space?", channel:"Wendover Productions", videoId:"h6AWAoc_Lr0", faculty:"space-astronomy" },
   { title:"Sneaky Ways Fast Food Restaurants Get You To Spend Money", channel:"Business Insider", videoId:"VooHiweb1sw", faculty:"business" },
   { title:"Should Organic Food Be So Expensive?", channel:"Business Insider", videoId:"bG6bXMhy0Ps", faculty:"business" },
   { title:"The Rise And Fall of the Dutch East India Company", channel:"How History Works", videoId:"U5jbEkX0L_4", faculty:"history" },
   { title:"Why Inventing Color TV Was So Difficult", channel:"Primal Space", videoId:"hyjCmIbRRvs", faculty:"technology" },
-  { title:"The Secret to Good Airport Design: Aesthetic vs Efficiency", channel:"Architectural Digest", videoId:"XVK6urfqqsg", faculty:"design" },
+  { title:"The Secret to Good Airport Design: Aesthetic vs Efficiency", channel:"Architectural Digest", videoId:"XVK6urfqqsg", faculty:"aviation" },
   { title:"BIC - Why They're Successful", channel:"Company Man", videoId:"NrgHWy1ULBc", faculty:"business" },
   { title:"PlayStation vs. Xbox", channel:"Company Man", videoId:"7fTQ-LMv0m8", faculty:"business" },
   { title:"Rockstar Energy - An Unlikely Success", channel:"Company Man", videoId:"XEJlJ38hoK0", faculty:"business" },
@@ -3207,7 +3213,7 @@ const WATCH_VIDEOS = [
   { title:"How Japan's Maglev Train Works", channel:"Real Engineering", videoId:"S4L_0CDsd1I", faculty:"technology" },
   { title:"How We Make Slow Motion Sounds (Exploding Tomato at 60,000fps)", channel:"Smarter Every Day", videoId:"aO7yzmc3ykw", faculty:"science" },
   { title:"The Napoleonic Wars - OverSimplified (Part 1)", channel:"OverSimplified", videoId:"zqllxbPWKNI", faculty:"history" },
-  { title:"Black Holes Explained – From Birth to Death", channel:"Kurzgesagt", videoId:"e-P5IFTqB98", faculty:"science" },
+  { title:"Black Holes Explained – From Birth to Death", channel:"Kurzgesagt", videoId:"e-P5IFTqB98", faculty:"space-astronomy" },
   { title:"The language of lying", channel:"TED-Ed", videoId:"H0-WkpmTPrM", faculty:"psychology" },
   { title:"How stress affects your brain", channel:"TED-Ed", videoId:"WuyPuH9ojCE", faculty:"psychology" },
   { title:"Almost All Web Encryption Works Like This (SP Networks)", channel:"Computerphile", videoId:"DLjzI5dX8jc", faculty:"it" },
@@ -3238,7 +3244,7 @@ const WATCH_VIDEOS = [
   { title:"Ferrero - Bigger Than You Know", channel:"Company Man", videoId:"F6_PDTW4PZs", faculty:"business" },
   { title:"LG - Bigger Than You Know", channel:"Company Man", videoId:"X5LPj4tEiXU", faculty:"business" },
   { title:"The Dumb Design of Modern Cars", channel:"fern", videoId:"HauQtcj7UTM", faculty:"design" },
-  { title:"Common Moon Mistakes", channel:"minutephysics", videoId:"yY7ZUIbWTyc", faculty:"science" },
+  { title:"Common Moon Mistakes", channel:"minutephysics", videoId:"yY7ZUIbWTyc", faculty:"space-astronomy" },
   { title:"The Psychology of Premium Branding", channel:"Omar Eddaoudi", videoId:"1kcxUhjuW_0", faculty:"psychology" },
   { title:"Why Do We Get Bored?", channel:"Vsauce", videoId:"Qwd25JV-jnU", faculty:"psychology" },
   { title:"The Calhoun Effect", channel:"Zenn", videoId:"LuCans9euxY", faculty:"psychology" },
