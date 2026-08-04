@@ -471,6 +471,14 @@ def fetch_event_detail(url):
         log(f"  detail fetch failed for {url}: {e}")
         return None, [], "", None
 
+    # TEMPORARY debug dump -- confirming or ruling out whether this site
+    # renders its schedule section via client-side JS (which plain requests.get()
+    # would never see) vs. server-rendered HTML. Remove once confirmed.
+    if "madagaskar-tashkent-city" in url:
+        with open("scripts/debug-madagascar-raw.html", "w", encoding="utf-8") as f:
+            f.write(r.text)
+        log(f"  DEBUG: dumped raw HTML for Madagascar page, {len(r.text)} chars")
+
     soup = BeautifulSoup(r.text, "html.parser")
     h1 = soup.find("h1")
     clean_title = h1.get_text(strip=True) if h1 else None
