@@ -13,24 +13,24 @@
 [scrape] calendar discovery complete: 59 unique event URLs to check
 [scrape]   'Выставка «Наше наследие»': no dates found in window (no schedule/date-range parsed) -- kept 0 events
 [scrape]   'Выставка «Фотохроника XX века»': no dates found in window (no schedule/date-range parsed) -- kept 0 events
-[scrape] Translation failed for 'Бесплатный курс по разработке игр Game D': Бесплатный курс по разработке игр Game Dev Lab для подростков --> No translation was found using the current translator. Try another translator?
 [scrape]   'Музыкальный фонтан в парке Magic City': no dates found in window (no schedule/date-range parsed) -- kept 0 events
+[scrape] Translation failed for 'Музыкальный фонтан в парке Tashkent City': Музыкальный фонтан в парке Tashkent City --> No translation was found using the current translator. Try another translator?
 [scrape]   'Музыкальный фонтан в парке Tashkent City': no dates found in window (no schedule/date-range parsed) -- kept 0 events
 [scrape]   'Ярмарка Uzbegim Market в парке Tashkent City': no dates found in window (no schedule/date-range parsed) -- kept 0 events
-[scrape] Translation failed for 'Пляж Palma & Chilla в парке Milliy Bog’': Пляж Palma & Chilla в парке Milliy Bog’ --> No translation was found using the current translator. Try another translator?
 [scrape]   'Пляж Palma & Chilla в парке Milliy Bog’': no dates found in window (no schedule/date-range parsed) -- kept 0 events
 [scrape]   'Творческие мастер-классы в Potterville': no dates found in window (no schedule/date-range parsed) -- kept 0 events
-[scrape] Translation failed for 'Музыкальные вечера в PAUL': Музыкальные вечера в PAUL --> No translation was found using the current translator. Try another translator?
+[scrape] Translation failed for 'Мастер-класс «Римская мозаика»': Мастер-класс «Римская мозаика» --> No translation was found using the current translator. Try another translator?
 [scrape] Translation failed for 'Курс «Цифровая Поэзия»': Курс «Цифровая Поэзия» --> No translation was found using the current translator. Try another translator?
+[scrape]   DEBUG: dumped raw HTML for Madagascar page, 184624 chars
 [scrape]   'Выставка Qimmat': no dates found in window (no schedule/date-range parsed) -- kept 0 events
-[scrape] Translation failed for 'Лекция «Богини Луны»': Лекция «Богини Луны» --> No translation was found using the current translator. Try another translator?
-[scrape] Translation failed for 'Психологическая трансформационная игра «': Психологическая трансформационная игра «Денежный город» --> No translation was found using the current translator. Try another translator?
+[scrape] Translation failed for 'Игра «Мозгобойня: Лайт»': Игра «Мозгобойня: Лайт» --> No translation was found using the current translator. Try another translator?
+[scrape] Translation failed for 'Спектакль Out of Order': Спектакль Out of Order --> No translation was found using the current translator. Try another translator?
+[scrape] Translation failed for 'Шоу-программа «Герои Marvel»': Шоу-программа «Герои Marvel» --> No translation was found using the current translator. Try another translator?
+[scrape] Translation failed for 'Женский арт-релакс «Из глубины океана» в': Женский арт-релакс «Из глубины океана» в Human House --> No translation was found using the current translator. Try another translator?
 [scrape] Translation failed for 'Спектакль «Out of Order» в Human House': Спектакль «Out of Order» в Human House --> No translation was found using the current translator. Try another translator?
-[scrape] Translation failed for 'Мастер-класс по пересадке домашних расте': Мастер-класс по пересадке домашних растений --> No translation was found using the current translator. Try another translator?
 [scrape] Translation failed for 'Мастер-класс «Роспись имбирных пряников»': Мастер-класс «Роспись имбирных пряников» --> No translation was found using the current translator. Try another translator?
-[scrape] Translation failed for 'Детский день в бассейне Sinbad': Детский день в бассейне Sinbad --> No translation was found using the current translator. Try another translator?
-[scrape] Translation failed for 'Футбольный матч «Пахтакор» — «Аль-Хусейн': Футбольный матч «Пахтакор» — «Аль-Хусейн» --> No translation was found using the current translator. Try another translator?
-[scrape] calendar detail pass complete: 101 events kept from 59 pages checked
+[scrape] Translation failed for 'Творческие занятия в Toshkent Gullari Sc': Творческие занятия в Toshkent Gullari School --> No translation was found using the current translator. Try another translator?
+[scrape] calendar detail pass complete: 100 events kept from 59 pages checked
 [scrape] special-tracked: FAILED to fetch or failed content check for https://www.afisha.uz/ru/cinema/2026/07/16/kinoprazdnik-v-sredu
 [scrape] iticket.uz cat=concert: 7 events kept
 [scrape] iticket.uz cat=theatre: 0 events kept
@@ -38,5 +38,5 @@
 [scrape] ticketon.uz: CONFIRMED BLOCKED (Cloudflare challenge, page title='Just a moment...'). 0 events -- this is expected, not a bug to fix.
 [scrape] eventbrite.com: CONFIRMED BLOCKED (AWS WAF CAPTCHA, page title='Human Verification'). 0 events -- this is expected, not a bug to fix. Same category of block as ticketon.uz.
 [scrape] eventbrite.com: 0 events found (dates NOT yet parsed -- see note in script)
-[scrape] TOTAL before dedup: 108  |  after dedup: 92
+[scrape] TOTAL before dedup: 107  |  after dedup: 92
 [scrape] Wrote data/events-tashkent.json
