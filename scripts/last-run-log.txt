@@ -11,7 +11,32 @@
 [scrape] calendar 2026-08-12: 0 new event URLs discovered
 [scrape] calendar 2026-08-13: 1 new event URLs discovered
 [scrape] calendar discovery complete: 59 unique event URLs to check
-[scrape] calendar detail pass complete: 0 events kept from 59 pages checked
+[scrape] Translation failed for 'Выставка «Наше наследие»': Выставка «Наше наследие» --> No translation was found using the current translator. Try another translator?
+[scrape]   'Выставка «Наше наследие»': no dates found in window (no schedule/date-range parsed) -- kept 0 events
+[scrape]   'Выставка «Фотохроника XX века»': no dates found in window (no schedule/date-range parsed) -- kept 0 events
+[scrape] Translation failed for 'Театрально-цирковое шоу Nova Circus': Театрально-цирковое шоу Nova Circus --> No translation was found using the current translator. Try another translator?
+[scrape] Translation failed for 'Проект «Другие игры. Импровизация»': Проект «Другие игры. Импровизация» --> No translation was found using the current translator. Try another translator?
+[scrape]   'Музыкальный фонтан в парке Magic City': no dates found in window (no schedule/date-range parsed) -- kept 0 events
+[scrape]   'Музыкальный фонтан в парке Tashkent City': no dates found in window (no schedule/date-range parsed) -- kept 0 events
+[scrape] Translation failed for 'Ярмарка Uzbegim Market в парке Tashkent ': Ярмарка Uzbegim Market в парке Tashkent City --> No translation was found using the current translator. Try another translator?
+[scrape]   'Ярмарка Uzbegim Market в парке Tashkent City': no dates found in window (no schedule/date-range parsed) -- kept 0 events
+[scrape] Translation failed for 'Пляж Palma & Chilla в парке Milliy Bog’': Пляж Palma & Chilla в парке Milliy Bog’ --> No translation was found using the current translator. Try another translator?
+[scrape]   'Пляж Palma & Chilla в парке Milliy Bog’': no dates found in window (no schedule/date-range parsed) -- kept 0 events
+[scrape]   'Творческие мастер-классы в Potterville': no dates found in window (no schedule/date-range parsed) -- kept 0 events
+[scrape] Translation failed for 'Мастер-класс «Римская мозаика»': Мастер-класс «Римская мозаика» --> No translation was found using the current translator. Try another translator?
+[scrape] Translation failed for 'Спектакль «Мадагаскар» в парке Tashkent ': Спектакль «Мадагаскар» в парке Tashkent City --> No translation was found using the current translator. Try another translator?
+[scrape] Translation failed for 'Концерт группы Guthrie Govan Trio': Концерт группы Guthrie Govan Trio --> No translation was found using the current translator. Try another translator?
+[scrape] Translation failed for 'Выставка «По Великому шелковому пути»': Выставка «По Великому шелковому пути» --> No translation was found using the current translator. Try another translator?
+[scrape]   'Выставка Qimmat': no dates found in window (no schedule/date-range parsed) -- kept 0 events
+[scrape] Translation failed for 'Психологическая трансформационная игра «': Психологическая трансформационная игра «Денежный город» --> No translation was found using the current translator. Try another translator?
+[scrape] Translation failed for 'Встреча о профессии медсестры в Гете-Инс': Встреча о профессии медсестры в Гете-Институте --> No translation was found using the current translator. Try another translator?
+[scrape] Translation failed for 'Культурная программа в Республиканской д': Культурная программа в Республиканской детской библиотеке --> No translation was found using the current translator. Try another translator?
+[scrape] Translation failed for 'Наблюдение за метеорным потоком Персеиды': Наблюдение за метеорным потоком Персеиды --> No translation was found using the current translator. Try another translator?
+[scrape] Translation failed for 'Muzqaymoq Party в парке Anhor': Muzqaymoq Party в парке Anhor --> No translation was found using the current translator. Try another translator?
+[scrape] Translation failed for 'Спектакль «Out of Order» в Human House': Спектакль «Out of Order» в Human House --> No translation was found using the current translator. Try another translator?
+[scrape] Translation failed for 'Научная программа «Таблица Менделеева»': Научная программа «Таблица Менделеева» --> No translation was found using the current translator. Try another translator?
+[scrape] Translation failed for 'Концерт рок-хитов от Tynda.music': Концерт рок-хитов от Tynda.music --> No translation was found using the current translator. Try another translator?
+[scrape] calendar detail pass complete: 101 events kept from 59 pages checked
 [scrape] special-tracked: FAILED to fetch or failed content check for https://www.afisha.uz/ru/cinema/2026/07/16/kinoprazdnik-v-sredu
 [scrape] iticket.uz cat=concert: 7 events kept
 [scrape] iticket.uz cat=theatre: 0 events kept
@@ -19,5 +44,5 @@
 [scrape] ticketon.uz: CONFIRMED BLOCKED (Cloudflare challenge, page title='Just a moment...'). 0 events -- this is expected, not a bug to fix.
 [scrape] eventbrite.com: CONFIRMED BLOCKED (AWS WAF CAPTCHA, page title='Human Verification'). 0 events -- this is expected, not a bug to fix. Same category of block as ticketon.uz.
 [scrape] eventbrite.com: 0 events found (dates NOT yet parsed -- see note in script)
-[scrape] TOTAL before dedup: 7  |  after dedup: 7
+[scrape] TOTAL before dedup: 108  |  after dedup: 93
 [scrape] Wrote data/events-tashkent.json
