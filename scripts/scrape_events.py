@@ -426,55 +426,84 @@ AFISHA_CATEGORIES = {
 
 
 def fetch_event_detail(url):
-    """Fetches an event's own detail page and returns (clean_title, occurrences),
-    where occurrences is a list of (date, time_str) tuples -- one per date listed
-    in the page's own "Расписание" (Schedule) section. This is the real fix for
-    recurring events (weekly book clubs, weekly live music nights, etc.) that
-    were previously collapsing to a single guessed date from the listing page.
-    Returns (None, []) on any fetch failure."""
+    """Fetches an event's own detail page and returns (clean_title, occurrences,
+    full_text), where occurrences is a list of (date, time_str) tuples -- one
+    per date the event actually runs. This is the real fix for two separate
+    problems found in the same night: (1) recurring/multi-date events (weekly
+    shows, long-running exhibitions) collapsing to a single guessed date from
+    the calendar listing page, and (2) content-safety checks that only ever
+    saw the title/venue snippet, never the full page -- which is exactly how
+    a nightclub's actual age-restriction policy (stated separately from its
+    title) slipped through undetected.
+    full_text is returned so the caller can run is_excluded()/is_banned()/age
+    markers against everything on the page, not just the title.
+    Returns (None, [], "") on any fetch failure.
+    """
     try:
         r = requests.get(url, headers=HEADERS, timeout=20)
         r.raise_for_status()
     except Exception as e:
         log(f"  detail fetch failed for {url}: {e}")
-        return None, []
+        return None, [], ""
 
     soup = BeautifulSoup(r.text, "html.parser")
     h1 = soup.find("h1")
     clean_title = h1.get_text(strip=True) if h1 else None
     full_text = soup.get_text("\n", strip=True)
 
-    idx = full_text.rfind("Расписание")
-    if idx == -1:
-        return clean_title, []
-    section = full_text[idx:idx + 4000]
-    for stop_marker in ("Подпишитесь на наш Telegram", "©"):
-        cut = section.find(stop_marker)
-        if cut != -1:
-            section = section[:cut]
-            break
+    # Venue: event detail pages consistently link to their location as
+    # /ru/places/<slug> with the venue name as the link text (confirmed on
+    # multiple pages, e.g. the Madagascar show links "Tashkent City" this way).
+    venue = None
+    place_link = soup.find("a", href=re.compile(r"/ru/places/"))
+    if place_link:
+        venue = place_link.get_text(strip=True) or None
 
     occurrences = []
-    date_pattern = re.compile(rf"(\d{{1,2}})\s+({_MONTH_PATTERN_RU})", re.IGNORECASE)
-    time_pattern = re.compile(r"^(\d{1,2}):(\d{2})")
-    matches = list(date_pattern.finditer(section))
-    for i, m in enumerate(matches):
-        day = int(m.group(1))
-        month = MONTHS_RU[m.group(2).lower()]
-        tail_start = m.end()
-        tail_end = matches[i + 1].start() if i + 1 < len(matches) else len(section)
-        tail = section[tail_start:tail_end].strip()[:20]
-        time_match = time_pattern.search(tail)
-        time_str = f"{time_match.group(1)}:{time_match.group(2)}" if time_match else None
-        try:
-            year = TODAY.year
-            date_obj = datetime(year, month, day)
-        except ValueError:
-            continue
-        if date_obj < TODAY_MIDNIGHT - timedelta(days=60):
-            date_obj = date_obj.replace(year=year + 1)
-        occurrences.append((date_obj, time_str))
-    return clean_title, occurrences
+    idx = full_text.rfind("Расписание")
+    if idx != -1:
+        section = full_text[idx:idx + 4000]
+        for stop_marker in ("Подпишитесь на наш Telegram", "©"):
+            cut = section.find(stop_marker)
+            if cut != -1:
+                section = section[:cut]
+                break
+
+        date_pattern = re.compile(rf"(\d{{1,2}})\s+({_MONTH_PATTERN_RU})", re.IGNORECASE)
+        time_pattern = re.compile(r"^(\d{1,2}):(\d{2})")
+        matches = list(date_pattern.finditer(section))
+        for i, m in enumerate(matches):
+            day = int(m.group(1))
+            month = MONTHS_RU[m.group(2).lower()]
+            tail_start = m.end()
+            tail_end = matches[i + 1].start() if i + 1 < len(matches) else len(section)
+            tail = section[tail_start:tail_end].strip()[:20]
+            time_match = time_pattern.search(tail)
+            time_str = f"{time_match.group(1)}:{time_match.group(2)}" if time_match else None
+            try:
+                year = TODAY.year
+                date_obj = datetime(year, month, day)
+            except ValueError:
+                continue
+            if date_obj < TODAY_MIDNIGHT - timedelta(days=60):
+                date_obj = date_obj.replace(year=year + 1)
+            occurrences.append((date_obj, time_str))
+
+    if not occurrences:
+        # No discrete "Расписание" list -- likely a long-running exhibition
+        # stated as a continuous date range instead (e.g. "с 6 по 25 августа").
+        # This exact gap is why 4 real exhibitions were missing from the site
+        # on 2026-08-04 despite being live and correctly categorized -- the
+        # calendar view doesn't reliably re-list them on every day of their
+        # run, and until now nothing filled that gap.
+        start, end = parse_ru_date_range(full_text[:2000])
+        if start and end:
+            day = start
+            while day <= end:
+                occurrences.append((day, None))
+                day += timedelta(days=1)
+
+    return clean_title, occurrences, full_text, venue
 
 
 def scrape_afisha_uz():
@@ -501,9 +530,9 @@ def scrape_afisha_uz():
 
         count = 0
         for full_url in candidates:
-            clean_title, occurrences = fetch_event_detail(full_url)
+            clean_title, occurrences, full_text, venue = fetch_event_detail(full_url)
             time.sleep(0.3)  # polite pacing -- now visiting far more pages per run than before
-            if not clean_title or is_excluded(clean_title):
+            if not clean_title or is_excluded(clean_title) or is_excluded(full_text) or is_banned(full_text):
                 continue
             english_title = translate_ru_to_en(clean_title)
             resolved_category = guess_category(clean_title, category)
@@ -513,7 +542,7 @@ def scrape_afisha_uz():
                     "title": english_title,
                     "titleRu": clean_title,
                     "category": resolved_category,
-                    "venue": None,
+                    "venue": venue,
                     "startDate": date_obj.strftime("%Y-%m-%d"),
                     "endDate": None,
                     "time": time_str,
@@ -536,10 +565,10 @@ SPECIAL_TRACKED_EVENTS = [
 def scrape_special_tracked_events():
     events = []
     for url, category in SPECIAL_TRACKED_EVENTS:
-        clean_title, occurrences = fetch_event_detail(url)
+        clean_title, occurrences, full_text, venue = fetch_event_detail(url)
         time.sleep(0.3)
-        if not clean_title:
-            log(f"special-tracked: FAILED to fetch {url}")
+        if not clean_title or is_excluded(full_text) or is_banned(full_text):
+            log(f"special-tracked: FAILED to fetch or failed content check for {url}")
             continue
         english_title = translate_ru_to_en(clean_title)
         in_window = [(d, t) for d, t in occurrences if TODAY_MIDNIGHT <= d <= WINDOW_END]
@@ -548,7 +577,7 @@ def scrape_special_tracked_events():
                 "title": english_title,
                 "titleRu": clean_title,
                 "category": category,
-                "venue": None,
+                "venue": venue,
                 "startDate": date_obj.strftime("%Y-%m-%d"),
                 "endDate": None,
                 "time": time_str,
@@ -619,6 +648,14 @@ def scrape_afisha_calendar():
         log("playwright NOT INSTALLED -- skipping calendar scrape entirely")
         return events
 
+    # PHASE 1: discovery. Walk the calendar day by day purely to find which
+    # event URLs exist -- this part already works well (it's how category-page
+    # scraping's "scrolled off page 1" gap got fixed). What it must NOT do
+    # anymore is trust the calendar's own title/date/venue snippet as final --
+    # that's exactly how 4 real exhibitions and a recurring show went missing
+    # on 2026-08-04, because the calendar doesn't reliably re-list an ongoing
+    # event on every day of its actual run.
+    discovered = {}  # full_url -> category (first one seen)
     with sync_playwright() as p:
         browser = p.chromium.launch(headless=True)
         context = browser.new_context(
@@ -644,8 +681,7 @@ def scrape_afisha_calendar():
                     f.write(page.content())
 
             anchors = page.query_selector_all("a[href]")
-            seen_hrefs = set()
-            day_count = 0
+            day_new = 0
             for a in anchors:
                 href = a.get_attribute("href") or ""
                 m = re.search(r"/ru/([a-z]+)/\d{4}/\d{2}/\d{2}/", href)
@@ -657,51 +693,63 @@ def scrape_afisha_calendar():
                 category = CALENDAR_CATEGORY_MAP[slug]
                 if category is None:
                     continue  # deliberately excluded category
-                if href in seen_hrefs:
-                    continue
-                seen_hrefs.add(href)
-                raw_text = (a.inner_text() or "").strip()
-                if not raw_text:
-                    continue
-                # The calendar view's event links contain title + date-range + venue
-                # all concatenated with newlines in one block -- e.g.
-                # "Title\nfrom July 25 to August 9\nVenue". Take the title as the
-                # first line; the last line (if there's a third one) is the venue.
-                lines = [ln.strip() for ln in raw_text.split("\n") if ln.strip()]
-                if not lines:
-                    continue
-                clean_title = lines[0]
-                venue_text = lines[-1] if len(lines) >= 3 else None
-                if len(clean_title) < 3:
-                    continue
-                combined_check_text = clean_title + " " + (venue_text or "")
-                if is_excluded(combined_check_text) or is_banned(combined_check_text):
-                    continue
-                if is_generic_venue_listing(clean_title, venue_text):
-                    continue
-                # afisha.uz occasionally repeats a title twice back-to-back
-                half = len(clean_title) // 2
-                if half > 4 and clean_title[:half].strip() == clean_title[half:].strip():
-                    clean_title = clean_title[:half].strip()
                 full_url = href if href.startswith("http") else f"https://www.afisha.uz{href}"
-                english_title = translate_ru_to_en(clean_title)
-                resolved_category = guess_category(clean_title, category)
-                events.append({
-                    "title": english_title,
-                    "titleRu": clean_title,
-                    "category": resolved_category,
-                    "venue": venue_text,
-                    "startDate": date_str,
-                    "endDate": None,
-                    "time": None,
-                    "url": full_url,
-                    "source": "afisha.uz (calendar)",
-                })
-                day_count += 1
-            log(f"calendar {date_str}: {day_count} events kept")
+                if full_url in discovered:
+                    continue
+                # Cheap first-pass filter on the calendar's own link text, just
+                # to avoid queuing up an obviously-excluded page for a detail
+                # visit later (saves time, not a substitute for the real check).
+                raw_text = (a.inner_text() or "").strip()
+                if is_excluded(raw_text) or is_banned(raw_text):
+                    continue
+                discovered[full_url] = category
+                day_new += 1
+            log(f"calendar {date_str}: {day_new} new event URLs discovered")
             time.sleep(0.5)
 
         browser.close()
+
+    log(f"calendar discovery complete: {len(discovered)} unique event URLs to check")
+
+    # PHASE 2: for every discovered URL, visit its own page once. This gives
+    # two things the calendar snippet never could: (1) the event's REAL full
+    # list of dates, straight from its own "Расписание" section or its stated
+    # date range -- not a guess based on which days the calendar happened to
+    # show it, and (2) the full page text, so is_excluded()/is_banned() can
+    # check everything on the page -- including a nightclub's age-restriction
+    # policy stated separately from its title, which is exactly what got
+    # missed before.
+    for full_url, category in discovered.items():
+        clean_title, occurrences, full_text, venue = fetch_event_detail(full_url)
+        time.sleep(0.3)
+        if not clean_title:
+            continue
+        if is_excluded(clean_title) or is_excluded(full_text) or is_banned(clean_title) or is_banned(full_text):
+            continue
+        if is_generic_venue_listing(clean_title, venue):
+            continue
+        half = len(clean_title) // 2
+        if half > 4 and clean_title[:half].strip() == clean_title[half:].strip():
+            clean_title = clean_title[:half].strip()
+        english_title = translate_ru_to_en(clean_title)
+        resolved_category = guess_category(clean_title, category)
+        in_window = [(d, t) for d, t in occurrences if TODAY_MIDNIGHT <= d <= WINDOW_END]
+        for date_obj, time_str in in_window:
+            events.append({
+                "title": english_title,
+                "titleRu": clean_title,
+                "category": resolved_category,
+                "venue": venue,
+                "startDate": date_obj.strftime("%Y-%m-%d"),
+                "endDate": None,
+                "time": time_str,
+                "url": full_url,
+                "source": "afisha.uz (calendar)",
+            })
+        if not in_window:
+            log(f"  {clean_title!r}: no dates found in window (no schedule/date-range parsed) -- kept 0 events")
+
+    log(f"calendar detail pass complete: {len(events)} events kept from {len(discovered)} pages checked")
     return events
 
 
