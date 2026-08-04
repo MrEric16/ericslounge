@@ -474,10 +474,11 @@ def fetch_event_detail(url):
     # TEMPORARY debug dump -- confirming or ruling out whether this site
     # renders its schedule section via client-side JS (which plain requests.get()
     # would never see) vs. server-rendered HTML. Remove once confirmed.
-    if "madagaskar-tashkent-city" in url:
-        with open("scripts/debug-madagascar-raw.html", "w", encoding="utf-8") as f:
+    if "madagaskar-tashkent-city" in url or "zanmakon" in url:
+        debug_name = "madagascar" if "madagaskar" in url else "qimmat"
+        with open(f"scripts/debug-{debug_name}-raw.html", "w", encoding="utf-8") as f:
             f.write(r.text)
-        log(f"  DEBUG: dumped raw HTML for Madagascar page, {len(r.text)} chars")
+        log(f"  DEBUG: dumped raw HTML for {debug_name} page, {len(r.text)} chars")
 
     soup = BeautifulSoup(r.text, "html.parser")
     h1 = soup.find("h1")
