@@ -164,11 +164,20 @@ BANNED_TERMS_SUBSTRING = [
                              # happens afterward), so the English-only entry
                              # in PERPETUAL_VENUE_TITLES_EXACT never actually
                              # matched anything on this scraper
+    "bla bla bar",          # 21+/25+ face-control nightclub, confirmed via
+                             # its own listed dress code and age requirement
+    "twelve",                # 21+/25+ face-control nightclub, same venue
+                             # cluster as Bla Bla Bar -- removed as a
+                             # precaution pending direct verification
+    "h.a.v.o",               # same precautionary removal as Twelve
 ]
 BANNED_TERMS_WORD_BOUNDARY = [
     # short/ambiguous words that need a word-boundary match, not a bare
     # substring match (e.g. "oko" is inside the unrelated Russian word "около")
     "oko", "око",           # Oko restaurant parties
+    "vm",                    # VM Bar, a nightclub -- word-boundary matched
+                             # since "vm" alone risks false positives as a
+                             # bare substring inside unrelated words
 ]
 
 
