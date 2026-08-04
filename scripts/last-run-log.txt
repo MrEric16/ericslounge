@@ -1,102 +1,15 @@
 [scrape] Run started. Today (Tashkent): 2026-08-04  Window end: 2026-08-18
 [scrape] NOTE: switched from per-category listing pages to afisha.uz's calendar view (one real day at a time, via Playwright) -- the old approach could only ever see whatever was on the current front page of each category, missing anything pushed down by newer posts. The calendar view asks for each specific date directly instead.
-[scrape] Translation failed for 'Шоу NE PROSTO CARTOONS': Шоу NE PROSTO CARTOONS --> No translation was found using the current translator. Try another translator?
-[scrape] Translation failed for 'Выставка «Фотохроника XX века»': Выставка «Фотохроника XX века» --> No translation was found using the current translator. Try another translator?
-[scrape] Translation failed for 'Летний кулинарный лагерь в Cook Book': Летний кулинарный лагерь в Cook Book --> No translation was found using the current translator. Try another translator?
-[scrape] Translation failed for 'Бесплатный курс по разработке игр Game D': Бесплатный курс по разработке игр Game Dev Lab для подростков --> No translation was found using the current translator. Try another translator?
-[scrape] Translation failed for 'Театрально-цирковое шоу Nova Circus': Театрально-цирковое шоу Nova Circus --> No translation was found using the current translator. Try another translator?
-[scrape] Translation failed for 'Проект «Другие игры. Импровизация»': Проект «Другие игры. Импровизация» --> No translation was found using the current translator. Try another translator?
-[scrape] Translation failed for 'Акция «Женский день» в водном комплексе ': Акция «Женский день» в водном комплексе More --> No translation was found using the current translator. Try another translator?
-[scrape] Translation failed for 'Музыкальный фонтан в парке Magic City': Музыкальный фонтан в парке Magic City --> No translation was found using the current translator. Try another translator?
-[scrape] Translation failed for 'Музыкальный фонтан в парке Tashkent City': Музыкальный фонтан в парке Tashkent City --> No translation was found using the current translator. Try another translator?
-[scrape] Translation failed for 'Ярмарка Uzbegim Market в парке Tashkent ': Ярмарка Uzbegim Market в парке Tashkent City --> No translation was found using the current translator. Try another translator?
-[scrape] Translation failed for 'Творческие мастер-классы в Potterville': Творческие мастер-классы в Potterville --> No translation was found using the current translator. Try another translator?
-[scrape] Translation failed for 'Мастер-классы в Dvoe Ceramics': Мастер-классы в Dvoe Ceramics --> No translation was found using the current translator. Try another translator?
-[scrape] Translation failed for 'Мастер-класс «Римская мозаика»': Мастер-класс «Римская мозаика» --> No translation was found using the current translator. Try another translator?
-[scrape] calendar 2026-08-04: 16 events kept
-[scrape] Translation failed for 'Выставка «Поколение Z» в Andakulova Gall': Выставка «Поколение Z» в Andakulova Gallery --> No translation was found using the current translator. Try another translator?
-[scrape] Translation failed for 'Выставка «Фотохроника XX века»': Выставка «Фотохроника XX века» --> No translation was found using the current translator. Try another translator?
-[scrape] Translation failed for 'Летний кулинарный лагерь в Cook Book': Летний кулинарный лагерь в Cook Book --> No translation was found using the current translator. Try another translator?
-[scrape] Translation failed for 'Театрально-цирковое шоу Nova Circus': Театрально-цирковое шоу Nova Circus --> No translation was found using the current translator. Try another translator?
-[scrape] Translation failed for 'Музыкальный фонтан в парке Tashkent City': Музыкальный фонтан в парке Tashkent City --> No translation was found using the current translator. Try another translator?
-[scrape] Translation failed for 'Пляж Palma & Chilla в парке Milliy Bog’': Пляж Palma & Chilla в парке Milliy Bog’ --> No translation was found using the current translator. Try another translator?
-[scrape] Translation failed for 'Женский арт-релакс «Лотосы. Акварель» в ': Женский арт-релакс «Лотосы. Акварель» в Human House --> No translation was found using the current translator. Try another translator?
-[scrape] Translation failed for 'Творческие мастер-классы в Potterville': Творческие мастер-классы в Potterville --> No translation was found using the current translator. Try another translator?
-[scrape] Translation failed for 'Мастер-классы в Dvoe Ceramics': Мастер-классы в Dvoe Ceramics --> No translation was found using the current translator. Try another translator?
-[scrape] Translation failed for 'Лекция о Мирзо Улугбеке': Лекция о Мирзо Улугбеке --> No translation was found using the current translator. Try another translator?
-[scrape] calendar 2026-08-05: 16 events kept
-[scrape] Translation failed for 'Музыкальные вечера в PAUL': Музыкальные вечера в PAUL --> No translation was found using the current translator. Try another translator?
-[scrape] Translation failed for 'Концерт группы Guthrie Govan Trio': Концерт группы Guthrie Govan Trio --> No translation was found using the current translator. Try another translator?
-[scrape] Translation failed for 'Выставка Qimmat': Выставка Qimmat --> No translation was found using the current translator. Try another translator?
-[scrape] Translation failed for 'Выставка «Поколение Z» в Andakulova Gall': Выставка «Поколение Z» в Andakulova Gallery --> No translation was found using the current translator. Try another translator?
-[scrape] Translation failed for 'Бесплатный курс по разработке игр Game D': Бесплатный курс по разработке игр Game Dev Lab для подростков --> No translation was found using the current translator. Try another translator?
-[scrape] Translation failed for 'Театрально-цирковое шоу Nova Circus': Театрально-цирковое шоу Nova Circus --> No translation was found using the current translator. Try another translator?
-[scrape] Translation failed for 'Музыкальный фонтан в парке Magic City': Музыкальный фонтан в парке Magic City --> No translation was found using the current translator. Try another translator?
-[scrape] Translation failed for 'Пляж Palma & Chilla в парке Milliy Bog’': Пляж Palma & Chilla в парке Milliy Bog’ --> No translation was found using the current translator. Try another translator?
-[scrape] Translation failed for 'Встреча о профессии медсестры в Гете-Инс': Встреча о профессии медсестры в Гете-Институте --> No translation was found using the current translator. Try another translator?
-[scrape] Translation failed for 'Лекция «Богини Луны» в Human House': Лекция «Богини Луны» в Human House --> No translation was found using the current translator. Try another translator?
-[scrape] Translation failed for 'Мастер-классы в Dvoe Ceramics': Мастер-классы в Dvoe Ceramics --> No translation was found using the current translator. Try another translator?
-[scrape] Translation failed for 'Литературный проект «НЕ книжный клуб».': Литературный проект «НЕ книжный клуб». --> No translation was found using the current translator. Try another translator?
-[scrape] calendar 2026-08-06: 19 events kept
-[scrape] Translation failed for 'Вечеринка в стиле 90-х в H.A.V.O.': Вечеринка в стиле 90-х в H.A.V.O. --> No translation was found using the current translator. Try another translator?
-[scrape] Translation failed for 'Музыкальные вечера в PAUL': Музыкальные вечера в PAUL --> No translation was found using the current translator. Try another translator?
-[scrape] Translation failed for 'Выставка «По Великому шелковому пути»': Выставка «По Великому шелковому пути» --> No translation was found using the current translator. Try another translator?
-[scrape] Translation failed for 'Выставка «Поколение Z» в Andakulova Gall': Выставка «Поколение Z» в Andakulova Gallery --> No translation was found using the current translator. Try another translator?
-[scrape] Translation failed for 'Выставка «Фотохроника XX века»': Выставка «Фотохроника XX века» --> No translation was found using the current translator. Try another translator?
-[scrape] Translation failed for 'Летний кулинарный лагерь в Cook Book': Летний кулинарный лагерь в Cook Book --> No translation was found using the current translator. Try another translator?
-[scrape] Translation failed for 'Театрально-цирковое шоу Nova Circus': Театрально-цирковое шоу Nova Circus --> No translation was found using the current translator. Try another translator?
-[scrape] Translation failed for 'Курс «Цифровая Поэзия»': Курс «Цифровая Поэзия» --> No translation was found using the current translator. Try another translator?
-[scrape] Translation failed for 'Музыкальный фонтан в парке Magic City': Музыкальный фонтан в парке Magic City --> No translation was found using the current translator. Try another translator?
-[scrape] Translation failed for 'Музыкальный фонтан в парке Tashkent City': Музыкальный фонтан в парке Tashkent City --> No translation was found using the current translator. Try another translator?
-[scrape] Translation failed for 'Ярмарка Uzbegim Market в парке Tashkent ': Ярмарка Uzbegim Market в парке Tashkent City --> No translation was found using the current translator. Try another translator?
-[scrape] Translation failed for 'Творческие мастер-классы в Potterville': Творческие мастер-классы в Potterville --> No translation was found using the current translator. Try another translator?
-[scrape] Translation failed for 'Мастер-классы в Dvoe Ceramics': Мастер-классы в Dvoe Ceramics --> No translation was found using the current translator. Try another translator?
-[scrape] calendar 2026-08-07: 18 events kept
-[scrape] Translation failed for 'RAMEEN в Bla Bla Bar': RAMEEN в Bla Bla Bar --> No translation was found using the current translator. Try another translator?
-[scrape] Translation failed for 'Выставка Qimmat': Выставка Qimmat --> No translation was found using the current translator. Try another translator?
-[scrape] Translation failed for 'Ярмарка Next Market': Ярмарка Next Market --> No translation was found using the current translator. Try another translator?
-[scrape] Translation failed for 'Выставка «Поколение Z» в Andakulova Gall': Выставка «Поколение Z» в Andakulova Gallery --> No translation was found using the current translator. Try another translator?
-[scrape] Translation failed for 'Выставка «Фотохроника XX века»': Выставка «Фотохроника XX века» --> No translation was found using the current translator. Try another translator?
-[scrape] Translation failed for 'Спектакль Out of Order': Спектакль Out of Order --> No translation was found using the current translator. Try another translator?
-[scrape] Translation failed for 'Футбольный матч «Бунёдкор» — ОКМК': Футбольный матч «Бунёдкор» — ОКМК --> No translation was found using the current translator. Try another translator?
-[scrape] Translation failed for 'Культурная программа в Республиканской д': Культурная программа в Республиканской детской библиотеке --> No translation was found using the current translator. Try another translator?
-[scrape] Translation failed for 'Летний кулинарный лагерь в Cook Book': Летний кулинарный лагерь в Cook Book --> No translation was found using the current translator. Try another translator?
-[scrape] Translation failed for 'Театрально-цирковое шоу Nova Circus': Театрально-цирковое шоу Nova Circus --> No translation was found using the current translator. Try another translator?
-[scrape] Translation failed for 'Детские кулинарные мастер-классы в PRO.Х': Детские кулинарные мастер-классы в PRO.Хинкали --> No translation was found using the current translator. Try another translator?
-[scrape] Translation failed for 'Спектакль «Мадагаскар» в парке Tashkent ': Спектакль «Мадагаскар» в парке Tashkent City --> No translation was found using the current translator. Try another translator?
-[scrape] Translation failed for 'Спектакль «Out of Order» в Human House': Спектакль «Out of Order» в Human House --> No translation was found using the current translator. Try another translator?
-[scrape] Translation failed for 'Мастер-классы в Dvoe Ceramics': Мастер-классы в Dvoe Ceramics --> No translation was found using the current translator. Try another translator?
-[scrape] Translation failed for 'Мастер-класс по пересадке домашних расте': Мастер-класс по пересадке домашних растений --> No translation was found using the current translator. Try another translator?
-[scrape] calendar 2026-08-08: 26 events kept
-[scrape] Translation failed for 'Выставка «По Великому шелковому пути»': Выставка «По Великому шелковому пути» --> No translation was found using the current translator. Try another translator?
-[scrape] Translation failed for 'Выставка Qimmat': Выставка Qimmat --> No translation was found using the current translator. Try another translator?
-[scrape] Translation failed for 'Ярмарка Next Market': Ярмарка Next Market --> No translation was found using the current translator. Try another translator?
-[scrape] Translation failed for 'Выставка «Поколение Z» в Andakulova Gall': Выставка «Поколение Z» в Andakulova Gallery --> No translation was found using the current translator. Try another translator?
-[scrape] Translation failed for 'Музыкальный фонтан в парке Magic City': Музыкальный фонтан в парке Magic City --> No translation was found using the current translator. Try another translator?
-[scrape] Translation failed for 'Музыкальный фонтан в парке Tashkent City': Музыкальный фонтан в парке Tashkent City --> No translation was found using the current translator. Try another translator?
-[scrape] Translation failed for 'Пляж Palma & Chilla в парке Milliy Bog’': Пляж Palma & Chilla в парке Milliy Bog’ --> No translation was found using the current translator. Try another translator?
-[scrape] Translation failed for 'Фестиваль дыни 2026 в Хиве': Фестиваль дыни 2026 в Хиве --> No translation was found using the current translator. Try another translator?
-[scrape] calendar 2026-08-09: 18 events kept
-[scrape] Translation failed for 'Выставка «По Великому шелковому пути»': Выставка «По Великому шелковому пути» --> No translation was found using the current translator. Try another translator?
-[scrape] Translation failed for 'Выставка Qimmat': Выставка Qimmat --> No translation was found using the current translator. Try another translator?
-[scrape] Translation failed for 'Выставка «Фотохроника XX века»': Выставка «Фотохроника XX века» --> No translation was found using the current translator. Try another translator?
-[scrape] Translation failed for 'Детский день в бассейне Sinbad': Детский день в бассейне Sinbad --> No translation was found using the current translator. Try another translator?
-[scrape] calendar 2026-08-10: 11 events kept
-[scrape] Translation failed for 'Мозгобойня: Классическая': Мозгобойня: Классическая --> No translation was found using the current translator. Try another translator?
-[scrape] Translation failed for 'Бесплатный курс по разработке игр Game D': Бесплатный курс по разработке игр Game Dev Lab для подростков --> No translation was found using the current translator. Try another translator?
-[scrape] Translation failed for 'Музыкальный фонтан в парке Magic City': Музыкальный фонтан в парке Magic City --> No translation was found using the current translator. Try another translator?
-[scrape] Translation failed for 'Музыкальный фонтан в парке Tashkent City': Музыкальный фонтан в парке Tashkent City --> No translation was found using the current translator. Try another translator?
-[scrape] Translation failed for 'Ярмарка Uzbegim Market в парке Tashkent ': Ярмарка Uzbegim Market в парке Tashkent City --> No translation was found using the current translator. Try another translator?
-[scrape] Translation failed for 'Пляж Palma & Chilla в парке Milliy Bog’': Пляж Palma & Chilla в парке Milliy Bog’ --> No translation was found using the current translator. Try another translator?
-[scrape] Translation failed for 'Мастер-классы в Dvoe Ceramics': Мастер-классы в Dvoe Ceramics --> No translation was found using the current translator. Try another translator?
-[scrape] calendar 2026-08-11: 14 events kept
-[scrape] Translation failed for 'Выставка «По Великому шелковому пути»': Выставка «По Великому шелковому пути» --> No translation was found using the current translator. Try another translator?
-[scrape] Translation failed for 'Театрально-цирковое шоу Nova Circus': Театрально-цирковое шоу Nova Circus --> No translation was found using the current translator. Try another translator?
-[scrape] Translation failed for 'Музыкальный фонтан в парке Magic City': Музыкальный фонтан в парке Magic City --> No translation was found using the current translator. Try another translator?
-[scrape] calendar 2026-08-12: 13 events kept
-[scrape] Translation failed for 'Концерт рок-хитов от Tynda.music': Концерт рок-хитов от Tynda.music --> No translation was found using the current translator. Try another translator?
-[scrape] Translation failed for 'Музыкальный фонтан в парке Tashkent City': Музыкальный фонтан в парке Tashkent City --> No translation was found using the current translator. Try another translator?
-[scrape] Translation failed for 'Ярмарка Uzbegim Market в парке Tashkent ': Ярмарка Uzbegim Market в парке Tashkent City --> No translation was found using the current translator. Try another translator?
+[scrape] Translation failed for 'Выставка «Наше наследие»': Выставка «Наше наследие» --> No translation was found using the current translator. Try another translator?
+[scrape] calendar 2026-08-04: 18 events kept
+[scrape] calendar 2026-08-05: 19 events kept
+[scrape] calendar 2026-08-06: 24 events kept
+[scrape] calendar 2026-08-07: 24 events kept
+[scrape] calendar 2026-08-08: 31 events kept
+[scrape] calendar 2026-08-09: 23 events kept
+[scrape] calendar 2026-08-10: 12 events kept
+[scrape] calendar 2026-08-11: 15 events kept
+[scrape] calendar 2026-08-12: 14 events kept
 [scrape] calendar 2026-08-13: 15 events kept
 [scrape] special-tracked: 'Акция «Кинопраздник в среду»' -> 2 events kept
 [scrape] iticket.uz cat=concert: 8 events kept
@@ -105,5 +18,5 @@
 [scrape] ticketon.uz: CONFIRMED BLOCKED (Cloudflare challenge, page title='Just a moment...'). 0 events -- this is expected, not a bug to fix.
 [scrape] eventbrite.com: CONFIRMED BLOCKED (AWS WAF CAPTCHA, page title='Human Verification'). 0 events -- this is expected, not a bug to fix. Same category of block as ticketon.uz.
 [scrape] eventbrite.com: 0 events found (dates NOT yet parsed -- see note in script)
-[scrape] TOTAL before dedup: 176  |  after dedup: 153
+[scrape] TOTAL before dedup: 205  |  after dedup: 145
 [scrape] Wrote data/events-tashkent.json
