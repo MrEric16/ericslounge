@@ -54,12 +54,17 @@ INCLUDE_HINT_RU = [
 ]
 EXCLUDE_KEYWORDS_RU = [
     "кино", "кинопоказ", "премьера фильма",           # cinema
-    "ночной клуб", "паб", "бар ", "dj-сет", "dj сет",   # nightclub/nightlife (narrowed --
+    "ночной клуб", "паб", "dj-сет", "dj сет",           # nightclub/nightlife (narrowed --
                                                           # bare "клуб"/"party" was too broad,
                                                           # caught "Muzqaymoq Party" (an ice
                                                           # cream festival) and would catch
-                                                          # any "stand-up club" venue name too
-    "алкогол", "спиртн", "пиво", "коктейл",              # alcohol, specifically
+                                                          # any "stand-up club" venue name too.
+                                                          # "бар " moved to the word-boundary
+                                                          # list below -- as a trailing-space
+                                                          # substring it missed "Бар!"/"Бар,"/
+                                                          # "Бар." (anything without a space
+                                                          # right after the word)
+    "алкогол", "спиртн", "пиво", "коктейл", "вино",     # alcohol, specifically
     "квиз",                                             # quiz nights
     "квест", "escape room", "квест-рум",               # quests
     "аквапарк", "waterpark",                            # waterparks
@@ -73,13 +78,35 @@ EXCLUDE_KEYWORDS_EN = [
     "nightclub", "night club",                          # narrowed from bare "party"/"club night" --
                                                           # too many false positives on legitimate
                                                           # brand-name events (e.g. "X Party" fairs)
-    "alcohol", "cocktail night", "beer fest", "wine tasting",
+    "alcohol", "cocktail night", "beer fest", "wine tasting", "wine", "beer",
     "quiz night", "trivia night",
     "quest room", "escape room", "horror quest",
     "waterpark", "water park",
     "guided tour", "city tour", "excursion",
     "walk around tashkent", "tashkent speaks", "audio walk", "self-guided",
     "discount", "sale",
+]
+# Short/common words matched as whole words only (see is_excluded()) -- a bare
+# substring match on these would false-positive constantly, e.g. "bar" inside
+# "barbecue"/"barber", "dj" inside random slugs or unrelated text.
+EXCLUDE_KEYWORDS_WORD_BOUNDARY = [
+    "bar", "бар",            # standalone bar/nightclub-venue mentions
+    "dj", "диджей",          # DJ events -- a reliable nightlife signal
+]
+# Age-restriction markers -- any of these anywhere in the title/venue/category
+# text means the event is not for this site, full stop, regardless of what
+# category afisha.uz filed it under. Safe as bare substrings: the "+" makes
+# false positives essentially impossible.
+AGE_RESTRICTION_MARKERS = [
+    "18+", "19+", "20+", "21+", "22+", "25+",
+]
+# Uzbek-language equivalents, best effort. afisha.uz's actual listings have
+# been Russian-language every time this scraper has touched them so far, so
+# this is precautionary coverage rather than a confirmed gap -- flagged for
+# Mr Eric to correct/expand if he spots real Uzbek-language listings using
+# different wording than this.
+EXCLUDE_KEYWORDS_UZ = [
+    "alkogol", "pivo", "vino", "sharob", "kokteyl", "tungi klub",
 ]
 
 CATEGORY_MAP_TASHKENT_UZ = {
@@ -140,10 +167,25 @@ def norm(s):
     return s
 
 
+import re
+
+
 def is_excluded(text):
     t = (text or "").lower()
-    for kw in EXCLUDE_KEYWORDS_RU + EXCLUDE_KEYWORDS_EN:
+    for kw in EXCLUDE_KEYWORDS_RU + EXCLUDE_KEYWORDS_EN + EXCLUDE_KEYWORDS_UZ:
         if kw in t:
+            return True
+    # Word-boundary matched separately from the substring list above, because
+    # short/common words like "bar" or "dj" would false-positive constantly
+    # as bare substrings (e.g. "bar" inside "barbecue", "dj" inside random
+    # text/slugs). Matched as whole words only.
+    for kw in EXCLUDE_KEYWORDS_WORD_BOUNDARY:
+        if re.search(rf"\b{re.escape(kw)}\b", t):
+            return True
+    # Age-restriction markers (18+, 19+, ..., 25+) -- safe as bare substrings,
+    # the "+" makes false positives essentially impossible.
+    for marker in AGE_RESTRICTION_MARKERS:
+        if marker in t:
             return True
     return False
 
