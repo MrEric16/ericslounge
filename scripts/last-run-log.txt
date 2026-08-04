@@ -11,23 +11,15 @@
 [scrape] calendar 2026-08-12: 0 new event URLs discovered
 [scrape] calendar 2026-08-13: 1 new event URLs discovered
 [scrape] calendar discovery complete: 59 unique event URLs to check
-[scrape]   'Выставка «Наше наследие»': no dates found in window (no schedule/date-range parsed) -- kept 0 events
-[scrape] Translation failed for 'Выставка «Поколение Z» в Andakulova Gall': Выставка «Поколение Z» в Andakulova Gallery --> No translation was found using the current translator. Try another translator?
-[scrape]   'Выставка «Фотохроника XX века»': no dates found in window (no schedule/date-range parsed) -- kept 0 events
-[scrape] Translation failed for 'Бесплатный курс по разработке игр Game D': Бесплатный курс по разработке игр Game Dev Lab для подростков --> No translation was found using the current translator. Try another translator?
-[scrape]   'Музыкальный фонтан в парке Magic City': no dates found in window (no schedule/date-range parsed) -- kept 0 events
-[scrape]   'Музыкальный фонтан в парке Tashkent City': no dates found in window (no schedule/date-range parsed) -- kept 0 events
-[scrape]   'Ярмарка Uzbegim Market в парке Tashkent City': no dates found in window (no schedule/date-range parsed) -- kept 0 events
-[scrape]   'Пляж Palma & Chilla в парке Milliy Bog’': no dates found in window (no schedule/date-range parsed) -- kept 0 events
-[scrape]   'Творческие мастер-классы в Potterville': no dates found in window (no schedule/date-range parsed) -- kept 0 events
+[scrape] Translation failed for 'Шоу NE PROSTO CARTOONS': Шоу NE PROSTO CARTOONS --> No translation was found using the current translator. Try another translator?
+[scrape] Translation failed for 'Проект «Другие игры. Импровизация»': Проект «Другие игры. Импровизация» --> No translation was found using the current translator. Try another translator?
 [scrape]   DEBUG: dumped raw HTML for madagascar page, 184294 chars
-[scrape] Translation failed for 'Лекция о Мирзо Улугбеке': Лекция о Мирзо Улугбеке --> No translation was found using the current translator. Try another translator?
+[scrape] Translation failed for 'Концерт группы Guthrie Govan Trio': Концерт группы Guthrie Govan Trio --> No translation was found using the current translator. Try another translator?
 [scrape]   DEBUG: dumped raw HTML for qimmat page, 136029 chars
-[scrape]   'Выставка Qimmat': no dates found in window (no schedule/date-range parsed) -- kept 0 events
-[scrape] Translation failed for 'Поэтический вечер «Открытый микрофон»': Поэтический вечер «Открытый микрофон» --> No translation was found using the current translator. Try another translator?
-[scrape] Translation failed for 'Музыкальный квартирник «Забыли рифму»': Музыкальный квартирник «Забыли рифму» --> No translation was found using the current translator. Try another translator?
-[scrape] Translation failed for 'Футбольный матч «Пахтакор» — «Аль-Хусейн': Футбольный матч «Пахтакор» — «Аль-Хусейн» --> No translation was found using the current translator. Try another translator?
-[scrape] calendar detail pass complete: 100 events kept from 59 pages checked
+[scrape] Translation failed for 'Литературный проект «НЕ книжный клуб».': Литературный проект «НЕ книжный клуб». --> No translation was found using the current translator. Try another translator?
+[scrape] Translation failed for 'Игра «Мозгобойня: Лайт»': Игра «Мозгобойня: Лайт» --> No translation was found using the current translator. Try another translator?
+[scrape] Translation failed for 'Спектакль «Out of Order» в Human House': Спектакль «Out of Order» в Human House --> No translation was found using the current translator. Try another translator?
+[scrape] calendar detail pass complete: 238 events kept from 59 pages checked
 [scrape] special-tracked: FAILED to fetch or failed content check for https://www.afisha.uz/ru/cinema/2026/07/16/kinoprazdnik-v-sredu
 [scrape] iticket.uz cat=concert: 7 events kept
 [scrape] iticket.uz cat=theatre: 0 events kept
@@ -35,5 +27,5 @@
 [scrape] ticketon.uz: CONFIRMED BLOCKED (Cloudflare challenge, page title='Just a moment...'). 0 events -- this is expected, not a bug to fix.
 [scrape] eventbrite.com: CONFIRMED BLOCKED (AWS WAF CAPTCHA, page title='Human Verification'). 0 events -- this is expected, not a bug to fix. Same category of block as ticketon.uz.
 [scrape] eventbrite.com: 0 events found (dates NOT yet parsed -- see note in script)
-[scrape] TOTAL before dedup: 107  |  after dedup: 91
+[scrape] TOTAL before dedup: 245  |  after dedup: 146
 [scrape] Wrote data/events-tashkent.json
