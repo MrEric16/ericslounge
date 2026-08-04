@@ -182,11 +182,25 @@ def is_excluded(text):
     for kw in EXCLUDE_KEYWORDS_WORD_BOUNDARY:
         if re.search(rf"\b{re.escape(kw)}\b", t):
             return True
-    # Age-restriction markers (18+, 19+, ..., 25+) -- safe as bare substrings,
-    # the "+" makes false positives essentially impossible.
+    # Age-restriction markers (18+, 19+, ..., 25+): NOT a bare substring check
+    # anywhere on the page. Real bug found via an actual test run -- afisha.uz
+    # puts a mandatory age-rating disclaimer in the footer of literally every
+    # page on the site regardless of content (confirmed on a children's show
+    # page), and a bare substring check matched that footer 100% of the time,
+    # rejecting every single event. A real restriction (like Bla Bla Bar's
+    # "Вход: мужчины — 25+, женщины — 21+") always sits next to actual
+    # restriction-context words -- вход (entry), face control, дресс-код,
+    # лица (persons). Require that context nearby, not just the bare marker
+    # anywhere on the page.
+    AGE_CONTEXT_WORDS = ("вход", "face control", "фейс-контрол", "фейсконтрол",
+                          "дресс-код", "dress code", "лица", "лицам")
     for marker in AGE_RESTRICTION_MARKERS:
-        if marker in t:
-            return True
+        idx = t.find(marker)
+        while idx != -1:
+            window = t[max(0, idx - 60):idx + 60]
+            if any(ctx in window for ctx in AGE_CONTEXT_WORDS):
+                return True
+            idx = t.find(marker, idx + 1)
     return False
 
 
@@ -427,45 +441,63 @@ AFISHA_CATEGORIES = {
 
 def fetch_event_detail(url):
     """Fetches an event's own detail page and returns (clean_title, occurrences,
-    full_text), where occurrences is a list of (date, time_str) tuples -- one
-    per date the event actually runs. This is the real fix for two separate
-    problems found in the same night: (1) recurring/multi-date events (weekly
-    shows, long-running exhibitions) collapsing to a single guessed date from
-    the calendar listing page, and (2) content-safety checks that only ever
-    saw the title/venue snippet, never the full page -- which is exactly how
-    a nightclub's actual age-restriction policy (stated separately from its
-    title) slipped through undetected.
-    full_text is returned so the caller can run is_excluded()/is_banned()/age
-    markers against everything on the page, not just the title.
-    Returns (None, [], "") on any fetch failure.
+    content_text, venue), where occurrences is a list of (date, time_str)
+    tuples -- one per date the event actually runs. This is the real fix for
+    two separate problems found in the same night: (1) recurring/multi-date
+    events (weekly shows, long-running exhibitions) collapsing to a single
+    guessed date from the calendar listing page, and (2) content-safety
+    checks that only ever saw the title/venue snippet, never the full page --
+    which is exactly how a nightclub's actual age-restriction policy (stated
+    separately from its title) slipped through undetected.
+
+    content_text is the page's own article content ONLY -- extracted
+    structurally starting from the <h1> and walking forward in document
+    order, capped to a reasonable length. This deliberately excludes the
+    site's shared nav menu (which sits before the h1, and itself contains
+    banned keywords like "Кино"/"Скидки" as normal menu items) and the
+    site-wide footer (which carries a mandatory age-rating disclaimer on
+    literally every page regardless of content). A first attempt at this fix
+    tried trimming the whole-page text at footer marker strings, which still
+    let the nav-menu false positive through untouched and turned out to be
+    unreliable to begin with -- confirmed broken via two real test runs that
+    rejected 100% of events. Structural extraction from the h1 forward is the
+    correct fix, not a text-matching patch.
+    Returns (None, [], "", None) on any fetch failure.
     """
     try:
         r = requests.get(url, headers=HEADERS, timeout=20)
         r.raise_for_status()
     except Exception as e:
         log(f"  detail fetch failed for {url}: {e}")
-        return None, [], ""
+        return None, [], "", None
 
     soup = BeautifulSoup(r.text, "html.parser")
     h1 = soup.find("h1")
     clean_title = h1.get_text(strip=True) if h1 else None
-    full_text = soup.get_text("\n", strip=True)
+    full_text = soup.get_text("\n", strip=True)  # still needed below for the
+                                                   # "Расписание" schedule search,
+                                                   # which can sit further down
+                                                   # the page than a length cap
+                                                   # on content_text would reach
 
-    # BUG FOUND AND FIXED VIA A REAL TEST RUN (not assumed): afisha.uz puts a
-    # mandatory "18+" media-rating disclaimer in the footer of EVERY page on
-    # the site, completely regardless of actual content -- confirmed on the
-    # Madagascar children's show page directly. Checking is_excluded()/
-    # is_banned() against the raw full_text caused 100% of events to be
-    # falsely rejected the first time this ran for real, because every page's
-    # footer tripped the age-marker check. Content-safety checks must run
-    # against the page's own article content only, not the shared site chrome
-    # (nav menu, footer, legal boilerplate) that's identical on every page.
-    footer_markers = ("Подпишитесь на наш Telegram", "Свидетельство регистрации", "© 2005")
-    content_text = full_text
-    for marker in footer_markers:
-        cut = content_text.find(marker)
-        if cut != -1:
-            content_text = content_text[:cut]
+    if h1:
+        parts = []
+        total_len = 0
+        for el in h1.find_all_next(string=True):
+            piece = el.strip()
+            if not piece:
+                continue
+            parts.append(piece)
+            total_len += len(piece)
+            if total_len > 6000:  # generous cap -- real article content on
+                                   # these pages is short; this comfortably
+                                   # covers title+description+schedule while
+                                   # staying well clear of the footer
+                break
+        content_text = "\n".join(parts)
+    else:
+        content_text = full_text  # no h1 found -- fall back rather than skip
+                                    # the content check entirely
 
     # Venue: event detail pages consistently link to their location as
     # /ru/places/<slug> with the venue name as the link text (confirmed on
