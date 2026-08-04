@@ -451,6 +451,22 @@ def fetch_event_detail(url):
     clean_title = h1.get_text(strip=True) if h1 else None
     full_text = soup.get_text("\n", strip=True)
 
+    # BUG FOUND AND FIXED VIA A REAL TEST RUN (not assumed): afisha.uz puts a
+    # mandatory "18+" media-rating disclaimer in the footer of EVERY page on
+    # the site, completely regardless of actual content -- confirmed on the
+    # Madagascar children's show page directly. Checking is_excluded()/
+    # is_banned() against the raw full_text caused 100% of events to be
+    # falsely rejected the first time this ran for real, because every page's
+    # footer tripped the age-marker check. Content-safety checks must run
+    # against the page's own article content only, not the shared site chrome
+    # (nav menu, footer, legal boilerplate) that's identical on every page.
+    footer_markers = ("Подпишитесь на наш Telegram", "Свидетельство регистрации", "© 2005")
+    content_text = full_text
+    for marker in footer_markers:
+        cut = content_text.find(marker)
+        if cut != -1:
+            content_text = content_text[:cut]
+
     # Venue: event detail pages consistently link to their location as
     # /ru/places/<slug> with the venue name as the link text (confirmed on
     # multiple pages, e.g. the Madagascar show links "Tashkent City" this way).
@@ -503,7 +519,7 @@ def fetch_event_detail(url):
                 occurrences.append((day, None))
                 day += timedelta(days=1)
 
-    return clean_title, occurrences, full_text, venue
+    return clean_title, occurrences, content_text, venue
 
 
 def scrape_afisha_uz():
