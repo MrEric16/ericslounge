@@ -544,7 +544,7 @@ def fetch_event_detail(url):
         # on 2026-08-04 despite being live and correctly categorized -- the
         # calendar view doesn't reliably re-list them on every day of their
         # run, and until now nothing filled that gap.
-        start, end = parse_ru_date_range(full_text[:2000])
+        start, end = parse_ru_date_range(content_text[:2000])
         if start and end:
             day = start
             while day <= end:
