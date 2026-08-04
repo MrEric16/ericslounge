@@ -1052,8 +1052,22 @@ def dedup(events):
 
     SOURCE_PRIORITY = {"iticket.uz": 0, "afisha.uz": 1}  # lower = preferred when merging
 
+    # Real bug found via debugging Madagascar/Qimmat directly: many event
+    # titles embed their own venue name (e.g. "Спектакль «Мадагаскар» в парке
+    # Tashkent City"), so two completely UNRELATED events sharing a popular
+    # venue on the same date (Tashkent City park hosts many different things)
+    # were sharing "Tashkent"+"City" as a "matching" Latin token and getting
+    # wrongly merged by this dedup step -- one of the two silently discarded
+    # even though they were different events. Generic venue/location words
+    # aren't a reliable distinguishing signal and must not count here.
+    VENUE_WORD_STOPLIST = {
+        "tashkent", "city", "park", "uzbekistan", "center", "centre",
+        "gallery", "hall", "theatre", "theater", "hotel", "resort",
+    }
+
     def latin_tokens(title, min_len=8):
-        return {w for w in re.findall(r"[A-Za-z]{3,}", title) if len(w) >= 3}
+        return {w for w in re.findall(r"[A-Za-z]{3,}", title)
+                if len(w) >= 3 and w.lower() not in VENUE_WORD_STOPLIST}
 
     final = []
     for date, group in by_date.items():
