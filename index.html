@@ -3814,7 +3814,7 @@ function dispatchListHtml(list){
             </div>
             <div class="entry-actions">
               <button class="bookmark-btn ${isBookmarked(a.url)?'active':''}" data-key="${a.url}" data-type="article" data-url="${a.url}" data-title="${escapeHtml(a.headline)}" data-faculty="${a.faculty}" data-date="${a.date}" title="Save for later">${isBookmarked(a.url)?icon('bookmarkFilled'):icon('bookmark')}</button>
-              <button class="read-toggle-btn" data-url="${a.url}" title="${isRead ? 'Mark as unread' : 'Mark as read'}">${isRead ? 'Mark unread' : 'Mark read'}</button>
+              ${isRead ? `<button class="read-toggle-btn" data-url="${a.url}" title="Mark as unread">Mark unread</button>` : ''}
               <button class="share-btn" data-url="${a.url}" data-title="${escapeHtml(a.headline)}">Share</button>
             </div>
           </div>
@@ -3843,7 +3843,7 @@ function watchGridHtml(list, idPrefix){
         <div class="watch-channel-row">
           <div class="watch-channel">${escapeHtml(v.channel)}</div>
           <button class="bookmark-btn video-bookmark-btn ${isBookmarked(vKey)?'active':''}" data-key="${vKey}" data-type="video" data-videoid="${v.videoId}" data-title="${escapeHtml(v.title)}" data-channel="${escapeHtml(v.channel)}" data-faculty="${v.faculty}" title="Save for later">${isBookmarked(vKey)?icon('bookmarkFilled'):icon('bookmark')}</button>
-          <button class="watch-toggle-btn" data-videoid="${v.videoId}" title="${isWatched ? 'Mark as unwatched' : 'Mark as watched'}">${isWatched ? 'Unwatched' : 'Watched'}</button>
+          ${isWatched ? `<button class="watch-toggle-btn" data-videoid="${v.videoId}" title="Mark as unwatched">Unwatched</button>` : ''}
           <button class="share-btn icon-only" data-url="https://www.youtube.com/watch?v=${v.videoId}" data-title="${escapeHtml(v.title)}" title="Share">${icon('share')}</button>
         </div>
       </div>
@@ -3922,39 +3922,24 @@ function wireEntryActions(container){
   });
   container.querySelectorAll('.read-toggle-btn').forEach(btn=>{
     btn.addEventListener('click', ()=>{
-      const nowRead = toggleArticleRead(btn.dataset.url);
-      btn.textContent = nowRead ? 'Mark unread' : 'Mark read';
-      btn.title = nowRead ? 'Mark as unread' : 'Mark as read';
+      toggleArticleRead(btn.dataset.url); // this button only ever exists when
+                                            // already read, so this call always
+                                            // removes the mark -- there is no
+                                            // path to fake-add one
       const entryBody = btn.closest('.entry-body');
-      let indicator = entryBody ? entryBody.querySelector('.read-indicator') : null;
-      if(nowRead && !indicator && entryBody){
-        const headline = entryBody.querySelector('.headline');
-        const div = document.createElement('div');
-        div.className = 'read-indicator';
-        div.style.cssText = 'display:flex; align-items:center; gap:5px; font-size:14px; font-weight:700; color:var(--teal); margin:4px 0;';
-        div.innerHTML = `${ICONS.checkDouble}<span>Read</span>`;
-        headline.insertAdjacentElement('afterend', div);
-      } else if(!nowRead && indicator){
-        indicator.remove();
-      }
+      const indicator = entryBody ? entryBody.querySelector('.read-indicator') : null;
+      if(indicator) indicator.remove();
+      btn.remove();
     });
   });
   container.querySelectorAll('.watch-toggle-btn').forEach(btn=>{
     btn.addEventListener('click', ()=>{
-      const nowWatched = toggleVideoWatched(btn.dataset.videoid);
-      btn.textContent = nowWatched ? 'Unwatched' : 'Watched';
-      btn.title = nowWatched ? 'Mark as unwatched' : 'Mark as watched';
+      toggleVideoWatched(btn.dataset.videoid); // same as above -- unmark only
       const thumb = btn.closest('.watch-card').querySelector('.watch-thumb');
-      thumb.classList.toggle('is-watched', nowWatched);
-      let ribbon = thumb.querySelector('.watched-ribbon');
-      if(nowWatched && !ribbon){
-        const div = document.createElement('div');
-        div.className = 'watched-ribbon';
-        div.innerHTML = '<span>Watched</span>';
-        thumb.appendChild(div);
-      } else if(!nowWatched && ribbon){
-        ribbon.remove();
-      }
+      thumb.classList.remove('is-watched');
+      const ribbon = thumb.querySelector('.watched-ribbon');
+      if(ribbon) ribbon.remove();
+      btn.remove();
     });
   });
 }
