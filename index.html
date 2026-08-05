@@ -8226,6 +8226,13 @@ async function renderComparisonBox(){
   }catch(e){ box.innerHTML = ''; }
 }
 
+function markAllUnread(){
+  ['readArticles','watchedVideos'].forEach(k=>{
+    try{ localStorage.removeItem(k); }catch(e){}
+  });
+  location.reload();
+}
+
 function resetMyStats(){
   ['readArticles','watchedVideos','totalActiveTimeMs','siteOpenCount','visitStreak'].forEach(k=>{
     try{ localStorage.removeItem(k); }catch(e){}
@@ -8270,7 +8277,8 @@ function viewMyStats(){
         <div class="badge-item"><div class="badge-emoji">🔖</div><div class="badge-name">${savedCount} saved item${savedCount===1?'':'s'}</div></div>
         ${favoriteDomain ? `<div class="badge-item"><div class="badge-emoji">⭐</div><div class="badge-name">Favorite: ${escapeHtml(favoriteDomain)}</div></div>` : ''}
       </div>
-      <button onclick="if(confirm('Reset all your stats? This cannot be undone.')) resetMyStats();" style="margin-top:20px; width:100%; padding:12px; border-radius:999px; border:1px solid var(--line); background:var(--card); color:var(--ink); font-weight:700; font-family:'Nunito',sans-serif; cursor:pointer;">Reset my stats</button>
+      <button onclick="if(confirm('Mark everything as unread/unwatched? This clears your read and watched marks only \u2014 streak, active time, and open count stay as they are.')) markAllUnread();" style="margin-top:20px; width:100%; padding:12px; border-radius:999px; border:1px solid var(--line); background:var(--card); color:var(--ink); font-weight:700; font-family:'Nunito',sans-serif; cursor:pointer;">Mark all unread</button>
+      <button onclick="if(confirm('Reset all your stats? This cannot be undone.')) resetMyStats();" style="margin-top:10px; width:100%; padding:12px; border-radius:999px; border:1px solid var(--line); background:var(--card); color:var(--ink); font-weight:700; font-family:'Nunito',sans-serif; cursor:pointer;">Reset my stats</button>
     </section>
   `;
 }
