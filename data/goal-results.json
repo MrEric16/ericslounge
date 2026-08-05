@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-05T18:09:30.288928Z",
+  "generatedAt": "2026-08-05T22:33:46.912438Z",
   "results": [
     {
       "url": "https://www.goal.com/en/match/girona-vs-arsenal/__LS8d9Oc6I1wXn9g8956",
@@ -32,6 +32,37 @@
         {
           "scorer": "G. Jesus",
           "minute": 55
+        }
+      ],
+      "competition": "arsenal-friendlies"
+    },
+    {
+      "url": "https://www.goal.com/en/match/arsenal-vs-real-betis/BJc6NuJXo56zfuJ5DHbwP",
+      "date": "2026-08-05",
+      "home": "Arsenal",
+      "away": "Real Betis",
+      "htHome": 1,
+      "htAway": 3,
+      "ftHome": 1,
+      "ftAway": 3,
+      "homeGoals": [
+        {
+          "scorer": "P. Hincapie",
+          "minute": 32
+        }
+      ],
+      "awayGoals": [
+        {
+          "scorer": "R. Riquelme",
+          "minute": 9
+        },
+        {
+          "scorer": "N. Deossa",
+          "minute": 26
+        },
+        {
+          "scorer": "P. Fornals",
+          "minute": 43
         }
       ],
       "competition": "arsenal-friendlies"
