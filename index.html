@@ -1387,6 +1387,44 @@
   }
   .watch-thumb iframe{width:100%; height:100%; border:none; display:block;}
   .watch-thumb img{width:100%; height:100%; object-fit:cover; display:block;}
+  .watch-thumb.is-watched img{ filter:grayscale(75%) opacity(0.55); }
+  .watch-thumb.is-watched .play{ opacity:0.5; }
+  .watched-ribbon{
+    position:absolute;
+    top:0; left:0; width:100%; height:100%;
+    overflow:hidden;
+    pointer-events:none;
+    z-index:2;
+  }
+  .watched-ribbon span{
+    position:absolute;
+    top:18px; left:-38px;
+    width:170px;
+    transform:rotate(-45deg);
+    transform-origin:center;
+    background:var(--coral-dark, #5C2530);
+    color:#fff;
+    font-family:'Nunito', sans-serif;
+    font-weight:800;
+    font-size:13px;
+    letter-spacing:.04em;
+    text-transform:uppercase;
+    text-align:center;
+    padding:4px 0;
+    box-shadow:0 2px 6px rgba(0,0,0,.25);
+  }
+  .read-toggle-btn, .watch-toggle-btn{
+    background:none;
+    border:1px solid var(--line);
+    border-radius:999px;
+    padding:4px 10px;
+    font-family:'Nunito', sans-serif;
+    font-size:11px;
+    font-weight:700;
+    color:var(--ink-soft);
+    cursor:pointer;
+    white-space:nowrap;
+  }
   .watch-thumb .play{
     position:absolute; inset:0;
     display:flex; align-items:center; justify-content:center;
@@ -1825,6 +1863,7 @@ window.addEventListener('appinstalled', () => {
 // licensed/copyrighted imagery, sized to sit in the same slot an emoji used to occupy.
 const ICON_STYLE = 'stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"';
 const ICONS = {
+  checkDouble: `<svg width="18" height="18" viewBox="0 0 24 24" ${ICON_STYLE}><path d="M2 12.5 6 16.5 13 8.5"/><path d="M9 12.5 13 16.5 22 6.5"/></svg>`,
   trophy: `<svg width="22" height="22" viewBox="0 0 24 24" ${ICON_STYLE}><path d="M8 3h8v5a4 4 0 0 1-8 0V3Z"/><path d="M8 4H4v2a4 4 0 0 0 4 4"/><path d="M16 4h4v2a4 4 0 0 1-4 4"/><path d="M10 15v3"/><path d="M14 15v3"/><path d="M7 21h10"/><path d="M9 21v-2h6v2"/></svg>`,
   star: `<svg width="20" height="20" viewBox="0 0 24 24" ${ICON_STYLE}><path d="m12 2 2.9 6.4 6.9.8-5.1 4.8 1.4 6.9L12 17.6l-6.1 3.3 1.4-6.9L2.2 9.2l6.9-.8L12 2Z"/></svg>`,
   sun: `<svg width="20" height="20" viewBox="0 0 24 24" ${ICON_STYLE}><circle cx="12" cy="12" r="4.5"/><path d="M12 2v3M12 19v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2 12h3M19 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/></svg>`,
@@ -3761,18 +3800,21 @@ function dispatchListHtml(list){
   sorted.forEach(a=>{
     const fac = FAC_MAP[a.faculty] || { label:a.faculty, color:'#999' };
     const readLabel = a.read ? `${a.read} read` : '';
+    const isRead = getReadArticles().has(a.url);
     html += `
       <div class="entry">
         <div class="entry-row">
           <div class="tag" style="background:${fac.color}">${fac.label}</div>
           <div class="entry-body">
             <a class="headline" href="${a.url}" target="_blank" rel="noopener" onclick="trackArticleOpen('${a.url.replace(/'/g,"\\'")}')">${escapeHtml(a.headline)}</a>
+            ${isRead ? `<div class="read-indicator" style="display:flex; align-items:center; gap:5px; font-size:14px; font-weight:700; color:var(--teal); margin:4px 0;">${icon('checkDouble')}<span>Read</span></div>` : ''}
             <div class="entry-meta">
               ${readLabel ? `<div>${readLabel}</div>` : ''}
               <div>${escapeHtml(sourceName(a.url))}</div>
             </div>
             <div class="entry-actions">
               <button class="bookmark-btn ${isBookmarked(a.url)?'active':''}" data-key="${a.url}" data-type="article" data-url="${a.url}" data-title="${escapeHtml(a.headline)}" data-faculty="${a.faculty}" data-date="${a.date}" title="Save for later">${isBookmarked(a.url)?icon('bookmarkFilled'):icon('bookmark')}</button>
+              <button class="read-toggle-btn" data-url="${a.url}" title="${isRead ? 'Mark as unread' : 'Mark as read'}">${isRead ? 'Mark unread' : 'Mark read'}</button>
               <button class="share-btn" data-url="${a.url}" data-title="${escapeHtml(a.headline)}">Share</button>
             </div>
           </div>
@@ -3788,17 +3830,20 @@ function watchGridHtml(list, idPrefix){
   }
   return list.map((v,i) => {
     const vKey = 'yt:' + v.videoId;
+    const isWatched = getWatchedVideos().has(v.videoId);
     return `
     <div class="watch-card">
-      <button class="watch-thumb" data-id="${v.videoId}" data-key="${idPrefix}-${i}" aria-label="Play ${escapeHtml(v.title)}">
+      <button class="watch-thumb ${isWatched ? 'is-watched' : ''}" data-id="${v.videoId}" data-key="${idPrefix}-${i}" aria-label="Play ${escapeHtml(v.title)}">
         <img src="https://img.youtube.com/vi/${v.videoId}/hqdefault.jpg" alt="${escapeHtml(v.title)}" loading="lazy">
         <div class="play"><span>▶</span></div>
+        ${isWatched ? '<div class="watched-ribbon"><span>Watched</span></div>' : ''}
       </button>
       <div class="watch-info">
         <div class="watch-title">${escapeHtml(v.title)}</div>
         <div class="watch-channel-row">
           <div class="watch-channel">${escapeHtml(v.channel)}</div>
           <button class="bookmark-btn video-bookmark-btn ${isBookmarked(vKey)?'active':''}" data-key="${vKey}" data-type="video" data-videoid="${v.videoId}" data-title="${escapeHtml(v.title)}" data-channel="${escapeHtml(v.channel)}" data-faculty="${v.faculty}" title="Save for later">${isBookmarked(vKey)?icon('bookmarkFilled'):icon('bookmark')}</button>
+          <button class="watch-toggle-btn" data-videoid="${v.videoId}" title="${isWatched ? 'Mark as unwatched' : 'Mark as watched'}">${isWatched ? 'Unwatched' : 'Watched'}</button>
           <button class="share-btn icon-only" data-url="https://www.youtube.com/watch?v=${v.videoId}" data-title="${escapeHtml(v.title)}" title="Share">${icon('share')}</button>
         </div>
       </div>
@@ -3873,6 +3918,43 @@ function wireEntryActions(container){
   container.querySelectorAll('.share-btn').forEach(btn=>{
     btn.addEventListener('click', ()=>{
       shareEntry(btn.dataset.url, btn.dataset.title);
+    });
+  });
+  container.querySelectorAll('.read-toggle-btn').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      const nowRead = toggleArticleRead(btn.dataset.url);
+      btn.textContent = nowRead ? 'Mark unread' : 'Mark read';
+      btn.title = nowRead ? 'Mark as unread' : 'Mark as read';
+      const entryBody = btn.closest('.entry-body');
+      let indicator = entryBody ? entryBody.querySelector('.read-indicator') : null;
+      if(nowRead && !indicator && entryBody){
+        const headline = entryBody.querySelector('.headline');
+        const div = document.createElement('div');
+        div.className = 'read-indicator';
+        div.style.cssText = 'display:flex; align-items:center; gap:5px; font-size:14px; font-weight:700; color:var(--teal); margin:4px 0;';
+        div.innerHTML = `${ICONS.checkDouble}<span>Read</span>`;
+        headline.insertAdjacentElement('afterend', div);
+      } else if(!nowRead && indicator){
+        indicator.remove();
+      }
+    });
+  });
+  container.querySelectorAll('.watch-toggle-btn').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      const nowWatched = toggleVideoWatched(btn.dataset.videoid);
+      btn.textContent = nowWatched ? 'Unwatched' : 'Watched';
+      btn.title = nowWatched ? 'Mark as unwatched' : 'Mark as watched';
+      const thumb = btn.closest('.watch-card').querySelector('.watch-thumb');
+      thumb.classList.toggle('is-watched', nowWatched);
+      let ribbon = thumb.querySelector('.watched-ribbon');
+      if(nowWatched && !ribbon){
+        const div = document.createElement('div');
+        div.className = 'watched-ribbon';
+        div.innerHTML = '<span>Watched</span>';
+        thumb.appendChild(div);
+      } else if(!nowWatched && ribbon){
+        ribbon.remove();
+      }
     });
   });
 }
@@ -7991,6 +8073,18 @@ function getReadArticles(){
 }
 function getWatchedVideos(){
   try{ return new Set(JSON.parse(localStorage.getItem('watchedVideos') || '[]')); }catch(e){ return new Set(); }
+}
+function toggleArticleRead(url){
+  const read = getReadArticles();
+  if(read.has(url)) read.delete(url); else read.add(url);
+  try{ localStorage.setItem('readArticles', JSON.stringify([...read])); }catch(e){}
+  return read.has(url);
+}
+function toggleVideoWatched(videoId){
+  const watched = getWatchedVideos();
+  if(watched.has(videoId)) watched.delete(videoId); else watched.add(videoId);
+  try{ localStorage.setItem('watchedVideos', JSON.stringify([...watched])); }catch(e){}
+  return watched.has(videoId);
 }
 const ARTICLE_READ_THRESHOLD_MS = 60000;   // 60 seconds
 const VIDEO_WATCH_THRESHOLD_MS = 180000;   // 3 minutes
