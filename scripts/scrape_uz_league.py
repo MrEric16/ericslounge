@@ -65,7 +65,11 @@ def scrape_standings(page):
             l = int(parts[5])
             goals = parts[6]  # format like "33:6"
             gf, ga = (int(x) for x in goals.split(":"))
-            pts = int(parts[-1])
+            # BUG FIXED VIA A REAL TEST RUN: parts[-1] was grabbing a form-guide
+            # letter (W/D/L) because each row has goal-difference and 5 form
+            # letters trailing AFTER points, not before it. Confirmed row shape:
+            # [rank, name, pld, w, d, l, "gf:ga", goalDiff, pts, "?", W,D,L,W,D]
+            pts = int(parts[8])
             teams.append({
                 "name": name, "pld": pld, "w": w, "d": d, "l": l,
                 "gf": gf, "ga": ga, "pts": pts,
@@ -96,9 +100,17 @@ def scrape_matches(page, url, label):
             away_name = away.inner_text().strip() if away else None
             raw_time = time_el.inner_text().strip() if time_el else None
             entry = {"home": home_name, "away": away_name, "raw_time": raw_time}
-            if score_home and score_away:
-                entry["homeScore"] = int(score_home.inner_text().strip())
-                entry["awayScore"] = int(score_away.inner_text().strip())
+            # BUG FIXED VIA A REAL TEST RUN: for fixtures (matches that haven't
+            # happened yet), the score elements still EXIST in the DOM but
+            # contain a placeholder dash "-" rather than being absent -- so
+            # checking "if score_home and score_away" (element presence) was
+            # always true and crashed trying to int() a dash. Check the
+            # actual text content is a real digit string instead.
+            home_score_text = score_home.inner_text().strip() if score_home else ""
+            away_score_text = score_away.inner_text().strip() if score_away else ""
+            if home_score_text.isdigit() and away_score_text.isdigit():
+                entry["homeScore"] = int(home_score_text)
+                entry["awayScore"] = int(away_score_text)
             matches.append(entry)
         except Exception as e:
             log(f"  could not parse a {label} match: {e}")
