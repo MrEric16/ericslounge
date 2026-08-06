@@ -91,9 +91,15 @@ def scrape_matches(page, url, label):
     matches = []
     for el in match_els:
         try:
-            home = el.query_selector(".event__participant--home")
-            away = el.query_selector(".event__participant--away")
-            time_el = el.query_selector(".event__time")
+            # BUG FIXED VIA A REAL TEST RUN + inspecting the actual debug HTML:
+            # the originally-assumed classes (.event__participant--home/away,
+            # .event__time) don't exist on flashscore's real markup. Confirmed
+            # real classes: .event__homeParticipant / .event__awayParticipant
+            # containing the team name in a nested .wcl-name_jjfMf span, and
+            # the date/time in .event__stageTime--date (format "03.08. 15:30").
+            home = el.query_selector(".event__homeParticipant .wcl-name_jjfMf")
+            away = el.query_selector(".event__awayParticipant .wcl-name_jjfMf")
+            time_el = el.query_selector(".event__stageTime--date")
             score_home = el.query_selector(".event__score--home")
             score_away = el.query_selector(".event__score--away")
             home_name = home.inner_text().strip() if home else None
