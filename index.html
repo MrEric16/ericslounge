@@ -1930,9 +1930,9 @@ const FACULTIES = [
   { key:'psychology', label:'Psychology', color:'var(--f-psy)', icon:'brain' },
   { key:'history', label:'History', color:'var(--f-hist)', icon:'hourglass' },
   { key:'travel', label:'Travel & Environment', color:'var(--f-travel)', icon:'plane' },
-  { key:'aviation', label:'Aviation', color:'var(--f-aviation)', icon:'plane' },
-  { key:'space-astronomy', label:'Space & Astronomy', color:'var(--f-space)', icon:'moon' },
   { key:'sport', label:'Sport', color:'var(--f-sport)', icon:'medal' },
+  { key:'space-astronomy', label:'Space & Astronomy', color:'var(--f-space)', icon:'moon' },
+  { key:'aviation', label:'Aviation', color:'var(--f-aviation)', icon:'plane' },
 ];
 const FAC_MAP = Object.fromEntries(FACULTIES.map(f=>[f.key,f]));
 
@@ -6042,8 +6042,16 @@ function viewPhotos(){
       <img src="${p.url}" alt="${escapeHtml(p.caption || 'Photo')}" loading="lazy">
     </button>
   `).join('')}</div>`;
+  // Real bug fixed here: every slide previously carried a real src="", so
+  // opening the lightbox requested every full-resolution photo in the whole
+  // library at once, regardless of which one was actually being viewed --
+  // this is exactly what was causing the slow "LimeWire-style" loading.
+  // Now slides only carry data-src; wirePhotoLightbox() populates the real
+  // src for the current slide plus its immediate neighbors only, and swaps
+  // it in dynamically as the user navigates, so at most 3 full-size images
+  // are ever loaded at a time instead of the entire library.
   const slides = sorted.map(p => `
-    <div class="lightbox-slide"><img src="${p.url}" alt="${escapeHtml(p.caption || 'Photo')}"></div>
+    <div class="lightbox-slide"><img data-src="${p.url}" alt="${escapeHtml(p.caption || 'Photo')}"></div>
   `).join('');
   return `
     <a class="back-link" href="#">← Back to Mr Eric's Lounge</a>
@@ -6138,10 +6146,23 @@ function wirePhotoLightbox(container){
   const closeBtn = container.querySelector('#lightboxClose');
   if(!lightbox || !track) return;
   let currentIndex = 0;
+  function loadNearby(idx){
+    // Only the current slide plus one on each side ever get a real src --
+    // this is the actual fix for photos loading slowly: previously every
+    // photo in the whole library requested at once when the lightbox opened.
+    for(let i = Math.max(0, idx - 1); i <= Math.min(track.children.length - 1, idx + 1); i++){
+      const img = track.children[i] && track.children[i].querySelector('img');
+      if(img && img.dataset.src){
+        img.src = img.dataset.src;
+        delete img.dataset.src;
+      }
+    }
+  }
   function openAt(idx){
     currentIndex = idx;
     lightbox.classList.add('active');
     document.body.style.overflow = 'hidden';
+    loadNearby(idx);
     const slide = track.children[idx];
     if(slide) slide.scrollIntoView({ block:'nearest', inline:'center' });
   }
@@ -6152,6 +6173,7 @@ function wirePhotoLightbox(container){
   function goToSlide(idx){
     const clamped = Math.max(0, Math.min(track.children.length - 1, idx));
     currentIndex = clamped;
+    loadNearby(clamped);
     const slide = track.children[clamped];
     if(slide) slide.scrollIntoView({ block:'nearest', inline:'center', behavior:'smooth' });
   }
@@ -7364,7 +7386,7 @@ window.addEventListener('orientationchange', syncTabBarHeight);
 
   toggle.addEventListener('click', ()=>{
     breakClickCount++;
-    if(breakClickCount === 3){
+    if(breakClickCount === 4){
       triggerBrokenEgg();
       return;
     }
@@ -8505,7 +8527,7 @@ function triggerBrokenEgg(){
   document.body.appendChild(overlay);
   requestAnimationFrame(()=> overlay.classList.add('show'));
   if(navigator.vibrate){ try{ navigator.vibrate([200,80,200,80,400]); }catch(e){} }
-  setTimeout(()=>{ showEasterEggPopup("nice, now it's broken", 4000); }, 500);
+  setTimeout(()=>{ showEasterEggPopup("Nice! Now it's broken.", 4000); }, 500);
 }
 
 /* ---- 1: typing "arsenal" anywhere fires the existing Arsenal egg, once per session ---- */
