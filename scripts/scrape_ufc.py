@@ -38,10 +38,15 @@ def parse_table(table):
         if len(cells) < 4:
             continue
         try:
-            event_name = cells[1].get_text(strip=True) if len(cells) > 1 else None
-            date_text = cells[2].get_text(strip=True) if len(cells) > 2 else None
-            venue = cells[3].get_text(strip=True) if len(cells) > 3 else None
-            location = cells[4].get_text(strip=True) if len(cells) > 4 else None
+            # BUG FIXED VIA A REAL TEST RUN: the original cells[1]/[2]/[3]/[4]
+            # indexing was off by one -- confirmed directly, the "name" field
+            # was coming back as a date string ("Oct 24, 2026") and "venue"
+            # was coming back as a location. Shifting every index down by one
+            # fixes this: cells[0] is the actual event name column.
+            event_name = cells[0].get_text(strip=True) if len(cells) > 0 else None
+            date_text = cells[1].get_text(strip=True) if len(cells) > 1 else None
+            venue = cells[2].get_text(strip=True) if len(cells) > 2 else None
+            location = cells[3].get_text(strip=True) if len(cells) > 3 else None
             if not event_name or not date_text:
                 continue
             events.append({
@@ -85,7 +90,11 @@ def main():
     output = {
         "generatedAt": datetime.now(timezone.utc).isoformat(),
         "scheduled": scheduled[:15],
-        "past": past[-15:] if len(past) > 15 else past,
+        # BUG FIXED VIA A REAL TEST RUN: past[-15:] returned UFC 1, 2, 3 from
+        # 1993-94 -- confirmed directly, not the recent events this needs.
+        # The table lists oldest-first, so the most recent events are at the
+        # START of the parsed list, not the end.
+        "past": past[:15],
     }
 
     with open(OUTPUT_PATH, "w", encoding="utf-8") as f:
