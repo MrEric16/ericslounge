@@ -3829,7 +3829,7 @@ function dispatchListHtml(list){
         <div class="entry-row">
           <div class="tag" style="background:${fac.color}">${fac.label}</div>
           <div class="entry-body">
-            <a class="headline" href="${a.url}" target="_blank" rel="noopener" onclick="trackArticleOpen('${a.url.replace(/'/g,"\\'")}')">${escapeHtml(a.headline)}</a>
+            <a class="headline" href="${a.url}" target="_blank" rel="noopener" data-article-url="${a.url}">${escapeHtml(a.headline)}</a>
             ${isRead ? `<div class="read-indicator" style="display:flex; align-items:center; gap:5px; font-size:14px; font-weight:700; color:var(--teal); margin:4px 0;">${icon('checkDouble')}<span>Read</span></div>` : ''}
             <div class="entry-meta">
               ${readLabel ? `<div>${readLabel}</div>` : ''}
@@ -8154,6 +8154,20 @@ let pendingArticleClickTime = null;
 function trackArticleOpen(url){
   pendingArticleUrl = url;
   pendingArticleClickTime = Date.now();
+}
+// Real bug found and fixed: middle-click (a very common desktop habit for
+// opening a link in a background tab) fires the 'auxclick' event, NOT
+// 'click'. The old inline onclick="" attribute only ever listens for
+// 'click', so middle-clicking an article silently skipped tracking entirely
+// -- no error, no partial credit, nothing. Listening for both event types
+// at the document level (delegated, so it works for every article link
+// without needing per-link wiring) covers standard left-click, ctrl/cmd
+// click, and middle-click alike.
+document.addEventListener('click', handleArticleLinkClick);
+document.addEventListener('auxclick', handleArticleLinkClick);
+function handleArticleLinkClick(e){
+  const link = e.target.closest('a.headline[data-article-url]');
+  if(link) trackArticleOpen(link.dataset.articleUrl);
 }
 document.addEventListener('visibilitychange', ()=>{
   if(document.visibilityState === 'visible' && pendingArticleUrl && pendingArticleClickTime){
