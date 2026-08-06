@@ -532,7 +532,7 @@
   /* ---------- Faculty tiles ---------- */
   .faculties{
     display:grid;
-    grid-template-columns:repeat(3,1fr);
+    grid-template-columns:repeat(4,1fr);
     gap:12px;
   }
   @media (max-width:700px){ .faculties{grid-template-columns:repeat(2,1fr);} }
@@ -2070,6 +2070,8 @@ const EXPLORE_SITES = [
   { name:"Worldometers", desc:"A live, constantly-ticking dashboard of world statistics — population growing in real time, CO2 emissions, internet users.", url:"https://www.worldometers.info/", fac:"international-relations" },
   { name:"GeoGuessr", desc:"Drop into a random real-world location via Google Street View and guess where in the world you are — a genuinely fun way to sharpen geography knowledge.", url:"https://www.geoguessr.com/", fac:"travel" },
   { name:"OpenGuessr", desc:"A free alternative to GeoGuessr — same idea, guessing your location from a random street-level image, no account or payment required.", url:"https://openguessr.com/", fac:"travel" },
+  { name:"PubMed", desc:"The National Library of Medicine's free search engine for biomedical literature — millions of real published research papers on medicine, biology, and life sciences.", url:"https://pubmed.ncbi.nlm.nih.gov/", fac:"biochem" },
+  { name:"Cell", desc:"One of the most respected peer-reviewed journals in biology, publishing major breakthroughs across genetics, molecular biology, and biochemistry.", url:"https://www.cell.com/", fac:"biochem" },
 ];
 
 const DISPATCHES = [
