@@ -30,23 +30,42 @@ def log(msg):
     print(f"[ufc-fetch] {msg}", flush=True)
 
 
+DATE_PATTERN = re.compile(r"[A-Z][a-z]{2}\s+\d{1,2},\s*\d{4}")
+
+
 def parse_table(table):
     events = []
     rows = table.find_all("tr")[1:]  # skip header row
     for row in rows:
         cells = row.find_all(["td", "th"])
-        if len(cells) < 4:
+        if len(cells) < 3:
             continue
         try:
-            # BUG FIXED VIA A REAL TEST RUN: the original cells[1]/[2]/[3]/[4]
-            # indexing was off by one -- confirmed directly, the "name" field
-            # was coming back as a date string ("Oct 24, 2026") and "venue"
-            # was coming back as a location. Shifting every index down by one
-            # fixes this: cells[0] is the actual event name column.
-            event_name = cells[0].get_text(strip=True) if len(cells) > 0 else None
-            date_text = cells[1].get_text(strip=True) if len(cells) > 1 else None
-            venue = cells[2].get_text(strip=True) if len(cells) > 2 else None
-            location = cells[3].get_text(strip=True) if len(cells) > 3 else None
+            texts = [c.get_text(strip=True) for c in cells]
+            # BUG FIXED VIA TWO REAL TEST RUNS: fixed positional indices broke
+            # because "Scheduled events" and "Past events" have DIFFERENT
+            # column layouts -- Past events has an extra leading event-number
+            # column ("783") that Scheduled events doesn't have. Rather than
+            # hard-code a position per table, find the date cell by content
+            # pattern (e.g. "Oct 24, 2026") and work outward from there --
+            # this is robust to either table's actual column count.
+            date_idx = None
+            for i, t in enumerate(texts):
+                if DATE_PATTERN.search(t):
+                    date_idx = i
+                    break
+            if date_idx is None:
+                continue
+            date_text = texts[date_idx]
+            # Event name: the nearest cell before the date that isn't a bare
+            # number (a bare number is the event-index column, not the name).
+            event_name = None
+            for i in range(date_idx - 1, -1, -1):
+                if texts[i] and not texts[i].isdigit():
+                    event_name = texts[i]
+                    break
+            venue = texts[date_idx + 1] if len(texts) > date_idx + 1 else None
+            location = texts[date_idx + 2] if len(texts) > date_idx + 2 else None
             if not event_name or not date_text:
                 continue
             events.append({
