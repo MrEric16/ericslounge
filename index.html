@@ -1917,22 +1917,22 @@ const FLAGS = {
 function flagIcon(name){ return FLAGS[name] || ''; }
 
 const FACULTIES = [
-  { key:'jurisprudence', label:'Jurisprudence', color:'var(--f-jur)', icon:'scales' },
-  { key:'international-relations', label:"Int'l Relations", color:'var(--f-ir)', icon:'globe' },
+  { key:'science', label:'Science', color:'var(--f-sci)', icon:'flask' },
+  { key:'biochem', label:'Biochem', color:'var(--f-biochem)', icon:'dna' },
   { key:'economics', label:'Economics', color:'var(--f-econ)', icon:'coin' },
   { key:'business', label:'Business', color:'var(--f-biz)', icon:'briefcase' },
-  { key:'science', label:'Science', color:'var(--f-sci)', icon:'flask' },
   { key:'it', label:'IT', color:'var(--f-it)', icon:'chip' },
-  { key:'psychology', label:'Psychology', color:'var(--f-psy)', icon:'brain' },
+  { key:'technology', label:'Technology', color:'var(--f-tech)', icon:'gear' },
   { key:'design', label:'Design', color:'var(--f-des)', icon:'compass2' },
+  { key:'languages', label:'Languages', color:'var(--f-lang)', icon:'book' },
+  { key:'jurisprudence', label:'Jurisprudence', color:'var(--f-jur)', icon:'scales' },
+  { key:'international-relations', label:"Int'l Relations", color:'var(--f-ir)', icon:'globe' },
+  { key:'psychology', label:'Psychology', color:'var(--f-psy)', icon:'brain' },
   { key:'history', label:'History', color:'var(--f-hist)', icon:'hourglass' },
   { key:'travel', label:'Travel & Environment', color:'var(--f-travel)', icon:'plane' },
-  { key:'technology', label:'Technology', color:'var(--f-tech)', icon:'gear' },
-  { key:'sport', label:'Sport', color:'var(--f-sport)', icon:'medal' },
-  { key:'space-astronomy', label:'Space & Astronomy', color:'var(--f-space)', icon:'moon' },
   { key:'aviation', label:'Aviation', color:'var(--f-aviation)', icon:'plane' },
-  { key:'languages', label:'Languages', color:'var(--f-lang)', icon:'book' },
-  { key:'biochem', label:'Biochem', color:'var(--f-biochem)', icon:'dna' },
+  { key:'space-astronomy', label:'Space & Astronomy', color:'var(--f-space)', icon:'moon' },
+  { key:'sport', label:'Sport', color:'var(--f-sport)', icon:'medal' },
 ];
 const FAC_MAP = Object.fromEntries(FACULTIES.map(f=>[f.key,f]));
 
@@ -1947,7 +1947,7 @@ const SEARCHABLE_PAGES = [
   { name:"Sports", desc:"League tables, live fixtures, and Arsenal's next match.", url:"#sports", icon:"ball", keywords:["arsenal","football","premier league","standings","fixtures","results","scores","tottenham"] },
   { name:"Photo Library", desc:"Selfies, memes, and class moments.", url:"#photos", icon:"camera", keywords:["photos","pictures","memes","gallery"] },
   { name:"Saved", desc:"Everything you've bookmarked — articles and videos.", url:"#saved", icon:"bookmark", keywords:["bookmarks","favourites","favorites"] },
-  { name:"All Domains — Full Instruments Archive", desc:"Powerful websites for you to explore.", url:"#explore", icon:"compass2", keywords:["tools","instruments","apps","websites","explore"] },
+  { name:"Full Instruments Archive — All Domains", desc:"Powerful websites for you to explore.", url:"#explore", icon:"compass2", keywords:["tools","instruments","apps","websites","explore"] },
   { name:"Superstars of the Week", desc:"This week's shoutouts.", url:"#superstars", icon:"star", keywords:["superstars","shoutouts","students of the week"] },
   { name:"Birthdays", desc:"Upcoming birthdays in class.", url:"#birthdays", icon:"cake", keywords:["birthdays","bday"] },
   { name:"Invite a Friend", desc:"Get the QR code to install the Lounge on a new device.", url:"#invite", icon:"star", keywords:["invite","share","qr code","install"] },
@@ -5752,7 +5752,7 @@ function viewExplore(){
   return `
     <a class="back-link" href="#">← Back to Mr Eric's Lounge</a>
     <section style="padding-top:14px;">
-      <div class="section-head"><span class="emoji">${icon('compass2')}</span><h2>All Domains — Full Instruments Archive</h2></div>
+      <div class="section-head"><span class="emoji">${icon('compass2')}</span><h2>Full Instruments Archive — All Domains</h2></div>
       ${html}
     </section>
   `;
@@ -6843,15 +6843,15 @@ function viewHome(){
       <div class="faculties">
         ${facTiles}
         <a class="fac-tile all" href="#faculty/all">
-          <span class="name">All Domains — Full Articles Archive</span>
+          <span class="name">Full Articles Archive — All Domains</span>
           <span class="count">${DISPATCHES.length} total</span>
         </a>
         <a class="fac-tile all" href="#watch/all">
-          <span class="name">All Domains — Full Video Archives</span>
+          <span class="name">Full Video Archives — All Domains</span>
           <span class="count">${WATCH_VIDEOS.length} total</span>
         </a>
         <a class="fac-tile all" href="#explore">
-          <span class="name">All Domains — Full Instruments Archive</span>
+          <span class="name">Full Instruments Archive — All Domains</span>
           <span class="count">${EXPLORE_SITES.length} total</span>
         </a>
       </div>
@@ -7055,7 +7055,7 @@ function viewFaculty(key){
     return `
       <a class="back-link" href="#">← Back to Mr Eric's Lounge</a>
       <section style="padding-top:14px;">
-        <div class="section-head"><span class="emoji">${icon('newspaper')}</span><h2>All Domains — Full Articles Archive</h2></div>
+        <div class="section-head"><span class="emoji">${icon('newspaper')}</span><h2>Full Articles Archive — All Domains</h2></div>
         ${html}
       </section>
     `;
@@ -7137,7 +7137,7 @@ function viewWatchFaculty(key){
     return `
       <a class="back-link" href="#">← Back to Mr Eric's Lounge</a>
       <section style="padding-top:14px;">
-        <div class="section-head"><span class="emoji">${icon('clapper')}</span><h2>All Domains — Full Video Archives</h2></div>
+        <div class="section-head"><span class="emoji">${icon('clapper')}</span><h2>Full Video Archives — All Domains</h2></div>
         ${html}
       </section>
     `;
