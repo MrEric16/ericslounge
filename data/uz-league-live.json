@@ -1,6 +1,167 @@
 {
-  "generatedAt": "2026-08-06T11:01:56.703367Z",
-  "teams": [],
+  "generatedAt": "2026-08-06T11:06:36.099144Z",
+  "teams": [
+    {
+      "name": "Neftchi Fargona",
+      "pld": 15,
+      "w": 11,
+      "d": 3,
+      "l": 1,
+      "gf": 33,
+      "ga": 6,
+      "pts": 36
+    },
+    {
+      "name": "Pakhtakor",
+      "pld": 15,
+      "w": 10,
+      "d": 4,
+      "l": 1,
+      "gf": 26,
+      "ga": 14,
+      "pts": 34
+    },
+    {
+      "name": "Buxoro",
+      "pld": 15,
+      "w": 8,
+      "d": 2,
+      "l": 5,
+      "gf": 19,
+      "ga": 16,
+      "pts": 26
+    },
+    {
+      "name": "Navbahor Namangan",
+      "pld": 15,
+      "w": 7,
+      "d": 4,
+      "l": 4,
+      "gf": 23,
+      "ga": 14,
+      "pts": 25
+    },
+    {
+      "name": "OKMK",
+      "pld": 15,
+      "w": 7,
+      "d": 4,
+      "l": 4,
+      "gf": 24,
+      "ga": 20,
+      "pts": 25
+    },
+    {
+      "name": "Nasaf Qarshi",
+      "pld": 15,
+      "w": 6,
+      "d": 6,
+      "l": 3,
+      "gf": 19,
+      "ga": 14,
+      "pts": 24
+    },
+    {
+      "name": "Lok. Tashkent",
+      "pld": 15,
+      "w": 6,
+      "d": 4,
+      "l": 5,
+      "gf": 22,
+      "ga": 21,
+      "pts": 22
+    },
+    {
+      "name": "Andijan",
+      "pld": 15,
+      "w": 6,
+      "d": 3,
+      "l": 6,
+      "gf": 22,
+      "ga": 16,
+      "pts": 21
+    },
+    {
+      "name": "Din. Samarkand",
+      "pld": 15,
+      "w": 6,
+      "d": 3,
+      "l": 6,
+      "gf": 24,
+      "ga": 25,
+      "pts": 21
+    },
+    {
+      "name": "Bunyodkor",
+      "pld": 15,
+      "w": 6,
+      "d": 1,
+      "l": 8,
+      "gf": 14,
+      "ga": 19,
+      "pts": 19
+    },
+    {
+      "name": "Termez Surkhon",
+      "pld": 15,
+      "w": 5,
+      "d": 3,
+      "l": 7,
+      "gf": 15,
+      "ga": 22,
+      "pts": 18
+    },
+    {
+      "name": "Qizilqum",
+      "pld": 15,
+      "w": 5,
+      "d": 2,
+      "l": 8,
+      "gf": 13,
+      "ga": 19,
+      "pts": 17
+    },
+    {
+      "name": "Xorazm Urganch",
+      "pld": 15,
+      "w": 4,
+      "d": 4,
+      "l": 7,
+      "gf": 12,
+      "ga": 22,
+      "pts": 16
+    },
+    {
+      "name": "Sogdiana",
+      "pld": 15,
+      "w": 4,
+      "d": 3,
+      "l": 8,
+      "gf": 26,
+      "ga": 34,
+      "pts": 15
+    },
+    {
+      "name": "Kokand 1912",
+      "pld": 15,
+      "w": 2,
+      "d": 5,
+      "l": 8,
+      "gf": 13,
+      "ga": 24,
+      "pts": 11
+    },
+    {
+      "name": "Mashal Muborak",
+      "pld": 15,
+      "w": 1,
+      "d": 1,
+      "l": 13,
+      "gf": 8,
+      "ga": 27,
+      "pts": 4
+    }
+  ],
   "results": [
     {
       "home": null,
@@ -143,5 +304,106 @@
       "awayScore": 3
     }
   ],
-  "fixtures": []
+  "fixtures": [
+    {
+      "home": null,
+      "away": null,
+      "raw_time": null
+    },
+    {
+      "home": null,
+      "away": null,
+      "raw_time": null
+    },
+    {
+      "home": null,
+      "away": null,
+      "raw_time": null
+    },
+    {
+      "home": null,
+      "away": null,
+      "raw_time": null
+    },
+    {
+      "home": null,
+      "away": null,
+      "raw_time": null
+    },
+    {
+      "home": null,
+      "away": null,
+      "raw_time": null
+    },
+    {
+      "home": null,
+      "away": null,
+      "raw_time": null
+    },
+    {
+      "home": null,
+      "away": null,
+      "raw_time": null
+    },
+    {
+      "home": null,
+      "away": null,
+      "raw_time": null
+    },
+    {
+      "home": null,
+      "away": null,
+      "raw_time": null
+    },
+    {
+      "home": null,
+      "away": null,
+      "raw_time": null
+    },
+    {
+      "home": null,
+      "away": null,
+      "raw_time": null
+    },
+    {
+      "home": null,
+      "away": null,
+      "raw_time": null
+    },
+    {
+      "home": null,
+      "away": null,
+      "raw_time": null
+    },
+    {
+      "home": null,
+      "away": null,
+      "raw_time": null
+    },
+    {
+      "home": null,
+      "away": null,
+      "raw_time": null
+    },
+    {
+      "home": null,
+      "away": null,
+      "raw_time": null
+    },
+    {
+      "home": null,
+      "away": null,
+      "raw_time": null
+    },
+    {
+      "home": null,
+      "away": null,
+      "raw_time": null
+    },
+    {
+      "home": null,
+      "away": null,
+      "raw_time": null
+    }
+  ]
 }
