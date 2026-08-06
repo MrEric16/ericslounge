@@ -3858,9 +3858,57 @@ function wireWatchButtons(container){
       const id = btn.dataset.id;
       const video = WATCH_VIDEOS.find(v=>v.videoId===id);
       logEvent('click_video', video ? video.title : id);
-      btn.outerHTML = `<div class="watch-thumb"><iframe src="https://www.youtube-nocookie.com/embed/${id}?autoplay=1&playsinline=1" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>`;
+      btn.outerHTML = `<div class="watch-thumb" data-playing-id="${id}"><iframe src="https://www.youtube-nocookie.com/embed/${id}?autoplay=1&playsinline=1" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>`;
+      trackInlineVideoWatch(id);
     });
   });
+}
+
+function trackInlineVideoWatch(videoId){
+  // This is the REAL code path for watching a video on this site -- clicking
+  // a thumbnail swaps it inline for an embedded player, no navigation at all.
+  // trackVideoOpen() was only ever wired into the router for the separate
+  // #play/{videoId} single-video page, which isn't how videos actually get
+  // watched from the grid -- confirmed as a real bug (a 3:34 watch producing
+  // no watched status, no ribbon, no stats update) rather than assumed.
+  let accumulatedMs = 0;
+  let lastResumeTime = document.visibilityState === 'visible' ? Date.now() : null;
+  let timer = null;
+  function stillOnScreen(){
+    return document.querySelector(`.watch-thumb[data-playing-id="${videoId}"]`) !== null;
+  }
+  function tick(){
+    if(!stillOnScreen()) return; // player was replaced/removed -- stop tracking
+    if(document.visibilityState === 'visible' && lastResumeTime){
+      accumulatedMs += Date.now() - lastResumeTime;
+      lastResumeTime = Date.now();
+    }
+    if(accumulatedMs >= VIDEO_WATCH_THRESHOLD_MS){
+      const watched = getWatchedVideos();
+      watched.add(videoId);
+      try{ localStorage.setItem('watchedVideos', JSON.stringify([...watched])); }catch(e){}
+      const thumb = document.querySelector(`.watch-thumb[data-playing-id="${videoId}"]`);
+      if(thumb && !thumb.querySelector('.watched-ribbon')){
+        const ribbon = document.createElement('div');
+        ribbon.className = 'watched-ribbon';
+        ribbon.innerHTML = '<span>Watched</span>';
+        thumb.appendChild(ribbon);
+      }
+      return;
+    }
+    timer = setTimeout(tick, 2000);
+  }
+  function onVis(){
+    if(!stillOnScreen()){ document.removeEventListener('visibilitychange', onVis); return; }
+    if(document.visibilityState === 'visible'){
+      lastResumeTime = Date.now();
+    } else if(lastResumeTime){
+      accumulatedMs += Date.now() - lastResumeTime;
+      lastResumeTime = null;
+    }
+  }
+  document.addEventListener('visibilitychange', onVis);
+  tick();
 }
 
 /* ---- Bookmarks (stored per-device only, via localStorage) — articles, videos, AND instruments ---- */
