@@ -1916,6 +1916,15 @@ const FLAGS = {
 };
 function flagIcon(name){ return FLAGS[name] || ''; }
 
+const BADGES = [
+  { id:'first_visit', emoji:'🌅', name:'First Visit', check: ()=> true },
+  { id:'streak_3', emoji:'🔥', name:'3-Day Streak', check: (s)=> s.streakCount >= 3 },
+  { id:'streak_7', emoji:'🔥🔥', name:'Week Streak', check: (s)=> s.streakCount >= 7 },
+  { id:'explorer', emoji:'🧭', name:'Explorer', check: (s)=> s.visitedFaculties.size >= FACULTIES.length },
+  { id:'night_owl', emoji:'🦉', name:'Night Owl', check: (s)=> { const h = new Date().getHours(); return h >= 0 && h < 4; } },
+  { id:'curious_mind', emoji:'📚', name:'Curious Mind', check: (s)=> s.facultyVisitCount >= 20 },
+];
+
 const FACULTIES = [
   { key:'science', label:'Science', color:'var(--f-sci)', icon:'flask' },
   { key:'biochem', label:'Biochem', color:'var(--f-biochem)', icon:'dna' },
@@ -8164,14 +8173,7 @@ function renderStreakBadge(){
 }
 
 /* ---- 12: Achievement badges ---- */
-const BADGES = [
-  { id:'first_visit', emoji:'🌅', name:'First Visit', check: ()=> true },
-  { id:'streak_3', emoji:'🔥', name:'3-Day Streak', check: (s)=> s.streakCount >= 3 },
-  { id:'streak_7', emoji:'🔥🔥', name:'Week Streak', check: (s)=> s.streakCount >= 7 },
-  { id:'explorer', emoji:'🧭', name:'Explorer', check: (s)=> s.visitedFaculties.size >= FACULTIES.length },
-  { id:'night_owl', emoji:'🦉', name:'Night Owl', check: (s)=> { const h = new Date().getHours(); return h >= 0 && h < 4; } },
-  { id:'curious_mind', emoji:'📚', name:'Curious Mind', check: (s)=> s.facultyVisitCount >= 20 },
-];
+
 function getUnlockedBadges(){
   try{ return new Set(JSON.parse(localStorage.getItem('unlockedBadges') || '[]')); }catch(e){ return new Set(); }
 }
@@ -8517,6 +8519,19 @@ wireClockTapCycling();
 setInterval(updateClock, 1000);
 setInterval(updateWeekendCountdown, 1000);
 setInterval(updateArsenalCountdown, 1000);
+
+// Real bug found and fixed via testing: renderRoute() was only ever wired to
+// hashchange, which fires on a CHANGE from one hash to another -- it does NOT
+// fire just because a hash is already present when the page first loads.
+// This meant any direct link straight to a non-home route (a shared #stats
+// URL, a bookmark, anything not clicked from within the already-running app)
+// rendered nothing at all, since the router never ran on that initial load.
+// Normal in-app navigation worked the whole time because every click changes
+// the hash and correctly fires hashchange -- only fresh direct links to a
+// specific route were affected. Placed here (not earlier in the script) since
+// an earlier attempt crashed on a temporal-dead-zone error -- BADGES and
+// other later const declarations weren't initialized yet at that point.
+renderRoute();
 
 /* ==================== New easter eggs (Aug 2026 batch) ==================== */
 
