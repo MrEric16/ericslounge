@@ -6128,7 +6128,9 @@ function wirePhotoLightbox(container){
   const track = container.querySelector('#lightboxTrack');
   const closeBtn = container.querySelector('#lightboxClose');
   if(!lightbox || !track) return;
+  let currentIndex = 0;
   function openAt(idx){
+    currentIndex = idx;
     lightbox.classList.add('active');
     document.body.style.overflow = 'hidden';
     const slide = track.children[idx];
@@ -6138,11 +6140,30 @@ function wirePhotoLightbox(container){
     lightbox.classList.remove('active');
     document.body.style.overflow = '';
   }
+  function goToSlide(idx){
+    const clamped = Math.max(0, Math.min(track.children.length - 1, idx));
+    currentIndex = clamped;
+    const slide = track.children[clamped];
+    if(slide) slide.scrollIntoView({ block:'nearest', inline:'center', behavior:'smooth' });
+  }
   container.querySelectorAll('.photo-item').forEach(btn=>{
     btn.addEventListener('click', ()=> openAt(parseInt(btn.dataset.index, 10)));
   });
   closeBtn.addEventListener('click', closeLightbox);
   lightbox.addEventListener('click', (e)=>{ if(e.target === lightbox) closeLightbox(); });
+
+  // Real bug found and fixed: this lightbox had NO keyboard handling at all --
+  // not arrow keys, not space, not even Escape (the earlier global Escape
+  // handler covers stories/popups/Arsenal detail but was never extended to
+  // this lightbox, since it was built with its own separate open/close
+  // functions). Scoped to only act while this specific lightbox is open, so
+  // it doesn't interfere with keyboard use elsewhere on the page.
+  document.addEventListener('keydown', (e)=>{
+    if(!lightbox.classList.contains('active')) return;
+    if(e.key === 'Escape'){ e.preventDefault(); closeLightbox(); }
+    else if(e.key === 'ArrowRight' || e.key === ' ' || e.key === 'Spacebar'){ e.preventDefault(); goToSlide(currentIndex + 1); }
+    else if(e.key === 'ArrowLeft'){ e.preventDefault(); goToSlide(currentIndex - 1); }
+  });
 
   let touchStartY = 0, touchStartX = 0, touching = false;
   lightbox.addEventListener('touchstart', (e)=>{
