@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-06T11:10:41.354340Z",
+  "generatedAt": "2026-08-07T06:56:21.476857Z",
   "teams": [
     {
       "name": "Neftchi Fargona",
@@ -13,23 +13,23 @@
     },
     {
       "name": "Pakhtakor",
-      "pld": 15,
+      "pld": 16,
       "w": 10,
-      "d": 4,
+      "d": 5,
       "l": 1,
-      "gf": 26,
-      "ga": 14,
-      "pts": 34
+      "gf": 28,
+      "ga": 16,
+      "pts": 35
     },
     {
       "name": "Buxoro",
-      "pld": 15,
+      "pld": 16,
       "w": 8,
-      "d": 2,
+      "d": 3,
       "l": 5,
-      "gf": 19,
-      "ga": 16,
-      "pts": 26
+      "gf": 21,
+      "ga": 18,
+      "pts": 27
     },
     {
       "name": "Navbahor Namangan",
@@ -73,12 +73,12 @@
     },
     {
       "name": "Andijan",
-      "pld": 15,
+      "pld": 16,
       "w": 6,
       "d": 3,
-      "l": 6,
+      "l": 7,
       "gf": 22,
-      "ga": 16,
+      "ga": 17,
       "pts": 21
     },
     {
@@ -100,6 +100,16 @@
       "gf": 14,
       "ga": 19,
       "pts": 19
+    },
+    {
+      "name": "Sogdiana",
+      "pld": 16,
+      "w": 5,
+      "d": 3,
+      "l": 8,
+      "gf": 27,
+      "ga": 34,
+      "pts": 18
     },
     {
       "name": "Termez Surkhon",
@@ -132,16 +142,6 @@
       "pts": 16
     },
     {
-      "name": "Sogdiana",
-      "pld": 15,
-      "w": 4,
-      "d": 3,
-      "l": 8,
-      "gf": 26,
-      "ga": 34,
-      "pts": 15
-    },
-    {
       "name": "Kokand 1912",
       "pld": 15,
       "w": 2,
@@ -163,6 +163,20 @@
     }
   ],
   "results": [
+    {
+      "home": "Pakhtakor",
+      "away": "Buxoro",
+      "raw_time": "06.08. 15:00",
+      "homeScore": 2,
+      "awayScore": 2
+    },
+    {
+      "home": "Sogdiana",
+      "away": "Andijan",
+      "raw_time": "06.08. 14:00",
+      "homeScore": 1,
+      "awayScore": 0
+    },
     {
       "home": "Din. Samarkand",
       "away": "Neftchi Fargona",
@@ -288,33 +302,9 @@
       "raw_time": "23.07. 15:00",
       "homeScore": 1,
       "awayScore": 2
-    },
-    {
-      "home": "Kokand 1912",
-      "away": "OKMK",
-      "raw_time": "22.07. 15:00",
-      "homeScore": 1,
-      "awayScore": 4
-    },
-    {
-      "home": "Lok. Tashkent",
-      "away": "Andijan",
-      "raw_time": "22.07. 15:00",
-      "homeScore": 3,
-      "awayScore": 3
     }
   ],
   "fixtures": [
-    {
-      "home": "Sogdiana",
-      "away": "Andijan",
-      "raw_time": "06.08. 14:00"
-    },
-    {
-      "home": "Pakhtakor",
-      "away": "Buxoro",
-      "raw_time": "06.08. 15:00"
-    },
     {
       "home": "Termez Surkhon",
       "away": "Navbahor Namangan",
@@ -404,6 +394,16 @@
       "home": "OKMK",
       "away": "Din. Samarkand",
       "raw_time": "19.08. 15:00"
+    },
+    {
+      "home": "Bunyodkor",
+      "away": "Kokand 1912",
+      "raw_time": "20.08. 15:00"
+    },
+    {
+      "home": "Xorazm Urganch",
+      "away": "Lok. Tashkent",
+      "raw_time": "20.08. 15:00"
     }
   ]
 }
