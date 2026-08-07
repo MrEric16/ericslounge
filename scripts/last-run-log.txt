@@ -1,25 +1,26 @@
-[scrape] Run started. Today (Tashkent): 2026-08-07  Window end: 2026-08-21
+[scrape] Run started. Today (Tashkent): 2026-08-08  Window end: 2026-08-22
 [scrape] NOTE: switched from per-category listing pages to afisha.uz's calendar view (one real day at a time, via Playwright) -- the old approach could only ever see whatever was on the current front page of each category, missing anything pushed down by newer posts. The calendar view asks for each specific date directly instead.
-[scrape] calendar 2026-08-07: 25 new event URLs discovered
-[scrape] calendar 2026-08-08: 17 new event URLs discovered
-[scrape] calendar 2026-08-09: 12 new event URLs discovered
+[scrape] calendar 2026-08-08: 37 new event URLs discovered
+[scrape] calendar 2026-08-09: 13 new event URLs discovered
 [scrape] calendar 2026-08-10: 2 new event URLs discovered
-[scrape] calendar 2026-08-11: 4 new event URLs discovered
-[scrape] calendar 2026-08-12: 3 new event URLs discovered
+[scrape] calendar 2026-08-11: 5 new event URLs discovered
+[scrape] calendar 2026-08-12: 4 new event URLs discovered
 [scrape] calendar 2026-08-13: 2 new event URLs discovered
-[scrape] calendar 2026-08-14: 3 new event URLs discovered
+[scrape] calendar 2026-08-14: 4 new event URLs discovered
 [scrape] calendar 2026-08-15: 5 new event URLs discovered
 [scrape] calendar 2026-08-16: 3 new event URLs discovered
-[scrape] calendar discovery complete: 76 unique event URLs to check
+[scrape] calendar 2026-08-17: 0 new event URLs discovered
+[scrape] calendar discovery complete: 75 unique event URLs to check
 [scrape]   DEBUG: dumped raw HTML for qimmat page, 137670 chars
-[scrape]   DEBUG: dumped raw HTML for madagascar page, 186276 chars
-[scrape] calendar detail pass complete: 262 events kept from 76 pages checked
+[scrape] Translation failed for 'Детские кулинарные мастер-классы в PRO.Х': Детские кулинарные мастер-классы в PRO.Хинкали --> No translation was found using the current translator. Try another translator?
+[scrape]   DEBUG: dumped raw HTML for madagascar page, 185903 chars
+[scrape] calendar detail pass complete: 257 events kept from 75 pages checked
 [scrape] special-tracked: FAILED to fetch or failed content check for https://www.afisha.uz/ru/cinema/2026/07/16/kinoprazdnik-v-sredu
-[scrape] iticket.uz cat=concert: 9 events kept
-[scrape] iticket.uz cat=theatre: 5 events kept
+[scrape] iticket.uz cat=concert: 10 events kept
+[scrape] iticket.uz cat=theatre: 6 events kept
 [scrape] iticket.uz cat=exhibition: 0 events kept
 [scrape] ticketon.uz: CONFIRMED BLOCKED (Cloudflare challenge, page title='Just a moment...'). 0 events -- this is expected, not a bug to fix.
 [scrape] eventbrite.com: CONFIRMED BLOCKED (AWS WAF CAPTCHA, page title='Human Verification'). 0 events -- this is expected, not a bug to fix. Same category of block as ticketon.uz.
 [scrape] eventbrite.com: 0 events found (dates NOT yet parsed -- see note in script)
-[scrape] TOTAL before dedup: 276  |  after dedup: 180
+[scrape] TOTAL before dedup: 273  |  after dedup: 178
 [scrape] Wrote data/events-tashkent.json
