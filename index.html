@@ -2786,9 +2786,14 @@ const LEAGUE_DETAIL_META = {
   UAE: { name: "UAE Pro League", flag: flagIcon('uae') },
 };
 const ARSENAL_TEAM_ID = 57;
-const SPORTS_CACHE_KEY = "sportsLiveCache_v3"; // bumped from v2 -- forces every
-// browser to discard whatever stale standings it cached before today's fix,
-// instead of waiting up to 24h for the normal daily refresh to notice.
+const SPORTS_CACHE_KEY = "sportsLiveCache_v4"; // bumped from v3 -- the UZ-league fetch fix
+// (2026-08-07) added new fields to the cache shape, but any browser that loaded the site
+// earlier the same day already had a v3 cache with cache.day === today and no UZ data in it.
+// Since the refresh logic only re-fetches when cache.day !== today, that stale cache would
+// keep being reused as-is until the next day rollover -- which, combined with the fallback
+// data being emptied in the same fix, made the UZ page show "nothing here yet" instead of
+// the old (at least populated) static data. Bumping the key forces an immediate re-fetch for
+// everyone, same fix as the v2->v3 bump above.
 
 function tashkentEffectiveDay(){
   const parts = new Intl.DateTimeFormat('en-CA', {
