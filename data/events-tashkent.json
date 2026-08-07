@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-07T04:18:28.291294Z",
+  "generatedAt": "2026-08-07T09:47:03.762843Z",
   "events": [
     {
       "title": "Musical evenings at PAUL",
@@ -13,14 +13,35 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Exhibition “Photochronicles of the 20th century” at the Bonum Factum gallery",
-      "titleRu": "Выставка «Фотохроника XX века» в галерее Bonum Factum",
+      "title": "Exhibition “Along the Great Silk Road”",
+      "titleRu": "Выставка «По Великому шелковому пути»",
       "category": "exhibition",
-      "venue": "Bonum Factum GalleryТашкент, пер. Садыка Азимова, 20А",
+      "venue": "Международный Караван-Сарай культуры Икуо ХираямыТашкент, ул. Юсуф Хос Ходжиб, 37А",
       "startDate": "2026-08-07",
       "endDate": null,
       "time": null,
-      "url": "https://www.afisha.uz/ru/exhibitions/2026/08/05/vystavka-fotohronika-xx-veka-bonum-factum",
+      "url": "https://www.afisha.uz/ru/exhibitions/2026/08/03/vystavka-po-velikomu-shelkovomu-puti-avgust",
+      "source": "afisha.uz (calendar)"
+    },
+    {
+      "title": "Aladdin and his magic lamp",
+      "titleRu": null,
+      "category": "theatre",
+      "venue": "Theatre - Studio Silk Route Marionettes Ecopark",
+      "startDate": "2026-08-07",
+      "endDate": null,
+      "url": "https://iticket.uz/en/events/theaters-tashkent/aladdin-and-his-magic-lamppp",
+      "source": "iticket.uz"
+    },
+    {
+      "title": "Ice cream show at Jungle Family Club",
+      "titleRu": "Шоу мороженого в Jungle Family Club",
+      "category": "kids",
+      "venue": "Jungle Family ClubТашкент, Юнусабад-12, 20А",
+      "startDate": "2026-08-07",
+      "endDate": null,
+      "time": "20:00",
+      "url": "https://www.afisha.uz/ru/children/2026/08/07/shou-morozhenogo-jungle-family-club",
       "source": "afisha.uz (calendar)"
     },
     {
@@ -133,24 +154,36 @@
       "source": "iticket.uz"
     },
     {
-      "title": "Aladdin and his magic lamp",
-      "titleRu": null,
-      "category": "theatre",
-      "venue": "Theatre - Studio Silk Route Marionettes Ecopark",
-      "startDate": "2026-08-07",
-      "endDate": null,
-      "url": "https://iticket.uz/en/events/theaters-tashkent/aladdin-and-his-magic-lamppp",
-      "source": "iticket.uz"
-    },
-    {
-      "title": "Exhibition “Photochronicles of the 20th century” at the Bonum Factum gallery",
-      "titleRu": "Выставка «Фотохроника XX века» в галерее Bonum Factum",
-      "category": "exhibition",
-      "venue": "Bonum Factum GalleryТашкент, пер. Садыка Азимова, 20А",
+      "title": "Live music evenings at Bavaria Plaza",
+      "titleRu": "Вечера живой музыки в Bavaria Plaza",
+      "category": "concert",
+      "venue": "Bavaria plazaТашкент, ул. Бабура, 21А",
       "startDate": "2026-08-08",
       "endDate": null,
       "time": null,
-      "url": "https://www.afisha.uz/ru/exhibitions/2026/08/05/vystavka-fotohronika-xx-veka-bonum-factum",
+      "url": "https://www.afisha.uz/ru/concerts/2026/08/07/zhivaya-muzyka-bavaria-plaza-7-8-avgusta",
+      "source": "afisha.uz (calendar)"
+    },
+    {
+      "title": "Exhibition “Along the Great Silk Road”",
+      "titleRu": "Выставка «По Великому шелковому пути»",
+      "category": "exhibition",
+      "venue": "Международный Караван-Сарай культуры Икуо ХираямыТашкент, ул. Юсуф Хос Ходжиб, 37А",
+      "startDate": "2026-08-08",
+      "endDate": null,
+      "time": null,
+      "url": "https://www.afisha.uz/ru/exhibitions/2026/08/03/vystavka-po-velikomu-shelkovomu-puti-avgust",
+      "source": "afisha.uz (calendar)"
+    },
+    {
+      "title": "Performance \"Aladdin and his magic lamp\"",
+      "titleRu": "Спектакль «Аладдин и его волшебная лампа»",
+      "category": "theatre",
+      "venue": null,
+      "startDate": "2026-08-08",
+      "endDate": null,
+      "time": "12:30",
+      "url": "https://www.afisha.uz/ru/theatres/2026/08/07/aladdin-silk-route-avgust",
       "source": "afisha.uz (calendar)"
     },
     {
@@ -253,6 +286,17 @@
       "source": "afisha.uz (calendar)"
     },
     {
+      "title": "Show programs in the Yangi Uzbekistan park",
+      "titleRu": "Шоу-программы в парке «Янги Узбекистон»",
+      "category": "concert",
+      "venue": "Парк «Янги Узбекистон»Ташкент, парк Янги Узбекистон",
+      "startDate": "2026-08-08",
+      "endDate": null,
+      "time": "20:00",
+      "url": "https://www.afisha.uz/ru/concerts/2026/08/07/shou-programmy-yangi-ozbekiston-8-9-avgusta",
+      "source": "afisha.uz (calendar)"
+    },
+    {
       "title": "MakSim performance in Khiva",
       "titleRu": "Выступление MakSim в Хиве",
       "category": "concert",
@@ -272,17 +316,6 @@
       "endDate": null,
       "time": null,
       "url": "https://www.afisha.uz/ru/exhibitions/2026/07/24/next-market",
-      "source": "afisha.uz (calendar)"
-    },
-    {
-      "title": "Performance Out of Order",
-      "titleRu": "Спектакль Out of Order",
-      "category": "theatre",
-      "venue": null,
-      "startDate": "2026-08-08",
-      "endDate": null,
-      "time": "19:00",
-      "url": "https://www.afisha.uz/ru/theatres/2026/07/20/out-of-order",
       "source": "afisha.uz (calendar)"
     },
     {
@@ -307,17 +340,6 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Детские мастер-классы в Yunusabad Gallery",
-      "titleRu": "Детские мастер-классы в Yunusabad Gallery",
-      "category": "kids",
-      "venue": "Yunusabad GalleryТашкент, Юнусабад-4, 84",
-      "startDate": "2026-08-08",
-      "endDate": null,
-      "time": "19:00",
-      "url": "https://www.afisha.uz/ru/children/2026/08/05/yunusabad-gallery",
-      "source": "afisha.uz (calendar)"
-    },
-    {
       "title": "Show program “Marvel Heroes”",
       "titleRu": "Шоу-программа «Герои Marvel»",
       "category": "kids",
@@ -329,7 +351,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Muzqaymoq Party в парке Anhor",
+      "title": "Muzqaymoq Party in Anhor Park",
       "titleRu": "Muzqaymoq Party в парке Anhor",
       "category": "festival",
       "venue": "Anhor parkТашкент, улица Лабзак",
@@ -372,14 +394,14 @@
       "source": "iticket.uz"
     },
     {
-      "title": "Exhibition “Photochronicles of the 20th century” at the Bonum Factum gallery",
-      "titleRu": "Выставка «Фотохроника XX века» в галерее Bonum Factum",
+      "title": "Exhibition “Along the Great Silk Road”",
+      "titleRu": "Выставка «По Великому шелковому пути»",
       "category": "exhibition",
-      "venue": "Bonum Factum GalleryТашкент, пер. Садыка Азимова, 20А",
+      "venue": "Международный Караван-Сарай культуры Икуо ХираямыТашкент, ул. Юсуф Хос Ходжиб, 37А",
       "startDate": "2026-08-09",
       "endDate": null,
       "time": null,
-      "url": "https://www.afisha.uz/ru/exhibitions/2026/08/05/vystavka-fotohronika-xx-veka-bonum-factum",
+      "url": "https://www.afisha.uz/ru/exhibitions/2026/08/03/vystavka-po-velikomu-shelkovomu-puti-avgust",
       "source": "afisha.uz (calendar)"
     },
     {
@@ -460,6 +482,17 @@
       "source": "afisha.uz (calendar)"
     },
     {
+      "title": "Show programs in the Yangi Uzbekistan park",
+      "titleRu": "Шоу-программы в парке «Янги Узбекистон»",
+      "category": "concert",
+      "venue": "Парк «Янги Узбекистон»Ташкент, парк Янги Узбекистон",
+      "startDate": "2026-08-09",
+      "endDate": null,
+      "time": "20:00",
+      "url": "https://www.afisha.uz/ru/concerts/2026/08/07/shou-programmy-yangi-ozbekiston-8-9-avgusta",
+      "source": "afisha.uz (calendar)"
+    },
+    {
       "title": "Next Market Fair",
       "titleRu": "Ярмарка Next Market",
       "category": "exhibition",
@@ -468,6 +501,17 @@
       "endDate": null,
       "time": null,
       "url": "https://www.afisha.uz/ru/exhibitions/2026/07/24/next-market",
+      "source": "afisha.uz (calendar)"
+    },
+    {
+      "title": "Performance “Lullaby for Snow White”",
+      "titleRu": "Спектакль «Колыбельная для Белоснежки»",
+      "category": "theatre",
+      "venue": null,
+      "startDate": "2026-08-09",
+      "endDate": null,
+      "time": "12:30",
+      "url": "https://www.afisha.uz/ru/theatres/2026/08/07/kolybelnaya-dlya-belosnezhki-silk-route",
       "source": "afisha.uz (calendar)"
     },
     {
@@ -482,18 +526,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Детские мастер-классы в Yunusabad Gallery",
-      "titleRu": "Детские мастер-классы в Yunusabad Gallery",
-      "category": "kids",
-      "venue": "Yunusabad GalleryТашкент, Юнусабад-4, 84",
-      "startDate": "2026-08-09",
-      "endDate": null,
-      "time": "19:00",
-      "url": "https://www.afisha.uz/ru/children/2026/08/05/yunusabad-gallery",
-      "source": "afisha.uz (calendar)"
-    },
-    {
-      "title": "Muzqaymoq Party в парке Anhor",
+      "title": "Muzqaymoq Party in Anhor Park",
       "titleRu": "Muzqaymoq Party в парке Anhor",
       "category": "festival",
       "venue": "Anhor parkТашкент, улица Лабзак",
@@ -580,14 +613,14 @@
       "source": "iticket.uz"
     },
     {
-      "title": "Exhibition “Photochronicles of the 20th century” at the Bonum Factum gallery",
-      "titleRu": "Выставка «Фотохроника XX века» в галерее Bonum Factum",
+      "title": "Exhibition “Along the Great Silk Road”",
+      "titleRu": "Выставка «По Великому шелковому пути»",
       "category": "exhibition",
-      "venue": "Bonum Factum GalleryТашкент, пер. Садыка Азимова, 20А",
+      "venue": "Международный Караван-Сарай культуры Икуо ХираямыТашкент, ул. Юсуф Хос Ходжиб, 37А",
       "startDate": "2026-08-10",
       "endDate": null,
       "time": null,
-      "url": "https://www.afisha.uz/ru/exhibitions/2026/08/05/vystavka-fotohronika-xx-veka-bonum-factum",
+      "url": "https://www.afisha.uz/ru/exhibitions/2026/08/03/vystavka-po-velikomu-shelkovomu-puti-avgust",
       "source": "afisha.uz (calendar)"
     },
     {
@@ -668,14 +701,14 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Exhibition “Photochronicles of the 20th century” at the Bonum Factum gallery",
-      "titleRu": "Выставка «Фотохроника XX века» в галерее Bonum Factum",
+      "title": "Exhibition “Along the Great Silk Road”",
+      "titleRu": "Выставка «По Великому шелковому пути»",
       "category": "exhibition",
-      "venue": "Bonum Factum GalleryТашкент, пер. Садыка Азимова, 20А",
+      "venue": "Международный Караван-Сарай культуры Икуо ХираямыТашкент, ул. Юсуф Хос Ходжиб, 37А",
       "startDate": "2026-08-11",
       "endDate": null,
       "time": null,
-      "url": "https://www.afisha.uz/ru/exhibitions/2026/08/05/vystavka-fotohronika-xx-veka-bonum-factum",
+      "url": "https://www.afisha.uz/ru/exhibitions/2026/08/03/vystavka-po-velikomu-shelkovomu-puti-avgust",
       "source": "afisha.uz (calendar)"
     },
     {
@@ -788,14 +821,14 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Exhibition “Photochronicles of the 20th century” at the Bonum Factum gallery",
-      "titleRu": "Выставка «Фотохроника XX века» в галерее Bonum Factum",
+      "title": "Exhibition “Along the Great Silk Road”",
+      "titleRu": "Выставка «По Великому шелковому пути»",
       "category": "exhibition",
-      "venue": "Bonum Factum GalleryТашкент, пер. Садыка Азимова, 20А",
+      "venue": "Международный Караван-Сарай культуры Икуо ХираямыТашкент, ул. Юсуф Хос Ходжиб, 37А",
       "startDate": "2026-08-12",
       "endDate": null,
       "time": null,
-      "url": "https://www.afisha.uz/ru/exhibitions/2026/08/05/vystavka-fotohronika-xx-veka-bonum-factum",
+      "url": "https://www.afisha.uz/ru/exhibitions/2026/08/03/vystavka-po-velikomu-shelkovomu-puti-avgust",
       "source": "afisha.uz (calendar)"
     },
     {
@@ -909,14 +942,14 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Exhibition “Photochronicles of the 20th century” at the Bonum Factum gallery",
-      "titleRu": "Выставка «Фотохроника XX века» в галерее Bonum Factum",
+      "title": "Exhibition “Along the Great Silk Road”",
+      "titleRu": "Выставка «По Великому шелковому пути»",
       "category": "exhibition",
-      "venue": "Bonum Factum GalleryТашкент, пер. Садыка Азимова, 20А",
+      "venue": "Международный Караван-Сарай культуры Икуо ХираямыТашкент, ул. Юсуф Хос Ходжиб, 37А",
       "startDate": "2026-08-13",
       "endDate": null,
       "time": null,
-      "url": "https://www.afisha.uz/ru/exhibitions/2026/08/05/vystavka-fotohronika-xx-veka-bonum-factum",
+      "url": "https://www.afisha.uz/ru/exhibitions/2026/08/03/vystavka-po-velikomu-shelkovomu-puti-avgust",
       "source": "afisha.uz (calendar)"
     },
     {
@@ -1029,14 +1062,25 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Exhibition “Photochronicles of the 20th century” at the Bonum Factum gallery",
-      "titleRu": "Выставка «Фотохроника XX века» в галерее Bonum Factum",
+      "title": "Exhibition “Along the Great Silk Road”",
+      "titleRu": "Выставка «По Великому шелковому пути»",
       "category": "exhibition",
-      "venue": "Bonum Factum GalleryТашкент, пер. Садыка Азимова, 20А",
+      "venue": "Международный Караван-Сарай культуры Икуо ХираямыТашкент, ул. Юсуф Хос Ходжиб, 37А",
       "startDate": "2026-08-14",
       "endDate": null,
       "time": null,
-      "url": "https://www.afisha.uz/ru/exhibitions/2026/08/05/vystavka-fotohronika-xx-veka-bonum-factum",
+      "url": "https://www.afisha.uz/ru/exhibitions/2026/08/03/vystavka-po-velikomu-shelkovomu-puti-avgust",
+      "source": "afisha.uz (calendar)"
+    },
+    {
+      "title": "Ice cream show at Jungle Family Club",
+      "titleRu": "Шоу мороженого в Jungle Family Club",
+      "category": "kids",
+      "venue": "Jungle Family ClubТашкент, Юнусабад-12, 20А",
+      "startDate": "2026-08-14",
+      "endDate": null,
+      "time": "20:00",
+      "url": "https://www.afisha.uz/ru/children/2026/08/07/shou-morozhenogo-jungle-family-club",
       "source": "afisha.uz (calendar)"
     },
     {
@@ -1117,6 +1161,17 @@
       "source": "afisha.uz (calendar)"
     },
     {
+      "title": "Performance “Emerald Tale”",
+      "titleRu": "Спектакль «Изумрудная сказка»",
+      "category": "theatre",
+      "venue": null,
+      "startDate": "2026-08-14",
+      "endDate": null,
+      "time": "18:00",
+      "url": "https://www.afisha.uz/ru/theatres/2026/08/07/izumrudnaya-skazka-silk-route",
+      "source": "afisha.uz (calendar)"
+    },
+    {
       "title": "ABDIZHAPPAR ALKOZHA",
       "titleRu": null,
       "category": "concert",
@@ -1147,14 +1202,14 @@
       "source": "iticket.uz"
     },
     {
-      "title": "Exhibition “Photochronicles of the 20th century” at the Bonum Factum gallery",
-      "titleRu": "Выставка «Фотохроника XX века» в галерее Bonum Factum",
+      "title": "Exhibition “Along the Great Silk Road”",
+      "titleRu": "Выставка «По Великому шелковому пути»",
       "category": "exhibition",
-      "venue": "Bonum Factum GalleryТашкент, пер. Садыка Азимова, 20А",
+      "venue": "Международный Караван-Сарай культуры Икуо ХираямыТашкент, ул. Юсуф Хос Ходжиб, 37А",
       "startDate": "2026-08-15",
       "endDate": null,
       "time": null,
-      "url": "https://www.afisha.uz/ru/exhibitions/2026/08/05/vystavka-fotohronika-xx-veka-bonum-factum",
+      "url": "https://www.afisha.uz/ru/exhibitions/2026/08/03/vystavka-po-velikomu-shelkovomu-puti-avgust",
       "source": "afisha.uz (calendar)"
     },
     {
@@ -1224,6 +1279,17 @@
       "source": "afisha.uz (calendar)"
     },
     {
+      "title": "Performance “Lullaby for Snow White”",
+      "titleRu": "Спектакль «Колыбельная для Белоснежки»",
+      "category": "theatre",
+      "venue": null,
+      "startDate": "2026-08-15",
+      "endDate": null,
+      "time": "17:00",
+      "url": "https://www.afisha.uz/ru/theatres/2026/08/07/kolybelnaya-dlya-belosnezhki-silk-route",
+      "source": "afisha.uz (calendar)"
+    },
+    {
       "title": "Master classes from Your time your life",
       "titleRu": "Мастер-классы от Your time your life",
       "category": "lecture",
@@ -1232,17 +1298,6 @@
       "endDate": null,
       "time": "16:00",
       "url": "https://www.afisha.uz/ru/znaniya/2026/08/05/your-time-your-life-avgust-2026",
-      "source": "afisha.uz (calendar)"
-    },
-    {
-      "title": "Performance “Madagascar” in Tashkent City Park",
-      "titleRu": "Спектакль «Мадагаскар» в парке Tashkent City",
-      "category": "festival",
-      "venue": "Tashkent CityТашкент, просп. Бунёдкор",
-      "startDate": "2026-08-15",
-      "endDate": null,
-      "time": "20:30",
-      "url": "https://www.afisha.uz/ru/gorod/2026/07/16/madagaskar-tashkent-city-2026",
       "source": "afisha.uz (calendar)"
     },
     {
@@ -1277,14 +1332,25 @@
       "source": "iticket.uz"
     },
     {
-      "title": "Exhibition “Photochronicles of the 20th century” at the Bonum Factum gallery",
-      "titleRu": "Выставка «Фотохроника XX века» в галерее Bonum Factum",
+      "title": "Lecture on the 20th century composer Dmitry Shostakovich",
+      "titleRu": "Лекция о композиторе XX века Дмитрии Шостаковиче",
+      "category": "lecture",
+      "venue": "Human HouseТашкент, ул. Ивлиева, 43",
+      "startDate": "2026-08-15",
+      "endDate": null,
+      "time": "18:30",
+      "url": "https://www.afisha.uz/ru/znaniya/2026/08/05/dmitriy-shostakovich",
+      "source": "afisha.uz (calendar)"
+    },
+    {
+      "title": "Exhibition “Along the Great Silk Road”",
+      "titleRu": "Выставка «По Великому шелковому пути»",
       "category": "exhibition",
-      "venue": "Bonum Factum GalleryТашкент, пер. Садыка Азимова, 20А",
+      "venue": "Международный Караван-Сарай культуры Икуо ХираямыТашкент, ул. Юсуф Хос Ходжиб, 37А",
       "startDate": "2026-08-16",
       "endDate": null,
       "time": null,
-      "url": "https://www.afisha.uz/ru/exhibitions/2026/08/05/vystavka-fotohronika-xx-veka-bonum-factum",
+      "url": "https://www.afisha.uz/ru/exhibitions/2026/08/03/vystavka-po-velikomu-shelkovomu-puti-avgust",
       "source": "afisha.uz (calendar)"
     },
     {
@@ -1351,6 +1417,17 @@
       "endDate": null,
       "time": null,
       "url": "https://www.afisha.uz/ru/exhibitions/2026/07/24/next-market",
+      "source": "afisha.uz (calendar)"
+    },
+    {
+      "title": "Performance “Lullaby for Snow White”",
+      "titleRu": "Спектакль «Колыбельная для Белоснежки»",
+      "category": "theatre",
+      "venue": null,
+      "startDate": "2026-08-16",
+      "endDate": null,
+      "time": "12:30",
+      "url": "https://www.afisha.uz/ru/theatres/2026/08/07/kolybelnaya-dlya-belosnezhki-silk-route",
       "source": "afisha.uz (calendar)"
     },
     {
@@ -1408,14 +1485,14 @@
       "source": "iticket.uz"
     },
     {
-      "title": "Exhibition “Photochronicles of the 20th century” at the Bonum Factum gallery",
-      "titleRu": "Выставка «Фотохроника XX века» в галерее Bonum Factum",
+      "title": "Exhibition Qimmat",
+      "titleRu": "Выставка Qimmat",
       "category": "exhibition",
-      "venue": "Bonum Factum GalleryТашкент, пер. Садыка Азимова, 20А",
+      "venue": "ZanmakonТашкент, ул. Заркайнар, 48",
       "startDate": "2026-08-17",
       "endDate": null,
       "time": null,
-      "url": "https://www.afisha.uz/ru/exhibitions/2026/08/05/vystavka-fotohronika-xx-veka-bonum-factum",
+      "url": "https://www.afisha.uz/ru/exhibitions/2026/08/03/zanmakon",
       "source": "afisha.uz (calendar)"
     },
     {
@@ -1496,14 +1573,14 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Exhibition “Photochronicles of the 20th century” at the Bonum Factum gallery",
-      "titleRu": "Выставка «Фотохроника XX века» в галерее Bonum Factum",
+      "title": "Exhibition Qimmat",
+      "titleRu": "Выставка Qimmat",
       "category": "exhibition",
-      "venue": "Bonum Factum GalleryТашкент, пер. Садыка Азимова, 20А",
+      "venue": "ZanmakonТашкент, ул. Заркайнар, 48",
       "startDate": "2026-08-18",
       "endDate": null,
       "time": null,
-      "url": "https://www.afisha.uz/ru/exhibitions/2026/08/05/vystavka-fotohronika-xx-veka-bonum-factum",
+      "url": "https://www.afisha.uz/ru/exhibitions/2026/08/03/zanmakon",
       "source": "afisha.uz (calendar)"
     },
     {
@@ -1584,14 +1661,14 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Exhibition “Photochronicles of the 20th century” at the Bonum Factum gallery",
-      "titleRu": "Выставка «Фотохроника XX века» в галерее Bonum Factum",
+      "title": "Exhibition Qimmat",
+      "titleRu": "Выставка Qimmat",
       "category": "exhibition",
-      "venue": "Bonum Factum GalleryТашкент, пер. Садыка Азимова, 20А",
+      "venue": "ZanmakonТашкент, ул. Заркайнар, 48",
       "startDate": "2026-08-19",
       "endDate": null,
       "time": null,
-      "url": "https://www.afisha.uz/ru/exhibitions/2026/08/05/vystavka-fotohronika-xx-veka-bonum-factum",
+      "url": "https://www.afisha.uz/ru/exhibitions/2026/08/03/zanmakon",
       "source": "afisha.uz (calendar)"
     },
     {
@@ -1693,14 +1770,14 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Exhibition “Photochronicles of the 20th century” at the Bonum Factum gallery",
-      "titleRu": "Выставка «Фотохроника XX века» в галерее Bonum Factum",
+      "title": "Exhibition Qimmat",
+      "titleRu": "Выставка Qimmat",
       "category": "exhibition",
-      "venue": "Bonum Factum GalleryТашкент, пер. Садыка Азимова, 20А",
+      "venue": "ZanmakonТашкент, ул. Заркайнар, 48",
       "startDate": "2026-08-20",
       "endDate": null,
       "time": null,
-      "url": "https://www.afisha.uz/ru/exhibitions/2026/08/05/vystavka-fotohronika-xx-veka-bonum-factum",
+      "url": "https://www.afisha.uz/ru/exhibitions/2026/08/03/zanmakon",
       "source": "afisha.uz (calendar)"
     },
     {
@@ -1781,14 +1858,36 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Exhibition “Photochronicles of the 20th century” at the Bonum Factum gallery",
-      "titleRu": "Выставка «Фотохроника XX века» в галерее Bonum Factum",
+      "title": "Exhibition Qimmat",
+      "titleRu": "Выставка Qimmat",
       "category": "exhibition",
-      "venue": "Bonum Factum GalleryТашкент, пер. Садыка Азимова, 20А",
+      "venue": "ZanmakonТашкент, ул. Заркайнар, 48",
       "startDate": "2026-08-21",
       "endDate": null,
       "time": null,
-      "url": "https://www.afisha.uz/ru/exhibitions/2026/08/05/vystavka-fotohronika-xx-veka-bonum-factum",
+      "url": "https://www.afisha.uz/ru/exhibitions/2026/08/03/zanmakon",
+      "source": "afisha.uz (calendar)"
+    },
+    {
+      "title": "Performance \"Aladdin and his magic lamp\"",
+      "titleRu": "Спектакль «Аладдин и его волшебная лампа»",
+      "category": "theatre",
+      "venue": null,
+      "startDate": "2026-08-21",
+      "endDate": null,
+      "time": "18:00",
+      "url": "https://www.afisha.uz/ru/theatres/2026/08/07/aladdin-silk-route-avgust",
+      "source": "afisha.uz (calendar)"
+    },
+    {
+      "title": "Ice cream show at Jungle Family Club",
+      "titleRu": "Шоу мороженого в Jungle Family Club",
+      "category": "kids",
+      "venue": "Jungle Family ClubТашкент, Юнусабад-12, 20А",
+      "startDate": "2026-08-21",
+      "endDate": null,
+      "time": "20:00",
+      "url": "https://www.afisha.uz/ru/children/2026/08/07/shou-morozhenogo-jungle-family-club",
       "source": "afisha.uz (calendar)"
     },
     {
