@@ -5624,15 +5624,12 @@ function viewPlaySingle(videoId){
 
 /* ---- Search ---- */
 function viewSearch(){
-  const totalPages = SEARCHABLE_PAGES.length + FACULTIES.length;
   return `
     <a class="back-link" href="#">← Back to Mr Eric's Lounge</a>
     <section style="padding-top:14px;">
       <div class="section-head"><span class="emoji">${icon('search')}</span><h2>Search</h2></div>
       <input class="search-input" id="searchInput" type="text" placeholder="Search everything…" autofocus>
-      <div id="searchResults" style="margin-top:20px;">
-        <div class="empty-card">Search articles, videos, websites, and more. (${DISPATCHES.length} dispatches, ${WATCH_VIDEOS.length} videos, ${EXPLORE_SITES.length} websites, ${BIRTHDAYS.length} names, ${totalPages} pages waiting)</div>
-      </div>
+      <div id="searchResults" style="margin-top:20px;"></div>
     </section>
   `;
 }
@@ -5702,8 +5699,7 @@ function wireSearch(container){
   input.addEventListener('input', ()=>{
     const q = input.value.trim().toLowerCase();
     if(q.length === 0){
-      const totalPages = SEARCHABLE_PAGES.length + FACULTIES.length;
-      results.innerHTML = `<div class="empty-card">Search articles, videos, websites, and more. (${DISPATCHES.length} dispatches, ${WATCH_VIDEOS.length} videos, ${EXPLORE_SITES.length} websites, ${BIRTHDAYS.length} names, ${totalPages} pages waiting)</div>`;
+      results.innerHTML = '';
       return;
     }
     const articleMatches = DISPATCHES.filter(a => a.headline.toLowerCase().includes(q));
