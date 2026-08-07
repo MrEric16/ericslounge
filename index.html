@@ -2648,60 +2648,16 @@ const SPORTS_LEAGUES = [
     ],
   },
   {
-    name: "Uzbekistan Super League", flag: flagIcon('uzbekistan'), note: "Live — round 15",
-    teams: [
-      { name:"Neftchi Fergana", pld:14, w:11, d:2, l:1, gf:33, ga:6, pts:35 },
-      { name:"Pakhtakor", pld:15, w:10, d:4, l:1, gf:26, ga:14, pts:34 },
-      { name:"Buxoro", pld:15, w:8, d:2, l:5, gf:19, ga:16, pts:26 },
-      { name:"OKMK", pld:14, w:7, d:4, l:3, gf:23, ga:18, pts:25 },
-      { name:"Navbahor", pld:14, w:6, d:4, l:4, gf:18, ga:13, pts:22 },
-      { name:"Lokomotiv Tashkent", pld:15, w:6, d:4, l:5, gf:22, ga:21, pts:22 },
-      { name:"Andijon", pld:15, w:6, d:3, l:6, gf:22, ga:16, pts:21 },
-      { name:"Nasaf", pld:14, w:5, d:6, l:3, gf:17, ga:13, pts:21 },
-      { name:"Dinamo Samarqand", pld:14, w:6, d:2, l:6, gf:24, ga:25, pts:20 },
-      { name:"Bunyodkor", pld:14, w:6, d:1, l:7, gf:14, ga:16, pts:19 },
-      { name:"Xorazm", pld:14, w:4, d:4, l:6, gf:11, ga:17, pts:16 },
-      { name:"Surkhon", pld:14, w:4, d:3, l:7, gf:14, ga:22, pts:15 },
-      { name:"Qizilqum", pld:14, w:4, d:2, l:8, gf:10, ga:19, pts:14 },
-      { name:"Sogdiana", pld:14, w:3, d:3, l:8, gf:23, ga:33, pts:12 },
-      { name:"Kokand 1912", pld:14, w:2, d:5, l:7, gf:13, ga:23, pts:11 },
-      { name:"Mashal", pld:14, w:1, d:1, l:12, gf:7, ga:24, pts:4 },
-    ],
-    // Table sourced from AiScore (thesports.com data feed) — updated 2026-08-01 22:xx
-    // Tashkent. Round 15 has begun: Andijon 0-0 Pakhtakor and Buxoro 2-1 Lokomotiv Tashkent
-    // are both confirmed FT (pulled from AiScore's live schedule block, not just the
-    // standings page, which lagged behind by a few minutes at fetch time — schedule block
-    // takes priority over standings when the two disagree on whether a match has finished).
-    // Remaining 6 round-15 fixtures are below. AiScore's own displayed kickoff times run on
-    // UTC+8; converted to Tashkent (UTC+5) by subtracting 3 hours throughout, cross-checked
-    // against the one match (Andijon v Pakhtakor) independently confirmed at 14:30 UTC
-    // elsewhere = 19:30 Tashkent, which matches the conversion.
-    fixtures: [
-      { home:"Navbahor", away:"Xorazm", start:"2026-08-02T19:30:00+05:00" },
-      { home:"Mashal", away:"Sogdiana", start:"2026-08-02T20:00:00+05:00" },
-      { home:"Qizilqum", away:"Bunyodkor", start:"2026-08-02T20:30:00+05:00" },
-      { home:"Kokand 1912", away:"Surkhon", start:"2026-08-03T19:30:00+05:00" },
-      { home:"OKMK", away:"Nasaf", start:"2026-08-03T20:00:00+05:00" },
-      { home:"Dinamo Samarqand", away:"Neftchi Fergana", start:"2026-08-03T20:30:00+05:00" },
-    ],
-    results: [
-      { home:"Buxoro", away:"Lokomotiv Tashkent", homeScore:2, awayScore:1, start:"2026-08-01T20:30:00+05:00" },
-      { home:"Andijon", away:"Pakhtakor", homeScore:0, awayScore:0, start:"2026-08-01T19:30:00+05:00" },
-      { home:"Dinamo Samarqand", away:"Kokand 1912", homeScore:3, awayScore:2, start:"2026-07-29T20:00:00+05:00" },
-      { home:"Nasaf", away:"Qizilqum", homeScore:1, awayScore:0, start:"2026-07-29T20:00:00+05:00" },
-      { home:"Neftchi Fergana", away:"Navbahor", homeScore:1, awayScore:1, start:"2026-07-29T20:00:00+05:00" },
-      { home:"Xorazm", away:"Surkhon", homeScore:1, awayScore:0, start:"2026-07-28T20:00:00+05:00" },
-      { home:"Lokomotiv Tashkent", away:"Sogdiana", homeScore:3, awayScore:1, start:"2026-07-27T20:00:00+05:00" },
-      { home:"Andijon", away:"Buxoro", homeScore:2, awayScore:0, start:"2026-07-27T20:00:00+05:00" },
-      { home:"OKMK", away:"Mashal", homeScore:2, awayScore:1, start:"2026-07-27T20:00:00+05:00" },
-      { home:"Bunyodkor", away:"Pakhtakor", homeScore:0, awayScore:1, start:"2026-07-26T20:00:00+05:00" },
-      { home:"Navbahor", away:"Qizilqum", homeScore:1, awayScore:1, start:"2026-07-23T18:00:00+05:00" },
-      { home:"Dinamo Samarqand", away:"Surkhon", homeScore:2, awayScore:1, start:"2026-07-23T18:00:00+05:00" },
-      { home:"Lokomotiv Tashkent", away:"Andijon", homeScore:3, awayScore:3, start:"2026-07-22T18:00:00+05:00" },
-      { home:"Mashal", away:"Nasaf", homeScore:1, awayScore:1, start:"2026-07-22T18:00:00+05:00" },
-      { home:"Kokand 1912", away:"OKMK", homeScore:1, awayScore:4, start:"2026-07-22T18:00:00+05:00" },
-      { home:"Pakhtakor", away:"Xorazm", homeScore:2, awayScore:1, start:"2026-07-21T20:00:00+05:00" },
-    ],
+    // Live data now comes from data/uz-league-live.json (scripts/scrape_uz_league.py) via the
+    // fetch in loadLiveSportsData() -- fixed 2026-08-07. This fallback is intentionally EMPTY
+    // rather than a frozen snapshot: the previous version of this block was real data from
+    // Aug 1 that silently kept showing as "Live" for a week because the frontend fetch that
+    // was supposed to replace it was never actually wired up. An honest "no data" state if the
+    // live fetch ever fails is safer than confidently-wrong scores and fixture dates.
+    name: "Uzbekistan Super League", flag: flagIcon('uzbekistan'), note: "Live — updates after every scrape run",
+    teams: zeroRows(["Neftchi Fergana","Pakhtakor","Buxoro","OKMK","Navbahor","Lokomotiv Tashkent","Andijon","Nasaf","Dinamo Samarqand","Bunyodkor","Xorazm","Surkhon","Qizilqum","Sogdiana","Kokand 1912","Mashal"]),
+    fixtures: [],
+    results: [],
   },
   {
     name: "Spanish La Liga", flag: flagIcon('spain'), note: "Pre-season — starts mid-Aug 2026",
@@ -2800,8 +2756,10 @@ const SPORTS_LEAGUES = [
 ];
 // ---- Live league tables, fixtures, results & Arsenal fixtures (football-data.org, free tier) ----
 // Free tier covers: Premier League, La Liga, Bundesliga, Serie A, Ligue 1, Champions League.
-// Uzbekistan Super League, UAE Pro League and KHL aren't on the free tier and stay manually
-// maintained above — there's no free data source for those.
+// Uzbekistan Super League now comes from scripts/scrape_uz_league.py (data/uz-league-live.json,
+// run by .github/workflows/uz-league-fetch.yml) -- fixed 2026-08-07 after the frontend fetch was
+// never wired up despite the scraper working correctly, which left stale Aug-1 static data
+// showing indefinitely. UAE Pro League and KHL still have no live source and stay manual.
 // Refreshes at most once per "day", where the day rolls over at 04:00 Tashkent time (when most
 // games from the previous evening will have finished) — not on every page load, to stay well
 // inside the free tier's 10-requests/minute limit shared across all site visitors.
@@ -2865,6 +2823,38 @@ function matchToRow(m){
     start: utcToTashkentISOString(m.utcDate),
     finished: m.status === 'FINISHED',
     matchday: m.matchday || null,
+  };
+}
+
+// scripts/scrape_uz_league.py writes raw_time as "dd.mm. HH:MM" (Tashkent local, no year,
+// no timezone) rather than an ISO utcDate like football-data.org -- this converts that format
+// into the same {home, away, homeScore, awayScore, start, finished} row shape matchToRow()
+// produces for every other league, so matchListHtml() and the standings/fixtures/results
+// rendering can treat UZ identically to the API-backed leagues. Also strips any trailing junk
+// (e.g. a stray "\nAwrd" seen once in a scrape) that isn't part of the dd.mm. HH:MM pattern.
+function uzMatchToRow(m, generatedAtISO){
+  const mtch = String(m.raw_time || '').match(/(\d{2})\.(\d{2})\.\s*(\d{2}):(\d{2})/);
+  let start = null;
+  if(mtch){
+    const [, dd, mo, hh, mi] = mtch;
+    let year = new Date(generatedAtISO).getUTCFullYear();
+    // Handle season crossing a New Year: if this date would land more than ~200 days from
+    // the scrape date, it almost certainly belongs to the other side of the year boundary.
+    const genMonth = new Date(generatedAtISO).getUTCMonth() + 1;
+    if(genMonth - (+mo) > 6) year += 1;
+    else if((+mo) - genMonth > 6) year -= 1;
+    const pad = n => String(n).padStart(2,'0');
+    start = `${year}-${pad(mo)}-${pad(dd)}T${pad(hh)}:${pad(mi)}:00+05:00`;
+  }
+  const hasScore = typeof m.homeScore === 'number' && typeof m.awayScore === 'number';
+  return {
+    home: m.home || '?',
+    away: m.away || '?',
+    homeScore: hasScore ? m.homeScore : null,
+    awayScore: hasScore ? m.awayScore : null,
+    start: start || new Date().toISOString(),
+    finished: hasScore,
+    matchday: null,
   };
 }
 
@@ -2944,6 +2934,22 @@ async function loadLiveSportsData(){
             .sort((a,b) => new Date(b.utcDate) - new Date(a.utcDate))
             .map(matchToRow);
         }catch(e){ /* static data file unavailable or malformed -- cache stays as-is */ }
+
+        // Uzbekistan Super League -- separate JSON, separate scraper, separate try/catch so a
+        // failure here never wipes out the football-data.org leagues fetched successfully above.
+        try{
+          const uzRes = await fetch('./data/uz-league-live.json', { cache: 'no-store' });
+          if(uzRes.ok){
+            const uzLive = await uzRes.json();
+            if(uzLive.teams && uzLive.teams.length){
+              fresh.leagues['UZ'] = uzLive.teams;
+            }
+            fresh.matches['UZ'] = {
+              fixtures: (uzLive.fixtures || []).map(m => uzMatchToRow(m, uzLive.generatedAt)),
+              results: (uzLive.results || []).map(m => uzMatchToRow(m, uzLive.generatedAt)),
+            };
+          }
+        }catch(e){ /* UZ data file unavailable or malformed -- falls back to static below */ }
 
         if(Object.keys(fresh.leagues).length > 0 || Object.keys(fresh.matches).length > 0 || fresh.arsenalFixture){
           cache = fresh;
