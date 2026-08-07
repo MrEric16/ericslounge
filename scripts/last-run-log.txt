@@ -1,34 +1,25 @@
-[scrape] Run started. Today (Tashkent): 2026-08-05  Window end: 2026-08-19
+[scrape] Run started. Today (Tashkent): 2026-08-07  Window end: 2026-08-21
 [scrape] NOTE: switched from per-category listing pages to afisha.uz's calendar view (one real day at a time, via Playwright) -- the old approach could only ever see whatever was on the current front page of each category, missing anything pushed down by newer posts. The calendar view asks for each specific date directly instead.
-[scrape] calendar 2026-08-05: 19 new event URLs discovered
-[scrape] calendar 2026-08-06: 10 new event URLs discovered
-[scrape] calendar 2026-08-07: 5 new event URLs discovered
-[scrape] calendar 2026-08-08: 13 new event URLs discovered
+[scrape] calendar 2026-08-07: 23 new event URLs discovered
+[scrape] calendar 2026-08-08: 15 new event URLs discovered
 [scrape] calendar 2026-08-09: 10 new event URLs discovered
-[scrape] calendar 2026-08-10: 1 new event URLs discovered
-[scrape] calendar 2026-08-11: 3 new event URLs discovered
-[scrape] calendar 2026-08-12: 1 new event URLs discovered
-[scrape] calendar 2026-08-13: 1 new event URLs discovered
-[scrape] calendar 2026-08-14: 1 new event URLs discovered
-[scrape] calendar discovery complete: 64 unique event URLs to check
-[scrape] Translation failed for 'Летний кулинарный лагерь в Cook Book': Летний кулинарный лагерь в Cook Book --> No translation was found using the current translator. Try another translator?
-[scrape] Translation failed for 'Театрально-цирковое шоу Nova Circus': Театрально-цирковое шоу Nova Circus --> No translation was found using the current translator. Try another translator?
-[scrape] Translation failed for 'Музыкальный фонтан в парке Magic City': Музыкальный фонтан в парке Magic City --> No translation was found using the current translator. Try another translator?
-[scrape]   DEBUG: dumped raw HTML for madagascar page, 184262 chars
+[scrape] calendar 2026-08-10: 2 new event URLs discovered
+[scrape] calendar 2026-08-11: 4 new event URLs discovered
+[scrape] calendar 2026-08-12: 3 new event URLs discovered
+[scrape] calendar 2026-08-13: 2 new event URLs discovered
+[scrape] calendar 2026-08-14: 2 new event URLs discovered
+[scrape] calendar 2026-08-15: 5 new event URLs discovered
+[scrape] calendar 2026-08-16: 2 new event URLs discovered
+[scrape] calendar discovery complete: 68 unique event URLs to check
 [scrape]   DEBUG: dumped raw HTML for qimmat page, 135986 chars
-[scrape] Translation failed for 'Muzqaymoq Party в парке Anhor': Muzqaymoq Party в парке Anhor --> No translation was found using the current translator. Try another translator?
-[scrape] Translation failed for 'Научная программа «Таблица Менделеева»': Научная программа «Таблица Менделеева» --> No translation was found using the current translator. Try another translator?
-[scrape] Translation failed for 'Мастер-классы от Your time your life': Мастер-классы от Your time your life --> No translation was found using the current translator. Try another translator?
-[scrape] Translation failed for 'Арома мастер-класс в Human House': Арома мастер-класс в Human House --> No translation was found using the current translator. Try another translator?
-[scrape] Translation failed for 'Детский день в бассейне Sinbad': Детский день в бассейне Sinbad --> No translation was found using the current translator. Try another translator?
-[scrape] Translation failed for 'Футбольный матч «Пахтакор» — «Аль-Хусейн': Футбольный матч «Пахтакор» — «Аль-Хусейн» --> No translation was found using the current translator. Try another translator?
-[scrape] calendar detail pass complete: 257 events kept from 64 pages checked
+[scrape]   DEBUG: dumped raw HTML for madagascar page, 184635 chars
+[scrape] calendar detail pass complete: 257 events kept from 68 pages checked
 [scrape] special-tracked: FAILED to fetch or failed content check for https://www.afisha.uz/ru/cinema/2026/07/16/kinoprazdnik-v-sredu
 [scrape] iticket.uz cat=concert: 9 events kept
-[scrape] iticket.uz cat=theatre: 0 events kept
+[scrape] iticket.uz cat=theatre: 5 events kept
 [scrape] iticket.uz cat=exhibition: 0 events kept
 [scrape] ticketon.uz: CONFIRMED BLOCKED (Cloudflare challenge, page title='Just a moment...'). 0 events -- this is expected, not a bug to fix.
 [scrape] eventbrite.com: CONFIRMED BLOCKED (AWS WAF CAPTCHA, page title='Human Verification'). 0 events -- this is expected, not a bug to fix. Same category of block as ticketon.uz.
 [scrape] eventbrite.com: 0 events found (dates NOT yet parsed -- see note in script)
-[scrape] TOTAL before dedup: 266  |  after dedup: 180
+[scrape] TOTAL before dedup: 271  |  after dedup: 167
 [scrape] Wrote data/events-tashkent.json
