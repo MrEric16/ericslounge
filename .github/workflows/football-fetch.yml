@@ -33,4 +33,5 @@ jobs:
           git config user.email "actions@github.com"
           git add data/football-live.json scripts/football-fetch-log.txt || true
           git diff --cached --quiet && echo "No changes to commit" || git commit -m "Auto-update live football data [skip ci]"
+          git pull --rebase --autostash origin main || true
           git push
