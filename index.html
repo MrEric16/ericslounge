@@ -3067,13 +3067,13 @@ function showGoalMatchDetail(idx){
   overlay.addEventListener('click', (e)=>{ if(e.target === overlay) overlay.remove(); });
 }
 
-function matchListHtml(rows, showScore, centered){
+function matchListHtml(rows, showScore, centered, noTrophy){
   if(!rows || rows.length === 0){
     return '<div class="empty-card">Nothing here yet — check back once the season\'s under way.</div>';
   }
   const items = rows.map(m => `
     <div class="match-row${centered ? ' centered' : ''}">
-      <div class="match-teams">${teamNameHtml(m.home)}${showScore && m.homeScore !== null ? ` <span class="match-score">${m.homeScore} - ${m.awayScore}</span> ` : ' v '}${teamNameHtml(m.away)}</div>
+      <div class="match-teams">${teamNameHtml(m.home, noTrophy)}${showScore && m.homeScore !== null ? ` <span class="match-score">${m.homeScore} - ${m.awayScore}</span> ` : ' v '}${teamNameHtml(m.away, noTrophy)}</div>
       <div class="match-date">${formatTashkentDate(m.start)}</div>
     </div>
   `).join('');
@@ -6223,9 +6223,9 @@ function wirePhotoLightbox(container){
   }, { passive:true });
 }
 
-function teamNameHtml(name){
+function teamNameHtml(name, noTrophy){
   const n = (name || '').toLowerCase();
-  if(n.includes('arsenal')) return `<span class="easter-egg-trigger" data-egg="arsenal">${escapeHtml(name)} 🏆</span>`;
+  if(n.includes('arsenal')) return `<span class="easter-egg-trigger" data-egg="arsenal">${escapeHtml(name)}${noTrophy ? '' : ' 🏆'}</span>`;
   if(n.includes('tottenham') || n === 'spurs') return `<span class="easter-egg-trigger" data-egg="tottenham">${escapeHtml(name)} 💩</span>`;
   return escapeHtml(name);
 }
@@ -6348,7 +6348,7 @@ function viewArsenalHub(){
           <span class="domain-count">${fixtureRows.length}</span>
           <span class="domain-chevron">${icon('chevronDown')}</span>
         </summary>
-        <div class="domain-group-content">${matchListHtml(fixtureRows, false)}</div>
+        <div class="domain-group-content">${matchListHtml(fixtureRows, false, false, true)}</div>
       </details>
 
       <details class="domain-group">
