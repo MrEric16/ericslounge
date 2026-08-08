@@ -505,31 +505,6 @@
   .arsenal-page .match-teams,
   .arsenal-page .match-date{ color:var(--ink); }
 
-  /* ---------- Arsenal tile on the homepage sports section — same brand palette,
-     so it reads as unmistakably Arsenal before you even tap into the full page. ---------- */
-  .sports-card{
-    background:#EF0107;
-    border-radius:20px;
-    padding:14px 20px;
-    box-shadow:0 3px 0 rgba(58,42,30,.08);
-    color:#fff;
-  }
-  .sports-card .sports-header .crest{
-    background:#fff;
-    border-radius:50%;
-    padding:6px;
-  }
-  .sports-card .sports-header .name{ color:#fff; }
-  .sports-card .next-fixture{
-    background:rgba(255,255,255,.14);
-    border:1px solid rgba(255,255,255,.3);
-  }
-  .sports-card .next-fixture-row + .next-fixture-row{
-    border-top:1px solid rgba(255,255,255,.3);
-  }
-  .sports-card .next-fixture .label{ color:#9C824A; }
-  .sports-card #nextFixtureText,
-  .sports-card #arsenalCountdown{ color:#fff; }
 
   .domain-group{
     margin-top:14px;
@@ -972,12 +947,38 @@
   }
 
   /* ---------- Sports ---------- */
+  /* ---------- Sports ----------
+     .sports-card is only ever used for the Arsenal tile (confirmed -- no other markup
+     uses this class), so it carries Arsenal's brand palette directly: dark red background
+     with a gold border/accent, matching the official palette (dark red #DB0007, gold
+     #9C824A). This edits the rule directly rather than adding a second competing
+     .sports-card block elsewhere in the stylesheet -- a second block with equal
+     specificity was exactly what silently lost the cascade last time and left the tile
+     showing the generic cream background instead. */
   .sports-card{
-    background:var(--card);
+    background:#DB0007;
+    border:2px solid #9C824A;
     border-radius:20px;
     padding:14px 20px;
     box-shadow:0 3px 0 rgba(58,42,30,.08);
+    color:#fff;
   }
+  .sports-card .sports-header .crest{
+    background:#fff;
+    border-radius:50%;
+    padding:6px;
+  }
+  .sports-card .sports-header .name{ color:#fff; }
+  .sports-card .next-fixture{
+    background:rgba(255,255,255,.12);
+    border:1px solid rgba(156,130,74,.5);
+  }
+  .sports-card .next-fixture-row + .next-fixture-row{
+    border-top:1px solid rgba(156,130,74,.5);
+  }
+  .sports-card .next-fixture .label{ color:#9C824A; }
+  .sports-card #nextFixtureText,
+  .sports-card #arsenalCountdown{ color:#fff; }
   .sports-header{
     display:flex;
     align-items:center;
@@ -991,6 +992,7 @@
   .sports-header .crest img{width:100%; height:100%; object-fit:contain;}
   .sports-header .name{font-weight:800; font-size:17px;}
   .sports-header .sub{font-size:12px; color:var(--ink-soft); font-weight:600;}
+
 
   .next-fixture{
     background:var(--cream-2);
