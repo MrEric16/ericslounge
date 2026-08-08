@@ -502,6 +502,22 @@
   .arsenal-page .emoji svg{ color:var(--gold); }
   .arsenal-page .league-table th,
   .arsenal-page .league-table td{ color:var(--ink); }
+  .arsenal-page table.league-table th{
+    background:#EF0107;
+    color:#fff;
+    border-bottom:1.5px solid #9C824A;
+  }
+  .arsenal-page table.league-table td{
+    border-bottom:1px solid rgba(156,130,74,.35);
+  }
+  .arsenal-page table.league-table td.pos{ color:#DB0007; font-weight:700; }
+  .arsenal-page .match-row{
+    border-bottom:1px solid rgba(156,130,74,.35);
+  }
+  /* Arsenal's own row in any league table gets a subtle gold-tinted stripe -- applies
+     wherever oneTableHtml() renders Arsenal, not just this page, since seeing your own
+     team pop out of a standings table is a nice touch anywhere it shows up. */
+  table.league-table tr.own-team-row{ background:rgba(156,130,74,.14); }
   .arsenal-page .match-teams,
   .arsenal-page .match-date{ color:var(--ink); }
 
@@ -3144,7 +3160,7 @@ async function loadLiveSportsData(){
   const arsResultsEl = document.getElementById('resultsDetailContainer');
   if(arsResultsEl && location.hash.replace('#','').split('/')[0] === 'arsenal'){
     const results = arsenalAllResults();
-    arsResultsEl.outerHTML = resultsWithDetailHtml(results);
+    arsResultsEl.outerHTML = resultsWithDetailHtml(results, true);
   }
   const arsTableEl = document.getElementById('arsenalTableContainer');
   if(arsTableEl) arsTableEl.innerHTML = oneTableHtml(SPORTS_LEAGUES[0].teams);
@@ -3206,7 +3222,7 @@ async function loadGoalResults(){
     results = matches.results.length > 0 ? matches.results : ((staticLeague && staticLeague.results) || []);
   }
   if(results !== null){
-    el.outerHTML = resultsWithDetailHtml(results);
+    el.outerHTML = resultsWithDetailHtml(results, parts[0] === 'arsenal');
   }
 }
 
@@ -3223,11 +3239,12 @@ function findGoalResultDetail(m){
 
 window._goalDetailLookup = [];
 
-function resultsWithDetailHtml(results){
+function resultsWithDetailHtml(results, isArsenal){
   if(!results || results.length === 0){
     return '<div id="resultsDetailContainer" class="empty-card">Nothing here yet — check back once the season\'s under way.</div>';
   }
   window._goalDetailLookup = [];
+  window._goalDetailIsArsenal = !!isArsenal;
   const items = results.map(m => {
     const detail = findGoalResultDetail(m);
     const idx = window._goalDetailLookup.length;
@@ -3245,13 +3262,39 @@ function resultsWithDetailHtml(results){
 function showGoalMatchDetail(idx){
   const d = window._goalDetailLookup[idx];
   if(!d) return;
+  // Arsenal's own results (this-page or the Arsenal hub) use the brand red/white/gold
+  // treatment; every other league (PL, La Liga, Bundesliga, Serie A, Ligue 1, Champions
+  // League) shares this exact same popup component, so anything Arsenal-specific has to
+  // be gated behind this flag rather than baked into the base styling -- otherwise every
+  // other league's match popup would wrongly turn red too.
+  const isArsenal = !!window._goalDetailIsArsenal;
   const goalLine = g => `<div style="font-size:13px; padding:3px 0;">${escapeHtml(g.scorer)} <span style="opacity:.6;">${g.minute}'</span></div>`;
   const homeGoals = d.homeGoals.length ? d.homeGoals.map(goalLine).join('') : '<div style="font-size:13px; opacity:.5;">No goals</div>';
   const awayGoals = d.awayGoals.length ? d.awayGoals.map(goalLine).join('') : '<div style="font-size:13px; opacity:.5;">No goals</div>';
   const overlay = document.createElement('div');
   overlay.id = 'arsenalDetailOverlay';
   overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:10010;display:flex;align-items:center;justify-content:center;padding:20px;';
-  overlay.innerHTML = `
+  overlay.innerHTML = isArsenal ? `
+    <div style="background:#fff;border-radius:16px;overflow:hidden;max-width:360px;width:100%;">
+      <div style="background:#EF0107;color:#fff;text-align:center;padding:18px 20px 14px;">
+        <div style="font-weight:800; font-size:19px;">${teamNameHtml(d.home)} ${d.ftHome} - ${d.ftAway} ${teamNameHtml(d.away)}</div>
+        <div style="font-size:12px; opacity:.85; margin-top:2px;">HT ${d.htHome} - ${d.htAway} · FT</div>
+      </div>
+      <div style="padding:18px 20px 20px; color:#1A1A1A;">
+        <div style="display:flex; gap:18px;">
+          <div style="flex:1;">
+            <div style="font-weight:700; font-size:12px; text-transform:uppercase; letter-spacing:.03em; color:#9C824A; margin-bottom:6px;">${teamNameHtml(d.home)}</div>
+            ${homeGoals}
+          </div>
+          <div style="flex:1;">
+            <div style="font-weight:700; font-size:12px; text-transform:uppercase; letter-spacing:.03em; color:#9C824A; margin-bottom:6px;">${teamNameHtml(d.away)}</div>
+            ${awayGoals}
+          </div>
+        </div>
+        <button onclick="document.getElementById('arsenalDetailOverlay').remove()" style="margin-top:18px; width:100%; padding:11px; border-radius:999px; border:none; background:#DB0007; color:#fff; font-weight:700; font-family:'Nunito',sans-serif;">Close</button>
+      </div>
+    </div>
+  ` : `
     <div style="background:var(--card);border-radius:16px;padding:22px 20px;max-width:360px;width:100%;color:var(--ink);">
       <div style="text-align:center; font-weight:800; font-size:19px; margin-bottom:2px;">${teamNameHtml(d.home)} ${d.ftHome} - ${d.ftAway} ${teamNameHtml(d.away)}</div>
       <div style="text-align:center; font-size:12px; color:var(--ink-soft); margin-bottom:16px;">HT ${d.htHome} - ${d.htAway} · FT</div>
@@ -6432,7 +6475,7 @@ function teamNameHtml(name, noTrophy){
 }
 function oneTableHtml(teams){
   const rows = teams.map((t, i) => `
-    <tr>
+    <tr${(t.name || '').toLowerCase().includes('arsenal') ? ' class="own-team-row"' : ''}>
       <td class="pos">${i + 1}</td>
       <td class="team-name">${teamNameHtml(t.name)}</td>
       <td>${t.pld}</td>
@@ -6539,7 +6582,7 @@ function viewArsenalHub(){
           <span class="domain-count">${results.length}</span>
           <span class="domain-chevron">${icon('chevronDown')}</span>
         </summary>
-        <div class="domain-group-content">${resultsWithDetailHtml(results)}</div>
+        <div class="domain-group-content">${resultsWithDetailHtml(results, true)}</div>
       </details>
 
       <details class="domain-group">
