@@ -475,15 +475,21 @@
   }
 
   /* ---------- Collapsible domain sections (All Domains archive) ---------- */
-  /* ---------- Arsenal page (red/white/gold — an intentional exception to the site palette) ---------- */
+  /* ---------- Arsenal page (red/white/gold — an intentional exception to the site palette) ----------
+     Colors match Arsenal FC's official brand palette exactly: primary red #EF0107, dark red #DB0007,
+     Aztec blue #023474, gold #9C824A, white #FFFFFF. Aztec blue is mapped onto --teal because that's
+     the variable match scores (.match-row .match-score) already read from -- so results like "2 - 1"
+     render in the actual brand blue instead of the site's generic teal, rather than blue showing up
+     as an unrelated new color with no clear role. */
   .arsenal-page{
     --card: #FFFFFF;
     --ink: #1A1A1A;
     --ink-soft: #7A1013;
     --line: rgba(255,255,255,.35);
     --coral: #EF0107;
-    --coral-dark: #9C0710;
-    --gold: #D4AF37;
+    --coral-dark: #DB0007;
+    --gold: #9C824A;
+    --teal: #023474;
     background: #EF0107;
     border-radius: 20px;
     padding: 18px 14px 26px;
@@ -498,6 +504,32 @@
   .arsenal-page .league-table td{ color:var(--ink); }
   .arsenal-page .match-teams,
   .arsenal-page .match-date{ color:var(--ink); }
+
+  /* ---------- Arsenal tile on the homepage sports section — same brand palette,
+     so it reads as unmistakably Arsenal before you even tap into the full page. ---------- */
+  .sports-card{
+    background:#EF0107;
+    border-radius:20px;
+    padding:14px 20px;
+    box-shadow:0 3px 0 rgba(58,42,30,.08);
+    color:#fff;
+  }
+  .sports-card .sports-header .crest{
+    background:#fff;
+    border-radius:50%;
+    padding:6px;
+  }
+  .sports-card .sports-header .name{ color:#fff; }
+  .sports-card .next-fixture{
+    background:rgba(255,255,255,.14);
+    border:1px solid rgba(255,255,255,.3);
+  }
+  .sports-card .next-fixture-row + .next-fixture-row{
+    border-top:1px solid rgba(255,255,255,.3);
+  }
+  .sports-card .next-fixture .label{ color:#9C824A; }
+  .sports-card #nextFixtureText,
+  .sports-card #arsenalCountdown{ color:#fff; }
 
   .domain-group{
     margin-top:14px;
