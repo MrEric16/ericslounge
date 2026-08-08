@@ -475,21 +475,23 @@
   }
 
   /* ---------- Collapsible domain sections (All Domains archive) ---------- */
-  /* ---------- Arsenal page (red/white/gold — an intentional exception to the site palette) ----------
-     Colors match Arsenal FC's official brand palette exactly: primary red #EF0107, dark red #DB0007,
-     Aztec blue #023474, gold #9C824A, white #FFFFFF. Aztec blue is mapped onto --teal because that's
-     the variable match scores (.match-row .match-score) already read from -- so results like "2 - 1"
-     render in the actual brand blue instead of the site's generic teal, rather than blue showing up
-     as an unrelated new color with no clear role. */
+  /* ---------- Arsenal page (red/gold — an intentional exception to the site palette) ----------
+     Colors match Arsenal FC's official brand palette: primary red #EF0107, dark red #DB0007,
+     gold #9C824A. No white anywhere by request -- cards use a darker red (#9C0009) than the
+     page background (#EF0107) so there's still visible layering/depth between page and card,
+     rather than one flat red that reads as a rendering error. Aztec blue (#023474) is NOT used
+     for text on the card background -- tested at 1.38:1 contrast (basically invisible), so
+     score numbers and position numbers use a pale gold (#E8C879, 5.36:1) instead. Aztec blue
+     stays in use elsewhere (the homepage tile's NEXT UP/STARTS IN pill), just not here. */
   .arsenal-page{
-    --card: #FFFFFF;
-    --ink: #1A1A1A;
-    --ink-soft: #7A1013;
-    --line: rgba(255,255,255,.35);
+    --card: #9C0009;
+    --ink: #FFFFFF;
+    --ink-soft: #E8B99A;
+    --line: rgba(232,200,121,.35);
     --coral: #EF0107;
     --coral-dark: #DB0007;
     --gold: #9C824A;
-    --teal: #023474;
+    --teal: #E8C879;
     background: #EF0107;
     border-radius: 20px;
     padding: 18px 14px 26px;
@@ -508,11 +510,11 @@
     border-bottom:1.5px solid #9C824A;
   }
   .arsenal-page table.league-table td{
-    border-bottom:1px solid rgba(156,130,74,.35);
+    border-bottom:1px solid rgba(232,200,121,.35);
   }
-  .arsenal-page table.league-table td.pos{ color:#DB0007; font-weight:700; }
+  .arsenal-page table.league-table td.pos{ color:#E8C879; font-weight:700; }
   .arsenal-page .match-row{
-    border-bottom:1px solid rgba(156,130,74,.35);
+    border-bottom:1px solid rgba(232,200,121,.35);
   }
   /* Arsenal's own row in any league table gets a subtle gold-tinted stripe -- applies
      wherever oneTableHtml() renders Arsenal, not just this page, since seeing your own
@@ -3275,19 +3277,19 @@ function showGoalMatchDetail(idx){
   overlay.id = 'arsenalDetailOverlay';
   overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:10010;display:flex;align-items:center;justify-content:center;padding:20px;';
   overlay.innerHTML = isArsenal ? `
-    <div style="background:#fff;border-radius:16px;overflow:hidden;max-width:360px;width:100%;">
+    <div style="background:#9C0009;border-radius:16px;overflow:hidden;max-width:360px;width:100%;">
       <div style="background:#EF0107;color:#fff;text-align:center;padding:18px 20px 14px;">
         <div style="font-weight:800; font-size:19px;">${teamNameHtml(d.home)} ${d.ftHome} - ${d.ftAway} ${teamNameHtml(d.away)}</div>
         <div style="font-size:12px; opacity:.85; margin-top:2px;">HT ${d.htHome} - ${d.htAway} · FT</div>
       </div>
-      <div style="padding:18px 20px 20px; color:#1A1A1A;">
+      <div style="padding:18px 20px 20px; color:#fff;">
         <div style="display:flex; gap:18px;">
           <div style="flex:1;">
-            <div style="font-weight:700; font-size:12px; text-transform:uppercase; letter-spacing:.03em; color:#9C824A; margin-bottom:6px;">${teamNameHtml(d.home)}</div>
+            <div style="font-weight:700; font-size:12px; text-transform:uppercase; letter-spacing:.03em; color:#E8C879; margin-bottom:6px;">${teamNameHtml(d.home)}</div>
             ${homeGoals}
           </div>
           <div style="flex:1;">
-            <div style="font-weight:700; font-size:12px; text-transform:uppercase; letter-spacing:.03em; color:#9C824A; margin-bottom:6px;">${teamNameHtml(d.away)}</div>
+            <div style="font-weight:700; font-size:12px; text-transform:uppercase; letter-spacing:.03em; color:#E8C879; margin-bottom:6px;">${teamNameHtml(d.away)}</div>
             ${awayGoals}
           </div>
         </div>
