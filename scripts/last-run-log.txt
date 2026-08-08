@@ -11,7 +11,7 @@
 [scrape] calendar 2026-08-16: 3 new event URLs discovered
 [scrape] calendar 2026-08-17: 0 new event URLs discovered
 [scrape] calendar discovery complete: 75 unique event URLs to check
-[scrape]   DEBUG: dumped raw HTML for qimmat page, 137670 chars
+[scrape]   DEBUG: dumped raw HTML for qimmat page, 137627 chars
 [scrape]   DEBUG: dumped raw HTML for madagascar page, 185946 chars
 [scrape] calendar detail pass complete: 257 events kept from 75 pages checked
 [scrape] special-tracked: FAILED to fetch or failed content check for https://www.afisha.uz/ru/cinema/2026/07/16/kinoprazdnik-v-sredu
