@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-07T06:56:21.476857Z",
+  "generatedAt": "2026-08-08T05:33:04.579666Z",
   "teams": [
     {
       "name": "Neftchi Fargona",
@@ -22,6 +22,16 @@
       "pts": 35
     },
     {
+      "name": "Navbahor Namangan",
+      "pld": 16,
+      "w": 8,
+      "d": 4,
+      "l": 4,
+      "gf": 24,
+      "ga": 14,
+      "pts": 28
+    },
+    {
       "name": "Buxoro",
       "pld": 16,
       "w": 8,
@@ -32,16 +42,6 @@
       "pts": 27
     },
     {
-      "name": "Navbahor Namangan",
-      "pld": 15,
-      "w": 7,
-      "d": 4,
-      "l": 4,
-      "gf": 23,
-      "ga": 14,
-      "pts": 25
-    },
-    {
       "name": "OKMK",
       "pld": 15,
       "w": 7,
@@ -49,6 +49,16 @@
       "l": 4,
       "gf": 24,
       "ga": 20,
+      "pts": 25
+    },
+    {
+      "name": "Lok. Tashkent",
+      "pld": 16,
+      "w": 7,
+      "d": 4,
+      "l": 5,
+      "gf": 24,
+      "ga": 22,
       "pts": 25
     },
     {
@@ -62,16 +72,6 @@
       "pts": 24
     },
     {
-      "name": "Lok. Tashkent",
-      "pld": 15,
-      "w": 6,
-      "d": 4,
-      "l": 5,
-      "gf": 22,
-      "ga": 21,
-      "pts": 22
-    },
-    {
       "name": "Andijan",
       "pld": 16,
       "w": 6,
@@ -83,12 +83,12 @@
     },
     {
       "name": "Din. Samarkand",
-      "pld": 15,
+      "pld": 16,
       "w": 6,
       "d": 3,
-      "l": 6,
-      "gf": 24,
-      "ga": 25,
+      "l": 7,
+      "gf": 25,
+      "ga": 27,
       "pts": 21
     },
     {
@@ -99,6 +99,16 @@
       "l": 8,
       "gf": 14,
       "ga": 19,
+      "pts": 19
+    },
+    {
+      "name": "Xorazm Urganch",
+      "pld": 16,
+      "w": 5,
+      "d": 4,
+      "l": 7,
+      "gf": 14,
+      "ga": 22,
       "pts": 19
     },
     {
@@ -113,12 +123,12 @@
     },
     {
       "name": "Termez Surkhon",
-      "pld": 15,
+      "pld": 16,
       "w": 5,
       "d": 3,
-      "l": 7,
+      "l": 8,
       "gf": 15,
-      "ga": 22,
+      "ga": 23,
       "pts": 18
     },
     {
@@ -132,16 +142,6 @@
       "pts": 17
     },
     {
-      "name": "Xorazm Urganch",
-      "pld": 15,
-      "w": 4,
-      "d": 4,
-      "l": 7,
-      "gf": 12,
-      "ga": 22,
-      "pts": 16
-    },
-    {
       "name": "Kokand 1912",
       "pld": 15,
       "w": 2,
@@ -153,16 +153,37 @@
     },
     {
       "name": "Mashal Muborak",
-      "pld": 15,
+      "pld": 16,
       "w": 1,
       "d": 1,
-      "l": 13,
+      "l": 14,
       "gf": 8,
-      "ga": 27,
+      "ga": 29,
       "pts": 4
     }
   ],
   "results": [
+    {
+      "home": "Xorazm Urganch",
+      "away": "Mashal Muborak",
+      "raw_time": "07.08. 15:00",
+      "homeScore": 2,
+      "awayScore": 0
+    },
+    {
+      "home": "Lok. Tashkent",
+      "away": "Din. Samarkand",
+      "raw_time": "07.08. 14:30",
+      "homeScore": 2,
+      "awayScore": 1
+    },
+    {
+      "home": "Termez Surkhon",
+      "away": "Navbahor Namangan",
+      "raw_time": "07.08. 14:00",
+      "homeScore": 0,
+      "awayScore": 1
+    },
     {
       "home": "Pakhtakor",
       "away": "Buxoro",
@@ -281,45 +302,9 @@
       "raw_time": "27.07. 15:00",
       "homeScore": 2,
       "awayScore": 1
-    },
-    {
-      "home": "Bunyodkor",
-      "away": "Pakhtakor",
-      "raw_time": "26.07. 15:00",
-      "homeScore": 0,
-      "awayScore": 1
-    },
-    {
-      "home": "Navbahor Namangan",
-      "away": "Qizilqum",
-      "raw_time": "23.07. 15:00",
-      "homeScore": 1,
-      "awayScore": 1
-    },
-    {
-      "home": "Termez Surkhon",
-      "away": "Din. Samarkand",
-      "raw_time": "23.07. 15:00",
-      "homeScore": 1,
-      "awayScore": 2
     }
   ],
   "fixtures": [
-    {
-      "home": "Termez Surkhon",
-      "away": "Navbahor Namangan",
-      "raw_time": "07.08. 14:00"
-    },
-    {
-      "home": "Lok. Tashkent",
-      "away": "Din. Samarkand",
-      "raw_time": "07.08. 14:30"
-    },
-    {
-      "home": "Xorazm Urganch",
-      "away": "Mashal Muborak",
-      "raw_time": "07.08. 15:00"
-    },
     {
       "home": "Neftchi Fargona",
       "away": "Qizilqum",
@@ -404,6 +389,21 @@
       "home": "Xorazm Urganch",
       "away": "Lok. Tashkent",
       "raw_time": "20.08. 15:00"
+    },
+    {
+      "home": "Navbahor Namangan",
+      "away": "Nasaf Qarshi",
+      "raw_time": "21.08. 15:00"
+    },
+    {
+      "home": "Pakhtakor",
+      "away": "Termez Surkhon",
+      "raw_time": "21.08. 15:00"
+    },
+    {
+      "home": "Neftchi Fargona",
+      "away": "Sogdiana",
+      "raw_time": "23.08. 15:00"
     }
   ]
 }
