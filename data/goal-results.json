@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-09T14:06:28.054560Z",
+  "generatedAt": "2026-08-09T15:58:26.304643Z",
   "results": [
     {
       "url": "https://www.goal.com/en/match/girona-vs-arsenal/__LS8d9Oc6I1wXn9g8956",
@@ -65,6 +65,19 @@
           "minute": 43
         }
       ],
+      "competition": "arsenal-friendlies"
+    },
+    {
+      "url": "https://www.goal.com/en/match/arsenal-vs-borussia-dortmund/Vm0njaYO9VJtjFK619x1D",
+      "date": "2026-08-09",
+      "home": "Arsenal",
+      "away": "Borussia Dortmund",
+      "htHome": 0,
+      "htAway": 2,
+      "ftHome": 2,
+      "ftAway": 3,
+      "homeGoals": [],
+      "awayGoals": [],
       "competition": "arsenal-friendlies"
     }
   ]

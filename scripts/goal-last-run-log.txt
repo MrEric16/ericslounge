@@ -1,5 +1,11 @@
 [goal-scraper] Run started.
 [goal-scraper] [arsenal-friendlies] Found 1 finished-match links
+[goal-scraper] WARNING: could not assign scorer 'E. Nwaneri' to home or away for https://www.goal.com/en/match/arsenal-vs-borussia-dortmund/Vm0njaYO9VJtjFK619x1D
+[goal-scraper] WARNING: could not assign scorer 'V. Gyoekeres' to home or away for https://www.goal.com/en/match/arsenal-vs-borussia-dortmund/Vm0njaYO9VJtjFK619x1D
+[goal-scraper] WARNING: could not assign scorer 'S. Inacio' to home or away for https://www.goal.com/en/match/arsenal-vs-borussia-dortmund/Vm0njaYO9VJtjFK619x1D
+[goal-scraper] WARNING: could not assign scorer 'K. Karetsas' to home or away for https://www.goal.com/en/match/arsenal-vs-borussia-dortmund/Vm0njaYO9VJtjFK619x1D
+[goal-scraper] WARNING: could not assign scorer 'J. Gadou' to home or away for https://www.goal.com/en/match/arsenal-vs-borussia-dortmund/Vm0njaYO9VJtjFK619x1D
+[goal-scraper] [arsenal-friendlies] Added: Arsenal 2-3 Borussia Dortmund
 [goal-scraper] [PL] Found 0 finished-match links
 [goal-scraper] [PD] Found 0 finished-match links
 [goal-scraper] [BL1] Found 0 finished-match links
@@ -9,5 +15,5 @@
 [goal-scraper] WARNING: could not assign scorer 'O. Dembele' to home or away for https://www.goal.com/en/match/paris-saint-germain-vs-arsenal/ugWugY2_bPeXkOmUCLC9s
 [goal-scraper] WARNING: could not assign scorer 'K. Havertz' to home or away for https://www.goal.com/en/match/paris-saint-germain-vs-arsenal/ugWugY2_bPeXkOmUCLC9s
 [goal-scraper] [CL] Skipping stale match (older than 45 days): Paris Saint Germain vs Arsenal on 2026-05-30
-[goal-scraper] TOTAL new results added this run: 0
+[goal-scraper] TOTAL new results added this run: 1
 [goal-scraper] Wrote data/goal-results.json
