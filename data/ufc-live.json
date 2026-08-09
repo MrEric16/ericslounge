@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-08T05:57:00.739127+00:00",
+  "generatedAt": "2026-08-09T05:58:23.237211+00:00",
   "scheduled": [
     {
       "name": "UFC 333",
@@ -66,15 +66,15 @@
       "date_text": "Aug 15, 2026",
       "venue": "Xfinity Mobile Arena",
       "location": "Philadelphia,Pennsylvania, U.S."
-    },
+    }
+  ],
+  "past": [
     {
       "name": "UFC Fight Night: Gamrot vs. Salkilld",
       "date_text": "Aug 8, 2026",
       "venue": "Meta Apex",
       "location": "Las Vegas,Nevada, U.S."
-    }
-  ],
-  "past": [
+    },
     {
       "name": "UFC Fight Night: Medić vs. Rodriguez",
       "date_text": "Aug 1, 2026",
@@ -158,12 +158,6 @@
       "date_text": "Apr 18, 2026",
       "venue": "Canada Life Centre",
       "location": "Winnipeg,Manitoba, Canada"
-    },
-    {
-      "name": "UFC 327: Procházka vs. Ulberg",
-      "date_text": "Apr 11, 2026",
-      "venue": "Kaseya Center",
-      "location": "Miami, Florida, U.S."
     }
   ]
 }
