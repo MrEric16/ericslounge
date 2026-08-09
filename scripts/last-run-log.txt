@@ -12,6 +12,9 @@
 [scrape] calendar 2026-08-18: 2 new event URLs discovered
 [scrape] calendar discovery complete: 63 unique event URLs to check
 [scrape]   DEBUG: dumped raw HTML for qimmat page, 137627 chars
+[scrape] Translation failed for 'Спектакль «Как Колобок ума-разума набира': Спектакль «Как Колобок ума-разума набирался» --> No translation was found using the current translator. Try another translator?
+[scrape] Translation failed for 'Спектакль «Колыбельная для Белоснежки»': Спектакль «Колыбельная для Белоснежки» --> No translation was found using the current translator. Try another translator?
+[scrape] Translation failed for 'Музыкальный фонтан в парке Magic City': Музыкальный фонтан в парке Magic City --> No translation was found using the current translator. Try another translator?
 [scrape]   DEBUG: dumped raw HTML for madagascar page, 184884 chars
 [scrape] calendar detail pass complete: 243 events kept from 63 pages checked
 [scrape] special-tracked: FAILED to fetch or failed content check for https://www.afisha.uz/ru/cinema/2026/07/16/kinoprazdnik-v-sredu
@@ -21,5 +24,5 @@
 [scrape] ticketon.uz: CONFIRMED BLOCKED (Cloudflare challenge, page title='Just a moment...'). 0 events -- this is expected, not a bug to fix.
 [scrape] eventbrite.com: CONFIRMED BLOCKED (AWS WAF CAPTCHA, page title='Human Verification'). 0 events -- this is expected, not a bug to fix. Same category of block as ticketon.uz.
 [scrape] eventbrite.com: 0 events found (dates NOT yet parsed -- see note in script)
-[scrape] TOTAL before dedup: 258  |  after dedup: 169
+[scrape] TOTAL before dedup: 258  |  after dedup: 187
 [scrape] Wrote data/events-tashkent.json
