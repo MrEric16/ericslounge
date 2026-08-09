@@ -13,8 +13,6 @@
 [scrape] calendar discovery complete: 45 unique event URLs to check
 [scrape]   DEBUG: dumped raw HTML for qimmat page, 137627 chars
 [scrape]   DEBUG: dumped raw HTML for madagascar page, 184927 chars
-[scrape] Translation failed for 'Open-air концерт Amirsoy Paradiso': Open-air концерт Amirsoy Paradiso --> No translation was found using the current translator. Try another translator?
-[scrape] Translation failed for 'Лекция о композиторе XX века Дмитрии Шос': Лекция о композиторе XX века Дмитрии Шостаковиче --> No translation was found using the current translator. Try another translator?
 [scrape] calendar detail pass complete: 218 events kept from 45 pages checked
 [scrape] special-tracked: FAILED to fetch or failed content check for https://www.afisha.uz/ru/cinema/2026/07/16/kinoprazdnik-v-sredu
 [scrape] iticket.uz cat=concert: 8 events kept
