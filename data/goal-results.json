@@ -76,8 +76,30 @@
       "htAway": 2,
       "ftHome": 2,
       "ftAway": 3,
-      "homeGoals": [],
-      "awayGoals": [],
+      "homeGoals": [
+        {
+          "scorer": "E. Nwaneri",
+          "minute": 55
+        },
+        {
+          "scorer": "V. Gyokeres",
+          "minute": 69
+        }
+      ],
+      "awayGoals": [
+        {
+          "scorer": "S. Inacio",
+          "minute": 7
+        },
+        {
+          "scorer": "K. Karetsas",
+          "minute": 29
+        },
+        {
+          "scorer": "J. Gadou",
+          "minute": 59
+        }
+      ],
       "competition": "arsenal-friendlies"
     }
   ]
