@@ -728,6 +728,54 @@
     flex:1;
     min-width:0;
   }
+  /* ---- Dictionary card (built into Search) ---- */
+  .dict-card{
+    background:var(--card);
+    border-radius:16px;
+    padding:16px 18px;
+    box-shadow:0 2px 0 rgba(58,42,30,.06);
+  }
+  .dict-card-head{
+    display:flex;
+    align-items:flex-start;
+    justify-content:space-between;
+    gap:10px;
+    margin-bottom:10px;
+  }
+  .dict-word{
+    font-weight:800;
+    font-size:19px;
+    color:var(--ink);
+    text-transform:capitalize;
+  }
+  .dict-pos{
+    font-family:'Space Mono', monospace;
+    font-size:11px;
+    font-weight:700;
+    text-transform:uppercase;
+    letter-spacing:.04em;
+    color:var(--ink-soft);
+    margin-left:8px;
+  }
+  .dict-save-btn{ flex-shrink:0; }
+  .dict-section{ margin-top:10px; }
+  .dict-section:first-of-type{ margin-top:0; }
+  .dict-label{
+    font-family:'Space Mono', monospace;
+    font-size:10px;
+    font-weight:700;
+    text-transform:uppercase;
+    letter-spacing:.04em;
+    color:var(--coral-dark);
+    margin-bottom:3px;
+  }
+  .dict-text{
+    font-size:14px;
+    color:var(--ink);
+    line-height:1.5;
+  }
+  .dict-example{ font-style:italic; color:var(--ink-soft); }
+
   .tag{
     flex:0 0 120px;
     width:120px;
@@ -5912,6 +5960,7 @@ function viewSearch(){
     <section style="padding-top:14px;">
       <div class="section-head"><span class="emoji">${icon('search')}</span><h2>Search</h2></div>
       <input class="search-input" id="searchInput" type="text" placeholder="Search everything…" autofocus>
+      <div id="dictCard" style="margin-top:14px;"></div>
       <div id="searchResults" style="margin-top:20px;"></div>
     </section>
   `;
@@ -5972,9 +6021,117 @@ function exploreResultsHtml(list){
   }).join('');
 }
 
+/* ---- Dictionary lookup (built into search, not a separate feature) ----
+   Triggers only when the query looks like a single real word (letters only, no spaces,
+   length >= 2) -- typing a phrase or a multi-word query never fires this. Two APIs, both
+   free/keyless: dictionaryapi.dev for definition + example (reliable for these), Datamuse
+   for synonyms/antonyms via rel_syn/rel_ant (dictionaryapi.dev's own synonym/antonym
+   arrays are frequently just empty [] in real responses -- confirmed by checking actual
+   API output before building this, not assumed -- so a second, purpose-built source is
+   used instead of shipping a feature that silently shows nothing half the time).
+   Deliberately no pronunciation/phonetics anywhere in this feature, per explicit request. */
+function isDictLookupCandidate(q){
+  return /^[a-zA-Z]{2,}$/.test(q);
+}
+async function fetchWordEntry(word){
+  const cacheKey = 'dictword_' + word.toLowerCase();
+  try{
+    const cached = localStorage.getItem(cacheKey);
+    if(cached) return JSON.parse(cached);
+  }catch(e){}
+
+  let defData = null, synData = null, antData = null;
+  try{
+    const [defRes, synRes, antRes] = await Promise.allSettled([
+      fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${encodeURIComponent(word)}`).then(r => r.ok ? r.json() : null),
+      fetch(`https://api.datamuse.com/words?rel_syn=${encodeURIComponent(word)}&max=6`).then(r => r.ok ? r.json() : []),
+      fetch(`https://api.datamuse.com/words?rel_ant=${encodeURIComponent(word)}&max=6`).then(r => r.ok ? r.json() : []),
+    ]);
+    defData = defRes.status === 'fulfilled' ? defRes.value : null;
+    synData = synRes.status === 'fulfilled' ? synRes.value : [];
+    antData = antRes.status === 'fulfilled' ? antRes.value : [];
+  }catch(e){ return null; }
+
+  if(!defData || !Array.isArray(defData) || defData.length === 0) return null; // word not found
+
+  const meanings = defData[0].meanings || [];
+  if(meanings.length === 0) return null;
+  const firstMeaning = meanings[0];
+  const firstDef = (firstMeaning.definitions || [])[0];
+  if(!firstDef) return null;
+
+  // The first definition often lacks its own example even when a later one in the same
+  // entry has one -- search all definitions across all meanings for the first example
+  // available, rather than showing nothing when one genuinely exists.
+  let example = firstDef.example || null;
+  if(!example){
+    outer: for(const m of meanings){
+      for(const d of (m.definitions || [])){
+        if(d.example){ example = d.example; break outer; }
+      }
+    }
+  }
+
+  const entry = {
+    word: defData[0].word || word,
+    partOfSpeech: firstMeaning.partOfSpeech || '',
+    definition: firstDef.definition || '',
+    example: example,
+    synonyms: (synData || []).map(x => x.word).slice(0, 6),
+    antonyms: (antData || []).map(x => x.word).slice(0, 6),
+  };
+  try{ localStorage.setItem(cacheKey, JSON.stringify(entry)); }catch(e){}
+  return entry;
+}
+function dictCardHtml(entry){
+  const key = 'word:' + entry.word.toLowerCase();
+  const saved = isBookmarked(key);
+  return `
+    <div class="dict-card">
+      <div class="dict-card-head">
+        <div>
+          <span class="dict-word">${escapeHtml(entry.word)}</span>
+          ${entry.partOfSpeech ? `<span class="dict-pos">${escapeHtml(entry.partOfSpeech)}</span>` : ''}
+        </div>
+        <button class="bookmark-btn dict-save-btn ${saved ? 'active' : ''}" title="Save word">${saved ? icon('bookmarkFilled') : icon('bookmark')}</button>
+      </div>
+      <div class="dict-section">
+        <div class="dict-label">Definition</div>
+        <div class="dict-text">${escapeHtml(entry.definition)}</div>
+      </div>
+      ${entry.example ? `
+      <div class="dict-section">
+        <div class="dict-label">Example</div>
+        <div class="dict-text dict-example">"${escapeHtml(entry.example)}"</div>
+      </div>` : ''}
+      ${entry.synonyms.length ? `
+      <div class="dict-section">
+        <div class="dict-label">Synonyms</div>
+        <div class="dict-text">${entry.synonyms.map(escapeHtml).join(', ')}</div>
+      </div>` : ''}
+      ${entry.antonyms.length ? `
+      <div class="dict-section">
+        <div class="dict-label">Antonyms</div>
+        <div class="dict-text">${entry.antonyms.map(escapeHtml).join(', ')}</div>
+      </div>` : ''}
+    </div>
+  `;
+}
+function wireDictCard(container, entry){
+  const btn = container.querySelector('.dict-save-btn');
+  if(!btn) return;
+  btn.addEventListener('click', ()=>{
+    const item = { key: 'word:' + entry.word.toLowerCase(), type:'word', word: entry.word, partOfSpeech: entry.partOfSpeech, definition: entry.definition, example: entry.example, synonyms: entry.synonyms, antonyms: entry.antonyms };
+    const nowSaved = toggleBookmark(item);
+    btn.classList.toggle('active', nowSaved);
+    btn.innerHTML = nowSaved ? icon('bookmarkFilled') : icon('bookmark');
+  });
+}
+
 function wireSearch(container){
   const input = container.querySelector('#searchInput');
   const results = container.querySelector('#searchResults');
+  const dictCard = container.querySelector('#dictCard');
   if(!input || !results) return;
 
   // Faculties are searchable by name too, jumping straight to that domain's page.
@@ -5983,8 +6140,32 @@ function wireSearch(container){
   }));
   const allPages = [...SEARCHABLE_PAGES, ...facultyPages];
 
+  // Dictionary lookup runs on a debounce, completely separate from the instant local-array
+  // filtering below -- typing normally shouldn't fire a network request per keystroke, and
+  // a network lookup completing slightly after the local results render is fine since it's
+  // a distinct card, not something the local results need to wait on.
+  let dictDebounceTimer = null;
+  let dictRequestId = 0;
+  function handleDictLookup(q){
+    clearTimeout(dictDebounceTimer);
+    if(!dictCard) return;
+    if(!isDictLookupCandidate(q)){
+      dictCard.innerHTML = '';
+      return;
+    }
+    const thisRequestId = ++dictRequestId;
+    dictDebounceTimer = setTimeout(async ()=>{
+      const entry = await fetchWordEntry(q);
+      if(thisRequestId !== dictRequestId) return; // a newer keystroke has since superseded this lookup
+      if(!entry){ dictCard.innerHTML = ''; return; }
+      dictCard.innerHTML = dictCardHtml(entry);
+      wireDictCard(dictCard, entry);
+    }, 450);
+  }
+
   input.addEventListener('input', ()=>{
     const q = input.value.trim().toLowerCase();
+    handleDictLookup(q);
     if(q.length === 0){
       results.innerHTML = '';
       return;
@@ -6339,13 +6520,14 @@ function viewSaved(){
   const savedArticles = saved.filter(b => b.type === 'article' || (!b.type && b.url && !b.videoId));
   const savedVideos = saved.filter(b => b.type === 'video');
   const savedInstruments = saved.filter(b => b.type === 'instrument');
+  const savedWords = saved.filter(b => b.type === 'word');
 
   if(saved.length === 0){
     return `
       <a class="back-link" href="#">← Back to Mr Eric's Lounge</a>
       <section style="padding-top:14px;">
         <div class="section-head"><span class="emoji">${icon('bookmark')}</span><h2>Saved</h2></div>
-        <div class="empty-card">Nothing saved yet. Tap the bookmark icon on any article, video, or instrument to save it here.</div>
+        <div class="empty-card">Nothing saved yet. Tap the bookmark icon on any article, video, instrument, or word to save it here.</div>
       </section>
     `;
   }
@@ -6361,6 +6543,7 @@ function viewSaved(){
       ${savedArticles.length ? `<h3 style="margin:16px 0 8px;">Articles</h3>${dispatchListHtml(asDispatches)}` : ''}
       ${savedVideos.length ? `<h3 style="margin:20px 0 8px;">Videos</h3><div class="watch-grid">${watchGridHtml(asVideos, 'saved')}</div>` : ''}
       ${savedInstruments.length ? `<h3 style="margin:20px 0 8px;">Instruments</h3>${exploreResultsHtml(asInstruments)}` : ''}
+      ${savedWords.length ? `<h3 style="margin:20px 0 8px;">Words</h3><div id="savedWordsContainer" style="display:flex; flex-direction:column; gap:10px;">${savedWords.map(dictCardHtml).join('')}</div>` : ''}
     </section>
   `;
 }
@@ -7652,6 +7835,12 @@ function renderRoute(opts){
   wireEntryActions(app);
   if(parts[0] === 'photos'){ wirePhotoLightbox(app); wirePhotoUpload(app); loadSubmittedPhotos(); }
   if(parts[0] === 'search'){ wireSearch(app); loadTashkentEvents(); loadVirtualEvents(); }
+  if(parts[0] === 'saved'){
+    const savedWords = getBookmarks().filter(b => b.type === 'word');
+    app.querySelectorAll('#savedWordsContainer .dict-card').forEach((cardEl, i) => {
+      if(savedWords[i]) wireDictCard(cardEl, savedWords[i]);
+    });
+  }
   if(parts[0] === 'install'){ wireInstallPage(); }
   if(parts[0] === 'stats'){ loadStats(); }
   if(parts[0] === 'events-tashkent'){ loadTashkentEvents(); }
