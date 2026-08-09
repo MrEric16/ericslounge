@@ -3252,7 +3252,16 @@ async function loadGoalResults(){
     results = matches.results.length > 0 ? matches.results : ((staticLeague && staticLeague.results) || []);
   }
   if(results !== null){
+    // The "2" badge next to "Results" in the summary header is a sibling of this
+    // container, not part of it -- outerHTML-replacing #resultsDetailContainer alone
+    // never touches it, so it was staying frozen at whatever count existed on first
+    // paint (before this async fetch resolved) forever after. Real bug, real report:
+    // 3 results showing under a badge that still said "2". Captured before the swap
+    // since el itself gets replaced, but the badge is a separate element untouched by
+    // that replacement, so updating it after is safe.
+    const countBadge = el.closest('.domain-group') ? el.closest('.domain-group').querySelector('.domain-count') : null;
     el.outerHTML = resultsWithDetailHtml(results, parts[0] === 'arsenal');
+    if(countBadge) countBadge.textContent = results.length;
   }
 }
 
