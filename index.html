@@ -320,12 +320,9 @@
     flex-shrink:0;
     cursor:pointer;
   }
-  .tile-logo span{ border-radius:6px; display:block; }
-  .tile-logo .tl-1{ background:#5C2530; grid-column:1/3; grid-row:1/3; }
-  .tile-logo .tl-2{ background:var(--gold); }
-  .tile-logo .tl-3{ background:var(--line); }
-  .tile-logo .tl-4{ background:var(--coral); grid-column:1/3; }
-  .tile-logo .tl-5{ background:var(--teal); }
+  .tile-logo span{ border-radius:6px; display:block; transition:background 1.1s ease; }
+  .tile-logo .tl-1{ grid-column:1/3; grid-row:1/3; }
+  .tile-logo .tl-4{ grid-column:1/3; }
   @keyframes tile-combo{
     0%{ transform:translate(0,0) scale(1); border-radius:6px; filter:brightness(1); }
     15%{ transform:translate(1px,-2px) scale(1.12); border-radius:14px; filter:brightness(1.25); }
@@ -8090,6 +8087,47 @@ function checkAchievements(){
     }
   }catch(e){}
 }
+
+/* ---- Logo tile colors: cycle through the full site palette so the mosaic logo pulses
+   through every domain and misc-page color over time, rather than sitting on 5 fixed
+   colors forever. Each tile has its own interval matched to its own pulse-scale animation
+   duration (already staggered in CSS: 3.8s/3.2s/4.1s/3.5s/3.0s) so the color shift lands
+   roughly on the same beat as the shape pulse, feeling like one integrated animation
+   rather than two unrelated things happening on top of each other. Colors fade via CSS
+   transition (see .tile-logo span) rather than snapping, for the "flow gently" effect. */
+(function(){
+  const LOGO_PALETTE = [
+    '#334247','#495C83','#3F425F','#516E9E', // Serious/Institutional
+    '#4C2F7F','#6C388A','#85389F', // Modern/Technical
+    '#1C2554','#2E6B8A','#47B8B8','#2E7664', // Blue-dominant Science
+    '#933978','#5A3F30','#337231','#B67C2B', // Human/warm
+    '#C22E32', // Languages
+    '#74253F','#C5C936','#596534','#2B824B','#A63061', // misc pages
+  ];
+  const prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const tiles = [
+    { el: document.querySelector('.tile-logo .tl-1'), duration: 3800 },
+    { el: document.querySelector('.tile-logo .tl-2'), duration: 3200 },
+    { el: document.querySelector('.tile-logo .tl-3'), duration: 4100 },
+    { el: document.querySelector('.tile-logo .tl-4'), duration: 3500 },
+    { el: document.querySelector('.tile-logo .tl-5'), duration: 3000 },
+  ];
+  function randomColorExcluding(last){
+    let c;
+    do{ c = LOGO_PALETTE[Math.floor(Math.random() * LOGO_PALETTE.length)]; }while(c === last && LOGO_PALETTE.length > 1);
+    return c;
+  }
+  tiles.forEach(t => {
+    if(!t.el) return;
+    let last = randomColorExcluding(null);
+    t.el.style.background = last;
+    if(prefersReducedMotion) return; // static color, no cycling, respects the OS setting
+    setInterval(() => {
+      last = randomColorExcluding(last);
+      t.el.style.background = last;
+    }, t.duration);
+  });
+})();
 
 /* ---- Tittle cycle: the dot on the i alternates every second between its resting
    olive state and every icon in the site's icon library (34 total), cycling through.
