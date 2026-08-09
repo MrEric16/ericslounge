@@ -2480,13 +2480,18 @@ const DISPATCHES = [
 // updating. Re-sync from the calendar periodically (or whenever asked) to keep this fed.
 // football-data.org's free tier only covers official competitions (Premier League,
 // Champions League, etc.) -- pre-season friendlies are NOT tracked by the API at all,
-// confirmed by checking their coverage docs directly (2026-08-02). This means results
-// for the 4 pre-season friendlies below can NEVER come from the live API automatically,
-// no matter how the fetch/cache logic is written -- they have to be entered by hand as
-// each one is confirmed from real match reports, same pattern as the Uzbek league.
+// confirmed by checking their coverage docs directly (2026-08-02).
+//
+// UPDATE 2026-08-09: friendly RESULTS no longer need manual entry -- see arsenalAllResults()
+// below, which now pulls friendlies from GOAL_RESULTS (scripts/scrape_goal_results.py /
+// data/goal-results.json) automatically. That scraper already runs on the same schedule as
+// everything else and picks up final scores + full scorer detail within hours of full time,
+// with zero manual step. This array is kept only as a fallback for the rare case the goal.com
+// scraper misses a match -- it is NOT the primary path anymore, unlike when this comment
+// previously (incorrectly, as of this update) said results "have to be entered by hand."
 // Once the real Premier League season starts (Arsenal v Coventry, Aug 22), those matches
-// ARE covered by the API and will update automatically -- see the kickoff+120min check
-// in loadLiveSportsData().
+// ARE covered by football-data.org's API directly -- see the kickoff+120min check in
+// loadLiveSportsData().
 const ARSENAL_FRIENDLY_RESULTS = [
   { home:"Girona", away:"Arsenal", homeScore:1, awayScore:4, start:"2026-08-01T23:00:00+05:00", finished:true },
   { home:"Arsenal", away:"Real Betis", homeScore:1, awayScore:3, start:"2026-08-05T23:30:00+05:00", finished:true },
@@ -3167,19 +3172,42 @@ async function loadLiveSportsData(){
   const arsTableEl = document.getElementById('arsenalTableContainer');
   if(arsTableEl) arsTableEl.innerHTML = oneTableHtml(SPORTS_LEAGUES[0].teams);
 }
-// Merges live API-sourced results with the manually-entered friendly results
-// (see ARSENAL_FRIENDLY_RESULTS comment for why friendlies can't come from the API),
-// deduped by team pairing + date so a friendly that somehow later appears via the API
-// doesn't show twice, sorted newest first.
+// Merges three sources of Arsenal results, in priority order, deduped by team pairing +
+// date so the same match never appears twice even if it exists in more than one source:
+//   1. live      -- football-data.org API (window._sportsCache.arsenalResults). Only ever
+//                   covers official competitions (Premier League, Champions League, etc).
+//   2. goalFriendly -- scripts/scrape_goal_results.py (data/goal-results.json), filtered to
+//                   competition:"arsenal-friendlies". This is the actual fix for pre-season
+//                   friendlies: football-data.org's free tier confirmed NOT to cover
+//                   friendlies at all (checked 2026-08-02), but goal.com's own scraper
+//                   picks them up independently and already had the Aug 9 Dortmund result
+//                   within 3 hours of full time, before anyone noticed it was missing from
+//                   this list. goal.com's data has no kickoff time (bare date only), so the
+//                   real kickoff is cross-referenced from ARSENAL_FIXTURES for display,
+//                   rather than fabricating a placeholder time that would misrepresent it.
+//   3. staticFriendly -- ARSENAL_FRIENDLY_RESULTS, the old hand-typed fallback. Kept as a
+//                   safety net in case the goal.com scraper ever misses or is delayed on a
+//                   given friendly, but is no longer the primary path -- previously this
+//                   was the ONLY path, requiring a manual edit after every single friendly.
 function arsenalAllResults(){
   const live = (window._sportsCache && window._sportsCache.arsenalResults) || [];
-  const friendly = ARSENAL_FRIENDLY_RESULTS.map(m => ({
+  const goalFriendly = GOAL_RESULTS
+    .filter(d => d.competition === 'arsenal-friendlies')
+    .map(d => {
+      const fixtureMatch = ARSENAL_FIXTURES.find(f => f.start.slice(0,10) === d.date);
+      return {
+        home: d.home, away: d.away, homeScore: d.ftHome, awayScore: d.ftAway,
+        start: fixtureMatch ? fixtureMatch.start : `${d.date}T12:00:00+05:00`,
+        finished: true,
+      };
+    });
+  const staticFriendly = ARSENAL_FRIENDLY_RESULTS.map(m => ({
     home: m.home, away: m.away, homeScore: m.homeScore, awayScore: m.awayScore,
     start: m.start, finished: true,
   }));
   const seen = new Set();
   const merged = [];
-  [...live, ...friendly].forEach(m => {
+  [...live, ...goalFriendly, ...staticFriendly].forEach(m => {
     const key = `${m.home}|${m.away}|${m.start.slice(0,10)}`;
     if(seen.has(key)) return;
     seen.add(key);
