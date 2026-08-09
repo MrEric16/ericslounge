@@ -3299,8 +3299,16 @@ function showGoalMatchDetail(idx){
   // other league's match popup would wrongly turn red too.
   const isArsenal = !!window._goalDetailIsArsenal;
   const goalLine = g => `<div style="font-size:13px; padding:3px 0;">${escapeHtml(g.scorer)} <span style="opacity:.6;">${g.minute}'</span></div>`;
-  const homeGoals = d.homeGoals.length ? d.homeGoals.map(goalLine).join('') : '<div style="font-size:13px; opacity:.5;">No goals</div>';
-  const awayGoals = d.awayGoals.length ? d.awayGoals.map(goalLine).join('') : '<div style="font-size:13px; opacity:.5;">No goals</div>';
+  // Never render "No goals" for a side whose actual final score is above zero -- that's
+  // not "no goals," that's the scraper failing to extract scorer names while still getting
+  // the score right (happened for real: Arsenal 2-3 Dortmund showed "No goals" under both
+  // teams despite the scoreline proving 5 goals were scored). Distinguishing a genuine
+  // scoreless side from a data gap matters -- one is a fact about the match, the other is
+  // this site being wrong, and the two should never look identical to the person reading it.
+  const homeEmptyLabel = d.ftHome > 0 ? 'Goal detail unavailable' : 'No goals';
+  const awayEmptyLabel = d.ftAway > 0 ? 'Goal detail unavailable' : 'No goals';
+  const homeGoals = d.homeGoals.length ? d.homeGoals.map(goalLine).join('') : `<div style="font-size:13px; opacity:.5;">${homeEmptyLabel}</div>`;
+  const awayGoals = d.awayGoals.length ? d.awayGoals.map(goalLine).join('') : `<div style="font-size:13px; opacity:.5;">${awayEmptyLabel}</div>`;
   const overlay = document.createElement('div');
   overlay.id = 'arsenalDetailOverlay';
   overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:10010;display:flex;align-items:center;justify-content:center;padding:20px;';
