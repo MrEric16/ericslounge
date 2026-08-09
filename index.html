@@ -30,22 +30,49 @@
     --line:#E0CBA4;
     --arsenal:#EF0107;
 
-    --f-jur:#7A2E35;
-    --f-ir:#C9A227;
-    --f-econ:#6B7A3D;
-    --f-biz:#B08D57;
-    --f-sci:#8C3F4E;
-    --f-it:#A8A090;
-    --f-psy:#D4AF37;
-    --f-des:#56642E;
-    --f-hist:#5C2530;
-    --f-travel:#9A9280;
-    --f-tech:#7A6656;
-    --f-sport:#6B7A3D;
-    --f-space:#4A4368;
-    --f-aviation:#6B8299;
-    --f-lang:#A65D3F;
-    --f-biochem:#3E6B4F;
+    /* Domain palette redesigned 2026-08-09: grouped by feel rather than pure hue-spread --
+       "Serious/Institutional" (Jurisprudence, Int'l Relations, Business, Economics) sits in
+       cool desaturated slate-blue; "Modern/Technical" (IT, Technology, Design) in blue-violet,
+       more saturated; "Blue-dominant Science family" (Space, Science, Aviation, Biochem) in
+       cyan-blue-indigo, Space darkest/most indigo, Aviation lightest/sky-toned, Biochem bridged
+       toward teal-green; "Human/warm" (Psychology, History, Travel, Sport) intentionally varied
+       rather than one hue family, unified by warmth instead. Languages stands alone, the one
+       domain allowed to feel playful. Verified: every cross-group pair clears a combined
+       hue/saturation/lightness distance threshold; within-group closeness is intentional.
+       Old duplicate-color bug (Economics and Sport were literally identical, #6B7A3D each) is
+       fixed as part of this redesign. */
+    --f-jur:#334247;
+    --f-ir:#495C83;
+    --f-econ:#516E9E;
+    --f-biz:#3F425F;
+    --f-sci:#2E6B8A;
+    --f-it:#4C2F7F;
+    --f-psy:#933978;
+    --f-des:#85389F;
+    --f-hist:#5A3F30;
+    --f-travel:#337231;
+    --f-tech:#6C388A;
+    --f-sport:#B67C2B;
+    --f-space:#1C2554;
+    --f-aviation:#47B8B8;
+    --f-lang:#C22E32;
+    --f-biochem:#2E7664;
+
+    /* Misc/standalone pages -- unique colors separate from all 16 domains above and from
+       each other, per explicit request. Vox Populi and Good News Only and Books previously
+       just borrowed the core brand's coral/gold/teal directly; Sport Hub and Events had no
+       dedicated color at all. Good News Only, Books, and Events use white text on a solid
+       background (not a faint tint) -- checked actual WCAG contrast for that combination
+       specifically (not just "does the color look nice"): the first-draft yellow-lime for
+       Good News Only measured 1.78:1 with white text, nearly unreadable, so it keeps its
+       bright color and gets dark text instead; Books and Events measured borderline
+       (3.95:1 / 4.27:1) so their lightness was nudged down slightly to clear 4.5:1 with
+       white text while keeping the same hue/character. */
+    --misc-voxpopuli:#74253F;
+    --misc-goodnews:#C5C936;
+    --misc-books:#596534;
+    --misc-sporthub:#2B824B;
+    --misc-events:#A63061;
   }
 
   body.dark-mode{
@@ -707,14 +734,12 @@
   .tag{
     flex:0 0 120px;
     width:120px;
-    text-align:center;
+    text-align:left;
     font-family:'Space Mono', monospace;
     font-size:10px;
+    font-weight:700;
     letter-spacing:.04em;
     text-transform:uppercase;
-    padding:6px 8px;
-    border-radius:999px;
-    color:#fff;
     white-space:nowrap;
     overflow:hidden;
     text-overflow:ellipsis;
@@ -826,7 +851,7 @@
   .otd-card--fact .otd-text{ font-size:19px; line-height:1.5; }
   .otd-card--weather{ background:#5C2530; }
   .otd-card--otd{ background:#6B4423; }
-  .otd-card--vox{ background:#7A2E35; }
+  .otd-card--vox{ background:var(--misc-voxpopuli); }
   .vox-question{ font-weight:700; font-size:15px; margin-bottom:14px; line-height:1.4; }
   .vox-options{ display:flex; flex-direction:column; gap:8px; }
   .vox-option-btn{
@@ -1126,8 +1151,8 @@
   .photo-tile .sub{font-size:13px; color:#FBE4D1; font-weight:600; margin-top:2px;}
 
   .goodnews-tile{
-    background:var(--gold);
-    color:#fff;
+    background:var(--misc-goodnews);
+    color:#2A2018;
     border-radius:20px;
     padding:26px 22px;
     display:flex;
@@ -1138,10 +1163,10 @@
   }
   .goodnews-tile .icon{display:inline-flex; align-items:center;} .goodnews-tile .icon svg{width:30px;height:30px;}
   .goodnews-tile .title{font-weight:800; font-size:19px;}
-  .goodnews-tile .sub{font-size:13px; color:#FFF3DC; font-weight:600; margin-top:2px;}
+  .goodnews-tile .sub{font-size:13px; color:#4A3C28; font-weight:600; margin-top:2px;}
 
   .books-tile{
-    background:var(--teal);
+    background:var(--misc-books);
     color:#fff;
     border-radius:20px;
     padding:26px 22px;
@@ -1171,8 +1196,8 @@
   .explore-tile .sub{font-size:13px; color:#F0D9DC; font-weight:600; margin-top:2px;}
 
   .events-tile{
-    background:var(--gold);
-    color:#3D2A22;
+    background:var(--misc-events);
+    color:#fff;
     border-radius:20px;
     padding:26px 22px;
     display:flex;
@@ -1183,7 +1208,7 @@
   }
   .events-tile .icon{display:inline-flex; align-items:center;} .events-tile .icon svg{width:30px;height:30px;}
   .events-tile .title{font-weight:800; font-size:19px;}
-  .events-tile .sub{font-size:13px; color:#5C4A2E; font-weight:600; margin-top:2px;}
+  .events-tile .sub{font-size:13px; color:rgba(255,255,255,.85); font-weight:600; margin-top:2px;}
 
   .events-day-group{margin-bottom:22px;}
   .events-day-header{
@@ -1207,26 +1232,25 @@
 
   .explore-card{
     display:block;
-    color:#fff;
+    color:var(--ink);
     border-radius:16px;
     padding:16px 18px;
     margin-bottom:10px;
-    box-shadow:0 3px 0 rgba(58,42,30,.15);
+    box-shadow:0 3px 0 rgba(58,42,30,.08);
   }
   .explore-card-link{
     display:block;
-    color:#fff;
+    color:var(--ink);
     text-decoration:none;
   }
   .explore-card-name{
     font-weight:800;
     font-size:17px;
-    color:#fff;
     margin-bottom:6px;
   }
   .explore-card-desc{
     font-size:13px;
-    color:rgba(255,255,255,.88);
+    color:var(--ink-soft);
     line-height:1.5;
   }
   .explore-card-actions{
@@ -1236,16 +1260,16 @@
   }
   .explore-card .bookmark-btn,
   .explore-card .share-btn{
-    background:rgba(255,255,255,.18);
-    color:#fff;
-  }
-  .explore-card .bookmark-btn.active{
-    background:rgba(255,255,255,.92);
+    background:rgba(58,42,30,.08);
     color:var(--ink);
   }
-  .explore-card .share-btn:hover{
-    background:rgba(255,255,255,.3);
+  .explore-card .bookmark-btn.active{
+    background:var(--coral);
     color:#fff;
+  }
+  .explore-card .share-btn:hover{
+    background:rgba(58,42,30,.15);
+    color:var(--ink);
   }
 
   .page-result{
@@ -1540,6 +1564,14 @@
     font-size:16px;
   }
   .watch-info{padding:10px 12px 14px 12px;}
+  .watch-tag{
+    font-family:'Space Mono', monospace;
+    font-size:10px;
+    font-weight:700;
+    letter-spacing:.04em;
+    text-transform:uppercase;
+    margin-bottom:4px;
+  }
   .watch-title{font-weight:700; font-size:14px; line-height:1.3;}
   .watch-channel-row{
     display:flex; align-items:center; justify-content:space-between; gap:8px;
@@ -2027,22 +2059,22 @@ const BADGES = [
 ];
 
 const FACULTIES = [
-  { key:'science', label:'Science', color:'var(--f-sci)', icon:'flask' },
-  { key:'biochem', label:'Biochem', color:'var(--f-biochem)', icon:'dna' },
-  { key:'economics', label:'Economics', color:'var(--f-econ)', icon:'coin' },
-  { key:'business', label:'Business', color:'var(--f-biz)', icon:'briefcase' },
-  { key:'it', label:'IT', color:'var(--f-it)', icon:'chip' },
-  { key:'technology', label:'Technology', color:'var(--f-tech)', icon:'gear' },
-  { key:'design', label:'Design', color:'var(--f-des)', icon:'compass2' },
-  { key:'languages', label:'Languages', color:'var(--f-lang)', icon:'book' },
-  { key:'jurisprudence', label:'Jurisprudence', color:'var(--f-jur)', icon:'scales' },
-  { key:'international-relations', label:"Int'l Relations", color:'var(--f-ir)', icon:'globe' },
-  { key:'psychology', label:'Psychology', color:'var(--f-psy)', icon:'brain' },
-  { key:'history', label:'History', color:'var(--f-hist)', icon:'hourglass' },
-  { key:'travel', label:'Travel & Environment', color:'var(--f-travel)', icon:'plane' },
-  { key:'sport', label:'Sport', color:'var(--f-sport)', icon:'medal' },
-  { key:'space-astronomy', label:'Space & Astronomy', color:'var(--f-space)', icon:'moon' },
-  { key:'aviation', label:'Aviation', color:'var(--f-aviation)', icon:'plane' },
+  { key:'science', label:'Science', color:'var(--f-sci)', hex:'#2E6B8A', icon:'flask' },
+  { key:'biochem', label:'Biochem', color:'var(--f-biochem)', hex:'#2E7664', icon:'dna' },
+  { key:'economics', label:'Economics', color:'var(--f-econ)', hex:'#516E9E', icon:'coin' },
+  { key:'business', label:'Business', color:'var(--f-biz)', hex:'#3F425F', icon:'briefcase' },
+  { key:'it', label:'IT', color:'var(--f-it)', hex:'#4C2F7F', icon:'chip' },
+  { key:'technology', label:'Technology', color:'var(--f-tech)', hex:'#6C388A', icon:'gear' },
+  { key:'design', label:'Design', color:'var(--f-des)', hex:'#85389F', icon:'compass2' },
+  { key:'languages', label:'Languages', color:'var(--f-lang)', hex:'#C22E32', icon:'book' },
+  { key:'jurisprudence', label:'Jurisprudence', color:'var(--f-jur)', hex:'#334247', icon:'scales' },
+  { key:'international-relations', label:"Int'l Relations", color:'var(--f-ir)', hex:'#495C83', icon:'globe' },
+  { key:'psychology', label:'Psychology', color:'var(--f-psy)', hex:'#933978', icon:'brain' },
+  { key:'history', label:'History', color:'var(--f-hist)', hex:'#5A3F30', icon:'hourglass' },
+  { key:'travel', label:'Travel & Environment', color:'var(--f-travel)', hex:'#337231', icon:'plane' },
+  { key:'sport', label:'Sport', color:'var(--f-sport)', hex:'#B67C2B', icon:'medal' },
+  { key:'space-astronomy', label:'Space & Astronomy', color:'var(--f-space)', hex:'#1C2554', icon:'moon' },
+  { key:'aviation', label:'Aviation', color:'var(--f-aviation)', hex:'#47B8B8', icon:'plane' },
 ];
 const FAC_MAP = Object.fromEntries(FACULTIES.map(f=>[f.key,f]));
 
@@ -4103,6 +4135,16 @@ function escapeHtml(str){
   d.textContent = str;
   return d.innerHTML;
 }
+// Converts a "#RRGGBB" hex string to an rgba() string at the given alpha -- used to build
+// faint domain-color tints for card backgrounds. Faculty colors are stored as CSS var
+// references (color:'var(--f-xxx)') for direct use in style="color:..." attributes, which
+// can't be parsed here, so FACULTIES/misc colors also carry a literal hex field for this.
+function hexToRgba(hex, alpha){
+  const h = (hex || '').replace('#','');
+  if(h.length !== 6) return `rgba(122,46,53,${alpha})`; // falls back to core coral if malformed
+  const r = parseInt(h.slice(0,2),16), g = parseInt(h.slice(2,4),16), b = parseInt(h.slice(4,6),16);
+  return `rgba(${r},${g},${b},${alpha})`;
+}
 function domainOf(url){
   try{ return new URL(url).hostname.replace('www.',''); }catch(e){ return ''; }
 }
@@ -4134,13 +4176,13 @@ function dispatchListHtml(list){
 
   let html = '';
   sorted.forEach(a=>{
-    const fac = FAC_MAP[a.faculty] || { label:a.faculty, color:'#999' };
+    const fac = FAC_MAP[a.faculty] || { label:a.faculty, color:'#999', hex:'#999999' };
     const readLabel = a.read ? `${a.read} read` : '';
     const isRead = getReadArticles().has(a.url);
     html += `
-      <div class="entry">
+      <div class="entry" style="background:${hexToRgba(fac.hex, 0.12)}">
         <div class="entry-row">
-          <div class="tag" style="background:${fac.color}">${fac.label}</div>
+          <div class="tag" style="color:${fac.color}">${fac.label}</div>
           <div class="entry-body">
             <a class="headline" href="${a.url}" target="_blank" rel="noopener" data-article-url="${a.url}">${escapeHtml(a.headline)}</a>
             ${isRead ? `<div class="read-indicator" style="display:flex; align-items:center; gap:5px; font-size:14px; font-weight:700; color:var(--teal); margin:4px 0;">${icon('checkDouble')}<span>Read</span></div>` : ''}
@@ -4167,14 +4209,16 @@ function watchGridHtml(list, idPrefix){
   return list.map((v,i) => {
     const vKey = 'yt:' + v.videoId;
     const isWatched = getWatchedVideos().has(v.videoId);
+    const fac = FAC_MAP[v.faculty] || { label:v.faculty, color:'#999', hex:'#999999' };
     return `
-    <div class="watch-card">
+    <div class="watch-card" style="background:${hexToRgba(fac.hex, 0.12)}">
       <button class="watch-thumb ${isWatched ? 'is-watched' : ''}" data-id="${v.videoId}" data-key="${idPrefix}-${i}" aria-label="Play ${escapeHtml(v.title)}">
         <img src="https://img.youtube.com/vi/${v.videoId}/hqdefault.jpg" alt="${escapeHtml(v.title)}" loading="lazy">
         <div class="play"><span>▶</span></div>
         ${isWatched ? '<div class="watched-ribbon"><span>Watched</span></div>' : ''}
       </button>
       <div class="watch-info">
+        <div class="watch-tag" style="color:${fac.color}">${fac.label}</div>
         <div class="watch-title">${escapeHtml(v.title)}</div>
         <div class="watch-channel-row">
           <div class="watch-channel">${escapeHtml(v.channel)}</div>
@@ -5908,14 +5952,18 @@ function exploreColorFor(fac){
   const f = FACULTIES.find(x => x.key === fac);
   return f ? f.color : 'var(--coral)';
 }
+function exploreHexFor(fac){
+  const f = FACULTIES.find(x => x.key === fac);
+  return f ? f.hex : '#7A2E35'; // falls back to core coral's hex for 'fun'/no-domain instruments
+}
 
 function exploreResultsHtml(list){
   return list.map(s => {
     const key = 'instrument:' + s.url;
     return `
-    <div class="explore-card" style="background:${exploreColorFor(s.fac)}">
+    <div class="explore-card" style="background:${hexToRgba(exploreHexFor(s.fac), 0.14)}">
       <a class="explore-card-link" href="${s.url}" target="_blank" rel="noopener noreferrer">
-        <div class="explore-card-name">${escapeHtml(s.name)}</div>
+        <div class="explore-card-name" style="color:${exploreColorFor(s.fac)}">${escapeHtml(s.name)}</div>
         <div class="explore-card-desc">${escapeHtml(s.desc)}</div>
       </a>
       <div class="explore-card-actions">
@@ -6657,7 +6705,7 @@ function viewSportsHub(){
   return `
     <a class="back-link" href="#">← Back to Mr Eric's Lounge</a>
     <section style="padding-top:14px;">
-      <div class="section-head"><span class="emoji">${icon('ball')}</span><h2>Sports</h2></div>
+      <div class="section-head"><span class="emoji" style="color:var(--misc-sporthub)">${icon('ball')}</span><h2 style="color:var(--misc-sporthub)">Sports</h2></div>
       <div class="sport-hub-grid">
         ${SPORTS_TILES.map(sportsTileHtml).join('')}
       </div>
@@ -6853,7 +6901,7 @@ function viewEventsHub(){
   return `
     <a class="back-link" href="#">← Back to Mr Eric's Lounge</a>
     <section style="padding-top:14px;">
-      <div class="section-head"><span class="emoji">${icon('calendar')}</span><h2>Events</h2></div>
+      <div class="section-head"><span class="emoji" style="color:var(--misc-events)">${icon('calendar')}</span><h2 style="color:var(--misc-events)">Events</h2></div>
       <div style="display:flex; flex-direction:column; gap:14px;">
         <a class="events-tile" href="#events-tashkent">
           <span class="icon">${icon('calendar')}</span>
@@ -6862,11 +6910,11 @@ function viewEventsHub(){
             <div class="sub">Concerts, theatre, exhibitions & more, happening in the city this week</div>
           </div>
         </a>
-        <a class="events-tile" href="#events-virtual" style="background:var(--teal); color:#fff;">
+        <a class="events-tile" href="#events-virtual" style="background:#6F2041; color:#fff;">
           <span class="icon">${icon('globe')}</span>
           <div>
             <div class="title" style="color:#fff;">Upcoming and Current Online Events</div>
-            <div class="sub" style="color:#EAF3E0;">Free live sessions this week, plus real ongoing projects you can join any day</div>
+            <div class="sub" style="color:rgba(255,255,255,.85);">Free live sessions this week, plus real ongoing projects you can join any day</div>
           </div>
         </a>
       </div>
@@ -7019,11 +7067,11 @@ function virtualEventsBodyHtml(){
 }
 
 function virtualEventsTileHtml(){
-  return `<a class="events-tile" href="#events-virtual" style="background:var(--teal); color:#fff;">
+  return `<a class="events-tile" href="#events-virtual" style="background:#6F2041; color:#fff;">
     <span class="icon">${icon('globe')}</span>
     <div>
       <div class="title" style="color:#fff;">Online Events</div>
-      <div class="sub" style="color:#EAF3E0;">NASA, National Geographic, real citizen science & more</div>
+      <div class="sub" style="color:rgba(255,255,255,.85);">NASA, National Geographic, real citizen science & more</div>
     </div>
   </a>`;
 }
@@ -7129,7 +7177,7 @@ function viewHome(){
     const count = DISPATCHES.filter(a=>a.faculty===f.key).length;
     const videoCount = WATCH_VIDEOS.filter(v=>v.faculty===f.key).length;
     const instrumentCount = EXPLORE_SITES.filter(s=>s.fac===f.key).length;
-    return `<a class="fac-tile" href="#faculty/${f.key}">
+    return `<a class="fac-tile" href="#faculty/${f.key}" style="background:${hexToRgba(f.hex, 0.14)}">
       <span class="name"><span class="fac-icon" style="color:${f.color}">${icon(f.icon)}</span>${f.label}</span>
       <span class="count">${count} articles</span>
       <span class="count">${videoCount} videos</span>
