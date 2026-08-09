@@ -137,6 +137,17 @@ def parse_match_page(html, url):
         else:
             log(f"WARNING: could not assign scorer '{name}' to home or away for {url}")
 
+    # If the scoreline shows goals happened but scorer parsing came back completely empty
+    # on a side, that's a parse failure, not a real 0-0-style result -- and it happened for
+    # real once already (Arsenal 2-3 Dortmund shipped with "No goals" under both teams
+    # despite 5 goals being scored). Logging it loudly here means a future occurrence shows
+    # up in the run log immediately instead of only being noticed when someone taps the
+    # popup and sees something that contradicts the score right above it.
+    if ft_home > 0 and not home_goals:
+        log(f"WARNING: {home_name} scored {ft_home} but 0 scorers were parsed for {url}")
+    if ft_away > 0 and not away_goals:
+        log(f"WARNING: {away_name} scored {ft_away} but 0 scorers were parsed for {url}")
+
     return {
         "url": url,
         "date": match_date,
