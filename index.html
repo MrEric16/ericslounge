@@ -73,6 +73,7 @@
     --misc-books:#596534;
     --misc-sporthub:#2B824B;
     --misc-events:#A63061;
+    --misc-mindtemple:#4A4280;
   }
 
   body.dark-mode{
@@ -135,6 +136,7 @@
   body.dark-mode .sport-hub-tile,
   body.dark-mode .goodnews-tile,
   body.dark-mode .books-tile,
+  body.dark-mode .mindtemple-tile,
   body.dark-mode .explore-tile,
   body.dark-mode .explore-card,
   body.dark-mode .page-result,
@@ -1224,6 +1226,75 @@
   .books-tile .icon{display:inline-flex; align-items:center;} .books-tile .icon svg{width:30px;height:30px;}
   .books-tile .title{font-weight:800; font-size:19px;}
   .books-tile .sub{font-size:13px; color:#EAF3E0; font-weight:600; margin-top:2px;}
+
+  .mindtemple-tile{
+    background:var(--misc-mindtemple);
+    color:#fff;
+    border-radius:20px;
+    padding:26px 22px;
+    display:flex;
+    align-items:center;
+    gap:16px;
+    text-decoration:none;
+    box-shadow:0 3px 0 rgba(58,42,30,.15);
+  }
+  .mindtemple-tile .icon{display:inline-flex; align-items:center;} .mindtemple-tile .icon svg{width:30px;height:30px;}
+  .mindtemple-tile .title{font-weight:800; font-size:19px;}
+  .mindtemple-tile .sub{font-size:13px; color:#DCD8F0; font-weight:600; margin-top:2px;}
+
+  /* ---- Mind Temple (situation -> thought -> feeling -> action, no persistence) ---- */
+  .mt-wrap{ max-width:520px; margin:0 auto; }
+  .mt-intro{ font-size:14px; color:var(--ink-soft); line-height:1.6; margin-bottom:22px; }
+  .mt-cat-grid{ display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+  .mt-cat-btn{
+    border:none; border-radius:16px; padding:20px 14px; text-align:center;
+    font-family:'Nunito', sans-serif; font-weight:800; font-size:16px; color:#fff;
+    cursor:pointer; box-shadow:0 3px 0 rgba(58,42,30,.12);
+  }
+  .mt-sub-grid{ display:flex; flex-wrap:wrap; gap:8px; margin-top:16px; }
+  .mt-sub-btn{
+    border:none; border-radius:999px; padding:9px 16px;
+    font-family:'Nunito', sans-serif; font-weight:700; font-size:13px; color:#fff;
+    cursor:pointer;
+  }
+  .mt-back-link{
+    display:inline-block; margin-bottom:16px; font-weight:700; font-size:13px;
+    color:var(--ink-soft); cursor:pointer; background:none; border:none; font-family:'Nunito', sans-serif;
+    padding:0;
+  }
+  .mt-question{ font-weight:800; font-size:19px; color:var(--ink); margin-bottom:14px; line-height:1.3; }
+  .mt-textarea{
+    width:100%; min-height:120px; border-radius:14px; border:1px solid var(--line);
+    background:var(--card); color:var(--ink); font-family:'Nunito', sans-serif; font-size:15px;
+    padding:14px; resize:vertical; box-sizing:border-box; line-height:1.5;
+  }
+  .mt-textarea:focus{ outline:2px solid var(--misc-mindtemple); outline-offset:1px; }
+  .mt-yn-row{ display:flex; gap:10px; margin-top:6px; }
+  .mt-yn-btn{
+    flex:1; border:2px solid var(--misc-mindtemple); background:none; border-radius:999px;
+    padding:12px; font-family:'Nunito', sans-serif; font-weight:800; font-size:15px;
+    color:var(--misc-mindtemple); cursor:pointer;
+  }
+  .mt-yn-btn.mt-primary{ background:var(--misc-mindtemple); color:#fff; }
+  .mt-nav-row{ display:flex; gap:10px; margin-top:18px; }
+  .mt-next-btn{
+    flex:1; border:none; background:var(--misc-mindtemple); color:#fff; border-radius:999px;
+    padding:13px; font-family:'Nunito', sans-serif; font-weight:800; font-size:15px; cursor:pointer;
+  }
+  .mt-next-btn:disabled{ opacity:.4; cursor:not-allowed; }
+  .mt-exit-btn{
+    background:none; border:none; color:var(--ink-soft); font-family:'Nunito', sans-serif;
+    font-weight:700; font-size:13px; cursor:pointer; text-decoration:underline; padding:8px;
+  }
+  .mt-closing-box{
+    background:var(--card); border-radius:16px; padding:22px 20px; text-align:center;
+  }
+  .mt-closing-msg{ font-size:15px; color:var(--ink); line-height:1.6; margin-bottom:18px; }
+  .mt-resolve-btn{
+    display:block; width:100%; border:none; background:var(--misc-mindtemple); color:#fff;
+    border-radius:999px; padding:15px; font-family:'Nunito', sans-serif; font-weight:800;
+    font-size:15px; cursor:pointer;
+  }
 
   .explore-tile{
     background:var(--coral);
@@ -6558,6 +6629,244 @@ function viewSaved(){
   `;
 }
 
+/* ================================================================
+   MIND TEMPLE
+   A situation -> thought -> feeling -> action reflection exercise.
+   Deliberate design constraints, per direct instruction, non-negotiable:
+     - ZERO persistence. No localStorage, no sessionStorage, no cookies, nothing
+       written to disk anywhere in this module. State lives only in the mtState
+       object below, which is thrown away and rebuilt fresh every time this page
+       loads (see mtInit()). Closing the tab leaves no trace anything happened.
+     - ZERO reporting anywhere. Nothing here is ever sent to a server, to Mr Eric,
+       or anywhere else. The only thing this module ever does with what a student
+       writes is decide, locally, in the browser, which closing message to show.
+     - ZERO redirection. No phone numbers, no external links, no names of specific
+       institutions. Everything stays inside the app.
+     - Never forced. Every step has a way back (edit a previous answer) and a way
+       out (exit without finishing) that doesn't nag or guilt-trip.
+     - No feedback on what's written. This is a space to think, not a graded
+       exercise -- nothing here evaluates, corrects, or responds to the content
+       of an answer, except the one narrow acute-risk check below.
+   ================================================================ */
+
+const MT_EMOTIONS = [
+  { key:'happy', label:'Happy', color:'#5A8F4E', words:['Content','Cheerful','Proud','Confident','Excited','Hopeful','Optimistic','Grateful'] },
+  { key:'peaceful', label:'Peaceful', color:'#B89434', words:['Calm','Relaxed','Trusting','Thoughtful','Caring','Secure','Relieved','Accepted'] },
+  { key:'fear', label:'Fear', color:'#B5562E', words:['Shy','Nervous','Worried','Anxious','Insecure','Scared','Frightened','Overwhelmed'] },
+  { key:'surprise', label:'Surprise', color:'#2E7B8A', words:['Startled','Confused','Shocked','Curious','Amazed','Stunned','Bewildered','Uncertain'] },
+  { key:'sad', label:'Sad', color:'#4A5578', words:['Bored','Tired','Lonely','Guilty','Disappointed','Hurt','Hopeless','Miserable'] },
+  { key:'anger', label:'Anger', color:'#A6342E', words:['Annoyed','Frustrated','Irritated','Jealous','Offended','Mad','Furious','Agitated'] },
+];
+
+// Narrow, specific, clinically-standard phrasing -- deliberately not exhaustive slang.
+// The exercise's value is in the writing itself; this is a safety net underneath it,
+// not the point of the feature. False positives from dramatic/joking phrasing are an
+// accepted tradeoff of keeping this list narrow rather than casting a wide net that
+// would flag normal teenage venting as a crisis.
+const MT_ACUTE_KEYWORDS = [
+  'kill myself','suicide','suicidal','end my life','want to die','wish i was dead','wish i were dead',
+  'hurt myself','hurting myself','harm myself','self harm','self-harm','cutting myself','cut myself',
+  'no reason to live','better off dead','not worth living',
+  'hurting me','hurts me','hits me','hitting me','touching me','touched me','abusing me','abused me',
+];
+function mtIsAcute(text){
+  const t = (text || '').toLowerCase();
+  return MT_ACUTE_KEYWORDS.some(k => t.includes(k));
+}
+
+let mtState = null;
+function mtInit(){
+  mtState = { step:'picker', category:null, emotion:null, situation:'', thought:'', actionTaken:null, actionDescription:'', resolution:'' };
+  mtRender();
+}
+function mtGoTo(step){
+  mtState.step = step;
+  mtRender();
+}
+function mtExit(){
+  location.hash = '#';
+}
+function mtRender(){
+  const container = document.getElementById('mtContainer');
+  if(!container) return;
+  container.innerHTML = mtStepHtml();
+  mtWireStep(container);
+}
+
+function mtStepHtml(){
+  const s = mtState;
+  if(s.step === 'picker'){
+    return `
+      <p class="mt-intro">No one sees this, nothing is saved, and you can stop at any point. Pick whatever's closest to how you're feeling right now.</p>
+      <div class="mt-cat-grid">
+        ${MT_EMOTIONS.map(c => `<button class="mt-cat-btn" style="background:${c.color}" data-cat="${c.key}">${escapeHtml(c.label)}</button>`).join('')}
+      </div>
+    `;
+  }
+  if(s.step === 'subpicker'){
+    const cat = MT_EMOTIONS.find(c => c.key === s.category);
+    return `
+      <button class="mt-back-link" data-action="back-to-picker">← Choose a different category</button>
+      <p class="mt-intro">Which word fits best?</p>
+      <div class="mt-sub-grid">
+        ${cat.words.map(w => `<button class="mt-sub-btn" style="background:${cat.color}" data-word="${escapeHtml(w)}">${escapeHtml(w)}</button>`).join('')}
+      </div>
+    `;
+  }
+  if(s.step === 'talkAboutIt'){
+    return `
+      <button class="mt-back-link" data-action="back-to-subpicker">← Back</button>
+      <div class="mt-question">You picked "${escapeHtml(s.emotion)}." Want to talk about it?</div>
+      <div class="mt-yn-row">
+        <button class="mt-yn-btn mt-primary" data-action="talk-yes">Yes</button>
+        <button class="mt-yn-btn" data-action="talk-no">No</button>
+      </div>
+    `;
+  }
+  if(s.step === 'declined'){
+    return `
+      <div class="mt-closing-box">
+        <div class="mt-closing-msg">I hope you feel better. You're welcome to come back and talk about it whenever you're ready.</div>
+        <button class="mt-resolve-btn" data-action="exit">Done</button>
+      </div>
+    `;
+  }
+  if(s.step === 'situation'){
+    return `
+      <button class="mt-back-link" data-action="back-to-talk">← Back</button>
+      <div class="mt-question">What's the situation that's making you feel this way?</div>
+      <textarea class="mt-textarea" id="mtInput" placeholder="Write as much or as little as you want…">${escapeHtml(s.situation)}</textarea>
+      <div class="mt-nav-row">
+        <button class="mt-next-btn" data-action="next-situation">Next</button>
+      </div>
+      <button class="mt-exit-btn" data-action="exit">Exit without finishing</button>
+    `;
+  }
+  if(s.step === 'thought'){
+    return `
+      <button class="mt-back-link" data-action="back-to-situation">← Back</button>
+      <div class="mt-question">What was your immediate thought when this happened?</div>
+      <textarea class="mt-textarea" id="mtInput" placeholder="The first thing that went through your head…">${escapeHtml(s.thought)}</textarea>
+      <div class="mt-nav-row">
+        <button class="mt-next-btn" data-action="next-thought">Next</button>
+      </div>
+      <button class="mt-exit-btn" data-action="exit">Exit without finishing</button>
+    `;
+  }
+  if(s.step === 'actionAsked'){
+    return `
+      <button class="mt-back-link" data-action="back-to-thought">← Back</button>
+      <div class="mt-question">Did you actually do anything about it?</div>
+      <div class="mt-yn-row">
+        <button class="mt-yn-btn mt-primary" data-action="action-yes">Yes</button>
+        <button class="mt-yn-btn" data-action="action-no">Not yet</button>
+      </div>
+      <button class="mt-exit-btn" data-action="exit" style="margin-top:14px;">Exit without finishing</button>
+    `;
+  }
+  if(s.step === 'actionDescription'){
+    return `
+      <button class="mt-back-link" data-action="back-to-actionAsked">← Back</button>
+      <div class="mt-question">What did you do?</div>
+      <textarea class="mt-textarea" id="mtInput" placeholder="Describe what you did…">${escapeHtml(s.actionDescription)}</textarea>
+      <div class="mt-nav-row">
+        <button class="mt-next-btn" data-action="next-actionDescription">Next</button>
+      </div>
+      <button class="mt-exit-btn" data-action="exit">Exit without finishing</button>
+    `;
+  }
+  if(s.step === 'resolution'){
+    return `
+      <button class="mt-back-link" data-action="back-to-actionAsked">← Back</button>
+      <div class="mt-question">What do you think could constructively resolve this?</div>
+      <textarea class="mt-textarea" id="mtInput" placeholder="Doesn't have to be perfect -- just what comes to mind…">${escapeHtml(s.resolution)}</textarea>
+      <div class="mt-nav-row">
+        <button class="mt-next-btn" data-action="next-resolution">Next</button>
+      </div>
+      <button class="mt-exit-btn" data-action="exit">Exit without finishing</button>
+    `;
+  }
+  if(s.step === 'closing'){
+    const acute = mtIsAcute(s.situation) || mtIsAcute(s.thought) || mtIsAcute(s.actionDescription);
+    const msg = acute
+      ? "Thank you for writing that down. Please find Mr Eric in person today, as soon as you can. If he's not around, tell another adult you trust — right now, not later."
+      : "Thank you for writing that down. I strongly recommend talking to Mr Eric before the end of the day.";
+    return `
+      <div class="mt-closing-box">
+        <div class="mt-closing-msg">${escapeHtml(msg)}</div>
+        <button class="mt-resolve-btn" data-action="exit">Situation resolved constructively</button>
+      </div>
+    `;
+  }
+  return '';
+}
+
+function mtWireStep(container){
+  const s = mtState;
+  container.querySelectorAll('[data-cat]').forEach(btn => {
+    btn.addEventListener('click', ()=>{ s.category = btn.dataset.cat; mtGoTo('subpicker'); });
+  });
+  container.querySelectorAll('[data-word]').forEach(btn => {
+    btn.addEventListener('click', ()=>{ s.emotion = btn.dataset.word; mtGoTo('talkAboutIt'); });
+  });
+  const backToPicker = container.querySelector('[data-action="back-to-picker"]');
+  if(backToPicker) backToPicker.addEventListener('click', ()=> mtGoTo('picker'));
+  const backToSubpicker = container.querySelector('[data-action="back-to-subpicker"]');
+  if(backToSubpicker) backToSubpicker.addEventListener('click', ()=> mtGoTo('subpicker'));
+  const backToTalk = container.querySelector('[data-action="back-to-talk"]');
+  if(backToTalk) backToTalk.addEventListener('click', ()=> mtGoTo('talkAboutIt'));
+  const backToSituation = container.querySelector('[data-action="back-to-situation"]');
+  if(backToSituation) backToSituation.addEventListener('click', ()=> mtGoTo('situation'));
+  const backToThought = container.querySelector('[data-action="back-to-thought"]');
+  if(backToThought) backToThought.addEventListener('click', ()=> mtGoTo('thought'));
+  const backToActionAsked = container.querySelector('[data-action="back-to-actionAsked"]');
+  if(backToActionAsked) backToActionAsked.addEventListener('click', ()=> mtGoTo('actionAsked'));
+
+  const talkYes = container.querySelector('[data-action="talk-yes"]');
+  if(talkYes) talkYes.addEventListener('click', ()=> mtGoTo('situation'));
+  const talkNo = container.querySelector('[data-action="talk-no"]');
+  if(talkNo) talkNo.addEventListener('click', ()=> mtGoTo('declined'));
+
+  const nextSituation = container.querySelector('[data-action="next-situation"]');
+  if(nextSituation) nextSituation.addEventListener('click', ()=>{
+    s.situation = container.querySelector('#mtInput').value;
+    mtGoTo('thought');
+  });
+  const nextThought = container.querySelector('[data-action="next-thought"]');
+  if(nextThought) nextThought.addEventListener('click', ()=>{
+    s.thought = container.querySelector('#mtInput').value;
+    mtGoTo('actionAsked');
+  });
+  const actionYes = container.querySelector('[data-action="action-yes"]');
+  if(actionYes) actionYes.addEventListener('click', ()=>{ s.actionTaken = true; mtGoTo('actionDescription'); });
+  const actionNo = container.querySelector('[data-action="action-no"]');
+  if(actionNo) actionNo.addEventListener('click', ()=>{ s.actionTaken = false; mtGoTo('resolution'); });
+  const nextActionDescription = container.querySelector('[data-action="next-actionDescription"]');
+  if(nextActionDescription) nextActionDescription.addEventListener('click', ()=>{
+    s.actionDescription = container.querySelector('#mtInput').value;
+    mtGoTo('resolution');
+  });
+  const nextResolution = container.querySelector('[data-action="next-resolution"]');
+  if(nextResolution) nextResolution.addEventListener('click', ()=>{
+    s.resolution = container.querySelector('#mtInput').value;
+    mtGoTo('closing');
+  });
+
+  container.querySelectorAll('[data-action="exit"]').forEach(btn => {
+    btn.addEventListener('click', mtExit);
+  });
+}
+
+function viewMindTemple(){
+  return `
+    <a class="back-link" href="#">← Back to Mr Eric's Lounge</a>
+    <section style="padding-top:14px;">
+      <div class="section-head"><span class="emoji" style="color:var(--misc-mindtemple)">${icon('brain')}</span><h2 style="color:var(--misc-mindtemple)">Mind Temple</h2></div>
+      <div class="mt-wrap" id="mtContainer"></div>
+    </section>
+  `;
+}
+
 function viewPhotos(){
   const sorted = [...PHOTOS, ...SUBMITTED_PHOTOS].sort((a,b)=> b.date.localeCompare(a.date));
   const uploadWidget = `
@@ -7564,6 +7873,16 @@ function viewHome(){
     </section>
 
     <section>
+      <a class="mindtemple-tile" href="#mind-temple">
+        <span class="icon">${icon('brain')}</span>
+        <div>
+          <div class="title">Mind Temple</div>
+          <div class="sub">A quiet place to think something through</div>
+        </div>
+      </a>
+    </section>
+
+    <section>
       <div class="section-head"><span class="emoji">${icon('star')}</span><h2>Superstars of the Week</h2><a class="section-link" href="#superstars">See more →</a></div>
       ${studentsHtml()}
     </section>
@@ -7801,6 +8120,8 @@ function renderRoute(opts){
     html = viewPhotos();
   } else if(parts[0] === 'saved'){
     html = viewSaved();
+  } else if(parts[0] === 'mind-temple'){
+    html = viewMindTemple();
   } else if(parts[0] === 'explore'){
     html = viewExplore();
   } else if(parts[0] === 'invite'){
@@ -7851,6 +8172,7 @@ function renderRoute(opts){
       if(savedWords[i]) wireDictCard(cardEl, savedWords[i]);
     });
   }
+  if(parts[0] === 'mind-temple'){ mtInit(); }
   if(parts[0] === 'install'){ wireInstallPage(); }
   if(parts[0] === 'stats'){ loadStats(); }
   if(parts[0] === 'events-tashkent'){ loadTashkentEvents(); }
