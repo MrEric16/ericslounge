@@ -6649,13 +6649,19 @@ function viewSaved(){
        of an answer, except the one narrow acute-risk check below.
    ================================================================ */
 
+// Each category carries a valence -- this matters for more than just color. A category
+// with no emotional charge in either direction that always closes with "talk to Mr Eric"
+// makes no sense for someone who picked "Happy" or "Peaceful" -- that bug shipped in the
+// first version and got caught immediately. See mtStepHtml()'s 'declined' and 'closing'
+// branches, which now read this field to pick an appropriate message instead of one
+// message for every emotion regardless of whether it was a good one.
 const MT_EMOTIONS = [
-  { key:'happy', label:'Happy', color:'#5A8F4E', words:['Content','Cheerful','Proud','Confident','Excited','Hopeful','Optimistic','Grateful'] },
-  { key:'peaceful', label:'Peaceful', color:'#B89434', words:['Calm','Relaxed','Trusting','Thoughtful','Caring','Secure','Relieved','Accepted'] },
-  { key:'fear', label:'Fear', color:'#B5562E', words:['Shy','Nervous','Worried','Anxious','Insecure','Scared','Frightened','Overwhelmed'] },
-  { key:'surprise', label:'Surprise', color:'#2E7B8A', words:['Startled','Confused','Shocked','Curious','Amazed','Stunned','Bewildered','Uncertain'] },
-  { key:'sad', label:'Sad', color:'#4A5578', words:['Bored','Tired','Lonely','Guilty','Disappointed','Hurt','Hopeless','Miserable'] },
-  { key:'anger', label:'Anger', color:'#A6342E', words:['Annoyed','Frustrated','Irritated','Jealous','Offended','Mad','Furious','Agitated'] },
+  { key:'happy', label:'Happy', color:'#5A8F4E', valence:'positive', words:['Content','Cheerful','Proud','Confident','Silly','Energetic','Excited','Enthusiastic','Eager','Hopeful','Optimistic','Elated','Grateful','Amused','Determined','Empowered','Encouraged','Inspired','Motivated','Playful'] },
+  { key:'peaceful', label:'Peaceful', color:'#B89434', valence:'positive', words:['Calm','Loving','Affectionate','Trusting','Relaxed','Thoughtful','Caring','Thankful','Accepted','Valued','Passionate','Healthy','Joyful','Kind','Relieved','Secure','Comfortable','Content','Understood','Worthy'] },
+  { key:'fear', label:'Fear', color:'#B5562E', valence:'negative', words:['Shy','Nervous','Worried','Anxious','Regretful','Excluded','Insecure','Embarrassed','Scared','Frightened','Terrified','Panicked','Alarmed','Apprehensive','Awkward','Cautious','Concerned','Desperate','Hesitant','Overwhelmed'] },
+  { key:'surprise', label:'Surprise', color:'#2E7B8A', valence:'neutral', words:['Startled','Confused','Shocked','Speechless','Curious','Amazed','Moved','Stunned','Bewildered','Lost','Mixed up','Perplexed','Self-conscious','Stressed out','Tense','Uncertain','Uncomfortable','Unsure','Vulnerable','Overwhelmed'] },
+  { key:'sad', label:'Sad', color:'#4A5578', valence:'negative', words:['Bored','Tired','Lonely','Guilty','Disappointed','Hurt','Insignificant','Rejected','Hopeless','Depressed','Miserable','Ashamed','Betrayed','Bitter','Burdened','Discouraged','Down','Exasperated','Fed up','Grief'] },
+  { key:'anger', label:'Anger', color:'#A6342E', valence:'negative', words:['Annoyed','Frustrated','Irritated','Jealous','Offended','Mad','Disgusted','Hateful','Furious','Agitated','Enraged','Hostile','Grouchy','Humiliated','Ignored','Let down','Resentful','Spiteful','Upset','Worthless'] },
 ];
 
 // Narrow, specific, clinically-standard phrasing -- deliberately not exhaustive slang.
@@ -6724,9 +6730,13 @@ function mtStepHtml(){
     `;
   }
   if(s.step === 'declined'){
+    const cat = MT_EMOTIONS.find(c => c.key === s.category);
+    const msg = cat && cat.valence === 'positive'
+      ? "Glad to hear it. Come back anytime, whatever you're feeling."
+      : "I hope you feel better. You're welcome to come back and talk about it whenever you're ready.";
     return `
       <div class="mt-closing-box">
-        <div class="mt-closing-msg">I hope you feel better. You're welcome to come back and talk about it whenever you're ready.</div>
+        <div class="mt-closing-msg">${escapeHtml(msg)}</div>
         <button class="mt-resolve-btn" data-action="exit">Done</button>
       </div>
     `;
@@ -6788,13 +6798,30 @@ function mtStepHtml(){
   }
   if(s.step === 'closing'){
     const acute = mtIsAcute(s.situation) || mtIsAcute(s.thought) || mtIsAcute(s.actionDescription);
-    const msg = acute
-      ? "Thank you for writing that down. Please find Mr Eric in person today, as soon as you can. If he's not around, tell another adult you trust — right now, not later."
-      : "Thank you for writing that down. I strongly recommend talking to Mr Eric before the end of the day.";
+    const cat = MT_EMOTIONS.find(c => c.key === s.category);
+    const isPositive = cat && cat.valence === 'positive';
+    // Acute detection always wins regardless of which emotion category was picked --
+    // someone could click "Happy" and still write something concerning in their own
+    // words further down, and the safety net shouldn't be skippable by category choice.
+    let msg, btnLabel;
+    if(acute){
+      msg = "Thank you for writing that down. Please find Mr Eric in person today, as soon as you can. If he's not around, tell another adult you trust — right now, not later.";
+      btnLabel = "Done";
+    } else if(isPositive){
+      // The original version showed "talk to Mr Eric" after EVERY reflection, including
+      // ones that started with picking "Happy" or "Peaceful" -- caught immediately because
+      // it makes no sense to push someone toward a serious conversation about something
+      // that made them feel good. Positive reflections just close out warmly instead.
+      msg = "Thank you for writing that down. It's good to notice what's going well, too.";
+      btnLabel = "Done";
+    } else {
+      msg = "Thank you for writing that down. I strongly recommend talking to Mr Eric before the end of the day.";
+      btnLabel = "Situation resolved constructively";
+    }
     return `
       <div class="mt-closing-box">
         <div class="mt-closing-msg">${escapeHtml(msg)}</div>
-        <button class="mt-resolve-btn" data-action="exit">Situation resolved constructively</button>
+        <button class="mt-resolve-btn" data-action="exit">${escapeHtml(btnLabel)}</button>
       </div>
     `;
   }
