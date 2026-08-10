@@ -6793,10 +6793,17 @@ function mtStepHtml(){
     `;
   }
   if(s.step === 'thought'){
+    const positive = mtIsPositive();
+    const question = positive
+      ? "That's awesome! Want to share more about it?"
+      : "What was your immediate thought when this happened?";
+    const placeholder = positive
+      ? "Whatever comes to mind…"
+      : "The first thing that went through your head…";
     return `
       <button class="mt-back-link" data-action="back-to-situation">← Back</button>
-      <div class="mt-question">What was your immediate thought when this happened?</div>
-      <textarea class="mt-textarea" id="mtInput" placeholder="The first thing that went through your head…">${escapeHtml(s.thought)}</textarea>
+      <div class="mt-question">${escapeHtml(question)}</div>
+      <textarea class="mt-textarea" id="mtInput" placeholder="${escapeHtml(placeholder)}">${escapeHtml(s.thought)}</textarea>
       <div class="mt-nav-row">
         <button class="mt-next-btn" data-action="next-thought">Next</button>
       </div>
@@ -6804,6 +6811,21 @@ function mtStepHtml(){
     `;
   }
   if(s.step === 'actionAsked'){
+    // "Did you actually do anything about it?" presumes there was a problem needing
+    // action -- doesn't make sense for a positive reflection. Positive flows get an
+    // open question about carrying the feeling forward instead of a yes/no action gate,
+    // and skip straight to closing rather than branching into actionDescription/resolution.
+    if(mtIsPositive()){
+      return `
+        <button class="mt-back-link" data-action="back-to-thought">← Back</button>
+        <div class="mt-question">How are you planning to channel your positivity?</div>
+        <textarea class="mt-textarea" id="mtInput" placeholder="Doesn't have to be a plan -- just what comes to mind…">${escapeHtml(s.actionDescription)}</textarea>
+        <div class="mt-nav-row">
+          <button class="mt-next-btn" data-action="next-channelPositivity">Next</button>
+        </div>
+        <button class="mt-exit-btn" data-action="exit">Exit without finishing</button>
+      `;
+    }
     return `
       <button class="mt-back-link" data-action="back-to-thought">← Back</button>
       <div class="mt-question">Did you actually do anything about it?</div>
@@ -6940,6 +6962,11 @@ function mtWireStep(container){
   if(actionYes) actionYes.addEventListener('click', ()=>{ s.actionTaken = true; mtGoTo('actionDescription'); });
   const actionNo = container.querySelector('[data-action="action-no"]');
   if(actionNo) actionNo.addEventListener('click', ()=>{ s.actionTaken = false; mtAfterAction(); });
+  const nextChannelPositivity = container.querySelector('[data-action="next-channelPositivity"]');
+  if(nextChannelPositivity) nextChannelPositivity.addEventListener('click', ()=>{
+    s.actionDescription = container.querySelector('#mtInput').value;
+    mtGoTo('closing');
+  });
   const nextActionDescription = container.querySelector('[data-action="next-actionDescription"]');
   if(nextActionDescription) nextActionDescription.addEventListener('click', ()=>{
     s.actionDescription = container.querySelector('#mtInput').value;
