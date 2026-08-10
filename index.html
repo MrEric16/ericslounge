@@ -6655,13 +6655,31 @@ function viewSaved(){
 // first version and got caught immediately. See mtStepHtml()'s 'declined' and 'closing'
 // branches, which now read this field to pick an appropriate message instead of one
 // message for every emotion regardless of whether it was a good one.
+// Each category carries a valence -- this matters for more than just color. A category
+// with no emotional charge in either direction that always closes with "talk to Mr Eric"
+// makes no sense for someone who picked "Joyful" or "Trusting" -- that bug shipped in the
+// first version and got caught immediately. See mtStepHtml()'s 'declined' and 'closing'
+// branches, which now read this field to pick an appropriate message instead of one
+// message for every emotion regardless of whether it was a good one.
+//
+// UPDATE: switched from the original 6-category "kids' feelings chart" to Plutchik's 8
+// basic emotions (Joy, Trust, Fear, Disgust, Anger, Surprise, Sadness, Anticipation) --
+// the actual established psychological model, not the simplified pop-therapy version.
+// "Peaceful" isn't one of Plutchik's 8 (it's technically a low-intensity variant of Joy
+// in his model, not a primary emotion), so it's gone as its own category -- its
+// vocabulary got folded into Joy and Trust's word lists instead of being lost outright.
+// Labels are adjective forms throughout ("Scared" not "Fear", "Angry" not "Anger") per
+// direct instruction, since a category picker should read as "how do you feel" not
+// "name the emotion."
 const MT_EMOTIONS = [
-  { key:'happy', label:'Happy', color:'#5A8F4E', valence:'positive', words:['Content','Cheerful','Proud','Confident','Silly','Energetic','Excited','Enthusiastic','Eager','Hopeful','Optimistic','Elated','Grateful','Amused','Determined','Empowered','Encouraged','Inspired','Motivated','Playful'] },
-  { key:'peaceful', label:'Peaceful', color:'#B89434', valence:'positive', words:['Calm','Loving','Affectionate','Trusting','Relaxed','Thoughtful','Caring','Thankful','Accepted','Valued','Passionate','Healthy','Joyful','Kind','Relieved','Secure','Comfortable','Content','Understood','Worthy'] },
-  { key:'fear', label:'Fear', color:'#B5562E', valence:'negative', words:['Shy','Nervous','Worried','Anxious','Regretful','Excluded','Insecure','Embarrassed','Scared','Frightened','Terrified','Panicked','Alarmed','Apprehensive','Awkward','Cautious','Concerned','Desperate','Hesitant','Overwhelmed'] },
-  { key:'surprise', label:'Surprise', color:'#2E7B8A', valence:'neutral', words:['Startled','Confused','Shocked','Speechless','Curious','Amazed','Moved','Stunned','Bewildered','Lost','Mixed up','Perplexed','Self-conscious','Stressed out','Tense','Uncertain','Uncomfortable','Unsure','Vulnerable','Overwhelmed'] },
-  { key:'sad', label:'Sad', color:'#4A5578', valence:'negative', words:['Bored','Tired','Lonely','Guilty','Disappointed','Hurt','Insignificant','Rejected','Hopeless','Depressed','Miserable','Ashamed','Betrayed','Bitter','Burdened','Discouraged','Down','Exasperated','Fed up','Grief'] },
-  { key:'anger', label:'Anger', color:'#A6342E', valence:'negative', words:['Annoyed','Frustrated','Irritated','Jealous','Offended','Mad','Disgusted','Hateful','Furious','Agitated','Enraged','Hostile','Grouchy','Humiliated','Ignored','Let down','Resentful','Spiteful','Upset','Worthless'] },
+  { key:'joy', label:'Joyful', color:'#5A8F4E', valence:'positive', words:['Cheerful','Content','Proud','Excited','Optimistic','Calm','Relaxed','Grateful','Hopeful','Playful','Silly','Confident','Enthusiastic','Peaceful','Satisfied','Amused','Delighted','Relieved','Warm','Light-hearted'] },
+  { key:'trust', label:'Trusting', color:'#B89434', valence:'positive', words:['Secure','Safe','Accepted','Respected','Loyal','Supported','Comfortable','Close','Open','Reliable','Honest','Sincere','Devoted','Faithful','Assured','Valued','Connected','Steady','Genuine','Dependable'] },
+  { key:'fear', label:'Scared', color:'#B5562E', valence:'negative', words:['Nervous','Anxious','Worried','Insecure','Terrified','Panicked','Shy','Uneasy','Threatened','Vulnerable','Alarmed','Apprehensive','Timid','Overwhelmed','Helpless','Dreadful','Cautious','Suspicious','Jumpy','Frozen'] },
+  { key:'disgust', label:'Disgusted', color:'#5C6B2E', valence:'negative', words:['Repulsed','Revolted','Grossed out','Appalled','Nauseated','Offended','Uncomfortable','Bitter','Contemptuous','Judgmental','Disturbed','Disapproving','Squeamish','Distrustful','Turned off','Distasteful','Averse','Uneasy','Sickened','Put off'] },
+  { key:'anger', label:'Angry', color:'#A6342E', valence:'negative', words:['Frustrated','Annoyed','Irritated','Furious','Resentful','Jealous','Hostile','Agitated','Offended','Betrayed','Bitter','Outraged','Hateful','Enraged','Provoked','Defensive','Impatient','Grouchy','Vindictive','Fuming'] },
+  { key:'surprise', label:'Surprised', color:'#2E7B8A', valence:'neutral', words:['Shocked','Startled','Confused','Amazed','Stunned','Speechless','Bewildered','Curious','Astonished','Baffled','Dazed','Perplexed','Awestruck','Unsettled','Disoriented','Rattled','Blindsided','Taken aback','Mystified','Floored'] },
+  { key:'sadness', label:'Sad', color:'#4A5578', valence:'negative', words:['Lonely','Disappointed','Hurt','Hopeless','Guilty','Ashamed','Miserable','Down','Rejected','Empty','Heartbroken','Discouraged','Regretful','Gloomy','Grieving','Numb','Unworthy','Tearful','Defeated','Isolated'] },
+  { key:'anticipation', label:'Eager', color:'#B6B235', valence:'neutral', words:['Excited','Nervous','Hopeful','Curious','Impatient','Restless','Motivated','Determined','Alert','Prepared','Focused','Wary','Uncertain','Expectant','Driven','Ambitious','On edge','Ready','Watchful','Optimistic'] },
 ];
 
 // Narrow, specific, clinically-standard phrasing -- deliberately not exhaustive slang.
@@ -6689,7 +6707,29 @@ function mtGoTo(step){
   mtState.step = step;
   mtRender();
 }
+// Positive emotions skip the "resolution" question entirely -- "what could constructively
+// resolve this?" makes no sense after describing something that made you feel joyful or
+// trusting. Only negative/neutral flows (something that actually needs resolving) ask it.
+function mtIsPositive(){
+  const cat = MT_EMOTIONS.find(c => c.key === mtState.category);
+  return cat && cat.valence === 'positive';
+}
+function mtAfterAction(){
+  mtGoTo(mtIsPositive() ? 'closing' : 'resolution');
+}
 function mtExit(){
+  // Leaving Mind Temple always lands on a freshly-scrolled-to-top homepage, never wherever
+  // the user happened to be scrolled to before they opened it -- deliberately different
+  // from every other page on the site, which does remember scroll position. The point is
+  // that closing this specific tool shouldn't leave the Mind Temple tile sitting right in
+  // front of someone's eyes the moment they exit; they should have to actively choose to
+  // scroll back down to it. Achieved by zeroing out the home route's saved scroll position
+  // before navigating, rather than fighting the hashchange event's timing directly.
+  try{
+    const mem = getScrollMemory();
+    mem[''] = 0;
+    saveScrollMemory(mem);
+  }catch(e){}
   location.hash = '#';
 }
 function mtRender(){
@@ -6867,11 +6907,11 @@ function mtWireStep(container){
   const actionYes = container.querySelector('[data-action="action-yes"]');
   if(actionYes) actionYes.addEventListener('click', ()=>{ s.actionTaken = true; mtGoTo('actionDescription'); });
   const actionNo = container.querySelector('[data-action="action-no"]');
-  if(actionNo) actionNo.addEventListener('click', ()=>{ s.actionTaken = false; mtGoTo('resolution'); });
+  if(actionNo) actionNo.addEventListener('click', ()=>{ s.actionTaken = false; mtAfterAction(); });
   const nextActionDescription = container.querySelector('[data-action="next-actionDescription"]');
   if(nextActionDescription) nextActionDescription.addEventListener('click', ()=>{
     s.actionDescription = container.querySelector('#mtInput').value;
-    mtGoTo('resolution');
+    mtAfterAction();
   });
   const nextResolution = container.querySelector('[data-action="next-resolution"]');
   if(nextResolution) nextResolution.addEventListener('click', ()=>{
