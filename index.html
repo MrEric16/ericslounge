@@ -6843,25 +6843,57 @@ function mtStepHtml(){
     // Acute detection always wins regardless of which emotion category was picked --
     // someone could click "Happy" and still write something concerning in their own
     // words further down, and the safety net shouldn't be skippable by category choice.
-    let msg, btnLabel;
     if(acute){
-      msg = "Thank you for writing that down. Please find Mr Eric in person today, as soon as you can. If he's not around, tell another adult you trust — right now, not later.";
-      btnLabel = "Done";
-    } else if(isPositive){
+      return `
+        <div class="mt-closing-box">
+          <div class="mt-closing-msg">Thank you for writing that down. Please find Mr Eric in person today, as soon as you can. If he's not around, tell another adult you trust — right now, not later.</div>
+          <button class="mt-resolve-btn" data-action="exit">Done</button>
+        </div>
+      `;
+    }
+    if(isPositive){
       // The original version showed "talk to Mr Eric" after EVERY reflection, including
-      // ones that started with picking "Happy" or "Peaceful" -- caught immediately because
+      // ones that started with picking "Joyful" or "Trusting" -- caught immediately because
       // it makes no sense to push someone toward a serious conversation about something
       // that made them feel good. Positive reflections just close out warmly instead.
-      msg = "Thank you for writing that down. It's good to notice what's going well, too.";
-      btnLabel = "Done";
-    } else {
-      msg = "Thank you for writing that down. I strongly recommend talking to Mr Eric before the end of the day.";
-      btnLabel = "Situation resolved constructively";
+      return `
+        <div class="mt-closing-box">
+          <div class="mt-closing-msg">Thank you for writing that down. It's good to notice what's going well, too.</div>
+          <button class="mt-resolve-btn" data-action="exit">Done</button>
+        </div>
+      `;
     }
+    // Everyday negative/neutral discomfort (jealousy, mild frustration, being startled,
+    // etc.) doesn't warrant "go talk to a teacher" -- that was a real overcorrection,
+    // reported directly and fixed here. "Talk to Mr Eric" is now reserved exclusively for
+    // the acute tier above. Everything else gets offered a small distraction instead.
     return `
       <div class="mt-closing-box">
-        <div class="mt-closing-msg">${escapeHtml(msg)}</div>
-        <button class="mt-resolve-btn" data-action="exit">${escapeHtml(btnLabel)}</button>
+        <div class="mt-closing-msg">Thank you for writing that down. I hope you feel better soon. Want to read, watch, or do something?</div>
+        <div class="mt-yn-row">
+          <button class="mt-yn-btn mt-primary" data-action="comfort-yes">Yes</button>
+          <button class="mt-yn-btn" data-action="comfort-no">No</button>
+        </div>
+      </div>
+    `;
+  }
+  if(s.step === 'comfortDeclined'){
+    return `
+      <div class="mt-closing-box">
+        <div class="mt-closing-msg">Feel free to come back whenever you want.</div>
+        <button class="mt-resolve-btn" data-action="exit">Done</button>
+      </div>
+    `;
+  }
+  if(s.step === 'comfortChoice'){
+    return `
+      <div class="mt-closing-box">
+        <div class="mt-closing-msg">Read, watch, or do something?</div>
+        <div class="mt-yn-row">
+          <button class="mt-yn-btn mt-primary" data-action="comfort-read">Read</button>
+          <button class="mt-yn-btn mt-primary" data-action="comfort-watch">Watch</button>
+          <button class="mt-yn-btn mt-primary" data-action="comfort-do">Do</button>
+        </div>
       </div>
     `;
   }
@@ -6917,6 +6949,34 @@ function mtWireStep(container){
   if(nextResolution) nextResolution.addEventListener('click', ()=>{
     s.resolution = container.querySelector('#mtInput').value;
     mtGoTo('closing');
+  });
+
+  const comfortYes = container.querySelector('[data-action="comfort-yes"]');
+  if(comfortYes) comfortYes.addEventListener('click', ()=> mtGoTo('comfortChoice'));
+  const comfortNo = container.querySelector('[data-action="comfort-no"]');
+  if(comfortNo) comfortNo.addEventListener('click', ()=> mtGoTo('comfortDeclined'));
+
+  // Reuses the exact same random-pick logic as the homepage's own Read/Watch/Do buttons
+  // (wireRandomButton / wireRandomVideoButton / wireRandomExploreButton) rather than a
+  // separate implementation, so behavior is identical everywhere it appears on the site.
+  const comfortRead = container.querySelector('[data-action="comfort-read"]');
+  if(comfortRead) comfortRead.addEventListener('click', ()=>{
+    if(DISPATCHES.length === 0) return;
+    const pick = DISPATCHES[Math.floor(Math.random() * DISPATCHES.length)];
+    location.href = pick.url;
+  });
+  const comfortWatch = container.querySelector('[data-action="comfort-watch"]');
+  if(comfortWatch) comfortWatch.addEventListener('click', ()=>{
+    if(WATCH_VIDEOS.length === 0) return;
+    const pick = WATCH_VIDEOS[Math.floor(Math.random() * WATCH_VIDEOS.length)];
+    location.hash = '#play/' + pick.videoId;
+  });
+  const comfortDo = container.querySelector('[data-action="comfort-do"]');
+  if(comfortDo) comfortDo.addEventListener('click', ()=>{
+    const pool = EXPLORE_SITES.filter(s2 => !DO_SOMETHING_EXCLUDED_FACS.includes(s2.fac));
+    if(pool.length === 0) return;
+    const pick = pool[Math.floor(Math.random() * pool.length)];
+    window.open(pick.url, '_blank', 'noopener');
   });
 
   container.querySelectorAll('[data-action="exit"]').forEach(btn => {
