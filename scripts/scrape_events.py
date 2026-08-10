@@ -807,21 +807,29 @@ def scrape_afisha_calendar():
         try:
             page.goto("https://www.afisha.uz/ru/exhibitions", wait_until="networkidle", timeout=30000)
             page.wait_for_timeout(2500)
+            with open("scripts/debug-afisha-exhibitions-listing.html", "w", encoding="utf-8") as f:
+                f.write(page.content())
             listing_new = 0
+            all_hrefs_seen = []
             for a in page.query_selector_all("a[href]"):
                 href = a.get_attribute("href") or ""
                 m = re.search(r"/ru/(exhibitions)/\d{4}/\d{2}/\d{2}/", href)
                 if not m:
                     continue
+                all_hrefs_seen.append(href)
                 full_url = href if href.startswith("http") else f"https://www.afisha.uz{href}"
                 if full_url in discovered:
                     continue
                 raw_text = (a.inner_text() or "").strip()
                 if is_excluded(raw_text) or is_banned(raw_text):
+                    log(f"exhibitions listing: EXCLUDED {href!r} on link text {raw_text[:80]!r}")
                     continue
                 discovered[full_url] = "exhibition"
                 listing_new += 1
-            log(f"exhibitions listing page (supplementary): {listing_new} new event URLs discovered")
+            log(f"exhibitions listing page (supplementary): {listing_new} new event URLs discovered, {len(all_hrefs_seen)} total exhibition links seen on page")
+            for target in ("our-heritage", "photo-chronicle-xx"):
+                matches = [h for h in all_hrefs_seen if target in h]
+                log(f"  TARGET CHECK '{target}': {'FOUND in raw hrefs: ' + str(matches) if matches else 'NOT FOUND in any href on the rendered page'}")
         except Exception as e:
             log(f"exhibitions listing page (supplementary): FAILED to load ({e})")
 
