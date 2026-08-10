@@ -10,9 +10,12 @@
 [scrape] calendar 2026-08-17: 0 new event URLs discovered
 [scrape] calendar 2026-08-18: 2 new event URLs discovered
 [scrape] calendar 2026-08-19: 0 new event URLs discovered
-[scrape] exhibitions listing page (supplementary): 13 new event URLs discovered
+[scrape] exhibitions listing: EXCLUDED '/ru/exhibitions/2026/07/02/tiff-2026' on link text 'Международная туристическая выставка «Туризм по Шелковому пути — 2026»\nс 25 по 2'
+[scrape] exhibitions listing page (supplementary): 13 new event URLs discovered, 19 total exhibition links seen on page
+[scrape]   TARGET CHECK 'our-heritage': FOUND in raw hrefs: ['/ru/exhibitions/2026/07/31/our-heritage']
+[scrape]   TARGET CHECK 'photo-chronicle-xx': FOUND in raw hrefs: ['/ru/exhibitions/2026/06/25/photo-chronicle-xx']
 [scrape] calendar discovery complete: 59 unique event URLs to check
-[scrape]   DEBUG: dumped raw HTML for qimmat page, 137627 chars
+[scrape]   DEBUG: dumped raw HTML for qimmat page, 137670 chars
 [scrape]   DEBUG: dumped raw HTML for madagascar page, 184927 chars
 [scrape]   'Silk Road Expo HUAHE 2026': no dates found in window (no schedule/date-range parsed) -- kept 0 events
 [scrape]   'Uzbekistan Concrete Show 2026': no dates found in window (no schedule/date-range parsed) -- kept 0 events
