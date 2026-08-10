@@ -6031,7 +6031,16 @@ function exploreResultsHtml(list){
    used instead of shipping a feature that silently shows nothing half the time).
    Deliberately no pronunciation/phonetics anywhere in this feature, per explicit request. */
 function isDictLookupCandidate(q){
-  return /^[a-zA-Z]{2,}$/.test(q);
+  return /^[a-zA-Z]{2,}$/.test(q) || /^to\s+[a-zA-Z]{2,}$/.test(q);
+}
+// Students conventionally look up verbs by their infinitive form ("to read") rather than
+// the bare verb ("read") -- a plain single-word check alone rejects "to read" outright as
+// a two-word phrase, which is wrong for a vocabulary-teaching site where infinitive form
+// is the standard way verbs get referenced. Strips a leading "to " so "to read" looks up
+// "read" (the actual dictionary headword) instead of finding nothing.
+function stripInfinitive(q){
+  const m = q.match(/^to\s+([a-zA-Z]{2,})$/);
+  return m ? m[1] : q;
 }
 async function fetchWordEntry(word){
   const cacheKey = 'dictword_' + word.toLowerCase();
@@ -6153,9 +6162,10 @@ function wireSearch(container){
       dictCard.innerHTML = '';
       return;
     }
+    const lookupWord = stripInfinitive(q);
     const thisRequestId = ++dictRequestId;
     dictDebounceTimer = setTimeout(async ()=>{
-      const entry = await fetchWordEntry(q);
+      const entry = await fetchWordEntry(lookupWord);
       if(thisRequestId !== dictRequestId) return; // a newer keystroke has since superseded this lookup
       if(!entry){ dictCard.innerHTML = ''; return; }
       dictCard.innerHTML = dictCardHtml(entry);
