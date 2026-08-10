@@ -1,136 +1,26 @@
 {
-  "generatedAt": "2026-08-10T15:39:25.414928Z",
+  "generatedAt": "2026-08-10T20:28:59.253761Z",
   "events": [
     {
-      "title": "Exhibition “Along the Great Silk Road”",
-      "titleRu": "Выставка «По Великому шелковому пути»",
-      "category": "exhibition",
-      "venue": "Международный Караван-Сарай культуры Икуо ХираямыТашкент, ул. Юсуф Хос Ходжиб, 37А",
-      "startDate": "2026-08-10",
+      "title": "Live music evenings at Cultura",
+      "titleRu": "Вечера живой музыки в Cultura",
+      "category": "concert",
+      "venue": "CulturaТашкент, просп. Шарафа Рашидова, 40",
+      "startDate": "2026-08-11",
       "endDate": null,
-      "time": null,
-      "url": "https://www.afisha.uz/ru/exhibitions/2026/08/03/vystavka-po-velikomu-shelkovomu-puti-avgust",
+      "time": "20:00",
+      "url": "https://www.afisha.uz/ru/restaurants/2026/08/10/vechera-zhivoj-muzyki-v-cultura-2026",
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Exhibition Qimmat",
-      "titleRu": "Выставка Qimmat",
-      "category": "exhibition",
-      "venue": "ZanmakonТашкент, ул. Заркайнар, 48",
-      "startDate": "2026-08-10",
+      "title": "Brain Slaughter: Classic",
+      "titleRu": "Мозгобойня: Классическая",
+      "category": "concert",
+      "venue": "Terrace100Ташкент, ул. Нафосат, 76",
+      "startDate": "2026-08-11",
       "endDate": null,
-      "time": null,
-      "url": "https://www.afisha.uz/ru/exhibitions/2026/08/03/zanmakon",
-      "source": "afisha.uz (calendar)"
-    },
-    {
-      "title": "Exhibition \"Our Heritage\"",
-      "titleRu": "Выставка «Наше наследие»",
-      "category": "exhibition",
-      "venue": "Центральный Выставочный зал Академии художеств УзбекистанаТашкент, ул. Шарафа Рашидова, 40",
-      "startDate": "2026-08-10",
-      "endDate": null,
-      "time": null,
-      "url": "https://www.afisha.uz/ru/exhibitions/2026/07/31/our-heritage",
-      "source": "afisha.uz (calendar)"
-    },
-    {
-      "title": "Exhibition “Photochronicles of the 20th century”",
-      "titleRu": "Выставка «Фотохроника XX века»",
-      "category": "exhibition",
-      "venue": "Bonum Factum GalleryТашкент, пер. Садыка Азимова, 20А",
-      "startDate": "2026-08-10",
-      "endDate": null,
-      "time": null,
-      "url": "https://www.afisha.uz/ru/exhibitions/2026/06/25/photo-chronicle-xx",
-      "source": "afisha.uz (calendar)"
-    },
-    {
-      "title": "Soap bubble show at Jungle Family Club",
-      "titleRu": "Шоу мыльных пузырей в Jungle Family Club",
-      "category": "kids",
-      "venue": "Jungle Family ClubТашкент, Юнусабад-12, 20А",
-      "startDate": "2026-08-10",
-      "endDate": null,
-      "time": "19:30",
-      "url": "https://www.afisha.uz/ru/children/2026/08/10/shou-mylnyh-puzyrej-v-jungle-family-club-2026",
-      "source": "afisha.uz (calendar)"
-    },
-    {
-      "title": "Children's day at the Sinbad pool",
-      "titleRu": "Детский день в бассейне Sinbad",
-      "category": "kids",
-      "venue": "SinbadТашкент, пересечение ул. Ширин и ул. Фазылтепа",
-      "startDate": "2026-08-10",
-      "endDate": null,
-      "time": null,
-      "url": "https://www.afisha.uz/ru/children/2026/07/16/detskiy-den-sinbad-2026",
-      "source": "afisha.uz (calendar)"
-    },
-    {
-      "title": "Musical fountain in Magic City Park",
-      "titleRu": "Музыкальный фонтан в парке Magic City",
-      "category": "festival",
-      "venue": "Magic CityТашкент, ул. Бабура, 174",
-      "startDate": "2026-08-10",
-      "endDate": null,
-      "time": null,
-      "url": "https://www.afisha.uz/ru/gorod/2026/07/17/muzykalnyy-fontan-magic-city-2026",
-      "source": "afisha.uz (calendar)"
-    },
-    {
-      "title": "Musical fountain in Tashkent City park",
-      "titleRu": "Музыкальный фонтан в парке Tashkent City",
-      "category": "festival",
-      "venue": "Tashkent CityТашкент, просп. Бунёдкор",
-      "startDate": "2026-08-10",
-      "endDate": null,
-      "time": null,
-      "url": "https://www.afisha.uz/ru/gorod/2026/07/16/muzykalnyy-fontan-tashkent-city-2026",
-      "source": "afisha.uz (calendar)"
-    },
-    {
-      "title": "Uzbegim Market fair in Tashkent City Park",
-      "titleRu": "Ярмарка Uzbegim Market в парке Tashkent City",
-      "category": "festival",
-      "venue": "Tashkent CityТашкент, просп. Бунёдкор",
-      "startDate": "2026-08-10",
-      "endDate": null,
-      "time": null,
-      "url": "https://www.afisha.uz/ru/gorod/2026/07/16/uzbegim-market-2026",
-      "source": "afisha.uz (calendar)"
-    },
-    {
-      "title": "Palma & Chilla beach in Milliy Bog’ park",
-      "titleRu": "Пляж Palma & Chilla в парке Milliy Bog’",
-      "category": "festival",
-      "venue": "Milliy bog‘Ташкент, ул. Сеул, 16",
-      "startDate": "2026-08-10",
-      "endDate": null,
-      "time": null,
-      "url": "https://www.afisha.uz/ru/gorod/2026/07/16/palma-chilla-milliy-bog-2026",
-      "source": "afisha.uz (calendar)"
-    },
-    {
-      "title": "Performance “Madagascar” in Tashkent City Park",
-      "titleRu": "Спектакль «Мадагаскар» в парке Tashkent City",
-      "category": "festival",
-      "venue": "Tashkent CityТашкент, просп. Бунёдкор",
-      "startDate": "2026-08-10",
-      "endDate": null,
-      "time": "20:30",
-      "url": "https://www.afisha.uz/ru/gorod/2026/07/16/madagaskar-tashkent-city-2026",
-      "source": "afisha.uz (calendar)"
-    },
-    {
-      "title": "Creative workshops in Potterville",
-      "titleRu": "Творческие мастер-классы в Potterville",
-      "category": "lecture",
-      "venue": "PottervilleТашкент, ул. Лабзак, 12/1",
-      "startDate": "2026-08-10",
-      "endDate": null,
-      "time": null,
-      "url": "https://www.afisha.uz/ru/znaniya/2026/07/29/potterville-avgust-2026",
+      "time": "19:00",
+      "url": "https://www.afisha.uz/ru/restaurants/2026/07/23/mozgoboynya-classic-341",
       "source": "afisha.uz (calendar)"
     },
     {
@@ -175,6 +65,28 @@
       "endDate": null,
       "time": null,
       "url": "https://www.afisha.uz/ru/exhibitions/2026/06/25/photo-chronicle-xx",
+      "source": "afisha.uz (calendar)"
+    },
+    {
+      "title": "Football match \"Pakhtakor\" - \"Al-Hussein\"",
+      "titleRu": "Футбольный матч «Пахтакор» — «Аль-Хусейн»",
+      "category": "sport",
+      "venue": null,
+      "startDate": "2026-08-11",
+      "endDate": null,
+      "time": "20:00",
+      "url": "https://www.afisha.uz/ru/sport/2026/08/03/futbolnyi-match-paxtakor-al-hussein-11-avgusta",
+      "source": "afisha.uz (calendar)"
+    },
+    {
+      "title": "Free game development course Game Dev Lab for teenagers",
+      "titleRu": "Бесплатный курс по разработке игр Game Dev Lab для подростков",
+      "category": "kids",
+      "venue": "Республиканская детская библиотекаТашкент, ул. Яхъё Гулямова, 47",
+      "startDate": "2026-08-11",
+      "endDate": null,
+      "time": "11:00",
+      "url": "https://www.afisha.uz/ru/children/2026/07/31/besplatnyy-kurs-game-dev-lab-dlya-podrostkov",
       "source": "afisha.uz (calendar)"
     },
     {
@@ -184,7 +96,7 @@
       "venue": "Tashkent CityТашкент, просп. Бунёдкор",
       "startDate": "2026-08-11",
       "endDate": null,
-      "time": null,
+      "time": "20:30",
       "url": "https://www.afisha.uz/ru/children/2026/07/28/nova-circus-tashkent-city",
       "source": "afisha.uz (calendar)"
     },
@@ -222,7 +134,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Palma & Chilla beach in Milliy Bog’ park",
+      "title": "Пляж Palma & Chilla в парке Milliy Bog’",
       "titleRu": "Пляж Palma & Chilla в парке Milliy Bog’",
       "category": "festival",
       "venue": "Milliy bog‘Ташкент, ул. Сеул, 16",
@@ -241,39 +153,6 @@
       "endDate": null,
       "time": null,
       "url": "https://www.afisha.uz/ru/znaniya/2026/07/29/potterville-avgust-2026",
-      "source": "afisha.uz (calendar)"
-    },
-    {
-      "title": "Brain Slaughter: Classic",
-      "titleRu": "Мозгобойня: Классическая",
-      "category": "concert",
-      "venue": "Terrace100Ташкент, ул. Нафосат, 76",
-      "startDate": "2026-08-11",
-      "endDate": null,
-      "time": "19:00",
-      "url": "https://www.afisha.uz/ru/restaurants/2026/07/23/mozgoboynya-classic-341",
-      "source": "afisha.uz (calendar)"
-    },
-    {
-      "title": "Football match \"Pakhtakor\" - \"Al-Hussein\"",
-      "titleRu": "Футбольный матч «Пахтакор» — «Аль-Хусейн»",
-      "category": "sport",
-      "venue": null,
-      "startDate": "2026-08-11",
-      "endDate": null,
-      "time": "20:00",
-      "url": "https://www.afisha.uz/ru/sport/2026/08/03/futbolnyi-match-paxtakor-al-hussein-11-avgusta",
-      "source": "afisha.uz (calendar)"
-    },
-    {
-      "title": "Free game development course Game Dev Lab for teenagers",
-      "titleRu": "Бесплатный курс по разработке игр Game Dev Lab для подростков",
-      "category": "kids",
-      "venue": "Республиканская детская библиотекаТашкент, ул. Яхъё Гулямова, 47",
-      "startDate": "2026-08-11",
-      "endDate": null,
-      "time": "11:00",
-      "url": "https://www.afisha.uz/ru/children/2026/07/31/besplatnyy-kurs-game-dev-lab-dlya-podrostkov",
       "source": "afisha.uz (calendar)"
     },
     {
@@ -375,7 +254,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Palma & Chilla beach in Milliy Bog’ park",
+      "title": "Пляж Palma & Chilla в парке Milliy Bog’",
       "titleRu": "Пляж Palma & Chilla в парке Milliy Bog’",
       "category": "festival",
       "venue": "Milliy bog‘Ташкент, ул. Сеул, 16",
@@ -383,17 +262,6 @@
       "endDate": null,
       "time": null,
       "url": "https://www.afisha.uz/ru/gorod/2026/07/16/palma-chilla-milliy-bog-2026",
-      "source": "afisha.uz (calendar)"
-    },
-    {
-      "title": "Performance “Madagascar” in Tashkent City Park",
-      "titleRu": "Спектакль «Мадагаскар» в парке Tashkent City",
-      "category": "festival",
-      "venue": "Tashkent CityТашкент, просп. Бунёдкор",
-      "startDate": "2026-08-12",
-      "endDate": null,
-      "time": "20:30",
-      "url": "https://www.afisha.uz/ru/gorod/2026/07/16/madagaskar-tashkent-city-2026",
       "source": "afisha.uz (calendar)"
     },
     {
@@ -438,6 +306,17 @@
       "endDate": null,
       "time": "11:00",
       "url": "https://www.afisha.uz/ru/gorod/2026/08/06/forma-solara-12-avgusta",
+      "source": "afisha.uz (calendar)"
+    },
+    {
+      "title": "Performance \"Madagascar\" in Tashkent City Park",
+      "titleRu": "Спектакль «Мадагаскар» в парке Tashkent City",
+      "category": "festival",
+      "venue": "Tashkent CityТашкент, просп. Бунёдкор",
+      "startDate": "2026-08-12",
+      "endDate": null,
+      "time": "20:30",
+      "url": "https://www.afisha.uz/ru/gorod/2026/07/16/madagaskar-tashkent-city-2026",
       "source": "afisha.uz (calendar)"
     },
     {
@@ -496,6 +375,17 @@
       "source": "afisha.uz (calendar)"
     },
     {
+      "title": "Free game development course Game Dev Lab for teenagers",
+      "titleRu": "Бесплатный курс по разработке игр Game Dev Lab для подростков",
+      "category": "kids",
+      "venue": "Республиканская детская библиотекаТашкент, ул. Яхъё Гулямова, 47",
+      "startDate": "2026-08-13",
+      "endDate": null,
+      "time": "11:00",
+      "url": "https://www.afisha.uz/ru/children/2026/07/31/besplatnyy-kurs-game-dev-lab-dlya-podrostkov",
+      "source": "afisha.uz (calendar)"
+    },
+    {
       "title": "Theater and circus show Nova Circus",
       "titleRu": "Театрально-цирковое шоу Nova Circus",
       "category": "kids",
@@ -540,7 +430,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Palma & Chilla beach in Milliy Bog’ park",
+      "title": "Пляж Palma & Chilla в парке Milliy Bog’",
       "titleRu": "Пляж Palma & Chilla в парке Milliy Bog’",
       "category": "festival",
       "venue": "Milliy bog‘Ташкент, ул. Сеул, 16",
@@ -559,17 +449,6 @@
       "endDate": null,
       "time": null,
       "url": "https://www.afisha.uz/ru/znaniya/2026/07/29/potterville-avgust-2026",
-      "source": "afisha.uz (calendar)"
-    },
-    {
-      "title": "Free game development course Game Dev Lab for teenagers",
-      "titleRu": "Бесплатный курс по разработке игр Game Dev Lab для подростков",
-      "category": "kids",
-      "venue": "Республиканская детская библиотекаТашкент, ул. Яхъё Гулямова, 47",
-      "startDate": "2026-08-13",
-      "endDate": null,
-      "time": "11:00",
-      "url": "https://www.afisha.uz/ru/children/2026/07/31/besplatnyy-kurs-game-dev-lab-dlya-podrostkov",
       "source": "afisha.uz (calendar)"
     },
     {
@@ -715,7 +594,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Palma & Chilla beach in Milliy Bog’ park",
+      "title": "Пляж Palma & Chilla в парке Milliy Bog’",
       "titleRu": "Пляж Palma & Chilla в парке Milliy Bog’",
       "category": "festival",
       "venue": "Milliy bog‘Ташкент, ул. Сеул, 16",
@@ -921,7 +800,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Palma & Chilla beach in Milliy Bog’ park",
+      "title": "Пляж Palma & Chilla в парке Milliy Bog’",
       "titleRu": "Пляж Palma & Chilla в парке Milliy Bog’",
       "category": "festival",
       "venue": "Milliy bog‘Ташкент, ул. Сеул, 16",
@@ -929,17 +808,6 @@
       "endDate": null,
       "time": null,
       "url": "https://www.afisha.uz/ru/gorod/2026/07/16/palma-chilla-milliy-bog-2026",
-      "source": "afisha.uz (calendar)"
-    },
-    {
-      "title": "Performance “Madagascar” in Tashkent City Park",
-      "titleRu": "Спектакль «Мадагаскар» в парке Tashkent City",
-      "category": "festival",
-      "venue": "Tashkent CityТашкент, просп. Бунёдкор",
-      "startDate": "2026-08-15",
-      "endDate": null,
-      "time": "20:30",
-      "url": "https://www.afisha.uz/ru/gorod/2026/07/16/madagaskar-tashkent-city-2026",
       "source": "afisha.uz (calendar)"
     },
     {
@@ -951,6 +819,17 @@
       "endDate": null,
       "time": null,
       "url": "https://www.afisha.uz/ru/znaniya/2026/07/29/potterville-avgust-2026",
+      "source": "afisha.uz (calendar)"
+    },
+    {
+      "title": "Performance \"Madagascar\" in Tashkent City Park",
+      "titleRu": "Спектакль «Мадагаскар» в парке Tashkent City",
+      "category": "festival",
+      "venue": "Tashkent CityТашкент, просп. Бунёдкор",
+      "startDate": "2026-08-15",
+      "endDate": null,
+      "time": "20:30",
+      "url": "https://www.afisha.uz/ru/gorod/2026/07/16/madagaskar-tashkent-city-2026",
       "source": "afisha.uz (calendar)"
     },
     {
@@ -989,7 +868,7 @@
       "title": "Amirsoy Paradiso",
       "titleRu": null,
       "category": "concert",
-      "venue": "Отель Узбекистан Amirsoy Resort",
+      "venue": "Amirsoy Resort Отель Узбекистан",
       "startDate": "2026-08-15",
       "endDate": null,
       "url": "https://iticket.uz/en/events/concerts/amirsoy-paradiso",
@@ -1138,7 +1017,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Palma & Chilla beach in Milliy Bog’ park",
+      "title": "Пляж Palma & Chilla в парке Milliy Bog’",
       "titleRu": "Пляж Palma & Chilla в парке Milliy Bog’",
       "category": "festival",
       "venue": "Milliy bog‘Ташкент, ул. Сеул, 16",
@@ -1215,6 +1094,17 @@
       "source": "afisha.uz (calendar)"
     },
     {
+      "title": "Candle Fire: Iron Throne Concert",
+      "titleRu": "Концерт Candle Fire: Iron Throne",
+      "category": "concert",
+      "venue": null,
+      "startDate": "2026-08-16",
+      "endDate": null,
+      "time": "20:00",
+      "url": "https://www.afisha.uz/ru/concerts/2026/08/10/koncert-candle-fire-iron-throne-16-avgusta-2026",
+      "source": "afisha.uz (calendar)"
+    },
+    {
       "title": "Extraordinary Musicians",
       "titleRu": null,
       "category": "theatre",
@@ -1223,6 +1113,17 @@
       "endDate": null,
       "url": "https://iticket.uz/en/events/theaters-tashkent/extraordinary-musicians2",
       "source": "iticket.uz"
+    },
+    {
+      "title": "Children's master class on eclairs at PAUL",
+      "titleRu": "Детский мастер-класс по эклерам в PAUL",
+      "category": "kids",
+      "venue": "Tashkent City MallТашкент, ул. Батыра Закирова, 7",
+      "startDate": "2026-08-16",
+      "endDate": null,
+      "time": "11:00",
+      "url": "https://www.afisha.uz/ru/children/2026/08/10/detskij-master-klass-po-ekleram-v-paul-16-avgusta-2026",
+      "source": "afisha.uz (calendar)"
     },
     {
       "title": "Dino Party at Jungle Family Club",
@@ -1269,7 +1170,29 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Flixa training game in Founders cafe",
+      "title": "Master class “Your own perfumer. Summer flair\"",
+      "titleRu": "Мастер-класс «Сам себе парфюмер. Летний флер»",
+      "category": "lecture",
+      "venue": "Human HouseТашкент, ул. Ивлиева, 43",
+      "startDate": "2026-08-16",
+      "endDate": null,
+      "time": "13:00",
+      "url": "https://www.afisha.uz/ru/znaniya/2026/08/10/master-klass-sam-sebe-parfyumer-letnij-fler-16-avgusta-2026",
+      "source": "afisha.uz (calendar)"
+    },
+    {
+      "title": "Forum “I am a mother”",
+      "titleRu": "Форум «Я мама»",
+      "category": "lecture",
+      "venue": "Hyatt Regency TashkentТашкент, ул. Алишера Навои, 1А",
+      "startDate": "2026-08-16",
+      "endDate": null,
+      "time": "10:30",
+      "url": "https://www.afisha.uz/ru/znaniya/2026/08/10/forum-ya-mama-16-avgusta-2026",
+      "source": "afisha.uz (calendar)"
+    },
+    {
+      "title": "Игра-тренинг Flixa в Founders cafe",
       "titleRu": "Игра-тренинг Flixa в Founders cafe",
       "category": "lecture",
       "venue": null,
@@ -1313,17 +1236,6 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Soap bubble show at Jungle Family Club",
-      "titleRu": "Шоу мыльных пузырей в Jungle Family Club",
-      "category": "kids",
-      "venue": "Jungle Family ClubТашкент, Юнусабад-12, 20А",
-      "startDate": "2026-08-17",
-      "endDate": null,
-      "time": "19:30",
-      "url": "https://www.afisha.uz/ru/children/2026/08/10/shou-mylnyh-puzyrej-v-jungle-family-club-2026",
-      "source": "afisha.uz (calendar)"
-    },
-    {
       "title": "Theater and circus show Nova Circus",
       "titleRu": "Театрально-цирковое шоу Nova Circus",
       "category": "kids",
@@ -1332,17 +1244,6 @@
       "endDate": null,
       "time": null,
       "url": "https://www.afisha.uz/ru/children/2026/07/28/nova-circus-tashkent-city",
-      "source": "afisha.uz (calendar)"
-    },
-    {
-      "title": "Children's day at the Sinbad pool",
-      "titleRu": "Детский день в бассейне Sinbad",
-      "category": "kids",
-      "venue": "SinbadТашкент, пересечение ул. Ширин и ул. Фазылтепа",
-      "startDate": "2026-08-17",
-      "endDate": null,
-      "time": null,
-      "url": "https://www.afisha.uz/ru/children/2026/07/16/detskiy-den-sinbad-2026",
       "source": "afisha.uz (calendar)"
     },
     {
@@ -1379,7 +1280,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Palma & Chilla beach in Milliy Bog’ park",
+      "title": "Пляж Palma & Chilla в парке Milliy Bog’",
       "titleRu": "Пляж Palma & Chilla в парке Milliy Bog’",
       "category": "festival",
       "venue": "Milliy bog‘Ташкент, ул. Сеул, 16",
@@ -1387,17 +1288,6 @@
       "endDate": null,
       "time": null,
       "url": "https://www.afisha.uz/ru/gorod/2026/07/16/palma-chilla-milliy-bog-2026",
-      "source": "afisha.uz (calendar)"
-    },
-    {
-      "title": "Performance “Madagascar” in Tashkent City Park",
-      "titleRu": "Спектакль «Мадагаскар» в парке Tashkent City",
-      "category": "festival",
-      "venue": "Tashkent CityТашкент, просп. Бунёдкор",
-      "startDate": "2026-08-17",
-      "endDate": null,
-      "time": "20:30",
-      "url": "https://www.afisha.uz/ru/gorod/2026/07/16/madagaskar-tashkent-city-2026",
       "source": "afisha.uz (calendar)"
     },
     {
@@ -1409,6 +1299,50 @@
       "endDate": null,
       "time": null,
       "url": "https://www.afisha.uz/ru/znaniya/2026/07/29/potterville-avgust-2026",
+      "source": "afisha.uz (calendar)"
+    },
+    {
+      "title": "Performance \"Madagascar\" in Tashkent City Park",
+      "titleRu": "Спектакль «Мадагаскар» в парке Tashkent City",
+      "category": "festival",
+      "venue": "Tashkent CityТашкент, просп. Бунёдкор",
+      "startDate": "2026-08-17",
+      "endDate": null,
+      "time": "20:30",
+      "url": "https://www.afisha.uz/ru/gorod/2026/07/16/madagaskar-tashkent-city-2026",
+      "source": "afisha.uz (calendar)"
+    },
+    {
+      "title": "Soap bubble show at Jungle Family Club",
+      "titleRu": "Шоу мыльных пузырей в Jungle Family Club",
+      "category": "kids",
+      "venue": "Jungle Family ClubТашкент, Юнусабад-12, 20А",
+      "startDate": "2026-08-17",
+      "endDate": null,
+      "time": "19:30",
+      "url": "https://www.afisha.uz/ru/children/2026/08/10/shou-mylnyh-puzyrej-v-jungle-family-club-2026",
+      "source": "afisha.uz (calendar)"
+    },
+    {
+      "title": "Children's day at the Sinbad pool",
+      "titleRu": "Детский день в бассейне Sinbad",
+      "category": "kids",
+      "venue": "SinbadТашкент, пересечение ул. Ширин и ул. Фазылтепа",
+      "startDate": "2026-08-17",
+      "endDate": null,
+      "time": null,
+      "url": "https://www.afisha.uz/ru/children/2026/07/16/detskiy-den-sinbad-2026",
+      "source": "afisha.uz (calendar)"
+    },
+    {
+      "title": "Live music evenings at Cultura",
+      "titleRu": "Вечера живой музыки в Cultura",
+      "category": "concert",
+      "venue": "CulturaТашкент, просп. Шарафа Рашидова, 40",
+      "startDate": "2026-08-18",
+      "endDate": null,
+      "time": "20:00",
+      "url": "https://www.afisha.uz/ru/restaurants/2026/08/10/vechera-zhivoj-muzyki-v-cultura-2026",
       "source": "afisha.uz (calendar)"
     },
     {
@@ -1445,6 +1379,17 @@
       "source": "afisha.uz (calendar)"
     },
     {
+      "title": "Free game development course Game Dev Lab for teenagers",
+      "titleRu": "Бесплатный курс по разработке игр Game Dev Lab для подростков",
+      "category": "kids",
+      "venue": "Республиканская детская библиотекаТашкент, ул. Яхъё Гулямова, 47",
+      "startDate": "2026-08-18",
+      "endDate": null,
+      "time": "11:00",
+      "url": "https://www.afisha.uz/ru/children/2026/07/31/besplatnyy-kurs-game-dev-lab-dlya-podrostkov",
+      "source": "afisha.uz (calendar)"
+    },
+    {
       "title": "Theater and circus show Nova Circus",
       "titleRu": "Театрально-цирковое шоу Nova Circus",
       "category": "kids",
@@ -1489,7 +1434,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Palma & Chilla beach in Milliy Bog’ park",
+      "title": "Пляж Palma & Chilla в парке Milliy Bog’",
       "titleRu": "Пляж Palma & Chilla в парке Milliy Bog’",
       "category": "festival",
       "venue": "Milliy bog‘Ташкент, ул. Сеул, 16",
@@ -1508,17 +1453,6 @@
       "endDate": null,
       "time": null,
       "url": "https://www.afisha.uz/ru/znaniya/2026/07/29/potterville-avgust-2026",
-      "source": "afisha.uz (calendar)"
-    },
-    {
-      "title": "Free game development course Game Dev Lab for teenagers",
-      "titleRu": "Бесплатный курс по разработке игр Game Dev Lab для подростков",
-      "category": "kids",
-      "venue": "Республиканская детская библиотекаТашкент, ул. Яхъё Гулямова, 47",
-      "startDate": "2026-08-18",
-      "endDate": null,
-      "time": "11:00",
-      "url": "https://www.afisha.uz/ru/children/2026/07/31/besplatnyy-kurs-game-dev-lab-dlya-podrostkov",
       "source": "afisha.uz (calendar)"
     },
     {
@@ -1610,7 +1544,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Palma & Chilla beach in Milliy Bog’ park",
+      "title": "Пляж Palma & Chilla в парке Milliy Bog’",
       "titleRu": "Пляж Palma & Chilla в парке Milliy Bog’",
       "category": "festival",
       "venue": "Milliy bog‘Ташкент, ул. Сеул, 16",
@@ -1618,17 +1552,6 @@
       "endDate": null,
       "time": null,
       "url": "https://www.afisha.uz/ru/gorod/2026/07/16/palma-chilla-milliy-bog-2026",
-      "source": "afisha.uz (calendar)"
-    },
-    {
-      "title": "Performance “Madagascar” in Tashkent City Park",
-      "titleRu": "Спектакль «Мадагаскар» в парке Tashkent City",
-      "category": "festival",
-      "venue": "Tashkent CityТашкент, просп. Бунёдкор",
-      "startDate": "2026-08-19",
-      "endDate": null,
-      "time": "20:30",
-      "url": "https://www.afisha.uz/ru/gorod/2026/07/16/madagaskar-tashkent-city-2026",
       "source": "afisha.uz (calendar)"
     },
     {
@@ -1662,6 +1585,17 @@
       "endDate": null,
       "time": "19:30",
       "url": "https://www.afisha.uz/ru/children/2026/08/06/picca-master-klass-jungle-family-club",
+      "source": "afisha.uz (calendar)"
+    },
+    {
+      "title": "Performance \"Madagascar\" in Tashkent City Park",
+      "titleRu": "Спектакль «Мадагаскар» в парке Tashkent City",
+      "category": "festival",
+      "venue": "Tashkent CityТашкент, просп. Бунёдкор",
+      "startDate": "2026-08-19",
+      "endDate": null,
+      "time": "20:30",
+      "url": "https://www.afisha.uz/ru/gorod/2026/07/16/madagaskar-tashkent-city-2026",
       "source": "afisha.uz (calendar)"
     },
     {
@@ -1708,6 +1642,17 @@
       "source": "afisha.uz (calendar)"
     },
     {
+      "title": "Free game development course Game Dev Lab for teenagers",
+      "titleRu": "Бесплатный курс по разработке игр Game Dev Lab для подростков",
+      "category": "kids",
+      "venue": "Республиканская детская библиотекаТашкент, ул. Яхъё Гулямова, 47",
+      "startDate": "2026-08-20",
+      "endDate": null,
+      "time": "11:00",
+      "url": "https://www.afisha.uz/ru/children/2026/07/31/besplatnyy-kurs-game-dev-lab-dlya-podrostkov",
+      "source": "afisha.uz (calendar)"
+    },
+    {
       "title": "Theater and circus show Nova Circus",
       "titleRu": "Театрально-цирковое шоу Nova Circus",
       "category": "kids",
@@ -1752,7 +1697,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Palma & Chilla beach in Milliy Bog’ park",
+      "title": "Пляж Palma & Chilla в парке Milliy Bog’",
       "titleRu": "Пляж Palma & Chilla в парке Milliy Bog’",
       "category": "festival",
       "venue": "Milliy bog‘Ташкент, ул. Сеул, 16",
@@ -1771,17 +1716,6 @@
       "endDate": null,
       "time": null,
       "url": "https://www.afisha.uz/ru/znaniya/2026/07/29/potterville-avgust-2026",
-      "source": "afisha.uz (calendar)"
-    },
-    {
-      "title": "Free game development course Game Dev Lab for teenagers",
-      "titleRu": "Бесплатный курс по разработке игр Game Dev Lab для подростков",
-      "category": "kids",
-      "venue": "Республиканская детская библиотекаТашкент, ул. Яхъё Гулямова, 47",
-      "startDate": "2026-08-20",
-      "endDate": null,
-      "time": "11:00",
-      "url": "https://www.afisha.uz/ru/children/2026/07/31/besplatnyy-kurs-game-dev-lab-dlya-podrostkov",
       "source": "afisha.uz (calendar)"
     },
     {
@@ -1873,7 +1807,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Palma & Chilla beach in Milliy Bog’ park",
+      "title": "Пляж Palma & Chilla в парке Milliy Bog’",
       "titleRu": "Пляж Palma & Chilla в парке Milliy Bog’",
       "category": "festival",
       "venue": "Milliy bog‘Ташкент, ул. Сеул, 16",
@@ -2004,7 +1938,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Palma & Chilla beach in Milliy Bog’ park",
+      "title": "Пляж Palma & Chilla в парке Milliy Bog’",
       "titleRu": "Пляж Palma & Chilla в парке Milliy Bog’",
       "category": "festival",
       "venue": "Milliy bog‘Ташкент, ул. Сеул, 16",
@@ -2012,17 +1946,6 @@
       "endDate": null,
       "time": null,
       "url": "https://www.afisha.uz/ru/gorod/2026/07/16/palma-chilla-milliy-bog-2026",
-      "source": "afisha.uz (calendar)"
-    },
-    {
-      "title": "Performance “Madagascar” in Tashkent City Park",
-      "titleRu": "Спектакль «Мадагаскар» в парке Tashkent City",
-      "category": "festival",
-      "venue": "Tashkent CityТашкент, просп. Бунёдкор",
-      "startDate": "2026-08-22",
-      "endDate": null,
-      "time": "20:30",
-      "url": "https://www.afisha.uz/ru/gorod/2026/07/16/madagaskar-tashkent-city-2026",
       "source": "afisha.uz (calendar)"
     },
     {
@@ -2034,6 +1957,17 @@
       "endDate": null,
       "time": null,
       "url": "https://www.afisha.uz/ru/znaniya/2026/07/29/potterville-avgust-2026",
+      "source": "afisha.uz (calendar)"
+    },
+    {
+      "title": "Performance \"Madagascar\" in Tashkent City Park",
+      "titleRu": "Спектакль «Мадагаскар» в парке Tashkent City",
+      "category": "festival",
+      "venue": "Tashkent CityТашкент, просп. Бунёдкор",
+      "startDate": "2026-08-22",
+      "endDate": null,
+      "time": "20:30",
+      "url": "https://www.afisha.uz/ru/gorod/2026/07/16/madagaskar-tashkent-city-2026",
       "source": "afisha.uz (calendar)"
     },
     {
@@ -2178,7 +2112,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Palma & Chilla beach in Milliy Bog’ park",
+      "title": "Пляж Palma & Chilla в парке Milliy Bog’",
       "titleRu": "Пляж Palma & Chilla в парке Milliy Bog’",
       "category": "festival",
       "venue": "Milliy bog‘Ташкент, ул. Сеул, 16",
@@ -2266,7 +2200,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Flixa training game in Founders cafe",
+      "title": "Игра-тренинг Flixa в Founders cafe",
       "titleRu": "Игра-тренинг Flixa в Founders cafe",
       "category": "lecture",
       "venue": null,
@@ -2320,17 +2254,6 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Soap bubble show at Jungle Family Club",
-      "titleRu": "Шоу мыльных пузырей в Jungle Family Club",
-      "category": "kids",
-      "venue": "Jungle Family ClubТашкент, Юнусабад-12, 20А",
-      "startDate": "2026-08-24",
-      "endDate": null,
-      "time": "19:30",
-      "url": "https://www.afisha.uz/ru/children/2026/08/10/shou-mylnyh-puzyrej-v-jungle-family-club-2026",
-      "source": "afisha.uz (calendar)"
-    },
-    {
       "title": "Theater and circus show Nova Circus",
       "titleRu": "Театрально-цирковое шоу Nova Circus",
       "category": "kids",
@@ -2339,17 +2262,6 @@
       "endDate": null,
       "time": null,
       "url": "https://www.afisha.uz/ru/children/2026/07/28/nova-circus-tashkent-city",
-      "source": "afisha.uz (calendar)"
-    },
-    {
-      "title": "Children's day at the Sinbad pool",
-      "titleRu": "Детский день в бассейне Sinbad",
-      "category": "kids",
-      "venue": "SinbadТашкент, пересечение ул. Ширин и ул. Фазылтепа",
-      "startDate": "2026-08-24",
-      "endDate": null,
-      "time": null,
-      "url": "https://www.afisha.uz/ru/children/2026/07/16/detskiy-den-sinbad-2026",
       "source": "afisha.uz (calendar)"
     },
     {
@@ -2386,7 +2298,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Palma & Chilla beach in Milliy Bog’ park",
+      "title": "Пляж Palma & Chilla в парке Milliy Bog’",
       "titleRu": "Пляж Palma & Chilla в парке Milliy Bog’",
       "category": "festival",
       "venue": "Milliy bog‘Ташкент, ул. Сеул, 16",
@@ -2397,7 +2309,18 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Performance “Madagascar” in Tashkent City Park",
+      "title": "Creative workshops in Potterville",
+      "titleRu": "Творческие мастер-классы в Potterville",
+      "category": "lecture",
+      "venue": "PottervilleТашкент, ул. Лабзак, 12/1",
+      "startDate": "2026-08-24",
+      "endDate": null,
+      "time": null,
+      "url": "https://www.afisha.uz/ru/znaniya/2026/07/29/potterville-avgust-2026",
+      "source": "afisha.uz (calendar)"
+    },
+    {
+      "title": "Performance \"Madagascar\" in Tashkent City Park",
       "titleRu": "Спектакль «Мадагаскар» в парке Tashkent City",
       "category": "festival",
       "venue": "Tashkent CityТашкент, просп. Бунёдкор",
@@ -2408,11 +2331,132 @@
       "source": "afisha.uz (calendar)"
     },
     {
+      "title": "Soap bubble show at Jungle Family Club",
+      "titleRu": "Шоу мыльных пузырей в Jungle Family Club",
+      "category": "kids",
+      "venue": "Jungle Family ClubТашкент, Юнусабад-12, 20А",
+      "startDate": "2026-08-24",
+      "endDate": null,
+      "time": "19:30",
+      "url": "https://www.afisha.uz/ru/children/2026/08/10/shou-mylnyh-puzyrej-v-jungle-family-club-2026",
+      "source": "afisha.uz (calendar)"
+    },
+    {
+      "title": "Children's day at the Sinbad pool",
+      "titleRu": "Детский день в бассейне Sinbad",
+      "category": "kids",
+      "venue": "SinbadТашкент, пересечение ул. Ширин и ул. Фазылтепа",
+      "startDate": "2026-08-24",
+      "endDate": null,
+      "time": null,
+      "url": "https://www.afisha.uz/ru/children/2026/07/16/detskiy-den-sinbad-2026",
+      "source": "afisha.uz (calendar)"
+    },
+    {
+      "title": "Live music evenings at Cultura",
+      "titleRu": "Вечера живой музыки в Cultura",
+      "category": "concert",
+      "venue": "CulturaТашкент, просп. Шарафа Рашидова, 40",
+      "startDate": "2026-08-25",
+      "endDate": null,
+      "time": "20:00",
+      "url": "https://www.afisha.uz/ru/restaurants/2026/08/10/vechera-zhivoj-muzyki-v-cultura-2026",
+      "source": "afisha.uz (calendar)"
+    },
+    {
+      "title": "Exhibition Qimmat",
+      "titleRu": "Выставка Qimmat",
+      "category": "exhibition",
+      "venue": "ZanmakonТашкент, ул. Заркайнар, 48",
+      "startDate": "2026-08-25",
+      "endDate": null,
+      "time": null,
+      "url": "https://www.afisha.uz/ru/exhibitions/2026/08/03/zanmakon",
+      "source": "afisha.uz (calendar)"
+    },
+    {
+      "title": "Exhibition \"Our Heritage\"",
+      "titleRu": "Выставка «Наше наследие»",
+      "category": "exhibition",
+      "venue": "Центральный Выставочный зал Академии художеств УзбекистанаТашкент, ул. Шарафа Рашидова, 40",
+      "startDate": "2026-08-25",
+      "endDate": null,
+      "time": null,
+      "url": "https://www.afisha.uz/ru/exhibitions/2026/07/31/our-heritage",
+      "source": "afisha.uz (calendar)"
+    },
+    {
+      "title": "Exhibition “Photochronicles of the 20th century”",
+      "titleRu": "Выставка «Фотохроника XX века»",
+      "category": "exhibition",
+      "venue": "Bonum Factum GalleryТашкент, пер. Садыка Азимова, 20А",
+      "startDate": "2026-08-25",
+      "endDate": null,
+      "time": null,
+      "url": "https://www.afisha.uz/ru/exhibitions/2026/06/25/photo-chronicle-xx",
+      "source": "afisha.uz (calendar)"
+    },
+    {
+      "title": "Theater and circus show Nova Circus",
+      "titleRu": "Театрально-цирковое шоу Nova Circus",
+      "category": "kids",
+      "venue": "Tashkent CityТашкент, просп. Бунёдкор",
+      "startDate": "2026-08-25",
+      "endDate": null,
+      "time": null,
+      "url": "https://www.afisha.uz/ru/children/2026/07/28/nova-circus-tashkent-city",
+      "source": "afisha.uz (calendar)"
+    },
+    {
+      "title": "Musical fountain in Magic City Park",
+      "titleRu": "Музыкальный фонтан в парке Magic City",
+      "category": "festival",
+      "venue": "Magic CityТашкент, ул. Бабура, 174",
+      "startDate": "2026-08-25",
+      "endDate": null,
+      "time": null,
+      "url": "https://www.afisha.uz/ru/gorod/2026/07/17/muzykalnyy-fontan-magic-city-2026",
+      "source": "afisha.uz (calendar)"
+    },
+    {
+      "title": "Musical fountain in Tashkent City park",
+      "titleRu": "Музыкальный фонтан в парке Tashkent City",
+      "category": "festival",
+      "venue": "Tashkent CityТашкент, просп. Бунёдкор",
+      "startDate": "2026-08-25",
+      "endDate": null,
+      "time": null,
+      "url": "https://www.afisha.uz/ru/gorod/2026/07/16/muzykalnyy-fontan-tashkent-city-2026",
+      "source": "afisha.uz (calendar)"
+    },
+    {
+      "title": "Uzbegim Market fair in Tashkent City Park",
+      "titleRu": "Ярмарка Uzbegim Market в парке Tashkent City",
+      "category": "festival",
+      "venue": "Tashkent CityТашкент, просп. Бунёдкор",
+      "startDate": "2026-08-25",
+      "endDate": null,
+      "time": null,
+      "url": "https://www.afisha.uz/ru/gorod/2026/07/16/uzbegim-market-2026",
+      "source": "afisha.uz (calendar)"
+    },
+    {
+      "title": "Пляж Palma & Chilla в парке Milliy Bog’",
+      "titleRu": "Пляж Palma & Chilla в парке Milliy Bog’",
+      "category": "festival",
+      "venue": "Milliy bog‘Ташкент, ул. Сеул, 16",
+      "startDate": "2026-08-25",
+      "endDate": null,
+      "time": null,
+      "url": "https://www.afisha.uz/ru/gorod/2026/07/16/palma-chilla-milliy-bog-2026",
+      "source": "afisha.uz (calendar)"
+    },
+    {
       "title": "Creative workshops in Potterville",
       "titleRu": "Творческие мастер-классы в Potterville",
       "category": "lecture",
       "venue": "PottervilleТашкент, ул. Лабзак, 12/1",
-      "startDate": "2026-08-24",
+      "startDate": "2026-08-25",
       "endDate": null,
       "time": null,
       "url": "https://www.afisha.uz/ru/znaniya/2026/07/29/potterville-avgust-2026",
