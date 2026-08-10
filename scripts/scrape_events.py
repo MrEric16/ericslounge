@@ -785,6 +785,46 @@ def scrape_afisha_calendar():
             log(f"calendar {date_str}: {day_new} new event URLs discovered")
             time.sleep(0.5)
 
+        # SUPPLEMENTARY discovery pass, exhibitions only: the day-by-day calendar
+        # walk above just doesn't reliably re-surface a long-running exhibition on
+        # every day of its actual run (documented in this file's own history --
+        # this exact category of gap caused 4 real exhibitions to go missing on
+        # 2026-08-04, and again caused 2 more specific ones -- "Наше наследие" and
+        # "Фотохроника XX века" -- to go missing as of 2026-08-10, confirmed by
+        # directly fetching https://www.afisha.uz/ru/exhibitions and finding both
+        # clearly listed there with their full date ranges, while a real scraper
+        # run's log showed neither ever reached the final output). The flat
+        # category listing page doesn't have this problem -- it shows everything
+        # currently running regardless of which specific day you happen to check
+        # against a calendar. Scoped to exhibitions specifically since that's the
+        # category actually reported broken, twice now; other categories move too
+        # fast for a stale "front page" to matter the same way (see the switch
+        # away from category-page scraping entirely, above), so widening this to
+        # every category would reintroduce the exact problem the calendar switch
+        # was meant to fix. Note: doesn't click "Показать ещё" (show more), so an
+        # exhibition far enough down that page still won't be caught -- the two
+        # actually-reported ones were both within the initial page load.
+        try:
+            page.goto("https://www.afisha.uz/ru/exhibitions", wait_until="networkidle", timeout=30000)
+            page.wait_for_timeout(2500)
+            listing_new = 0
+            for a in page.query_selector_all("a[href]"):
+                href = a.get_attribute("href") or ""
+                m = re.search(r"/ru/(exhibitions)/\d{4}/\d{2}/\d{2}/", href)
+                if not m:
+                    continue
+                full_url = href if href.startswith("http") else f"https://www.afisha.uz{href}"
+                if full_url in discovered:
+                    continue
+                raw_text = (a.inner_text() or "").strip()
+                if is_excluded(raw_text) or is_banned(raw_text):
+                    continue
+                discovered[full_url] = "exhibition"
+                listing_new += 1
+            log(f"exhibitions listing page (supplementary): {listing_new} new event URLs discovered")
+        except Exception as e:
+            log(f"exhibitions listing page (supplementary): FAILED to load ({e})")
+
         browser.close()
 
     log(f"calendar discovery complete: {len(discovered)} unique event URLs to check")
