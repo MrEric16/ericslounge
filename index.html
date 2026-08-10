@@ -6939,19 +6939,23 @@ const MT_COMFORT_INSTRUMENT_URLS = [
 // "Mess about" pool -- deliberately small and separate from the comfort-read/watch/do
 // pool above. These are specifically for the offer right after picking a negative
 // emotion, before the reflection questions: soothing/poppable/mindless things, not
-// "content to consume" the way an article or video is. Launched with 7 confirmed-good
-// entries; more (bubble popping, a destruction sandbox, something to whack hard) to
-// follow once built as in-house tools rather than third-party sites, since repeated
-// attempts at finding good third-party options for those specific categories turned up
-// nothing but ad-heavy or broken pages.
+// "content to consume" the way an article or video is. Deliberately NOT added to
+// EXPLORE_SITES or any other instrument list on the site -- these three (Color Splash,
+// Ball Roll, Pixel Blast) were vetted specifically for this pool only.
+// Koalas to the Max removed 2026-08-10: fine on desktop, but requires pinch-zoom to pop a
+// bubble on mobile, which is exactly the wrong kind of friction for this specific purpose
+// even though it's a perfectly good general instrument elsewhere -- still lives in the
+// site's main EXPLORE_SITES catalog, just not here.
 const MT_MESSABOUT_POOL = [
   "https://cat-bounce.com/",
-  "https://koalastothemax.com/",
   "https://procatinator.com/",
   "https://sandspiel.club/",
   "https://neal.fun/asteroid-launcher/",
   "https://asoftmurmur.com/",
   "https://neal.fun/ambient-chaos/",
+  "https://www.crazygames.com/game/color-splash-ssr",
+  "https://puzzio.io/game/ball-roll-bbr",
+  "https://puzzio.io/game/pixel-blast",
 ];
 
 function mtIsAcute(text){
