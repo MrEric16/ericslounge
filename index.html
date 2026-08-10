@@ -6984,13 +6984,20 @@ function mtStepHtml(){
     `;
   }
   if(s.step === 'declined'){
+    // Not wanting to talk about the situation itself doesn't mean not wanting a small
+    // distraction -- those are two different asks, and the tool was treating "no" to the
+    // first one as "no" to everything, ending the whole session right there. Now it offers
+    // the same read/watch/do choice used at the end of the full flow.
     const msg = mtIsPositive()
-      ? "Glad to hear it. Come back anytime, whatever you're feeling."
-      : "I hope you feel better. You're welcome to come back and talk about it whenever you're ready.";
+      ? "Glad to hear it. Want to read, watch, or do something anyway?"
+      : "I hope you feel better. Want to read, watch, or do something?";
     return `
       <div class="mt-closing-box">
         <div class="mt-closing-msg">${escapeHtml(msg)}</div>
-        <button class="mt-resolve-btn" data-action="exit">Done</button>
+        <div class="mt-yn-row">
+          <button class="mt-yn-btn mt-primary" data-action="comfort-yes">Yes</button>
+          <button class="mt-yn-btn" data-action="comfort-no">No</button>
+        </div>
       </div>
     `;
   }
