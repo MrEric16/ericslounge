@@ -1,12 +1,12 @@
 {
-  "generatedAt": "2026-08-10T05:08:40.495772Z",
+  "generatedAt": "2026-08-10T10:03:51.413749Z",
   "standings": {},
   "matches": {
     "PL": {
       "fixtures": [
         {
           "utcDate": "2026-08-21T19:00:00Z",
-          "status": "SCHEDULED",
+          "status": "TIMED",
           "matchday": 1,
           "homeTeam": {
             "id": 57,
@@ -37,7 +37,7 @@
         },
         {
           "utcDate": "2026-08-22T11:30:00Z",
-          "status": "SCHEDULED",
+          "status": "TIMED",
           "matchday": 1,
           "homeTeam": {
             "id": 322,
@@ -68,7 +68,7 @@
         },
         {
           "utcDate": "2026-08-22T14:00:00Z",
-          "status": "SCHEDULED",
+          "status": "TIMED",
           "matchday": 1,
           "homeTeam": {
             "id": 349,
@@ -99,7 +99,7 @@
         },
         {
           "utcDate": "2026-08-22T14:00:00Z",
-          "status": "SCHEDULED",
+          "status": "TIMED",
           "matchday": 1,
           "homeTeam": {
             "id": 351,
@@ -130,7 +130,7 @@
         },
         {
           "utcDate": "2026-08-22T14:00:00Z",
-          "status": "SCHEDULED",
+          "status": "TIMED",
           "matchday": 1,
           "homeTeam": {
             "id": 62,
@@ -161,7 +161,7 @@
         },
         {
           "utcDate": "2026-08-22T16:30:00Z",
-          "status": "SCHEDULED",
+          "status": "TIMED",
           "matchday": 1,
           "homeTeam": {
             "id": 402,
@@ -192,7 +192,7 @@
         },
         {
           "utcDate": "2026-08-23T13:00:00Z",
-          "status": "SCHEDULED",
+          "status": "TIMED",
           "matchday": 1,
           "homeTeam": {
             "id": 65,
@@ -223,7 +223,7 @@
         },
         {
           "utcDate": "2026-08-23T13:00:00Z",
-          "status": "SCHEDULED",
+          "status": "TIMED",
           "matchday": 1,
           "homeTeam": {
             "id": 397,
@@ -254,7 +254,7 @@
         },
         {
           "utcDate": "2026-08-23T15:30:00Z",
-          "status": "SCHEDULED",
+          "status": "TIMED",
           "matchday": 1,
           "homeTeam": {
             "id": 67,
@@ -285,7 +285,7 @@
         },
         {
           "utcDate": "2026-08-24T19:00:00Z",
-          "status": "SCHEDULED",
+          "status": "TIMED",
           "matchday": 1,
           "homeTeam": {
             "id": 63,
@@ -321,7 +321,7 @@
       "fixtures": [
         {
           "utcDate": "2026-08-15T17:30:00Z",
-          "status": "SCHEDULED",
+          "status": "TIMED",
           "matchday": 1,
           "homeTeam": {
             "id": 263,
@@ -352,7 +352,7 @@
         },
         {
           "utcDate": "2026-08-15T19:30:00Z",
-          "status": "SCHEDULED",
+          "status": "TIMED",
           "matchday": 1,
           "homeTeam": {
             "id": 559,
@@ -383,7 +383,7 @@
         },
         {
           "utcDate": "2026-08-16T15:00:00Z",
-          "status": "SCHEDULED",
+          "status": "TIMED",
           "matchday": 1,
           "homeTeam": {
             "id": 5335,
@@ -414,7 +414,7 @@
         },
         {
           "utcDate": "2026-08-16T17:00:00Z",
-          "status": "SCHEDULED",
+          "status": "TIMED",
           "matchday": 1,
           "homeTeam": {
             "id": 80,
@@ -445,7 +445,7 @@
         },
         {
           "utcDate": "2026-08-16T19:30:00Z",
-          "status": "SCHEDULED",
+          "status": "TIMED",
           "matchday": 1,
           "homeTeam": {
             "id": 558,
@@ -476,7 +476,7 @@
         },
         {
           "utcDate": "2026-08-17T19:00:00Z",
-          "status": "SCHEDULED",
+          "status": "TIMED",
           "matchday": 1,
           "homeTeam": {
             "id": 560,
@@ -507,7 +507,7 @@
         },
         {
           "utcDate": "2026-08-19T19:00:00Z",
-          "status": "SCHEDULED",
+          "status": "TIMED",
           "matchday": 1,
           "homeTeam": {
             "id": 78,
@@ -538,7 +538,7 @@
         },
         {
           "utcDate": "2026-08-25T19:00:00Z",
-          "status": "SCHEDULED",
+          "status": "TIMED",
           "matchday": 1,
           "homeTeam": {
             "id": 95,
@@ -569,7 +569,7 @@
         },
         {
           "utcDate": "2026-08-26T19:00:00Z",
-          "status": "SCHEDULED",
+          "status": "TIMED",
           "matchday": 1,
           "homeTeam": {
             "id": 86,
@@ -600,7 +600,7 @@
         },
         {
           "utcDate": "2026-08-27T19:00:00Z",
-          "status": "SCHEDULED",
+          "status": "TIMED",
           "matchday": 1,
           "homeTeam": {
             "id": 81,
@@ -920,7 +920,7 @@
       "fixtures": [
         {
           "utcDate": "2026-08-22T16:30:00Z",
-          "status": "SCHEDULED",
+          "status": "TIMED",
           "matchday": 1,
           "homeTeam": {
             "id": 115,
@@ -951,7 +951,7 @@
         },
         {
           "utcDate": "2026-08-22T16:30:00Z",
-          "status": "SCHEDULED",
+          "status": "TIMED",
           "matchday": 1,
           "homeTeam": {
             "id": 108,
@@ -982,7 +982,7 @@
         },
         {
           "utcDate": "2026-08-22T18:45:00Z",
-          "status": "SCHEDULED",
+          "status": "TIMED",
           "matchday": 1,
           "homeTeam": {
             "id": 107,
@@ -1013,7 +1013,7 @@
         },
         {
           "utcDate": "2026-08-22T18:45:00Z",
-          "status": "SCHEDULED",
+          "status": "TIMED",
           "matchday": 1,
           "homeTeam": {
             "id": 112,
@@ -1044,7 +1044,7 @@
         },
         {
           "utcDate": "2026-08-23T16:30:00Z",
-          "status": "SCHEDULED",
+          "status": "TIMED",
           "matchday": 1,
           "homeTeam": {
             "id": 470,
@@ -1075,7 +1075,7 @@
         },
         {
           "utcDate": "2026-08-23T16:30:00Z",
-          "status": "SCHEDULED",
+          "status": "TIMED",
           "matchday": 1,
           "homeTeam": {
             "id": 454,
@@ -1106,7 +1106,7 @@
         },
         {
           "utcDate": "2026-08-23T18:45:00Z",
-          "status": "SCHEDULED",
+          "status": "TIMED",
           "matchday": 1,
           "homeTeam": {
             "id": 102,
@@ -1137,7 +1137,7 @@
         },
         {
           "utcDate": "2026-08-23T18:45:00Z",
-          "status": "SCHEDULED",
+          "status": "TIMED",
           "matchday": 1,
           "homeTeam": {
             "id": 586,
@@ -1168,7 +1168,7 @@
         },
         {
           "utcDate": "2026-08-24T16:30:00Z",
-          "status": "SCHEDULED",
+          "status": "TIMED",
           "matchday": 1,
           "homeTeam": {
             "id": 103,
@@ -1199,7 +1199,7 @@
         },
         {
           "utcDate": "2026-08-24T18:45:00Z",
-          "status": "SCHEDULED",
+          "status": "TIMED",
           "matchday": 1,
           "homeTeam": {
             "id": 100,
@@ -2000,7 +2000,7 @@
   },
   "arsenalNextFixture": {
     "utcDate": "2026-08-21T19:00:00Z",
-    "status": "SCHEDULED",
+    "status": "TIMED",
     "matchday": 1,
     "homeTeam": {
       "id": 57,
