@@ -483,6 +483,12 @@ def fetch_event_detail(url):
     soup = BeautifulSoup(r.text, "html.parser")
     h1 = soup.find("h1")
     clean_title = h1.get_text(strip=True) if h1 else None
+    if ("our-heritage" in url or "photo-chronicle-xx" in url):
+        log(f"  TARGET DETAIL CHECK {url}: HTTP {r.status_code}, {len(r.text)} chars received, "
+            f"h1 found={h1 is not None}, title={clean_title!r}")
+        if h1 is None:
+            with open(f"scripts/debug-target-{'heritage' if 'heritage' in url else 'photochronicle'}.html", "w", encoding="utf-8") as f:
+                f.write(r.text)
     full_text = soup.get_text("\n", strip=True)  # still needed below for the
                                                    # "Расписание" schedule search,
                                                    # which can sit further down
@@ -848,12 +854,21 @@ def scrape_afisha_calendar():
     for full_url, category in discovered.items():
         clean_title, occurrences, full_text, venue = fetch_event_detail(full_url)
         time.sleep(0.3)
+        is_target = "our-heritage" in full_url or "photo-chronicle-xx" in full_url
         if not clean_title:
+            if is_target:
+                log(f"  TARGET DROPPED at 'not clean_title' check: {full_url}")
             continue
         if is_excluded(clean_title) or is_excluded(full_text) or is_banned(clean_title) or is_banned(full_text):
+            if is_target:
+                log(f"  TARGET DROPPED at exclude/ban check: {full_url} | title_excluded={is_excluded(clean_title)} full_text_excluded={is_excluded(full_text)} title_banned={is_banned(clean_title)} full_text_banned={is_banned(full_text)}")
             continue
         if is_generic_venue_listing(clean_title, venue):
+            if is_target:
+                log(f"  TARGET DROPPED at generic_venue_listing check: {full_url} title={clean_title!r} venue={venue!r}")
             continue
+        if is_target:
+            log(f"  TARGET PASSED ALL CHECKS: {full_url} title={clean_title!r} occurrences={occurrences}")
         half = len(clean_title) // 2
         if half > 4 and clean_title[:half].strip() == clean_title[half:].strip():
             clean_title = clean_title[:half].strip()
