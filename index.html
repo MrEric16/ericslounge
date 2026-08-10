@@ -6671,6 +6671,56 @@ function viewSaved(){
 // Labels are adjective forms throughout ("Scared" not "Fear", "Angry" not "Anger") per
 // direct instruction, since a category picker should read as "how do you feel" not
 // "name the emotion."
+// Word-level valence, not category-level. This is the fix for a real bug: category-level
+// valence broke down the moment a word appeared in more than one category with different
+// parent valences (e.g. "Excited" and "Optimistic" sit in both Joy's list -- positive --
+// and Anticipation's list -- neutral -- so a student reaching them via "Eager" got treated
+// as needing comfort for a clearly positive feeling). Every one of the 151 unique words
+// across all 8 categories is judged individually here, decoupled from which category
+// button it happens to appear under. mtIsPositive() and the 'declined' message both read
+// this instead of category.valence now.
+const MT_WORD_VALENCE = {
+  // Joy
+  'Cheerful':'positive','Content':'positive','Proud':'positive','Excited':'positive','Optimistic':'positive',
+  'Calm':'positive','Relaxed':'positive','Grateful':'positive','Hopeful':'positive','Playful':'positive',
+  'Silly':'positive','Confident':'positive','Enthusiastic':'positive','Peaceful':'positive','Satisfied':'positive',
+  'Amused':'positive','Delighted':'positive','Relieved':'positive','Warm':'positive','Light-hearted':'positive',
+  // Trust
+  'Secure':'positive','Safe':'positive','Accepted':'positive','Respected':'positive','Loyal':'positive',
+  'Supported':'positive','Comfortable':'positive','Close':'positive','Open':'positive','Reliable':'positive',
+  'Honest':'positive','Sincere':'positive','Devoted':'positive','Faithful':'positive','Assured':'positive',
+  'Valued':'positive','Connected':'positive','Steady':'positive','Genuine':'positive','Dependable':'positive',
+  // Fear
+  'Nervous':'negative','Anxious':'negative','Worried':'negative','Insecure':'negative','Terrified':'negative',
+  'Panicked':'negative','Shy':'negative','Uneasy':'negative','Threatened':'negative','Vulnerable':'negative',
+  'Alarmed':'negative','Apprehensive':'negative','Timid':'negative','Overwhelmed':'negative','Helpless':'negative',
+  'Dreadful':'negative','Cautious':'negative','Suspicious':'negative','Jumpy':'negative','Frozen':'negative',
+  // Disgust
+  'Repulsed':'negative','Revolted':'negative','Grossed out':'negative','Appalled':'negative','Nauseated':'negative',
+  'Offended':'negative','Uncomfortable':'negative','Bitter':'negative','Contemptuous':'negative','Judgmental':'negative',
+  'Disturbed':'negative','Disapproving':'negative','Squeamish':'negative','Distrustful':'negative','Turned off':'negative',
+  'Distasteful':'negative','Averse':'negative','Sickened':'negative','Put off':'negative',
+  // Anger
+  'Frustrated':'negative','Annoyed':'negative','Irritated':'negative','Furious':'negative','Resentful':'negative',
+  'Jealous':'negative','Hostile':'negative','Agitated':'negative','Betrayed':'negative','Outraged':'negative',
+  'Hateful':'negative','Enraged':'negative','Provoked':'negative','Defensive':'negative','Impatient':'negative',
+  'Grouchy':'negative','Vindictive':'negative','Fuming':'negative',
+  // Surprise (genuinely mixed -- judged individually, not defaulted to the category)
+  'Shocked':'neutral','Startled':'neutral','Confused':'neutral','Amazed':'positive','Stunned':'neutral',
+  'Speechless':'neutral','Bewildered':'neutral','Curious':'positive','Astonished':'positive','Baffled':'neutral',
+  'Dazed':'neutral','Perplexed':'neutral','Awestruck':'positive','Unsettled':'negative','Disoriented':'negative',
+  'Rattled':'negative','Blindsided':'negative','Taken aback':'neutral','Mystified':'neutral','Floored':'positive',
+  // Sadness
+  'Lonely':'negative','Disappointed':'negative','Hurt':'negative','Hopeless':'negative','Guilty':'negative',
+  'Ashamed':'negative','Miserable':'negative','Down':'negative','Rejected':'negative','Empty':'negative',
+  'Heartbroken':'negative','Discouraged':'negative','Regretful':'negative','Gloomy':'negative','Grieving':'negative',
+  'Numb':'negative','Unworthy':'negative','Tearful':'negative','Defeated':'negative','Isolated':'negative',
+  // Anticipation (also genuinely mixed -- this is where the original bug lived)
+  'Restless':'negative','Motivated':'positive','Determined':'positive','Alert':'neutral','Prepared':'positive',
+  'Focused':'positive','Wary':'negative','Uncertain':'neutral','Expectant':'neutral','Driven':'positive',
+  'Ambitious':'positive','On edge':'negative','Ready':'positive','Watchful':'neutral',
+};
+
 const MT_EMOTIONS = [
   { key:'joy', label:'Joyful', color:'#5A8F4E', valence:'positive', words:['Cheerful','Content','Proud','Excited','Optimistic','Calm','Relaxed','Grateful','Hopeful','Playful','Silly','Confident','Enthusiastic','Peaceful','Satisfied','Amused','Delighted','Relieved','Warm','Light-hearted'] },
   { key:'trust', label:'Trusting', color:'#B89434', valence:'positive', words:['Secure','Safe','Accepted','Respected','Loyal','Supported','Comfortable','Close','Open','Reliable','Honest','Sincere','Devoted','Faithful','Assured','Valued','Connected','Steady','Genuine','Dependable'] },
@@ -6710,7 +6760,15 @@ function mtGoTo(step){
 // Positive emotions skip the "resolution" question entirely -- "what could constructively
 // resolve this?" makes no sense after describing something that made you feel joyful or
 // trusting. Only negative/neutral flows (something that actually needs resolving) ask it.
+// Reads MT_WORD_VALENCE keyed on the actual word picked (mtState.emotion), not the
+// category it was found under -- category-level valence was the original bug: "Excited"
+// and "Optimistic" sit in both Joy's list (positive) and Anticipation's list (was neutral),
+// so picking them via "Eager" got the wrong treatment even though the word itself is
+// unambiguously positive. Falls back to the category's valence only if a word somehow
+// isn't in the map, which shouldn't happen -- verified all 151 words have an entry.
 function mtIsPositive(){
+  const wordValence = MT_WORD_VALENCE[mtState.emotion];
+  if(wordValence) return wordValence === 'positive';
   const cat = MT_EMOTIONS.find(c => c.key === mtState.category);
   return cat && cat.valence === 'positive';
 }
@@ -6770,8 +6828,7 @@ function mtStepHtml(){
     `;
   }
   if(s.step === 'declined'){
-    const cat = MT_EMOTIONS.find(c => c.key === s.category);
-    const msg = cat && cat.valence === 'positive'
+    const msg = mtIsPositive()
       ? "Glad to hear it. Come back anytime, whatever you're feeling."
       : "I hope you feel better. You're welcome to come back and talk about it whenever you're ready.";
     return `
@@ -6860,11 +6917,10 @@ function mtStepHtml(){
   }
   if(s.step === 'closing'){
     const acute = mtIsAcute(s.situation) || mtIsAcute(s.thought) || mtIsAcute(s.actionDescription);
-    const cat = MT_EMOTIONS.find(c => c.key === s.category);
-    const isPositive = cat && cat.valence === 'positive';
-    // Acute detection always wins regardless of which emotion category was picked --
-    // someone could click "Happy" and still write something concerning in their own
-    // words further down, and the safety net shouldn't be skippable by category choice.
+    const isPositive = mtIsPositive();
+    // Acute detection always wins regardless of which emotion word was picked -- someone
+    // could pick a positive word and still write something concerning in their own words
+    // further down, and the safety net shouldn't be skippable by word choice.
     if(acute){
       return `
         <div class="mt-closing-box">
