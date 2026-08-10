@@ -1163,6 +1163,23 @@ def dedup(events):
                 if used[j]:
                     continue
                 e2 = group[j]
+                # Real bug found via direct debugging (2026-08-10): this fuzzy match was
+                # firing between two completely unrelated SAME-SOURCE afisha.uz events that
+                # both got auto-translated to English and happened to share one generic
+                # word (e.g. "Heritage") -- "Наше наследие" ("Our Heritage") and some
+                # unrelated event both translating through a shared common word, at 8+
+                # combined chars, was enough to wrongly merge them and silently drop one.
+                # This whole fuzzy pass exists to catch the SAME event listed by TWO
+                # DIFFERENT sources in two different languages (afisha.uz Russian vs
+                # iticket.uz English) -- comparing an afisha.uz entry against another
+                # afisha.uz entry was never the intent, and both are already Russian-
+                # sourced, so genuine untranslated-brand-name matches (the actual intended
+                # signal) can't occur between them anyway. Skip same-source comparisons
+                # entirely rather than trying to raise the length threshold, which would
+                # just shift the false-positive rate rather than fix the actual mismatch
+                # between what this check is comparing and what it was built to catch.
+                if e1.get("source") == e2.get("source"):
+                    continue
                 t2 = latin_tokens(e2["title"])
                 shared = t1 & t2
                 shared_len = sum(len(w) for w in shared)
