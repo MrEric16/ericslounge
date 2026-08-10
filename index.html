@@ -6120,43 +6120,80 @@ async function fetchWordEntry(word){
     if(cached) return JSON.parse(cached);
   }catch(e){}
 
-  let defData = null, synData = null, antData = null;
+  // Multi-source lookup, run in parallel: dictionaryapi.dev is tried first (it has real
+  // example sentences, which Datamuse never provides), but if it comes back empty for
+  // ANY reason -- word missing from its Wiktionary-derived data, a malformed response,
+  // a transient failure -- Datamuse's own definitions (sp=<word>&md=d, sourced from
+  // WordNet AND Wiktionary combined per Datamuse's own documentation) are used as a
+  // genuinely independent second source instead of the card just showing nothing.
+  // Reported directly: common, ordinary words (apprehensive, anxious, timid) were
+  // returning no result at all -- this fallback exists specifically so a single source's
+  // gap or hiccup doesn't mean "no definition," full stop.
+  let defData = null, synData = null, antData = null, datamuseDefData = null;
   try{
-    const [defRes, synRes, antRes] = await Promise.allSettled([
+    const [defRes, synRes, antRes, datamuseDefRes] = await Promise.allSettled([
       fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${encodeURIComponent(word)}`).then(r => r.ok ? r.json() : null),
       fetch(`https://api.datamuse.com/words?rel_syn=${encodeURIComponent(word)}&max=6`).then(r => r.ok ? r.json() : []),
       fetch(`https://api.datamuse.com/words?rel_ant=${encodeURIComponent(word)}&max=6`).then(r => r.ok ? r.json() : []),
+      fetch(`https://api.datamuse.com/words?sp=${encodeURIComponent(word)}&md=d&max=1`).then(r => r.ok ? r.json() : []),
     ]);
     defData = defRes.status === 'fulfilled' ? defRes.value : null;
     synData = synRes.status === 'fulfilled' ? synRes.value : [];
     antData = antRes.status === 'fulfilled' ? antRes.value : [];
+    datamuseDefData = datamuseDefRes.status === 'fulfilled' ? datamuseDefRes.value : [];
   }catch(e){ return null; }
 
-  if(!defData || !Array.isArray(defData) || defData.length === 0) return null; // word not found
+  let entryWord, partOfSpeech = '', definition = '', example = null, found = false;
 
-  const meanings = defData[0].meanings || [];
-  if(meanings.length === 0) return null;
-  const firstMeaning = meanings[0];
-  const firstDef = (firstMeaning.definitions || [])[0];
-  if(!firstDef) return null;
-
-  // The first definition often lacks its own example even when a later one in the same
-  // entry has one -- search all definitions across all meanings for the first example
-  // available, rather than showing nothing when one genuinely exists.
-  let example = firstDef.example || null;
-  if(!example){
-    outer: for(const m of meanings){
-      for(const d of (m.definitions || [])){
-        if(d.example){ example = d.example; break outer; }
+  // Primary source: dictionaryapi.dev
+  if(defData && Array.isArray(defData) && defData.length > 0){
+    const meanings = defData[0].meanings || [];
+    if(meanings.length > 0){
+      const firstMeaning = meanings[0];
+      const firstDef = (firstMeaning.definitions || [])[0];
+      if(firstDef){
+        found = true;
+        entryWord = defData[0].word || word;
+        partOfSpeech = firstMeaning.partOfSpeech || '';
+        definition = firstDef.definition || '';
+        // The first definition often lacks its own example even when a later one in the
+        // same entry has one -- search all definitions across all meanings for the first
+        // example available, rather than showing nothing when one genuinely exists.
+        example = firstDef.example || null;
+        if(!example){
+          outer: for(const m of meanings){
+            for(const d of (m.definitions || [])){
+              if(d.example){ example = d.example; break outer; }
+            }
+          }
+        }
       }
     }
   }
 
+  // Fallback source: Datamuse's own definitions. No example sentence available this way
+  // (Datamuse doesn't provide one), but a real definition beats showing nothing.
+  if(!found){
+    const posMatch = (datamuseDefData || []).find(e => (e.word || '').toLowerCase() === word.toLowerCase());
+    const defs = posMatch && posMatch.defs;
+    if(defs && defs.length > 0){
+      const [posAbbr, defText] = defs[0].split('\t');
+      const POS_MAP = { n:'noun', v:'verb', adj:'adjective', adv:'adverb', u:'' };
+      found = true;
+      entryWord = posMatch.word;
+      partOfSpeech = POS_MAP[posAbbr] !== undefined ? POS_MAP[posAbbr] : (posAbbr || '');
+      definition = defText || defs[0];
+      example = null;
+    }
+  }
+
+  if(!found) return null; // genuinely not found in either source
+
   const entry = {
-    word: defData[0].word || word,
-    partOfSpeech: firstMeaning.partOfSpeech || '',
-    definition: firstDef.definition || '',
-    example: example,
+    word: entryWord,
+    partOfSpeech,
+    definition,
+    example,
     synonyms: (synData || []).map(x => x.word).slice(0, 6),
     antonyms: (antData || []).map(x => x.word).slice(0, 6),
   };
