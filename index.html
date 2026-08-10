@@ -6743,6 +6743,162 @@ const MT_ACUTE_KEYWORDS = [
   'no reason to live','better off dead','not worth living',
   'hurting me','hurts me','hits me','hitting me','touching me','touched me','abusing me','abused me',
 ];
+// Curated specifically for the "comfort offer" (read/watch/do) at the end of a Mind
+// Temple session -- deliberately a small subset of the site's full content, not the whole
+// pool. The point is comforting someone who's already feeling down; the full random pool
+// includes plenty of serious/heavy material (legal cases, war history, economic
+// inequality, etc.) that's fine for normal browsing but wrong to hand someone mid-reflection.
+// Hand-picked for being genuinely light, funny, delightful, or gently wonder-inducing.
+const MT_COMFORT_DISPATCH_URLS = [
+  "https://www.bbc.com/future/article/20260717-the-shark-that-lives-for-centuries",
+  "https://www.bbc.com/news/articles/cx21n6zzpqwo",
+  "https://www.bbc.com/news/articles/c0jygjezvlwo",
+  "https://www.bbc.com/reel/video/p08m4bc3/watch",
+  "https://www.nature.com/articles/d41586-026-02149-5",
+  "https://www.dezeen.com/2026/07/09/lego-giant-world-cup-trophy/",
+  "https://www.dezeen.com/2026/07/07/bugatti-porcelain-clad-sports-car-enzo-mari-vase/",
+  "https://www.smithsonianmag.com/smart-news/honey-making-stingless-bees-in-the-peruvian-amazon-become-the-first-insects-to-gain-legal-rights-180987937/",
+  "https://www.smithsonianmag.com/arts-culture/happy-public-domain-day-to-all-who-celebrate-you-can-now-use-betty-boop-nancy-drew-and-the-maltese-falcon-for-free-180987927/",
+  "https://www.smithsonianmag.com/science-nature/once-smuggled-animals-are-rescued-law-enforcement-officers-call-her-180987482/",
+  "https://www.smithsonianmag.com/smart-news/this-giant-7-story-picnic-basket-once-home-to-icon-american-brand-longaberger-basket-could-be-yours-for-85-million-180988999/",
+  "https://www.smithsonianmag.com/smart-news/meet-sak-tahn-waax-a-maya-math-whiz-who-lived-more-than-1000-years-ago-and-left-behind-a-really-elegant-complex-formula-180989125/",
+  "https://www.smithsonianmag.com/history/take-an-exclusive-look-at-three-newly-discovered-medieval-shipwrecks-in-menorcas-cove-of-mysteries-180989092/",
+  "https://www.smithsonianmag.com/travel/youre-guaranteed-to-spot-at-least-one-gorgeous-giraffe-in-each-of-these-15-stunningly-awe-inspiring-images-180988838/",
+  "https://www.smithsonianmag.com/travel/these-15-breathtaking-photos-yosemite-national-park-have-you-planning-next-vacation-180988747/",
+  "https://www.smithsonianmag.com/travel/from-the-shining-seas-to-the-sandy-sahara-these-15-photographs-showcase-the-sensational-scenery-of-morocco-180988770/",
+  "https://www.bbc.com/future/article/20260713-nine-extraordinary-things-you-probably-didnt-know-about-sharks",
+  "https://www.bbc.com/news/articles/c0qyq800n44o",
+  "https://www.bbc.com/travel/article/20260714-nonnamaxxing-tourists-are-paying-to-travel-like-grandmothers",
+  "https://www.bbc.com/sport/football/articles/cx21q453l4jo",
+  "https://www.bbc.com/future/article/20251218-how-ai-is-shedding-new-light-on-optical-illusions",
+  "https://www.bbc.com/future/article/20260225-the-former-soviet-reserve-where-snow-leopards-roam",
+  "https://www.bbc.com/travel/article/20260709-how-tacos-became-norways-national-comfort-food",
+  "https://www.smithsonianmag.com/history/nine-things-you-didnt-know-about-the-ancient-olympic-games-180984672/",
+  "https://www.smithsonianmag.com/history/no-bob-costas-why-the-ancient-olympics-were-no-fun-to-watch-2154864/",
+  "https://www.nationalgeographic.com/history/article/basketball-only-major-sport-invented-united-states-how-it-was-created",
+  "https://www.nationalgeographic.com/history/article/marathon-ancient-history-modern-origins",
+  "https://www.smithsonianmag.com/history/ping-pong-diplomacy-60307544/",
+  "https://www.smithsonianmag.com/history/sticky-rice-mortar-view-space-and-more-fun-facts-about-chinas-great-wall-180962197/",
+  "https://www.smithsonianmag.com/history/genghis-khans-treasures-118867438/",
+  "https://www.smithsonianmag.com/history/pompeiis-graffiti-captures-every-joke-boast-and-argument-of-an-ancient-roman-city-frozen-in-time-180987831/",
+  "https://www.smithsonianmag.com/history/hypatia-ancient-alexandrias-great-female-scholar-10942888/",
+  "https://www.smithsonianmag.com/arts-culture/eames-the-best-seat-in-the-house-68803861/",
+  "https://time.com/4105134/coke-bottle/",
+  "https://science.howstuffworks.com/engineering/civil/london-tube-map.htm",
+  "https://www.britannica.com/topic/laughter",
+  "https://positivepsychology.com/what-is-flow/",
+  "https://science.howstuffworks.com/transport/flight/modern/airplanes-fly.htm",
+  "https://www.scienceabc.com/innovation/how-do-qr-codes-work.html",
+  "https://www.britannica.com/story/why-is-the-sky-blue",
+  "https://www.britannica.com/science/water",
+  "https://www.iflscience.com/whats-the-secret-to-darwins-200-year-old-pickling-technique-we-just-found-out-without-opening-a-single-jar-82252",
+  "https://www.iflscience.com/why-does-evolution-turn-everything-into-crabs-81849",
+  "https://www.iflscience.com/why-do-seals-slap-their-belly-81767",
+  "https://www.mentalfloss.com/science/biology/what-does-dna-stand-for",
+  "https://www.mentalfloss.com/science/biology/why-do-we-feel-butterflies-in-our-stomach",
+  "https://www.mentalfloss.com/science/body/11-insane-features-normal-human-anatomy",
+  "https://www.atlasobscura.com/articles/essential-guide-bioluminescence",
+  "https://www.smithsonianmag.com/science-nature/from-worlds-that-look-like-cotton-candy-to-others-covered-in-volcanoes-these-are-the-strangest-and-most-captivating-exoplanets-180986260/",
+  "https://www.smithsonianmag.com/smart-news/puffy-marshmallow-like-planet-could-float-in-a-bathtub-180980996/",
+  "https://www.mentalfloss.com/science/space/7-surprising-facts-about-pluto",
+  "https://www.mentalfloss.com/language/words/greek-myth-behind-panic",
+  "https://www.mentalfloss.com/language/words/2000-year-old-greek-myth-behind-word-narcissist",
+  "https://www.smithsonianmag.com/smart-news/how-one-man-discovered-the-obscure-origins-of-the-word-ok-180953258/",
+  "https://www.atlasobscura.com/articles/international-sign-language-astronomy-dictionary",
+];
+const MT_COMFORT_VIDEO_IDS = [
+  "h6fcK_fRYaI",
+  "q-7zAkwAOYg",
+  "_d6bGAw5yt8",
+  "9dbL_avoT2g",
+  "2Pcv2ySMi40",
+  "xn7ZaT3AgoU",
+  "7K3KdgDcdYc",
+  "mAxFB3vbt7c",
+  "UO3N_PRIgX0",
+  "Nb1PrONDHhk",
+  "yY7ZUIbWTyc",
+  "d3eBj-NnYLM",
+  "fFWSlAP2NVk",
+  "hcORdjvxvDg",
+  "L74RJQKzpNU",
+  "cXv5KcLFn5w",
+  "x0vRI8YGgQs",
+  "aXckzSpJyp8",
+  "VNvzZfsC13o",
+  "twwDv7jjjfw",
+  "uCnv3J6MEkg",
+  "eJRQRD6LAmY",
+  "S1l9oDiSiEQ",
+  "4jjEawqaMkE",
+  "VQRjouwKDlU",
+  "YEaSxhcns7Y",
+  "lEXBxijQREo",
+  "foLf5Bi9qXs",
+  "z03FQGlGgo0",
+  "X_tYrnv_o6A",
+  "DTvS9lvRxZ8",
+  "a_TSR_v07m0",
+];
+const MT_COMFORT_INSTRUMENT_URLS = [
+  "https://cat-bounce.com/",
+  "https://pointerpointer.com/",
+  "https://isitchristmas.com/",
+  "https://procatinator.com/",
+  "https://longdogechallenge.com/",
+  "https://asoftmurmur.com/",
+  "https://neal.fun/ambient-chaos/",
+  "https://floor796.com/",
+  "https://koalastothemax.com/",
+  "https://optical.toys/",
+  "https://colornames.org/",
+  "https://mynoise.net/",
+  "https://quickdraw.withgoogle.com/",
+  "https://en.akinator.com/",
+  "https://mcbroken.com/",
+  "https://neal.fun/auction-game/",
+  "https://neal.fun/spend/",
+  "https://www.window-swap.com/",
+  "https://radio.garden",
+  "https://tonematrix.lupine.dev/",
+  "https://eater.net/boids",
+  "https://sandspiel.club/",
+  "https://www.nikonsmallworld.com/",
+  "https://neal.fun/wonders-of-street-view/",
+  "https://neal.fun/earth-reviews/",
+  "https://stars.chromeexperiments.com/",
+  "https://neal.fun/asteroid-launcher/",
+  "https://neal.fun/deep-sea/",
+  "https://neal.fun/size-of-space/",
+  "https://neal.fun/space-elevator/",
+  "https://neal.fun/universe-forecast/",
+  "https://neal.fun/who-was-alive/",
+  "https://neal.fun/life-stats/",
+  "https://dictionaryofobscuresorrows.com/",
+  "https://ncase.me/",
+  "https://goblin.tools/",
+  "https://www.chess.com/puzzles",
+  "https://www.geoguessr.com/",
+  "https://openguessr.com/",
+  "https://www.mapcrunch.com/",
+  "https://www.airpano.com/",
+  "https://www.earthcam.com/network/",
+  "https://driveandlisten.app/",
+  "https://www.thewikigame.com/play/",
+  "https://artsandculture.google.com/",
+  "https://www.futureme.org/",
+  "https://darebee.com/",
+  "https://www.merriam-webster.com/time-traveler/2025",
+  "https://humanbenchmark.com/",
+  "https://www.16personalities.com/",
+  "https://www.testmybrain.org/",
+  "https://www.loot-drop.io/",
+  "https://neal.fun/password-game/",
+  "https://www.youtube.com/watch?v=awQzjn72bI0",
+  "https://nautiluslive.org/",
+  "https://www.zooniverse.org/",
+];
+
 function mtIsAcute(text){
   const t = (text || '').toLowerCase();
   return MT_ACUTE_KEYWORDS.some(k => t.includes(k));
@@ -7039,24 +7195,26 @@ function mtWireStep(container){
   const comfortNo = container.querySelector('[data-action="comfort-no"]');
   if(comfortNo) comfortNo.addEventListener('click', ()=> mtGoTo('comfortDeclined'));
 
-  // Reuses the exact same random-pick logic as the homepage's own Read/Watch/Do buttons
-  // (wireRandomButton / wireRandomVideoButton / wireRandomExploreButton) rather than a
-  // separate implementation, so behavior is identical everywhere it appears on the site.
+  // Filtered to the curated "comfort" pools above -- deliberately not the full site pool,
+  // per direct request, since a random pick site-wide could just as easily hand someone
+  // something heavy right when they're already down.
   const comfortRead = container.querySelector('[data-action="comfort-read"]');
   if(comfortRead) comfortRead.addEventListener('click', ()=>{
-    if(DISPATCHES.length === 0) return;
-    const pick = DISPATCHES[Math.floor(Math.random() * DISPATCHES.length)];
+    const pool = DISPATCHES.filter(d => MT_COMFORT_DISPATCH_URLS.includes(d.url));
+    if(pool.length === 0) return;
+    const pick = pool[Math.floor(Math.random() * pool.length)];
     location.href = pick.url;
   });
   const comfortWatch = container.querySelector('[data-action="comfort-watch"]');
   if(comfortWatch) comfortWatch.addEventListener('click', ()=>{
-    if(WATCH_VIDEOS.length === 0) return;
-    const pick = WATCH_VIDEOS[Math.floor(Math.random() * WATCH_VIDEOS.length)];
+    const pool = WATCH_VIDEOS.filter(v => MT_COMFORT_VIDEO_IDS.includes(v.videoId));
+    if(pool.length === 0) return;
+    const pick = pool[Math.floor(Math.random() * pool.length)];
     location.hash = '#play/' + pick.videoId;
   });
   const comfortDo = container.querySelector('[data-action="comfort-do"]');
   if(comfortDo) comfortDo.addEventListener('click', ()=>{
-    const pool = EXPLORE_SITES.filter(s2 => !DO_SOMETHING_EXCLUDED_FACS.includes(s2.fac));
+    const pool = EXPLORE_SITES.filter(s2 => MT_COMFORT_INSTRUMENT_URLS.includes(s2.url));
     if(pool.length === 0) return;
     const pick = pool[Math.floor(Math.random() * pool.length)];
     window.open(pick.url, '_blank', 'noopener');
