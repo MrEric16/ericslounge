@@ -869,24 +869,35 @@ def scrape_afisha_calendar():
             continue
         if is_target:
             log(f"  TARGET PASSED ALL CHECKS: {full_url} title={clean_title!r} occurrences={occurrences}")
-        half = len(clean_title) // 2
-        if half > 4 and clean_title[:half].strip() == clean_title[half:].strip():
-            clean_title = clean_title[:half].strip()
-        english_title = translate_ru_to_en(clean_title)
-        resolved_category = guess_category(clean_title, category)
-        in_window = [(d, t) for d, t in occurrences if TODAY_MIDNIGHT <= d <= WINDOW_END]
-        for date_obj, time_str in in_window:
-            events.append({
-                "title": english_title,
-                "titleRu": clean_title,
-                "category": resolved_category,
-                "venue": venue,
-                "startDate": date_obj.strftime("%Y-%m-%d"),
-                "endDate": None,
-                "time": time_str,
-                "url": full_url,
-                "source": "afisha.uz (calendar)",
-            })
+        try:
+            half = len(clean_title) // 2
+            if half > 4 and clean_title[:half].strip() == clean_title[half:].strip():
+                clean_title = clean_title[:half].strip()
+            english_title = translate_ru_to_en(clean_title)
+            resolved_category = guess_category(clean_title, category)
+            in_window = [(d, t) for d, t in occurrences if TODAY_MIDNIGHT <= d <= WINDOW_END]
+            appended_this_url = 0
+            for date_obj, time_str in in_window:
+                events.append({
+                    "title": english_title,
+                    "titleRu": clean_title,
+                    "category": resolved_category,
+                    "venue": venue,
+                    "startDate": date_obj.strftime("%Y-%m-%d"),
+                    "endDate": None,
+                    "time": time_str,
+                    "url": full_url,
+                    "source": "afisha.uz (calendar)",
+                })
+                appended_this_url += 1
+            if is_target:
+                log(f"  TARGET APPENDED {appended_this_url} entries to events[] for {full_url}, events[] length now {len(events)}")
+        except Exception as e:
+            if is_target:
+                log(f"  TARGET EXCEPTION during translate/append for {full_url}: {type(e).__name__}: {e}")
+                continue
+            else:
+                raise
         if not in_window:
             log(f"  {clean_title!r}: no dates found in window (no schedule/date-range parsed) -- kept 0 events")
 
@@ -1092,13 +1103,20 @@ def dedup(events):
     seen = {}
     stage1 = []
     for e in events:
+        is_target = "our-heritage" in e.get("url", "") or "photo-chronicle-xx" in e.get("url", "")
         if not e.get("startDate"):
+            if is_target:
+                log(f"  DEDUP TARGET DROPPED (no startDate): {e.get('url')}")
             continue  # can't place it on the 7-day list without a date
         key = (norm(e["title"])[:40], e["startDate"])
         if key in seen:
+            if is_target:
+                log(f"  DEDUP TARGET DROPPED at Pass 1 (key collision): {e.get('url')} key={key!r}")
             continue
         seen[key] = True
         stage1.append(e)
+    target_count_after_pass1 = sum(1 for e in stage1 if "our-heritage" in e.get("url","") or "photo-chronicle-xx" in e.get("url",""))
+    log(f"  DEDUP: {target_count_after_pass1} target entries survived Pass 1")
 
     # Pass 2: same-date fuzzy dedup across sources. Cross-source titles are often
     # in different languages (afisha.uz = Russian, iticket.uz = English), so we
@@ -1158,6 +1176,8 @@ def dedup(events):
             merged_out.append(best)
         final.extend(merged_out)
 
+    target_count_final = sum(1 for e in final if "our-heritage" in e.get("url","") or "photo-chronicle-xx" in e.get("url",""))
+    log(f"  DEDUP: {target_count_final} target entries survived Pass 2 (final)")
     return final
 
 
