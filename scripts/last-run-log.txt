@@ -10,10 +10,20 @@
 [scrape] calendar 2026-08-17: 0 new event URLs discovered
 [scrape] calendar 2026-08-18: 2 new event URLs discovered
 [scrape] calendar 2026-08-19: 0 new event URLs discovered
-[scrape] calendar discovery complete: 46 unique event URLs to check
+[scrape] exhibitions listing page (supplementary): 13 new event URLs discovered
+[scrape] calendar discovery complete: 59 unique event URLs to check
 [scrape]   DEBUG: dumped raw HTML for qimmat page, 137627 chars
 [scrape]   DEBUG: dumped raw HTML for madagascar page, 184927 chars
-[scrape] calendar detail pass complete: 221 events kept from 46 pages checked
+[scrape]   'Silk Road Expo HUAHE 2026': no dates found in window (no schedule/date-range parsed) -- kept 0 events
+[scrape]   'Uzbekistan Concrete Show 2026': no dates found in window (no schedule/date-range parsed) -- kept 0 events
+[scrape]   'UzEnergyExpo-2026': no dates found in window (no schedule/date-range parsed) -- kept 0 events
+[scrape]   'Выставка Automechanika Tashkent 2026': no dates found in window (no schedule/date-range parsed) -- kept 0 events
+[scrape]   'Выставка Eurasian Construction Technology 2026': no dates found in window (no schedule/date-range parsed) -- kept 0 events
+[scrape]   'Эстетика многослойности: в Ташкенте открылась выставка Бобура Алимходжаева Duality: X-Ray of Memory': no dates found in window (no schedule/date-range parsed) -- kept 0 events
+[scrape]   'Pharma Eurasia & MedTech 2026: в Ташкенте пройдет выставка фармацевтической отрасли': no dates found in window (no schedule/date-range parsed) -- kept 0 events
+[scrape]   'В университете Кимё проходит выставка Art Engineering 2026, посвященная экологическим решениям': no dates found in window (no schedule/date-range parsed) -- kept 0 events
+[scrape]   'Выставка «Образование и профессия 2026» пройдет в 12-ти городах Узбекистана': no dates found in window (no schedule/date-range parsed) -- kept 0 events
+[scrape] calendar detail pass complete: 222 events kept from 59 pages checked
 [scrape] special-tracked: FAILED to fetch or failed content check for https://www.afisha.uz/ru/cinema/2026/07/16/kinoprazdnik-v-sredu
 [scrape] iticket.uz cat=concert: 8 events kept
 [scrape] iticket.uz cat=theatre: 6 events kept
@@ -21,5 +31,5 @@
 [scrape] ticketon.uz: CONFIRMED BLOCKED (Cloudflare challenge, page title='Just a moment...'). 0 events -- this is expected, not a bug to fix.
 [scrape] eventbrite.com: CONFIRMED BLOCKED (AWS WAF CAPTCHA, page title='Human Verification'). 0 events -- this is expected, not a bug to fix. Same category of block as ticketon.uz.
 [scrape] eventbrite.com: 0 events found (dates NOT yet parsed -- see note in script)
-[scrape] TOTAL before dedup: 235  |  after dedup: 158
+[scrape] TOTAL before dedup: 236  |  after dedup: 159
 [scrape] Wrote data/events-tashkent.json
