@@ -1295,25 +1295,6 @@
     border-radius:999px; padding:15px; font-family:'Nunito', sans-serif; font-weight:800;
     font-size:15px; cursor:pointer;
   }
-  .mt-instrument-frame-wrap{
-    margin:0 -16px; /* bleeds to the edges of the mobile viewport for max usable space */
-  }
-  .mt-instrument-topbar{
-    display:flex; justify-content:flex-end; padding:0 16px 8px;
-  }
-  .mt-instrument-close{
-    width:38px; height:38px; border-radius:50%; border:none; background:var(--card);
-    color:var(--ink); font-size:16px; font-weight:800; cursor:pointer;
-    box-shadow:0 2px 0 rgba(58,42,30,.1);
-  }
-  .mt-instrument-frame{
-    display:block; width:100%; height:60vh; min-height:380px; border:none;
-    background:var(--card); border-radius:16px 16px 0 0;
-  }
-  .mt-instrument-fallback{
-    display:block; text-align:center; padding:10px 16px; font-size:12px;
-    color:var(--ink-soft); text-decoration:underline;
-  }
 
   .explore-tile{
     background:var(--coral);
@@ -7057,23 +7038,6 @@ function mtStepHtml(){
       </div>
     `;
   }
-  if(s.step === 'messAboutInstrument'){
-    // In-app, not a new tab -- most third-party sites block iframe embedding by default
-    // (clickjacking protection), so this can't be guaranteed to work for every possible
-    // site added to this pool later. The small lightweight ones currently in the pool are
-    // more likely than typical commercial sites to allow it, but this is unverified until
-    // actually used -- the "Trouble loading? Open in a new tab instead" link is the honest
-    // fallback for whichever ones don't, rather than leaving a silently blank frame.
-    return `
-      <div class="mt-instrument-frame-wrap">
-        <div class="mt-instrument-topbar">
-          <button class="mt-instrument-close" data-action="messabout-close" aria-label="Close">✕</button>
-        </div>
-        <iframe class="mt-instrument-frame" src="${escapeHtml(s.messAboutUrl)}" title="Take a few minutes"></iframe>
-        <a class="mt-instrument-fallback" href="${escapeHtml(s.messAboutUrl)}" target="_blank" rel="noopener">Trouble loading? Open in a new tab instead</a>
-      </div>
-    `;
-  }
   if(s.step === 'messAboutAfter'){
     return `
       <div class="mt-closing-box">
@@ -7272,6 +7236,10 @@ function mtWireStep(container){
   if(backToPicker) backToPicker.addEventListener('click', ()=> mtGoTo('picker'));
 
   // "Mess about" flow -- offer shown for negative-valence words, before the questions.
+  // Opens straight in a new tab (confirmed working correctly -- opens within the app's own
+  // context on mobile, doesn't redirect out to a separate browser), landing directly on
+  // "Try another / ready" the moment they close that tab and come back, exactly like the
+  // homepage's own Do button already works elsewhere on the site.
   function mtPickMessAboutUrl(excludeUrl){
     let pick;
     do{ pick = MT_MESSABOUT_POOL[Math.floor(Math.random() * MT_MESSABOUT_POOL.length)]; }
@@ -7281,16 +7249,18 @@ function mtWireStep(container){
   const messaboutYes = container.querySelector('[data-action="messabout-yes"]');
   if(messaboutYes) messaboutYes.addEventListener('click', ()=>{
     s.messAboutUrl = mtPickMessAboutUrl(null);
-    mtGoTo('messAboutInstrument');
+    window.open(s.messAboutUrl, '_blank', 'noopener');
+    mtGoTo('messAboutAfter');
   });
   const messaboutNo = container.querySelector('[data-action="messabout-no"]');
   if(messaboutNo) messaboutNo.addEventListener('click', ()=> mtGoTo('talkAboutIt'));
-  const messaboutClose = container.querySelector('[data-action="messabout-close"]');
-  if(messaboutClose) messaboutClose.addEventListener('click', ()=> mtGoTo('messAboutAfter'));
   const messaboutAnother = container.querySelector('[data-action="messabout-another"]');
   if(messaboutAnother) messaboutAnother.addEventListener('click', ()=>{
     s.messAboutUrl = mtPickMessAboutUrl(s.messAboutUrl);
-    mtGoTo('messAboutInstrument');
+    window.open(s.messAboutUrl, '_blank', 'noopener');
+    // already on messAboutAfter -- no transition needed, just re-render so the button
+    // states/wiring stay fresh
+    mtRender();
   });
   const messaboutReady = container.querySelector('[data-action="messabout-ready"]');
   if(messaboutReady) messaboutReady.addEventListener('click', ()=> mtGoTo('talkAboutIt'));
