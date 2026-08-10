@@ -1295,6 +1295,25 @@
     border-radius:999px; padding:15px; font-family:'Nunito', sans-serif; font-weight:800;
     font-size:15px; cursor:pointer;
   }
+  .mt-instrument-frame-wrap{
+    margin:0 -16px; /* bleeds to the edges of the mobile viewport for max usable space */
+  }
+  .mt-instrument-topbar{
+    display:flex; justify-content:flex-end; padding:0 16px 8px;
+  }
+  .mt-instrument-close{
+    width:38px; height:38px; border-radius:50%; border:none; background:var(--card);
+    color:var(--ink); font-size:16px; font-weight:800; cursor:pointer;
+    box-shadow:0 2px 0 rgba(58,42,30,.1);
+  }
+  .mt-instrument-frame{
+    display:block; width:100%; height:60vh; min-height:380px; border:none;
+    background:var(--card); border-radius:16px 16px 0 0;
+  }
+  .mt-instrument-fallback{
+    display:block; text-align:center; padding:10px 16px; font-size:12px;
+    color:var(--ink-soft); text-decoration:underline;
+  }
 
   .explore-tile{
     background:var(--coral);
@@ -6936,6 +6955,24 @@ const MT_COMFORT_INSTRUMENT_URLS = [
   "https://www.zooniverse.org/",
 ];
 
+// "Mess about" pool -- deliberately small and separate from the comfort-read/watch/do
+// pool above. These are specifically for the offer right after picking a negative
+// emotion, before the reflection questions: soothing/poppable/mindless things, not
+// "content to consume" the way an article or video is. Launched with 7 confirmed-good
+// entries; more (bubble popping, a destruction sandbox, something to whack hard) to
+// follow once built as in-house tools rather than third-party sites, since repeated
+// attempts at finding good third-party options for those specific categories turned up
+// nothing but ad-heavy or broken pages.
+const MT_MESSABOUT_POOL = [
+  "https://cat-bounce.com/",
+  "https://koalastothemax.com/",
+  "https://procatinator.com/",
+  "https://sandspiel.club/",
+  "https://neal.fun/asteroid-launcher/",
+  "https://asoftmurmur.com/",
+  "https://neal.fun/ambient-chaos/",
+];
+
 function mtIsAcute(text){
   const t = (text || '').toLowerCase();
   return MT_ACUTE_KEYWORDS.some(k => t.includes(k));
@@ -6943,7 +6980,7 @@ function mtIsAcute(text){
 
 let mtState = null;
 function mtInit(){
-  mtState = { step:'picker', category:null, emotion:null, situation:'', thought:'', actionTaken:null, actionDescription:'', resolution:'' };
+  mtState = { step:'picker', category:null, emotion:null, situation:'', thought:'', actionTaken:null, actionDescription:'', resolution:'', messAboutUrl:null };
   mtRender();
 }
 function mtGoTo(step){
@@ -7007,6 +7044,44 @@ function mtStepHtml(){
       <p class="mt-intro">Which word fits best?</p>
       <div class="mt-sub-grid">
         ${cat.words.map(w => `<button class="mt-sub-btn" style="background:${cat.color}" data-word="${escapeHtml(w)}">${escapeHtml(w)}</button>`).join('')}
+      </div>
+    `;
+  }
+  if(s.step === 'messAboutOffer'){
+    return `
+      <button class="mt-back-link" data-action="back-to-subpicker">← Back</button>
+      <div class="mt-question">Want to mess about for a few minutes first, before the questions?</div>
+      <div class="mt-yn-row">
+        <button class="mt-yn-btn mt-primary" data-action="messabout-yes">Yeah, let's mess about</button>
+        <button class="mt-yn-btn" data-action="messabout-no">Jump straight to questions</button>
+      </div>
+    `;
+  }
+  if(s.step === 'messAboutInstrument'){
+    // In-app, not a new tab -- most third-party sites block iframe embedding by default
+    // (clickjacking protection), so this can't be guaranteed to work for every possible
+    // site added to this pool later. The small lightweight ones currently in the pool are
+    // more likely than typical commercial sites to allow it, but this is unverified until
+    // actually used -- the "Trouble loading? Open in a new tab instead" link is the honest
+    // fallback for whichever ones don't, rather than leaving a silently blank frame.
+    return `
+      <div class="mt-instrument-frame-wrap">
+        <div class="mt-instrument-topbar">
+          <button class="mt-instrument-close" data-action="messabout-close" aria-label="Close">✕</button>
+        </div>
+        <iframe class="mt-instrument-frame" src="${escapeHtml(s.messAboutUrl)}" title="Take a few minutes"></iframe>
+        <a class="mt-instrument-fallback" href="${escapeHtml(s.messAboutUrl)}" target="_blank" rel="noopener">Trouble loading? Open in a new tab instead</a>
+      </div>
+    `;
+  }
+  if(s.step === 'messAboutAfter'){
+    return `
+      <div class="mt-closing-box">
+        <div class="mt-closing-msg">Try another one, or ready to try figure it out?</div>
+        <div class="mt-yn-row">
+          <button class="mt-yn-btn mt-primary" data-action="messabout-another">Try another one</button>
+          <button class="mt-yn-btn" data-action="messabout-ready">I'm ready to try figure it out</button>
+        </div>
       </div>
     `;
   }
@@ -7184,10 +7259,42 @@ function mtWireStep(container){
     btn.addEventListener('click', ()=>{ s.category = btn.dataset.cat; mtGoTo('subpicker'); });
   });
   container.querySelectorAll('[data-word]').forEach(btn => {
-    btn.addEventListener('click', ()=>{ s.emotion = btn.dataset.word; mtGoTo('talkAboutIt'); });
+    btn.addEventListener('click', ()=>{
+      s.emotion = btn.dataset.word;
+      // Genuinely negative feelings get offered a breather before the questions start --
+      // positive and neutral ones go straight to talkAboutIt, unchanged, since "want to
+      // mess about first?" only makes sense ahead of something that's actually difficult.
+      const wordValence = MT_WORD_VALENCE[s.emotion];
+      mtGoTo(wordValence === 'negative' ? 'messAboutOffer' : 'talkAboutIt');
+    });
   });
   const backToPicker = container.querySelector('[data-action="back-to-picker"]');
   if(backToPicker) backToPicker.addEventListener('click', ()=> mtGoTo('picker'));
+
+  // "Mess about" flow -- offer shown for negative-valence words, before the questions.
+  function mtPickMessAboutUrl(excludeUrl){
+    let pick;
+    do{ pick = MT_MESSABOUT_POOL[Math.floor(Math.random() * MT_MESSABOUT_POOL.length)]; }
+    while(pick === excludeUrl && MT_MESSABOUT_POOL.length > 1);
+    return pick;
+  }
+  const messaboutYes = container.querySelector('[data-action="messabout-yes"]');
+  if(messaboutYes) messaboutYes.addEventListener('click', ()=>{
+    s.messAboutUrl = mtPickMessAboutUrl(null);
+    mtGoTo('messAboutInstrument');
+  });
+  const messaboutNo = container.querySelector('[data-action="messabout-no"]');
+  if(messaboutNo) messaboutNo.addEventListener('click', ()=> mtGoTo('talkAboutIt'));
+  const messaboutClose = container.querySelector('[data-action="messabout-close"]');
+  if(messaboutClose) messaboutClose.addEventListener('click', ()=> mtGoTo('messAboutAfter'));
+  const messaboutAnother = container.querySelector('[data-action="messabout-another"]');
+  if(messaboutAnother) messaboutAnother.addEventListener('click', ()=>{
+    s.messAboutUrl = mtPickMessAboutUrl(s.messAboutUrl);
+    mtGoTo('messAboutInstrument');
+  });
+  const messaboutReady = container.querySelector('[data-action="messabout-ready"]');
+  if(messaboutReady) messaboutReady.addEventListener('click', ()=> mtGoTo('talkAboutIt'));
+
   const backToSubpicker = container.querySelector('[data-action="back-to-subpicker"]');
   if(backToSubpicker) backToSubpicker.addEventListener('click', ()=> mtGoTo('subpicker'));
   const backToTalk = container.querySelector('[data-action="back-to-talk"]');
