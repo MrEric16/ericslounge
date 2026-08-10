@@ -1,10 +1,10 @@
 [scrape] Run started. Today (Tashkent): 2026-08-10  Window end: 2026-08-24
 [scrape] NOTE: switched from per-category listing pages to afisha.uz's calendar view (one real day at a time, via Playwright) -- the old approach could only ever see whatever was on the current front page of each category, missing anything pushed down by newer posts. The calendar view asks for each specific date directly instead.
 [scrape] calendar 2026-08-10: 13 new event URLs discovered
-[scrape] calendar 2026-08-11: 5 new event URLs discovered
+[scrape] calendar 2026-08-11: 6 new event URLs discovered
 [scrape] calendar 2026-08-12: 5 new event URLs discovered
 [scrape] calendar 2026-08-13: 3 new event URLs discovered
-[scrape] calendar 2026-08-14: 4 new event URLs discovered
+[scrape] calendar 2026-08-14: 5 new event URLs discovered
 [scrape] calendar 2026-08-15: 9 new event URLs discovered
 [scrape] calendar 2026-08-16: 6 new event URLs discovered
 [scrape] calendar 2026-08-17: 0 new event URLs discovered
@@ -14,7 +14,7 @@
 [scrape] exhibitions listing page (supplementary): 13 new event URLs discovered, 19 total exhibition links seen on page
 [scrape]   TARGET CHECK 'our-heritage': FOUND in raw hrefs: ['/ru/exhibitions/2026/07/31/our-heritage']
 [scrape]   TARGET CHECK 'photo-chronicle-xx': FOUND in raw hrefs: ['/ru/exhibitions/2026/06/25/photo-chronicle-xx']
-[scrape] calendar discovery complete: 60 unique event URLs to check
+[scrape] calendar discovery complete: 62 unique event URLs to check
 [scrape]   DEBUG: dumped raw HTML for qimmat page, 137627 chars
 [scrape]   TARGET DETAIL CHECK https://www.afisha.uz/ru/exhibitions/2026/07/31/our-heritage: HTTP 200, 138640 chars received, h1 found=True, title='Выставка «Наше наследие»'
 [scrape]   TARGET PASSED ALL CHECKS: https://www.afisha.uz/ru/exhibitions/2026/07/31/our-heritage title='Выставка «Наше наследие»' occurrences=[(datetime.datetime(2026, 7, 31, 0, 0), None), (datetime.datetime(2026, 8, 1, 0, 0), None), (datetime.datetime(2026, 8, 2, 0, 0), None), (datetime.datetime(2026, 8, 3, 0, 0), None), (datetime.datetime(2026, 8, 4, 0, 0), None), (datetime.datetime(2026, 8, 5, 0, 0), None), (datetime.datetime(2026, 8, 6, 0, 0), None), (datetime.datetime(2026, 8, 7, 0, 0), None), (datetime.datetime(2026, 8, 8, 0, 0), None), (datetime.datetime(2026, 8, 9, 0, 0), None), (datetime.datetime(2026, 8, 10, 0, 0), None), (datetime.datetime(2026, 8, 11, 0, 0), None), (datetime.datetime(2026, 8, 12, 0, 0), None), (datetime.datetime(2026, 8, 13, 0, 0), None), (datetime.datetime(2026, 8, 14, 0, 0), None), (datetime.datetime(2026, 8, 15, 0, 0), None), (datetime.datetime(2026, 8, 16, 0, 0), None), (datetime.datetime(2026, 8, 17, 0, 0), None), (datetime.datetime(2026, 8, 18, 0, 0), None), (datetime.datetime(2026, 8, 19, 0, 0), None), (datetime.datetime(2026, 8, 20, 0, 0), None), (datetime.datetime(2026, 8, 21, 0, 0), None), (datetime.datetime(2026, 8, 22, 0, 0), None), (datetime.datetime(2026, 8, 23, 0, 0), None), (datetime.datetime(2026, 8, 24, 0, 0), None), (datetime.datetime(2026, 8, 25, 0, 0), None), (datetime.datetime(2026, 8, 26, 0, 0), None), (datetime.datetime(2026, 8, 27, 0, 0), None), (datetime.datetime(2026, 8, 28, 0, 0), None), (datetime.datetime(2026, 8, 29, 0, 0), None), (datetime.datetime(2026, 8, 30, 0, 0), None)]
@@ -32,7 +32,7 @@
 [scrape]   'Pharma Eurasia & MedTech 2026: в Ташкенте пройдет выставка фармацевтической отрасли': no dates found in window (no schedule/date-range parsed) -- kept 0 events
 [scrape]   'В университете Кимё проходит выставка Art Engineering 2026, посвященная экологическим решениям': no dates found in window (no schedule/date-range parsed) -- kept 0 events
 [scrape]   'Выставка «Образование и профессия 2026» пройдет в 12-ти городах Узбекистана': no dates found in window (no schedule/date-range parsed) -- kept 0 events
-[scrape] calendar detail pass complete: 223 events kept from 60 pages checked
+[scrape] calendar detail pass complete: 224 events kept from 62 pages checked
 [scrape] special-tracked: FAILED to fetch or failed content check for https://www.afisha.uz/ru/cinema/2026/07/16/kinoprazdnik-v-sredu
 [scrape] iticket.uz cat=concert: 8 events kept
 [scrape] iticket.uz cat=theatre: 6 events kept
@@ -42,5 +42,5 @@
 [scrape] eventbrite.com: 0 events found (dates NOT yet parsed -- see note in script)
 [scrape]   DEDUP: 30 target entries survived Pass 1
 [scrape]   DEDUP: 30 target entries survived Pass 2 (final)
-[scrape] TOTAL before dedup: 237  |  after dedup: 220
+[scrape] TOTAL before dedup: 238  |  after dedup: 221
 [scrape] Wrote data/events-tashkent.json
