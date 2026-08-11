@@ -108,13 +108,27 @@ EXCLUDE_KEYWORDS_WORD_BOUNDARY = [
 # name/description often has nothing bar-related in it at all (see "мозгобойня" above,
 # reported directly 2026-08-11: hosted at Terrace100, a bar, with a brand name that
 # contains no banned keyword). Checked against the venue field specifically.
+#
+# Entries are either a plain string (substring match, for names distinctive enough that
+# false positives aren't a real risk) or a (name, address_hint) tuple, requiring BOTH
+# fragments present -- for shorter/more generic names where a bare substring match risks
+# collateral damage. "cultura" is exactly this case: as a plain substring it would also
+# match "Cultural Center" (the word "cultural" starts with those same 7 letters), so it's
+# paired with the confirmed street address instead.
 VENUE_BLACKLIST = [
     "terrace100",
+    ("cultura", "рашидова"),  # Cultura, просп. Шарафа Рашидова, 40 -- confirmed bar, reported 2026-08-11
 ]
 def is_blacklisted_venue(venue):
     v = unicodedata.normalize("NFKD", (venue or "")).lower()
     v = re.sub(r"[^a-zа-яё0-9]", "", v)  # strip spaces/punctuation so "Terrace 100" / "Terrace-100" also match
-    return any(b in v for b in VENUE_BLACKLIST)
+    for entry in VENUE_BLACKLIST:
+        if isinstance(entry, tuple):
+            if all(fragment in v for fragment in entry):
+                return True
+        elif entry in v:
+            return True
+    return False
 # Age-restriction markers -- any of these anywhere in the title/venue/category
 # text means the event is not for this site, full stop, regardless of what
 # category afisha.uz filed it under. Safe as bare substrings: the "+" makes
