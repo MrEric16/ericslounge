@@ -1296,6 +1296,22 @@
     font-size:15px; cursor:pointer;
   }
 
+  /* ---- Embedded mess-about games (inline, no new tab, no network) ---- */
+  .mt-embedded-title{ font-weight:800; font-size:15px; color:var(--ink); margin-bottom:10px; }
+  .mt-embedded-slot{ display:flex; flex-direction:column; align-items:center; margin-bottom:16px; }
+  .mt-embedded-canvas{
+    width:100%; max-width:340px; border-radius:14px; touch-action:none; display:block;
+    background:var(--bg-alt, #F4F1EA); box-shadow:0 2px 0 rgba(58,42,30,.10);
+  }
+  .mt-embedded-hint{ font-size:12px; color:var(--ink-soft); margin-top:8px; text-align:center; }
+  .mt-embedded-controls{ margin-top:10px; }
+  .mt-embedded-btn{
+    border:2px solid var(--misc-mindtemple); background:none; border-radius:999px;
+    padding:8px 18px; font-family:'Nunito', sans-serif; font-weight:800; font-size:13px;
+    color:var(--misc-mindtemple); cursor:pointer;
+  }
+  .mt-checkers-wrap{ display:flex; flex-direction:column; align-items:center; }
+
   .explore-tile{
     background:var(--coral);
     color:#fff;
@@ -7347,16 +7363,645 @@ const MT_COMFORT_INSTRUMENT_URLS = [
 // even though it's a perfectly good general instrument elsewhere -- still lives in the
 // site's main EXPLORE_SITES catalog, just not here.
 const MT_MESSABOUT_POOL = [
-  "https://cat-bounce.com/",
-  "https://procatinator.com/",
-  "https://sandspiel.club/",
-  "https://neal.fun/asteroid-launcher/",
-  "https://asoftmurmur.com/",
-  "https://neal.fun/ambient-chaos/",
-  "https://www.crazygames.com/game/color-splash-ssr",
-  "https://puzzio.io/game/ball-roll-bbr",
-  "https://puzzio.io/game/pixel-blast",
+  {type:'external', url:"https://cat-bounce.com/"},
+  {type:'external', url:"https://procatinator.com/"},
+  {type:'external', url:"https://sandspiel.club/"},
+  {type:'external', url:"https://neal.fun/asteroid-launcher/"},
+  {type:'external', url:"https://asoftmurmur.com/"},
+  {type:'external', url:"https://neal.fun/ambient-chaos/"},
+  {type:'external', url:"https://www.crazygames.com/game/color-splash-ssr"},
+  {type:'external', url:"https://puzzio.io/game/ball-roll-bbr"},
+  {type:'external', url:"https://puzzio.io/game/pixel-blast"},
+  {type:'embedded', id:'pop'},
+  {type:'embedded', id:'smash'},
+  {type:'embedded', id:'blast'},
+  {type:'embedded', id:'checkers'},
 ];
+function mtPoolKey(entry){ return entry.type === 'external' ? entry.url : ('embedded:' + entry.id); }
+
+/* ---- Embedded mess-about games ----
+   Four games that run entirely inline inside the Mind Temple panel -- no new tab, no
+   external site, no image/audio files, no network call anywhere. Mixed into the same
+   random-pick pool as the 9 external sites (see MT_MESSABOUT_POOL below) so "yes, let's
+   mess about" stays exactly as decision-free as before: one random pick, not a menu.
+   Each game exposes mount(container) -> cleanup(). mtRender() calls the previously-active
+   game's cleanup before ever wiping the container's innerHTML, and mtExit() does the same
+   on the way out -- a detached canvas's requestAnimationFrame loop does NOT stop on its
+   own just because the DOM node was removed, so this is not optional.
+   Checkers note: simplified ruleset (standard non-flying kings, single-step forced
+   captures with mandatory multi-jump continuation) -- not full official Russian
+   shashki flying-king rules. Chosen deliberately for a "quick, works, responsive"
+   embedded game rather than a full draughts engine. */
+
+// ============ Pop Session ============
+function mtMountPopGame(container){
+  container.innerHTML = '<canvas class="mt-embedded-canvas"></canvas><div class="mt-embedded-hint">Tap the bubbles.</div>';
+  const canvas = container.querySelector('canvas');
+  const ctx = canvas.getContext('2d');
+  let running = true;
+  let bubbles = [];
+  const dpr = Math.max(1, window.devicePixelRatio || 1);
+  const H = 260;
+
+  function resize(){
+    const w = container.clientWidth;
+    canvas.style.width = w + 'px';
+    canvas.style.height = H + 'px';
+    canvas.width = Math.floor(w * dpr);
+    canvas.height = Math.floor(H * dpr);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  const COLORS = ['#5A8F4E','#2E7B8A','#B89434','#B6B235','#4A5578'];
+  const MAX_BUBBLES = 20;
+  function spawnBubble(){
+    const w = container.clientWidth;
+    const r = 16 + Math.random()*20;
+    bubbles.push({
+      x: r + Math.random() * Math.max(1, w - r*2),
+      y: r + Math.random() * Math.max(1, H - r*2),
+      r, color: COLORS[Math.floor(Math.random()*COLORS.length)],
+      pop: 0, alive: true,
+    });
+  }
+  for(let i=0;i<12;i++) spawnBubble();
+
+  let rafId = null;
+  function draw(){
+    if(!running) return;
+    const w = container.clientWidth;
+    ctx.clearRect(0,0,w,H);
+    for(const b of bubbles){
+      if(!b.alive) continue;
+      if(b.pop > 0){
+        b.pop += 0.09;
+        const scale = 1 + b.pop*0.6;
+        ctx.globalAlpha = Math.max(0, 1 - b.pop);
+        ctx.beginPath(); ctx.arc(b.x, b.y, b.r*scale, 0, Math.PI*2);
+        ctx.fillStyle = b.color; ctx.fill();
+        ctx.globalAlpha = 1;
+        if(b.pop >= 1) b.alive = false;
+      } else {
+        ctx.beginPath(); ctx.arc(b.x, b.y, b.r, 0, Math.PI*2);
+        ctx.fillStyle = b.color; ctx.fill();
+        ctx.beginPath(); ctx.arc(b.x - b.r*0.3, b.y - b.r*0.3, b.r*0.25, 0, Math.PI*2);
+        ctx.fillStyle = 'rgba(255,255,255,0.5)'; ctx.fill();
+      }
+    }
+    bubbles = bubbles.filter(b => b.alive);
+    while(bubbles.length < MAX_BUBBLES && Math.random() < 0.06) spawnBubble();
+    rafId = requestAnimationFrame(draw);
+  }
+  rafId = requestAnimationFrame(draw);
+
+  function handlePointer(e){
+    const rect = canvas.getBoundingClientRect();
+    const pts = e.changedTouches ? Array.from(e.changedTouches) : [e];
+    for(const p of pts){
+      const x = p.clientX - rect.left, y = p.clientY - rect.top;
+      for(const b of bubbles){
+        if(b.pop === 0 && b.alive){
+          const dx = x - b.x, dy = y - b.y;
+          if(dx*dx + dy*dy <= b.r*b.r) b.pop = 0.001;
+        }
+      }
+    }
+  }
+  canvas.addEventListener('pointerdown', handlePointer);
+
+  return function cleanup(){
+    running = false;
+    if(rafId) cancelAnimationFrame(rafId);
+    window.removeEventListener('resize', resize);
+    canvas.removeEventListener('pointerdown', handlePointer);
+  };
+}
+
+// ============ Smash Room ============
+function mtMountSmashGame(container){
+  container.innerHTML = '<canvas class="mt-embedded-canvas"></canvas><div class="mt-embedded-controls"><button class="mt-embedded-btn" data-smash-reset>Smash again</button></div>';
+  const canvas = container.querySelector('canvas');
+  const ctx = canvas.getContext('2d');
+  const resetBtn = container.querySelector('[data-smash-reset]');
+  let running = true;
+  const dpr = Math.max(1, window.devicePixelRatio || 1);
+  const H = 260;
+
+  function resize(){
+    const w = container.clientWidth;
+    canvas.style.width = w + 'px';
+    canvas.style.height = H + 'px';
+    canvas.width = Math.floor(w * dpr);
+    canvas.height = Math.floor(H * dpr);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  let objects = [], particles = [];
+  function layoutObjects(){
+    const w = container.clientWidth;
+    objects = [
+      { type:'plate', x:w*0.2, y:H*0.55, w:64, h:20, color:'#B89434', smashed:false },
+      { type:'vase',  x:w*0.5, y:H*0.55, w:38, h:66, color:'#2E7B8A', smashed:false },
+      { type:'block', x:w*0.8, y:H*0.55, w:56, h:56, color:'#A6342E', smashed:false },
+    ];
+    particles = [];
+  }
+  layoutObjects();
+
+  function hit(obj){
+    if(obj.smashed) return;
+    obj.smashed = true;
+    for(let i=0;i<14;i++){
+      const ang = Math.random()*Math.PI*2, speed = 2 + Math.random()*4;
+      particles.push({ x:obj.x, y:obj.y, vx:Math.cos(ang)*speed, vy:Math.sin(ang)*speed - 2,
+        size:4+Math.random()*6, color:obj.color, life:1 });
+    }
+  }
+
+  let rafId = null;
+  function draw(){
+    if(!running) return;
+    const w = container.clientWidth;
+    ctx.clearRect(0,0,w,H);
+    for(const obj of objects){
+      if(obj.smashed) continue;
+      ctx.fillStyle = obj.color;
+      if(obj.type === 'plate'){
+        ctx.beginPath(); ctx.ellipse(obj.x, obj.y, obj.w/2, obj.h/2, 0, 0, Math.PI*2); ctx.fill();
+      } else if(obj.type === 'vase'){
+        ctx.beginPath();
+        ctx.moveTo(obj.x - obj.w/2, obj.y + obj.h/2);
+        ctx.quadraticCurveTo(obj.x - obj.w/2, obj.y - obj.h/2, obj.x, obj.y - obj.h/2);
+        ctx.quadraticCurveTo(obj.x + obj.w/2, obj.y - obj.h/2, obj.x + obj.w/2, obj.y + obj.h/2);
+        ctx.closePath(); ctx.fill();
+      } else {
+        ctx.fillRect(obj.x - obj.w/2, obj.y - obj.h/2, obj.w, obj.h);
+      }
+    }
+    for(const p of particles){
+      p.vy += 0.15; p.x += p.vx; p.y += p.vy; p.life -= 0.015;
+      if(p.life <= 0) continue;
+      ctx.globalAlpha = Math.max(0, p.life);
+      ctx.fillStyle = p.color; ctx.fillRect(p.x, p.y, p.size, p.size);
+      ctx.globalAlpha = 1;
+    }
+    particles = particles.filter(p => p.life > 0 && p.y < H + 40);
+    rafId = requestAnimationFrame(draw);
+  }
+  rafId = requestAnimationFrame(draw);
+
+  function handlePointer(e){
+    const rect = canvas.getBoundingClientRect();
+    const pts = e.changedTouches ? Array.from(e.changedTouches) : [e];
+    for(const p of pts){
+      const x = p.clientX - rect.left, y = p.clientY - rect.top;
+      for(const obj of objects){
+        if(obj.smashed) continue;
+        const hw = obj.w/2, hh = obj.h/2;
+        if(x >= obj.x-hw && x <= obj.x+hw && y >= obj.y-hh && y <= obj.y+hh) hit(obj);
+      }
+    }
+  }
+  canvas.addEventListener('pointerdown', handlePointer);
+  function onReset(){ layoutObjects(); }
+  resetBtn.addEventListener('click', onReset);
+
+  return function cleanup(){
+    running = false;
+    if(rafId) cancelAnimationFrame(rafId);
+    window.removeEventListener('resize', resize);
+    canvas.removeEventListener('pointerdown', handlePointer);
+    resetBtn.removeEventListener('click', onReset);
+  };
+}
+
+// ============ Blow It Up ============
+function mtMountBlastGame(container){
+  container.innerHTML = '<canvas class="mt-embedded-canvas"></canvas><div class="mt-embedded-controls"><button class="mt-embedded-btn" data-blast-reset>Rebuild</button></div>';
+  const canvas = container.querySelector('canvas');
+  const ctx = canvas.getContext('2d');
+  const resetBtn = container.querySelector('[data-blast-reset]');
+  let running = true;
+  const dpr = Math.max(1, window.devicePixelRatio || 1);
+  const H = 260;
+
+  function resize(){
+    const w = container.clientWidth;
+    canvas.style.width = w + 'px';
+    canvas.style.height = H + 'px';
+    canvas.width = Math.floor(w * dpr);
+    canvas.height = Math.floor(H * dpr);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  const ROWS = 4, COLS = 6;
+  const COLORS = ['#B6B235','#B5562E','#5A8F4E','#4A5578'];
+  let blocks = [], particles = [], falling = [];
+
+  function buildBlocks(){
+    const w = container.clientWidth;
+    const bw = Math.min(48, (w - 20) / COLS);
+    const bh = 30;
+    const startX = (w - bw*COLS) / 2;
+    const startY = H - 20 - bh*ROWS;
+    blocks = [];
+    for(let r=0;r<ROWS;r++){
+      for(let c=0;c<COLS;c++){
+        blocks.push({ row:r, col:c, x:startX+c*bw, y:startY+r*bh,
+          w:bw-3, h:bh-3, color:COLORS[(r+c)%COLORS.length], alive:true });
+      }
+    }
+    particles = []; falling = [];
+  }
+  buildBlocks();
+
+  function detonate(block){
+    block.alive = false;
+    const cx = block.x + block.w/2, cy = block.y + block.h/2;
+    for(let i=0;i<10;i++){
+      const ang = Math.random()*Math.PI*2, speed = 2 + Math.random()*5;
+      particles.push({ x:cx, y:cy, vx:Math.cos(ang)*speed, vy:Math.sin(ang)*speed-3,
+        size:3+Math.random()*5, color:block.color, life:1 });
+    }
+    for(const other of blocks){
+      if(!other.alive || other === block) continue;
+      const dr = Math.abs(other.row - block.row), dc = Math.abs(other.col - block.col);
+      if(dr <= 1 && dc <= 1){
+        other.alive = false;
+        const dx = (other.x - block.x) || (Math.random()-0.5);
+        falling.push({ x:other.x, y:other.y, w:other.w, h:other.h, color:other.color,
+          vx: dx*0.15 + (Math.random()-0.5)*2, vy: -3 - Math.random()*2,
+          rot:0, vrot:(Math.random()-0.5)*0.3 });
+      }
+    }
+  }
+
+  let rafId = null;
+  function draw(){
+    if(!running) return;
+    const w = container.clientWidth;
+    ctx.clearRect(0,0,w,H);
+    for(const b of blocks){
+      if(!b.alive) continue;
+      ctx.fillStyle = b.color; ctx.fillRect(b.x, b.y, b.w, b.h);
+    }
+    for(const f of falling){
+      f.vy += 0.2; f.x += f.vx; f.y += f.vy; f.rot += f.vrot;
+      ctx.save(); ctx.translate(f.x + f.w/2, f.y + f.h/2); ctx.rotate(f.rot);
+      ctx.fillStyle = f.color; ctx.fillRect(-f.w/2, -f.h/2, f.w, f.h); ctx.restore();
+    }
+    falling = falling.filter(f => f.y < H + 60);
+    for(const p of particles){
+      p.vy += 0.15; p.x += p.vx; p.y += p.vy; p.life -= 0.02;
+      if(p.life <= 0) continue;
+      ctx.globalAlpha = Math.max(0, p.life);
+      ctx.fillStyle = p.color; ctx.fillRect(p.x, p.y, p.size, p.size);
+      ctx.globalAlpha = 1;
+    }
+    particles = particles.filter(p => p.life > 0);
+    rafId = requestAnimationFrame(draw);
+  }
+  rafId = requestAnimationFrame(draw);
+
+  function handlePointer(e){
+    const rect = canvas.getBoundingClientRect();
+    const pts = e.changedTouches ? Array.from(e.changedTouches) : [e];
+    for(const p of pts){
+      const x = p.clientX - rect.left, y = p.clientY - rect.top;
+      for(const b of blocks){
+        if(!b.alive) continue;
+        if(x >= b.x && x <= b.x+b.w && y >= b.y && y <= b.y+b.h) detonate(b);
+      }
+    }
+  }
+  canvas.addEventListener('pointerdown', handlePointer);
+  function onReset(){ buildBlocks(); }
+  resetBtn.addEventListener('click', onReset);
+
+  return function cleanup(){
+    running = false;
+    if(rafId) cancelAnimationFrame(rafId);
+    window.removeEventListener('resize', resize);
+    canvas.removeEventListener('pointerdown', handlePointer);
+    resetBtn.removeEventListener('click', onReset);
+  };
+}
+
+// ============ Checkers (vs simple AI) ============
+// Pure rules functions, kept separate from rendering/mounting so they can be unit-tested
+// in isolation from the DOM/canvas.
+const MT_CK_SIZE = 8;
+function mtCkCloneBoard(b){ return b.map(row => row.map(cell => cell ? {color:cell.color, king:cell.king} : null)); }
+function mtCkInBounds(r,c){ return r>=0 && r<MT_CK_SIZE && c>=0 && c<MT_CK_SIZE; }
+function mtCkInitBoard(){
+  const board = Array.from({length:MT_CK_SIZE}, () => Array(MT_CK_SIZE).fill(null));
+  for(let r=0;r<MT_CK_SIZE;r++){
+    for(let c=0;c<MT_CK_SIZE;c++){
+      if((r+c)%2===1){
+        if(r<3) board[r][c] = {color:'black', king:false};
+        else if(r>4) board[r][c] = {color:'red', king:false};
+      }
+    }
+  }
+  return board;
+}
+function mtCkPieceDirs(piece){
+  if(piece.king) return [[-1,-1],[-1,1],[1,-1],[1,1]];
+  return piece.color === 'red' ? [[-1,-1],[-1,1]] : [[1,-1],[1,1]];
+}
+function mtCkGetCaptures(b, r, c){
+  const piece = b[r][c];
+  if(!piece) return [];
+  const out = [];
+  for(const [dr,dc] of mtCkPieceDirs(piece)){
+    const capR = r+dr, capC = c+dc, toR = r+2*dr, toC = c+2*dc;
+    if(mtCkInBounds(toR,toC) && b[toR][toC]===null && mtCkInBounds(capR,capC) && b[capR][capC] && b[capR][capC].color !== piece.color){
+      out.push({toR,toC,capR,capC});
+    }
+  }
+  return out;
+}
+function mtCkGetSimpleMoves(b, r, c){
+  const piece = b[r][c];
+  if(!piece) return [];
+  const out = [];
+  for(const [dr,dc] of mtCkPieceDirs(piece)){
+    const toR = r+dr, toC = c+dc;
+    if(mtCkInBounds(toR,toC) && b[toR][toC]===null) out.push({toR,toC});
+  }
+  return out;
+}
+function mtCkCapturablePieces(b, color){
+  const out = [];
+  for(let r=0;r<MT_CK_SIZE;r++) for(let c=0;c<MT_CK_SIZE;c++){
+    if(b[r][c] && b[r][c].color===color && mtCkGetCaptures(b,r,c).length) out.push({r,c});
+  }
+  return out;
+}
+function mtCkMovablePieces(b, color){
+  const out = [];
+  for(let r=0;r<MT_CK_SIZE;r++) for(let c=0;c<MT_CK_SIZE;c++){
+    if(b[r][c] && b[r][c].color===color && mtCkGetSimpleMoves(b,r,c).length) out.push({r,c});
+  }
+  return out;
+}
+function mtCkMaybeKing(b, r, c){
+  const piece = b[r][c];
+  if(!piece || piece.king) return false;
+  if((piece.color==='red' && r===0) || (piece.color==='black' && r===MT_CK_SIZE-1)){
+    piece.king = true;
+    return true;
+  }
+  return false;
+}
+function mtCkHasAnyMove(b, color){
+  return mtCkCapturablePieces(b,color).length>0 || mtCkMovablePieces(b,color).length>0;
+}
+
+function mtMountCheckersGame(container){
+  container.innerHTML = `
+    <div class="mt-checkers-wrap">
+      <canvas class="mt-embedded-canvas mt-checkers-canvas"></canvas>
+      <div class="mt-embedded-hint" id="mtCheckersMsg">Your move (red). Tap a piece, then tap where to move.</div>
+      <div class="mt-embedded-controls"><button class="mt-embedded-btn" data-checkers-reset>New game</button></div>
+    </div>
+  `;
+  const canvas = container.querySelector('canvas');
+  const ctx = canvas.getContext('2d');
+  const msgEl = container.querySelector('#mtCheckersMsg');
+  const resetBtn = container.querySelector('[data-checkers-reset]');
+  let running = true;
+  const dpr = Math.max(1, window.devicePixelRatio || 1);
+  let boardPx = 0;
+
+  let board, turn, selected, gameOver, aiThinking, aiTimer = null;
+
+  function setMsg(t){ if(msgEl) msgEl.textContent = t; }
+  function setupBoard(){
+    board = mtCkInitBoard();
+    turn = 'player'; selected = null; gameOver = false; aiThinking = false;
+    setMsg('Your move (red). Tap a piece, then tap where to move.');
+  }
+  setupBoard();
+
+  function resize(){
+    const w = Math.min(container.clientWidth, 340);
+    boardPx = w;
+    canvas.style.width = w + 'px';
+    canvas.style.height = w + 'px';
+    canvas.width = Math.floor(w * dpr);
+    canvas.height = Math.floor(w * dpr);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    draw();
+  }
+
+  function draw(){
+    if(!running || !boardPx) return;
+    const s = boardPx / MT_CK_SIZE;
+    ctx.clearRect(0,0,boardPx,boardPx);
+    for(let r=0;r<MT_CK_SIZE;r++) for(let c=0;c<MT_CK_SIZE;c++){
+      ctx.fillStyle = (r+c)%2===0 ? '#EDE3D3' : '#7A5C3E';
+      ctx.fillRect(c*s, r*s, s, s);
+    }
+    if(selected){
+      ctx.fillStyle = 'rgba(182,178,53,0.55)';
+      ctx.fillRect(selected.c*s, selected.r*s, s, s);
+      const caps = mtCkGetCaptures(board, selected.r, selected.c);
+      const moves = caps.length ? caps : mtCkGetSimpleMoves(board, selected.r, selected.c);
+      ctx.fillStyle = 'rgba(90,143,78,0.55)';
+      for(const m of moves) ctx.fillRect(m.toC*s, m.toR*s, s, s);
+    }
+    for(let r=0;r<MT_CK_SIZE;r++) for(let c=0;c<MT_CK_SIZE;c++){
+      const piece = board[r][c];
+      if(!piece) continue;
+      const cx = c*s+s/2, cy = r*s+s/2, rad = s*0.36;
+      ctx.beginPath(); ctx.arc(cx, cy, rad, 0, Math.PI*2);
+      ctx.fillStyle = piece.color === 'red' ? '#A6342E' : '#2b2b2b';
+      ctx.fill();
+      ctx.lineWidth = 2; ctx.strokeStyle = 'rgba(255,255,255,0.35)'; ctx.stroke();
+      if(piece.king){
+        ctx.fillStyle = '#B6B235';
+        ctx.font = Math.round(rad) + 'px sans-serif';
+        ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+        ctx.fillText('\u2605', cx, cy+1);
+      }
+    }
+  }
+
+  function squareFromEvent(e){
+    const rect = canvas.getBoundingClientRect();
+    const p = e.changedTouches ? e.changedTouches[0] : e;
+    const x = p.clientX - rect.left, y = p.clientY - rect.top;
+    const s = boardPx / MT_CK_SIZE;
+    const c = Math.floor(x/s), r = Math.floor(y/s);
+    if(!mtCkInBounds(r,c)) return null;
+    return {r,c};
+  }
+
+  function checkGameOver(){
+    if(!mtCkHasAnyMove(board,'red')){ gameOver = true; setMsg('No moves left \u2014 computer wins. Tap New game to try again.'); return true; }
+    if(!mtCkHasAnyMove(board,'black')){ gameOver = true; setMsg('No moves left for the computer \u2014 you win! Tap New game to play again.'); return true; }
+    return false;
+  }
+
+  function tryPlayerMove(toR, toC){
+    const caps = mtCkGetCaptures(board, selected.r, selected.c);
+    const asCapture = caps.find(m => m.toR===toR && m.toC===toC);
+    if(asCapture){
+      board[toR][toC] = board[selected.r][selected.c];
+      board[selected.r][selected.c] = null;
+      board[asCapture.capR][asCapture.capC] = null;
+      const kinged = mtCkMaybeKing(board, toR, toC);
+      const more = !kinged && mtCkGetCaptures(board, toR, toC).length > 0;
+      if(more){
+        selected = {r:toR, c:toC};
+        setMsg('Capture again with the same piece.');
+        draw();
+        return;
+      }
+      selected = null;
+      endPlayerTurn();
+      return;
+    }
+    const mandatory = mtCkCapturablePieces(board,'red').length>0;
+    if(mandatory){ setMsg('A capture is available \u2014 you must take it.'); draw(); return; }
+    const moves = mtCkGetSimpleMoves(board, selected.r, selected.c);
+    const asMove = moves.find(m => m.toR===toR && m.toC===toC);
+    if(asMove){
+      board[toR][toC] = board[selected.r][selected.c];
+      board[selected.r][selected.c] = null;
+      mtCkMaybeKing(board, toR, toC);
+      selected = null;
+      endPlayerTurn();
+    }
+  }
+
+  function endPlayerTurn(){
+    draw();
+    if(checkGameOver()) return;
+    turn = 'ai';
+    aiThinking = true;
+    setMsg('Computer is thinking...');
+    aiTimer = setTimeout(runAiTurn, 500);
+  }
+
+  function handlePointer(e){
+    if(gameOver || turn !== 'player' || aiThinking) return;
+    const sq = squareFromEvent(e);
+    if(!sq) return;
+    const piece = board[sq.r][sq.c];
+    if(selected){
+      if(selected.r===sq.r && selected.c===sq.c) return;
+      if(piece && piece.color==='red'){
+        selected = {r:sq.r, c:sq.c};
+        draw();
+        return;
+      }
+      tryPlayerMove(sq.r, sq.c);
+      return;
+    }
+    if(piece && piece.color==='red'){
+      const mandatory = mtCkCapturablePieces(board,'red');
+      if(mandatory.length && !mandatory.some(m => m.r===sq.r && m.c===sq.c)){
+        setMsg('A different piece must capture \u2014 tap it instead.');
+        return;
+      }
+      selected = {r:sq.r, c:sq.c};
+      draw();
+    }
+  }
+  canvas.addEventListener('pointerdown', handlePointer);
+
+  function evalSafety(b, r, c, color){
+    const opp = color === 'red' ? 'black' : 'red';
+    for(let rr=0; rr<MT_CK_SIZE; rr++) for(let cc=0; cc<MT_CK_SIZE; cc++){
+      if(b[rr][cc] && b[rr][cc].color===opp){
+        const caps = mtCkGetCaptures(b, rr, cc);
+        if(caps.some(m => m.capR===r && m.capC===c)) return -3;
+      }
+    }
+    return 0;
+  }
+  function runAiTurn(){
+    if(!running || gameOver) return;
+    const capturable = mtCkCapturablePieces(board, 'black');
+    if(capturable.length){
+      const piece = capturable[Math.floor(Math.random()*capturable.length)];
+      chainCaptureStep(piece.r, piece.c);
+      return;
+    }
+    const movable = mtCkMovablePieces(board, 'black');
+    if(!movable.length){ checkGameOver(); return; }
+    let best = null, bestScore = -Infinity;
+    for(const p of movable){
+      const moves = mtCkGetSimpleMoves(board, p.r, p.c);
+      for(const m of moves){
+        let score = evalSafety(board, m.toR, m.toC, 'black');
+        if(!board[p.r][p.c].king && m.toR === MT_CK_SIZE-1) score += 5;
+        score += Math.random();
+        if(score > bestScore){ bestScore = score; best = {p, m}; }
+      }
+    }
+    board[best.m.toR][best.m.toC] = board[best.p.r][best.p.c];
+    board[best.p.r][best.p.c] = null;
+    mtCkMaybeKing(board, best.m.toR, best.m.toC);
+    finishAiTurn();
+  }
+  function chainCaptureStep(r, c){
+    const caps = mtCkGetCaptures(board, r, c);
+    if(!caps.length){ finishAiTurn(); return; }
+    let best = null, bestScore = -Infinity;
+    for(const m of caps){
+      let score = board[m.capR][m.capC].king ? 8 : 5;
+      score += evalSafety(board, m.toR, m.toC, 'black');
+      score += Math.random();
+      if(score > bestScore){ bestScore = score; best = m; }
+    }
+    board[best.toR][best.toC] = board[r][c];
+    board[r][c] = null;
+    board[best.capR][best.capC] = null;
+    const kinged = mtCkMaybeKing(board, best.toR, best.toC);
+    draw();
+    if(!kinged && mtCkGetCaptures(board, best.toR, best.toC).length){
+      aiTimer = setTimeout(() => chainCaptureStep(best.toR, best.toC), 400);
+    } else {
+      finishAiTurn();
+    }
+  }
+  function finishAiTurn(){
+    draw();
+    aiThinking = false;
+    if(checkGameOver()) return;
+    turn = 'player';
+    setMsg('Your move (red).');
+  }
+
+  function onReset(){ setupBoard(); resize(); }
+  resetBtn.addEventListener('click', onReset);
+  window.addEventListener('resize', resize);
+  resize();
+
+  return function cleanup(){
+    running = false;
+    if(aiTimer) clearTimeout(aiTimer);
+    window.removeEventListener('resize', resize);
+    canvas.removeEventListener('pointerdown', handlePointer);
+    resetBtn.removeEventListener('click', onReset);
+  };
+}
+
+const MT_EMBEDDED_GAMES = {
+  pop:      { title: 'Pop Session', mount: mtMountPopGame },
+  smash:    { title: 'Smash Room', mount: mtMountSmashGame },
+  blast:    { title: 'Blow It Up', mount: mtMountBlastGame },
+  checkers: { title: 'Checkers (vs computer)', mount: mtMountCheckersGame },
+};
 
 function mtIsAcute(text){
   const t = (text || '').toLowerCase();
@@ -7364,8 +8009,10 @@ function mtIsAcute(text){
 }
 
 let mtState = null;
+let mtActiveEmbeddedCleanup = null; // cleanup() of whichever embedded mess-about game is currently mounted, if any
 function mtInit(){
-  mtState = { step:'picker', category:null, emotion:null, situation:'', thought:'', actionTaken:null, actionDescription:'', resolution:'', messAboutUrl:null };
+  if(mtActiveEmbeddedCleanup){ mtActiveEmbeddedCleanup(); mtActiveEmbeddedCleanup = null; }
+  mtState = { step:'picker', category:null, emotion:null, situation:'', thought:'', actionTaken:null, actionDescription:'', resolution:'', messAboutPick:null };
   mtRender();
 }
 function mtGoTo(step){
@@ -7391,6 +8038,11 @@ function mtAfterAction(){
   mtGoTo(mtIsPositive() ? 'closing' : 'resolution');
 }
 function mtExit(){
+  // Any embedded mess-about game's animation loop/AI timer must be torn down explicitly --
+  // it does NOT stop on its own just because this panel's DOM gets replaced by whatever
+  // route is navigated to next; a detached canvas's requestAnimationFrame loop keeps firing
+  // (and eating battery) forever otherwise.
+  if(mtActiveEmbeddedCleanup){ mtActiveEmbeddedCleanup(); mtActiveEmbeddedCleanup = null; }
   // Leaving Mind Temple always lands on a freshly-scrolled-to-top homepage, never wherever
   // the user happened to be scrolled to before they opened it -- deliberately different
   // from every other page on the site, which does remember scroll position. The point is
@@ -7408,8 +8060,32 @@ function mtExit(){
 function mtRender(){
   const container = document.getElementById('mtContainer');
   if(!container) return;
+  // Single choke point for embedded-game teardown -- every re-render (any step, any
+  // reason) tears down whatever embedded game was previously mounted before wiping the
+  // container's HTML. This covers "try another", moving on to the questions, going back,
+  // and everything else in one place rather than special-casing each transition.
+  if(mtActiveEmbeddedCleanup){ mtActiveEmbeddedCleanup(); mtActiveEmbeddedCleanup = null; }
   container.innerHTML = mtStepHtml();
   mtWireStep(container);
+  if(mtState.step === 'messAboutAfter' && mtState.messAboutPick){
+    mtActivateMessAboutPick(container);
+  }
+}
+// Opens the current mess-about pick: window.open for the 9 external sites (unchanged,
+// confirmed working correctly on mobile -- opens within the app's own context rather than
+// redirecting to Safari), or mounts the matching embedded game inline into the slot
+// rendered by messAboutAfter's HTML for the 4 in-house games.
+function mtActivateMessAboutPick(container){
+  const pick = mtState.messAboutPick;
+  if(!pick) return;
+  if(pick.type === 'external'){
+    window.open(pick.url, '_blank', 'noopener');
+    return;
+  }
+  const game = MT_EMBEDDED_GAMES[pick.id];
+  const slot = container.querySelector('#mtEmbeddedGameSlot');
+  if(!game || !slot) return;
+  mtActiveEmbeddedCleanup = game.mount(slot);
 }
 
 function mtStepHtml(){
@@ -7443,8 +8119,12 @@ function mtStepHtml(){
     `;
   }
   if(s.step === 'messAboutAfter'){
+    const pick = s.messAboutPick;
+    const isEmbedded = pick && pick.type === 'embedded';
+    const game = isEmbedded ? MT_EMBEDDED_GAMES[pick.id] : null;
     return `
       <div class="mt-closing-box">
+        ${game ? `<div class="mt-embedded-title">${escapeHtml(game.title)}</div><div id="mtEmbeddedGameSlot" class="mt-embedded-slot"></div>` : ''}
         <div class="mt-closing-msg">Try another one, or ready to try figure it out?</div>
         <div class="mt-yn-row">
           <button class="mt-yn-btn mt-primary" data-action="messabout-another">Try another one</button>
@@ -7640,30 +8320,30 @@ function mtWireStep(container){
   if(backToPicker) backToPicker.addEventListener('click', ()=> mtGoTo('picker'));
 
   // "Mess about" flow -- offer shown for negative-valence words, before the questions.
-  // Opens straight in a new tab (confirmed working correctly -- opens within the app's own
-  // context on mobile, doesn't redirect out to a separate browser), landing directly on
-  // "Try another / ready" the moment they close that tab and come back, exactly like the
-  // homepage's own Do button already works elsewhere on the site.
-  function mtPickMessAboutUrl(excludeUrl){
+  // Pool mixes 9 external sites (opened via window.open -- confirmed working correctly on
+  // mobile, doesn't redirect out to Safari) with 4 in-house embedded games (mounted inline
+  // via mtActivateMessAboutPick, called from mtRender once the messAboutAfter HTML with its
+  // #mtEmbeddedGameSlot is actually in the DOM). One random pick either way -- the choice
+  // of which of the 13 options to open was never meant to be the student's decision.
+  function mtPickMessAboutPick(excludePick){
     let pick;
+    const excludeKey = excludePick ? mtPoolKey(excludePick) : null;
     do{ pick = MT_MESSABOUT_POOL[Math.floor(Math.random() * MT_MESSABOUT_POOL.length)]; }
-    while(pick === excludeUrl && MT_MESSABOUT_POOL.length > 1);
+    while(mtPoolKey(pick) === excludeKey && MT_MESSABOUT_POOL.length > 1);
     return pick;
   }
   const messaboutYes = container.querySelector('[data-action="messabout-yes"]');
   if(messaboutYes) messaboutYes.addEventListener('click', ()=>{
-    s.messAboutUrl = mtPickMessAboutUrl(null);
-    window.open(s.messAboutUrl, '_blank', 'noopener');
+    s.messAboutPick = mtPickMessAboutPick(null);
     mtGoTo('messAboutAfter');
   });
   const messaboutNo = container.querySelector('[data-action="messabout-no"]');
   if(messaboutNo) messaboutNo.addEventListener('click', ()=> mtGoTo('talkAboutIt'));
   const messaboutAnother = container.querySelector('[data-action="messabout-another"]');
   if(messaboutAnother) messaboutAnother.addEventListener('click', ()=>{
-    s.messAboutUrl = mtPickMessAboutUrl(s.messAboutUrl);
-    window.open(s.messAboutUrl, '_blank', 'noopener');
-    // already on messAboutAfter -- no transition needed, just re-render so the button
-    // states/wiring stay fresh
+    s.messAboutPick = mtPickMessAboutPick(s.messAboutPick);
+    // already on messAboutAfter -- mtRender tears down the previous embedded game (if any)
+    // and activates the new pick, no special-casing needed here.
     mtRender();
   });
   const messaboutReady = container.querySelector('[data-action="messabout-ready"]');
