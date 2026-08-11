@@ -1311,6 +1311,19 @@
     color:var(--misc-mindtemple); cursor:pointer;
   }
   .mt-checkers-wrap{ display:flex; flex-direction:column; align-items:center; }
+  .mt-chess-modebar{
+    display:flex; flex-wrap:wrap; gap:6px; justify-content:center; margin-top:10px;
+  }
+  .mt-chess-mode-btn{
+    border:2px solid var(--misc-mindtemple); background:none; border-radius:999px;
+    padding:6px 12px; font-family:'Nunito', sans-serif; font-weight:800; font-size:12px;
+    color:var(--misc-mindtemple); cursor:pointer;
+  }
+  .mt-embedded-btn-circle{
+    width:38px; height:38px; border-radius:50%; border:2px solid var(--misc-mindtemple);
+    background:none; color:var(--misc-mindtemple); font-size:18px; line-height:1; cursor:pointer;
+    display:inline-flex; align-items:center; justify-content:center;
+  }
 
   .explore-tile{
     background:var(--coral);
@@ -7425,6 +7438,8 @@ function mtMountPopGame(container){
   const ctx = canvas.getContext('2d');
   let running = true;
   let bubbles = [];
+  let particles = [];
+  let shake = 0;
   const dpr = Math.max(1, window.devicePixelRatio || 1);
   const H = 260;
 
@@ -7440,29 +7455,53 @@ function mtMountPopGame(container){
   window.addEventListener('resize', resize);
 
   const COLORS = ['#5A8F4E','#2E7B8A','#B89434','#B6B235','#4A5578'];
+  const CONFETTI_COLORS = ['#FFD700','#FF6B6B','#4ECDC4','#B6B235','#A6342E','#2E7B8A','#F5F1E6'];
+  const GOLD = '#FFD24D';
   // MIN_BUBBLES is enforced every single frame, not left to chance -- popping fast enough
   // to empty the screen used to leave a gap before the next one spawned. Now the count is
   // topped straight back up to the minimum the instant it dips below, so there is always
   // something on screen to tap; MAX_BUBBLES is just a density ceiling above that floor.
   const MIN_BUBBLES = 10;
   const MAX_BUBBLES = 20;
+  let goldenOnScreen = false;
   function spawnBubble(){
     const w = container.clientWidth;
     const r = 16 + Math.random()*20;
+    // At most one golden bubble on screen at a time -- special enough to notice, not so
+    // frequent it stops feeling special. Small independent chance each spawn.
+    const isGolden = !goldenOnScreen && Math.random() < 0.08;
+    if(isGolden) goldenOnScreen = true;
     bubbles.push({
       x: r + Math.random() * Math.max(1, w - r*2),
       y: r + Math.random() * Math.max(1, H - r*2),
       r, color: COLORS[Math.floor(Math.random()*COLORS.length)],
-      pop: 0, alive: true,
+      pop: 0, alive: true, golden: isGolden, pulse: Math.random()*Math.PI*2,
     });
   }
   for(let i=0;i<12;i++) spawnBubble();
+
+  function burst(x, y, color, count, speedMin, speedMax, sizeMin, sizeMax){
+    for(let i=0;i<count;i++){
+      const ang = Math.random()*Math.PI*2;
+      const speed = speedMin + Math.random()*(speedMax-speedMin);
+      particles.push({
+        x, y, vx:Math.cos(ang)*speed, vy:Math.sin(ang)*speed - 1.5,
+        size: sizeMin + Math.random()*(sizeMax-sizeMin),
+        color, life:1,
+      });
+    }
+  }
 
   let rafId = null;
   function draw(){
     if(!running) return;
     const w = container.clientWidth;
-    ctx.clearRect(0,0,w,H);
+    ctx.save();
+    if(shake > 0.3){
+      ctx.translate((Math.random()-0.5)*shake, (Math.random()-0.5)*shake);
+      shake *= 0.82;
+    } else { shake = 0; }
+    ctx.clearRect(-20,-20,w+40,H+40);
     for(const b of bubbles){
       if(!b.alive) continue;
       if(b.pop > 0){
@@ -7470,9 +7509,20 @@ function mtMountPopGame(container){
         const scale = 1 + b.pop*0.6;
         ctx.globalAlpha = Math.max(0, 1 - b.pop);
         ctx.beginPath(); ctx.arc(b.x, b.y, b.r*scale, 0, Math.PI*2);
-        ctx.fillStyle = b.color; ctx.fill();
+        ctx.fillStyle = b.golden ? GOLD : b.color; ctx.fill();
         ctx.globalAlpha = 1;
         if(b.pop >= 1) b.alive = false;
+      } else if(b.golden){
+        b.pulse += 0.12;
+        const glow = 0.55 + Math.sin(b.pulse)*0.25;
+        ctx.save();
+        ctx.shadowColor = GOLD;
+        ctx.shadowBlur = 14 + Math.sin(b.pulse)*6;
+        ctx.beginPath(); ctx.arc(b.x, b.y, b.r, 0, Math.PI*2);
+        ctx.fillStyle = GOLD; ctx.globalAlpha = glow + 0.35; ctx.fill();
+        ctx.restore();
+        ctx.beginPath(); ctx.arc(b.x - b.r*0.3, b.y - b.r*0.3, b.r*0.25, 0, Math.PI*2);
+        ctx.fillStyle = 'rgba(255,255,255,0.7)'; ctx.fill();
       } else {
         ctx.beginPath(); ctx.arc(b.x, b.y, b.r, 0, Math.PI*2);
         ctx.fillStyle = b.color; ctx.fill();
@@ -7485,6 +7535,16 @@ function mtMountPopGame(container){
     // original gentle probabilistic trickle up to the higher density ceiling.
     while(bubbles.length < MIN_BUBBLES) spawnBubble();
     while(bubbles.length < MAX_BUBBLES && Math.random() < 0.06) spawnBubble();
+
+    for(const p of particles){
+      p.vy += 0.14; p.x += p.vx; p.y += p.vy; p.life -= 0.02;
+      if(p.life <= 0) continue;
+      ctx.globalAlpha = Math.max(0, p.life);
+      ctx.fillStyle = p.color; ctx.fillRect(p.x - p.size/2, p.y - p.size/2, p.size, p.size);
+      ctx.globalAlpha = 1;
+    }
+    particles = particles.filter(p => p.life > 0);
+    ctx.restore();
     rafId = requestAnimationFrame(draw);
   }
   rafId = requestAnimationFrame(draw);
@@ -7497,7 +7557,23 @@ function mtMountPopGame(container){
       for(const b of bubbles){
         if(b.pop === 0 && b.alive){
           const dx = x - b.x, dy = y - b.y;
-          if(dx*dx + dy*dy <= b.r*b.r) b.pop = 0.001;
+          if(dx*dx + dy*dy <= b.r*b.r){
+            b.pop = 0.001;
+            if(b.golden){
+              // The golden pop: screen shake plus a big bright confetti burst, contained
+              // entirely within this game's own canvas -- nothing escapes the window.
+              goldenOnScreen = false;
+              shake = 12;
+              for(let i=0;i<36;i++){
+                const color = CONFETTI_COLORS[Math.floor(Math.random()*CONFETTI_COLORS.length)];
+                burst(b.x, b.y, color, 1, 2.5, 7, 4, 8);
+              }
+            } else {
+              // Every ordinary pop now gets a small burst too, not just a fade -- a bit of
+              // "explodey" satisfaction is the whole point of the game.
+              burst(b.x, b.y, b.color, 8, 1.5, 4, 2, 4);
+            }
+          }
         }
       }
     }
@@ -7512,7 +7588,6 @@ function mtMountPopGame(container){
   };
 }
 
-// ============ Blow It Up ============
 function mtMountBlastGame(container){
   container.innerHTML = '<canvas class="mt-embedded-canvas"></canvas><div class="mt-embedded-controls"><button class="mt-embedded-btn" data-blast-reset>Rebuild now</button></div>';
   const canvas = container.querySelector('canvas');
@@ -8288,38 +8363,155 @@ function chPickAiMove(board, state, color){
   return best;
 }
 
+// ---- Forced-mate solver, used both to VERIFY the curated puzzle bank (at build/test
+// time) and at runtime to validate whichever move the student actually plays (any correct
+// move is accepted, not just one memorized line) and to power the Hint button. ----
+function chCanMateIn(board, state, color, n){
+  const opp = color === 'white' ? 'black' : 'white';
+  const moves = chAllLegalMoves(board, state, color);
+  for(const m of moves){
+    const res = chApplyMove(board, state, m.fromR, m.fromC, m);
+    const oppStatus = chGameStatus(res.board, res.state, opp);
+    if(oppStatus === 'checkmate') return { ok:true, move:m };
+    if(n === 1) continue;
+    if(oppStatus === 'stalemate') continue;
+    const oppMoves = chAllLegalMoves(res.board, res.state, opp);
+    let allGood = true;
+    for(const r of oppMoves){
+      const res2 = chApplyMove(res.board, res.state, r.fromR, r.fromC, r);
+      const sub = chCanMateIn(res2.board, res2.state, color, n-1);
+      if(!sub.ok){ allGood = false; break; }
+    }
+    if(allGood) return { ok:true, move:m };
+  }
+  return { ok:false };
+}
+// Validates one SPECIFIC candidate move (whatever the student actually played) against
+// the "still forces mate within n" requirement, rather than requiring an exact memorized
+// line -- any move that keeps the mate forced is accepted.
+function chMoveLeadsToForcedMate(board, state, color, n, move){
+  const opp = color === 'white' ? 'black' : 'white';
+  const res = chApplyMove(board, state, move.fromR, move.fromC, move);
+  const oppStatus = chGameStatus(res.board, res.state, opp);
+  if(oppStatus === 'checkmate') return true;
+  if(n === 1) return false;
+  if(oppStatus === 'stalemate') return false;
+  const oppMoves = chAllLegalMoves(res.board, res.state, opp);
+  for(const r of oppMoves){
+    const res2 = chApplyMove(res.board, res.state, r.fromR, r.fromC, r);
+    const sub = chCanMateIn(res2.board, res2.state, color, n-1);
+    if(!sub.ok) return false;
+  }
+  return true;
+}
+
+
+// ---- Curated, solver-verified checkmate puzzles ----
+// Every position below was verified against chCanMateIn (an exhaustive forced-mate search
+// over the real rules engine, not hand-derived by inspection) before being included here --
+// see the test suite. White is always the side to move and the side delivering mate.
+function chPuzzleBoard(spec){
+  const b = Array.from({length:8}, () => Array(8).fill(null));
+  for(const [r,c,type,color] of spec) b[r][c] = {type, color};
+  return b;
+}
+const MT_CHESS_PUZZLES = {
+  1: [
+    { name:'Back rank', spec:[[7,4,'k','white'],[7,0,'r','white'],[0,6,'k','black'],[1,5,'p','black'],[1,6,'p','black'],[1,7,'p','black']] },
+    { name:'Queen support mate', spec:[[7,6,'k','white'],[1,0,'q','white'],[0,7,'k','black'],[1,7,'p','black'],[1,6,'p','black']] },
+    { name:'Rook ladder', spec:[[7,4,'k','white'],[1,4,'r','white'],[2,7,'r','white'],[0,0,'k','black']] },
+    { name:'Queen on the h-file', spec:[[7,4,'k','white'],[5,2,'q','white'],[0,7,'k','black'],[1,6,'p','black'],[0,6,'r','black']] },
+    { name:'Two rooks, corner', spec:[[7,4,'k','white'],[6,1,'r','white'],[5,7,'r','white'],[0,0,'k','black']] },
+  ],
+  2: [
+    { name:'Queen and rook', spec:[[7,4,'k','white'],[6,0,'q','white'],[5,6,'r','white'],[1,7,'k','black'],[2,6,'p','black']] },
+    { name:'Two queens', spec:[[7,4,'k','white'],[6,0,'q','white'],[4,3,'q','white'],[1,7,'k','black']] },
+    { name:'Rook corner drive', spec:[[7,4,'k','white'],[6,3,'r','white'],[3,6,'r','white'],[0,0,'k','black']] },
+    { name:'Rook and queen', spec:[[7,4,'k','white'],[5,1,'q','white'],[2,6,'r','white'],[1,7,'k','black'],[1,6,'p','black']] },
+    { name:'Two rooks diagonal', spec:[[7,4,'k','white'],[4,7,'r','white'],[6,2,'r','white'],[1,0,'k','black']] },
+  ],
+  3: [
+    { name:'Queen and bishop, corner', spec:[[7,4,'k','white'],[3,3,'q','white'],[5,5,'b','white'],[0,7,'k','black'],[1,6,'p','black']] },
+    { name:'Queen and rook, pawn wall', spec:[[7,4,'k','white'],[3,2,'q','white'],[6,0,'r','white'],[1,6,'k','black'],[2,5,'p','black'],[2,7,'p','black']] },
+  ],
+};
+
+
 const CH_GLYPH = {
   white: { p:'\u2659', n:'\u2658', b:'\u2657', r:'\u2656', q:'\u2655', k:'\u2654' },
   black: { p:'\u265F', n:'\u265E', b:'\u265D', r:'\u265C', q:'\u265B', k:'\u265A' },
 };
+
 function mtMountChessGame(container){
   container.innerHTML = `
     <div class="mt-checkers-wrap">
       <canvas class="mt-embedded-canvas mt-checkers-canvas"></canvas>
       <div class="mt-embedded-hint" id="mtChessMsg">Your move (white). Tap a piece, then tap where to move.</div>
-      <div class="mt-embedded-controls"><button class="mt-embedded-btn" data-chess-reset>New game</button></div>
+      <div class="mt-chess-modebar">
+        <button class="mt-chess-mode-btn" data-mode="play">Play vs Computer</button>
+        <button class="mt-chess-mode-btn" data-mode="puzzle" data-n="1">Mate in 1</button>
+        <button class="mt-chess-mode-btn" data-mode="puzzle" data-n="2">Mate in 2</button>
+        <button class="mt-chess-mode-btn" data-mode="puzzle" data-n="3">Mate in 3</button>
+      </div>
+      <div class="mt-embedded-controls">
+        <button class="mt-embedded-btn" data-chess-reset>New game</button>
+        <button class="mt-embedded-btn-circle" data-chess-undo title="Undo last move">&#8634;</button>
+        <button class="mt-embedded-btn" data-chess-hint>Hint</button>
+      </div>
     </div>
   `;
   const canvas = container.querySelector('canvas');
   const ctx = canvas.getContext('2d');
   const msgEl = container.querySelector('#mtChessMsg');
   const resetBtn = container.querySelector('[data-chess-reset]');
+  const undoBtn = container.querySelector('[data-chess-undo]');
+  const hintBtn = container.querySelector('[data-chess-hint]');
+  const modeButtons = Array.from(container.querySelectorAll('.mt-chess-mode-btn'));
   let running = true;
   const dpr = Math.max(1, window.devicePixelRatio || 1);
   let boardPx = 0;
 
+  // mode: 'play' (open-ended vs AI) or 'puzzle' (curated, solver-verified mate puzzle).
+  // puzzleN / puzzleRemaining track the active puzzle's difficulty and moves left.
   let board, state, turn, selected, gameOver, aiThinking, aiTimer = null;
+  let mode = 'play', puzzleN = null, puzzleRemaining = null, puzzleName = null;
+  let hintSquare = null, hintTimer = null;
+  // Undo history: a snapshot pushed before every move (player's and the computer's alike),
+  // so Undo can step back a full round. Puzzle progress is part of the snapshot too.
+  let history = [];
 
   function setMsg(t){ if(msgEl) msgEl.textContent = t; }
-  function setupBoard(){
+  function snapshot(){
+    history.push({
+      board: chCloneBoard(board), state: chCloneState(state), turn,
+      puzzleRemaining, gameOver,
+    });
+    if(history.length > 40) history.shift(); // plenty for a casual session, no unbounded growth
+  }
+  function setupPlay(){
+    mode = 'play'; puzzleN = null; puzzleRemaining = null; puzzleName = null;
     board = chInitBoard(); state = chInitState();
     turn = 'white'; selected = null; gameOver = false; aiThinking = false;
+    history = [];
+    hintSquare = null;
     setMsg('Your move (white). Tap a piece, then tap where to move.');
   }
-  setupBoard();
+  function setupPuzzle(n, excludeName){
+    const bank = MT_CHESS_PUZZLES[n];
+    let pick;
+    do{ pick = bank[Math.floor(Math.random() * bank.length)]; }
+    while(pick.name === excludeName && bank.length > 1);
+    mode = 'puzzle'; puzzleN = n; puzzleRemaining = n; puzzleName = pick.name;
+    board = chPuzzleBoard(pick.spec); state = chInitState();
+    turn = 'white'; selected = null; gameOver = false; aiThinking = false;
+    history = [];
+    hintSquare = null;
+    setMsg(`Puzzle: ${pick.name}. Find checkmate in ${n} move${n>1?'s':''} (white to move).`);
+  }
+  setupPlay();
 
   function resize(){
-    const w = Math.min(container.clientWidth, 340);
+    const w = Math.min(container.clientWidth, 360);
     boardPx = w;
     canvas.style.width = w + 'px';
     canvas.style.height = w + 'px';
@@ -8337,6 +8529,10 @@ function mtMountChessGame(container){
       ctx.fillStyle = (r+c)%2===0 ? '#EDE3D3' : '#7A5C3E';
       ctx.fillRect(c*s, r*s, s, s);
     }
+    if(hintSquare){
+      ctx.fillStyle = 'rgba(182,178,53,0.6)';
+      ctx.fillRect(hintSquare.c*s, hintSquare.r*s, s, s);
+    }
     if(selected){
       ctx.fillStyle = 'rgba(182,178,53,0.55)';
       ctx.fillRect(selected.c*s, selected.r*s, s, s);
@@ -8344,15 +8540,23 @@ function mtMountChessGame(container){
       ctx.fillStyle = 'rgba(90,143,78,0.55)';
       for(const m of moves) ctx.fillRect(m.toC*s, m.toR*s, s, s);
     }
+    // Pieces: noticeably bigger than the original pass, plus a soft contrast disc behind
+    // each one -- on a small phone screen, silhouette alone (especially bishop vs pawn, or
+    // rook vs king at a glance) is too easy to misread, and the disc helps regardless of
+    // exactly how well a given phone's font renders the chess glyphs.
     for(let r=0;r<8;r++) for(let c=0;c<8;c++){
       const piece = board[r][c];
       if(!piece) continue;
       const cx = c*s+s/2, cy = r*s+s/2;
-      ctx.font = Math.round(s*0.72) + 'px sans-serif';
+      ctx.beginPath();
+      ctx.arc(cx, cy, s*0.40, 0, Math.PI*2);
+      ctx.fillStyle = piece.color === 'white' ? 'rgba(245,241,230,0.55)' : 'rgba(20,20,20,0.32)';
+      ctx.fill();
+      ctx.font = `${Math.round(s*0.88)}px "Noto Sans Symbols2","Segoe UI Symbol",sans-serif`;
       ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
-      ctx.fillStyle = piece.color === 'white' ? '#F5F1E6' : '#2b2b2b';
+      ctx.fillStyle = piece.color === 'white' ? '#F5F1E6' : '#1a1a1a';
       ctx.strokeStyle = piece.color === 'white' ? '#3a2a1e' : '#F5F1E6';
-      ctx.lineWidth = Math.max(1, s*0.03);
+      ctx.lineWidth = Math.max(1.2, s*0.035);
       const glyph = CH_GLYPH[piece.color][piece.type];
       ctx.strokeText(glyph, cx, cy+1);
       ctx.fillText(glyph, cx, cy+1);
@@ -8369,35 +8573,70 @@ function mtMountChessGame(container){
     return {r,c};
   }
 
-  function checkGameOver(){
-    const status = chGameStatus(board, state, turn);
+  function checkGameOver(colorToCheck){
+    // colorToCheck is whichever side is now potentially checkmated/stalemated -- always
+    // the side that must move NEXT, i.e. the opponent of whoever just moved. Checking the
+    // mover's own side right after their own move is a no-op bug (you can't be checkmated
+    // by your own move), which is exactly what this used to do before it was caught by an
+    // actual played-through test, not just the rules-engine unit tests.
+    const status = chGameStatus(board, state, colorToCheck);
     if(status === 'checkmate'){
       gameOver = true;
-      setMsg((turn==='white' ? 'Checkmate \u2014 the computer wins.' : 'Checkmate \u2014 you win!') + ' Tap New game to play again.');
+      if(mode === 'puzzle' && colorToCheck === 'black'){
+        setMsg('Solved! Tap a difficulty above for another puzzle.');
+      } else if(colorToCheck === 'black'){
+        setMsg('Checkmate \u2014 you win! Tap New game to play again.');
+      } else {
+        setMsg('Checkmate \u2014 the computer wins. Tap New game to play again.');
+      }
       return true;
     }
     if(status === 'stalemate'){
       gameOver = true;
-      setMsg('Stalemate \u2014 no legal moves, but no check. Draw. Tap New game to play again.');
+      setMsg('Stalemate \u2014 no legal moves, but no check. Draw.');
       return true;
     }
-    if(status === 'check') setMsg((turn==='white' ? 'Your' : "Computer's") + ' king is in check!');
     return false;
   }
 
   function finishHumanTurn(){
     draw();
-    if(checkGameOver()) return;
+    if(checkGameOver('black')) return;
+    if(mode === 'puzzle'){
+      puzzleRemaining -= 1;
+      turn = 'black';
+      aiThinking = true;
+      setMsg('...');
+      aiTimer = setTimeout(runPuzzleOpponentReply, 450);
+      return;
+    }
     turn = 'black';
     aiThinking = true;
     setMsg('Computer is thinking...');
     aiTimer = setTimeout(runAiTurn, 500);
   }
 
+  function runPuzzleOpponentReply(){
+    if(!running || gameOver) return;
+    // Every legal black reply here is guaranteed losing (the puzzle bank is verified
+    // forced-mate regardless of black's defense), so any legal move is a fair pick.
+    const moves = chAllLegalMoves(board, state, 'black');
+    if(!moves.length){ checkGameOver('white'); return; }
+    const m = moves[Math.floor(Math.random()*moves.length)];
+    const res = chApplyMove(board, state, m.fromR, m.fromC, m);
+    board = res.board; state = res.state;
+    draw();
+    aiThinking = false;
+    if(checkGameOver('white')) return;
+    turn = 'white';
+    setMsg(`Keep going \u2014 ${puzzleRemaining} move${puzzleRemaining>1?'s':''} left.`);
+  }
+
   function handlePointer(e){
     if(gameOver || turn !== 'white' || aiThinking) return;
     const sq = squareFromEvent(e);
     if(!sq) return;
+    hintSquare = null;
     const piece = board[sq.r][sq.c];
     if(selected){
       if(selected.r===sq.r && selected.c===sq.c){ selected = null; draw(); return; }
@@ -8408,6 +8647,13 @@ function mtMountChessGame(container){
       const legal = chLegalMovesForPiece(board, state, selected.r, selected.c);
       const move = legal.find(m => m.toR===sq.r && m.toC===sq.c);
       if(move){
+        if(mode === 'puzzle' && !chMoveLeadsToForcedMate(board, state, 'white', puzzleRemaining, {...move, fromR:selected.r, fromC:selected.c})){
+          setMsg("That doesn't force mate \u2014 try a different move.");
+          selected = null;
+          draw();
+          return;
+        }
+        snapshot();
         const res = chApplyMove(board, state, selected.r, selected.c, move);
         board = res.board; state = res.state;
         selected = null;
@@ -8426,26 +8672,72 @@ function mtMountChessGame(container){
     if(!running || gameOver) return;
     const move = chPickAiMove(board, state, 'black');
     if(!move){ checkGameOver(); return; }
+    snapshot();
     const res = chApplyMove(board, state, move.fromR, move.fromC, move);
     board = res.board; state = res.state;
     draw();
     aiThinking = false;
-    if(checkGameOver()) return;
+    if(checkGameOver('white')) return;
     turn = 'white';
     setMsg('Your move (white).');
   }
 
-  function onReset(){ setupBoard(); resize(); }
+  function onReset(){ setupPlay(); resize(); }
   resetBtn.addEventListener('click', onReset);
+
+  function onUndo(){
+    if(aiThinking || history.length === 0) return;
+    // Step back a full round (computer's last move + the player's move before it) when
+    // possible, landing back on the player's turn either way.
+    let snap = history.pop();
+    if(history.length > 0 && snap.turn === 'black') snap = history.pop();
+    board = snap.board; state = snap.state; turn = 'white';
+    puzzleRemaining = snap.puzzleRemaining; gameOver = snap.gameOver;
+    selected = null; hintSquare = null; aiThinking = false;
+    if(aiTimer){ clearTimeout(aiTimer); aiTimer = null; }
+    setMsg(mode === 'puzzle' ? `Undone \u2014 ${puzzleRemaining} move${puzzleRemaining>1?'s':''} left.` : 'Undone. Your move (white).');
+    draw();
+  }
+  undoBtn.addEventListener('click', onUndo);
+
+  function onHint(){
+    if(gameOver || turn !== 'white' || aiThinking) return;
+    let hintMove = null;
+    if(mode === 'puzzle'){
+      const res = chCanMateIn(board, state, 'white', puzzleRemaining);
+      if(res.ok) hintMove = res.move;
+    } else {
+      hintMove = chPickAiMove(board, state, 'white');
+    }
+    if(!hintMove){ setMsg('No hint available.'); return; }
+    // Soft hint: shows WHICH piece to move, not the destination -- still requires the
+    // student to work out the actual move.
+    hintSquare = { r: hintMove.fromR, c: hintMove.fromC };
+    draw();
+  }
+  hintBtn.addEventListener('click', onHint);
+
+  modeButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      if(aiThinking) return;
+      if(btn.dataset.mode === 'play'){ setupPlay(); }
+      else { setupPuzzle(parseInt(btn.dataset.n, 10), puzzleName); }
+      resize();
+    });
+  });
+
   window.addEventListener('resize', resize);
   resize();
 
   return function cleanup(){
     running = false;
     if(aiTimer) clearTimeout(aiTimer);
+    if(hintTimer) clearTimeout(hintTimer);
     window.removeEventListener('resize', resize);
     canvas.removeEventListener('pointerdown', handlePointer);
     resetBtn.removeEventListener('click', onReset);
+    undoBtn.removeEventListener('click', onUndo);
+    hintBtn.removeEventListener('click', onHint);
   };
 }
 
