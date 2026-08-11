@@ -6704,6 +6704,21 @@ function wireSearch(container){
       results.innerHTML = '';
       return;
     }
+    // Easter egg: typing "pixel8" surfaces the 4 in-house games directly, standalone
+    // (via #arcade/<id>, not gated behind Mind Temple's emotion picker). Deliberately
+    // undocumented anywhere in the UI -- students find it or they don't. Short-circuits
+    // every other search branch below, same pattern as any other exact-match special case
+    // would, so it never gets diluted by unrelated partial-text matches.
+    if(q === 'pixel8'){
+      const gameResults = Object.keys(MT_EMBEDDED_GAMES).map(id => ({
+        name: MT_EMBEDDED_GAMES[id].title,
+        desc: 'Tap to play.',
+        url: `#arcade/${id}`,
+        icon: 'dice',
+      }));
+      results.innerHTML = pageResultsHtml(gameResults);
+      return;
+    }
     const articleMatches = DISPATCHES.filter(a => a.headline.toLowerCase().includes(q));
     const videoMatches = WATCH_VIDEOS.filter(v => v.title.toLowerCase().includes(q) || v.channel.toLowerCase().includes(q));
     const exploreMatches = EXPLORE_SITES.filter(s => s.name.toLowerCase().includes(q) || s.desc.toLowerCase().includes(q));
@@ -7362,36 +7377,46 @@ const MT_COMFORT_INSTRUMENT_URLS = [
 // bubble on mobile, which is exactly the wrong kind of friction for this specific purpose
 // even though it's a perfectly good general instrument elsewhere -- still lives in the
 // site's main EXPLORE_SITES catalog, just not here.
+// ---- Retired external mess-about sites (removed 2026-08-12) ----
+// These 9 were the original external pool before everything was rebuilt in-house as
+// embedded games. Kept here as a reference list only -- NOT wired into MT_MESSABOUT_POOL,
+// NOT opened anywhere on the site. If we ever want one back, this is what it was:
+//   https://cat-bounce.com/
+//   https://procatinator.com/
+//   https://sandspiel.club/
+//   https://neal.fun/asteroid-launcher/
+//   https://asoftmurmur.com/
+//   https://neal.fun/ambient-chaos/
+//   https://www.crazygames.com/game/color-splash-ssr
+//   https://puzzio.io/game/ball-roll-bbr
+//   https://puzzio.io/game/pixel-blast
 const MT_MESSABOUT_POOL = [
-  {type:'external', url:"https://cat-bounce.com/"},
-  {type:'external', url:"https://procatinator.com/"},
-  {type:'external', url:"https://sandspiel.club/"},
-  {type:'external', url:"https://neal.fun/asteroid-launcher/"},
-  {type:'external', url:"https://asoftmurmur.com/"},
-  {type:'external', url:"https://neal.fun/ambient-chaos/"},
-  {type:'external', url:"https://www.crazygames.com/game/color-splash-ssr"},
-  {type:'external', url:"https://puzzio.io/game/ball-roll-bbr"},
-  {type:'external', url:"https://puzzio.io/game/pixel-blast"},
   {type:'embedded', id:'pop'},
-  {type:'embedded', id:'smash'},
   {type:'embedded', id:'blast'},
   {type:'embedded', id:'checkers'},
+  {type:'embedded', id:'chess'},
 ];
 function mtPoolKey(entry){ return entry.type === 'external' ? entry.url : ('embedded:' + entry.id); }
 
 /* ---- Embedded mess-about games ----
-   Four games that run entirely inline inside the Mind Temple panel -- no new tab, no
-   external site, no image/audio files, no network call anywhere. Mixed into the same
-   random-pick pool as the 9 external sites (see MT_MESSABOUT_POOL below) so "yes, let's
-   mess about" stays exactly as decision-free as before: one random pick, not a menu.
-   Each game exposes mount(container) -> cleanup(). mtRender() calls the previously-active
-   game's cleanup before ever wiping the container's innerHTML, and mtExit() does the same
-   on the way out -- a detached canvas's requestAnimationFrame loop does NOT stop on its
-   own just because the DOM node was removed, so this is not optional.
-   Checkers note: simplified ruleset (standard non-flying kings, single-step forced
-   captures with mandatory multi-jump continuation) -- not full official Russian
-   shashki flying-king rules. Chosen deliberately for a "quick, works, responsive"
-   embedded game rather than a full draughts engine. */
+   All in-house now -- the external site pool has been fully retired (see the retired list
+   just above). Every game here runs entirely inline: no new tab, no external site, no
+   image/audio files, no network call anywhere. Each exposes mount(container) -> cleanup().
+   mtRender() calls the previously-active game's cleanup before ever wiping the container's
+   innerHTML, and mtExit()/renderRoute() do the same on the way out -- a detached canvas's
+   requestAnimationFrame loop does NOT stop on its own just because the DOM node was
+   removed, so this is not optional.
+   Checkers: full Russian draughts rules -- men capture in all 4 diagonal directions
+   (forward AND backward), kings fly any distance along a clear diagonal and can capture
+   from a distance, landing on any empty square beyond the captured piece. Simplification:
+   no "must capture the maximum number of pieces" majority-capture rule -- any legal
+   capture chain is allowed, not just the longest available one.
+   Chess: full standard rules -- check, checkmate, stalemate, castling (both sides, with
+   proper attacked-square checks), en passant, pawn double-step. Simplification: no draw by
+   repetition or 50-move rule, and pawns always auto-promote to a queen (no under-promotion
+   picker in the UI). AI is deliberately simple (same spirit as checkers): takes an
+   immediate checkmate if one exists, otherwise picks the move with the best material
+   result after a 1-ply "what could they capture back" safety check, not a deep search. */
 
 // ============ Pop Session ============
 function mtMountPopGame(container){
@@ -7415,6 +7440,11 @@ function mtMountPopGame(container){
   window.addEventListener('resize', resize);
 
   const COLORS = ['#5A8F4E','#2E7B8A','#B89434','#B6B235','#4A5578'];
+  // MIN_BUBBLES is enforced every single frame, not left to chance -- popping fast enough
+  // to empty the screen used to leave a gap before the next one spawned. Now the count is
+  // topped straight back up to the minimum the instant it dips below, so there is always
+  // something on screen to tap; MAX_BUBBLES is just a density ceiling above that floor.
+  const MIN_BUBBLES = 10;
   const MAX_BUBBLES = 20;
   function spawnBubble(){
     const w = container.clientWidth;
@@ -7451,6 +7481,9 @@ function mtMountPopGame(container){
       }
     }
     bubbles = bubbles.filter(b => b.alive);
+    // Immediate top-up to the floor (not probabilistic) whenever under it, PLUS the
+    // original gentle probabilistic trickle up to the higher density ceiling.
+    while(bubbles.length < MIN_BUBBLES) spawnBubble();
     while(bubbles.length < MAX_BUBBLES && Math.random() < 0.06) spawnBubble();
     rafId = requestAnimationFrame(draw);
   }
@@ -7479,115 +7512,15 @@ function mtMountPopGame(container){
   };
 }
 
-// ============ Smash Room ============
-function mtMountSmashGame(container){
-  container.innerHTML = '<canvas class="mt-embedded-canvas"></canvas><div class="mt-embedded-controls"><button class="mt-embedded-btn" data-smash-reset>Smash again</button></div>';
-  const canvas = container.querySelector('canvas');
-  const ctx = canvas.getContext('2d');
-  const resetBtn = container.querySelector('[data-smash-reset]');
-  let running = true;
-  const dpr = Math.max(1, window.devicePixelRatio || 1);
-  const H = 260;
-
-  function resize(){
-    const w = container.clientWidth;
-    canvas.style.width = w + 'px';
-    canvas.style.height = H + 'px';
-    canvas.width = Math.floor(w * dpr);
-    canvas.height = Math.floor(H * dpr);
-    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-  }
-  resize();
-  window.addEventListener('resize', resize);
-
-  let objects = [], particles = [];
-  function layoutObjects(){
-    const w = container.clientWidth;
-    objects = [
-      { type:'plate', x:w*0.2, y:H*0.55, w:64, h:20, color:'#B89434', smashed:false },
-      { type:'vase',  x:w*0.5, y:H*0.55, w:38, h:66, color:'#2E7B8A', smashed:false },
-      { type:'block', x:w*0.8, y:H*0.55, w:56, h:56, color:'#A6342E', smashed:false },
-    ];
-    particles = [];
-  }
-  layoutObjects();
-
-  function hit(obj){
-    if(obj.smashed) return;
-    obj.smashed = true;
-    for(let i=0;i<14;i++){
-      const ang = Math.random()*Math.PI*2, speed = 2 + Math.random()*4;
-      particles.push({ x:obj.x, y:obj.y, vx:Math.cos(ang)*speed, vy:Math.sin(ang)*speed - 2,
-        size:4+Math.random()*6, color:obj.color, life:1 });
-    }
-  }
-
-  let rafId = null;
-  function draw(){
-    if(!running) return;
-    const w = container.clientWidth;
-    ctx.clearRect(0,0,w,H);
-    for(const obj of objects){
-      if(obj.smashed) continue;
-      ctx.fillStyle = obj.color;
-      if(obj.type === 'plate'){
-        ctx.beginPath(); ctx.ellipse(obj.x, obj.y, obj.w/2, obj.h/2, 0, 0, Math.PI*2); ctx.fill();
-      } else if(obj.type === 'vase'){
-        ctx.beginPath();
-        ctx.moveTo(obj.x - obj.w/2, obj.y + obj.h/2);
-        ctx.quadraticCurveTo(obj.x - obj.w/2, obj.y - obj.h/2, obj.x, obj.y - obj.h/2);
-        ctx.quadraticCurveTo(obj.x + obj.w/2, obj.y - obj.h/2, obj.x + obj.w/2, obj.y + obj.h/2);
-        ctx.closePath(); ctx.fill();
-      } else {
-        ctx.fillRect(obj.x - obj.w/2, obj.y - obj.h/2, obj.w, obj.h);
-      }
-    }
-    for(const p of particles){
-      p.vy += 0.15; p.x += p.vx; p.y += p.vy; p.life -= 0.015;
-      if(p.life <= 0) continue;
-      ctx.globalAlpha = Math.max(0, p.life);
-      ctx.fillStyle = p.color; ctx.fillRect(p.x, p.y, p.size, p.size);
-      ctx.globalAlpha = 1;
-    }
-    particles = particles.filter(p => p.life > 0 && p.y < H + 40);
-    rafId = requestAnimationFrame(draw);
-  }
-  rafId = requestAnimationFrame(draw);
-
-  function handlePointer(e){
-    const rect = canvas.getBoundingClientRect();
-    const pts = e.changedTouches ? Array.from(e.changedTouches) : [e];
-    for(const p of pts){
-      const x = p.clientX - rect.left, y = p.clientY - rect.top;
-      for(const obj of objects){
-        if(obj.smashed) continue;
-        const hw = obj.w/2, hh = obj.h/2;
-        if(x >= obj.x-hw && x <= obj.x+hw && y >= obj.y-hh && y <= obj.y+hh) hit(obj);
-      }
-    }
-  }
-  canvas.addEventListener('pointerdown', handlePointer);
-  function onReset(){ layoutObjects(); }
-  resetBtn.addEventListener('click', onReset);
-
-  return function cleanup(){
-    running = false;
-    if(rafId) cancelAnimationFrame(rafId);
-    window.removeEventListener('resize', resize);
-    canvas.removeEventListener('pointerdown', handlePointer);
-    resetBtn.removeEventListener('click', onReset);
-  };
-}
-
 // ============ Blow It Up ============
 function mtMountBlastGame(container){
-  container.innerHTML = '<canvas class="mt-embedded-canvas"></canvas><div class="mt-embedded-controls"><button class="mt-embedded-btn" data-blast-reset>Rebuild</button></div>';
+  container.innerHTML = '<canvas class="mt-embedded-canvas"></canvas><div class="mt-embedded-controls"><button class="mt-embedded-btn" data-blast-reset>Rebuild now</button></div>';
   const canvas = container.querySelector('canvas');
   const ctx = canvas.getContext('2d');
   const resetBtn = container.querySelector('[data-blast-reset]');
   let running = true;
   const dpr = Math.max(1, window.devicePixelRatio || 1);
-  const H = 260;
+  const H = 320; // taller than before -- the whole canvas is now the play field, not just its lower half
 
   function resize(){
     const w = container.clientWidth;
@@ -7600,71 +7533,107 @@ function mtMountBlastGame(container){
   resize();
   window.addEventListener('resize', resize);
 
-  const ROWS = 4, COLS = 6;
-  const COLORS = ['#B6B235','#B5562E','#5A8F4E','#4A5578'];
-  let blocks = [], particles = [], falling = [];
+  const COLORS = ['#B6B235','#B5562E','#5A8F4E','#4A5578','#2E7B8A','#B89434'];
+  let blocks = [], particles = [], falling = [], shake = 0, flash = 0;
+  let rebuildTimer = null;
 
+  // Blocks now tile the ENTIRE canvas edge to edge, both directions -- not a stack sitting
+  // in the bottom half. Grid size is computed from the actual container size so it's dense
+  // ("more tiles, more extravagant") on any real phone width.
   function buildBlocks(){
     const w = container.clientWidth;
-    const bw = Math.min(48, (w - 20) / COLS);
-    const bh = 30;
-    const startX = (w - bw*COLS) / 2;
-    const startY = H - 20 - bh*ROWS;
+    const targetSize = 34;
+    const cols = Math.max(6, Math.floor(w / targetSize));
+    const rows = Math.max(6, Math.floor(H / targetSize));
+    const bw = w / cols, bh = H / rows;
     blocks = [];
-    for(let r=0;r<ROWS;r++){
-      for(let c=0;c<COLS;c++){
-        blocks.push({ row:r, col:c, x:startX+c*bw, y:startY+r*bh,
-          w:bw-3, h:bh-3, color:COLORS[(r+c)%COLORS.length], alive:true });
+    for(let r=0;r<rows;r++){
+      for(let c=0;c<cols;c++){
+        blocks.push({
+          row:r, col:c, x:c*bw, y:r*bh, w:bw-2, h:bh-2,
+          color: COLORS[(r+c) % COLORS.length], alive:true,
+        });
       }
     }
-    particles = []; falling = [];
+    particles = []; falling = []; shake = 0; flash = 0;
+    if(rebuildTimer){ clearTimeout(rebuildTimer); rebuildTimer = null; }
   }
   buildBlocks();
 
+  function anyBlocksLeft(){ return blocks.some(b => b.alive); }
+  function scheduleAutoRebuildIfCleared(){
+    if(!anyBlocksLeft() && !rebuildTimer){
+      rebuildTimer = setTimeout(() => { rebuildTimer = null; buildBlocks(); }, 3000);
+    }
+  }
+
   function detonate(block){
+    if(!block.alive) return;
     block.alive = false;
     const cx = block.x + block.w/2, cy = block.y + block.h/2;
-    for(let i=0;i<10;i++){
-      const ang = Math.random()*Math.PI*2, speed = 2 + Math.random()*5;
+    // Bigger, more extravagant burst than before: more particles, wider speed range, plus
+    // a bright flash and a brief screen-shake for real "explosion" feel.
+    for(let i=0;i<22;i++){
+      const ang = Math.random()*Math.PI*2, speed = 2.5 + Math.random()*7;
       particles.push({ x:cx, y:cy, vx:Math.cos(ang)*speed, vy:Math.sin(ang)*speed-3,
-        size:3+Math.random()*5, color:block.color, life:1 });
+        size:3+Math.random()*7, color:block.color, life:1 });
     }
+    flash = Math.min(1, flash + 0.55);
+    shake = Math.min(14, shake + 8);
+    // Knockback radius widened (roughly a 5x5 diamond instead of the old 3x3) so one tap
+    // sets off a much bigger chunk of the grid -- more chain-reaction, more spectacle.
     for(const other of blocks){
       if(!other.alive || other === block) continue;
-      const dr = Math.abs(other.row - block.row), dc = Math.abs(other.col - block.col);
-      if(dr <= 1 && dc <= 1){
+      const dr = other.row - block.row, dc = other.col - block.col;
+      const dist = Math.sqrt(dr*dr + dc*dc);
+      if(dist <= 2.2){
         other.alive = false;
-        const dx = (other.x - block.x) || (Math.random()-0.5);
+        const ang = Math.atan2(dr, dc) + (Math.random()-0.5)*0.6;
+        const force = (3 - dist) * 1.6 + Math.random()*1.5;
         falling.push({ x:other.x, y:other.y, w:other.w, h:other.h, color:other.color,
-          vx: dx*0.15 + (Math.random()-0.5)*2, vy: -3 - Math.random()*2,
-          rot:0, vrot:(Math.random()-0.5)*0.3 });
+          vx: Math.cos(ang)*force, vy: Math.sin(ang)*force - 2 - Math.random()*2,
+          rot:0, vrot:(Math.random()-0.5)*0.35 });
       }
     }
+    scheduleAutoRebuildIfCleared();
   }
 
   let rafId = null;
   function draw(){
     if(!running) return;
     const w = container.clientWidth;
-    ctx.clearRect(0,0,w,H);
+    ctx.save();
+    if(shake > 0.3){
+      ctx.translate((Math.random()-0.5)*shake, (Math.random()-0.5)*shake);
+      shake *= 0.85;
+    } else { shake = 0; }
+    ctx.clearRect(-20,-20,w+40,H+40);
     for(const b of blocks){
       if(!b.alive) continue;
       ctx.fillStyle = b.color; ctx.fillRect(b.x, b.y, b.w, b.h);
     }
     for(const f of falling){
-      f.vy += 0.2; f.x += f.vx; f.y += f.vy; f.rot += f.vrot;
+      f.vy += 0.25; f.x += f.vx; f.y += f.vy; f.rot += f.vrot;
       ctx.save(); ctx.translate(f.x + f.w/2, f.y + f.h/2); ctx.rotate(f.rot);
       ctx.fillStyle = f.color; ctx.fillRect(-f.w/2, -f.h/2, f.w, f.h); ctx.restore();
     }
-    falling = falling.filter(f => f.y < H + 60);
+    falling = falling.filter(f => f.y < H + 80);
     for(const p of particles){
-      p.vy += 0.15; p.x += p.vx; p.y += p.vy; p.life -= 0.02;
+      p.vy += 0.18; p.x += p.vx; p.y += p.vy; p.life -= 0.018;
       if(p.life <= 0) continue;
       ctx.globalAlpha = Math.max(0, p.life);
       ctx.fillStyle = p.color; ctx.fillRect(p.x, p.y, p.size, p.size);
       ctx.globalAlpha = 1;
     }
     particles = particles.filter(p => p.life > 0);
+    if(flash > 0.01){
+      ctx.globalAlpha = flash;
+      ctx.fillStyle = '#FFF6D6';
+      ctx.fillRect(0, 0, w, H);
+      ctx.globalAlpha = 1;
+      flash *= 0.8;
+    }
+    ctx.restore();
     rafId = requestAnimationFrame(draw);
   }
   rafId = requestAnimationFrame(draw);
@@ -7687,16 +7656,16 @@ function mtMountBlastGame(container){
   return function cleanup(){
     running = false;
     if(rafId) cancelAnimationFrame(rafId);
+    if(rebuildTimer) clearTimeout(rebuildTimer);
     window.removeEventListener('resize', resize);
     canvas.removeEventListener('pointerdown', handlePointer);
     resetBtn.removeEventListener('click', onReset);
   };
 }
 
-// ============ Checkers (vs simple AI) ============
-// Pure rules functions, kept separate from rendering/mounting so they can be unit-tested
-// in isolation from the DOM/canvas.
+// ============ Checkers v2: flying kings + backward captures (Russian draughts style) ============
 const MT_CK_SIZE = 8;
+const MT_CK_KING_DIRS = [[-1,-1],[-1,1],[1,-1],[1,1]];
 function mtCkCloneBoard(b){ return b.map(row => row.map(cell => cell ? {color:cell.color, king:cell.king} : null)); }
 function mtCkInBounds(r,c){ return r>=0 && r<MT_CK_SIZE && c>=0 && c<MT_CK_SIZE; }
 function mtCkInitBoard(){
@@ -7711,29 +7680,68 @@ function mtCkInitBoard(){
   }
   return board;
 }
-function mtCkPieceDirs(piece){
-  if(piece.king) return [[-1,-1],[-1,1],[1,-1],[1,1]];
+function mtCkManDirs(piece){
+  // Men only ever WALK forward -- toward row 0 for red, toward row 7 for black. Capturing
+  // is handled entirely separately in mtCkGetCaptures, which checks all 4 diagonals: in
+  // Russian draughts a man captures backward just as freely as forward, it just can't
+  // walk backward on a non-capturing move.
   return piece.color === 'red' ? [[-1,-1],[-1,1]] : [[1,-1],[1,1]];
-}
-function mtCkGetCaptures(b, r, c){
-  const piece = b[r][c];
-  if(!piece) return [];
-  const out = [];
-  for(const [dr,dc] of mtCkPieceDirs(piece)){
-    const capR = r+dr, capC = c+dc, toR = r+2*dr, toC = c+2*dc;
-    if(mtCkInBounds(toR,toC) && b[toR][toC]===null && mtCkInBounds(capR,capC) && b[capR][capC] && b[capR][capC].color !== piece.color){
-      out.push({toR,toC,capR,capC});
-    }
-  }
-  return out;
 }
 function mtCkGetSimpleMoves(b, r, c){
   const piece = b[r][c];
   if(!piece) return [];
   const out = [];
-  for(const [dr,dc] of mtCkPieceDirs(piece)){
-    const toR = r+dr, toC = c+dc;
-    if(mtCkInBounds(toR,toC) && b[toR][toC]===null) out.push({toR,toC});
+  if(piece.king){
+    // Flying king: slides any distance along a clear diagonal, landing on any empty
+    // square along the way -- not just one step.
+    for(const [dr,dc] of MT_CK_KING_DIRS){
+      let rr = r+dr, cc = c+dc;
+      while(mtCkInBounds(rr,cc) && b[rr][cc]===null){
+        out.push({toR:rr, toC:cc});
+        rr += dr; cc += dc;
+      }
+    }
+  } else {
+    for(const [dr,dc] of mtCkManDirs(piece)){
+      const toR = r+dr, toC = c+dc;
+      if(mtCkInBounds(toR,toC) && b[toR][toC]===null) out.push({toR,toC});
+    }
+  }
+  return out;
+}
+function mtCkGetCaptures(b, r, c){
+  const piece = b[r][c];
+  if(!piece) return [];
+  const out = [];
+  if(piece.king){
+    // Flying capture: walk outward over empty squares; the first occupied square must be
+    // an opponent piece (an own piece blocks that direction entirely, no capture). Every
+    // empty square immediately beyond that opponent piece, up until the next piece of
+    // either color or the board edge, is a valid landing square -- a king can land several
+    // different distances past the piece it's capturing, and the player picks which.
+    // A king can never jump two pieces in a single hop, in either direction, by construction:
+    // the landing search stops the instant it hits ANY second piece.
+    for(const [dr,dc] of MT_CK_KING_DIRS){
+      let rr = r+dr, cc = c+dc;
+      while(mtCkInBounds(rr,cc) && b[rr][cc]===null){ rr += dr; cc += dc; }
+      if(!mtCkInBounds(rr,cc)) continue;
+      if(b[rr][cc].color === piece.color) continue;
+      const capR = rr, capC = cc;
+      let landR = rr+dr, landC = cc+dc;
+      while(mtCkInBounds(landR,landC) && b[landR][landC]===null){
+        out.push({toR:landR, toC:landC, capR, capC});
+        landR += dr; landC += dc;
+      }
+    }
+  } else {
+    // Men capture in ALL 4 diagonal directions -- forward AND backward -- one square jump
+    // over an adjacent opponent piece onto the empty square immediately beyond it.
+    for(const [dr,dc] of MT_CK_KING_DIRS){
+      const capR = r+dr, capC = c+dc, toR = r+2*dr, toC = c+2*dc;
+      if(mtCkInBounds(toR,toC) && b[toR][toC]===null && mtCkInBounds(capR,capC) && b[capR][capC] && b[capR][capC].color !== piece.color){
+        out.push({toR,toC,capR,capC});
+      }
+    }
   }
   return out;
 }
@@ -7763,7 +7771,6 @@ function mtCkMaybeKing(b, r, c){
 function mtCkHasAnyMove(b, color){
   return mtCkCapturablePieces(b,color).length>0 || mtCkMovablePieces(b,color).length>0;
 }
-
 function mtMountCheckersGame(container){
   container.innerHTML = `
     <div class="mt-checkers-wrap">
@@ -7996,11 +8003,458 @@ function mtMountCheckersGame(container){
   };
 }
 
+// ============ Chess: pure rules engine ============
+// Simplifications, stated up front rather than hidden: no draw by repetition, no 50-move
+// rule, and promotion always goes to a queen (no under-promotion picker in the UI). Every
+// other standard rule is implemented: legal move generation, check, checkmate, stalemate,
+// castling (both sides, with all the usual attacked-square/blocked-square/rights checks),
+// en passant, and pawn double-step.
+const CH_SIZE = 8;
+function chInBounds(r,c){ return r>=0 && r<CH_SIZE && c>=0 && c<CH_SIZE; }
+function chCloneBoard(b){ return b.map(row => row.map(cell => cell ? {type:cell.type, color:cell.color} : null)); }
+function chCloneState(s){
+  return { castling: {...s.castling}, enPassant: s.enPassant ? {...s.enPassant} : null };
+}
+function chInitBoard(){
+  const b = Array.from({length:8}, () => Array(8).fill(null));
+  const backRank = ['r','n','b','q','k','b','n','r'];
+  for(let c=0;c<8;c++){
+    b[0][c] = {type:backRank[c], color:'black'};
+    b[1][c] = {type:'p', color:'black'};
+    b[6][c] = {type:'p', color:'white'};
+    b[7][c] = {type:backRank[c], color:'white'};
+  }
+  return b;
+}
+function chInitState(){
+  return { castling: {wK:true, wQ:true, bK:true, bQ:true}, enPassant: null };
+}
+
+// ---- Pseudo-legal move generation per piece (does not yet check own-king safety) ----
+function chPawnMoves(b, r, c, state){
+  const piece = b[r][c];
+  const dir = piece.color === 'white' ? -1 : 1;
+  const startRow = piece.color === 'white' ? 6 : 1;
+  const promoRow = piece.color === 'white' ? 0 : 7;
+  const out = [];
+  // forward one
+  if(chInBounds(r+dir, c) && b[r+dir][c] === null){
+    out.push({toR:r+dir, toC:c, promotion: (r+dir===promoRow)});
+    // forward two from start row, only if both squares clear
+    if(r === startRow && b[r+2*dir][c] === null){
+      out.push({toR:r+2*dir, toC:c, doubleStep:true});
+    }
+  }
+  // diagonal captures
+  for(const dc of [-1,1]){
+    const toR = r+dir, toC = c+dc;
+    if(!chInBounds(toR,toC)) continue;
+    const target = b[toR][toC];
+    if(target && target.color !== piece.color){
+      out.push({toR, toC, capture:true, promotion:(toR===promoRow)});
+    } else if(state.enPassant && state.enPassant.r === toR && state.enPassant.c === toC){
+      out.push({toR, toC, capture:true, enPassant:true});
+    }
+  }
+  return out;
+}
+const CH_KNIGHT_OFFSETS = [[-2,-1],[-2,1],[-1,-2],[-1,2],[1,-2],[1,2],[2,-1],[2,1]];
+function chKnightMoves(b, r, c){
+  const piece = b[r][c];
+  const out = [];
+  for(const [dr,dc] of CH_KNIGHT_OFFSETS){
+    const toR=r+dr, toC=c+dc;
+    if(!chInBounds(toR,toC)) continue;
+    const target = b[toR][toC];
+    if(!target || target.color !== piece.color) out.push({toR,toC,capture:!!target});
+  }
+  return out;
+}
+const CH_DIAG_DIRS = [[-1,-1],[-1,1],[1,-1],[1,1]];
+const CH_ORTHO_DIRS = [[-1,0],[1,0],[0,-1],[0,1]];
+function chSlideMoves(b, r, c, dirs){
+  const piece = b[r][c];
+  const out = [];
+  for(const [dr,dc] of dirs){
+    let rr=r+dr, cc=c+dc;
+    while(chInBounds(rr,cc)){
+      const target = b[rr][cc];
+      if(!target){ out.push({toR:rr,toC:cc}); }
+      else { if(target.color !== piece.color) out.push({toR:rr,toC:cc,capture:true}); break; }
+      rr+=dr; cc+=dc;
+    }
+  }
+  return out;
+}
+function chKingMoves(b, r, c, state){
+  const piece = b[r][c];
+  const out = [];
+  for(const [dr,dc] of [...CH_DIAG_DIRS, ...CH_ORTHO_DIRS]){
+    const toR=r+dr, toC=c+dc;
+    if(!chInBounds(toR,toC)) continue;
+    const target = b[toR][toC];
+    if(!target || target.color !== piece.color) out.push({toR,toC,capture:!!target});
+  }
+  // Castling -- rights not yet lost, king not currently in check, squares between clear,
+  // and (checked by the caller, chLegalMoves) the king does not pass through or land on
+  // an attacked square.
+  const homeRow = piece.color === 'white' ? 7 : 0;
+  if(r === homeRow && c === 4){
+    const kRight = piece.color === 'white' ? state.castling.wK : state.castling.bK;
+    const qRight = piece.color === 'white' ? state.castling.wQ : state.castling.bQ;
+    if(kRight && b[homeRow][5]===null && b[homeRow][6]===null && b[homeRow][7] && b[homeRow][7].type==='r' && b[homeRow][7].color===piece.color){
+      out.push({toR:homeRow, toC:6, castle:'king'});
+    }
+    if(qRight && b[homeRow][3]===null && b[homeRow][2]===null && b[homeRow][1]===null && b[homeRow][0] && b[homeRow][0].type==='r' && b[homeRow][0].color===piece.color){
+      out.push({toR:homeRow, toC:2, castle:'queen'});
+    }
+  }
+  return out;
+}
+function chPseudoMoves(b, r, c, state){
+  const piece = b[r][c];
+  if(!piece) return [];
+  switch(piece.type){
+    case 'p': return chPawnMoves(b,r,c,state);
+    case 'n': return chKnightMoves(b,r,c);
+    case 'b': return chSlideMoves(b,r,c,CH_DIAG_DIRS);
+    case 'r': return chSlideMoves(b,r,c,CH_ORTHO_DIRS);
+    case 'q': return chSlideMoves(b,r,c,[...CH_DIAG_DIRS, ...CH_ORTHO_DIRS]);
+    case 'k': return chKingMoves(b,r,c,state);
+    default: return [];
+  }
+}
+
+function chFindKing(b, color){
+  for(let r=0;r<8;r++) for(let c=0;c<8;c++) if(b[r][c] && b[r][c].type==='k' && b[r][c].color===color) return {r,c};
+  return null;
+}
+// Is (r,c) attacked by any piece of `byColor`? Used for check detection AND for verifying
+// castling doesn't move the king through or into check.
+function chIsSquareAttacked(b, r, c, byColor){
+  for(let rr=0; rr<8; rr++) for(let cc=0; cc<8; cc++){
+    const piece = b[rr][cc];
+    if(!piece || piece.color !== byColor) continue;
+    if(piece.type === 'p'){
+      const dir = piece.color === 'white' ? -1 : 1;
+      if(rr+dir===r && (cc-1===c || cc+1===c)) return true;
+    } else if(piece.type === 'n'){
+      for(const [dr,dc] of CH_KNIGHT_OFFSETS) if(rr+dr===r && cc+dc===c) return true;
+    } else if(piece.type === 'k'){
+      for(const [dr,dc] of [...CH_DIAG_DIRS, ...CH_ORTHO_DIRS]) if(rr+dr===r && cc+dc===c) return true;
+    } else {
+      const dirs = piece.type==='b' ? CH_DIAG_DIRS : piece.type==='r' ? CH_ORTHO_DIRS : [...CH_DIAG_DIRS, ...CH_ORTHO_DIRS];
+      for(const [dr,dc] of dirs){
+        let x=rr+dr, y=cc+dc;
+        while(chInBounds(x,y)){
+          if(x===r && y===c) return true;
+          if(b[x][y]) break;
+          x+=dr; y+=dc;
+        }
+      }
+    }
+  }
+  return false;
+}
+function chIsInCheck(b, color){
+  const k = chFindKing(b, color);
+  if(!k) return false;
+  return chIsSquareAttacked(b, k.r, k.c, color==='white'?'black':'white');
+}
+
+// Applies a move (already known pseudo-legal) to a board+state, mutating copies, handling
+// en passant capture removal, castling rook relocation, promotion (always to queen), and
+// updating castling rights / the en-passant target square for the NEXT move.
+function chApplyMove(board, state, r, c, move){
+  const newBoard = chCloneBoard(board);
+  const newState = chCloneState(state);
+  const piece = newBoard[r][c];
+  newState.enPassant = null;
+
+  if(move.enPassant){
+    newBoard[move.toR][move.toC] = piece;
+    newBoard[r][c] = null;
+    newBoard[r][move.toC] = null; // the captured pawn sits beside the mover, not on the landing square
+  } else if(move.castle){
+    newBoard[move.toR][move.toC] = piece;
+    newBoard[r][c] = null;
+    if(move.castle === 'king'){
+      newBoard[r][5] = newBoard[r][7]; newBoard[r][7] = null;
+    } else {
+      newBoard[r][3] = newBoard[r][0]; newBoard[r][0] = null;
+    }
+  } else {
+    newBoard[move.toR][move.toC] = piece;
+    newBoard[r][c] = null;
+    if(move.promotion) newBoard[move.toR][move.toC] = {type:'q', color:piece.color};
+  }
+
+  if(piece.type === 'p' && move.doubleStep){
+    newState.enPassant = { r: (r+move.toR)/2, c };
+  }
+  if(piece.type === 'k'){
+    if(piece.color==='white'){ newState.castling.wK=false; newState.castling.wQ=false; }
+    else { newState.castling.bK=false; newState.castling.bQ=false; }
+  }
+  if(piece.type === 'r'){
+    if(r===7 && c===0) newState.castling.wQ = false;
+    if(r===7 && c===7) newState.castling.wK = false;
+    if(r===0 && c===0) newState.castling.bQ = false;
+    if(r===0 && c===7) newState.castling.bK = false;
+  }
+  // A rook captured on its home square also permanently forfeits that side's castling right.
+  if(move.toR===7 && move.toC===0) newState.castling.wQ = false;
+  if(move.toR===7 && move.toC===7) newState.castling.wK = false;
+  if(move.toR===0 && move.toC===0) newState.castling.bQ = false;
+  if(move.toR===0 && move.toC===7) newState.castling.bK = false;
+
+  return { board: newBoard, state: newState };
+}
+
+// Full legal move list for one piece: pseudo-legal moves, minus any that would leave the
+// mover's own king in check, minus castling moves that pass through or land on an
+// attacked square (castling OUT of check, or castling THROUGH check, is illegal even
+// though chKingMoves doesn't know that yet).
+function chLegalMovesForPiece(board, state, r, c){
+  const piece = board[r][c];
+  if(!piece) return [];
+  const pseudo = chPseudoMoves(board, r, c, state);
+  const opp = piece.color === 'white' ? 'black' : 'white';
+  return pseudo.filter(m => {
+    if(m.castle){
+      const homeRow = r;
+      if(chIsSquareAttacked(board, homeRow, 4, opp)) return false; // can't castle out of check
+      const passThroughCol = m.castle==='king' ? 5 : 3;
+      if(chIsSquareAttacked(board, homeRow, passThroughCol, opp)) return false; // can't pass through check
+      if(chIsSquareAttacked(board, m.toR, m.toC, opp)) return false; // can't land in check
+    }
+    const { board: nb } = chApplyMove(board, state, r, c, m);
+    return !chIsInCheck(nb, piece.color);
+  });
+}
+function chAllLegalMoves(board, state, color){
+  const out = [];
+  for(let r=0;r<8;r++) for(let c=0;c<8;c++){
+    if(board[r][c] && board[r][c].color === color){
+      for(const m of chLegalMovesForPiece(board, state, r, c)) out.push({fromR:r, fromC:c, ...m});
+    }
+  }
+  return out;
+}
+// 'checkmate' | 'stalemate' | 'check' | 'ongoing'
+function chGameStatus(board, state, color){
+  const moves = chAllLegalMoves(board, state, color);
+  const inCheck = chIsInCheck(board, color);
+  if(moves.length === 0) return inCheck ? 'checkmate' : 'stalemate';
+  return inCheck ? 'check' : 'ongoing';
+}
+const CH_PIECE_VALUE = { p:1, n:3, b:3, r:5, q:9, k:0 };
+function chMaterial(board, color){
+  let sum = 0;
+  for(let r=0;r<8;r++) for(let c=0;c<8;c++){
+    const p = board[r][c];
+    if(p && p.color===color) sum += CH_PIECE_VALUE[p.type];
+  }
+  return sum;
+}
+
+// ---- Simple AI: prioritizes immediate checkmate, then material after a shallow 1-ply
+// "what could they capture back" safety check, same spirit as the checkers AI. Not a full
+// search engine -- deliberately simple, matches the brief. ----
+function chPickAiMove(board, state, color){
+  const moves = chAllLegalMoves(board, state, color);
+  if(!moves.length) return null;
+  const opp = color === 'white' ? 'black' : 'white';
+  let best = null, bestScore = -Infinity;
+  for(const m of moves){
+    const res = chApplyMove(board, state, m.fromR, m.fromC, m);
+    const nb = res.board, ns = res.state;
+    const status = chGameStatus(nb, ns, opp);
+    if(status === 'checkmate') return m;
+    let score = chMaterial(nb, color) - chMaterial(nb, opp);
+    let worstReply = 0;
+    const replies = chAllLegalMoves(nb, ns, opp);
+    for(const r2 of replies){
+      if(r2.capture){
+        const capturedPiece = nb[r2.toR][r2.toC];
+        const val = capturedPiece ? CH_PIECE_VALUE[capturedPiece.type] : 1;
+        if(val > worstReply) worstReply = val;
+      }
+    }
+    score -= worstReply;
+    score += Math.random()*0.5;
+    if(score > bestScore){ bestScore = score; best = m; }
+  }
+  return best;
+}
+
+const CH_GLYPH = {
+  white: { p:'\u2659', n:'\u2658', b:'\u2657', r:'\u2656', q:'\u2655', k:'\u2654' },
+  black: { p:'\u265F', n:'\u265E', b:'\u265D', r:'\u265C', q:'\u265B', k:'\u265A' },
+};
+function mtMountChessGame(container){
+  container.innerHTML = `
+    <div class="mt-checkers-wrap">
+      <canvas class="mt-embedded-canvas mt-checkers-canvas"></canvas>
+      <div class="mt-embedded-hint" id="mtChessMsg">Your move (white). Tap a piece, then tap where to move.</div>
+      <div class="mt-embedded-controls"><button class="mt-embedded-btn" data-chess-reset>New game</button></div>
+    </div>
+  `;
+  const canvas = container.querySelector('canvas');
+  const ctx = canvas.getContext('2d');
+  const msgEl = container.querySelector('#mtChessMsg');
+  const resetBtn = container.querySelector('[data-chess-reset]');
+  let running = true;
+  const dpr = Math.max(1, window.devicePixelRatio || 1);
+  let boardPx = 0;
+
+  let board, state, turn, selected, gameOver, aiThinking, aiTimer = null;
+
+  function setMsg(t){ if(msgEl) msgEl.textContent = t; }
+  function setupBoard(){
+    board = chInitBoard(); state = chInitState();
+    turn = 'white'; selected = null; gameOver = false; aiThinking = false;
+    setMsg('Your move (white). Tap a piece, then tap where to move.');
+  }
+  setupBoard();
+
+  function resize(){
+    const w = Math.min(container.clientWidth, 340);
+    boardPx = w;
+    canvas.style.width = w + 'px';
+    canvas.style.height = w + 'px';
+    canvas.width = Math.floor(w * dpr);
+    canvas.height = Math.floor(w * dpr);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    draw();
+  }
+
+  function draw(){
+    if(!running || !boardPx) return;
+    const s = boardPx / CH_SIZE;
+    ctx.clearRect(0,0,boardPx,boardPx);
+    for(let r=0;r<8;r++) for(let c=0;c<8;c++){
+      ctx.fillStyle = (r+c)%2===0 ? '#EDE3D3' : '#7A5C3E';
+      ctx.fillRect(c*s, r*s, s, s);
+    }
+    if(selected){
+      ctx.fillStyle = 'rgba(182,178,53,0.55)';
+      ctx.fillRect(selected.c*s, selected.r*s, s, s);
+      const moves = chLegalMovesForPiece(board, state, selected.r, selected.c);
+      ctx.fillStyle = 'rgba(90,143,78,0.55)';
+      for(const m of moves) ctx.fillRect(m.toC*s, m.toR*s, s, s);
+    }
+    for(let r=0;r<8;r++) for(let c=0;c<8;c++){
+      const piece = board[r][c];
+      if(!piece) continue;
+      const cx = c*s+s/2, cy = r*s+s/2;
+      ctx.font = Math.round(s*0.72) + 'px sans-serif';
+      ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+      ctx.fillStyle = piece.color === 'white' ? '#F5F1E6' : '#2b2b2b';
+      ctx.strokeStyle = piece.color === 'white' ? '#3a2a1e' : '#F5F1E6';
+      ctx.lineWidth = Math.max(1, s*0.03);
+      const glyph = CH_GLYPH[piece.color][piece.type];
+      ctx.strokeText(glyph, cx, cy+1);
+      ctx.fillText(glyph, cx, cy+1);
+    }
+  }
+
+  function squareFromEvent(e){
+    const rect = canvas.getBoundingClientRect();
+    const p = e.changedTouches ? e.changedTouches[0] : e;
+    const x = p.clientX - rect.left, y = p.clientY - rect.top;
+    const s = boardPx / CH_SIZE;
+    const c = Math.floor(x/s), r = Math.floor(y/s);
+    if(!chInBounds(r,c)) return null;
+    return {r,c};
+  }
+
+  function checkGameOver(){
+    const status = chGameStatus(board, state, turn);
+    if(status === 'checkmate'){
+      gameOver = true;
+      setMsg((turn==='white' ? 'Checkmate \u2014 the computer wins.' : 'Checkmate \u2014 you win!') + ' Tap New game to play again.');
+      return true;
+    }
+    if(status === 'stalemate'){
+      gameOver = true;
+      setMsg('Stalemate \u2014 no legal moves, but no check. Draw. Tap New game to play again.');
+      return true;
+    }
+    if(status === 'check') setMsg((turn==='white' ? 'Your' : "Computer's") + ' king is in check!');
+    return false;
+  }
+
+  function finishHumanTurn(){
+    draw();
+    if(checkGameOver()) return;
+    turn = 'black';
+    aiThinking = true;
+    setMsg('Computer is thinking...');
+    aiTimer = setTimeout(runAiTurn, 500);
+  }
+
+  function handlePointer(e){
+    if(gameOver || turn !== 'white' || aiThinking) return;
+    const sq = squareFromEvent(e);
+    if(!sq) return;
+    const piece = board[sq.r][sq.c];
+    if(selected){
+      if(selected.r===sq.r && selected.c===sq.c){ selected = null; draw(); return; }
+      if(piece && piece.color === 'white'){
+        const legal = chLegalMovesForPiece(board, state, sq.r, sq.c);
+        if(legal.length){ selected = {r:sq.r, c:sq.c}; draw(); return; }
+      }
+      const legal = chLegalMovesForPiece(board, state, selected.r, selected.c);
+      const move = legal.find(m => m.toR===sq.r && m.toC===sq.c);
+      if(move){
+        const res = chApplyMove(board, state, selected.r, selected.c, move);
+        board = res.board; state = res.state;
+        selected = null;
+        finishHumanTurn();
+      }
+      return;
+    }
+    if(piece && piece.color === 'white'){
+      const legal = chLegalMovesForPiece(board, state, sq.r, sq.c);
+      if(legal.length){ selected = {r:sq.r, c:sq.c}; draw(); }
+    }
+  }
+  canvas.addEventListener('pointerdown', handlePointer);
+
+  function runAiTurn(){
+    if(!running || gameOver) return;
+    const move = chPickAiMove(board, state, 'black');
+    if(!move){ checkGameOver(); return; }
+    const res = chApplyMove(board, state, move.fromR, move.fromC, move);
+    board = res.board; state = res.state;
+    draw();
+    aiThinking = false;
+    if(checkGameOver()) return;
+    turn = 'white';
+    setMsg('Your move (white).');
+  }
+
+  function onReset(){ setupBoard(); resize(); }
+  resetBtn.addEventListener('click', onReset);
+  window.addEventListener('resize', resize);
+  resize();
+
+  return function cleanup(){
+    running = false;
+    if(aiTimer) clearTimeout(aiTimer);
+    window.removeEventListener('resize', resize);
+    canvas.removeEventListener('pointerdown', handlePointer);
+    resetBtn.removeEventListener('click', onReset);
+  };
+}
+
+
 const MT_EMBEDDED_GAMES = {
   pop:      { title: 'Pop Session', mount: mtMountPopGame },
-  smash:    { title: 'Smash Room', mount: mtMountSmashGame },
   blast:    { title: 'Blow It Up', mount: mtMountBlastGame },
   checkers: { title: 'Checkers (vs computer)', mount: mtMountCheckersGame },
+  chess:    { title: 'Chess (vs computer)', mount: mtMountChessGame },
 };
 
 function mtIsAcute(text){
@@ -8438,6 +8892,37 @@ function viewMindTemple(){
       <div class="mt-wrap" id="mtContainer"></div>
     </section>
   `;
+}
+
+// Standalone full-page access to any of the 4 in-house games, reached via the "pixel8"
+// search easter egg (see wireSearch) rather than through Mind Temple's mess-about flow --
+// same games, same mount/cleanup functions, just not gated behind the emotion picker.
+function viewArcade(id){
+  const game = MT_EMBEDDED_GAMES[id];
+  if(!game){
+    return `
+      <a class="back-link" href="#">← Back to Mr Eric's Lounge</a>
+      <section style="padding-top:14px;"><div class="empty-card">That game doesn't exist.</div></section>
+    `;
+  }
+  return `
+    <a class="back-link" href="#">← Back to Mr Eric's Lounge</a>
+    <section style="padding-top:14px;">
+      <div class="section-head"><h2>${escapeHtml(game.title)}</h2></div>
+      <div class="mt-wrap" id="arcadeContainer"></div>
+    </section>
+  `;
+}
+function wireArcade(id){
+  const game = MT_EMBEDDED_GAMES[id];
+  const slot = document.getElementById('arcadeContainer');
+  if(!game || !slot) return;
+  // Shares the exact same cleanup tracker Mind Temple uses -- there is only ever one
+  // embedded game mounted anywhere on the site at a time, so one choke point (the top of
+  // renderRoute, see below) is enough to guarantee nothing is ever left running detached,
+  // regardless of which of the two entry points mounted it.
+  if(mtActiveEmbeddedCleanup){ mtActiveEmbeddedCleanup(); mtActiveEmbeddedCleanup = null; }
+  mtActiveEmbeddedCleanup = game.mount(slot);
 }
 
 function viewPhotos(){
@@ -9672,6 +10157,13 @@ function renderRoute(opts){
   const parts = hash.split('/').filter(Boolean);
   logEvent('view', hash || 'home');
 
+  // Safety net: if an embedded game (Mind Temple's mess-about panel, or the standalone
+  // arcade route) was left mounted and the user navigated away by some route OTHER than
+  // its own exit button -- tapping a bottom-tab, following a link, hitting back -- its
+  // requestAnimationFrame loop would otherwise keep running forever on a canvas that's no
+  // longer even in the DOM. Every route change tears it down here, regardless of cause.
+  if(mtActiveEmbeddedCleanup){ mtActiveEmbeddedCleanup(); mtActiveEmbeddedCleanup = null; }
+
   // Remember where we were scrolled to on the page we're about to leave.
   if(!opts.forceTop && lastRenderedHash !== null){
     const mem = getScrollMemory();
@@ -9698,6 +10190,8 @@ function renderRoute(opts){
     html = viewSaved();
   } else if(parts[0] === 'mind-temple'){
     html = viewMindTemple();
+  } else if(parts[0] === 'arcade' && parts[1]){
+    html = viewArcade(parts[1]);
   } else if(parts[0] === 'explore'){
     html = viewExplore();
   } else if(parts[0] === 'invite'){
@@ -9749,6 +10243,7 @@ function renderRoute(opts){
     });
   }
   if(parts[0] === 'mind-temple'){ mtInit(); }
+  if(parts[0] === 'arcade' && parts[1]){ wireArcade(parts[1]); }
   if(parts[0] === 'install'){ wireInstallPage(); }
   if(parts[0] === 'stats'){ loadStats(); }
   if(parts[0] === 'events-tashkent'){ loadTashkentEvents(); }
