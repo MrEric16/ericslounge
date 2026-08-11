@@ -72,6 +72,15 @@ EXCLUDE_KEYWORDS_RU = [
     "аудиоспектакль",                                    # self-guided audio walking tours (recurring daily, not a real event)
     "скидк", "распродаж",                                # shop discounts (not events)
     "билет в музей", "музейный билет",                  # permanent museum tickets
+    "мозгобойня",                                        # "Brain Slaughter" -- a pub-quiz trivia
+                                                          # night franchise hosted at bars. Reported
+                                                          # directly (2026-08-11): slipped through
+                                                          # because the brand name itself doesn't
+                                                          # contain "бар"/"квиз"/any other banned
+                                                          # word -- it's a proper noun, not a
+                                                          # description. Matches every variant
+                                                          # ("Classic", etc.) since it's the whole
+                                                          # brand name being matched, not a suffix.
 ]
 EXCLUDE_KEYWORDS_EN = [
     "cinema", "movie premiere", "screening",
@@ -85,6 +94,7 @@ EXCLUDE_KEYWORDS_EN = [
     "guided tour", "city tour", "excursion",
     "walk around tashkent", "tashkent speaks", "audio walk", "self-guided",
     "discount", "sale",
+    "brain slaughter",                                   # English name for the same trivia franchise, see above
 ]
 # Short/common words matched as whole words only (see is_excluded()) -- a bare
 # substring match on these would false-positive constantly, e.g. "bar" inside
@@ -93,6 +103,18 @@ EXCLUDE_KEYWORDS_WORD_BOUNDARY = [
     "bar", "бар",            # standalone bar/nightclub-venue mentions
     "dj", "диджей",          # DJ events -- a reliable nightlife signal
 ]
+# Known bar/nightlife venues, blocked by name regardless of what event or brand is hosted
+# there -- a keyword match on the event's own text can't catch this, since the event's
+# name/description often has nothing bar-related in it at all (see "мозгобойня" above,
+# reported directly 2026-08-11: hosted at Terrace100, a bar, with a brand name that
+# contains no banned keyword). Checked against the venue field specifically.
+VENUE_BLACKLIST = [
+    "terrace100",
+]
+def is_blacklisted_venue(venue):
+    v = unicodedata.normalize("NFKD", (venue or "")).lower()
+    v = re.sub(r"[^a-zа-яё0-9]", "", v)  # strip spaces/punctuation so "Terrace 100" / "Terrace-100" also match
+    return any(b in v for b in VENUE_BLACKLIST)
 # Age-restriction markers -- any of these anywhere in the title/venue/category
 # text means the event is not for this site, full stop, regardless of what
 # category afisha.uz filed it under. Safe as bare substrings: the "+" makes
@@ -618,6 +640,8 @@ def scrape_afisha_uz():
             time.sleep(0.3)  # polite pacing -- now visiting far more pages per run than before
             if not clean_title or is_excluded(clean_title) or is_excluded(full_text) or is_banned(full_text):
                 continue
+            if is_blacklisted_venue(venue):
+                continue
             english_title = translate_ru_to_en(clean_title)
             resolved_category = guess_category(clean_title, category)
             in_window = [(d, t) for d, t in occurrences if TODAY_MIDNIGHT <= d <= WINDOW_END]
@@ -863,6 +887,9 @@ def scrape_afisha_calendar():
             if is_target:
                 log(f"  TARGET DROPPED at exclude/ban check: {full_url} | title_excluded={is_excluded(clean_title)} full_text_excluded={is_excluded(full_text)} title_banned={is_banned(clean_title)} full_text_banned={is_banned(full_text)}")
             continue
+        if is_blacklisted_venue(venue):
+            log(f"  DROPPED (blacklisted venue): {full_url} | title={clean_title!r} venue={venue!r}")
+            continue
         if is_generic_venue_listing(clean_title, venue):
             if is_target:
                 log(f"  TARGET DROPPED at generic_venue_listing check: {full_url} title={clean_title!r} venue={venue!r}")
@@ -968,6 +995,8 @@ def scrape_with_playwright():
                     if start > WINDOW_END or start < TODAY_MIDNIGHT:
                         continue
                     if is_generic_venue_listing(title_raw.strip(), venue):
+                        continue
+                    if is_blacklisted_venue(venue):
                         continue
                     full_url = href if href.startswith("http") else f"https://iticket.uz{href}"
                     seen.add(href)
