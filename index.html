@@ -7408,6 +7408,11 @@ const MT_MESSABOUT_POOL = [
   {type:'embedded', id:'blast'},
   {type:'embedded', id:'checkers'},
   {type:'embedded', id:'chess'},
+  {type:'embedded', id:'connect4'},
+  {type:'embedded', id:'balloons'},
+  {type:'embedded', id:'stack'},
+  {type:'embedded', id:'rip'},
+  {type:'embedded', id:'scribble'},
 ];
 function mtPoolKey(entry){ return entry.type === 'external' ? entry.url : ('embedded:' + entry.id); }
 
@@ -8742,11 +8747,634 @@ function mtMountChessGame(container){
 }
 
 
+// ============ Connect Four: pure rules engine ============
+const C4_COLS = 7, C4_ROWS = 6;
+function c4InitBoard(){ return Array.from({length:C4_ROWS}, () => Array(C4_COLS).fill(null)); }
+function c4CloneBoard(b){ return b.map(row => row.slice()); }
+// Drops into the lowest empty row of a column; returns the landed row, or -1 if the
+// column is full.
+function c4DropRow(board, col){
+  for(let r=C4_ROWS-1; r>=0; r--){ if(board[r][col]===null) return r; }
+  return -1;
+}
+function c4LegalCols(board){
+  const out = [];
+  for(let c=0;c<C4_COLS;c++) if(board[0][c]===null) out.push(c);
+  return out;
+}
+const C4_DIRS = [[0,1],[1,0],[1,1],[1,-1]];
+// Checks whether the piece just placed at (r,c) completes 4-in-a-row in any direction.
+function c4CheckWin(board, r, c){
+  const color = board[r][c];
+  if(!color) return false;
+  for(const [dr,dc] of C4_DIRS){
+    let count = 1;
+    let rr=r+dr, cc=c+dc;
+    while(rr>=0 && rr<C4_ROWS && cc>=0 && cc<C4_COLS && board[rr][cc]===color){ count++; rr+=dr; cc+=dc; }
+    rr=r-dr; cc=c-dc;
+    while(rr>=0 && rr<C4_ROWS && cc>=0 && cc<C4_COLS && board[rr][cc]===color){ count++; rr-=dr; cc-=dc; }
+    if(count >= 4) return true;
+  }
+  return false;
+}
+function c4IsFull(board){ return c4LegalCols(board).length === 0; }
+
+// Simple AI: 1) take an immediate win if available, 2) block an immediate opponent win,
+// 3) otherwise weight columns toward the center with a little randomness -- same "simple
+// but not a pushover" spirit as the checkers/chess AIs.
+function c4PickAiMove(board, aiColor, humanColor){
+  const legal = c4LegalCols(board);
+  for(const c of legal){
+    const r = c4DropRow(board, c);
+    const test = c4CloneBoard(board); test[r][c] = aiColor;
+    if(c4CheckWin(test, r, c)) return c;
+  }
+  for(const c of legal){
+    const r = c4DropRow(board, c);
+    const test = c4CloneBoard(board); test[r][c] = humanColor;
+    if(c4CheckWin(test, r, c)) return c;
+  }
+  const centerWeight = c => 3 - Math.abs(c - 3);
+  let best = legal[0], bestScore = -Infinity;
+  for(const c of legal){
+    const score = centerWeight(c) + Math.random()*1.5;
+    if(score > bestScore){ bestScore = score; best = c; }
+  }
+  return best;
+}
+
+function mtMountConnectFourGame(container){
+  container.innerHTML = `
+    <canvas class="mt-embedded-canvas mt-checkers-canvas"></canvas>
+    <div class="mt-embedded-hint" id="mtC4Msg">Your move (red). Tap a column to drop.</div>
+    <div class="mt-embedded-controls"><button class="mt-embedded-btn" data-c4-reset>New game</button></div>
+  `;
+  const canvas = container.querySelector('canvas');
+  const ctx = canvas.getContext('2d');
+  const msgEl = container.querySelector('#mtC4Msg');
+  const resetBtn = container.querySelector('[data-c4-reset]');
+  let running = true;
+  const dpr = Math.max(1, window.devicePixelRatio || 1);
+  let boardPx = 0;
+
+  let board, turn, gameOver, aiThinking, aiTimer = null;
+  let drops = []; // brief falling-piece animation state per placement
+
+  function setMsg(t){ if(msgEl) msgEl.textContent = t; }
+  function setup(){
+    board = c4InitBoard(); turn = 'red'; gameOver = false; aiThinking = false; drops = [];
+    setMsg('Your move (red). Tap a column to drop.');
+  }
+  setup();
+
+  function resize(){
+    const w = Math.min(container.clientWidth, 360);
+    boardPx = w;
+    const h = w * (C4_ROWS / C4_COLS);
+    canvas.style.width = w + 'px';
+    canvas.style.height = h + 'px';
+    canvas.width = Math.floor(w * dpr);
+    canvas.height = Math.floor(h * dpr);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    draw();
+  }
+
+  let rafId = null;
+  function draw(){
+    if(!running || !boardPx) return;
+    const s = boardPx / C4_COLS;
+    const h = boardPx * (C4_ROWS / C4_COLS);
+    ctx.fillStyle = '#2E7B8A';
+    ctx.fillRect(0,0,boardPx,h);
+    for(let r=0;r<C4_ROWS;r++){
+      for(let c=0;c<C4_COLS;c++){
+        const cx = c*s + s/2;
+        let cy = r*s + s/2;
+        const drop = drops.find(d => d.r===r && d.c===c && d.progress < 1);
+        if(board[r][c] && drop){
+          cy = (drop.fromY + (r*s+s/2 - drop.fromY) * drop.progress);
+        }
+        ctx.beginPath();
+        ctx.arc(cx, cy, s*0.4, 0, Math.PI*2);
+        ctx.fillStyle = board[r][c] ? (board[r][c]==='red' ? '#A6342E' : '#B6B235') : '#F4F1EA';
+        if(!board[r][c] || !drop){ ctx.fill(); continue; }
+        ctx.fill();
+      }
+    }
+    let stillAnimating = false;
+    for(const d of drops){ if(d.progress < 1){ d.progress += 0.18; stillAnimating = true; } }
+    drops = drops.filter(d => d.progress < 1.5);
+    if(stillAnimating) rafId = requestAnimationFrame(draw);
+  }
+
+  function checkGameOver(r, c){
+    if(c4CheckWin(board, r, c)){
+      gameOver = true;
+      setMsg((turn==='red' ? 'You win!' : 'Computer wins.') + ' Tap New game to play again.');
+      return true;
+    }
+    if(c4IsFull(board)){
+      gameOver = true;
+      setMsg("It's a draw! Tap New game to play again.");
+      return true;
+    }
+    return false;
+  }
+
+  function placePiece(col, color){
+    const r = c4DropRow(board, col);
+    if(r === -1) return false;
+    board[r][col] = color;
+    const s = boardPx / C4_COLS;
+    drops.push({ r, c: col, progress: 0, fromY: -s });
+    draw();
+    return checkGameOver(r, col) ? true : (r !== -1);
+  }
+
+  function handlePointer(e){
+    if(gameOver || turn !== 'red' || aiThinking) return;
+    const rect = canvas.getBoundingClientRect();
+    const p = e.changedTouches ? e.changedTouches[0] : e;
+    const x = p.clientX - rect.left;
+    const s = boardPx / C4_COLS;
+    const col = Math.floor(x / s);
+    if(col < 0 || col >= C4_COLS) return;
+    if(c4DropRow(board, col) === -1) return;
+    const won = placePiece(col, 'red');
+    if(won || gameOver) return;
+    turn = 'yellow';
+    aiThinking = true;
+    setMsg('Computer is thinking...');
+    aiTimer = setTimeout(runAiTurn, 500);
+  }
+  canvas.addEventListener('pointerdown', handlePointer);
+
+  function runAiTurn(){
+    if(!running || gameOver) return;
+    const col = c4PickAiMove(board, 'yellow', 'red');
+    placePiece(col, 'yellow');
+    aiThinking = false;
+    if(gameOver) return;
+    turn = 'red';
+    setMsg('Your move (red).');
+  }
+
+  function onReset(){ setup(); resize(); }
+  resetBtn.addEventListener('click', onReset);
+  window.addEventListener('resize', resize);
+  resize();
+
+  return function cleanup(){
+    running = false;
+    if(rafId) cancelAnimationFrame(rafId);
+    if(aiTimer) clearTimeout(aiTimer);
+    window.removeEventListener('resize', resize);
+    canvas.removeEventListener('pointerdown', handlePointer);
+    resetBtn.removeEventListener('click', onReset);
+  };
+}
+
+
+// ============ Balloon Pop Row ============
+function mtMountBalloonGame(container){
+  container.innerHTML = '<canvas class="mt-embedded-canvas"></canvas><div class="mt-embedded-hint" id="mtBalloonMsg">Pop them before they float away. Score: 0</div>';
+  const canvas = container.querySelector('canvas');
+  const ctx = canvas.getContext('2d');
+  const msgEl = container.querySelector('#mtBalloonMsg');
+  let running = true;
+  let balloons = [];
+  let particles = [];
+  const dpr = Math.max(1, window.devicePixelRatio || 1);
+  const H = 280;
+  let score = 0, escaped = 0;
+
+  function resize(){
+    const w = container.clientWidth;
+    canvas.style.width = w + 'px';
+    canvas.style.height = H + 'px';
+    canvas.width = Math.floor(w * dpr);
+    canvas.height = Math.floor(H * dpr);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  const COLORS = ['#A6342E','#2E7B8A','#B89434','#5A8F4E','#4A5578'];
+  function spawnBalloon(){
+    const w = container.clientWidth;
+    const r = 18 + Math.random()*14;
+    balloons.push({
+      x: r + Math.random() * Math.max(1, w - r*2),
+      y: H + r,
+      r, color: COLORS[Math.floor(Math.random()*COLORS.length)],
+      speed: 0.7 + Math.random()*1.1,
+      wobble: Math.random()*Math.PI*2,
+      pop: 0, alive: true,
+    });
+  }
+  let spawnTimer = 0;
+
+  function setMsg(){ if(msgEl) msgEl.textContent = `Pop them before they float away. Score: ${score}`; }
+
+  let rafId = null;
+  function draw(){
+    if(!running) return;
+    const w = container.clientWidth;
+    ctx.clearRect(0,0,w,H);
+    spawnTimer++;
+    if(spawnTimer > 45 && balloons.length < 8){ spawnTimer = 0; spawnBalloon(); }
+    for(const b of balloons){
+      if(!b.alive) continue;
+      if(b.pop > 0){
+        b.pop += 0.1;
+        ctx.globalAlpha = Math.max(0, 1 - b.pop);
+        ctx.beginPath(); ctx.arc(b.x, b.y, b.r*(1+b.pop*0.7), 0, Math.PI*2);
+        ctx.fillStyle = b.color; ctx.fill();
+        ctx.globalAlpha = 1;
+        if(b.pop >= 1) b.alive = false;
+        continue;
+      }
+      b.y -= b.speed;
+      b.wobble += 0.05;
+      b.x += Math.sin(b.wobble)*0.6;
+      if(b.y < -b.r){ b.alive = false; escaped++; continue; }
+      ctx.beginPath();
+      ctx.ellipse(b.x, b.y, b.r*0.85, b.r, 0, 0, Math.PI*2);
+      ctx.fillStyle = b.color; ctx.fill();
+      ctx.beginPath(); ctx.moveTo(b.x, b.y+b.r);
+      ctx.lineTo(b.x, b.y+b.r+14);
+      ctx.strokeStyle = 'rgba(58,42,30,0.4)'; ctx.lineWidth = 1.5; ctx.stroke();
+      ctx.beginPath(); ctx.arc(b.x - b.r*0.3, b.y - b.r*0.35, b.r*0.22, 0, Math.PI*2);
+      ctx.fillStyle = 'rgba(255,255,255,0.5)'; ctx.fill();
+    }
+    balloons = balloons.filter(b => b.alive);
+    for(const p of particles){
+      p.vy += 0.14; p.x += p.vx; p.y += p.vy; p.life -= 0.02;
+      if(p.life <= 0) continue;
+      ctx.globalAlpha = Math.max(0, p.life);
+      ctx.fillStyle = p.color; ctx.fillRect(p.x, p.y, p.size, p.size);
+      ctx.globalAlpha = 1;
+    }
+    particles = particles.filter(p => p.life > 0);
+    rafId = requestAnimationFrame(draw);
+  }
+  rafId = requestAnimationFrame(draw);
+
+  function handlePointer(e){
+    const rect = canvas.getBoundingClientRect();
+    const pts = e.changedTouches ? Array.from(e.changedTouches) : [e];
+    for(const p of pts){
+      const x = p.clientX - rect.left, y = p.clientY - rect.top;
+      for(const b of balloons){
+        if(b.pop === 0 && b.alive){
+          const dx = x - b.x, dy = y - b.y;
+          if((dx*dx)/(b.r*b.r) + (dy*dy)/(b.r*b.r) <= 1.4){
+            b.pop = 0.001;
+            score++;
+            setMsg();
+            for(let i=0;i<10;i++){
+              const ang = Math.random()*Math.PI*2, speed = 1.5+Math.random()*4;
+              particles.push({ x:b.x, y:b.y, vx:Math.cos(ang)*speed, vy:Math.sin(ang)*speed-2,
+                size:3+Math.random()*4, color:b.color, life:1 });
+            }
+          }
+        }
+      }
+    }
+  }
+  canvas.addEventListener('pointerdown', handlePointer);
+
+  return function cleanup(){
+    running = false;
+    if(rafId) cancelAnimationFrame(rafId);
+    window.removeEventListener('resize', resize);
+    canvas.removeEventListener('pointerdown', handlePointer);
+  };
+}
+
+
+// ============ Stack Knockdown ============
+function mtMountStackGame(container){
+  container.innerHTML = '<canvas class="mt-embedded-canvas"></canvas><div class="mt-embedded-controls"><button class="mt-embedded-btn" data-stack-reset>Rebuild tower</button></div>';
+  const canvas = container.querySelector('canvas');
+  const ctx = canvas.getContext('2d');
+  const resetBtn = container.querySelector('[data-stack-reset]');
+  let running = true;
+  const dpr = Math.max(1, window.devicePixelRatio || 1);
+  const H = 320;
+  const COLORS = ['#B89434','#A6342E','#5A8F4E','#2E7B8A','#4A5578','#B6B235'];
+
+  function resize(){
+    const w = container.clientWidth;
+    canvas.style.width = w + 'px';
+    canvas.style.height = H + 'px';
+    canvas.width = Math.floor(w * dpr);
+    canvas.height = Math.floor(H * dpr);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  const ROWS = 10;
+  let blocks = []; // static, standing blocks: {row, x, y, w, h, color}
+  let falling = []; // dynamic pieces with physics once knocked loose
+
+  function buildTower(){
+    const w = container.clientWidth;
+    const bw = Math.min(90, w*0.5);
+    const bh = (H - 20) / ROWS;
+    const x = (w - bw)/2;
+    blocks = [];
+    for(let r=0;r<ROWS;r++){
+      blocks.push({ row:r, x, y: H - 10 - (r+1)*bh, w:bw, h:bh-3, color: COLORS[r % COLORS.length] });
+    }
+    falling = [];
+  }
+  buildTower();
+
+  function knockFrom(row){
+    // Everything at or above the tapped block loses its footing and tumbles.
+    const toKnock = blocks.filter(b => b.row >= row);
+    blocks = blocks.filter(b => b.row < row);
+    for(const b of toKnock){
+      falling.push({
+        x:b.x, y:b.y, w:b.w, h:b.h, color:b.color,
+        vx:(Math.random()-0.5)*5, vy:-2-Math.random()*3, rot:0, vrot:(Math.random()-0.5)*0.3,
+      });
+    }
+  }
+
+  let rafId = null;
+  function draw(){
+    if(!running) return;
+    const w = container.clientWidth;
+    ctx.clearRect(0,0,w,H);
+    for(const b of blocks){
+      ctx.fillStyle = b.color;
+      ctx.fillRect(b.x, b.y, b.w, b.h);
+    }
+    for(const f of falling){
+      f.vy += 0.25; f.x += f.vx; f.y += f.vy; f.rot += f.vrot;
+      ctx.save(); ctx.translate(f.x+f.w/2, f.y+f.h/2); ctx.rotate(f.rot);
+      ctx.fillStyle = f.color; ctx.fillRect(-f.w/2, -f.h/2, f.w, f.h); ctx.restore();
+    }
+    falling = falling.filter(f => f.y < H + 80);
+    rafId = requestAnimationFrame(draw);
+  }
+  rafId = requestAnimationFrame(draw);
+
+  function handlePointer(e){
+    const rect = canvas.getBoundingClientRect();
+    const pts = e.changedTouches ? Array.from(e.changedTouches) : [e];
+    for(const p of pts){
+      const x = p.clientX - rect.left, y = p.clientY - rect.top;
+      for(const b of blocks){
+        if(x >= b.x && x <= b.x+b.w && y >= b.y && y <= b.y+b.h){
+          knockFrom(b.row);
+          break;
+        }
+      }
+    }
+  }
+  canvas.addEventListener('pointerdown', handlePointer);
+  function onReset(){ buildTower(); }
+  resetBtn.addEventListener('click', onReset);
+
+  return function cleanup(){
+    running = false;
+    if(rafId) cancelAnimationFrame(rafId);
+    window.removeEventListener('resize', resize);
+    canvas.removeEventListener('pointerdown', handlePointer);
+    resetBtn.removeEventListener('click', onReset);
+  };
+}
+
+
+// ============ Rip It Up ============
+function mtMountRipGame(container){
+  container.innerHTML = '<canvas class="mt-embedded-canvas"></canvas><div class="mt-embedded-hint">Swipe across to tear it up.</div>';
+  const canvas = container.querySelector('canvas');
+  const ctx = canvas.getContext('2d');
+  let running = true;
+  const dpr = Math.max(1, window.devicePixelRatio || 1);
+  const H = 260;
+  const COLORS = ['#EDE3D3','#E3D7C0','#F4EFE2'];
+
+  function resize(){
+    const w = container.clientWidth;
+    canvas.style.width = w + 'px';
+    canvas.style.height = H + 'px';
+    canvas.width = Math.floor(w * dpr);
+    canvas.height = Math.floor(H * dpr);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  const STRIP_COUNT = 18;
+  let strips = [];
+  let falling = [];
+  let refillTimer = null;
+
+  function buildSheet(){
+    const w = container.clientWidth;
+    const sw = w / STRIP_COUNT;
+    strips = [];
+    for(let i=0;i<STRIP_COUNT;i++){
+      strips.push({ i, x:i*sw, w:sw-1, torn:false, color: COLORS[i % COLORS.length] });
+    }
+    falling = [];
+    if(refillTimer){ clearTimeout(refillTimer); refillTimer = null; }
+  }
+  buildSheet();
+
+  function tearStrip(strip){
+    if(strip.torn) return;
+    strip.torn = true;
+    const jagged = 3 + Math.floor(Math.random()*3);
+    for(let j=0;j<jagged;j++){
+      falling.push({
+        x: strip.x, w: strip.w, y: (H/jagged)*j, h: H/jagged - 2, color: strip.color,
+        vx:(Math.random()-0.5)*3, vy:1+Math.random()*2, rot:0, vrot:(Math.random()-0.5)*0.2,
+      });
+    }
+    if(strips.every(s => s.torn) && !refillTimer){
+      refillTimer = setTimeout(() => { refillTimer = null; buildSheet(); }, 2000);
+    }
+  }
+
+  let rafId = null;
+  function draw(){
+    if(!running) return;
+    const w = container.clientWidth;
+    ctx.clearRect(0,0,w,H);
+    for(const s of strips){
+      if(s.torn) continue;
+      ctx.fillStyle = s.color;
+      ctx.fillRect(s.x, 0, s.w, H);
+    }
+    for(const f of falling){
+      f.vy += 0.18; f.x += f.vx; f.y += f.vy; f.rot += f.vrot;
+      ctx.save(); ctx.translate(f.x+f.w/2, f.y+f.h/2); ctx.rotate(f.rot);
+      ctx.fillStyle = f.color; ctx.fillRect(-f.w/2, -f.h/2, f.w, f.h); ctx.restore();
+    }
+    falling = falling.filter(f => f.y < H + 60);
+    rafId = requestAnimationFrame(draw);
+  }
+  rafId = requestAnimationFrame(draw);
+
+  function tearAt(x){
+    const w = container.clientWidth;
+    const sw = w / STRIP_COUNT;
+    const i = Math.floor(x / sw);
+    if(i >= 0 && i < strips.length) tearStrip(strips[i]);
+  }
+  function handlePointerDown(e){
+    const rect = canvas.getBoundingClientRect();
+    const p = e.changedTouches ? e.changedTouches[0] : e;
+    tearAt(p.clientX - rect.left);
+  }
+  function handlePointerMove(e){
+    if(e.buttons === undefined && !e.touches) return; // ignore hover-only environments
+    const rect = canvas.getBoundingClientRect();
+    const pts = e.changedTouches ? Array.from(e.changedTouches) : [e];
+    for(const p of pts) tearAt(p.clientX - rect.left);
+  }
+  canvas.addEventListener('pointerdown', handlePointerDown);
+  canvas.addEventListener('pointermove', handlePointerMove);
+
+  return function cleanup(){
+    running = false;
+    if(rafId) cancelAnimationFrame(rafId);
+    if(refillTimer) clearTimeout(refillTimer);
+    window.removeEventListener('resize', resize);
+    canvas.removeEventListener('pointerdown', handlePointerDown);
+    canvas.removeEventListener('pointermove', handlePointerMove);
+  };
+}
+
+
+// ============ Scribble Rage ============
+function mtMountScribbleGame(container){
+  container.innerHTML = '<canvas class="mt-embedded-canvas"></canvas><div class="mt-embedded-controls"><button class="mt-embedded-btn" data-scribble-shred>Shred it</button></div>';
+  const canvas = container.querySelector('canvas');
+  const ctx = canvas.getContext('2d');
+  const shredBtn = container.querySelector('[data-scribble-shred]');
+  let running = true;
+  const dpr = Math.max(1, window.devicePixelRatio || 1);
+  const H = 260;
+  const COLORS = ['#A6342E','#2E7B8A','#B89434','#5A8F4E','#4A5578'];
+
+  function resize(){
+    const w = container.clientWidth;
+    canvas.style.width = w + 'px';
+    canvas.style.height = H + 'px';
+    canvas.width = Math.floor(w * dpr);
+    canvas.height = Math.floor(H * dpr);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    ctx.fillStyle = '#F4F1EA';
+    ctx.fillRect(0,0,w,H);
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  let drawing = false;
+  let lastX = 0, lastY = 0;
+  let color = COLORS[Math.floor(Math.random()*COLORS.length)];
+  let confetti = [];
+  let shredding = false;
+
+  function pointOf(e){
+    const rect = canvas.getBoundingClientRect();
+    const p = e.changedTouches ? e.changedTouches[0] : e;
+    return { x: p.clientX - rect.left, y: p.clientY - rect.top };
+  }
+  function handleDown(e){
+    if(shredding) return;
+    drawing = true;
+    const pt = pointOf(e);
+    lastX = pt.x; lastY = pt.y;
+    color = COLORS[Math.floor(Math.random()*COLORS.length)];
+  }
+  function handleMove(e){
+    if(!drawing || shredding) return;
+    const pt = pointOf(e);
+    ctx.strokeStyle = color;
+    ctx.lineWidth = 6;
+    ctx.lineCap = 'round';
+    ctx.beginPath();
+    ctx.moveTo(lastX, lastY);
+    ctx.lineTo(pt.x, pt.y);
+    ctx.stroke();
+    lastX = pt.x; lastY = pt.y;
+  }
+  function handleUp(){ drawing = false; }
+  canvas.addEventListener('pointerdown', handleDown);
+  canvas.addEventListener('pointermove', handleMove);
+  canvas.addEventListener('pointerup', handleUp);
+  canvas.addEventListener('pointerleave', handleUp);
+
+  let rafId = null;
+  function shredLoop(){
+    if(!running) return;
+    const w = container.clientWidth;
+    ctx.clearRect(0,0,w,H);
+    ctx.fillStyle = '#F4F1EA';
+    ctx.fillRect(0,0,w,H);
+    let anyAlive = false;
+    for(const p of confetti){
+      p.vy += 0.12; p.x += p.vx; p.y += p.vy; p.rot += p.vrot;
+      if(p.y > H + 30) continue;
+      anyAlive = true;
+      ctx.save(); ctx.translate(p.x, p.y); ctx.rotate(p.rot);
+      ctx.fillStyle = p.color; ctx.fillRect(-p.size/2, -p.size/2, p.size, p.size*0.6);
+      ctx.restore();
+    }
+    if(anyAlive){ rafId = requestAnimationFrame(shredLoop); }
+    else { shredding = false; confetti = []; resize(); }
+  }
+  function onShred(){
+    if(shredding) return;
+    shredding = true;
+    drawing = false;
+    const w = container.clientWidth;
+    confetti = [];
+    for(let i=0;i<70;i++){
+      confetti.push({
+        x: Math.random()*w, y: Math.random()*H,
+        vx:(Math.random()-0.5)*6, vy:-3-Math.random()*4, rot:Math.random()*Math.PI*2,
+        vrot:(Math.random()-0.5)*0.4, size:6+Math.random()*8,
+        color: COLORS[Math.floor(Math.random()*COLORS.length)],
+      });
+    }
+    if(rafId) cancelAnimationFrame(rafId);
+    rafId = requestAnimationFrame(shredLoop);
+  }
+  shredBtn.addEventListener('click', onShred);
+
+  return function cleanup(){
+    running = false;
+    if(rafId) cancelAnimationFrame(rafId);
+    window.removeEventListener('resize', resize);
+    canvas.removeEventListener('pointerdown', handleDown);
+    canvas.removeEventListener('pointermove', handleMove);
+    canvas.removeEventListener('pointerup', handleUp);
+    canvas.removeEventListener('pointerleave', handleUp);
+    shredBtn.removeEventListener('click', onShred);
+  };
+}
+
+
 const MT_EMBEDDED_GAMES = {
   pop:      { title: 'Pop Session', mount: mtMountPopGame },
   blast:    { title: 'Blow It Up', mount: mtMountBlastGame },
   checkers: { title: 'Checkers (vs computer)', mount: mtMountCheckersGame },
   chess:    { title: 'Chess (vs computer)', mount: mtMountChessGame },
+  connect4: { title: 'Connect Four (vs computer)', mount: mtMountConnectFourGame },
+  balloons: { title: 'Balloon Pop Row', mount: mtMountBalloonGame },
+  stack:    { title: 'Stack Knockdown', mount: mtMountStackGame },
+  rip:      { title: 'Rip It Up', mount: mtMountRipGame },
+  scribble: { title: 'Scribble Rage', mount: mtMountScribbleGame },
 };
 
 function mtIsAcute(text){
