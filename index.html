@@ -12294,6 +12294,29 @@ window.addEventListener('popstate', () => {
     try{ history.pushState({mtTrap:true}, '', location.href); }catch(e){}
   }
 });
+// Entering Mind Temple (the homepage tile) or the arcade route (the pixel8 search easter
+// egg) normally pushes a fresh history entry the same way any hash link does -- that
+// entry is exactly what the swipe-back gesture consumes to leave. Intercepting just these
+// two specific link patterns and using history.replaceState() instead means entering
+// never adds a new entry in the first place, on top of the trap above. Every other link
+// on the entire site is completely untouched -- this only ever fires for hrefs matching
+// exactly '#mind-temple' or starting with '#arcade/'.
+document.addEventListener('click', (e) => {
+  const link = e.target.closest('a[href]');
+  if(!link) return;
+  const href = link.getAttribute('href');
+  if(!href || !(href === '#mind-temple' || href.indexOf('#arcade/') === 0)) return;
+  const currentHash = location.hash.replace(/^#/, '');
+  const alreadyInZone = currentHash === 'mind-temple' || currentHash.indexOf('arcade/') === 0;
+  if(alreadyInZone) return; // navigating between mind-temple/arcade pages -- let it push normally, the trap above already covers this case
+  e.preventDefault();
+  try{
+    history.replaceState(null, '', href);
+  }catch(err){
+    location.hash = href.replace(/^#/, ''); // fallback if replaceState is unavailable for any reason
+  }
+  renderRoute();
+});
 
 function renderRoute(opts){
   opts = (opts && typeof opts === 'object' && !(opts instanceof Event)) ? opts : {};
