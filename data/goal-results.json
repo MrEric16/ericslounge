@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-12T19:49:33.128542Z",
+  "generatedAt": "2026-08-12T22:23:23.613551Z",
   "results": [
     {
       "url": "https://www.goal.com/en/match/girona-vs-arsenal/__LS8d9Oc6I1wXn9g8956",
@@ -100,6 +100,19 @@
           "minute": 59
         }
       ],
+      "competition": "arsenal-friendlies"
+    },
+    {
+      "url": "https://www.goal.com/en/match/arsenal-vs-como/koR3epM8vmLqxzq2PE-jy",
+      "date": "2026-08-12",
+      "home": "Arsenal",
+      "away": "Como",
+      "htHome": 1,
+      "htAway": 1,
+      "ftHome": 1,
+      "ftAway": 1,
+      "homeGoals": [],
+      "awayGoals": [],
       "competition": "arsenal-friendlies"
     }
   ]
