@@ -7424,6 +7424,11 @@ const MT_MESSABOUT_POOL = [
   {type:'embedded', id:'rip'},
   {type:'embedded', id:'scribble'},
   {type:'embedded', id:'sand'},
+  {type:'embedded', id:'mole'},
+  {type:'embedded', id:'tug'},
+  {type:'embedded', id:'reversi'},
+  {type:'embedded', id:'zen'},
+  {type:'embedded', id:'fight'},
 ];
 function mtPoolKey(entry){ return entry.type === 'external' ? entry.url : ('embedded:' + entry.id); }
 
@@ -9924,6 +9929,799 @@ function mtMountSandGame(container){
 }
 
 
+// ============ Whack-a-Mole ============
+function mtMountMoleGame(container){
+  container.innerHTML = '<canvas class="mt-embedded-canvas"></canvas><div class="mt-embedded-hint" id="mtMoleMsg">Whack them before they duck. Score: 0</div>';
+  const canvas = container.querySelector('canvas');
+  const ctx = canvas.getContext('2d');
+  const msgEl = container.querySelector('#mtMoleMsg');
+  let running = true;
+  const dpr = Math.max(1, window.devicePixelRatio || 1);
+  const H = 280;
+  let score = 0;
+  let shake = 0;
+  let particles = [];
+
+  function resize(){
+    const w = container.clientWidth;
+    canvas.style.width = w + 'px';
+    canvas.style.height = H + 'px';
+    canvas.width = Math.floor(w * dpr);
+    canvas.height = Math.floor(H * dpr);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  const COLS = 3, ROWS = 3;
+  // Each hole: up (0=fully down .. 1=fully up), state ('down'|'rising'|'up'|'ducking'|'hit'),
+  // timer controlling how long it stays up before ducking back down on its own.
+  let holes = [];
+  function setupHoles(){
+    holes = [];
+    for(let r=0;r<ROWS;r++) for(let c=0;c<COLS;c++){
+      holes.push({ r, c, up: 0, state: 'down', timer: 0, hitFlash: 0 });
+    }
+  }
+  setupHoles();
+
+  function setMsg(){ if(msgEl) msgEl.textContent = `Whack them before they duck. Score: ${score}`; }
+
+  let spawnTimer = 0;
+  function maybeSpawn(){
+    spawnTimer--;
+    if(spawnTimer > 0) return;
+    const downHoles = holes.filter(h => h.state === 'down');
+    if(!downHoles.length) return;
+    const h = downHoles[Math.floor(Math.random()*downHoles.length)];
+    h.state = 'rising';
+    h.stayFrames = 40 + Math.floor(Math.random()*35); // gets faster/harder over a session isn't tracked here -- kept consistent and fair
+    spawnTimer = 12 + Math.floor(Math.random()*18);
+  }
+
+  let rafId = null;
+  function draw(){
+    if(!running) return;
+    const w = container.clientWidth;
+    const cellW = w / COLS, cellH = H / ROWS;
+    ctx.save();
+    if(shake > 0.3){
+      ctx.translate((Math.random()-0.5)*shake, (Math.random()-0.5)*shake);
+      shake *= 0.8;
+    } else { shake = 0; }
+    ctx.clearRect(-20,-20,w+40,H+40);
+
+    maybeSpawn();
+
+    for(const h of holes){
+      const cx = h.c*cellW + cellW/2, cy = h.r*cellH + cellH/2;
+      // Hole (dark ellipse, always visible as the "ground" reference).
+      ctx.beginPath();
+      ctx.ellipse(cx, cy + cellH*0.22, cellW*0.32, cellH*0.14, 0, 0, Math.PI*2);
+      ctx.fillStyle = '#5C5347';
+      ctx.fill();
+
+      if(h.state === 'rising'){
+        h.up = Math.min(1, h.up + 0.15);
+        if(h.up >= 1){ h.state = 'up'; h.timer = h.stayFrames; }
+      } else if(h.state === 'up'){
+        h.timer--;
+        if(h.timer <= 0) h.state = 'ducking';
+      } else if(h.state === 'ducking'){
+        h.up = Math.max(0, h.up - 0.15);
+        if(h.up <= 0) h.state = 'down';
+      } else if(h.state === 'hit'){
+        h.up = Math.max(0, h.up - 0.28);
+        h.hitFlash = Math.max(0, h.hitFlash - 0.1);
+        if(h.up <= 0){ h.state = 'down'; h.hitFlash = 0; }
+      }
+
+      if(h.up > 0){
+        const moleY = cy + cellH*0.22 - h.up*cellH*0.4;
+        const r = Math.min(cellW, cellH)*0.26;
+        ctx.beginPath();
+        ctx.arc(cx, moleY, r, 0, Math.PI*2);
+        ctx.fillStyle = h.hitFlash > 0 ? '#F5F1E6' : '#7A5230';
+        ctx.fill();
+        ctx.beginPath();
+        ctx.arc(cx-r*0.35, moleY-r*0.15, r*0.14, 0, Math.PI*2);
+        ctx.arc(cx+r*0.35, moleY-r*0.15, r*0.14, 0, Math.PI*2);
+        ctx.fillStyle = '#2a221a';
+        ctx.fill();
+      }
+    }
+
+    for(const p of particles){
+      p.vy += 0.16; p.x += p.vx; p.y += p.vy; p.life -= 0.02;
+      if(p.life <= 0) continue;
+      ctx.globalAlpha = Math.max(0, p.life);
+      ctx.fillStyle = p.color; ctx.fillRect(p.x, p.y, p.size, p.size);
+      ctx.globalAlpha = 1;
+    }
+    particles = particles.filter(p => p.life > 0);
+
+    ctx.restore();
+    rafId = requestAnimationFrame(draw);
+  }
+  rafId = requestAnimationFrame(draw);
+
+  function handlePointer(e){
+    const rect = canvas.getBoundingClientRect();
+    const w = container.clientWidth;
+    const cellW = w / COLS, cellH = H / ROWS;
+    const pts = e.changedTouches ? Array.from(e.changedTouches) : [e];
+    for(const p of pts){
+      const x = p.clientX - rect.left, y = p.clientY - rect.top;
+      const c = Math.floor(x / cellW), r = Math.floor(y / cellH);
+      const h = holes.find(hh => hh.r===r && hh.c===c);
+      if(h && (h.state === 'up' || h.state === 'rising') && h.up > 0.3){
+        h.state = 'hit';
+        h.hitFlash = 1;
+        score++;
+        setMsg();
+        shake = 6;
+        const cx = c*cellW + cellW/2, cy = r*cellH + cellH/2;
+        for(let i=0;i<14;i++){
+          const ang = Math.random()*Math.PI*2, speed = 1.5+Math.random()*4;
+          particles.push({ x:cx, y:cy, vx:Math.cos(ang)*speed, vy:Math.sin(ang)*speed-2,
+            size:3+Math.random()*4, color:'#7A5230', life:1 });
+        }
+      }
+    }
+  }
+  canvas.addEventListener('pointerdown', handlePointer);
+
+  return function cleanup(){
+    running = false;
+    if(rafId) cancelAnimationFrame(rafId);
+    window.removeEventListener('resize', resize);
+    canvas.removeEventListener('pointerdown', handlePointer);
+  };
+}
+
+
+// ============ Tug of War ============
+function mtMountTugGame(container){
+  container.innerHTML = `
+    <canvas class="mt-embedded-canvas"></canvas>
+    <div class="mt-embedded-hint" id="mtTugMsg">Tap fast to pull the rope your way!</div>
+    <div class="mt-embedded-controls"><button class="mt-embedded-btn" data-tug-reset>New round</button></div>
+  `;
+  const canvas = container.querySelector('canvas');
+  const ctx = canvas.getContext('2d');
+  const msgEl = container.querySelector('#mtTugMsg');
+  const resetBtn = container.querySelector('[data-tug-reset]');
+  let running = true;
+  const dpr = Math.max(1, window.devicePixelRatio || 1);
+  const H = 220;
+
+  function resize(){
+    const w = container.clientWidth;
+    canvas.style.width = w + 'px';
+    canvas.style.height = H + 'px';
+    canvas.width = Math.floor(w * dpr);
+    canvas.height = Math.floor(H * dpr);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    draw();
+  }
+
+  // markerPos: 0 = fully player's side (win), 1 = fully AI side (lose), 0.5 = center start.
+  let markerPos, aiPower, gameOver, aiTimer = null;
+  function setMsg(t){ if(msgEl) msgEl.textContent = t; }
+  function setup(){
+    markerPos = 0.5;
+    aiPower = 0.03 + Math.random()*0.02; // AI's own tap strength, randomized per round for variety
+    gameOver = false;
+    setMsg('Tap fast to pull the rope your way!');
+  }
+  setup();
+
+  let rafId = null;
+  function draw(){
+    if(!running) return;
+    const w = container.clientWidth;
+    ctx.clearRect(0,0,w,H);
+    const midY = H/2;
+    // Rope
+    ctx.strokeStyle = '#7A5230';
+    ctx.lineWidth = 6;
+    ctx.beginPath(); ctx.moveTo(20, midY); ctx.lineTo(w-20, midY); ctx.stroke();
+    // Center line
+    ctx.strokeStyle = 'rgba(58,42,30,0.3)';
+    ctx.lineWidth = 2;
+    ctx.beginPath(); ctx.moveTo(w/2, midY-30); ctx.lineTo(w/2, midY+30); ctx.stroke();
+    // Win zones
+    ctx.fillStyle = 'rgba(90,143,78,0.15)';
+    ctx.fillRect(20, midY-30, w*0.18, 60);
+    ctx.fillStyle = 'rgba(166,52,46,0.15)';
+    ctx.fillRect(w-20-w*0.18, midY-30, w*0.18, 60);
+    // Marker (knot)
+    const markerX = 20 + markerPos*(w-40);
+    ctx.beginPath();
+    ctx.arc(markerX, midY, 16, 0, Math.PI*2);
+    ctx.fillStyle = '#B6B235';
+    ctx.fill();
+    ctx.strokeStyle = '#3a2a1e'; ctx.lineWidth = 2; ctx.stroke();
+  }
+  // draw() is a pure one-shot render (called directly after resize/state changes); loop()
+  // is the single continuous animation driver. Keeping these separate avoids a bug where
+  // calling draw() directly would ALSO self-schedule a second parallel rAF chain on top
+  // of the one already running, silently leaking one of them past cleanup.
+  function loop(){
+    if(!running) return;
+    draw();
+    rafId = requestAnimationFrame(loop);
+  }
+
+  function checkWin(){
+    if(markerPos <= 0.05){
+      gameOver = true;
+      setMsg('You win! Tap New round to go again.');
+      return true;
+    }
+    if(markerPos >= 0.95){
+      gameOver = true;
+      setMsg('Computer wins this one. Tap New round to try again.');
+      return true;
+    }
+    return false;
+  }
+
+  function aiTick(){
+    if(!running || gameOver) return;
+    markerPos = Math.min(1, markerPos + aiPower);
+    if(!checkWin()) aiTimer = setTimeout(aiTick, 220);
+  }
+  aiTimer = setTimeout(aiTick, 220);
+
+  function handlePointer(e){
+    if(gameOver) return;
+    markerPos = Math.max(0, markerPos - 0.045);
+    checkWin();
+  }
+  canvas.addEventListener('pointerdown', handlePointer);
+
+  function onReset(){
+    if(aiTimer) clearTimeout(aiTimer);
+    setup();
+    aiTimer = setTimeout(aiTick, 220);
+  }
+  resetBtn.addEventListener('click', onReset);
+  window.addEventListener('resize', resize);
+  resize();
+  rafId = requestAnimationFrame(loop);
+
+  return function cleanup(){
+    running = false;
+    if(rafId) cancelAnimationFrame(rafId);
+    if(aiTimer) clearTimeout(aiTimer);
+    window.removeEventListener('resize', resize);
+    canvas.removeEventListener('pointerdown', handlePointer);
+    resetBtn.removeEventListener('click', onReset);
+  };
+}
+
+
+// ============ Reversi (Othello): pure rules engine ============
+const RV_SIZE = 8;
+const RV_DIRS = [[-1,-1],[-1,0],[-1,1],[0,-1],[0,1],[1,-1],[1,0],[1,1]];
+function rvInitBoard(){
+  const b = Array.from({length:8}, () => Array(8).fill(null));
+  b[3][3] = 'white'; b[3][4] = 'black';
+  b[4][3] = 'black'; b[4][4] = 'white';
+  return b;
+}
+function rvCloneBoard(b){ return b.map(row => row.slice()); }
+function rvInBounds(r,c){ return r>=0 && r<RV_SIZE && c>=0 && c<RV_SIZE; }
+function rvOpp(color){ return color === 'black' ? 'white' : 'black'; }
+// Returns the list of opponent discs that WOULD be flipped if `color` played at (r,c) --
+// empty array means the move is not legal (a legal Reversi move must flip at least one).
+function rvFlipsFor(board, r, c, color){
+  if(board[r][c] !== null) return [];
+  const opp = rvOpp(color);
+  const allFlips = [];
+  for(const [dr,dc] of RV_DIRS){
+    let rr=r+dr, cc=c+dc;
+    const line = [];
+    while(rvInBounds(rr,cc) && board[rr][cc] === opp){
+      line.push([rr,cc]);
+      rr+=dr; cc+=dc;
+    }
+    if(line.length && rvInBounds(rr,cc) && board[rr][cc] === color){
+      allFlips.push(...line);
+    }
+  }
+  return allFlips;
+}
+function rvLegalMoves(board, color){
+  const out = [];
+  for(let r=0;r<8;r++) for(let c=0;c<8;c++){
+    const flips = rvFlipsFor(board, r, c, color);
+    if(flips.length) out.push({r, c, flips});
+  }
+  return out;
+}
+function rvApplyMove(board, r, c, color){
+  const flips = rvFlipsFor(board, r, c, color);
+  const nb = rvCloneBoard(board);
+  nb[r][c] = color;
+  for(const [fr,fc] of flips) nb[fr][fc] = color;
+  return nb;
+}
+function rvCount(board, color){
+  let n=0; for(let r=0;r<8;r++) for(let c=0;c<8;c++) if(board[r][c]===color) n++;
+  return n;
+}
+function rvIsFull(board){
+  for(let r=0;r<8;r++) for(let c=0;c<8;c++) if(board[r][c]===null) return false;
+  return true;
+}
+// 'ongoing' | 'gameover' -- Reversi ends when NEITHER side has a legal move (not
+// necessarily when the board is full -- a full board is just the common case).
+function rvGameStatus(board){
+  if(rvLegalMoves(board,'black').length || rvLegalMoves(board,'white').length) return 'ongoing';
+  return 'gameover';
+}
+
+// ---- Simple AI: positional weighting (corners are hugely valuable, edges good, squares
+// adjacent to corners are actively bad to take early since they let the opponent take the
+// corner), plus 1-ply lookahead on mobility (how many replies the opponent would have) so
+// it doesn't just grab the move with the fattest immediate flip count -- greedy
+// disc-maximizing is a well-known weak strategy in Reversi. ----
+const RV_WEIGHTS = [
+  [100,-20, 10,  5,  5, 10,-20,100],
+  [-20,-50, -2, -2, -2, -2,-50,-20],
+  [ 10, -2,  1,  1,  1,  1, -2, 10],
+  [  5, -2,  1,  1,  1,  1, -2,  5],
+  [  5, -2,  1,  1,  1,  1, -2,  5],
+  [ 10, -2,  1,  1,  1,  1, -2, 10],
+  [-20,-50, -2, -2, -2, -2,-50,-20],
+  [100,-20, 10,  5,  5, 10,-20,100],
+];
+function rvScoreMove(board, move, color){
+  const opp = rvOpp(color);
+  const after = rvApplyMove(board, move.r, move.c, color);
+  let posScore = 0;
+  for(let r=0;r<8;r++) for(let c=0;c<8;c++){
+    if(after[r][c]===color) posScore += RV_WEIGHTS[r][c];
+    else if(after[r][c]===opp) posScore -= RV_WEIGHTS[r][c];
+  }
+  // Mobility: fewer replies available to the opponent afterward is good for us.
+  const oppReplies = rvLegalMoves(after, opp).length;
+  return posScore - oppReplies*2;
+}
+function rvPickAiMove(board, color){
+  const moves = rvLegalMoves(board, color);
+  if(!moves.length) return null;
+  let best = moves[0], bestScore = -Infinity;
+  for(const m of moves){
+    const score = rvScoreMove(board, m, color) + Math.random()*0.5;
+    if(score > bestScore){ bestScore = score; best = m; }
+  }
+  return best;
+}
+
+function mtMountReversiGame(container){
+  container.innerHTML = `
+    <canvas class="mt-embedded-canvas mt-checkers-canvas"></canvas>
+    <div class="mt-embedded-hint" id="mtRvMsg">Your move (black). Tap a highlighted square.</div>
+    <div class="mt-embedded-controls"><button class="mt-embedded-btn" data-rv-reset>New game</button></div>
+  `;
+  const canvas = container.querySelector('canvas');
+  const ctx = canvas.getContext('2d');
+  const msgEl = container.querySelector('#mtRvMsg');
+  const resetBtn = container.querySelector('[data-rv-reset]');
+  let running = true;
+  const dpr = Math.max(1, window.devicePixelRatio || 1);
+  let boardPx = 0;
+
+  let board, turn, gameOver, aiThinking, aiTimer = null;
+  function setMsg(t){ if(msgEl) msgEl.textContent = t; }
+  function setup(){
+    board = rvInitBoard(); turn = 'black'; gameOver = false; aiThinking = false;
+    setMsg('Your move (black). Tap a highlighted square.');
+  }
+  setup();
+
+  function resize(){
+    const w = Math.min(container.clientWidth, 340);
+    boardPx = w;
+    canvas.style.width = w + 'px';
+    canvas.style.height = w + 'px';
+    canvas.width = Math.floor(w * dpr);
+    canvas.height = Math.floor(w * dpr);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    draw();
+  }
+
+  function draw(){
+    if(!running || !boardPx) return;
+    const s = boardPx / RV_SIZE;
+    ctx.fillStyle = '#3E7F5A';
+    ctx.fillRect(0,0,boardPx,boardPx);
+    ctx.strokeStyle = 'rgba(58,42,30,0.3)'; ctx.lineWidth = 1;
+    for(let i=0;i<=8;i++){
+      ctx.beginPath(); ctx.moveTo(i*s,0); ctx.lineTo(i*s,boardPx); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(0,i*s); ctx.lineTo(boardPx,i*s); ctx.stroke();
+    }
+    if(!gameOver && turn === 'black' && !aiThinking){
+      const legal = rvLegalMoves(board, 'black');
+      ctx.fillStyle = 'rgba(182,178,53,0.4)';
+      for(const m of legal) ctx.fillRect(m.c*s, m.r*s, s, s);
+    }
+    for(let r=0;r<8;r++) for(let c=0;c<8;c++){
+      if(!board[r][c]) continue;
+      const cx = c*s+s/2, cy = r*s+s/2;
+      ctx.beginPath();
+      ctx.arc(cx, cy, s*0.38, 0, Math.PI*2);
+      ctx.fillStyle = board[r][c] === 'black' ? '#1a1a1a' : '#F5F1E6';
+      ctx.fill();
+      ctx.strokeStyle = board[r][c] === 'black' ? '#000' : '#3a2a1e';
+      ctx.lineWidth = 1.5;
+      ctx.stroke();
+    }
+  }
+
+  function checkGameOver(){
+    if(rvGameStatus(board) === 'gameover'){
+      gameOver = true;
+      const b = rvCount(board,'black'), w = rvCount(board,'white');
+      if(b>w) setMsg(`You win, ${b}-${w}! Tap New game to play again.`);
+      else if(w>b) setMsg(`Computer wins, ${w}-${b}. Tap New game to play again.`);
+      else setMsg(`Draw, ${b}-${w}. Tap New game to play again.`);
+      return true;
+    }
+    return false;
+  }
+
+  function afterMove(){
+    draw();
+    if(checkGameOver()) return;
+    const nextColor = rvOpp(turn);
+    const nextHasMoves = rvLegalMoves(board, nextColor).length > 0;
+    if(!nextHasMoves){
+      // Next player has no legal move -- they pass, turn stays with current player again.
+      setMsg((turn==='black' ? 'Computer' : 'You') + ' have no legal move -- turn passes back.');
+      if(turn === 'black'){
+        turn = 'black';
+        aiThinking = false;
+      } else {
+        turn = 'white';
+        aiThinking = true;
+        aiTimer = setTimeout(runAiTurn, 500);
+      }
+      return;
+    }
+    turn = nextColor;
+    if(turn === 'white'){
+      aiThinking = true;
+      setMsg('Computer is thinking...');
+      aiTimer = setTimeout(runAiTurn, 500);
+    } else {
+      aiThinking = false;
+      setMsg('Your move (black).');
+    }
+  }
+
+  function handlePointer(e){
+    if(gameOver || turn !== 'black' || aiThinking) return;
+    const rect = canvas.getBoundingClientRect();
+    const p = e.changedTouches ? e.changedTouches[0] : e;
+    const s = boardPx / RV_SIZE;
+    const c = Math.floor((p.clientX - rect.left) / s);
+    const r = Math.floor((p.clientY - rect.top) / s);
+    if(r<0||r>=8||c<0||c>=8) return;
+    const flips = rvFlipsFor(board, r, c, 'black');
+    if(!flips.length) return;
+    board = rvApplyMove(board, r, c, 'black');
+    afterMove();
+  }
+  canvas.addEventListener('pointerdown', handlePointer);
+
+  function runAiTurn(){
+    if(!running || gameOver) return;
+    const move = rvPickAiMove(board, 'white');
+    if(!move){ checkGameOver(); return; }
+    board = rvApplyMove(board, move.r, move.c, 'white');
+    afterMove();
+  }
+
+  function onReset(){ setup(); resize(); }
+  resetBtn.addEventListener('click', onReset);
+  window.addEventListener('resize', resize);
+  resize();
+
+  return function cleanup(){
+    running = false;
+    if(aiTimer) clearTimeout(aiTimer);
+    window.removeEventListener('resize', resize);
+    canvas.removeEventListener('pointerdown', handlePointer);
+    resetBtn.removeEventListener('click', onReset);
+  };
+}
+
+
+// ============ Zen Garden ============
+function mtMountZenGame(container){
+  container.innerHTML = '<canvas class="mt-embedded-canvas"></canvas><div class="mt-embedded-controls"><button class="mt-embedded-btn" data-zen-reset>Smooth it over</button></div>';
+  const canvas = container.querySelector('canvas');
+  const ctx = canvas.getContext('2d');
+  const resetBtn = container.querySelector('[data-zen-reset]');
+  let running = true;
+  const dpr = Math.max(1, window.devicePixelRatio || 1);
+  const H = 260;
+  const SAND = '#E8D9B5';
+  const LINE_LIGHT = 'rgba(255,255,255,0.35)';
+  const LINE_DARK = 'rgba(120,95,50,0.28)';
+
+  function resize(){
+    const w = container.clientWidth;
+    canvas.style.width = w + 'px';
+    canvas.style.height = H + 'px';
+    canvas.width = Math.floor(w * dpr);
+    canvas.height = Math.floor(H * dpr);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    draw();
+  }
+
+  // Each rake stroke is a smoothed list of {x,y} points -- purely additive, no goal, no
+  // score, no win state. It is entirely fine (encouraged, even) for a student to just sit
+  // there dragging slow curves with no destination in mind.
+  let strokes = [];
+  let currentStroke = null;
+
+  function drawBaseTexture(w){
+    ctx.fillStyle = SAND;
+    ctx.fillRect(0,0,w,H);
+    // Rows of gentle wavy rake lines across the untouched sand.
+    const rowGap = 9;
+    for(let y=rowGap; y<H; y+=rowGap){
+      ctx.beginPath();
+      for(let x=0; x<=w; x+=6){
+        const yy = y + Math.sin(x*0.05 + y*0.3)*1.5;
+        if(x===0) ctx.moveTo(x,yy); else ctx.lineTo(x,yy);
+      }
+      ctx.strokeStyle = LINE_DARK;
+      ctx.lineWidth = 1;
+      ctx.stroke();
+    }
+  }
+  function drawStroke(stroke){
+    if(stroke.length < 2) return;
+    // A raked groove: a wide soft dark band (the furrow) with a bright highlight line
+    // along one edge, giving a simple carved-sand look without needing real shading.
+    ctx.beginPath();
+    ctx.moveTo(stroke[0].x, stroke[0].y);
+    for(let i=1;i<stroke.length;i++) ctx.lineTo(stroke[i].x, stroke[i].y);
+    ctx.strokeStyle = 'rgba(120,95,50,0.35)';
+    ctx.lineWidth = 10;
+    ctx.lineCap = 'round';
+    ctx.lineJoin = 'round';
+    ctx.stroke();
+    ctx.strokeStyle = LINE_LIGHT;
+    ctx.lineWidth = 3;
+    ctx.stroke();
+  }
+
+  function draw(){
+    if(!running) return;
+    const w = container.clientWidth;
+    drawBaseTexture(w);
+    for(const s of strokes) drawStroke(s);
+    if(currentStroke) drawStroke(currentStroke);
+  }
+
+  function pointOf(e){
+    const rect = canvas.getBoundingClientRect();
+    const p = e.changedTouches ? e.changedTouches[0] : e;
+    return { x: p.clientX - rect.left, y: p.clientY - rect.top };
+  }
+  function handleDown(e){
+    e.preventDefault();
+    currentStroke = [pointOf(e)];
+    draw();
+  }
+  function handleMove(e){
+    if(!currentStroke) return;
+    e.preventDefault();
+    currentStroke.push(pointOf(e));
+    draw();
+  }
+  function handleUp(){
+    if(currentStroke && currentStroke.length > 1) strokes.push(currentStroke);
+    currentStroke = null;
+    draw();
+  }
+  canvas.addEventListener('pointerdown', handleDown);
+  canvas.addEventListener('pointermove', handleMove);
+  canvas.addEventListener('pointerup', handleUp);
+  canvas.addEventListener('pointerleave', handleUp);
+
+  function onReset(){ strokes = []; currentStroke = null; draw(); }
+  resetBtn.addEventListener('click', onReset);
+  window.addEventListener('resize', resize);
+  resize();
+
+  return function cleanup(){
+    running = false;
+    window.removeEventListener('resize', resize);
+    canvas.removeEventListener('pointerdown', handleDown);
+    canvas.removeEventListener('pointermove', handleMove);
+    canvas.removeEventListener('pointerup', handleUp);
+    canvas.removeEventListener('pointerleave', handleUp);
+    resetBtn.removeEventListener('click', onReset);
+  };
+}
+
+
+// ============ Rumble (stick-figure fighting game) ============
+// Rigged by design, per direct instruction: the player's health has a hard floor it can
+// never cross, so the player can never actually lose -- only ever come close. The AI's
+// health has no such floor, so sustained tapping always eventually finishes it off. This
+// is an explicit, intentional design choice for this specific game, not a difficulty bug.
+function mtMountFightGame(container){
+  container.innerHTML = `
+    <canvas class="mt-embedded-canvas"></canvas>
+    <div class="mt-embedded-hint" id="mtFightMsg">Tap anywhere to attack!</div>
+    <div class="mt-embedded-controls"><button class="mt-embedded-btn" data-fight-reset>New fight</button></div>
+  `;
+  const canvas = container.querySelector('canvas');
+  const ctx = canvas.getContext('2d');
+  const msgEl = container.querySelector('#mtFightMsg');
+  const resetBtn = container.querySelector('[data-fight-reset]');
+  let running = true;
+  const dpr = Math.max(1, window.devicePixelRatio || 1);
+  const H = 240;
+  const MIN_PLAYER_HEALTH = 8; // the floor -- player health can never drop below this
+
+  let playerHealth, aiHealth, gameOver, aiTimer = null;
+  let playerPunch = 0, aiPunch = 0, shake = 0;
+  let particles = [];
+
+  function setMsg(t){ if(msgEl) msgEl.textContent = t; }
+  function setup(){
+    playerHealth = 100; aiHealth = 100; gameOver = false;
+    playerPunch = 0; aiPunch = 0; shake = 0; particles = [];
+    setMsg('Tap anywhere to attack!');
+  }
+  setup();
+
+  function resize(){
+    const w = container.clientWidth;
+    canvas.style.width = w + 'px';
+    canvas.style.height = H + 'px';
+    canvas.width = Math.floor(w * dpr);
+    canvas.height = Math.floor(H * dpr);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  function burst(x, y, color){
+    for(let i=0;i<12;i++){
+      const ang = Math.random()*Math.PI*2, speed = 1.5+Math.random()*4;
+      particles.push({ x, y, vx:Math.cos(ang)*speed, vy:Math.sin(ang)*speed-1.5,
+        size:3+Math.random()*4, color, life:1 });
+    }
+  }
+  function drawStickFigure(cx, cy, punch, facingRight, color){
+    const headR = 14, bodyLen = 34;
+    ctx.strokeStyle = color; ctx.lineWidth = 4; ctx.lineCap = 'round';
+    // head
+    ctx.beginPath(); ctx.arc(cx, cy-bodyLen-headR, headR, 0, Math.PI*2); ctx.stroke();
+    // body
+    ctx.beginPath(); ctx.moveTo(cx, cy-bodyLen); ctx.lineTo(cx, cy); ctx.stroke();
+    // legs
+    ctx.beginPath(); ctx.moveTo(cx, cy); ctx.lineTo(cx-12, cy+28); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(cx, cy); ctx.lineTo(cx+12, cy+28); ctx.stroke();
+    // back arm (static)
+    ctx.beginPath(); ctx.moveTo(cx, cy-bodyLen+8); ctx.lineTo(cx - (facingRight?10:-24), cy-bodyLen+22); ctx.stroke();
+    // punching arm -- extends outward toward the opponent as `punch` goes 0 -> 1 -> 0
+    const reach = Math.sin(Math.min(1,punch) * Math.PI) * 26;
+    const dir = facingRight ? 1 : -1;
+    ctx.beginPath();
+    ctx.moveTo(cx, cy-bodyLen+8);
+    ctx.lineTo(cx + dir*(10+reach), cy-bodyLen+14);
+    ctx.stroke();
+  }
+  function drawHealthBar(x, y, w, h, ratio, color){
+    ctx.fillStyle = 'rgba(58,42,30,0.15)';
+    ctx.fillRect(x, y, w, h);
+    ctx.fillStyle = color;
+    ctx.fillRect(x, y, w*Math.max(0,ratio), h);
+    ctx.strokeStyle = 'rgba(58,42,30,0.4)'; ctx.lineWidth = 1.5;
+    ctx.strokeRect(x, y, w, h);
+  }
+
+  let rafId = null;
+  function loop(){
+    if(!running) return;
+    const w = container.clientWidth;
+    ctx.save();
+    if(shake > 0.3){
+      ctx.translate((Math.random()-0.5)*shake, (Math.random()-0.5)*shake);
+      shake *= 0.8;
+    } else { shake = 0; }
+    ctx.clearRect(-20,-20,w+40,H+40);
+
+    drawHealthBar(16, 14, w*0.38, 12, playerHealth/100, '#5A8F4E');
+    drawHealthBar(w-16-w*0.38, 14, w*0.38, 12, aiHealth/100, '#A6342E');
+
+    const groundY = H*0.72;
+    if(playerPunch > 0) playerPunch = Math.max(0, playerPunch - 0.08);
+    if(aiPunch > 0) aiPunch = Math.max(0, aiPunch - 0.08);
+    drawStickFigure(w*0.28, groundY, playerPunch, true, '#3a2a1e');
+    drawStickFigure(w*0.72, groundY, aiPunch, false, '#7A2E35');
+
+    for(const p of particles){
+      p.vy += 0.16; p.x += p.vx; p.y += p.vy; p.life -= 0.025;
+      if(p.life <= 0) continue;
+      ctx.globalAlpha = Math.max(0, p.life);
+      ctx.fillStyle = p.color; ctx.fillRect(p.x, p.y, p.size, p.size);
+      ctx.globalAlpha = 1;
+    }
+    particles = particles.filter(p => p.life > 0);
+
+    ctx.restore();
+    rafId = requestAnimationFrame(loop);
+  }
+  rafId = requestAnimationFrame(loop);
+
+  function checkOutcome(){
+    if(aiHealth <= 0){
+      gameOver = true;
+      setMsg('You win! Tap New fight to go again.');
+      if(aiTimer){ clearTimeout(aiTimer); aiTimer = null; }
+      return true;
+    }
+    return false;
+  }
+
+  function handlePointer(e){
+    if(gameOver) return;
+    const w = container.clientWidth;
+    const dmg = 5 + Math.random()*5;
+    aiHealth = Math.max(0, aiHealth - dmg);
+    playerPunch = 1;
+    shake = 5;
+    burst(w*0.68, H*0.5, '#A6342E');
+    checkOutcome();
+  }
+  canvas.addEventListener('pointerdown', handlePointer);
+
+  function aiAttack(){
+    if(!running || gameOver) return;
+    const w = container.clientWidth;
+    const dmg = 3 + Math.random()*4;
+    // The floor: player health can never drop below MIN_PLAYER_HEALTH, however much
+    // damage this hit would otherwise deal. This is what guarantees the player can never
+    // actually lose the fight, only come close to it.
+    playerHealth = Math.max(MIN_PLAYER_HEALTH, playerHealth - dmg);
+    aiPunch = 1;
+    shake = 4;
+    burst(w*0.32, H*0.5, '#5A8F4E');
+    aiTimer = setTimeout(aiAttack, 700 + Math.random()*500);
+  }
+  aiTimer = setTimeout(aiAttack, 900);
+
+  function onReset(){
+    if(aiTimer) clearTimeout(aiTimer);
+    setup();
+    aiTimer = setTimeout(aiAttack, 900);
+  }
+  resetBtn.addEventListener('click', onReset);
+
+  return function cleanup(){
+    running = false;
+    if(rafId) cancelAnimationFrame(rafId);
+    if(aiTimer) clearTimeout(aiTimer);
+    window.removeEventListener('resize', resize);
+    canvas.removeEventListener('pointerdown', handlePointer);
+    resetBtn.removeEventListener('click', onReset);
+  };
+}
+
+
 const MT_EMBEDDED_GAMES = {
   pop:      { title: 'Pop Session', mount: mtMountPopGame },
   blast:    { title: 'Blow It Up', mount: mtMountBlastGame },
@@ -9934,6 +10732,11 @@ const MT_EMBEDDED_GAMES = {
   stack:    { title: 'Stack Knockdown', mount: mtMountStackGame },
   rip:      { title: 'Rip It Up', mount: mtMountRipGame },
   scribble: { title: 'Scribble Rage', mount: mtMountScribbleGame },
+  mole:     { title: 'Whack-a-Mole', mount: mtMountMoleGame },
+  tug:      { title: 'Tug of War (vs computer)', mount: mtMountTugGame },
+  reversi:  { title: 'Reversi (vs computer)', mount: mtMountReversiGame },
+  zen:      { title: 'Zen Garden', mount: mtMountZenGame },
+  fight:    { title: 'Rumble', mount: mtMountFightGame },
   sand:     { title: 'Sandbox', mount: mtMountSandGame },
 };
 
