@@ -118,6 +118,8 @@ EXCLUDE_KEYWORDS_WORD_BOUNDARY = [
 VENUE_BLACKLIST = [
     "terrace100",
     ("cultura", "рашидова"),  # Cultura, просп. Шарафа Рашидова, 40 -- confirmed bar, reported 2026-08-11
+    "steinbrau",  # Steinbrau Restaurant -- "Brau" is German for "brew", a beer-hall/brewery-restaurant. Reported 2026-08-13. No collision risk as a bare substring.
+    "blablabar",  # BlaBlaBar -- literally has "bar" in the name. Reported 2026-08-13. No collision risk as a bare substring.
 ]
 def is_blacklisted_venue(venue):
     v = unicodedata.normalize("NFKD", (venue or "")).lower()
