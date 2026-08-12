@@ -1324,6 +1324,16 @@
     background:none; color:var(--misc-mindtemple); font-size:18px; line-height:1; cursor:pointer;
     display:inline-flex; align-items:center; justify-content:center;
   }
+  .mt-sand-canvas{ touch-action:none; }
+  .mt-sand-toolbar{
+    display:flex; flex-wrap:wrap; gap:6px; justify-content:center; margin-top:10px;
+  }
+  .mt-sand-btn{
+    border:2px solid var(--misc-mindtemple); background:none; border-radius:999px;
+    padding:6px 12px; font-family:'Nunito', sans-serif; font-weight:800; font-size:12px;
+    color:var(--misc-mindtemple); cursor:pointer;
+  }
+  .mt-sand-btn.active{ background:var(--misc-mindtemple); color:#fff; }
 
   .explore-tile{
     background:var(--coral);
@@ -7413,6 +7423,7 @@ const MT_MESSABOUT_POOL = [
   {type:'embedded', id:'stack'},
   {type:'embedded', id:'rip'},
   {type:'embedded', id:'scribble'},
+  {type:'embedded', id:'sand'},
 ];
 function mtPoolKey(entry){ return entry.type === 'external' ? entry.url : ('embedded:' + entry.id); }
 
@@ -9365,6 +9376,262 @@ function mtMountScribbleGame(container){
 }
 
 
+// ============ Falling Sand: pure simulation logic ============
+// Materials: 0=empty 1=sand 2=water 3=wall 4=wood 5=fire 6=smoke
+const SAND_EMPTY=0, SAND_SAND=1, SAND_WATER=2, SAND_WALL=3, SAND_WOOD=4, SAND_FIRE=5, SAND_SMOKE=6;
+
+function sandCreateGrid(cols, rows){
+  return { cols, rows, mat: new Uint8Array(cols*rows), life: new Uint8Array(cols*rows) };
+}
+function sandIdx(grid, c, r){ return r*grid.cols + c; }
+function sandInBounds(grid, c, r){ return c>=0 && c<grid.cols && r>=0 && r<grid.rows; }
+function sandGet(grid, c, r){ return sandInBounds(grid,c,r) ? grid.mat[sandIdx(grid,c,r)] : SAND_WALL; }
+function sandSet(grid, c, r, mat, life){
+  if(!sandInBounds(grid,c,r)) return;
+  const i = sandIdx(grid,c,r);
+  grid.mat[i] = mat;
+  grid.life[i] = life||0;
+}
+function sandSwap(grid, c1, r1, c2, r2){
+  const i1 = sandIdx(grid,c1,r1), i2 = sandIdx(grid,c2,r2);
+  const m = grid.mat[i1], l = grid.life[i1];
+  grid.mat[i1] = grid.mat[i2]; grid.life[i1] = grid.life[i2];
+  grid.mat[i2] = m; grid.life[i2] = l;
+}
+
+// One full simulation step. rng is an injectable function (defaults to Math.random) so
+// behavior can be made deterministic for testing.
+function sandStep(grid, rng){
+  rng = rng || Math.random;
+  const moved = new Uint8Array(grid.cols*grid.rows);
+  // Bottom-to-top so a particle that falls doesn't get re-processed lower down in the
+  // same tick; alternate left/right sweep direction per row to avoid a directional bias
+  // in how sand/water piles or spreads.
+  for(let r=grid.rows-1; r>=0; r--){
+    const leftToRight = (r % 2 === 0);
+    for(let ci=0; ci<grid.cols; ci++){
+      const c = leftToRight ? ci : (grid.cols-1-ci);
+      const i = sandIdx(grid,c,r);
+      if(moved[i]) continue;
+      const m = grid.mat[i];
+      if(m === SAND_EMPTY || m === SAND_WALL) continue;
+
+      if(m === SAND_SAND){
+        if(sandGet(grid,c,r+1)===SAND_EMPTY || sandGet(grid,c,r+1)===SAND_WATER){
+          sandSwap(grid,c,r,c,r+1); moved[sandIdx(grid,c,r+1)]=1; continue;
+        }
+        const dirs = rng()<0.5 ? [-1,1] : [1,-1];
+        let didMove = false;
+        for(const dc of dirs){
+          if(sandGet(grid,c+dc,r+1)===SAND_EMPTY || sandGet(grid,c+dc,r+1)===SAND_WATER){
+            sandSwap(grid,c,r,c+dc,r+1); moved[sandIdx(grid,c+dc,r+1)]=1; didMove=true; break;
+          }
+        }
+        continue;
+      }
+
+      if(m === SAND_WATER){
+        if(sandGet(grid,c,r+1)===SAND_EMPTY){
+          sandSwap(grid,c,r,c,r+1); moved[sandIdx(grid,c,r+1)]=1; continue;
+        }
+        const dirs = rng()<0.5 ? [-1,1] : [1,-1];
+        let didMove = false;
+        for(const dc of dirs){
+          if(sandGet(grid,c+dc,r+1)===SAND_EMPTY){
+            sandSwap(grid,c,r,c+dc,r+1); moved[sandIdx(grid,c+dc,r+1)]=1; didMove=true; break;
+          }
+        }
+        if(didMove) continue;
+        for(const dc of dirs){
+          if(sandGet(grid,c+dc,r)===SAND_EMPTY){
+            sandSwap(grid,c,r,c+dc,r); moved[sandIdx(grid,c+dc,r)]=1; break;
+          }
+        }
+        continue;
+      }
+
+      if(m === SAND_FIRE){
+        grid.life[i]--;
+        if(grid.life[i] <= 0){ grid.mat[i]=SAND_SMOKE; grid.life[i]=40+Math.floor(rng()*20); moved[i]=1; continue; }
+        // Try to ignite adjacent wood.
+        const neigh = [[c-1,r],[c+1,r],[c,r-1],[c,r+1]];
+        for(const [nc,nr] of neigh){
+          if(sandGet(grid,nc,nr)===SAND_WOOD && rng()<0.12){
+            sandSet(grid,nc,nr,SAND_FIRE,60+Math.floor(rng()*30));
+          }
+        }
+        continue;
+      }
+
+      if(m === SAND_SMOKE){
+        grid.life[i]--;
+        if(grid.life[i] <= 0){ grid.mat[i]=SAND_EMPTY; grid.life[i]=0; moved[i]=1; continue; }
+        if(sandGet(grid,c,r-1)===SAND_EMPTY){
+          sandSwap(grid,c,r,c,r-1); moved[sandIdx(grid,c,r-1)]=1; continue;
+        }
+        const dirs = rng()<0.5 ? [-1,1] : [1,-1];
+        for(const dc of dirs){
+          if(sandGet(grid,c+dc,r-1)===SAND_EMPTY){
+            sandSwap(grid,c,r,c+dc,r-1); moved[sandIdx(grid,c+dc,r-1)]=1; break;
+          }
+        }
+        continue;
+      }
+      // SAND_WOOD: static, does nothing on its own -- only reacts via fire's ignite check above.
+    }
+  }
+}
+
+const SAND_COLORS = {
+  [SAND_SAND]:  '#D9B26A',
+  [SAND_WATER]: '#3E7FB0',
+  [SAND_WALL]:  '#5C5347',
+  [SAND_WOOD]:  '#7A5230',
+  [SAND_FIRE]:  '#E8622C',
+  [SAND_SMOKE]: '#9B9488',
+};
+const SAND_MATERIALS = [
+  { id: SAND_SAND,  label: 'Sand' },
+  { id: SAND_WATER, label: 'Water' },
+  { id: SAND_FIRE,  label: 'Fire' },
+  { id: SAND_WOOD,  label: 'Wood' },
+  { id: SAND_WALL,  label: 'Wall' },
+  { id: SAND_EMPTY, label: 'Erase' },
+];
+
+function mtMountSandGame(container){
+  const toolbarHtml = SAND_MATERIALS.map(m =>
+    `<button class="mt-sand-btn" data-sand-mat="${m.id}">${m.label}</button>`
+  ).join('');
+  container.innerHTML = `
+    <canvas class="mt-embedded-canvas mt-sand-canvas"></canvas>
+    <div class="mt-sand-toolbar">${toolbarHtml}</div>
+    <div class="mt-embedded-controls"><button class="mt-embedded-btn" data-sand-clear>Clear</button></div>
+  `;
+  const canvas = container.querySelector('canvas');
+  const ctx = canvas.getContext('2d');
+  const clearBtn = container.querySelector('[data-sand-clear]');
+  const toolButtons = Array.from(container.querySelectorAll('.mt-sand-btn'));
+  let running = true;
+  const dpr = Math.max(1, window.devicePixelRatio || 1);
+  const H = 260;
+  const CELL = 4;
+  let selectedMat = SAND_SAND;
+  let grid = null;
+  let painting = false;
+  let lastPaint = null;
+
+  function updateToolbarUI(){
+    toolButtons.forEach(b => {
+      b.classList.toggle('active', parseInt(b.dataset.sandMat,10) === selectedMat);
+    });
+  }
+  const toolButtonHandlers = toolButtons.map(b => {
+    const handler = () => { selectedMat = parseInt(b.dataset.sandMat,10); updateToolbarUI(); };
+    b.addEventListener('click', handler);
+    return handler;
+  });
+  updateToolbarUI();
+
+  function resize(){
+    const w = container.clientWidth;
+    canvas.style.width = w + 'px';
+    canvas.style.height = H + 'px';
+    canvas.width = Math.floor(w * dpr);
+    canvas.height = Math.floor(H * dpr);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    const cols = Math.floor(w / CELL), rows = Math.floor(H / CELL);
+    grid = sandCreateGrid(cols, rows);
+    for(let c=0;c<cols;c++) sandSet(grid, c, rows-1, SAND_WALL); // floor to catch everything
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  function paintAt(px, py, mat){
+    if(!grid) return;
+    const c = Math.floor(px / CELL), r = Math.floor(py / CELL);
+    const radius = mat === SAND_EMPTY ? 3 : 1;
+    for(let dr=-radius; dr<=radius; dr++){
+      for(let dc=-radius; dc<=radius; dc++){
+        if(dc*dc+dr*dr > radius*radius+0.5) continue;
+        const life = mat === SAND_FIRE ? (60+Math.floor(Math.random()*30)) : 0;
+        sandSet(grid, c+dc, r+dr, mat, life);
+      }
+    }
+  }
+
+  function handleDown(e){
+    painting = true;
+    const rect = canvas.getBoundingClientRect();
+    const p = e.changedTouches ? e.changedTouches[0] : e;
+    lastPaint = { x: p.clientX - rect.left, y: p.clientY - rect.top };
+    paintAt(lastPaint.x, lastPaint.y, selectedMat);
+  }
+  function handleMove(e){
+    if(!painting) return;
+    const rect = canvas.getBoundingClientRect();
+    const p = e.changedTouches ? e.changedTouches[0] : e;
+    const x = p.clientX - rect.left, y = p.clientY - rect.top;
+    // Paint along the path between the last point and this one so a fast swipe doesn't
+    // leave gaps between sample points.
+    if(lastPaint){
+      const dx = x - lastPaint.x, dy = y - lastPaint.y;
+      const dist = Math.sqrt(dx*dx+dy*dy);
+      const steps = Math.max(1, Math.floor(dist / (CELL*0.8)));
+      for(let i=0;i<=steps;i++) paintAt(lastPaint.x + dx*(i/steps), lastPaint.y + dy*(i/steps), selectedMat);
+    } else {
+      paintAt(x, y, selectedMat);
+    }
+    lastPaint = { x, y };
+  }
+  function handleUp(){ painting = false; lastPaint = null; }
+  canvas.addEventListener('pointerdown', handleDown);
+  canvas.addEventListener('pointermove', handleMove);
+  canvas.addEventListener('pointerup', handleUp);
+  canvas.addEventListener('pointerleave', handleUp);
+
+  let rafId = null;
+  let frameCount = 0;
+  function loop(){
+    if(!running) return;
+    frameCount++;
+    // Simulation runs every other frame (defensive throttle for slower phones -- the
+    // logic itself measured well under a 1ms/step budget even at full resolution, but
+    // this keeps real device performance comfortable regardless).
+    if(grid && frameCount % 2 === 0) sandStep(grid);
+    if(grid){
+      const w = container.clientWidth;
+      ctx.clearRect(0,0,w,H);
+      for(let r=0;r<grid.rows;r++){
+        for(let c=0;c<grid.cols;c++){
+          const m = sandGet(grid,c,r);
+          if(m === SAND_EMPTY) continue;
+          ctx.fillStyle = SAND_COLORS[m] || '#999';
+          ctx.fillRect(c*CELL, r*CELL, CELL, CELL);
+        }
+      }
+    }
+    rafId = requestAnimationFrame(loop);
+  }
+  rafId = requestAnimationFrame(loop);
+
+  function onClear(){ resize(); }
+  clearBtn.addEventListener('click', onClear);
+
+  return function cleanup(){
+    running = false;
+    if(rafId) cancelAnimationFrame(rafId);
+    window.removeEventListener('resize', resize);
+    canvas.removeEventListener('pointerdown', handleDown);
+    canvas.removeEventListener('pointermove', handleMove);
+    canvas.removeEventListener('pointerup', handleUp);
+    canvas.removeEventListener('pointerleave', handleUp);
+    clearBtn.removeEventListener('click', onClear);
+    toolButtons.forEach((b,i) => b.removeEventListener('click', toolButtonHandlers[i]));
+  };
+}
+
+
 const MT_EMBEDDED_GAMES = {
   pop:      { title: 'Pop Session', mount: mtMountPopGame },
   blast:    { title: 'Blow It Up', mount: mtMountBlastGame },
@@ -9375,6 +9642,7 @@ const MT_EMBEDDED_GAMES = {
   stack:    { title: 'Stack Knockdown', mount: mtMountStackGame },
   rip:      { title: 'Rip It Up', mount: mtMountRipGame },
   scribble: { title: 'Scribble Rage', mount: mtMountScribbleGame },
+  sand:     { title: 'Sandbox', mount: mtMountSandGame },
 };
 
 function mtIsAcute(text){
