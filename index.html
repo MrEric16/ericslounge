@@ -952,7 +952,7 @@
   .wotd-def{margin-top:6px; font-size:15px; line-height:1.5; font-weight:600;}
   .wotd-example{margin-top:8px; font-size:14px; line-height:1.5; font-style:italic; opacity:.85;}
 
-  .carousel-wrap{ position:relative; min-height:198px; cursor:pointer; user-select:none; }
+  .carousel-wrap{ position:relative; min-height:198px; cursor:pointer; user-select:none; touch-action:pan-y; }
   .carousel-slide{
     position:absolute; inset:0;
     transition:transform .35s cubic-bezier(.34,1.2,.64,1), opacity .35s ease;
@@ -6032,7 +6032,8 @@ function wireExtrasCarousel(container){
     order.forEach((slideIdx, pos) => { slides[slideIdx].dataset.pos = pos; });
     dots.forEach((d, i) => d.classList.toggle('active', i === order[0]));
   }
-
+  function advanceOne(){ order.push(order.shift()); render(); }
+  function retreatOne(){ order.unshift(order.pop()); render(); }
   function advanceTo(targetIdx){
     while(order[0] !== targetIdx){
       order.push(order.shift());
@@ -6040,7 +6041,58 @@ function wireExtrasCarousel(container){
     render();
   }
 
+  // Swiping the top card left advances (same direction as the existing tap-to-advance),
+  // swiping right goes back -- previously there was no "back" at all, only cycling
+  // forward or jumping via the dots. A swipe is only recognized once horizontal movement
+  // clearly dominates vertical, so a vertical drag (e.g. scrolling a long riddle card's
+  // own text, or just scrolling the page past the carousel) is left completely alone.
+  let startX = 0, startY = 0, dragging = false, isHorizontalSwipe = false, swipeJustHandled = false;
+  function pointOf(e){ return e.changedTouches ? e.changedTouches[0] : e; }
+  function onDown(e){
+    if(e.target.closest('.riddle-reveal-btn') || e.target.closest('a')) return;
+    dragging = true; isHorizontalSwipe = false; swipeJustHandled = false;
+    const p = pointOf(e);
+    startX = p.clientX; startY = p.clientY;
+  }
+  function onMove(e){
+    if(!dragging) return;
+    const p = pointOf(e);
+    const dx = p.clientX - startX, dy = p.clientY - startY;
+    if(!isHorizontalSwipe && Math.abs(dx) > 10 && Math.abs(dx) > Math.abs(dy)){
+      isHorizontalSwipe = true;
+    }
+    if(isHorizontalSwipe){
+      e.preventDefault(); // only once a horizontal card-swipe is confirmed, not a page/card scroll
+      const topSlide = slides[order[0]];
+      topSlide.style.transition = 'none';
+      topSlide.style.transform = `translateX(${dx}px) rotate(${dx*0.03}deg)`;
+      topSlide.style.opacity = String(Math.max(0.4, 1 - Math.abs(dx)/300));
+    }
+  }
+  function onUp(e){
+    if(!dragging) return;
+    dragging = false;
+    const p = pointOf(e);
+    const dx = p.clientX - startX;
+    const topSlide = slides[order[0]];
+    topSlide.style.transition = '';
+    topSlide.style.transform = '';
+    topSlide.style.opacity = '';
+    if(isHorizontalSwipe){
+      swipeJustHandled = true;
+      if(Math.abs(dx) > 40){
+        if(dx < 0) advanceOne(); else retreatOne();
+      }
+    }
+    isHorizontalSwipe = false;
+  }
+  wrap.addEventListener('pointerdown', onDown);
+  wrap.addEventListener('pointermove', onMove);
+  wrap.addEventListener('pointerup', onUp);
+  wrap.addEventListener('pointerleave', onUp);
+
   wrap.addEventListener('click', (e)=>{
+    if(swipeJustHandled){ swipeJustHandled = false; return; } // a swipe, not a tap -- don't also advance
     if(e.target.closest('a')) return; // let "read more" links work normally
     const revealBtn = e.target.closest('.riddle-reveal-btn');
     if(revealBtn){
@@ -6052,8 +6104,7 @@ function wireExtrasCarousel(container){
       }
       return; // don't also advance the carousel
     }
-    order.push(order.shift());
-    render();
+    advanceOne();
   });
 
   dots.forEach((d, i) => {
