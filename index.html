@@ -3599,7 +3599,20 @@ function leagueDetailBodyHtml(code){
       : oneTableHtml((staticLeague && staticLeague.teams) || []);
   const matches = (cache && cache.matches && cache.matches[code]) || { fixtures: [], results: [] };
   const fixtures = matches.fixtures.length > 0 ? matches.fixtures : ((staticLeague && staticLeague.fixtures) || []);
-  const results = matches.results.length > 0 ? matches.results : ((staticLeague && staticLeague.results) || []);
+  let results = matches.results.length > 0 ? matches.results : ((staticLeague && staticLeague.results) || []);
+  if(code === 'CL'){
+    // Champions League has a long summer gap between seasons (final in late May, next
+    // season doesn't start until September) -- without this, "Results" would keep showing
+    // last season's final stretch of matches for the entire off-season: stale, and per
+    // direct feedback, actively unpleasant to look at for a fan of a team that lost late.
+    // Only the last 35 days are shown; once the new season starts producing matches again,
+    // they reappear on their own with no further changes needed here.
+    const cutoff = Date.now() - 35*24*60*60*1000;
+    results = results.filter(m => {
+      const t = Date.parse(m.start);
+      return !isNaN(t) && t >= cutoff;
+    });
+  }
   return `
     <details class="domain-group">
       <summary class="section-head domain-summary">
