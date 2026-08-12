@@ -8901,7 +8901,12 @@ function mtMountConnectFourGame(container){
     const s = boardPx / C4_COLS;
     drops.push({ r, c: col, progress: 0, fromY: -s });
     draw();
-    return checkGameOver(r, col) ? true : (r !== -1);
+    // Must return whether the game ACTUALLY ended here, not a value that's always
+    // truthy -- the previous `checkGameOver(...) ? true : (r !== -1)` always evaluated to
+    // true (r is never -1 at this point), which made handlePointer think every red move
+    // ended the game and return before ever handing the turn to the computer. That was
+    // the entire bug behind "only red ever plays."
+    return checkGameOver(r, col);
   }
 
   function handlePointer(e){
@@ -9260,12 +9265,14 @@ function mtMountRipGame(container){
     if(i >= 0 && i < strips.length) tearStrip(strips[i]);
   }
   function handlePointerDown(e){
+    e.preventDefault();
     const rect = canvas.getBoundingClientRect();
     const p = e.changedTouches ? e.changedTouches[0] : e;
     tearAt(p.clientX - rect.left);
   }
   function handlePointerMove(e){
     if(e.buttons === undefined && !e.touches) return; // ignore hover-only environments
+    e.preventDefault();
     const rect = canvas.getBoundingClientRect();
     const pts = e.changedTouches ? Array.from(e.changedTouches) : [e];
     for(const p of pts) tearAt(p.clientX - rect.left);
@@ -9321,6 +9328,7 @@ function mtMountScribbleGame(container){
   }
   function handleDown(e){
     if(shredding) return;
+    e.preventDefault();
     drawing = true;
     const pt = pointOf(e);
     lastX = pt.x; lastY = pt.y;
@@ -9328,6 +9336,7 @@ function mtMountScribbleGame(container){
   }
   function handleMove(e){
     if(!drawing || shredding) return;
+    e.preventDefault();
     const pt = pointOf(e);
     ctx.strokeStyle = color;
     ctx.lineWidth = 6;
@@ -9397,7 +9406,11 @@ function mtMountScribbleGame(container){
 
 // ============ Falling Sand: pure simulation logic ============
 // Materials: 0=empty 1=sand 2=water 3=wall 4=wood 5=fire 6=smoke
-const SAND_EMPTY=0, SAND_SAND=1, SAND_WATER=2, SAND_WALL=3, SAND_WOOD=4, SAND_FIRE=5, SAND_SMOKE=6;
+const SAND_EMPTY=0, SAND_SAND=1, SAND_WATER=2, SAND_WALL=3, SAND_WOOD=4, SAND_FIRE=5, SAND_SMOKE=6, SAND_OIL=7, SAND_GAS=8, SAND_LAVA=9;
+// SAND_WALL stays as an internal sentinel -- sandGet() returns it for any out-of-bounds
+// cell, which is what makes the grid's own edges act as an implicit floor/boundary with
+// zero explicit wall cells ever placed. Removed as a paintable material per direct
+// feedback; the constant itself is still load-bearing for boundary behavior.
 
 function sandCreateGrid(cols, rows){
   return { cols, rows, mat: new Uint8Array(cols*rows), life: new Uint8Array(cols*rows) };
@@ -9416,6 +9429,22 @@ function sandSwap(grid, c1, r1, c2, r2){
   const m = grid.mat[i1], l = grid.life[i1];
   grid.mat[i1] = grid.mat[i2]; grid.life[i1] = grid.life[i2];
   grid.mat[i2] = m; grid.life[i2] = l;
+}
+// Shared by both FIRE and LAVA: scans the 4 orthogonal neighbors and ignites whichever
+// flammable materials are there. Oil and gas get a much higher ignite chance and a much
+// longer fire life than wood -- a bigger, longer-lasting flame, which is the actual
+// "proper big flame when reaction happens" effect asked for. Gas in particular has a high
+// enough chance (0.65) that a connected pocket of gas cells will chain-ignite through
+// itself within just a couple of simulation ticks -- a fast "whoosh" rather than wood's
+// slow catch.
+function sandIgniteNeighbors(grid, c, r, rng){
+  const neigh = [[c-1,r],[c+1,r],[c,r-1],[c,r+1]];
+  for(const [nc,nr] of neigh){
+    const nm = sandGet(grid,nc,nr);
+    if(nm === SAND_WOOD && rng()<0.12){ sandSet(grid,nc,nr,SAND_FIRE,60+Math.floor(rng()*30)); }
+    else if(nm === SAND_OIL && rng()<0.22){ sandSet(grid,nc,nr,SAND_FIRE,110+Math.floor(rng()*40)); }
+    else if(nm === SAND_GAS && rng()<0.65){ sandSet(grid,nc,nr,SAND_FIRE,90+Math.floor(rng()*30)); }
+  }
 }
 
 // One full simulation step. rng is an injectable function (defaults to Math.random) so
@@ -9440,16 +9469,15 @@ function sandStep(grid, rng){
           sandSwap(grid,c,r,c,r+1); moved[sandIdx(grid,c,r+1)]=1; continue;
         }
         const dirs = rng()<0.5 ? [-1,1] : [1,-1];
-        let didMove = false;
         for(const dc of dirs){
           if(sandGet(grid,c+dc,r+1)===SAND_EMPTY || sandGet(grid,c+dc,r+1)===SAND_WATER){
-            sandSwap(grid,c,r,c+dc,r+1); moved[sandIdx(grid,c+dc,r+1)]=1; didMove=true; break;
+            sandSwap(grid,c,r,c+dc,r+1); moved[sandIdx(grid,c+dc,r+1)]=1; break;
           }
         }
         continue;
       }
 
-      if(m === SAND_WATER){
+      if(m === SAND_WATER || m === SAND_OIL){
         if(sandGet(grid,c,r+1)===SAND_EMPTY){
           sandSwap(grid,c,r,c,r+1); moved[sandIdx(grid,c,r+1)]=1; continue;
         }
@@ -9469,16 +9497,53 @@ function sandStep(grid, rng){
         continue;
       }
 
+      if(m === SAND_GAS){
+        // Rises like smoke but does NOT decay on its own -- it's a live, deliberately
+        // placed material meant to persist until it reacts with fire or lava, not a
+        // fading byproduct the way smoke is.
+        if(sandGet(grid,c,r-1)===SAND_EMPTY){
+          sandSwap(grid,c,r,c,r-1); moved[sandIdx(grid,c,r-1)]=1; continue;
+        }
+        const dirs = rng()<0.5 ? [-1,1] : [1,-1];
+        for(const dc of dirs){
+          if(sandGet(grid,c+dc,r-1)===SAND_EMPTY){
+            sandSwap(grid,c,r,c+dc,r-1); moved[sandIdx(grid,c+dc,r-1)]=1; break;
+          }
+        }
+        continue;
+      }
+
+      if(m === SAND_LAVA){
+        // Lava turns adjacent water to steam (smoke) and ignites adjacent flammables,
+        // same as fire, before moving -- reactions happen regardless of whether it
+        // actually flows this particular tick.
+        const neigh = [[c-1,r],[c+1,r],[c,r-1],[c,r+1]];
+        for(const [nc,nr] of neigh){
+          if(sandGet(grid,nc,nr)===SAND_WATER && rng()<0.5){
+            sandSet(grid,nc,nr,SAND_SMOKE,30+Math.floor(rng()*20));
+          }
+        }
+        sandIgniteNeighbors(grid, c, r, rng);
+        // Viscous flow: only actually attempts to move some of the time, giving it a
+        // slow, thick feel instead of behaving like water.
+        if(rng() < 0.35){
+          if(sandGet(grid,c,r+1)===SAND_EMPTY){
+            sandSwap(grid,c,r,c,r+1); moved[sandIdx(grid,c,r+1)]=1; continue;
+          }
+          const dirs = rng()<0.5 ? [-1,1] : [1,-1];
+          for(const dc of dirs){
+            if(sandGet(grid,c+dc,r+1)===SAND_EMPTY){
+              sandSwap(grid,c,r,c+dc,r+1); moved[sandIdx(grid,c+dc,r+1)]=1; break;
+            }
+          }
+        }
+        continue;
+      }
+
       if(m === SAND_FIRE){
         grid.life[i]--;
         if(grid.life[i] <= 0){ grid.mat[i]=SAND_SMOKE; grid.life[i]=40+Math.floor(rng()*20); moved[i]=1; continue; }
-        // Try to ignite adjacent wood.
-        const neigh = [[c-1,r],[c+1,r],[c,r-1],[c,r+1]];
-        for(const [nc,nr] of neigh){
-          if(sandGet(grid,nc,nr)===SAND_WOOD && rng()<0.12){
-            sandSet(grid,nc,nr,SAND_FIRE,60+Math.floor(rng()*30));
-          }
-        }
+        sandIgniteNeighbors(grid, c, r, rng);
         continue;
       }
 
@@ -9496,7 +9561,8 @@ function sandStep(grid, rng){
         }
         continue;
       }
-      // SAND_WOOD: static, does nothing on its own -- only reacts via fire's ignite check above.
+      // SAND_WOOD: static, does nothing on its own -- only reacts via fire/lava's ignite
+      // check above.
     }
   }
 }
@@ -9508,13 +9574,18 @@ const SAND_COLORS = {
   [SAND_WOOD]:  '#7A5230',
   [SAND_FIRE]:  '#E8622C',
   [SAND_SMOKE]: '#9B9488',
+  [SAND_OIL]:   '#2B2418',
+  [SAND_GAS]:   '#C9D97A',
+  [SAND_LAVA]:  '#FF5A1F',
 };
 const SAND_MATERIALS = [
   { id: SAND_SAND,  label: 'Sand' },
   { id: SAND_WATER, label: 'Water' },
+  { id: SAND_OIL,   label: 'Oil' },
+  { id: SAND_GAS,   label: 'Gas' },
+  { id: SAND_LAVA,  label: 'Lava' },
   { id: SAND_FIRE,  label: 'Fire' },
   { id: SAND_WOOD,  label: 'Wood' },
-  { id: SAND_WALL,  label: 'Wall' },
   { id: SAND_EMPTY, label: 'Erase' },
 ];
 
@@ -9561,7 +9632,9 @@ function mtMountSandGame(container){
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     const cols = Math.floor(w / CELL), rows = Math.floor(H / CELL);
     grid = sandCreateGrid(cols, rows);
-    for(let c=0;c<cols;c++) sandSet(grid, c, rows-1, SAND_WALL); // floor to catch everything
+    // No explicit floor cell needed -- sandGet() already treats any out-of-bounds square
+    // (including just past the last row) as SAND_WALL, so the grid's own edges act as an
+    // implicit, invisible boundary. Nothing needs to be painted there.
   }
   resize();
   window.addEventListener('resize', resize);
@@ -9580,6 +9653,7 @@ function mtMountSandGame(container){
   }
 
   function handleDown(e){
+    e.preventDefault();
     painting = true;
     const rect = canvas.getBoundingClientRect();
     const p = e.changedTouches ? e.changedTouches[0] : e;
@@ -9588,6 +9662,7 @@ function mtMountSandGame(container){
   }
   function handleMove(e){
     if(!painting) return;
+    e.preventDefault();
     const rect = canvas.getBoundingClientRect();
     const p = e.changedTouches ? e.changedTouches[0] : e;
     const x = p.clientX - rect.left, y = p.clientY - rect.top;
