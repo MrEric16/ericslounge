@@ -8453,16 +8453,153 @@ const MT_CHESS_PUZZLES = {
 };
 
 
-// One glyph shape per piece type, used for BOTH colors. Previously white pieces used the
-// "outline" chess codepoints (U+2654-2659) and black used the "filled" ones (U+265A-265F)
-// -- two genuinely different Unicode characters per piece. Font support for those two sets
-// is wildly inconsistent across phones: on at least one real device the filled (black) set
-// rendered as proper detailed glyphs while the outline (white) set rendered thin and
-// undersized in comparison, with visibly different proportions between the two colors.
-// Using ONE codepoint set for both, and telling color apart purely via fillStyle/
-// strokeStyle, guarantees identical shape and size for white and black pieces regardless
-// of a given phone's font quirks.
-const CH_GLYPH_SHAPE = { p:'\u265F', n:'\u265E', b:'\u265D', r:'\u265C', q:'\u265B', k:'\u265A' };
+// ============ Chess piece rendering: hand-drawn vector shapes, zero font dependency ============
+// Three rounds of font-based approaches all failed the same way: some phones substitute a
+// baked-in color emoji glyph for at least one chess codepoint (the pawn, on the reported
+// device), and color emoji glyphs physically cannot be recolored via canvas fillStyle --
+// so no amount of "use one codepoint set, recolor via fill" can ever fix this class of
+// bug. The only rendering approach that's guaranteed consistent on every device is to
+// never touch a system font for pieces at all. Everything below is drawn with plain
+// canvas paths/arcs -- same exact shape and size on every phone, always.
+// u = half the square size, used as the base unit so all pieces scale together.
+function chDrawPieceBase(ctx, cx, cy, u){
+  ctx.beginPath();
+  ctx.moveTo(cx-u*0.5, cy+u*0.62);
+  ctx.lineTo(cx+u*0.5, cy+u*0.62);
+  ctx.lineTo(cx+u*0.36, cy+u*0.78);
+  ctx.lineTo(cx-u*0.36, cy+u*0.78);
+  ctx.closePath();
+  ctx.fill(); ctx.stroke();
+}
+function chDrawPawn(ctx, cx, cy, u){
+  ctx.beginPath();
+  ctx.arc(cx, cy-u*0.38, u*0.26, 0, Math.PI*2);
+  ctx.fill(); ctx.stroke();
+  ctx.beginPath();
+  ctx.moveTo(cx-u*0.22, cy-u*0.08);
+  ctx.lineTo(cx+u*0.22, cy-u*0.08);
+  ctx.lineTo(cx+u*0.36, cy+u*0.5);
+  ctx.lineTo(cx-u*0.36, cy+u*0.5);
+  ctx.closePath();
+  ctx.fill(); ctx.stroke();
+  chDrawPieceBase(ctx, cx, cy, u);
+}
+function chDrawRook(ctx, cx, cy, u){
+  ctx.beginPath();
+  ctx.rect(cx-u*0.34, cy-u*0.05, u*0.68, u*0.55);
+  ctx.fill(); ctx.stroke();
+  // Crenellations: three teeth across the top edge.
+  const toothW = u*0.2, gap = u*0.04, topY = cy-u*0.42;
+  const startX = cx - (toothW*3 + gap*2)/2;
+  for(let i=0;i<3;i++){
+    ctx.beginPath();
+    ctx.rect(startX + i*(toothW+gap), topY, toothW, u*0.4);
+    ctx.fill(); ctx.stroke();
+  }
+  chDrawPieceBase(ctx, cx, cy, u);
+}
+function chDrawBishop(ctx, cx, cy, u){
+  ctx.beginPath();
+  ctx.arc(cx, cy-u*0.5, u*0.1, 0, Math.PI*2);
+  ctx.fill(); ctx.stroke();
+  ctx.beginPath();
+  ctx.moveTo(cx, cy-u*0.36);
+  ctx.quadraticCurveTo(cx-u*0.3, cy-u*0.1, cx-u*0.26, cy+u*0.35);
+  ctx.lineTo(cx+u*0.26, cy+u*0.35);
+  ctx.quadraticCurveTo(cx+u*0.3, cy-u*0.1, cx, cy-u*0.36);
+  ctx.closePath();
+  ctx.fill(); ctx.stroke();
+  // The traditional bishop mitre slit -- what actually distinguishes it from a pawn.
+  ctx.beginPath();
+  ctx.moveTo(cx-u*0.12, cy-u*0.15);
+  ctx.lineTo(cx+u*0.1, cy+u*0.08);
+  ctx.lineWidth = Math.max(1, u*0.1);
+  ctx.stroke();
+  chDrawPieceBase(ctx, cx, cy, u);
+}
+function chDrawKnight(ctx, cx, cy, u){
+  // Horse head-and-neck profile facing right, built with curves for a smoother, more
+  // recognizable silhouette than a raw polygon gives at small sizes.
+  ctx.beginPath();
+  ctx.moveTo(cx-u*0.34, cy+u*0.5);
+  ctx.lineTo(cx-u*0.3, cy+u*0.05);
+  ctx.quadraticCurveTo(cx-u*0.28, cy-u*0.22, cx-u*0.08, cy-u*0.3);
+  ctx.quadraticCurveTo(cx-u*0.06, cy-u*0.48, cx+u*0.1, cy-u*0.46);
+  ctx.quadraticCurveTo(cx+u*0.1, cy-u*0.34, cx+u*0.02, cy-u*0.26);
+  ctx.quadraticCurveTo(cx+u*0.22, cy-u*0.24, cx+u*0.4, cy-u*0.1);
+  ctx.quadraticCurveTo(cx+u*0.44, cy+u*0.02, cx+u*0.3, cy+u*0.04);
+  ctx.quadraticCurveTo(cx+u*0.2, cy+u*0.1, cx+u*0.22, cy+u*0.2);
+  ctx.lineTo(cx+u*0.36, cy+u*0.5);
+  ctx.closePath();
+  ctx.fill(); ctx.stroke();
+  // A small eye dot -- cheap but effective final "this is a horse" cue.
+  const bodyFill = ctx.fillStyle;
+  ctx.beginPath();
+  ctx.arc(cx+u*0.02, cy-u*0.28, u*0.045, 0, Math.PI*2);
+  ctx.fillStyle = ctx.strokeStyle;
+  ctx.fill();
+  ctx.fillStyle = bodyFill;
+  chDrawPieceBase(ctx, cx, cy, u);
+}
+function chDrawQueen(ctx, cx, cy, u){
+  ctx.beginPath();
+  ctx.moveTo(cx-u*0.34, cy+u*0.42);
+  ctx.lineTo(cx+u*0.34, cy+u*0.42);
+  ctx.lineTo(cx+u*0.24, cy-u*0.08);
+  ctx.lineTo(cx-u*0.24, cy-u*0.08);
+  ctx.closePath();
+  ctx.fill(); ctx.stroke();
+  // Zigzag crown with 5 points, small jewel balls at each tip.
+  const tipsX = [-0.34,-0.18,0,0.18,0.34], baseY = -0.08, tipY = -0.42;
+  ctx.beginPath();
+  ctx.moveTo(cx+tipsX[0]*u, cy+baseY*u);
+  for(let i=0;i<5;i++){
+    ctx.lineTo(cx+tipsX[i]*u, cy+tipY*u);
+    const nextX = i<4 ? (tipsX[i]+tipsX[i+1])/2 : tipsX[4];
+    ctx.lineTo(cx+nextX*u, cy+baseY*u);
+  }
+  ctx.closePath();
+  ctx.fill(); ctx.stroke();
+  for(const tx of tipsX){
+    ctx.beginPath();
+    ctx.arc(cx+tx*u, cy+tipY*u, u*0.09, 0, Math.PI*2);
+    ctx.fill(); ctx.stroke();
+  }
+  chDrawPieceBase(ctx, cx, cy, u);
+}
+function chDrawKing(ctx, cx, cy, u){
+  ctx.beginPath();
+  ctx.moveTo(cx-u*0.32, cy+u*0.42);
+  ctx.lineTo(cx+u*0.32, cy+u*0.42);
+  ctx.lineTo(cx+u*0.22, cy-u*0.05);
+  ctx.lineTo(cx-u*0.22, cy-u*0.05);
+  ctx.closePath();
+  ctx.fill(); ctx.stroke();
+  // A small band, then a clear, bigger cross on top -- the previous version was too small
+  // to read at phone-screen size.
+  ctx.beginPath();
+  ctx.rect(cx-u*0.22, cy-u*0.14, u*0.44, u*0.1);
+  ctx.fill(); ctx.stroke();
+  const armH = u*0.13;
+  ctx.beginPath();
+  ctx.rect(cx-armH/2, cy-u*0.5, armH, u*0.36);
+  ctx.fill(); ctx.stroke();
+  ctx.beginPath();
+  ctx.rect(cx-u*0.2, cy-u*0.4, u*0.4, armH);
+  ctx.fill(); ctx.stroke();
+  chDrawPieceBase(ctx, cx, cy, u);
+}
+const CH_PIECE_DRAWERS = { p:chDrawPawn, n:chDrawKnight, b:chDrawBishop, r:chDrawRook, q:chDrawQueen, k:chDrawKing };
+function chDrawPiece(ctx, type, color, cx, cy, s){
+  const u = s*0.44;
+  ctx.fillStyle = color === 'white' ? '#F5F1E6' : '#2a221a';
+  ctx.strokeStyle = color === 'white' ? '#3a2a1e' : '#F5F1E6';
+  ctx.lineWidth = Math.max(1.3, s*0.045);
+  ctx.lineJoin = 'round';
+  const drawer = CH_PIECE_DRAWERS[type];
+  if(drawer) drawer(ctx, cx, cy, u);
+}
+
 
 function mtMountChessGame(container){
   container.innerHTML = `
@@ -8562,22 +8699,16 @@ function mtMountChessGame(container){
       ctx.fillStyle = 'rgba(90,143,78,0.55)';
       for(const m of moves) ctx.fillRect(m.toC*s, m.toR*s, s, s);
     }
-    // One glyph shape for both colors (see CH_GLYPH_SHAPE above) -- color and outline are
-    // what tell white from black, not two different Unicode characters. No background
-    // disc; that was there to compensate for inconsistent glyph rendering, and the real
-    // fix (one glyph set) makes it unnecessary.
+    // Pieces are hand-drawn vector shapes now (see chDrawPiece and friends, defined
+    // above) -- no system font involved at all, so there is no possibility of a phone
+    // substituting an unrecolorable color-emoji glyph for one piece type and not others,
+    // which is exactly what caused pawns to render as a fixed dark color regardless of
+    // side, at a different size than every other piece.
     for(let r=0;r<8;r++) for(let c=0;c<8;c++){
       const piece = board[r][c];
       if(!piece) continue;
       const cx = c*s+s/2, cy = r*s+s/2;
-      ctx.font = `${Math.round(s*0.95)}px "Noto Sans Symbols2","Segoe UI Symbol",sans-serif`;
-      ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
-      ctx.fillStyle = piece.color === 'white' ? '#F5F1E6' : '#1a1a1a';
-      ctx.strokeStyle = piece.color === 'white' ? '#3a2a1e' : '#F5F1E6';
-      ctx.lineWidth = Math.max(1.4, s*0.045);
-      const glyph = CH_GLYPH_SHAPE[piece.type];
-      ctx.strokeText(glyph, cx, cy+1);
-      ctx.fillText(glyph, cx, cy+1);
+      chDrawPiece(ctx, piece.type, piece.color, cx, cy, s);
     }
   }
 
@@ -8792,28 +8923,95 @@ function c4CheckWin(board, r, c){
 }
 function c4IsFull(board){ return c4LegalCols(board).length === 0; }
 
-// Simple AI: 1) take an immediate win if available, 2) block an immediate opponent win,
-// 3) otherwise weight columns toward the center with a little randomness -- same "simple
-// but not a pushover" spirit as the checkers/chess AIs.
+// ============ Connect Four: minimax AI with alpha-beta pruning ============
+// The old AI only ever looked 1 move ahead (take a win, block a win, else center-weighted
+// random) -- it had no idea a move might walk into a fork (a position where the opponent
+// threatens two different winning columns at once, which can't both be blocked). This
+// replaces move selection with real minimax search plus a standard windowed evaluation
+// function, so it actually plans ahead instead of just reacting to what's already on the
+// board.
+const C4_SEARCH_DEPTH = 5;
+const C4_COL_ORDER = [3,2,4,1,5,0,6]; // center-first move ordering speeds up alpha-beta pruning
+
+function c4WindowScore(cells, aiColor, humanColor){
+  let ai=0, human=0, empty=0;
+  for(const c of cells){
+    if(c === aiColor) ai++;
+    else if(c === humanColor) human++;
+    else empty++;
+  }
+  if(ai>0 && human>0) return 0; // contested window, no one can complete it
+  if(ai===4) return 100000;
+  if(ai===3 && empty===1) return 100;
+  if(ai===2 && empty===2) return 10;
+  if(human===4) return -100000;
+  if(human===3 && empty===1) return -120; // weighted slightly higher: prioritize blocking
+  if(human===2 && empty===2) return -12;
+  return 0;
+}
+function c4Evaluate(board, aiColor, humanColor){
+  let score = 0;
+  // Center column control is valuable (more potential winning lines pass through it).
+  for(let r=0;r<C4_ROWS;r++){
+    if(board[r][3] === aiColor) score += 6;
+    else if(board[r][3] === humanColor) score -= 6;
+  }
+  // Horizontal windows
+  for(let r=0;r<C4_ROWS;r++) for(let c=0;c<=C4_COLS-4;c++){
+    score += c4WindowScore([board[r][c],board[r][c+1],board[r][c+2],board[r][c+3]], aiColor, humanColor);
+  }
+  // Vertical windows
+  for(let c=0;c<C4_COLS;c++) for(let r=0;r<=C4_ROWS-4;r++){
+    score += c4WindowScore([board[r][c],board[r+1][c],board[r+2][c],board[r+3][c]], aiColor, humanColor);
+  }
+  // Diagonal windows (both directions)
+  for(let r=0;r<=C4_ROWS-4;r++) for(let c=0;c<=C4_COLS-4;c++){
+    score += c4WindowScore([board[r][c],board[r+1][c+1],board[r+2][c+2],board[r+3][c+3]], aiColor, humanColor);
+  }
+  for(let r=0;r<=C4_ROWS-4;r++) for(let c=3;c<C4_COLS;c++){
+    score += c4WindowScore([board[r][c],board[r+1][c-1],board[r+2][c-2],board[r+3][c-3]], aiColor, humanColor);
+  }
+  return score;
+}
+function c4Minimax(board, depth, alpha, beta, maximizing, aiColor, humanColor){
+  const legal = c4LegalCols(board);
+  if(legal.length === 0) return { score: 0, col: null }; // full board, draw
+  if(depth === 0) return { score: c4Evaluate(board, aiColor, humanColor), col: null };
+
+  const orderedCols = C4_COL_ORDER.filter(c => legal.includes(c));
+  let bestCol = orderedCols[0];
+
+  if(maximizing){
+    let value = -Infinity;
+    for(const c of orderedCols){
+      const r = c4DropRow(board, c);
+      const test = c4CloneBoard(board); test[r][c] = aiColor;
+      if(c4CheckWin(test, r, c)){ return { score: 100000 + depth, col: c }; } // prefer faster wins
+      const result = c4Minimax(test, depth-1, alpha, beta, false, aiColor, humanColor);
+      if(result.score > value){ value = result.score; bestCol = c; }
+      alpha = Math.max(alpha, value);
+      if(alpha >= beta) break;
+    }
+    return { score: value, col: bestCol };
+  } else {
+    let value = Infinity;
+    for(const c of orderedCols){
+      const r = c4DropRow(board, c);
+      const test = c4CloneBoard(board); test[r][c] = humanColor;
+      if(c4CheckWin(test, r, c)){ return { score: -100000 - depth, col: c }; }
+      const result = c4Minimax(test, depth-1, alpha, beta, true, aiColor, humanColor);
+      if(result.score < value){ value = result.score; bestCol = c; }
+      beta = Math.min(beta, value);
+      if(alpha >= beta) break;
+    }
+    return { score: value, col: bestCol };
+  }
+}
 function c4PickAiMove(board, aiColor, humanColor){
   const legal = c4LegalCols(board);
-  for(const c of legal){
-    const r = c4DropRow(board, c);
-    const test = c4CloneBoard(board); test[r][c] = aiColor;
-    if(c4CheckWin(test, r, c)) return c;
-  }
-  for(const c of legal){
-    const r = c4DropRow(board, c);
-    const test = c4CloneBoard(board); test[r][c] = humanColor;
-    if(c4CheckWin(test, r, c)) return c;
-  }
-  const centerWeight = c => 3 - Math.abs(c - 3);
-  let best = legal[0], bestScore = -Infinity;
-  for(const c of legal){
-    const score = centerWeight(c) + Math.random()*1.5;
-    if(score > bestScore){ bestScore = score; best = c; }
-  }
-  return best;
+  if(!legal.length) return null;
+  const result = c4Minimax(board, C4_SEARCH_DEPTH, -Infinity, Infinity, true, aiColor, humanColor);
+  return result.col !== null && result.col !== undefined ? result.col : legal[Math.floor(legal.length/2)];
 }
 
 function mtMountConnectFourGame(container){
@@ -9811,6 +10009,22 @@ function mtRender(){
 // confirmed working correctly on mobile -- opens within the app's own context rather than
 // redirecting to Safari), or mounts the matching embedded game inline into the slot
 // rendered by messAboutAfter's HTML for the 4 in-house games.
+// Shared by every embedded game's mount point, below -- attached to whichever canvas(es)
+// a game creates immediately after it mounts. Applied centrally rather than trusting each
+// individual game's own code to remember it, specifically so it can never be missed for
+// any future game either. touch-action:none (in CSS, on .mt-embedded-canvas) is the
+// standard way to suppress native touch gestures on an element, but real devices vary in
+// how strictly they respect it for edge-originating swipes that would otherwise trigger
+// the browser/OS back-navigation gesture -- explicit preventDefault() on the raw touch
+// events (registered as non-passive, which is required for preventDefault to actually
+// take effect on touchstart/touchmove) is the belt-and-suspenders addition that closes
+// the gap CSS alone sometimes leaves open.
+function mtPreventTouchNav(el){
+  const opts = { passive: false };
+  const prevent = (e) => { e.preventDefault(); };
+  el.addEventListener('touchstart', prevent, opts);
+  el.addEventListener('touchmove', prevent, opts);
+}
 function mtActivateMessAboutPick(container){
   const pick = mtState.messAboutPick;
   if(!pick) return;
@@ -9822,6 +10036,7 @@ function mtActivateMessAboutPick(container){
   const slot = container.querySelector('#mtEmbeddedGameSlot');
   if(!game || !slot) return;
   mtActiveEmbeddedCleanup = game.mount(slot);
+  slot.querySelectorAll('canvas').forEach(mtPreventTouchNav);
 }
 
 function mtStepHtml(){
@@ -10205,6 +10420,7 @@ function wireArcade(id){
   // regardless of which of the two entry points mounted it.
   if(mtActiveEmbeddedCleanup){ mtActiveEmbeddedCleanup(); mtActiveEmbeddedCleanup = null; }
   mtActiveEmbeddedCleanup = game.mount(slot);
+  slot.querySelectorAll('canvas').forEach(mtPreventTouchNav);
 }
 
 function viewPhotos(){
