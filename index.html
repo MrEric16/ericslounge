@@ -157,14 +157,14 @@
 
   *{box-sizing:border-box; -webkit-tap-highlight-color:transparent;}
   html{scroll-behavior:smooth;}
+  html,body{margin:0;padding:0;}
   /* overscroll-behavior-x:none stops the browser/OS from interpreting a horizontal swipe
-     anywhere on the page as "go back" -- this is the actual documented fix for exactly
-     this problem in installed/PWA web apps, and it's a global, page-level setting rather
-     than something that can be scoped per-element. Per-canvas touch-action:none and
-     preventDefault() (still in place on every embedded game canvas) handle the in-page
-     scrolling/gesture side; this handles the browser-chrome navigation side, which lives
-     above individual DOM elements and wasn't fully covered by the per-element fixes alone. */
-  html,body{margin:0;padding:0; overscroll-behavior-x:none;}
+     as "go back" -- the real documented fix for this in installed/PWA web apps, and it
+     has to be set on html/body to actually work (it can't be scoped to an arbitrary
+     nested element and reliably block the OS-level gesture). Scoped to ONLY the Mind
+     Temple and arcade routes via this class, toggled in renderRoute() -- everywhere else
+     on the site keeps completely normal swipe/scroll behavior, unchanged. */
+  html.mt-no-swipeback, body.mt-no-swipeback{ overscroll-behavior-x:none; }
   body{
     background:var(--cream);
     color:var(--ink);
@@ -1341,6 +1341,22 @@
     color:var(--misc-mindtemple); cursor:pointer;
   }
   .mt-sand-btn.active{ background:var(--misc-mindtemple); color:#fff; }
+
+  .mt-result-overlay{
+    position:absolute; inset:0; z-index:5;
+    display:flex; align-items:center; justify-content:center;
+    background:rgba(58,42,30,0.4); border-radius:14px;
+    touch-action:none;
+  }
+  .mt-result-card{
+    background:#F5F1E6; border-radius:18px; padding:26px 34px;
+    font-family:'Baloo 2', sans-serif; font-weight:800; font-size:26px;
+    text-align:center; box-shadow:0 8px 0 rgba(58,42,30,.25);
+    cursor:pointer; user-select:none; max-width:80%;
+  }
+  .mt-result-win{ border:4px solid #5A8F4E; color:#5A8F4E; }
+  .mt-result-lose{ border:4px solid #A6342E; color:#A6342E; }
+  .mt-result-hint{ font-size:12px; font-weight:600; color:var(--ink-soft); margin-top:8px; }
 
   .explore-tile{
     background:var(--coral);
@@ -7427,8 +7443,6 @@ const MT_MESSABOUT_POOL = [
   {type:'embedded', id:'chess'},
   {type:'embedded', id:'connect4'},
   {type:'embedded', id:'balloons'},
-  {type:'embedded', id:'stack'},
-  {type:'embedded', id:'rip'},
   {type:'embedded', id:'scribble'},
   {type:'embedded', id:'sand'},
   {type:'embedded', id:'mole'},
@@ -7954,8 +7968,8 @@ function mtMountCheckersGame(container){
   }
 
   function checkGameOver(){
-    if(!mtCkHasAnyMove(board,'red')){ gameOver = true; setMsg('No moves left \u2014 computer wins. Tap New game to try again.'); return true; }
-    if(!mtCkHasAnyMove(board,'black')){ gameOver = true; setMsg('No moves left for the computer \u2014 you win! Tap New game to play again.'); return true; }
+    if(!mtCkHasAnyMove(board,'red')){ gameOver = true; setMsg('No moves left \u2014 computer wins. Tap New game to try again.'); mtShowResultPopup(container, 'LOUNGE WINS', 'lose'); return true; }
+    if(!mtCkHasAnyMove(board,'black')){ gameOver = true; setMsg('No moves left for the computer \u2014 you win! Tap New game to play again.'); mtShowResultPopup(container, 'YOU WIN', 'win'); return true; }
     return false;
   }
 
@@ -8091,7 +8105,7 @@ function mtMountCheckersGame(container){
     setMsg('Your move (red).');
   }
 
-  function onReset(){ setupBoard(); resize(); }
+  function onReset(){ const p = container.querySelector('.mt-result-overlay'); if(p) p.remove(); setupBoard(); resize(); }
   resetBtn.addEventListener('click', onReset);
   window.addEventListener('resize', resize);
   resize();
@@ -8748,10 +8762,13 @@ function mtMountChessGame(container){
       gameOver = true;
       if(mode === 'puzzle' && colorToCheck === 'black'){
         setMsg('Solved! Tap a difficulty above for another puzzle.');
+        mtShowResultPopup(container, 'YOU WIN', 'win');
       } else if(colorToCheck === 'black'){
         setMsg('Checkmate \u2014 you win! Tap New game to play again.');
+        mtShowResultPopup(container, 'YOU WIN', 'win');
       } else {
         setMsg('Checkmate \u2014 the computer wins. Tap New game to play again.');
+        mtShowResultPopup(container, 'LOUNGE WINS', 'lose');
       }
       return true;
     }
@@ -8846,7 +8863,7 @@ function mtMountChessGame(container){
     setMsg('Your move (white).');
   }
 
-  function onReset(){ setupPlay(); resize(); }
+  function onReset(){ const p = container.querySelector('.mt-result-overlay'); if(p) p.remove(); setupPlay(); resize(); }
   resetBtn.addEventListener('click', onReset);
 
   function onUndo(){
@@ -8884,6 +8901,7 @@ function mtMountChessGame(container){
   modeButtons.forEach(btn => {
     btn.addEventListener('click', () => {
       if(aiThinking) return;
+      const p = container.querySelector('.mt-result-overlay'); if(p) p.remove();
       if(btn.dataset.mode === 'play'){ setupPlay(); }
       else { setupPuzzle(parseInt(btn.dataset.n, 10), puzzleName); }
       resize();
@@ -9096,7 +9114,9 @@ function mtMountConnectFourGame(container){
   function checkGameOver(r, c){
     if(c4CheckWin(board, r, c)){
       gameOver = true;
-      setMsg((turn==='red' ? 'You win!' : 'Computer wins.') + ' Tap New game to play again.');
+      const won = turn === 'red';
+      setMsg((won ? 'You win!' : 'Computer wins.') + ' Tap New game to play again.');
+      mtShowResultPopup(container, won ? 'YOU WIN' : 'LOUNGE WINS', won ? 'win' : 'lose');
       return true;
     }
     if(c4IsFull(board)){
@@ -9150,7 +9170,7 @@ function mtMountConnectFourGame(container){
     setMsg('Your move (red).');
   }
 
-  function onReset(){ setup(); resize(); }
+  function onReset(){ const p = container.querySelector('.mt-result-overlay'); if(p) p.remove(); setup(); resize(); }
   resetBtn.addEventListener('click', onReset);
   window.addEventListener('resize', resize);
   resize();
@@ -9302,209 +9322,6 @@ function mtMountBalloonGame(container){
 
 
 // ============ Stack Knockdown ============
-function mtMountStackGame(container){
-  container.innerHTML = '<canvas class="mt-embedded-canvas"></canvas><div class="mt-embedded-controls"><button class="mt-embedded-btn" data-stack-reset>Rebuild tower</button></div>';
-  const canvas = container.querySelector('canvas');
-  const ctx = canvas.getContext('2d');
-  const resetBtn = container.querySelector('[data-stack-reset]');
-  let running = true;
-  const dpr = Math.max(1, window.devicePixelRatio || 1);
-  const H = 320;
-  const COLORS = ['#B89434','#A6342E','#5A8F4E','#2E7B8A','#4A5578','#B6B235'];
-
-  function resize(){
-    const w = container.clientWidth;
-    canvas.style.width = w + 'px';
-    canvas.style.height = H + 'px';
-    canvas.width = Math.floor(w * dpr);
-    canvas.height = Math.floor(H * dpr);
-    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-  }
-  resize();
-  window.addEventListener('resize', resize);
-
-  const ROWS = 10;
-  let blocks = []; // static, standing blocks: {row, x, y, w, h, color}
-  let falling = []; // dynamic pieces with physics once knocked loose
-
-  function buildTower(){
-    const w = container.clientWidth;
-    const bw = Math.min(90, w*0.5);
-    const bh = (H - 20) / ROWS;
-    const x = (w - bw)/2;
-    blocks = [];
-    for(let r=0;r<ROWS;r++){
-      blocks.push({ row:r, x, y: H - 10 - (r+1)*bh, w:bw, h:bh-3, color: COLORS[r % COLORS.length] });
-    }
-    falling = [];
-  }
-  buildTower();
-
-  function knockFrom(row){
-    // Everything at or above the tapped block loses its footing and tumbles.
-    const toKnock = blocks.filter(b => b.row >= row);
-    blocks = blocks.filter(b => b.row < row);
-    for(const b of toKnock){
-      falling.push({
-        x:b.x, y:b.y, w:b.w, h:b.h, color:b.color,
-        vx:(Math.random()-0.5)*5, vy:-2-Math.random()*3, rot:0, vrot:(Math.random()-0.5)*0.3,
-      });
-    }
-  }
-
-  let rafId = null;
-  function draw(){
-    if(!running) return;
-    const w = container.clientWidth;
-    ctx.clearRect(0,0,w,H);
-    for(const b of blocks){
-      ctx.fillStyle = b.color;
-      ctx.fillRect(b.x, b.y, b.w, b.h);
-    }
-    for(const f of falling){
-      f.vy += 0.25; f.x += f.vx; f.y += f.vy; f.rot += f.vrot;
-      ctx.save(); ctx.translate(f.x+f.w/2, f.y+f.h/2); ctx.rotate(f.rot);
-      ctx.fillStyle = f.color; ctx.fillRect(-f.w/2, -f.h/2, f.w, f.h); ctx.restore();
-    }
-    falling = falling.filter(f => f.y < H + 80);
-    rafId = requestAnimationFrame(draw);
-  }
-  rafId = requestAnimationFrame(draw);
-
-  function handlePointer(e){
-    const rect = canvas.getBoundingClientRect();
-    const pts = e.changedTouches ? Array.from(e.changedTouches) : [e];
-    for(const p of pts){
-      const x = p.clientX - rect.left, y = p.clientY - rect.top;
-      for(const b of blocks){
-        if(x >= b.x && x <= b.x+b.w && y >= b.y && y <= b.y+b.h){
-          knockFrom(b.row);
-          break;
-        }
-      }
-    }
-  }
-  canvas.addEventListener('pointerdown', handlePointer);
-  function onReset(){ buildTower(); }
-  resetBtn.addEventListener('click', onReset);
-
-  return function cleanup(){
-    running = false;
-    if(rafId) cancelAnimationFrame(rafId);
-    window.removeEventListener('resize', resize);
-    canvas.removeEventListener('pointerdown', handlePointer);
-    resetBtn.removeEventListener('click', onReset);
-  };
-}
-
-
-// ============ Rip It Up ============
-function mtMountRipGame(container){
-  container.innerHTML = '<canvas class="mt-embedded-canvas"></canvas><div class="mt-embedded-hint">Swipe across to tear it up.</div>';
-  const canvas = container.querySelector('canvas');
-  const ctx = canvas.getContext('2d');
-  let running = true;
-  const dpr = Math.max(1, window.devicePixelRatio || 1);
-  const H = 260;
-  const COLORS = ['#EDE3D3','#E3D7C0','#F4EFE2'];
-
-  function resize(){
-    const w = container.clientWidth;
-    canvas.style.width = w + 'px';
-    canvas.style.height = H + 'px';
-    canvas.width = Math.floor(w * dpr);
-    canvas.height = Math.floor(H * dpr);
-    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-  }
-  resize();
-  window.addEventListener('resize', resize);
-
-  const STRIP_COUNT = 18;
-  let strips = [];
-  let falling = [];
-  let refillTimer = null;
-
-  function buildSheet(){
-    const w = container.clientWidth;
-    const sw = w / STRIP_COUNT;
-    strips = [];
-    for(let i=0;i<STRIP_COUNT;i++){
-      strips.push({ i, x:i*sw, w:sw-1, torn:false, color: COLORS[i % COLORS.length] });
-    }
-    falling = [];
-    if(refillTimer){ clearTimeout(refillTimer); refillTimer = null; }
-  }
-  buildSheet();
-
-  function tearStrip(strip){
-    if(strip.torn) return;
-    strip.torn = true;
-    const jagged = 3 + Math.floor(Math.random()*3);
-    for(let j=0;j<jagged;j++){
-      falling.push({
-        x: strip.x, w: strip.w, y: (H/jagged)*j, h: H/jagged - 2, color: strip.color,
-        vx:(Math.random()-0.5)*3, vy:1+Math.random()*2, rot:0, vrot:(Math.random()-0.5)*0.2,
-      });
-    }
-    if(strips.every(s => s.torn) && !refillTimer){
-      refillTimer = setTimeout(() => { refillTimer = null; buildSheet(); }, 2000);
-    }
-  }
-
-  let rafId = null;
-  function draw(){
-    if(!running) return;
-    const w = container.clientWidth;
-    ctx.clearRect(0,0,w,H);
-    for(const s of strips){
-      if(s.torn) continue;
-      ctx.fillStyle = s.color;
-      ctx.fillRect(s.x, 0, s.w, H);
-    }
-    for(const f of falling){
-      f.vy += 0.18; f.x += f.vx; f.y += f.vy; f.rot += f.vrot;
-      ctx.save(); ctx.translate(f.x+f.w/2, f.y+f.h/2); ctx.rotate(f.rot);
-      ctx.fillStyle = f.color; ctx.fillRect(-f.w/2, -f.h/2, f.w, f.h); ctx.restore();
-    }
-    falling = falling.filter(f => f.y < H + 60);
-    rafId = requestAnimationFrame(draw);
-  }
-  rafId = requestAnimationFrame(draw);
-
-  function tearAt(x){
-    const w = container.clientWidth;
-    const sw = w / STRIP_COUNT;
-    const i = Math.floor(x / sw);
-    if(i >= 0 && i < strips.length) tearStrip(strips[i]);
-  }
-  function handlePointerDown(e){
-    e.preventDefault();
-    const rect = canvas.getBoundingClientRect();
-    const p = e.changedTouches ? e.changedTouches[0] : e;
-    tearAt(p.clientX - rect.left);
-  }
-  function handlePointerMove(e){
-    if(e.buttons === undefined && !e.touches) return; // ignore hover-only environments
-    e.preventDefault();
-    const rect = canvas.getBoundingClientRect();
-    const pts = e.changedTouches ? Array.from(e.changedTouches) : [e];
-    for(const p of pts) tearAt(p.clientX - rect.left);
-  }
-  canvas.addEventListener('pointerdown', handlePointerDown);
-  canvas.addEventListener('pointermove', handlePointerMove);
-
-  return function cleanup(){
-    running = false;
-    if(rafId) cancelAnimationFrame(rafId);
-    if(refillTimer) clearTimeout(refillTimer);
-    window.removeEventListener('resize', resize);
-    canvas.removeEventListener('pointerdown', handlePointerDown);
-    canvas.removeEventListener('pointermove', handlePointerMove);
-  };
-}
-
-
-// ============ Scribble Rage ============
 function mtMountScribbleGame(container){
   container.innerHTML = '<canvas class="mt-embedded-canvas"></canvas><div class="mt-embedded-controls"><button class="mt-embedded-btn" data-scribble-shred>Shred it</button></div>';
   const canvas = container.querySelector('canvas');
@@ -10120,7 +9937,10 @@ function mtMountTugGame(container){
   function setMsg(t){ if(msgEl) msgEl.textContent = t; }
   function setup(){
     markerPos = 0.5;
-    aiPower = 0.03 + Math.random()*0.02; // AI's own tap strength, randomized per round for variety
+    // Tuned so the breakeven point is ~5 taps/sec (was ~4/sec) -- a real, sustained
+    // fast-tap challenge, while still mathematically winnable by fast tapping (confirmed
+    // via simulated-tapper testing, not just eyeballed).
+    aiPower = 0.04 + Math.random()*0.02;
     gameOver = false;
     setMsg('Tap fast to pull the rope your way!');
   }
@@ -10167,11 +9987,13 @@ function mtMountTugGame(container){
     if(markerPos <= 0.05){
       gameOver = true;
       setMsg('You win! Tap New round to go again.');
+      mtShowResultPopup(container, 'YOU WIN', 'win');
       return true;
     }
     if(markerPos >= 0.95){
       gameOver = true;
       setMsg('Computer wins this one. Tap New round to try again.');
+      mtShowResultPopup(container, 'LOUNGE WINS', 'lose');
       return true;
     }
     return false;
@@ -10180,21 +10002,22 @@ function mtMountTugGame(container){
   function aiTick(){
     if(!running || gameOver) return;
     markerPos = Math.min(1, markerPos + aiPower);
-    if(!checkWin()) aiTimer = setTimeout(aiTick, 220);
+    if(!checkWin()) aiTimer = setTimeout(aiTick, 200);
   }
-  aiTimer = setTimeout(aiTick, 220);
+  aiTimer = setTimeout(aiTick, 200);
 
   function handlePointer(e){
     if(gameOver) return;
-    markerPos = Math.max(0, markerPos - 0.045);
+    markerPos = Math.max(0, markerPos - 0.05);
     checkWin();
   }
   canvas.addEventListener('pointerdown', handlePointer);
 
   function onReset(){
     if(aiTimer) clearTimeout(aiTimer);
+    const p = container.querySelector('.mt-result-overlay'); if(p) p.remove();
     setup();
-    aiTimer = setTimeout(aiTick, 220);
+    aiTimer = setTimeout(aiTick, 200);
   }
   resetBtn.addEventListener('click', onReset);
   window.addEventListener('resize', resize);
@@ -10376,8 +10199,8 @@ function mtMountReversiGame(container){
     if(rvGameStatus(board) === 'gameover'){
       gameOver = true;
       const b = rvCount(board,'black'), w = rvCount(board,'white');
-      if(b>w) setMsg(`You win, ${b}-${w}! Tap New game to play again.`);
-      else if(w>b) setMsg(`Computer wins, ${w}-${b}. Tap New game to play again.`);
+      if(b>w){ setMsg(`You win, ${b}-${w}! Tap New game to play again.`); mtShowResultPopup(container, 'YOU WIN', 'win'); }
+      else if(w>b){ setMsg(`Computer wins, ${w}-${b}. Tap New game to play again.`); mtShowResultPopup(container, 'LOUNGE WINS', 'lose'); }
       else setMsg(`Draw, ${b}-${w}. Tap New game to play again.`);
       return true;
     }
@@ -10436,7 +10259,7 @@ function mtMountReversiGame(container){
     afterMove();
   }
 
-  function onReset(){ setup(); resize(); }
+  function onReset(){ const p = container.querySelector('.mt-result-overlay'); if(p) p.remove(); setup(); resize(); }
   resetBtn.addEventListener('click', onReset);
   window.addEventListener('resize', resize);
   resize();
@@ -10451,7 +10274,12 @@ function mtMountReversiGame(container){
 }
 
 
-// ============ Zen Garden ============
+// ============ Rumble (stick-figure fighting game) ============
+// Rigged by design, per direct instruction: the player's health has a hard floor it can
+// never cross, so the player can never actually lose -- only ever come close. The AI's
+// health has no such floor, so sustained tapping always eventually finishes it off. This
+// is an explicit, intentional design choice for this specific game, not a difficulty bug.
+const FIGHT_ATTACK_TYPES = ['punch','doublepunch','kick','headbutt','jump'];
 function mtMountFightGame(container){
   container.innerHTML = `
     <canvas class="mt-embedded-canvas"></canvas>
@@ -10466,15 +10294,19 @@ function mtMountFightGame(container){
   const dpr = Math.max(1, window.devicePixelRatio || 1);
   const H = 240;
   const MIN_PLAYER_HEALTH = 8; // the floor -- player health can never drop below this
+  const AI_MAX_HEALTH = 140; // raised from 100 -- more taps needed, a real fight, still
+                              // guaranteed winnable since only the player's floor matters
 
   let playerHealth, aiHealth, gameOver, aiTimer = null;
-  let playerPunch = 0, aiPunch = 0, shake = 0, impactFlash = 0;
+  let playerAttack = null, aiAttack_ = null, shake = 0, impactFlash = 0;
+  let aiFallAngle = 0; // 0 = standing, ramps up to Math.PI/2 when knocked out
   let particles = [];
 
   function setMsg(t){ if(msgEl) msgEl.textContent = t; }
   function setup(){
-    playerHealth = 100; aiHealth = 100; gameOver = false;
-    playerPunch = 0; aiPunch = 0; shake = 0; impactFlash = 0; particles = [];
+    playerHealth = 100; aiHealth = AI_MAX_HEALTH; gameOver = false;
+    playerAttack = null; aiAttack_ = null; shake = 0; impactFlash = 0; aiFallAngle = 0;
+    particles = [];
     setMsg('Tap anywhere to attack!');
   }
   setup();
@@ -10497,27 +10329,52 @@ function mtMountFightGame(container){
         size:3+Math.random()*4, color, life:1 });
     }
   }
-  function drawStickFigure(cx, cy, punch, facingRight, color){
+  function pickAttackType(){ return FIGHT_ATTACK_TYPES[Math.floor(Math.random()*FIGHT_ATTACK_TYPES.length)]; }
+
+  // Draws one stick figure. `attack` is {type, progress} or null. `fallAngle` (radians)
+  // topples the figure over its feet when knocked out -- 0 is standing, ~PI/2 is flat.
+  function drawStickFigure(baseCx, baseCy, attack, facingRight, color, fallAngle){
     const headR = 14, bodyLen = 34;
-    ctx.strokeStyle = color; ctx.lineWidth = 4; ctx.lineCap = 'round';
-    // head
-    ctx.beginPath(); ctx.arc(cx, cy-bodyLen-headR, headR, 0, Math.PI*2); ctx.stroke();
-    // body
-    ctx.beginPath(); ctx.moveTo(cx, cy-bodyLen); ctx.lineTo(cx, cy); ctx.stroke();
-    // legs
-    ctx.beginPath(); ctx.moveTo(cx, cy); ctx.lineTo(cx-12, cy+28); ctx.stroke();
-    ctx.beginPath(); ctx.moveTo(cx, cy); ctx.lineTo(cx+12, cy+28); ctx.stroke();
-    // back arm (static)
-    ctx.beginPath(); ctx.moveTo(cx, cy-bodyLen+8); ctx.lineTo(cx - (facingRight?10:-24), cy-bodyLen+22); ctx.stroke();
-    // punching arm -- extends outward toward the opponent as `punch` goes 0 -> 1 -> 0
-    const reach = Math.sin(Math.min(1,punch) * Math.PI) * 40;
     const dir = facingRight ? 1 : -1;
-    ctx.beginPath();
-    ctx.moveTo(cx, cy-bodyLen+8);
-    ctx.lineTo(cx + dir*(10+reach), cy-bodyLen+14);
+    const type = attack ? attack.type : null;
+    const p = attack ? Math.sin(Math.min(1,attack.progress) * Math.PI) : 0;
+
+    ctx.save();
+    ctx.translate(baseCx, baseCy);
+    if(fallAngle) ctx.rotate(dir * fallAngle);
+    ctx.strokeStyle = color; ctx.lineWidth = 4; ctx.lineCap = 'round';
+
+    const jumpY = type === 'jump' ? -p*14 : 0;
+    const headOffsetX = type === 'headbutt' ? dir*p*18 : 0;
+    const legReach = type === 'kick' ? p*28 : 0;
+    const punchReach = (type === 'punch' || type === 'doublepunch' || type === 'jump') ? p*40 : 0;
+
+    // head
+    ctx.beginPath(); ctx.arc(headOffsetX, jumpY-bodyLen-headR, headR, 0, Math.PI*2); ctx.stroke();
+    // body
+    ctx.beginPath(); ctx.moveTo(0, jumpY-bodyLen); ctx.lineTo(0, jumpY); ctx.stroke();
+    // back leg (static)
+    ctx.beginPath(); ctx.moveTo(0, jumpY); ctx.lineTo(-12, jumpY+28); ctx.stroke();
+    // front leg (kicks forward when attack type is 'kick')
+    ctx.beginPath(); ctx.moveTo(0, jumpY);
+    if(legReach > 0) ctx.lineTo(dir*(14+legReach), jumpY+6);
+    else ctx.lineTo(12, jumpY+28);
     ctx.stroke();
+    // back arm (static)
+    ctx.beginPath(); ctx.moveTo(0, jumpY-bodyLen+8); ctx.lineTo(-dir*10, jumpY-bodyLen+22); ctx.stroke();
+    // front arm -- extends for punch/doublepunch/jump
+    ctx.beginPath(); ctx.moveTo(0, jumpY-bodyLen+8); ctx.lineTo(dir*(10+punchReach), jumpY-bodyLen+14); ctx.stroke();
+    // second arm for a double-hand attack
+    if(type === 'doublepunch'){
+      ctx.beginPath(); ctx.moveTo(0, jumpY-bodyLen+8); ctx.lineTo(-dir*(10+punchReach), jumpY-bodyLen+14); ctx.stroke();
+    }
+    ctx.restore();
   }
-  function drawHealthBar(x, y, w, h, ratio, color){
+  function drawHealthBar(x, y, w, h, ratio, color, label){
+    ctx.font = 'bold 11px sans-serif';
+    ctx.textAlign = 'left';
+    ctx.fillStyle = '#3a2a1e';
+    ctx.fillText(label, x, y-4);
     ctx.fillStyle = 'rgba(58,42,30,0.15)';
     ctx.fillRect(x, y, w, h);
     ctx.fillStyle = color;
@@ -10537,16 +10394,19 @@ function mtMountFightGame(container){
     } else { shake = 0; }
     ctx.clearRect(-20,-20,w+40,H+40);
 
-    drawHealthBar(16, 14, w*0.38, 12, playerHealth/100, '#5A8F4E');
-    drawHealthBar(w-16-w*0.38, 14, w*0.38, 12, aiHealth/100, '#A6342E');
+    drawHealthBar(16, 14, w*0.38, 12, playerHealth/100, '#5A8F4E', 'YOU');
+    drawHealthBar(w-16-w*0.38, 14, w*0.38, 12, aiHealth/AI_MAX_HEALTH, '#A6342E', 'PROBLEM');
 
     const groundY = H*0.72;
-    if(playerPunch > 0) playerPunch = Math.max(0, playerPunch - 0.08);
-    if(aiPunch > 0) aiPunch = Math.max(0, aiPunch - 0.08);
-    // Close fighting distance -- close enough that a thrown punch actually visually
-    // connects with the opponent, not two figures standing apart from each other.
-    drawStickFigure(w*0.4, groundY, playerPunch, true, '#3a2a1e');
-    drawStickFigure(w*0.6, groundY, aiPunch, false, '#7A2E35');
+    if(playerAttack){ playerAttack.progress -= 0.08; if(playerAttack.progress <= 0) playerAttack = null; }
+    if(aiAttack_){ aiAttack_.progress -= 0.08; if(aiAttack_.progress <= 0) aiAttack_ = null; }
+    // Knockout: once aiHealth hits 0, the AI figure topples over instead of just
+    // standing there frozen -- ramps up to lying flat and stays there.
+    if(gameOver && aiHealth <= 0 && aiFallAngle < Math.PI/2){
+      aiFallAngle = Math.min(Math.PI/2, aiFallAngle + 0.09);
+    }
+    drawStickFigure(w*0.4, groundY, playerAttack, true, '#3a2a1e', 0);
+    drawStickFigure(w*0.6, groundY, aiAttack_, false, '#7A2E35', aiFallAngle);
     if(impactFlash > 0){
       const fx = w*0.5, fy = groundY - 20;
       ctx.save();
@@ -10565,14 +10425,14 @@ function mtMountFightGame(container){
       impactFlash = Math.max(0, impactFlash - 0.15);
     }
 
-    for(const p of particles){
-      p.vy += 0.16; p.x += p.vx; p.y += p.vy; p.life -= 0.025;
-      if(p.life <= 0) continue;
-      ctx.globalAlpha = Math.max(0, p.life);
-      ctx.fillStyle = p.color; ctx.fillRect(p.x, p.y, p.size, p.size);
+    for(const pt of particles){
+      pt.vy += 0.16; pt.x += pt.vx; pt.y += pt.vy; pt.life -= 0.025;
+      if(pt.life <= 0) continue;
+      ctx.globalAlpha = Math.max(0, pt.life);
+      ctx.fillStyle = pt.color; ctx.fillRect(pt.x, pt.y, pt.size, pt.size);
       ctx.globalAlpha = 1;
     }
-    particles = particles.filter(p => p.life > 0);
+    particles = particles.filter(pt => pt.life > 0);
 
     ctx.restore();
     rafId = requestAnimationFrame(loop);
@@ -10583,6 +10443,7 @@ function mtMountFightGame(container){
     if(aiHealth <= 0){
       gameOver = true;
       setMsg('You win! Tap New fight to go again.');
+      mtShowResultPopup(container, 'YOU WIN', 'win');
       if(aiTimer){ clearTimeout(aiTimer); aiTimer = null; }
       return true;
     }
@@ -10594,7 +10455,7 @@ function mtMountFightGame(container){
     const w = container.clientWidth;
     const dmg = 5 + Math.random()*5;
     aiHealth = Math.max(0, aiHealth - dmg);
-    playerPunch = 1;
+    playerAttack = { type: pickAttackType(), progress: 1 };
     shake = 6;
     impactFlash = 1;
     burst(w*0.5, H*0.72-20, '#A6342E');
@@ -10602,7 +10463,7 @@ function mtMountFightGame(container){
   }
   canvas.addEventListener('pointerdown', handlePointer);
 
-  function aiAttack(){
+  function aiAttackFn(){
     if(!running || gameOver) return;
     const w = container.clientWidth;
     const dmg = 3 + Math.random()*4;
@@ -10610,18 +10471,21 @@ function mtMountFightGame(container){
     // damage this hit would otherwise deal. This is what guarantees the player can never
     // actually lose the fight, only come close to it.
     playerHealth = Math.max(MIN_PLAYER_HEALTH, playerHealth - dmg);
-    aiPunch = 1;
+    aiAttack_ = { type: pickAttackType(), progress: 1 };
     shake = 5;
     impactFlash = 1;
     burst(w*0.5, H*0.72-20, '#5A8F4E');
-    aiTimer = setTimeout(aiAttack, 700 + Math.random()*500);
+    // Slightly faster than before (was 700-1200ms) -- combined with the bigger AI health
+    // pool, the fight takes real sustained effort now instead of being over in a few taps.
+    aiTimer = setTimeout(aiAttackFn, 600 + Math.random()*400);
   }
-  aiTimer = setTimeout(aiAttack, 900);
+  aiTimer = setTimeout(aiAttackFn, 800);
 
   function onReset(){
     if(aiTimer) clearTimeout(aiTimer);
+    const p = container.querySelector('.mt-result-overlay'); if(p) p.remove();
     setup();
-    aiTimer = setTimeout(aiAttack, 900);
+    aiTimer = setTimeout(aiAttackFn, 800);
   }
   resetBtn.addEventListener('click', onReset);
 
@@ -10635,7 +10499,6 @@ function mtMountFightGame(container){
   };
 }
 
-
 const MT_EMBEDDED_GAMES = {
   pop:      { title: 'Pop Session', mount: mtMountPopGame },
   blast:    { title: 'Blow It Up', mount: mtMountBlastGame },
@@ -10643,8 +10506,6 @@ const MT_EMBEDDED_GAMES = {
   chess:    { title: 'Chess (vs computer)', mount: mtMountChessGame },
   connect4: { title: 'Connect Four (vs computer)', mount: mtMountConnectFourGame },
   balloons: { title: 'Balloon Pop Row', mount: mtMountBalloonGame },
-  stack:    { title: 'Stack Knockdown', mount: mtMountStackGame },
-  rip:      { title: 'Rip It Up', mount: mtMountRipGame },
   scribble: { title: 'Scribble Rage', mount: mtMountScribbleGame },
   mole:     { title: 'Whack-a-Mole', mount: mtMountMoleGame },
   tug:      { title: 'Tug of War (vs computer)', mount: mtMountTugGame },
@@ -10740,6 +10601,55 @@ function mtPreventTouchNav(el){
   const prevent = (e) => { e.preventDefault(); };
   el.addEventListener('touchstart', prevent, opts);
   el.addEventListener('touchmove', prevent, opts);
+}
+// Shared win/lose popup used by every game with a clear win/lose outcome (checkers,
+// chess, connect four, reversi, tug of war, rumble). Dismissable by swiping in any
+// direction OR by a plain tap -- both are handled by the same pointer sequence: if the
+// finger moved past a small threshold before release, treat it as a swipe-dismiss;
+// otherwise treat it as a tap-dismiss. `kind` is 'win' or 'lose', purely for styling.
+function mtShowResultPopup(container, text, kind){
+  const existing = container.querySelector('.mt-result-overlay');
+  if(existing) existing.remove();
+  if(!container.style.position) container.style.position = 'relative';
+  const overlay = document.createElement('div');
+  overlay.className = 'mt-result-overlay';
+  overlay.innerHTML = `<div class="mt-result-card mt-result-${kind==='win'?'win':'lose'}">${escapeHtml(text)}<div class="mt-result-hint">Tap or swipe to dismiss</div></div>`;
+  container.appendChild(overlay);
+  const card = overlay.querySelector('.mt-result-card');
+  let startX=0, startY=0, dragging=false, moved=false;
+  function dismiss(){ overlay.remove(); }
+  function pointOf(e){ return e.changedTouches ? e.changedTouches[0] : e; }
+  function onDown(e){
+    dragging = true; moved = false;
+    const p = pointOf(e);
+    startX = p.clientX; startY = p.clientY;
+    card.style.transition = 'none';
+  }
+  function onMove(e){
+    if(!dragging) return;
+    const p = pointOf(e);
+    const dx = p.clientX-startX, dy = p.clientY-startY;
+    if(Math.abs(dx)+Math.abs(dy) > 6) moved = true;
+    card.style.transform = `translate(${dx}px, ${dy}px)`;
+    const dist = Math.sqrt(dx*dx+dy*dy);
+    overlay.style.opacity = Math.max(0.15, 1 - dist/180);
+  }
+  function onUp(e){
+    if(!dragging) return;
+    dragging = false;
+    const p = pointOf(e);
+    const dx = p.clientX-startX, dy = p.clientY-startY;
+    const dist = Math.sqrt(dx*dx+dy*dy);
+    if(dist > 50 || !moved){ dismiss(); return; }
+    card.style.transition = '';
+    card.style.transform = '';
+    overlay.style.opacity = '';
+  }
+  overlay.addEventListener('pointerdown', onDown);
+  overlay.addEventListener('pointermove', onMove);
+  overlay.addEventListener('pointerup', onUp);
+  overlay.addEventListener('pointerleave', onUp);
+  return dismiss;
 }
 function mtActivateMessAboutPick(container){
   const pick = mtState.messAboutPick;
@@ -12373,6 +12283,12 @@ function renderRoute(opts){
   // requestAnimationFrame loop would otherwise keep running forever on a canvas that's no
   // longer even in the DOM. Every route change tears it down here, regardless of cause.
   if(mtActiveEmbeddedCleanup){ mtActiveEmbeddedCleanup(); mtActiveEmbeddedCleanup = null; }
+
+  // Scoped ONLY to Mind Temple and the arcade route -- everywhere else on the site keeps
+  // completely normal swipe/scroll behavior. See the .mt-no-swipeback CSS rule.
+  const noSwipeBackRoute = parts[0] === 'mind-temple' || parts[0] === 'arcade';
+  document.documentElement.classList.toggle('mt-no-swipeback', noSwipeBackRoute);
+  document.body.classList.toggle('mt-no-swipeback', noSwipeBackRoute);
 
   // Remember where we were scrolled to on the page we're about to leave.
   if(!opts.forceTop && lastRenderedHash !== null){
