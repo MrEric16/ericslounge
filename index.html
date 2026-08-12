@@ -8453,10 +8453,16 @@ const MT_CHESS_PUZZLES = {
 };
 
 
-const CH_GLYPH = {
-  white: { p:'\u2659', n:'\u2658', b:'\u2657', r:'\u2656', q:'\u2655', k:'\u2654' },
-  black: { p:'\u265F', n:'\u265E', b:'\u265D', r:'\u265C', q:'\u265B', k:'\u265A' },
-};
+// One glyph shape per piece type, used for BOTH colors. Previously white pieces used the
+// "outline" chess codepoints (U+2654-2659) and black used the "filled" ones (U+265A-265F)
+// -- two genuinely different Unicode characters per piece. Font support for those two sets
+// is wildly inconsistent across phones: on at least one real device the filled (black) set
+// rendered as proper detailed glyphs while the outline (white) set rendered thin and
+// undersized in comparison, with visibly different proportions between the two colors.
+// Using ONE codepoint set for both, and telling color apart purely via fillStyle/
+// strokeStyle, guarantees identical shape and size for white and black pieces regardless
+// of a given phone's font quirks.
+const CH_GLYPH_SHAPE = { p:'\u265F', n:'\u265E', b:'\u265D', r:'\u265C', q:'\u265B', k:'\u265A' };
 
 function mtMountChessGame(container){
   container.innerHTML = `
@@ -8556,24 +8562,20 @@ function mtMountChessGame(container){
       ctx.fillStyle = 'rgba(90,143,78,0.55)';
       for(const m of moves) ctx.fillRect(m.toC*s, m.toR*s, s, s);
     }
-    // Pieces: noticeably bigger than the original pass, plus a soft contrast disc behind
-    // each one -- on a small phone screen, silhouette alone (especially bishop vs pawn, or
-    // rook vs king at a glance) is too easy to misread, and the disc helps regardless of
-    // exactly how well a given phone's font renders the chess glyphs.
+    // One glyph shape for both colors (see CH_GLYPH_SHAPE above) -- color and outline are
+    // what tell white from black, not two different Unicode characters. No background
+    // disc; that was there to compensate for inconsistent glyph rendering, and the real
+    // fix (one glyph set) makes it unnecessary.
     for(let r=0;r<8;r++) for(let c=0;c<8;c++){
       const piece = board[r][c];
       if(!piece) continue;
       const cx = c*s+s/2, cy = r*s+s/2;
-      ctx.beginPath();
-      ctx.arc(cx, cy, s*0.40, 0, Math.PI*2);
-      ctx.fillStyle = piece.color === 'white' ? 'rgba(245,241,230,0.55)' : 'rgba(20,20,20,0.32)';
-      ctx.fill();
-      ctx.font = `${Math.round(s*0.88)}px "Noto Sans Symbols2","Segoe UI Symbol",sans-serif`;
+      ctx.font = `${Math.round(s*0.95)}px "Noto Sans Symbols2","Segoe UI Symbol",sans-serif`;
       ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
       ctx.fillStyle = piece.color === 'white' ? '#F5F1E6' : '#1a1a1a';
       ctx.strokeStyle = piece.color === 'white' ? '#3a2a1e' : '#F5F1E6';
-      ctx.lineWidth = Math.max(1.2, s*0.035);
-      const glyph = CH_GLYPH[piece.color][piece.type];
+      ctx.lineWidth = Math.max(1.4, s*0.045);
+      const glyph = CH_GLYPH_SHAPE[piece.type];
       ctx.strokeText(glyph, cx, cy+1);
       ctx.fillText(glyph, cx, cy+1);
     }
@@ -8955,6 +8957,7 @@ function mtMountBalloonGame(container){
   let running = true;
   let balloons = [];
   let particles = [];
+  let shake = 0;
   const dpr = Math.max(1, window.devicePixelRatio || 1);
   const H = 280;
   let score = 0, escaped = 0;
@@ -8971,19 +8974,25 @@ function mtMountBalloonGame(container){
   window.addEventListener('resize', resize);
 
   const COLORS = ['#A6342E','#2E7B8A','#B89434','#5A8F4E','#4A5578'];
+  // Much faster rise speed than the original pass, per direct feedback -- this used to
+  // feel too slow/lazy for what's meant to be a quick, snappy pop game.
   function spawnBalloon(){
     const w = container.clientWidth;
-    const r = 18 + Math.random()*14;
+    const r = 16 + Math.random()*12;
     balloons.push({
       x: r + Math.random() * Math.max(1, w - r*2),
       y: H + r,
       r, color: COLORS[Math.floor(Math.random()*COLORS.length)],
-      speed: 0.7 + Math.random()*1.1,
+      speed: 2.6 + Math.random()*2.4,
       wobble: Math.random()*Math.PI*2,
       pop: 0, alive: true,
     });
   }
   let spawnTimer = 0;
+  // MIN_BALLOONS is enforced every frame, unconditionally -- same fix as Pop Session's
+  // never-zero-bubbles guarantee. Faster balloons clear the screen faster too, so without
+  // this the field would empty out far more often than the original slower version ever did.
+  const MIN_BALLOONS = 4;
 
   function setMsg(){ if(msgEl) msgEl.textContent = `Pop them before they float away. Score: ${score}`; }
 
@@ -8991,23 +9000,29 @@ function mtMountBalloonGame(container){
   function draw(){
     if(!running) return;
     const w = container.clientWidth;
-    ctx.clearRect(0,0,w,H);
+    ctx.save();
+    if(shake > 0.3){
+      ctx.translate((Math.random()-0.5)*shake, (Math.random()-0.5)*shake);
+      shake *= 0.82;
+    } else { shake = 0; }
+    ctx.clearRect(-20,-20,w+40,H+40);
     spawnTimer++;
-    if(spawnTimer > 45 && balloons.length < 8){ spawnTimer = 0; spawnBalloon(); }
+    if(spawnTimer > 22 && balloons.length < 10){ spawnTimer = 0; spawnBalloon(); }
+    while(balloons.filter(b=>b.alive && b.pop===0).length < MIN_BALLOONS) spawnBalloon();
     for(const b of balloons){
       if(!b.alive) continue;
       if(b.pop > 0){
-        b.pop += 0.1;
+        b.pop += 0.13;
         ctx.globalAlpha = Math.max(0, 1 - b.pop);
-        ctx.beginPath(); ctx.arc(b.x, b.y, b.r*(1+b.pop*0.7), 0, Math.PI*2);
+        ctx.beginPath(); ctx.arc(b.x, b.y, b.r*(1+b.pop*0.9), 0, Math.PI*2);
         ctx.fillStyle = b.color; ctx.fill();
         ctx.globalAlpha = 1;
         if(b.pop >= 1) b.alive = false;
         continue;
       }
       b.y -= b.speed;
-      b.wobble += 0.05;
-      b.x += Math.sin(b.wobble)*0.6;
+      b.wobble += 0.06;
+      b.x += Math.sin(b.wobble)*0.8;
       if(b.y < -b.r){ b.alive = false; escaped++; continue; }
       ctx.beginPath();
       ctx.ellipse(b.x, b.y, b.r*0.85, b.r, 0, 0, Math.PI*2);
@@ -9020,13 +9035,14 @@ function mtMountBalloonGame(container){
     }
     balloons = balloons.filter(b => b.alive);
     for(const p of particles){
-      p.vy += 0.14; p.x += p.vx; p.y += p.vy; p.life -= 0.02;
+      p.vy += 0.16; p.x += p.vx; p.y += p.vy; p.life -= 0.018;
       if(p.life <= 0) continue;
       ctx.globalAlpha = Math.max(0, p.life);
       ctx.fillStyle = p.color; ctx.fillRect(p.x, p.y, p.size, p.size);
       ctx.globalAlpha = 1;
     }
     particles = particles.filter(p => p.life > 0);
+    ctx.restore();
     rafId = requestAnimationFrame(draw);
   }
   rafId = requestAnimationFrame(draw);
@@ -9043,10 +9059,13 @@ function mtMountBalloonGame(container){
             b.pop = 0.001;
             score++;
             setMsg();
-            for(let i=0;i<10;i++){
-              const ang = Math.random()*Math.PI*2, speed = 1.5+Math.random()*4;
-              particles.push({ x:b.x, y:b.y, vx:Math.cos(ang)*speed, vy:Math.sin(ang)*speed-2,
-                size:3+Math.random()*4, color:b.color, life:1 });
+            // Bigger, more explosive burst plus screen shake on every pop -- not just a
+            // fizzle out.
+            shake = 9;
+            for(let i=0;i<22;i++){
+              const ang = Math.random()*Math.PI*2, speed = 2+Math.random()*6;
+              particles.push({ x:b.x, y:b.y, vx:Math.cos(ang)*speed, vy:Math.sin(ang)*speed-2.5,
+                size:3+Math.random()*5, color:b.color, life:1 });
             }
           }
         }
