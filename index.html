@@ -12270,6 +12270,31 @@ function getScrollMemory(){
 function saveScrollMemory(mem){
   try{ sessionStorage.setItem('scrollMemory', JSON.stringify(mem)); }catch(e){}
 }
+// Swiping back on iOS/Android is a BROWSER HISTORY navigation gesture, not a scroll or
+// pan gesture -- CSS touch-action and overscroll-behavior only ever affected scroll/pan,
+// which is why they never fully stopped it. This does the only thing that actually can:
+// whenever the user is inside Mind Temple or the arcade route, a duplicate history entry
+// (same URL) is kept planted directly behind the current page. A swipe-back consumes that
+// duplicate, landing on an identical copy of the page the user was already looking at --
+// visually nothing happens -- and popstate immediately re-plants another duplicate so the
+// next swipe is caught too. Leaving through an actual link/button still works completely
+// normally, since that's a forward hash navigation, not a history pop, and is untouched by
+// any of this.
+let mtSwipeTrapActive = false;
+function mtHandleSwipeTrap(shouldBeActive){
+  if(shouldBeActive){
+    mtSwipeTrapActive = true;
+    try{ history.pushState({mtTrap:true}, '', location.href); }catch(e){}
+  } else {
+    mtSwipeTrapActive = false;
+  }
+}
+window.addEventListener('popstate', () => {
+  if(mtSwipeTrapActive){
+    try{ history.pushState({mtTrap:true}, '', location.href); }catch(e){}
+  }
+});
+
 function renderRoute(opts){
   opts = (opts && typeof opts === 'object' && !(opts instanceof Event)) ? opts : {};
   const app = document.getElementById('app');
@@ -12285,10 +12310,13 @@ function renderRoute(opts){
   if(mtActiveEmbeddedCleanup){ mtActiveEmbeddedCleanup(); mtActiveEmbeddedCleanup = null; }
 
   // Scoped ONLY to Mind Temple and the arcade route -- everywhere else on the site keeps
-  // completely normal swipe/scroll behavior. See the .mt-no-swipeback CSS rule.
+  // completely normal swipe/scroll behavior. See the .mt-no-swipeback CSS rule (kept as a
+  // supplementary layer) and mtHandleSwipeTrap below (the actual fix -- see its own
+  // comment for why CSS alone can never fully solve this).
   const noSwipeBackRoute = parts[0] === 'mind-temple' || parts[0] === 'arcade';
   document.documentElement.classList.toggle('mt-no-swipeback', noSwipeBackRoute);
   document.body.classList.toggle('mt-no-swipeback', noSwipeBackRoute);
+  mtHandleSwipeTrap(noSwipeBackRoute);
 
   // Remember where we were scrolled to on the page we're about to leave.
   if(!opts.forceTop && lastRenderedHash !== null){
