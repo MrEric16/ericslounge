@@ -157,7 +157,14 @@
 
   *{box-sizing:border-box; -webkit-tap-highlight-color:transparent;}
   html{scroll-behavior:smooth;}
-  html,body{margin:0;padding:0;}
+  /* overscroll-behavior-x:none stops the browser/OS from interpreting a horizontal swipe
+     anywhere on the page as "go back" -- this is the actual documented fix for exactly
+     this problem in installed/PWA web apps, and it's a global, page-level setting rather
+     than something that can be scoped per-element. Per-canvas touch-action:none and
+     preventDefault() (still in place on every embedded game canvas) handle the in-page
+     scrolling/gesture side; this handles the browser-chrome navigation side, which lives
+     above individual DOM elements and wasn't fully covered by the per-element fixes alone. */
+  html,body{margin:0;padding:0; overscroll-behavior-x:none;}
   body{
     background:var(--cream);
     color:var(--ink);
@@ -7427,10 +7434,9 @@ const MT_MESSABOUT_POOL = [
   {type:'embedded', id:'mole'},
   {type:'embedded', id:'tug'},
   {type:'embedded', id:'reversi'},
-  {type:'embedded', id:'zen'},
   {type:'embedded', id:'fight'},
 ];
-function mtPoolKey(entry){ return entry.type === 'external' ? entry.url : ('embedded:' + entry.id); }
+
 
 /* ---- Embedded mess-about games ----
    All in-house now -- the external site pool has been fully retired (see the retired list
@@ -10442,123 +10448,6 @@ function mtMountReversiGame(container){
 
 
 // ============ Zen Garden ============
-function mtMountZenGame(container){
-  container.innerHTML = '<canvas class="mt-embedded-canvas"></canvas><div class="mt-embedded-controls"><button class="mt-embedded-btn" data-zen-reset>Smooth it over</button></div>';
-  const canvas = container.querySelector('canvas');
-  const ctx = canvas.getContext('2d');
-  const resetBtn = container.querySelector('[data-zen-reset]');
-  let running = true;
-  const dpr = Math.max(1, window.devicePixelRatio || 1);
-  const H = 260;
-  const SAND = '#E8D9B5';
-  const LINE_LIGHT = 'rgba(255,255,255,0.35)';
-  const LINE_DARK = 'rgba(120,95,50,0.28)';
-
-  function resize(){
-    const w = container.clientWidth;
-    canvas.style.width = w + 'px';
-    canvas.style.height = H + 'px';
-    canvas.width = Math.floor(w * dpr);
-    canvas.height = Math.floor(H * dpr);
-    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    draw();
-  }
-
-  // Each rake stroke is a smoothed list of {x,y} points -- purely additive, no goal, no
-  // score, no win state. It is entirely fine (encouraged, even) for a student to just sit
-  // there dragging slow curves with no destination in mind.
-  let strokes = [];
-  let currentStroke = null;
-
-  function drawBaseTexture(w){
-    ctx.fillStyle = SAND;
-    ctx.fillRect(0,0,w,H);
-    // Rows of gentle wavy rake lines across the untouched sand.
-    const rowGap = 9;
-    for(let y=rowGap; y<H; y+=rowGap){
-      ctx.beginPath();
-      for(let x=0; x<=w; x+=6){
-        const yy = y + Math.sin(x*0.05 + y*0.3)*1.5;
-        if(x===0) ctx.moveTo(x,yy); else ctx.lineTo(x,yy);
-      }
-      ctx.strokeStyle = LINE_DARK;
-      ctx.lineWidth = 1;
-      ctx.stroke();
-    }
-  }
-  function drawStroke(stroke){
-    if(stroke.length < 2) return;
-    // A raked groove: a wide soft dark band (the furrow) with a bright highlight line
-    // along one edge, giving a simple carved-sand look without needing real shading.
-    ctx.beginPath();
-    ctx.moveTo(stroke[0].x, stroke[0].y);
-    for(let i=1;i<stroke.length;i++) ctx.lineTo(stroke[i].x, stroke[i].y);
-    ctx.strokeStyle = 'rgba(120,95,50,0.35)';
-    ctx.lineWidth = 10;
-    ctx.lineCap = 'round';
-    ctx.lineJoin = 'round';
-    ctx.stroke();
-    ctx.strokeStyle = LINE_LIGHT;
-    ctx.lineWidth = 3;
-    ctx.stroke();
-  }
-
-  function draw(){
-    if(!running) return;
-    const w = container.clientWidth;
-    drawBaseTexture(w);
-    for(const s of strokes) drawStroke(s);
-    if(currentStroke) drawStroke(currentStroke);
-  }
-
-  function pointOf(e){
-    const rect = canvas.getBoundingClientRect();
-    const p = e.changedTouches ? e.changedTouches[0] : e;
-    return { x: p.clientX - rect.left, y: p.clientY - rect.top };
-  }
-  function handleDown(e){
-    e.preventDefault();
-    currentStroke = [pointOf(e)];
-    draw();
-  }
-  function handleMove(e){
-    if(!currentStroke) return;
-    e.preventDefault();
-    currentStroke.push(pointOf(e));
-    draw();
-  }
-  function handleUp(){
-    if(currentStroke && currentStroke.length > 1) strokes.push(currentStroke);
-    currentStroke = null;
-    draw();
-  }
-  canvas.addEventListener('pointerdown', handleDown);
-  canvas.addEventListener('pointermove', handleMove);
-  canvas.addEventListener('pointerup', handleUp);
-  canvas.addEventListener('pointerleave', handleUp);
-
-  function onReset(){ strokes = []; currentStroke = null; draw(); }
-  resetBtn.addEventListener('click', onReset);
-  window.addEventListener('resize', resize);
-  resize();
-
-  return function cleanup(){
-    running = false;
-    window.removeEventListener('resize', resize);
-    canvas.removeEventListener('pointerdown', handleDown);
-    canvas.removeEventListener('pointermove', handleMove);
-    canvas.removeEventListener('pointerup', handleUp);
-    canvas.removeEventListener('pointerleave', handleUp);
-    resetBtn.removeEventListener('click', onReset);
-  };
-}
-
-
-// ============ Rumble (stick-figure fighting game) ============
-// Rigged by design, per direct instruction: the player's health has a hard floor it can
-// never cross, so the player can never actually lose -- only ever come close. The AI's
-// health has no such floor, so sustained tapping always eventually finishes it off. This
-// is an explicit, intentional design choice for this specific game, not a difficulty bug.
 function mtMountFightGame(container){
   container.innerHTML = `
     <canvas class="mt-embedded-canvas"></canvas>
@@ -10575,13 +10464,13 @@ function mtMountFightGame(container){
   const MIN_PLAYER_HEALTH = 8; // the floor -- player health can never drop below this
 
   let playerHealth, aiHealth, gameOver, aiTimer = null;
-  let playerPunch = 0, aiPunch = 0, shake = 0;
+  let playerPunch = 0, aiPunch = 0, shake = 0, impactFlash = 0;
   let particles = [];
 
   function setMsg(t){ if(msgEl) msgEl.textContent = t; }
   function setup(){
     playerHealth = 100; aiHealth = 100; gameOver = false;
-    playerPunch = 0; aiPunch = 0; shake = 0; particles = [];
+    playerPunch = 0; aiPunch = 0; shake = 0; impactFlash = 0; particles = [];
     setMsg('Tap anywhere to attack!');
   }
   setup();
@@ -10617,7 +10506,7 @@ function mtMountFightGame(container){
     // back arm (static)
     ctx.beginPath(); ctx.moveTo(cx, cy-bodyLen+8); ctx.lineTo(cx - (facingRight?10:-24), cy-bodyLen+22); ctx.stroke();
     // punching arm -- extends outward toward the opponent as `punch` goes 0 -> 1 -> 0
-    const reach = Math.sin(Math.min(1,punch) * Math.PI) * 26;
+    const reach = Math.sin(Math.min(1,punch) * Math.PI) * 40;
     const dir = facingRight ? 1 : -1;
     ctx.beginPath();
     ctx.moveTo(cx, cy-bodyLen+8);
@@ -10650,8 +10539,27 @@ function mtMountFightGame(container){
     const groundY = H*0.72;
     if(playerPunch > 0) playerPunch = Math.max(0, playerPunch - 0.08);
     if(aiPunch > 0) aiPunch = Math.max(0, aiPunch - 0.08);
-    drawStickFigure(w*0.28, groundY, playerPunch, true, '#3a2a1e');
-    drawStickFigure(w*0.72, groundY, aiPunch, false, '#7A2E35');
+    // Close fighting distance -- close enough that a thrown punch actually visually
+    // connects with the opponent, not two figures standing apart from each other.
+    drawStickFigure(w*0.4, groundY, playerPunch, true, '#3a2a1e');
+    drawStickFigure(w*0.6, groundY, aiPunch, false, '#7A2E35');
+    if(impactFlash > 0){
+      const fx = w*0.5, fy = groundY - 20;
+      ctx.save();
+      ctx.globalAlpha = impactFlash;
+      ctx.fillStyle = '#FFF6D6';
+      ctx.beginPath();
+      for(let i=0;i<8;i++){
+        const ang = (i/8)*Math.PI*2;
+        const r = i%2===0 ? 16 : 7;
+        const x = fx+Math.cos(ang)*r, y = fy+Math.sin(ang)*r;
+        if(i===0) ctx.moveTo(x,y); else ctx.lineTo(x,y);
+      }
+      ctx.closePath();
+      ctx.fill();
+      ctx.restore();
+      impactFlash = Math.max(0, impactFlash - 0.15);
+    }
 
     for(const p of particles){
       p.vy += 0.16; p.x += p.vx; p.y += p.vy; p.life -= 0.025;
@@ -10683,8 +10591,9 @@ function mtMountFightGame(container){
     const dmg = 5 + Math.random()*5;
     aiHealth = Math.max(0, aiHealth - dmg);
     playerPunch = 1;
-    shake = 5;
-    burst(w*0.68, H*0.5, '#A6342E');
+    shake = 6;
+    impactFlash = 1;
+    burst(w*0.5, H*0.72-20, '#A6342E');
     checkOutcome();
   }
   canvas.addEventListener('pointerdown', handlePointer);
@@ -10698,8 +10607,9 @@ function mtMountFightGame(container){
     // actually lose the fight, only come close to it.
     playerHealth = Math.max(MIN_PLAYER_HEALTH, playerHealth - dmg);
     aiPunch = 1;
-    shake = 4;
-    burst(w*0.32, H*0.5, '#5A8F4E');
+    shake = 5;
+    impactFlash = 1;
+    burst(w*0.5, H*0.72-20, '#5A8F4E');
     aiTimer = setTimeout(aiAttack, 700 + Math.random()*500);
   }
   aiTimer = setTimeout(aiAttack, 900);
@@ -10735,7 +10645,6 @@ const MT_EMBEDDED_GAMES = {
   mole:     { title: 'Whack-a-Mole', mount: mtMountMoleGame },
   tug:      { title: 'Tug of War (vs computer)', mount: mtMountTugGame },
   reversi:  { title: 'Reversi (vs computer)', mount: mtMountReversiGame },
-  zen:      { title: 'Zen Garden', mount: mtMountZenGame },
   fight:    { title: 'Rumble', mount: mtMountFightGame },
   sand:     { title: 'Sandbox', mount: mtMountSandGame },
 };
@@ -10749,7 +10658,7 @@ let mtState = null;
 let mtActiveEmbeddedCleanup = null; // cleanup() of whichever embedded mess-about game is currently mounted, if any
 function mtInit(){
   if(mtActiveEmbeddedCleanup){ mtActiveEmbeddedCleanup(); mtActiveEmbeddedCleanup = null; }
-  mtState = { step:'picker', category:null, emotion:null, situation:'', thought:'', actionTaken:null, actionDescription:'', resolution:'', messAboutPick:null };
+  mtState = { step:'picker', category:null, emotion:null, situation:'', thought:'', actionTaken:null, actionDescription:'', resolution:'', messAboutPick:null, messAboutCycleIndex:0 };
   mtRender();
 }
 function mtGoTo(step){
@@ -11074,28 +10983,24 @@ function mtWireStep(container){
   if(backToPicker) backToPicker.addEventListener('click', ()=> mtGoTo('picker'));
 
   // "Mess about" flow -- offer shown for negative-valence words, before the questions.
-  // Pool mixes 9 external sites (opened via window.open -- confirmed working correctly on
-  // mobile, doesn't redirect out to Safari) with 4 in-house embedded games (mounted inline
-  // via mtActivateMessAboutPick, called from mtRender once the messAboutAfter HTML with its
-  // #mtEmbeddedGameSlot is actually in the DOM). One random pick either way -- the choice
-  // of which of the 13 options to open was never meant to be the student's decision.
-  function mtPickMessAboutPick(excludePick){
-    let pick;
-    const excludeKey = excludePick ? mtPoolKey(excludePick) : null;
-    do{ pick = MT_MESSABOUT_POOL[Math.floor(Math.random() * MT_MESSABOUT_POOL.length)]; }
-    while(mtPoolKey(pick) === excludeKey && MT_MESSABOUT_POOL.length > 1);
+  // Pool is now every embedded game, cycled through in a fixed order (not randomized) --
+  // each new session starts at the first game, and "try another" advances one at a time,
+  // wrapping back to the start after the last one.
+  function mtPickMessAboutPick(){
+    const pick = MT_MESSABOUT_POOL[s.messAboutCycleIndex % MT_MESSABOUT_POOL.length];
+    s.messAboutCycleIndex = (s.messAboutCycleIndex + 1) % MT_MESSABOUT_POOL.length;
     return pick;
   }
   const messaboutYes = container.querySelector('[data-action="messabout-yes"]');
   if(messaboutYes) messaboutYes.addEventListener('click', ()=>{
-    s.messAboutPick = mtPickMessAboutPick(null);
+    s.messAboutPick = mtPickMessAboutPick();
     mtGoTo('messAboutAfter');
   });
   const messaboutNo = container.querySelector('[data-action="messabout-no"]');
   if(messaboutNo) messaboutNo.addEventListener('click', ()=> mtGoTo('talkAboutIt'));
   const messaboutAnother = container.querySelector('[data-action="messabout-another"]');
   if(messaboutAnother) messaboutAnother.addEventListener('click', ()=>{
-    s.messAboutPick = mtPickMessAboutPick(s.messAboutPick);
+    s.messAboutPick = mtPickMessAboutPick();
     // already on messAboutAfter -- mtRender tears down the previous embedded game (if any)
     // and activates the new pick, no special-casing needed here.
     mtRender();
