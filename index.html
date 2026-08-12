@@ -10566,7 +10566,11 @@ function mtExit(){
     mem[''] = 0;
     saveScrollMemory(mem);
   }catch(e){}
-  location.hash = '#';
+  // No longer touches location.hash -- see mtOpenOverlay/mtCloseOverlay above renderRoute
+  // for why: Mind Temple's URL never changes while it's open, on purpose, so there is
+  // nothing in browser history for the swipe-back gesture to navigate to in the first
+  // place. Exiting just closes the overlay directly.
+  mtCloseOverlay();
 }
 function mtRender(){
   const container = document.getElementById('mtContainer');
@@ -11005,7 +11009,7 @@ function mtWireStep(container){
 
 function viewMindTemple(){
   return `
-    <a class="back-link" href="#">← Back to Mr Eric's Lounge</a>
+    <a class="back-link" href="#" data-mt-exit>← Back to Mr Eric's Lounge</a>
     <section style="padding-top:14px;">
       <div class="section-head"><span class="emoji" style="color:var(--misc-mindtemple)">${icon('brain')}</span><h2 style="color:var(--misc-mindtemple)">Mind Temple</h2></div>
       <div class="mt-wrap" id="mtContainer"></div>
@@ -11020,12 +11024,12 @@ function viewArcade(id){
   const game = MT_EMBEDDED_GAMES[id];
   if(!game){
     return `
-      <a class="back-link" href="#">← Back to Mr Eric's Lounge</a>
+      <a class="back-link" href="#" data-mt-exit>← Back to Mr Eric's Lounge</a>
       <section style="padding-top:14px;"><div class="empty-card">That game doesn't exist.</div></section>
     `;
   }
   return `
-    <a class="back-link" href="#">← Back to Mr Eric's Lounge</a>
+    <a class="back-link" href="#" data-mt-exit>← Back to Mr Eric's Lounge</a>
     <section style="padding-top:14px;">
       <div class="section-head"><h2>${escapeHtml(game.title)}</h2></div>
       <div class="mt-wrap" id="arcadeContainer"></div>
@@ -12270,59 +12274,62 @@ function getScrollMemory(){
 function saveScrollMemory(mem){
   try{ sessionStorage.setItem('scrollMemory', JSON.stringify(mem)); }catch(e){}
 }
-// Swiping back on iOS/Android is a BROWSER HISTORY navigation gesture, not a scroll or
-// pan gesture -- CSS touch-action and overscroll-behavior only ever affected scroll/pan,
-// which is why they never fully stopped it. This does the only thing that actually can:
-// whenever the user is inside Mind Temple or the arcade route, a duplicate history entry
-// (same URL) is kept planted directly behind the current page. A swipe-back consumes that
-// duplicate, landing on an identical copy of the page the user was already looking at --
-// visually nothing happens -- and popstate immediately re-plants another duplicate so the
-// next swipe is caught too. Leaving through an actual link/button still works completely
-// normally, since that's a forward hash navigation, not a history pop, and is untouched by
-// any of this.
-let mtSwipeTrapActive = false;
-function mtHandleSwipeTrap(shouldBeActive){
-  if(shouldBeActive){
-    mtSwipeTrapActive = true;
-    try{ history.pushState({mtTrap:true}, '', location.href); }catch(e){}
-  } else {
-    mtSwipeTrapActive = false;
-  }
+// Every previous attempt at this (CSS touch-action/overscroll-behavior, then a history
+// "trap" that re-plants a duplicate entry on every popstate) failed on a real installed
+// home-screen app: confirmed by W3C's own open issue on this exact problem -- iOS's
+// standalone-web-app swipe-back gesture is a native WebKit gesture that doesn't reliably
+// go through JS-observable history events in time for any script to intervene. There is
+// no documented, working fix for that specific gesture from web content alone.
+//
+// This takes a different approach entirely: Mind Temple and the arcade route NEVER touch
+// location.hash or the History API at all, in either direction. Opening either one just
+// swaps the visible content via mtOverlayParts, a plain in-memory variable -- the URL bar
+// and browser history stay exactly as they were on whatever page was open before. Since
+// nothing new was ever added to history, a swipe-back gesture has nothing to navigate to
+// in the first place; it can't leave Mind Temple because Mind Temple never became a
+// separate "page" as far as the browser is concerned. Exiting through the real "Back to
+// Mr Eric's Lounge" link/button still works completely normally, since that's handled by
+// mtCloseOverlay() below, not by touching the URL.
+// Trade-off, stated plainly: Mind Temple can no longer be deep-linked or refreshed into
+// directly (refreshing the page while it's open just shows the page underneath) -- that's
+// the real cost of guaranteeing the swipe gesture has nothing to grab onto.
+let mtOverlayParts = null;
+function mtOpenOverlay(parts){
+  mtOverlayParts = parts;
+  renderRoute();
 }
-window.addEventListener('popstate', () => {
-  if(mtSwipeTrapActive){
-    try{ history.pushState({mtTrap:true}, '', location.href); }catch(e){}
-  }
-});
-// Entering Mind Temple (the homepage tile) or the arcade route (the pixel8 search easter
-// egg) normally pushes a fresh history entry the same way any hash link does -- that
-// entry is exactly what the swipe-back gesture consumes to leave. Intercepting just these
-// two specific link patterns and using history.replaceState() instead means entering
-// never adds a new entry in the first place, on top of the trap above. Every other link
-// on the entire site is completely untouched -- this only ever fires for hrefs matching
-// exactly '#mind-temple' or starting with '#arcade/'.
+function mtCloseOverlay(){
+  mtOverlayParts = null;
+  renderRoute();
+}
 document.addEventListener('click', (e) => {
+  const exitLink = e.target.closest('[data-mt-exit]');
+  if(exitLink){
+    e.preventDefault();
+    mtExit();
+    return;
+  }
   const link = e.target.closest('a[href]');
   if(!link) return;
   const href = link.getAttribute('href');
-  if(!href || !(href === '#mind-temple' || href.indexOf('#arcade/') === 0)) return;
-  const currentHash = location.hash.replace(/^#/, '');
-  const alreadyInZone = currentHash === 'mind-temple' || currentHash.indexOf('arcade/') === 0;
-  if(alreadyInZone) return; // navigating between mind-temple/arcade pages -- let it push normally, the trap above already covers this case
-  e.preventDefault();
-  try{
-    history.replaceState(null, '', href);
-  }catch(err){
-    location.hash = href.replace(/^#/, ''); // fallback if replaceState is unavailable for any reason
+  if(!href) return;
+  if(href === '#mind-temple'){
+    e.preventDefault();
+    mtOpenOverlay(['mind-temple']);
+    return;
   }
-  renderRoute();
+  if(href.indexOf('#arcade/') === 0){
+    e.preventDefault();
+    mtOpenOverlay(['arcade', href.slice('#arcade/'.length)]);
+    return;
+  }
 });
 
 function renderRoute(opts){
   opts = (opts && typeof opts === 'object' && !(opts instanceof Event)) ? opts : {};
   const app = document.getElementById('app');
   const hash = location.hash.replace(/^#/, '');
-  const parts = hash.split('/').filter(Boolean);
+  const parts = mtOverlayParts ? mtOverlayParts : hash.split('/').filter(Boolean);
   logEvent('view', hash || 'home');
 
   // Safety net: if an embedded game (Mind Temple's mess-about panel, or the standalone
@@ -12333,13 +12340,13 @@ function renderRoute(opts){
   if(mtActiveEmbeddedCleanup){ mtActiveEmbeddedCleanup(); mtActiveEmbeddedCleanup = null; }
 
   // Scoped ONLY to Mind Temple and the arcade route -- everywhere else on the site keeps
-  // completely normal swipe/scroll behavior. See the .mt-no-swipeback CSS rule (kept as a
-  // supplementary layer) and mtHandleSwipeTrap below (the actual fix -- see its own
-  // comment for why CSS alone can never fully solve this).
+  // completely normal swipe/scroll behavior. See mtOpenOverlay/mtCloseOverlay above for
+  // the actual fix (the URL never changes while either is open, so there's nothing for a
+  // swipe-back gesture to navigate to). This CSS class is now just a harmless
+  // supplementary layer.
   const noSwipeBackRoute = parts[0] === 'mind-temple' || parts[0] === 'arcade';
   document.documentElement.classList.toggle('mt-no-swipeback', noSwipeBackRoute);
   document.body.classList.toggle('mt-no-swipeback', noSwipeBackRoute);
-  mtHandleSwipeTrap(noSwipeBackRoute);
 
   // Remember where we were scrolled to on the page we're about to leave.
   if(!opts.forceTop && lastRenderedHash !== null){
@@ -12990,7 +12997,7 @@ function checkAchievements(){
 document.getElementById('titleLink').addEventListener('click', ()=>{
   location.hash = '';
 });
-window.addEventListener('hashchange', () => renderRoute());
+window.addEventListener('hashchange', () => { mtOverlayParts = null; renderRoute(); });
 
 // Bottom tab bar — visible everywhere, built once from the existing icon set.
 document.getElementById('bottomTabs').innerHTML = `
