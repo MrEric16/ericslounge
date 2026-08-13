@@ -3486,19 +3486,26 @@ function findGoalResultDetail(m){
   }) || null;
 }
 
-window._goalDetailLookup = [];
-
 function resultsWithDetailHtml(results, isArsenal){
   if(!results || results.length === 0){
     return '<div id="resultsDetailContainer" class="empty-card">Nothing here yet — check back once the season\'s under way.</div>';
   }
-  window._goalDetailLookup = [];
-  window._goalDetailIsArsenal = !!isArsenal;
   const items = results.map(m => {
     const detail = findGoalResultDetail(m);
-    const idx = window._goalDetailLookup.length;
-    if(detail) window._goalDetailLookup.push(detail);
-    const clickAttr = detail ? ` onclick="showGoalMatchDetail(${idx})" style="cursor:pointer;"` : '';
+    // Detail travels WITH the row via a data attribute rather than through a shared
+    // window-level array+index. The old approach (window._goalDetailLookup[idx]) broke
+    // in practice: the Arsenal hub and every league-detail page render into the exact
+    // same DOM id (#resultsDetailContainer) and shared the exact same global lookup array,
+    // so a still-in-flight async refresh left over from a page the user had already
+    // navigated away from could overwrite that global array out from under the page
+    // actually on screen -- the onclick handlers stayed pointing at indices that no
+    // longer matched what was in the array, so tapping a result silently did nothing or
+    // opened the wrong match's goals. Percent-encoded (not HTML-escaped) specifically so
+    // scorer names with an apostrophe (e.g. "O'Brien") can never break out of the
+    // attribute quoting.
+    const clickAttr = detail
+      ? ` onclick="showGoalMatchDetailFromEl(this)" data-goal-detail="${encodeURIComponent(JSON.stringify(detail))}" data-is-arsenal="${isArsenal ? '1' : '0'}" style="cursor:pointer;"`
+      : '';
     return `
     <div class="match-row"${clickAttr}>
       <div class="match-teams">${teamNameHtml(m.home, false, false)}${m.homeScore !== null ? ` <span class="match-score">${m.homeScore} - ${m.awayScore}</span> ` : ' v '}${teamNameHtml(m.away, false, false)}</div>
@@ -3508,15 +3515,17 @@ function resultsWithDetailHtml(results, isArsenal){
   return `<div id="resultsDetailContainer">${items}</div>`;
 }
 
-function showGoalMatchDetail(idx){
-  const d = window._goalDetailLookup[idx];
+function showGoalMatchDetailFromEl(el){
+  let d;
+  try{ d = JSON.parse(decodeURIComponent(el.dataset.goalDetail)); }catch(e){ return; }
   if(!d) return;
   // Arsenal's own results (this-page or the Arsenal hub) use the brand red/white/gold
   // treatment; every other league (PL, La Liga, Bundesliga, Serie A, Ligue 1, Champions
   // League) shares this exact same popup component, so anything Arsenal-specific has to
   // be gated behind this flag rather than baked into the base styling -- otherwise every
-  // other league's match popup would wrongly turn red too.
-  const isArsenal = !!window._goalDetailIsArsenal;
+  // other league's match popup would wrongly turn red too. Read from the clicked row
+  // itself (not a page-level global) for the same reason detail is: it can't go stale.
+  const isArsenal = el.dataset.isArsenal === '1';
   const goalLine = g => `<div style="font-size:13px; padding:3px 0;">${escapeHtml(g.scorer)} <span style="opacity:.6;">${g.minute}'</span></div>`;
   // Never render "No goals" for a side whose actual final score is above zero -- that's
   // not "no goals," that's the scraper failing to extract scorer names while still getting
@@ -6045,13 +6054,28 @@ function wireExtrasCarousel(container){
     order.forEach((slideIdx, pos) => { slides[slideIdx].dataset.pos = pos; });
     dots.forEach((d, i) => d.classList.toggle('active', i === order[0]));
   }
-  function advanceOne(){ order.push(order.shift()); render(); }
-  function retreatOne(){ order.unshift(order.pop()); render(); }
+  // Settle lock: the CSS transition on .carousel-slide runs .35s (see the stylesheet). If a
+  // new swipe/tap starts before that finishes, the dataset.pos change fires mid-transition
+  // and the browser is left animating toward a position that's already stale -- cards freeze
+  // at partial opacity/offset, which is the overlapping-card glitch reported. Every gesture
+  // now has to wait out a short settle window (slightly longer than the CSS transition)
+  // before the next one is accepted, so swipes always resolve cleanly before the next begins.
+  const SETTLE_MS = 360;
+  let locked = false, lockTimer = null;
+  function lockBriefly(){
+    locked = true;
+    clearTimeout(lockTimer);
+    lockTimer = setTimeout(()=>{ locked = false; }, SETTLE_MS);
+  }
+  function advanceOne(){ if(locked) return; order.push(order.shift()); render(); lockBriefly(); }
+  function retreatOne(){ if(locked) return; order.unshift(order.pop()); render(); lockBriefly(); }
   function advanceTo(targetIdx){
+    if(locked) return;
     while(order[0] !== targetIdx){
       order.push(order.shift());
     }
     render();
+    lockBriefly();
   }
 
   // Swiping the top card left advances (same direction as the existing tap-to-advance),
@@ -6060,10 +6084,12 @@ function wireExtrasCarousel(container){
   // clearly dominates vertical, so a vertical drag (e.g. scrolling a long riddle card's
   // own text, or just scrolling the page past the carousel) is left completely alone.
   let startX = 0, startY = 0, dragging = false, isHorizontalSwipe = false, swipeJustHandled = false;
+  let swipeFlagTimer = null;
   function pointOf(e){ return e.changedTouches ? e.changedTouches[0] : e; }
   function onDown(e){
+    if(locked) return; // previous gesture's transition is still settling -- ignore until it's done
     if(e.target.closest('.riddle-reveal-btn') || e.target.closest('a')) return;
-    dragging = true; isHorizontalSwipe = false; swipeJustHandled = false;
+    dragging = true; isHorizontalSwipe = false;
     const p = pointOf(e);
     startX = p.clientX; startY = p.clientY;
   }
@@ -6093,6 +6119,12 @@ function wireExtrasCarousel(container){
     topSlide.style.opacity = '';
     if(isHorizontalSwipe){
       swipeJustHandled = true;
+      // Fallback clear in case the browser never fires the matching click (pointercancel,
+      // finger lifted off the element, etc.) -- previously this flag was only ever cleared
+      // by the NEXT pointerdown, which raced against a delayed click from THIS swipe and
+      // could let that stale click fire an extra, unwanted advanceOne() mid-transition.
+      clearTimeout(swipeFlagTimer);
+      swipeFlagTimer = setTimeout(()=>{ swipeJustHandled = false; }, 400);
       if(Math.abs(dx) > 40){
         if(dx < 0) advanceOne(); else retreatOne();
       }
@@ -6105,7 +6137,7 @@ function wireExtrasCarousel(container){
   wrap.addEventListener('pointerleave', onUp);
 
   wrap.addEventListener('click', (e)=>{
-    if(swipeJustHandled){ swipeJustHandled = false; return; } // a swipe, not a tap -- don't also advance
+    if(swipeJustHandled){ swipeJustHandled = false; clearTimeout(swipeFlagTimer); return; } // a swipe, not a tap -- don't also advance
     if(e.target.closest('a')) return; // let "read more" links work normally
     const revealBtn = e.target.closest('.riddle-reveal-btn');
     if(revealBtn){
@@ -7967,12 +7999,12 @@ function mtMountCheckersGame(container){
   const dpr = Math.max(1, window.devicePixelRatio || 1);
   let boardPx = 0;
 
-  let board, turn, selected, gameOver, aiThinking, aiTimer = null;
+  let board, turn, selected, gameOver, aiThinking, aiTimer = null, aiCaptureQueue = null;
 
   function setMsg(t){ if(msgEl) msgEl.textContent = t; }
   function setupBoard(){
     board = mtCkInitBoard();
-    turn = 'player'; selected = null; gameOver = false; aiThinking = false;
+    turn = 'player'; selected = null; gameOver = false; aiThinking = false; aiCaptureQueue = null;
     setMsg('Your move (red). Tap a piece, then tap where to move.');
   }
   setupBoard();
@@ -8105,33 +8137,102 @@ function mtMountCheckersGame(container){
   }
   canvas.addEventListener('pointerdown', handlePointer);
 
-  function evalSafety(b, r, c, color){
-    const opp = color === 'red' ? 'black' : 'red';
-    for(let rr=0; rr<MT_CK_SIZE; rr++) for(let cc=0; cc<MT_CK_SIZE; cc++){
-      if(b[rr][cc] && b[rr][cc].color===opp){
-        const caps = mtCkGetCaptures(b, rr, cc);
-        if(caps.some(m => m.capR===r && m.capC===c)) return -3;
+  // ---- Checkers AI, difficulty pass -----------------------------------------------
+  // Old behavior (too easy, per direct feedback): when multiple pieces could capture, it
+  // picked one at random rather than comparing them, and each individual jump in a chain
+  // was scored 1 ply at a time with only a single-square danger check. That's why it would
+  // routinely hand over multi-jump chains and walk into recaptures. Fixed by: (1) fully
+  // enumerating every complete capture SEQUENCE (not just the next single jump) for every
+  // capturing piece and picking the sequence with the most total value, with a secondary
+  // penalty for what it leaves exposed afterward; (2) scoring quiet moves by simulating the
+  // resulting position and checking the single biggest capture chain the player could then
+  // play, instead of a shallow "is this one square unsafe" check. Still deliberately not a
+  // full minimax search -- per the brief, harder but still beatable.
+  function mtCkPieceValue(piece){ return piece.king ? 1.75 : 1; }
+
+  // Every complete capture sequence available starting from (r,c): [{path, value}], where
+  // path is the ordered list of jumps and value is total captured-piece worth (kings count
+  // more). Recurses through mandatory continuation jumps exactly like a real turn, but
+  // branches at every choice point instead of greedily taking the first option, so full
+  // chains can be compared against each other.
+  function mtCkAllCaptureSequences(board, r, c){
+    function recurse(b, rr, cc, path, valueSoFar){
+      const caps = mtCkGetCaptures(b, rr, cc);
+      if(!caps.length) return [{path, value: valueSoFar}];
+      let out = [];
+      for(const m of caps){
+        const nb = mtCkCloneBoard(b);
+        const capturedPiece = nb[m.capR][m.capC];
+        nb[m.toR][m.toC] = nb[rr][cc];
+        nb[rr][cc] = null;
+        nb[m.capR][m.capC] = null;
+        const kingedNow = mtCkMaybeKing(nb, m.toR, m.toC);
+        const val = valueSoFar + mtCkPieceValue(capturedPiece);
+        const newPath = [...path, m];
+        if(kingedNow){
+          // Kinging mid-chain ends the capture turn immediately (matches live rule).
+          out.push({path: newPath, value: val});
+        } else {
+          out = out.concat(recurse(nb, m.toR, m.toC, newPath, val));
+        }
       }
+      return out;
     }
-    return 0;
+    return recurse(board, r, c, [], 0);
+  }
+  // Biggest single capture-sequence value `color` could play on board `b` right now --
+  // used to measure how exposed a candidate position leaves the mover.
+  function mtCkBestCaptureValue(b, color){
+    let best = 0;
+    for(const p of mtCkCapturablePieces(b, color)){
+      for(const s of mtCkAllCaptureSequences(b, p.r, p.c)) if(s.value > best) best = s.value;
+    }
+    return best;
+  }
+  function mtCkScoreQuietMove(b, p, m){
+    const nb = mtCkCloneBoard(b);
+    nb[m.toR][m.toC] = nb[p.r][p.c];
+    nb[p.r][p.c] = null;
+    const kinged = mtCkMaybeKing(nb, m.toR, m.toC);
+    let score = 0;
+    if(kinged) score += 6;
+    else if(!nb[m.toR][m.toC].king) score += m.toR * 0.15; // black advances toward row 7
+    score += (3.5 - Math.abs(m.toC - 3.5)) * 0.15; // mild center preference
+    score -= mtCkBestCaptureValue(nb, 'red') * 4; // heavily punish handing over a capture
+    score += Math.random() * 0.4; // small tie-break jitter, not the deciding factor anymore
+    return score;
   }
   function runAiTurn(){
     if(!running || gameOver) return;
     const capturable = mtCkCapturablePieces(board, 'black');
     if(capturable.length){
-      const piece = capturable[Math.floor(Math.random()*capturable.length)];
-      chainCaptureStep(piece.r, piece.c);
+      let best = null, bestScore = -Infinity;
+      for(const piece of capturable){
+        for(const s of mtCkAllCaptureSequences(board, piece.r, piece.c)){
+          const nb = mtCkCloneBoard(board);
+          let rr = piece.r, cc = piece.c;
+          for(const mv of s.path){
+            nb[mv.toR][mv.toC] = nb[rr][cc];
+            nb[rr][cc] = null;
+            nb[mv.capR][mv.capC] = null;
+            mtCkMaybeKing(nb, mv.toR, mv.toC);
+            rr = mv.toR; cc = mv.toC;
+          }
+          const exposure = mtCkBestCaptureValue(nb, 'red');
+          const score = s.value * 10 - exposure * 3 + Math.random() * 0.3;
+          if(score > bestScore){ bestScore = score; best = {r: piece.r, c: piece.c, path: s.path}; }
+        }
+      }
+      aiCaptureQueue = { r: best.r, c: best.c, path: best.path, idx: 0 };
+      stepCaptureQueue();
       return;
     }
     const movable = mtCkMovablePieces(board, 'black');
     if(!movable.length){ checkGameOver(); return; }
     let best = null, bestScore = -Infinity;
     for(const p of movable){
-      const moves = mtCkGetSimpleMoves(board, p.r, p.c);
-      for(const m of moves){
-        let score = evalSafety(board, m.toR, m.toC, 'black');
-        if(!board[p.r][p.c].king && m.toR === MT_CK_SIZE-1) score += 5;
-        score += Math.random();
+      for(const m of mtCkGetSimpleMoves(board, p.r, p.c)){
+        const score = mtCkScoreQuietMove(board, p, m);
         if(score > bestScore){ bestScore = score; best = {p, m}; }
       }
     }
@@ -8140,24 +8241,22 @@ function mtMountCheckersGame(container){
     mtCkMaybeKing(board, best.m.toR, best.m.toC);
     finishAiTurn();
   }
-  function chainCaptureStep(r, c){
-    const caps = mtCkGetCaptures(board, r, c);
-    if(!caps.length){ finishAiTurn(); return; }
-    let best = null, bestScore = -Infinity;
-    for(const m of caps){
-      let score = board[m.capR][m.capC].king ? 8 : 5;
-      score += evalSafety(board, m.toR, m.toC, 'black');
-      score += Math.random();
-      if(score > bestScore){ bestScore = score; best = m; }
-    }
-    board[best.toR][best.toC] = board[r][c];
-    board[r][c] = null;
-    board[best.capR][best.capC] = null;
-    const kinged = mtCkMaybeKing(board, best.toR, best.toC);
+  // Steps through the precomputed best capture sequence one jump at a time (same 400ms
+  // pacing as before) so the animation is unchanged -- only the decision-making moved
+  // upfront into runAiTurn.
+  function stepCaptureQueue(){
+    const q = aiCaptureQueue;
+    const move = q.path[q.idx];
+    board[move.toR][move.toC] = board[q.r][q.c];
+    board[q.r][q.c] = null;
+    board[move.capR][move.capC] = null;
+    mtCkMaybeKing(board, move.toR, move.toC);
+    q.r = move.toR; q.c = move.toC; q.idx++;
     draw();
-    if(!kinged && mtCkGetCaptures(board, best.toR, best.toC).length){
-      aiTimer = setTimeout(() => chainCaptureStep(best.toR, best.toC), 400);
+    if(q.idx < q.path.length){
+      aiTimer = setTimeout(stepCaptureQueue, 400);
     } else {
+      aiCaptureQueue = null;
       finishAiTurn();
     }
   }
@@ -11307,7 +11406,17 @@ function wirePhotoLightbox(container){
   }, { passive:true });
 }
 
+// Full names that reliably clip to a second line in the tight table/match-row layout.
+// Display-only -- this never touches the raw team name used for matching against API
+// data or GOAL_RESULTS, only what gets rendered.
+function teamDisplayName(name){
+  if(!name) return name;
+  if(/brighton/i.test(name) && /albion/i.test(name)) return 'Brighton';
+  if(/borussia\s*dortmund/i.test(name)) return 'Dortmund';
+  return name;
+}
 function teamNameHtml(name, showTrophy, enableEgg){
+  name = teamDisplayName(name);
   const n = (name || '').toLowerCase();
   if(n.includes('arsenal')){
     const inner = escapeHtml(name) + (showTrophy ? ' 🏆' : '');
