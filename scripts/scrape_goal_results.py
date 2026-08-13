@@ -160,7 +160,7 @@ def parse_match_page(html, url):
     }
 
 
-def process_source(source_url, existing_urls, results_out, debug_tag):
+def process_source(source_url, existing_urls, results_out, debug_tag, existing_out_retry_counts):
     try:
         r = requests.get(source_url, headers=HEADERS, timeout=20)
         r.raise_for_status()
@@ -175,6 +175,7 @@ def process_source(source_url, existing_urls, results_out, debug_tag):
     log(f"[{debug_tag}] Found {len(finished_links)} finished-match links")
 
     new_count = 0
+    retry_counts = existing_out_retry_counts  # url -> number of prior failed attempts
     for url in finished_links:
         if url in existing_urls:
             continue
@@ -193,6 +194,32 @@ def process_source(source_url, existing_urls, results_out, debug_tag):
                         f"{parsed['home']} vs {parsed['away']} on {parsed['date']}")
                     existing_urls.add(url)  # don't retry it every run
                     continue
+            # Real incident (2026-08-12): Arsenal 1-1 Como shipped with BOTH sides showing
+            # "Goal detail unavailable" despite two real, findable goals -- the score parsed
+            # correctly but the scorer regex came back empty. parse_match_page already
+            # detects and logs this exact case, but previously still wrote the broken entry
+            # into the permanent dataset, which meant it could never self-heal: the URL was
+            # marked seen and never fetched again. Now it's retried instead, up to 3 scrape
+            # runs (goal.com's scorer markup for a given match doesn't reliably change
+            # between runs a few hours apart, so a few retries is the right amount of
+            # patience -- not zero, and not forever hiding a permanently-broken page).
+            parse_failed = (parsed["ftHome"] > 0 and not parsed["homeGoals"]) or \
+                           (parsed["ftAway"] > 0 and not parsed["awayGoals"])
+            if parse_failed:
+                attempts = retry_counts.get(url, 0) + 1
+                if attempts < 3:
+                    retry_counts[url] = attempts
+                    log(f"[{debug_tag}] SCORER PARSE FAILED (attempt {attempts}/3) for "
+                        f"{parsed['home']} {parsed['ftHome']}-{parsed['ftAway']} {parsed['away']} "
+                        f"-- NOT committing, will retry next run: {url}")
+                    continue  # url NOT added to existing_urls -- must be re-fetched next run
+                else:
+                    log(f"[{debug_tag}] SCORER PARSE FAILED 3 times, giving up and committing "
+                        f"WITH INCOMPLETE SCORER DATA (page structure likely changed) for "
+                        f"{parsed['home']} {parsed['ftHome']}-{parsed['ftAway']} {parsed['away']}: {url}")
+                    retry_counts.pop(url, None)
+            else:
+                retry_counts.pop(url, None)
             parsed["competition"] = debug_tag
             results_out.append(parsed)
             existing_urls.add(url)
@@ -207,16 +234,20 @@ def main():
     log("Run started.")
     existing = load_existing()
     existing_urls = {r["url"] for r in existing["results"]}
+    retry_counts = existing.get("scorerParseRetryCounts", {})
     total_new = 0
 
-    total_new += process_source(ARSENAL_URL, existing_urls, existing["results"], "arsenal-friendlies")
+    total_new += process_source(ARSENAL_URL, existing_urls, existing["results"], "arsenal-friendlies", retry_counts)
 
     for code, url in LEAGUES.items():
-        total_new += process_source(url, existing_urls, existing["results"], code)
+        total_new += process_source(url, existing_urls, existing["results"], code, retry_counts)
 
     log(f"TOTAL new results added this run: {total_new}")
+    if retry_counts:
+        log(f"Matches still awaiting a clean scorer parse (not yet committed): {list(retry_counts.keys())}")
     existing["generatedAt"] = datetime.utcnow().isoformat() + "Z"
     existing["results"] = existing["results"][-300:]  # keep a healthy rolling window
+    existing["scorerParseRetryCounts"] = retry_counts
 
     with open(OUTPUT_PATH, "w", encoding="utf-8") as f:
         json.dump(existing, f, ensure_ascii=False, indent=2)
