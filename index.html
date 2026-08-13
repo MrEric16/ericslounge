@@ -6168,7 +6168,11 @@ function wireExtrasCarousel(container){
       }
       return; // don't also advance the carousel
     }
-    advanceOne();
+    // Tap zones: right side of the card = next, left side = previous. Same directions as
+    // the swipe gesture, just via a plain tap instead of a drag.
+    const rect = wrap.getBoundingClientRect();
+    const tapX = e.clientX - rect.left;
+    if(tapX < rect.width / 2) retreatOne(); else advanceOne();
   });
 
   dots.forEach((d, i) => {
