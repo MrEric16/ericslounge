@@ -6131,6 +6131,25 @@ function wireExtrasCarousel(container){
     }
     isHorizontalSwipe = false;
   }
+  // A cancelled gesture (iOS intercepting the touch mid-swipe -- same OS-level gesture
+  // interception documented for the swipe-back problem elsewhere in this app) previously
+  // left the dragged card's inline transform/opacity permanently stuck: onUp was only ever
+  // wired to pointerup/pointerleave, and pointercancel fires instead of pointerup when the
+  // OS steals the gesture, so dragging never got reset. That's what left a card frozen
+  // mid-drag -- offset, partially transparent, overlapping the next card -- which reads
+  // exactly like the reported "stuck, overlapping cards" glitch and has nothing to do with
+  // swipe speed. This resets the visual state without treating the interrupted gesture as
+  // an intentional swipe (no advance/retreat call, unlike onUp).
+  function onCancel(){
+    if(!dragging) return;
+    dragging = false;
+    const topSlide = slides[order[0]];
+    topSlide.style.transition = '';
+    topSlide.style.transform = '';
+    topSlide.style.opacity = '';
+    isHorizontalSwipe = false;
+  }
+  wrap.addEventListener('pointercancel', onCancel);
   wrap.addEventListener('pointerdown', onDown);
   wrap.addEventListener('pointermove', onMove);
   wrap.addEventListener('pointerup', onUp);
