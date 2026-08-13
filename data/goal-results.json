@@ -111,8 +111,18 @@
       "htAway": 1,
       "ftHome": 1,
       "ftAway": 1,
-      "homeGoals": [],
-      "awayGoals": [],
+      "homeGoals": [
+        {
+          "scorer": "M. Lewis-Skelly",
+          "minute": 33
+        }
+      ],
+      "awayGoals": [
+        {
+          "scorer": "M. Baturina",
+          "minute": 43
+        }
+      ],
       "competition": "arsenal-friendlies"
     }
   ]
