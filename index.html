@@ -10804,7 +10804,8 @@ function mtComputeWellbeingStats(log){
   if(total === 0) return { total: 0 };
 
   const categoryCounts = {};
-  MT_EMOTIONS.forEach(c => { categoryCounts[c.key] = 0; });
+  const categoryValence = {};
+  MT_EMOTIONS.forEach(c => { categoryCounts[c.key] = 0; categoryValence[c.key] = []; });
   const valenceCounts = { positive: 0, neutral: 0, negative: 0 };
   const timeOfDayValence = { morning: [], afternoon: [], evening: [], night: [] };
   const weekdayValence = [[],[],[],[],[],[],[]];
@@ -10816,6 +10817,7 @@ function mtComputeWellbeingStats(log){
     const d = new Date(e.ts);
     const hour = d.getHours();
     const score = MT_VALENCE_SCORE[e.valence] ?? 0;
+    if(categoryValence[e.category]) categoryValence[e.category].push(score);
     const bucket = MT_TIME_BUCKETS.find(b => b.test(hour));
     if(bucket) timeOfDayValence[bucket.key].push(score);
     weekdayValence[d.getDay()].push(score);
@@ -10862,6 +10864,7 @@ function mtComputeWellbeingStats(log){
   return {
     total,
     categoryCounts,
+    categoryAvgValence: Object.fromEntries(MT_EMOTIONS.map(c => [c.key, avg(categoryValence[c.key])])),
     valenceCounts,
     mostCommonCategory: mostCommonCategory ? mostCommonCategory[0] : null,
     timeOfDay: MT_TIME_BUCKETS.map(b => ({ key:b.key, label:b.label, avgValence: avg(timeOfDayValence[b.key]), count: timeOfDayValence[b.key].length })),
@@ -10870,6 +10873,16 @@ function mtComputeWellbeingStats(log){
     streak,
     recentShift,
   };
+}
+// One consistent green/yellow/red color language across every chart on this page: leaning
+// positive, roughly neutral/mixed, or leaning negative. Small dead-zone around 0 (rather
+// than a hard >=0/<0 split) so a category that's genuinely a coin-flip between positive
+// and negative entries reads as neutral-yellow instead of arbitrarily green or red.
+function mtValenceColor(avgValence){
+  const v = avgValence || 0;
+  if(v > 0.2) return '#5A8F4E';
+  if(v < -0.2) return '#A6342E';
+  return '#B6B235';
 }
 
 // ---- Minimal hand-rolled canvas chart helpers (no external charting library, consistent
@@ -10957,17 +10970,17 @@ function mtMountWellbeing(container){
 
   const catChart = container.querySelector('#wbCategoryChart');
   if(catChart){
-    const bars = MT_EMOTIONS.map(c => ({ label: c.label, value: stats.categoryCounts[c.key] || 0, color: c.color }));
+    const bars = MT_EMOTIONS.map(c => ({ label: c.label, value: stats.categoryCounts[c.key] || 0, color: mtValenceColor(stats.categoryAvgValence[c.key]) }));
     mtDrawBarChart(catChart, bars);
   }
   const todChart = container.querySelector('#wbTimeOfDayChart');
   if(todChart){
-    const bars = stats.timeOfDay.map(b => ({ label: b.label, value: b.avgValence || 0, color: (b.avgValence||0) >= 0 ? '#5A8F4E' : '#A6342E' }));
+    const bars = stats.timeOfDay.map(b => ({ label: b.label, value: b.avgValence || 0, color: mtValenceColor(b.avgValence) }));
     mtDrawBarChart(todChart, bars, { signed: true });
   }
   const dowChart = container.querySelector('#wbDayOfWeekChart');
   if(dowChart){
-    const bars = stats.weekday.map(b => ({ label: b.label, value: b.avgValence || 0, color: (b.avgValence||0) >= 0 ? '#5A8F4E' : '#A6342E' }));
+    const bars = stats.weekday.map(b => ({ label: b.label, value: b.avgValence || 0, color: mtValenceColor(b.avgValence) }));
     mtDrawBarChart(dowChart, bars, { signed: true });
   }
   const trendChart = container.querySelector('#wbTrendChart');
@@ -11159,8 +11172,8 @@ function mtWellbeingHtml(){
       <div class="wb-stat"><div class="wb-stat-num">${stats.streak}</div><div class="wb-stat-label">day streak</div></div>
     </div>
 
-    ${catInfo ? `<p class="mt-intro">Most logged: <strong style="color:${catInfo.color}">${escapeHtml(catInfo.label)}</strong></p>` : ''}
-    ${shiftInfo ? `<p class="mt-intro">Lately (last 7 days) you've logged <strong style="color:${shiftInfo.color}">${escapeHtml(shiftInfo.label)}</strong> more than usual.</p>` : ''}
+    ${catInfo ? `<p class="mt-intro">Most logged: <strong style="color:${mtValenceColor(stats.categoryAvgValence[catInfo.key])}">${escapeHtml(catInfo.label)}</strong></p>` : ''}
+    ${shiftInfo ? `<p class="mt-intro">Lately (last 7 days) you've logged <strong style="color:${mtValenceColor(stats.categoryAvgValence[shiftInfo.key])}">${escapeHtml(shiftInfo.label)}</strong> more than usual.</p>` : ''}
 
     <p class="wb-section-label">Mix of feelings overall</p>
     <div class="wb-split-bar">
