@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-14T04:55:06.781881Z",
+  "generatedAt": "2026-08-14T14:38:01.412238Z",
   "teams": [
     {
       "name": "Neftchi Fargona",
@@ -306,11 +306,6 @@
   ],
   "fixtures": [
     {
-      "home": "Navbahor Namangan",
-      "away": "Bunyodkor",
-      "raw_time": "14.08. 14:00"
-    },
-    {
       "home": "Din. Samarkand",
       "away": "Xorazm Urganch",
       "raw_time": "14.08. 15:00"
@@ -403,6 +398,11 @@
     {
       "home": "Mashal Muborak",
       "away": "Navbahor Namangan",
+      "raw_time": "26.08. 15:00"
+    },
+    {
+      "home": "Qizilqum",
+      "away": "Nasaf Qarshi",
       "raw_time": "26.08. 15:00"
     }
   ]
