@@ -3136,14 +3136,14 @@ const LEAGUE_DETAIL_META = {
   UAE: { name: "UAE Pro League", flag: flagIcon('uae') },
 };
 const ARSENAL_TEAM_ID = 57;
-const SPORTS_CACHE_KEY = "sportsLiveCache_v4"; // bumped from v3 -- the UZ-league fetch fix
-// (2026-08-07) added new fields to the cache shape, but any browser that loaded the site
-// earlier the same day already had a v3 cache with cache.day === today and no UZ data in it.
-// Since the refresh logic only re-fetches when cache.day !== today, that stale cache would
-// keep being reused as-is until the next day rollover -- which, combined with the fallback
-// data being emptied in the same fix, made the UZ page show "nothing here yet" instead of
-// the old (at least populated) static data. Bumping the key forces an immediate re-fetch for
-// everyone, same fix as the v2->v3 bump above.
+const SPORTS_CACHE_KEY = "sportsLiveCache_v5"; // bumped from v4 -- the day-based cache gate
+// (see below) meant a browser that loaded the site once on 2026-08-14, 9 minutes before a
+// server-side UZ league data fix landed, would keep serving that stale pre-fix snapshot for
+// the rest of the calendar day regardless of how many times the app was reopened. Bumping
+// the key forces an immediate re-fetch for everyone right now. The underlying gate itself
+// is also fixed below (time-based instead of calendar-day-based) so this class of bug can't
+// recur the next time backend data changes mid-day -- this bump only clears the current
+// stuck state, it doesn't by itself prevent a repeat.
 
 function tashkentEffectiveDay(){
   const parts = new Intl.DateTimeFormat('en-CA', {
@@ -3275,13 +3275,15 @@ async function loadLiveSportsData(){
         return !alreadyHaveResult;
       });
 
-      if(!cache || cache.day !== today || pendingFixtureOverdue){
+      const CACHE_MAX_AGE_MS = 60 * 60 * 1000; // 1 hour
+      const cacheStale = !cache || typeof cache.fetchedAt !== 'number' || (Date.now() - cache.fetchedAt) > CACHE_MAX_AGE_MS;
+      if(cacheStale || pendingFixtureOverdue){
         // Server-side fetched data (scripts/fetch_football_data.py, key stored as a
         // GitHub secret, never exposed to the browser) -- this replaces per-visitor
         // client-side calls to football-data.org that used to ship the API key in
         // plain text in this file's source, and also meant every visitor's browser
         // shared the same rate limit against football-data.org directly.
-        const fresh = { day: today, leagues: {}, matches: {}, arsenalFixture: null, arsenalResults: [] };
+        const fresh = { day: today, fetchedAt: Date.now(), leagues: {}, matches: {}, arsenalFixture: null, arsenalResults: [] };
         try{
           const res = await fetch('./data/football-live.json', { cache: 'no-store' });
           if(!res.ok) throw new Error('bad response '+res.status);
