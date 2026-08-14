@@ -6008,6 +6008,25 @@ function quoteOfTheDayHtml(){
     <div class="quote-author">— ${escapeHtml(pick.author)}</div>
   `;
 }
+// For the story circle specifically -- shows ONLY today's birthdays, one name per line, in
+// the exact order they appear in BIRTHDAYS. Deliberately separate from
+// upcomingBirthdayTileHtml(), which is used by the homepage "Birthdays" section tile and
+// page: that one shows a 3-day-ahead lookahead and a placeholder message when the list is
+// empty, which is the right behavior there but not what the story should show. The story
+// only ever says one of two things: today's names, or "No birthdays today" -- no lookahead,
+// no placeholder joke text.
+function birthdayStoryHtml(){
+  const today = new Date();
+  const todayM = today.getMonth()+1, todayD = today.getDate();
+  const todays = BIRTHDAYS.filter(b => b.month===todayM && b.day===todayD);
+  if(todays.length === 0){
+    return '<div class="otd-text">No birthdays today</div>';
+  }
+  return `
+    <div class="otd-text">Birthdays today:</div>
+    ${todays.map(b => `<div class="otd-text">${escapeHtml(b.name)}</div>`).join('')}
+  `;
+}
 
 /* ---- Random ---- */
 function wireRandomButton(container){
@@ -13551,7 +13570,7 @@ const STORY_CONTENT = {
   word: { title:'Word of the Day', getHtml: ()=> wordOfTheDayHtml() },
   fact: { title:'Random Fact', getHtml: ()=> randomFactHtml() },
   quote: { title:'Quote of the Day', getHtml: ()=> quoteOfTheDayHtml() },
-  birthdays: { title:'Birthdays', getHtml: ()=> upcomingBirthdayTileHtml() },
+  birthdays: { title:'Birthdays', getHtml: ()=> birthdayStoryHtml() },
 };
 const STORY_ORDER = ['weather', 'word', 'fact', 'quote', 'birthdays'];
 let currentStoryIndex = 0;
