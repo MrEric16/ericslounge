@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-14T14:38:01.412238Z",
+  "generatedAt": "2026-08-14T20:51:20.873395Z",
   "teams": [
     {
       "name": "Neftchi Fargona",
@@ -22,6 +22,16 @@
       "pts": 35
     },
     {
+      "name": "Navbahor Namangan",
+      "pld": 17,
+      "w": 9,
+      "d": 4,
+      "l": 4,
+      "gf": 28,
+      "ga": 17,
+      "pts": 31
+    },
+    {
       "name": "Buxoro",
       "pld": 17,
       "w": 9,
@@ -30,16 +40,6 @@
       "gf": 23,
       "ga": 18,
       "pts": 30
-    },
-    {
-      "name": "Navbahor Namangan",
-      "pld": 16,
-      "w": 8,
-      "d": 4,
-      "l": 4,
-      "gf": 24,
-      "ga": 14,
-      "pts": 28
     },
     {
       "name": "OKMK",
@@ -72,6 +72,16 @@
       "pts": 25
     },
     {
+      "name": "Din. Samarkand",
+      "pld": 17,
+      "w": 6,
+      "d": 4,
+      "l": 7,
+      "gf": 27,
+      "ga": 29,
+      "pts": 22
+    },
+    {
       "name": "Andijan",
       "pld": 17,
       "w": 6,
@@ -79,16 +89,6 @@
       "l": 8,
       "gf": 22,
       "ga": 20,
-      "pts": 21
-    },
-    {
-      "name": "Din. Samarkand",
-      "pld": 16,
-      "w": 6,
-      "d": 3,
-      "l": 7,
-      "gf": 25,
-      "ga": 27,
       "pts": 21
     },
     {
@@ -102,23 +102,33 @@
       "pts": 21
     },
     {
-      "name": "Bunyodkor",
-      "pld": 16,
-      "w": 6,
-      "d": 1,
-      "l": 9,
+      "name": "Xorazm Urganch",
+      "pld": 17,
+      "w": 5,
+      "d": 5,
+      "l": 7,
       "gf": 16,
-      "ga": 22,
-      "pts": 19
+      "ga": 24,
+      "pts": 20
     },
     {
-      "name": "Xorazm Urganch",
-      "pld": 16,
-      "w": 5,
-      "d": 4,
-      "l": 7,
-      "gf": 14,
-      "ga": 22,
+      "name": "Qizilqum",
+      "pld": 17,
+      "w": 6,
+      "d": 2,
+      "l": 9,
+      "gf": 15,
+      "ga": 24,
+      "pts": 20
+    },
+    {
+      "name": "Bunyodkor",
+      "pld": 17,
+      "w": 6,
+      "d": 1,
+      "l": 10,
+      "gf": 19,
+      "ga": 26,
       "pts": 19
     },
     {
@@ -132,16 +142,6 @@
       "pts": 18
     },
     {
-      "name": "Qizilqum",
-      "pld": 16,
-      "w": 5,
-      "d": 2,
-      "l": 9,
-      "gf": 13,
-      "ga": 24,
-      "pts": 17
-    },
-    {
       "name": "Kokand 1912",
       "pld": 16,
       "w": 2,
@@ -153,16 +153,37 @@
     },
     {
       "name": "Mashal Muborak",
-      "pld": 16,
+      "pld": 17,
       "w": 1,
       "d": 1,
-      "l": 14,
+      "l": 15,
       "gf": 8,
-      "ga": 29,
+      "ga": 31,
       "pts": 4
     }
   ],
   "results": [
+    {
+      "home": "Qizilqum",
+      "away": "Mashal Muborak",
+      "raw_time": "14.08. 15:30",
+      "homeScore": 2,
+      "awayScore": 0
+    },
+    {
+      "home": "Din. Samarkand",
+      "away": "Xorazm Urganch",
+      "raw_time": "14.08. 15:00",
+      "homeScore": 2,
+      "awayScore": 2
+    },
+    {
+      "home": "Navbahor Namangan",
+      "away": "Bunyodkor",
+      "raw_time": "14.08. 14:00",
+      "homeScore": 4,
+      "awayScore": 3
+    },
     {
       "home": "Buxoro",
       "away": "OKMK",
@@ -281,40 +302,9 @@
       "raw_time": "02.08. 14:30",
       "homeScore": 5,
       "awayScore": 1
-    },
-    {
-      "home": "Buxoro",
-      "away": "Lok. Tashkent",
-      "raw_time": "01.08. 15:30",
-      "homeScore": 2,
-      "awayScore": 1
-    },
-    {
-      "home": "Andijan",
-      "away": "Pakhtakor",
-      "raw_time": "01.08. 14:30",
-      "homeScore": 0,
-      "awayScore": 0
-    },
-    {
-      "home": "Din. Samarkand",
-      "away": "Kokand 1912",
-      "raw_time": "29.07. 15:00",
-      "homeScore": 3,
-      "awayScore": 2
     }
   ],
   "fixtures": [
-    {
-      "home": "Din. Samarkand",
-      "away": "Xorazm Urganch",
-      "raw_time": "14.08. 15:00"
-    },
-    {
-      "home": "Qizilqum",
-      "away": "Mashal Muborak",
-      "raw_time": "14.08. 15:30"
-    },
     {
       "home": "Kokand 1912",
       "away": "Lok. Tashkent",
@@ -404,6 +394,16 @@
       "home": "Qizilqum",
       "away": "Nasaf Qarshi",
       "raw_time": "26.08. 15:00"
+    },
+    {
+      "home": "Bunyodkor",
+      "away": "Termez Surkhon",
+      "raw_time": "03.09. 15:00"
+    },
+    {
+      "home": "OKMK",
+      "away": "Xorazm Urganch",
+      "raw_time": "03.09. 15:00"
     }
   ]
 }
