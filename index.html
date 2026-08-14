@@ -11312,20 +11312,20 @@ function mtWellbeingHtml(){
 
     <p class="wb-section-label">Every emotion, all-time</p>
     <canvas id="wbCategoryChart" class="wb-chart"></canvas>
-    <p class="wb-tap-hint">Tap a bar for the exact words behind it</p>
+    <p class="wb-tap-hint">Tap for details</p>
 
     <p class="wb-section-label">By time of day</p>
     <canvas id="wbTimeOfDayChart" class="wb-chart wb-chart-small"></canvas>
-    <p class="wb-tap-hint">Tap a bar for the exact words behind it</p>
+    <p class="wb-tap-hint">Tap for details</p>
 
     <p class="wb-section-label">By day of the week</p>
     <canvas id="wbDayOfWeekChart" class="wb-chart wb-chart-small"></canvas>
-    <p class="wb-tap-hint">Tap a bar for the exact words behind it</p>
+    <p class="wb-tap-hint">Tap for details</p>
 
     ${stats.trend.length >= 2 ? `
       <p class="wb-section-label">Trend, last ${stats.trend.length} day${stats.trend.length===1?'':'s'} with a check-in</p>
       <canvas id="wbTrendChart" class="wb-chart wb-chart-small"></canvas>
-      <p class="wb-tap-hint">Tap a point for that day's words</p>
+      <p class="wb-tap-hint">Tap for details</p>
     ` : ''}
 
     <button class="mt-back-link" data-action="clear-wellbeing" style="margin-top:18px; color:#A6342E;">Clear my data</button>
