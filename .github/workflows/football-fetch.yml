@@ -7,6 +7,7 @@ on:
 
 permissions:
   contents: write
+  actions: write
 
 jobs:
   fetch:
@@ -35,3 +36,58 @@ jobs:
           git diff --cached --quiet && echo "No changes to commit" || git commit -m "Auto-update live football data [skip ci]"
           git pull --rebase --autostash origin main || true
           git push
+
+      # Watchdog: GitHub's own `schedule` cron trigger is documented as best-effort, not
+      # guaranteed -- it can be silently delayed or skipped entirely, especially for a
+      # workflow with only one scheduled time per day, with no error surfaced anywhere.
+      # This is exactly what happened to uz-league-fetch.yml on 2026-08-14: its 03:13 UTC
+      # daily run simply never fired, no failure logged, nothing -- the only sign was stale
+      # data on the live site. Rather than trust a single daily cron to always fire, this
+      # step piggybacks on football-fetch's own reliable 30-minute schedule (lightweight:
+      # `pip install requests` only, no browser install, negligible extra cost) to check
+      # uz-league-live.json's age every 30 minutes and force-trigger uz-league-fetch.yml if
+      # it's gone stale. Worst case with this in place: UZ league data is never more than
+      # ~20h45m stale (20h threshold + up to 30min for the next watchdog tick to catch it),
+      # regardless of whether uz-league-fetch.yml's own direct schedule fires that day.
+      - name: Watchdog -- force a UZ league refresh if it's gone stale
+        if: always()
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          python3 - <<'PYEOF'
+          import json, os, urllib.request
+          from datetime import datetime, timezone
+
+          THRESHOLD_HOURS = 20
+
+          try:
+              with open('data/uz-league-live.json', encoding='utf-8') as f:
+                  data = json.load(f)
+              generated_at = datetime.fromisoformat(data['generatedAt'].replace('Z', '+00:00'))
+              age_hours = (datetime.now(timezone.utc) - generated_at).total_seconds() / 3600
+              print(f"[watchdog] uz-league-live.json is {age_hours:.1f}h old (threshold {THRESHOLD_HOURS}h)")
+          except Exception as e:
+              print(f"[watchdog] could not read uz-league-live.json ({e}) -- triggering a refresh to be safe")
+              age_hours = THRESHOLD_HOURS + 1
+
+          if age_hours > THRESHOLD_HOURS:
+              print("[watchdog] STALE -- dispatching uz-league-fetch.yml")
+              token = os.environ['GH_TOKEN']
+              req = urllib.request.Request(
+                  "https://api.github.com/repos/MrEric16/ericslounge/actions/workflows/uz-league-fetch.yml/dispatches",
+                  data=json.dumps({"ref": "main"}).encode('utf-8'),
+                  method="POST",
+                  headers={
+                      "Authorization": f"token {token}",
+                      "Accept": "application/vnd.github+json",
+                      "User-Agent": "uz-league-watchdog",
+                  },
+              )
+              try:
+                  urllib.request.urlopen(req)
+                  print("[watchdog] dispatch sent successfully")
+              except Exception as e:
+                  print(f"[watchdog] dispatch FAILED: {e}")
+          else:
+              print("[watchdog] fresh, no action needed")
+          PYEOF
