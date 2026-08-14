@@ -1275,8 +1275,26 @@
   .wb-split-bar{ display:flex; width:100%; height:14px; border-radius:999px; overflow:hidden; background:var(--line); }
   .wb-split-seg{ height:100%; }
   .wb-split-caption{ font-size:12px; color:var(--ink-soft); margin-top:6px; }
-  .wb-chart{ width:100%; height:150px; display:block; }
+  .wb-chart{ width:100%; height:150px; display:block; cursor:pointer; }
   .wb-chart-small{ height:110px; }
+  .wb-tap-hint{ font-size:11px; color:var(--ink-soft); opacity:0.75; margin:4px 0 0; }
+  .wb-breakdown-overlay{
+    position:fixed; inset:0; background:rgba(30,20,10,0.55); z-index:400;
+    display:flex; align-items:center; justify-content:center; padding:24px;
+  }
+  .wb-breakdown-card{
+    background:var(--card); border-radius:18px; padding:22px; width:100%; max-width:340px;
+    max-height:80vh; overflow-y:auto;
+  }
+  .wb-breakdown-title{ font-family:'Baloo 2', sans-serif; font-weight:700; font-size:19px; color:var(--ink); }
+  .wb-breakdown-sub{ font-size:12px; color:var(--ink-soft); margin-top:2px; margin-bottom:14px; }
+  .wb-breakdown-row{
+    display:flex; justify-content:space-between; align-items:center;
+    padding:9px 0; border-bottom:1px solid var(--line); font-size:14px;
+  }
+  .wb-breakdown-row:last-of-type{ border-bottom:none; }
+  .wb-breakdown-word{ color:var(--ink); font-weight:600; }
+  .wb-breakdown-pct{ color:var(--ink-soft); font-variant-numeric:tabular-nums; }
   .mt-sub-grid{ display:flex; flex-wrap:wrap; gap:8px; margin-top:16px; }
   .mt-sub-btn{
     border:none; border-radius:999px; padding:9px 16px;
@@ -10804,23 +10822,23 @@ function mtComputeWellbeingStats(log){
   if(total === 0) return { total: 0 };
 
   const categoryCounts = {};
-  const categoryValence = {};
-  MT_EMOTIONS.forEach(c => { categoryCounts[c.key] = 0; categoryValence[c.key] = []; });
+  const categoryBreakdown = {}; // key -> {positive,neutral,negative}
+  MT_EMOTIONS.forEach(c => { categoryCounts[c.key] = 0; categoryBreakdown[c.key] = { positive:0, neutral:0, negative:0 }; });
   const valenceCounts = { positive: 0, neutral: 0, negative: 0 };
-  const timeOfDayValence = { morning: [], afternoon: [], evening: [], night: [] };
-  const weekdayValence = [[],[],[],[],[],[],[]];
-  const dailyValence = {}; // 'YYYY-MM-DD' -> [scores]
+  const timeOfDayBreakdown = { morning: { positive:0, neutral:0, negative:0 }, afternoon: { positive:0, neutral:0, negative:0 }, evening: { positive:0, neutral:0, negative:0 }, night: { positive:0, neutral:0, negative:0 } };
+  const weekdayBreakdown = [0,1,2,3,4,5,6].map(()=> ({ positive:0, neutral:0, negative:0 }));
+  const dailyValence = {}; // 'YYYY-MM-DD' -> [scores] -- trend line still uses average valence, unaffected by the stacked-bar rework below
 
   log.forEach(e => {
     if(categoryCounts[e.category] !== undefined) categoryCounts[e.category]++;
     if(valenceCounts[e.valence] !== undefined) valenceCounts[e.valence]++;
+    if(categoryBreakdown[e.category] && categoryBreakdown[e.category][e.valence] !== undefined) categoryBreakdown[e.category][e.valence]++;
     const d = new Date(e.ts);
     const hour = d.getHours();
     const score = MT_VALENCE_SCORE[e.valence] ?? 0;
-    if(categoryValence[e.category]) categoryValence[e.category].push(score);
     const bucket = MT_TIME_BUCKETS.find(b => b.test(hour));
-    if(bucket) timeOfDayValence[bucket.key].push(score);
-    weekdayValence[d.getDay()].push(score);
+    if(bucket && timeOfDayBreakdown[bucket.key][e.valence] !== undefined) timeOfDayBreakdown[bucket.key][e.valence]++;
+    if(weekdayBreakdown[d.getDay()][e.valence] !== undefined) weekdayBreakdown[d.getDay()][e.valence]++;
     const dayKey = d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
     (dailyValence[dayKey] = dailyValence[dayKey] || []).push(score);
   });
@@ -10864,31 +10882,96 @@ function mtComputeWellbeingStats(log){
   return {
     total,
     categoryCounts,
-    categoryAvgValence: Object.fromEntries(MT_EMOTIONS.map(c => [c.key, avg(categoryValence[c.key])])),
+    categoryBreakdown,
     valenceCounts,
     mostCommonCategory: mostCommonCategory ? mostCommonCategory[0] : null,
-    timeOfDay: MT_TIME_BUCKETS.map(b => ({ key:b.key, label:b.label, avgValence: avg(timeOfDayValence[b.key]), count: timeOfDayValence[b.key].length })),
-    weekday: MT_WEEKDAY_LABELS.map((label,i) => ({ label, avgValence: avg(weekdayValence[i]), count: weekdayValence[i].length })),
+    timeOfDay: MT_TIME_BUCKETS.map(b => ({ key:b.key, label:b.label, ...timeOfDayBreakdown[b.key] })),
+    weekday: MT_WEEKDAY_LABELS.map((label,i) => ({ label, dayIndex:i, ...weekdayBreakdown[i] })),
     trend,
     streak,
     recentShift,
   };
 }
-// One consistent green/yellow/red color language across every chart on this page: leaning
-// positive, roughly neutral/mixed, or leaning negative. Small dead-zone around 0 (rather
-// than a hard >=0/<0 split) so a category that's genuinely a coin-flip between positive
-// and negative entries reads as neutral-yellow instead of arbitrarily green or red.
-function mtValenceColor(avgValence){
-  const v = avgValence || 0;
+// A single blended average (old approach) hides real mixes -- a category that's half
+// "Excited" (positive) and half "Nervous" (negative) doesn't have one true color, it has
+// two. mtValenceColor(avg) is kept only for the one-line headline text ("Most logged:
+// X") where a single color is unavoidable; every actual CHART now shows the full
+// pos/neutral/negative composition as stacked segments instead of collapsing it into one
+// number. Majority-valence, not average, decides the headline color -- more consistent
+// with "which color has the most weight in this stack" than a continuous average would be.
+function mtValenceColor(kindOrAvg){
+  if(kindOrAvg === 'positive') return '#5A8F4E';
+  if(kindOrAvg === 'negative') return '#A6342E';
+  if(kindOrAvg === 'neutral') return '#B6B235';
+  const v = kindOrAvg || 0;
   if(v > 0.2) return '#5A8F4E';
   if(v < -0.2) return '#A6342E';
   return '#B6B235';
 }
+function mtMajorityValenceColor(breakdown){
+  if(!breakdown) return mtValenceColor('neutral');
+  const entries = [['positive',breakdown.positive||0], ['neutral',breakdown.neutral||0], ['negative',breakdown.negative||0]];
+  entries.sort((a,b)=> b[1]-a[1]);
+  return entries[0][1] > 0 ? mtValenceColor(entries[0][0]) : mtValenceColor('neutral');
+}
+
+// Sub-emotion (word-level) breakdown for whatever entries underlie a clicked bar/point --
+// most common first, as requested. Percentages rounded, not guaranteed to sum to exactly
+// 100 for small n (e.g. 3 entries splitting 33/33/33 rounds to 99) -- accepted, exact-sum
+// rounding isn't worth the complexity for a handful of check-ins.
+function mtWordBreakdown(entries){
+  const counts = {};
+  entries.forEach(e => { counts[e.word] = (counts[e.word]||0) + 1; });
+  const total = entries.length;
+  return Object.entries(counts)
+    .map(([word,count]) => ({ word, count, pct: total ? Math.round(100*count/total) : 0 }))
+    .sort((a,b)=> b.count - a.count);
+}
+function mtEntriesForCategory(log, key){ return log.filter(e => e.category === key); }
+function mtEntriesForTimeBucket(log, key){
+  const bucket = MT_TIME_BUCKETS.find(b => b.key === key);
+  return bucket ? log.filter(e => bucket.test(new Date(e.ts).getHours())) : [];
+}
+function mtEntriesForWeekday(log, dayIndex){ return log.filter(e => new Date(e.ts).getDay() === dayIndex); }
+function mtEntriesForDay(log, dayKey){
+  return log.filter(e => {
+    const d = new Date(e.ts);
+    return (d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0')) === dayKey;
+  });
+}
+function mtShowBreakdownPopup(title, entries){
+  const existing = document.getElementById('wbBreakdownOverlay');
+  if(existing) existing.remove();
+  const breakdown = mtWordBreakdown(entries);
+  const overlay = document.createElement('div');
+  overlay.id = 'wbBreakdownOverlay';
+  overlay.className = 'wb-breakdown-overlay';
+  overlay.innerHTML = `
+    <div class="wb-breakdown-card">
+      <div class="wb-breakdown-title">${escapeHtml(title)}</div>
+      <div class="wb-breakdown-sub">${entries.length} check-in${entries.length===1?'':'s'}</div>
+      ${breakdown.length === 0 ? '<p class="mt-intro" style="margin:12px 0 0;">Nothing logged here yet.</p>' : breakdown.map(b => `
+        <div class="wb-breakdown-row">
+          <span class="wb-breakdown-word">${escapeHtml(b.word)}</span>
+          <span class="wb-breakdown-pct">${b.pct}%</span>
+        </div>
+      `).join('')}
+      <button class="mt-yn-btn mt-primary" data-action="close-wb-breakdown" style="margin-top:16px; width:100%;">Close</button>
+    </div>
+  `;
+  document.body.appendChild(overlay);
+  overlay.addEventListener('click', (e)=>{ if(e.target === overlay) overlay.remove(); });
+  overlay.querySelector('[data-action="close-wb-breakdown"]').addEventListener('click', ()=> overlay.remove());
+}
 
 // ---- Minimal hand-rolled canvas chart helpers (no external charting library, consistent
 // with how every embedded game already draws directly to canvas in this file) ----
-function mtDrawBarChart(canvas, bars, opts){
-  opts = opts || {};
+// Stacked composition bars: total bar height reflects how often that bucket was logged,
+// and the three colored segments show the actual positive/neutral/negative makeup instead
+// of collapsing it into one blended color. Returns each bar's full clickable geometry
+// (spanning the whole column, not just the drawn stack, so clicking near a short/empty bar
+// still registers) for the caller to wire up click-to-breakdown interactivity.
+function mtDrawStackedBarChart(canvas, bars){
   const ctx = canvas.getContext('2d');
   const dpr = window.devicePixelRatio || 1;
   const w = canvas.clientWidth, h = canvas.clientHeight;
@@ -10899,32 +10982,41 @@ function mtDrawBarChart(canvas, bars, opts){
   const padBottom = 28, padTop = 10;
   const plotH = h - padBottom - padTop;
   const n = bars.length;
-  if(n === 0) return;
+  const geometry = [];
+  if(n === 0) return geometry;
   const gap = 8;
   const barW = (w - gap*(n+1)) / n;
-
-  // Signed values (e.g. avg valence, range -1..1) get a zero-line in the middle;
-  // non-negative values (e.g. counts) sit on a normal 0-at-bottom axis.
-  const signed = !!opts.signed;
-  const maxAbs = Math.max(1, ...bars.map(b => Math.abs(b.value || 0)));
-  const zeroY = signed ? padTop + plotH/2 : padTop + plotH;
+  const baseline = padTop + plotH;
+  const maxTotal = Math.max(1, ...bars.map(b => (b.positive||0)+(b.neutral||0)+(b.negative||0)));
 
   bars.forEach((b, i) => {
     const x = gap + i*(barW+gap);
-    const val = b.value || 0;
-    const barH = signed ? Math.abs(val)/maxAbs * (plotH/2) : Math.abs(val)/maxAbs * plotH;
-    const y = signed ? (val >= 0 ? zeroY - barH : zeroY) : zeroY - barH;
-    ctx.fillStyle = b.color || '#888';
-    ctx.fillRect(x, y, barW, Math.max(barH, val === 0 ? 0 : 2));
+    const total = (b.positive||0)+(b.neutral||0)+(b.negative||0);
+    const totalH = total/maxTotal * plotH;
+    // Stack order bottom-to-top: negative, neutral, positive.
+    let y = baseline;
+    const segs = [
+      { count: b.negative||0, color: mtValenceColor('negative') },
+      { count: b.neutral||0,  color: mtValenceColor('neutral')  },
+      { count: b.positive||0, color: mtValenceColor('positive') },
+    ];
+    segs.forEach(seg => {
+      const segH = total > 0 ? (seg.count/total) * totalH : 0;
+      if(segH > 0){
+        ctx.fillStyle = seg.color;
+        ctx.fillRect(x, y - segH, barW, segH);
+      }
+      y -= segH;
+    });
     ctx.fillStyle = '#5a4632';
     ctx.font = '11px sans-serif';
     ctx.textAlign = 'center';
     ctx.fillText(b.label, x + barW/2, h - padBottom + 14);
+    // Clickable region spans the FULL column (padTop to baseline), not just the drawn
+    // stack -- an empty or tiny bar should still be tappable, not require pixel-precision.
+    geometry.push({ label: b.label, x, y: padTop, w: barW, h: plotH, key: b.key, dayIndex: b.dayIndex, positive: b.positive||0, neutral: b.neutral||0, negative: b.negative||0, total });
   });
-  if(signed){
-    ctx.strokeStyle = 'rgba(90,70,50,0.25)';
-    ctx.beginPath(); ctx.moveTo(0, zeroY); ctx.lineTo(w, zeroY); ctx.stroke();
-  }
+  return geometry;
 }
 function mtDrawLineChart(canvas, points, opts){
   opts = opts || {};
@@ -10934,7 +11026,7 @@ function mtDrawLineChart(canvas, points, opts){
   canvas.width = w * dpr; canvas.height = h * dpr;
   ctx.setTransform(dpr,0,0,dpr,0,0);
   ctx.clearRect(0,0,w,h);
-  if(points.length === 0) return;
+  if(points.length === 0) return [];
 
   const padX = 10, padY = 14;
   const plotW = w - padX*2, plotH = h - padY*2;
@@ -10955,12 +11047,43 @@ function mtDrawLineChart(canvas, points, opts){
   });
   ctx.stroke();
 
+  const geometry = [];
   ctx.fillStyle = opts.color || '#2E7B8A';
   points.forEach((p, i) => {
     const x = n === 1 ? padX + plotW/2 : padX + (i/(n-1)) * plotW;
     const v = p.avgValence == null ? 0 : p.avgValence;
     const y = zeroY - v * (plotH/2);
     ctx.beginPath(); ctx.arc(x, y, 2.5, 0, Math.PI*2); ctx.fill();
+    geometry.push({ x, y, day: p.day });
+  });
+  return geometry;
+}
+// Attaches a single click listener to a canvas that hit-tests against previously-returned
+// bar/point geometry and opens the breakdown popup for whichever one was hit.
+function mtWireBarClicks(canvas, geometry, log, entriesFor, titlePrefix){
+  canvas.addEventListener('click', (e)=>{
+    const rect = canvas.getBoundingClientRect();
+    const x = e.clientX - rect.left, y = e.clientY - rect.top;
+    const bar = geometry.find(g => x >= g.x && x <= g.x + g.w && y >= g.y && y <= g.y + g.h);
+    if(!bar) return;
+    const entries = entriesFor(log, bar.key !== undefined ? bar.key : bar.dayIndex);
+    mtShowBreakdownPopup(`${titlePrefix}${bar.label}`, entries);
+  });
+}
+function mtWirePointClicks(canvas, geometry, log, titlePrefix){
+  const HIT_RADIUS = 12;
+  canvas.addEventListener('click', (e)=>{
+    const rect = canvas.getBoundingClientRect();
+    const x = e.clientX - rect.left, y = e.clientY - rect.top;
+    let closest = null, closestDist = Infinity;
+    geometry.forEach(g => {
+      const dist = Math.hypot(x - g.x, y - g.y);
+      if(dist < closestDist){ closestDist = dist; closest = g; }
+    });
+    if(!closest || closestDist > HIT_RADIUS) return;
+    const entries = mtEntriesForDay(log, closest.day);
+    const dateLabel = new Date(closest.day + 'T00:00:00').toLocaleDateString(undefined, { month:'short', day:'numeric' });
+    mtShowBreakdownPopup(`${titlePrefix}${dateLabel}`, entries);
   });
 }
 function mtMountWellbeing(container){
@@ -10970,22 +11093,26 @@ function mtMountWellbeing(container){
 
   const catChart = container.querySelector('#wbCategoryChart');
   if(catChart){
-    const bars = MT_EMOTIONS.map(c => ({ label: c.label, value: stats.categoryCounts[c.key] || 0, color: mtValenceColor(stats.categoryAvgValence[c.key]) }));
-    mtDrawBarChart(catChart, bars);
+    const bars = MT_EMOTIONS.map(c => ({ label: c.label, key: c.key, ...stats.categoryBreakdown[c.key] }));
+    const geometry = mtDrawStackedBarChart(catChart, bars);
+    mtWireBarClicks(catChart, geometry, log, mtEntriesForCategory, '');
   }
   const todChart = container.querySelector('#wbTimeOfDayChart');
   if(todChart){
-    const bars = stats.timeOfDay.map(b => ({ label: b.label, value: b.avgValence || 0, color: mtValenceColor(b.avgValence) }));
-    mtDrawBarChart(todChart, bars, { signed: true });
+    const bars = stats.timeOfDay.map(b => ({ label: b.label, key: b.key, positive: b.positive, neutral: b.neutral, negative: b.negative }));
+    const geometry = mtDrawStackedBarChart(todChart, bars);
+    mtWireBarClicks(todChart, geometry, log, mtEntriesForTimeBucket, '');
   }
   const dowChart = container.querySelector('#wbDayOfWeekChart');
   if(dowChart){
-    const bars = stats.weekday.map(b => ({ label: b.label, value: b.avgValence || 0, color: mtValenceColor(b.avgValence) }));
-    mtDrawBarChart(dowChart, bars, { signed: true });
+    const bars = stats.weekday.map(b => ({ label: b.label, dayIndex: b.dayIndex, positive: b.positive, neutral: b.neutral, negative: b.negative }));
+    const geometry = mtDrawStackedBarChart(dowChart, bars);
+    mtWireBarClicks(dowChart, geometry, log, mtEntriesForWeekday, '');
   }
   const trendChart = container.querySelector('#wbTrendChart');
   if(trendChart && stats.trend.length >= 2){
-    mtDrawLineChart(trendChart, stats.trend);
+    const geometry = mtDrawLineChart(trendChart, stats.trend);
+    mtWirePointClicks(trendChart, geometry, log, '');
   }
 }
 
@@ -11172,8 +11299,8 @@ function mtWellbeingHtml(){
       <div class="wb-stat"><div class="wb-stat-num">${stats.streak}</div><div class="wb-stat-label">day streak</div></div>
     </div>
 
-    ${catInfo ? `<p class="mt-intro">Most logged: <strong style="color:${mtValenceColor(stats.categoryAvgValence[catInfo.key])}">${escapeHtml(catInfo.label)}</strong></p>` : ''}
-    ${shiftInfo ? `<p class="mt-intro">Lately (last 7 days) you've logged <strong style="color:${mtValenceColor(stats.categoryAvgValence[shiftInfo.key])}">${escapeHtml(shiftInfo.label)}</strong> more than usual.</p>` : ''}
+    ${catInfo ? `<p class="mt-intro">Most logged: <strong style="color:${mtMajorityValenceColor(stats.categoryBreakdown[catInfo.key])}">${escapeHtml(catInfo.label)}</strong></p>` : ''}
+    ${shiftInfo ? `<p class="mt-intro">Lately (last 7 days) you've logged <strong style="color:${mtMajorityValenceColor(stats.categoryBreakdown[shiftInfo.key])}">${escapeHtml(shiftInfo.label)}</strong> more than usual.</p>` : ''}
 
     <p class="wb-section-label">Mix of feelings overall</p>
     <div class="wb-split-bar">
@@ -11185,16 +11312,20 @@ function mtWellbeingHtml(){
 
     <p class="wb-section-label">Every emotion, all-time</p>
     <canvas id="wbCategoryChart" class="wb-chart"></canvas>
+    <p class="wb-tap-hint">Tap a bar for the exact words behind it</p>
 
     <p class="wb-section-label">By time of day</p>
     <canvas id="wbTimeOfDayChart" class="wb-chart wb-chart-small"></canvas>
+    <p class="wb-tap-hint">Tap a bar for the exact words behind it</p>
 
     <p class="wb-section-label">By day of the week</p>
     <canvas id="wbDayOfWeekChart" class="wb-chart wb-chart-small"></canvas>
+    <p class="wb-tap-hint">Tap a bar for the exact words behind it</p>
 
     ${stats.trend.length >= 2 ? `
       <p class="wb-section-label">Trend, last ${stats.trend.length} day${stats.trend.length===1?'':'s'} with a check-in</p>
       <canvas id="wbTrendChart" class="wb-chart wb-chart-small"></canvas>
+      <p class="wb-tap-hint">Tap a point for that day's words</p>
     ` : ''}
 
     <button class="mt-back-link" data-action="clear-wellbeing" style="margin-top:18px; color:#A6342E;">Clear my data</button>
