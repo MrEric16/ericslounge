@@ -10908,6 +10908,11 @@ function mtValenceColor(kindOrAvg){
   if(v < -0.2) return '#A6342E';
   return '#B6B235';
 }
+// Sort order used everywhere emotions/sub-emotions are listed: positive first, neutral in
+// the middle, negative last -- paired with mtValenceColor so color and order always agree
+// (green things lead, red things trail). Array.prototype.sort is stable, so items sharing
+// a valence keep their original relative order rather than getting shuffled.
+const MT_VALENCE_RANK = { positive: 0, neutral: 1, negative: 2 };
 function mtMajorityValenceColor(breakdown){
   if(!breakdown) return mtValenceColor('neutral');
   const entries = [['positive',breakdown.positive||0], ['neutral',breakdown.neutral||0], ['negative',breakdown.negative||0]];
@@ -11093,7 +11098,7 @@ function mtMountWellbeing(container){
 
   const catChart = container.querySelector('#wbCategoryChart');
   if(catChart){
-    const bars = MT_EMOTIONS.map(c => ({ label: c.label, key: c.key, ...stats.categoryBreakdown[c.key] }));
+    const bars = [...MT_EMOTIONS].sort((a,b)=> MT_VALENCE_RANK[a.valence] - MT_VALENCE_RANK[b.valence]).map(c => ({ label: c.label, key: c.key, ...stats.categoryBreakdown[c.key] }));
     const geometry = mtDrawStackedBarChart(catChart, bars);
     mtWireBarClicks(catChart, geometry, log, mtEntriesForCategory, '');
   }
@@ -11334,10 +11339,11 @@ function mtWellbeingHtml(){
 function mtStepHtml(){
   const s = mtState;
   if(s.step === 'picker'){
+    const sortedCategories = [...MT_EMOTIONS].sort((a,b)=> MT_VALENCE_RANK[a.valence] - MT_VALENCE_RANK[b.valence]);
     return `
       <p class="mt-intro">No one sees this, and you can stop at any point. A private mood log stays on this device only — never sent anywhere, never seen by anyone else, not even us — so you can see your own patterns over time. Pick whatever's closest to how you're feeling right now.</p>
       <div class="mt-cat-grid">
-        ${MT_EMOTIONS.map(c => `<button class="mt-cat-btn" style="background:${c.color}" data-cat="${c.key}">${escapeHtml(c.label)}</button>`).join('')}
+        ${sortedCategories.map(c => `<button class="mt-cat-btn" style="background:${mtValenceColor(c.valence)}" data-cat="${c.key}">${escapeHtml(c.label)}</button>`).join('')}
       </div>
       <button class="mt-wellbeing-tile" data-action="open-wellbeing">📊 My Wellbeing</button>
     `;
@@ -11347,11 +11353,15 @@ function mtStepHtml(){
   }
   if(s.step === 'subpicker'){
     const cat = MT_EMOTIONS.find(c => c.key === s.category);
+    // Sorted and colored by each individual WORD's own valence (Excited=positive=green,
+    // Nervous=negative=red), not the category's single blended color -- a category like
+    // Eager genuinely contains both, and showing them identically was the reported bug.
+    const sortedWords = [...cat.words].sort((a,b)=> MT_VALENCE_RANK[MT_WORD_VALENCE[a]] - MT_VALENCE_RANK[MT_WORD_VALENCE[b]]);
     return `
       <button class="mt-back-link" data-action="back-to-picker">← Choose a different category</button>
       <p class="mt-intro">Which word fits best?</p>
       <div class="mt-sub-grid">
-        ${cat.words.map(w => `<button class="mt-sub-btn" style="background:${cat.color}" data-word="${escapeHtml(w)}">${escapeHtml(w)}</button>`).join('')}
+        ${sortedWords.map(w => `<button class="mt-sub-btn" style="background:${mtValenceColor(MT_WORD_VALENCE[w])}" data-word="${escapeHtml(w)}">${escapeHtml(w)}</button>`).join('')}
       </div>
     `;
   }
