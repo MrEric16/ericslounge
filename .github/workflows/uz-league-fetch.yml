@@ -2,7 +2,7 @@ name: Fetch Uzbekistan Super League (daily, flashscore)
 
 on:
   schedule:
-    - cron: '13 3 * * *'
+    - cron: '13 3,11,19 * * *'
   workflow_dispatch: {}
 
 permissions:
