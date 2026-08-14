@@ -1258,6 +1258,25 @@
     font-family:'Nunito', sans-serif; font-weight:800; font-size:16px; color:#fff;
     cursor:pointer; box-shadow:0 3px 0 rgba(58,42,30,.12);
   }
+  .mt-wellbeing-tile{
+    display:block; width:100%; margin-top:14px; border:2px solid var(--misc-mindtemple);
+    background:none; border-radius:16px; padding:14px; text-align:center;
+    font-family:'Nunito', sans-serif; font-weight:800; font-size:15px;
+    color:var(--misc-mindtemple); cursor:pointer;
+  }
+  .wb-stat-row{ display:flex; gap:12px; margin:6px 0 18px; }
+  .wb-stat{
+    flex:1; text-align:center; background:var(--card); border-radius:14px; padding:14px 8px;
+    border:1px solid var(--line);
+  }
+  .wb-stat-num{ font-family:'Baloo 2', sans-serif; font-size:26px; font-weight:700; color:var(--misc-mindtemple); }
+  .wb-stat-label{ font-size:12px; color:var(--ink-soft); margin-top:2px; }
+  .wb-section-label{ font-weight:800; font-size:13px; color:var(--ink-soft); margin:20px 0 8px; text-transform:uppercase; letter-spacing:0.03em; }
+  .wb-split-bar{ display:flex; width:100%; height:14px; border-radius:999px; overflow:hidden; background:var(--line); }
+  .wb-split-seg{ height:100%; }
+  .wb-split-caption{ font-size:12px; color:var(--ink-soft); margin-top:6px; }
+  .wb-chart{ width:100%; height:150px; display:block; }
+  .wb-chart-small{ height:110px; }
   .mt-sub-grid{ display:flex; flex-wrap:wrap; gap:8px; margin-top:16px; }
   .mt-sub-btn{
     border:none; border-radius:999px; padding:9px 16px;
@@ -10726,6 +10745,237 @@ function mtIsAcute(text){
   return MT_ACUTE_KEYWORDS.some(k => t.includes(k));
 }
 
+// ---------------------------------------------------------------------------------------
+// "My Wellbeing" -- private, on-device-only mood tracking, built on top of the emotion
+// wheel that already exists at the start of every Mind Temple session.
+//
+// STORAGE: localStorage only, one browser, one device. Never sent anywhere, never synced,
+// no login exists on this site to sync it TO even if that were ever wanted. This is the
+// deliberate, load-bearing design choice, not an implementation detail -- this is minors'
+// emotional data and the only version of this feature that's safe to ship by default is
+// one where nobody but the student, on their own device, can ever see it. If cross-device
+// sync or any teacher-visible aggregate is ever wanted later, that's a fundamentally
+// different feature with its own consent/privacy questions, not an extension of this one.
+//
+// WHAT GETS LOGGED: only the category + specific word picked from the emotion wheel, plus
+// a timestamp. Deliberately NOT the free-text situation/thought/action answers from later
+// in the flow -- keeps the stored data minimal, and keeps this feature fully separate from
+// the acute-distress keyword detection (which only ever runs on that free text and is its
+// own, more serious pathway). A repeated hard pattern showing up in a casual bar chart
+// would either trivialize a real signal or make it feel exposed in the wrong context, so
+// this tracker only ever sees the same emotion-wheel picks a student already sees appear
+// as colored buttons -- nothing heavier than that.
+const MT_MOOD_LOG_KEY = 'mtMoodLog_v1';
+const MT_MOOD_LOG_MAX_ENTRIES = 500; // plenty for meaningful patterns; caps unbounded growth
+
+function mtLoadMoodLog(){
+  try{
+    const raw = localStorage.getItem(MT_MOOD_LOG_KEY);
+    const parsed = raw ? JSON.parse(raw) : [];
+    return Array.isArray(parsed) ? parsed : [];
+  }catch(e){ return []; }
+}
+function mtSaveMoodLog(log){
+  try{ localStorage.setItem(MT_MOOD_LOG_KEY, JSON.stringify(log.slice(-MT_MOOD_LOG_MAX_ENTRIES))); }catch(e){}
+}
+function mtLogMoodEntry(category, word, valence){
+  const log = mtLoadMoodLog();
+  log.push({ ts: Date.now(), category, word, valence });
+  mtSaveMoodLog(log);
+}
+function mtClearMoodLog(){
+  try{ localStorage.removeItem(MT_MOOD_LOG_KEY); }catch(e){}
+}
+
+const MT_VALENCE_SCORE = { positive: 1, neutral: 0, negative: -1 };
+const MT_TIME_BUCKETS = [
+  { key:'morning',   label:'Morning',   test: h => h >= 5  && h < 12 },
+  { key:'afternoon', label:'Afternoon', test: h => h >= 12 && h < 17 },
+  { key:'evening',   label:'Evening',   test: h => h >= 17 && h < 21 },
+  { key:'night',     label:'Night',     test: h => h >= 21 || h < 5  },
+];
+const MT_WEEKDAY_LABELS = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+const MT_WELLBEING_MIN_ENTRIES = 5; // below this, a chart would just be showing one bad day as "your pattern"
+
+// Pure function: log entries in, every stat the dashboard needs out. Kept separate from
+// rendering so it's independently testable against constructed fixtures.
+function mtComputeWellbeingStats(log){
+  const total = log.length;
+  if(total === 0) return { total: 0 };
+
+  const categoryCounts = {};
+  MT_EMOTIONS.forEach(c => { categoryCounts[c.key] = 0; });
+  const valenceCounts = { positive: 0, neutral: 0, negative: 0 };
+  const timeOfDayValence = { morning: [], afternoon: [], evening: [], night: [] };
+  const weekdayValence = [[],[],[],[],[],[],[]];
+  const dailyValence = {}; // 'YYYY-MM-DD' -> [scores]
+
+  log.forEach(e => {
+    if(categoryCounts[e.category] !== undefined) categoryCounts[e.category]++;
+    if(valenceCounts[e.valence] !== undefined) valenceCounts[e.valence]++;
+    const d = new Date(e.ts);
+    const hour = d.getHours();
+    const score = MT_VALENCE_SCORE[e.valence] ?? 0;
+    const bucket = MT_TIME_BUCKETS.find(b => b.test(hour));
+    if(bucket) timeOfDayValence[bucket.key].push(score);
+    weekdayValence[d.getDay()].push(score);
+    const dayKey = d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
+    (dailyValence[dayKey] = dailyValence[dayKey] || []).push(score);
+  });
+
+  const avg = arr => arr.length ? arr.reduce((a,b)=>a+b,0) / arr.length : null;
+
+  const mostCommonCategory = Object.entries(categoryCounts).sort((a,b)=> b[1]-a[1])[0];
+
+  // Last 30 calendar days with data, oldest to newest, for the trend line.
+  const trend = Object.keys(dailyValence).sort().slice(-30).map(day => ({
+    day, avgValence: avg(dailyValence[day])
+  }));
+
+  // Check-in streak: consecutive calendar days with at least one entry, counting backward
+  // from today. Breaks the moment a day is missing -- doesn't care what the mood WAS on
+  // any of those days, only that a check-in happened, on purpose (rewards the habit, not
+  // the feeling).
+  let streak = 0;
+  const cursor = new Date();
+  while(true){
+    const key = cursor.getFullYear() + '-' + String(cursor.getMonth()+1).padStart(2,'0') + '-' + String(cursor.getDate()).padStart(2,'0');
+    if(dailyValence[key]){ streak++; cursor.setDate(cursor.getDate()-1); }
+    else break;
+  }
+
+  // "Compared to usual": most common category in the last 7 days vs all-time. Only
+  // surfaced if there's actually enough recent data to say anything meaningful, and only
+  // if it differs from the all-time leader -- otherwise there's nothing worth saying.
+  const sevenDaysAgo = Date.now() - 7*24*60*60*1000;
+  const recentLog = log.filter(e => e.ts >= sevenDaysAgo);
+  let recentShift = null;
+  if(recentLog.length >= 3){
+    const recentCounts = {};
+    recentLog.forEach(e => { recentCounts[e.category] = (recentCounts[e.category]||0) + 1; });
+    const recentTop = Object.entries(recentCounts).sort((a,b)=> b[1]-a[1])[0];
+    if(recentTop && mostCommonCategory && recentTop[0] !== mostCommonCategory[0]){
+      recentShift = recentTop[0];
+    }
+  }
+
+  return {
+    total,
+    categoryCounts,
+    valenceCounts,
+    mostCommonCategory: mostCommonCategory ? mostCommonCategory[0] : null,
+    timeOfDay: MT_TIME_BUCKETS.map(b => ({ key:b.key, label:b.label, avgValence: avg(timeOfDayValence[b.key]), count: timeOfDayValence[b.key].length })),
+    weekday: MT_WEEKDAY_LABELS.map((label,i) => ({ label, avgValence: avg(weekdayValence[i]), count: weekdayValence[i].length })),
+    trend,
+    streak,
+    recentShift,
+  };
+}
+
+// ---- Minimal hand-rolled canvas chart helpers (no external charting library, consistent
+// with how every embedded game already draws directly to canvas in this file) ----
+function mtDrawBarChart(canvas, bars, opts){
+  opts = opts || {};
+  const ctx = canvas.getContext('2d');
+  const dpr = window.devicePixelRatio || 1;
+  const w = canvas.clientWidth, h = canvas.clientHeight;
+  canvas.width = w * dpr; canvas.height = h * dpr;
+  ctx.setTransform(dpr,0,0,dpr,0,0);
+  ctx.clearRect(0,0,w,h);
+
+  const padBottom = 28, padTop = 10;
+  const plotH = h - padBottom - padTop;
+  const n = bars.length;
+  if(n === 0) return;
+  const gap = 8;
+  const barW = (w - gap*(n+1)) / n;
+
+  // Signed values (e.g. avg valence, range -1..1) get a zero-line in the middle;
+  // non-negative values (e.g. counts) sit on a normal 0-at-bottom axis.
+  const signed = !!opts.signed;
+  const maxAbs = Math.max(1, ...bars.map(b => Math.abs(b.value || 0)));
+  const zeroY = signed ? padTop + plotH/2 : padTop + plotH;
+
+  bars.forEach((b, i) => {
+    const x = gap + i*(barW+gap);
+    const val = b.value || 0;
+    const barH = signed ? Math.abs(val)/maxAbs * (plotH/2) : Math.abs(val)/maxAbs * plotH;
+    const y = signed ? (val >= 0 ? zeroY - barH : zeroY) : zeroY - barH;
+    ctx.fillStyle = b.color || '#888';
+    ctx.fillRect(x, y, barW, Math.max(barH, val === 0 ? 0 : 2));
+    ctx.fillStyle = '#5a4632';
+    ctx.font = '11px sans-serif';
+    ctx.textAlign = 'center';
+    ctx.fillText(b.label, x + barW/2, h - padBottom + 14);
+  });
+  if(signed){
+    ctx.strokeStyle = 'rgba(90,70,50,0.25)';
+    ctx.beginPath(); ctx.moveTo(0, zeroY); ctx.lineTo(w, zeroY); ctx.stroke();
+  }
+}
+function mtDrawLineChart(canvas, points, opts){
+  opts = opts || {};
+  const ctx = canvas.getContext('2d');
+  const dpr = window.devicePixelRatio || 1;
+  const w = canvas.clientWidth, h = canvas.clientHeight;
+  canvas.width = w * dpr; canvas.height = h * dpr;
+  ctx.setTransform(dpr,0,0,dpr,0,0);
+  ctx.clearRect(0,0,w,h);
+  if(points.length === 0) return;
+
+  const padX = 10, padY = 14;
+  const plotW = w - padX*2, plotH = h - padY*2;
+  const n = points.length;
+  const zeroY = padY + plotH/2; // valence range is -1..1, zero sits in the middle
+
+  ctx.strokeStyle = 'rgba(90,70,50,0.2)';
+  ctx.beginPath(); ctx.moveTo(padX, zeroY); ctx.lineTo(w-padX, zeroY); ctx.stroke();
+
+  ctx.strokeStyle = opts.color || '#2E7B8A';
+  ctx.lineWidth = 2;
+  ctx.beginPath();
+  points.forEach((p, i) => {
+    const x = n === 1 ? padX + plotW/2 : padX + (i/(n-1)) * plotW;
+    const v = p.avgValence == null ? 0 : p.avgValence;
+    const y = zeroY - v * (plotH/2);
+    if(i === 0) ctx.moveTo(x,y); else ctx.lineTo(x,y);
+  });
+  ctx.stroke();
+
+  ctx.fillStyle = opts.color || '#2E7B8A';
+  points.forEach((p, i) => {
+    const x = n === 1 ? padX + plotW/2 : padX + (i/(n-1)) * plotW;
+    const v = p.avgValence == null ? 0 : p.avgValence;
+    const y = zeroY - v * (plotH/2);
+    ctx.beginPath(); ctx.arc(x, y, 2.5, 0, Math.PI*2); ctx.fill();
+  });
+}
+function mtMountWellbeing(container){
+  const log = mtLoadMoodLog();
+  const stats = mtComputeWellbeingStats(log);
+  if(stats.total < MT_WELLBEING_MIN_ENTRIES) return; // nothing to draw yet, HTML already shows the "keep checking in" message
+
+  const catChart = container.querySelector('#wbCategoryChart');
+  if(catChart){
+    const bars = MT_EMOTIONS.map(c => ({ label: c.label, value: stats.categoryCounts[c.key] || 0, color: c.color }));
+    mtDrawBarChart(catChart, bars);
+  }
+  const todChart = container.querySelector('#wbTimeOfDayChart');
+  if(todChart){
+    const bars = stats.timeOfDay.map(b => ({ label: b.label, value: b.avgValence || 0, color: (b.avgValence||0) >= 0 ? '#5A8F4E' : '#A6342E' }));
+    mtDrawBarChart(todChart, bars, { signed: true });
+  }
+  const dowChart = container.querySelector('#wbDayOfWeekChart');
+  if(dowChart){
+    const bars = stats.weekday.map(b => ({ label: b.label, value: b.avgValence || 0, color: (b.avgValence||0) >= 0 ? '#5A8F4E' : '#A6342E' }));
+    mtDrawBarChart(dowChart, bars, { signed: true });
+  }
+  const trendChart = container.querySelector('#wbTrendChart');
+  if(trendChart && stats.trend.length >= 2){
+    mtDrawLineChart(trendChart, stats.trend);
+  }
+}
+
 let mtState = null;
 let mtActiveEmbeddedCleanup = null; // cleanup() of whichever embedded mess-about game is currently mounted, if any
 function mtInit(){
@@ -10791,6 +11041,9 @@ function mtRender(){
   mtWireStep(container);
   if(mtState.step === 'messAboutAfter' && mtState.messAboutPick){
     mtActivateMessAboutPick(container);
+  }
+  if(mtState.step === 'wellbeing'){
+    mtMountWellbeing(container);
   }
 }
 // Opens the current mess-about pick: window.open for the 9 external sites (unchanged,
@@ -10876,15 +11129,77 @@ function mtActivateMessAboutPick(container){
   slot.querySelectorAll('canvas').forEach(mtPreventTouchNav);
 }
 
+function mtWellbeingHtml(){
+  const log = mtLoadMoodLog();
+  const stats = mtComputeWellbeingStats(log);
+  const backLink = `<button class="mt-back-link" data-action="back-to-picker">← Back</button>`;
+
+  if(stats.total < MT_WELLBEING_MIN_ENTRIES){
+    const remaining = MT_WELLBEING_MIN_ENTRIES - stats.total;
+    return `
+      ${backLink}
+      <p class="mt-intro">My Wellbeing</p>
+      <p class="mt-intro">Check in ${remaining} more time${remaining===1?'':'s'} and your patterns will start showing up here -- most-logged feeling, how your mood shifts through the day and the week, that sort of thing. Just needs a bit more to work with first.</p>
+      ${stats.total > 0 ? `<p class="mt-intro">Checked in ${stats.total} time${stats.total===1?'':'s'} so far.</p>` : ''}
+    `;
+  }
+
+  const catInfo = MT_EMOTIONS.find(c => c.key === stats.mostCommonCategory);
+  const shiftInfo = stats.recentShift ? MT_EMOTIONS.find(c => c.key === stats.recentShift) : null;
+  const posPct = Math.round(100 * stats.valenceCounts.positive / stats.total);
+  const neuPct = Math.round(100 * stats.valenceCounts.neutral / stats.total);
+  const negPct = Math.round(100 * stats.valenceCounts.negative / stats.total);
+
+  return `
+    ${backLink}
+    <p class="mt-intro">My Wellbeing</p>
+
+    <div class="wb-stat-row">
+      <div class="wb-stat"><div class="wb-stat-num">${stats.total}</div><div class="wb-stat-label">check-ins</div></div>
+      <div class="wb-stat"><div class="wb-stat-num">${stats.streak}</div><div class="wb-stat-label">day streak</div></div>
+    </div>
+
+    ${catInfo ? `<p class="mt-intro">Most logged: <strong style="color:${catInfo.color}">${escapeHtml(catInfo.label)}</strong></p>` : ''}
+    ${shiftInfo ? `<p class="mt-intro">Lately (last 7 days) you've logged <strong style="color:${shiftInfo.color}">${escapeHtml(shiftInfo.label)}</strong> more than usual.</p>` : ''}
+
+    <p class="wb-section-label">Mix of feelings overall</p>
+    <div class="wb-split-bar">
+      <div class="wb-split-seg" style="width:${posPct}%; background:#5A8F4E;"></div>
+      <div class="wb-split-seg" style="width:${neuPct}%; background:#B6B235;"></div>
+      <div class="wb-split-seg" style="width:${negPct}%; background:#A6342E;"></div>
+    </div>
+    <p class="wb-split-caption">${posPct}% positive · ${neuPct}% neutral · ${negPct}% negative</p>
+
+    <p class="wb-section-label">Every emotion, all-time</p>
+    <canvas id="wbCategoryChart" class="wb-chart"></canvas>
+
+    <p class="wb-section-label">By time of day</p>
+    <canvas id="wbTimeOfDayChart" class="wb-chart wb-chart-small"></canvas>
+
+    <p class="wb-section-label">By day of the week</p>
+    <canvas id="wbDayOfWeekChart" class="wb-chart wb-chart-small"></canvas>
+
+    ${stats.trend.length >= 2 ? `
+      <p class="wb-section-label">Trend, last ${stats.trend.length} day${stats.trend.length===1?'':'s'} with a check-in</p>
+      <canvas id="wbTrendChart" class="wb-chart wb-chart-small"></canvas>
+    ` : ''}
+
+    <button class="mt-back-link" data-action="clear-wellbeing" style="margin-top:18px; color:#A6342E;">Clear my data</button>
+  `;
+}
 function mtStepHtml(){
   const s = mtState;
   if(s.step === 'picker'){
     return `
-      <p class="mt-intro">No one sees this, nothing is saved, and you can stop at any point. Pick whatever's closest to how you're feeling right now.</p>
+      <p class="mt-intro">No one sees this, and you can stop at any point. A private mood log stays on this device only -- never sent anywhere, never seen by anyone else, not even us -- so you can see your own patterns over time. Pick whatever's closest to how you're feeling right now.</p>
       <div class="mt-cat-grid">
         ${MT_EMOTIONS.map(c => `<button class="mt-cat-btn" style="background:${c.color}" data-cat="${c.key}">${escapeHtml(c.label)}</button>`).join('')}
       </div>
+      <button class="mt-wellbeing-tile" data-action="open-wellbeing">📊 My Wellbeing</button>
     `;
+  }
+  if(s.step === 'wellbeing'){
+    return mtWellbeingHtml();
   }
   if(s.step === 'subpicker'){
     const cat = MT_EMOTIONS.find(c => c.key === s.category);
@@ -11097,15 +11412,27 @@ function mtWireStep(container){
   container.querySelectorAll('[data-word]').forEach(btn => {
     btn.addEventListener('click', ()=>{
       s.emotion = btn.dataset.word;
+      const wordValence = MT_WORD_VALENCE[s.emotion];
+      mtLogMoodEntry(s.category, s.emotion, wordValence);
       // Genuinely negative feelings get offered a breather before the questions start --
       // positive and neutral ones go straight to talkAboutIt, unchanged, since "want to
       // mess about first?" only makes sense ahead of something that's actually difficult.
-      const wordValence = MT_WORD_VALENCE[s.emotion];
       mtGoTo(wordValence === 'negative' ? 'messAboutOffer' : 'talkAboutIt');
     });
   });
   const backToPicker = container.querySelector('[data-action="back-to-picker"]');
   if(backToPicker) backToPicker.addEventListener('click', ()=> mtGoTo('picker'));
+
+  const openWellbeing = container.querySelector('[data-action="open-wellbeing"]');
+  if(openWellbeing) openWellbeing.addEventListener('click', ()=> mtGoTo('wellbeing'));
+
+  const clearWellbeing = container.querySelector('[data-action="clear-wellbeing"]');
+  if(clearWellbeing) clearWellbeing.addEventListener('click', ()=>{
+    if(confirm('Clear your private mood log on this device? This can\'t be undone.')){
+      mtClearMoodLog();
+      mtGoTo('wellbeing');
+    }
+  });
 
   // "Mess about" flow -- offer shown for negative-valence words, before the questions.
   // Pool is now every embedded game, cycled through in a fixed order (not randomized) --
