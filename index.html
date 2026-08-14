@@ -11191,7 +11191,7 @@ function mtStepHtml(){
   const s = mtState;
   if(s.step === 'picker'){
     return `
-      <p class="mt-intro">No one sees this, and you can stop at any point. A private mood log stays on this device only -- never sent anywhere, never seen by anyone else, not even us -- so you can see your own patterns over time. Pick whatever's closest to how you're feeling right now.</p>
+      <p class="mt-intro">No one sees this, and you can stop at any point. A private mood log stays on this device only — never sent anywhere, never seen by anyone else, not even us — so you can see your own patterns over time. Pick whatever's closest to how you're feeling right now.</p>
       <div class="mt-cat-grid">
         ${MT_EMOTIONS.map(c => `<button class="mt-cat-btn" style="background:${c.color}" data-cat="${c.key}">${escapeHtml(c.label)}</button>`).join('')}
       </div>
