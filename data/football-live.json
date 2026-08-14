@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-14T15:25:46.710978Z",
+  "generatedAt": "2026-08-14T18:30:09.445362Z",
   "standings": {},
   "matches": {
     "PL": {
@@ -425,37 +425,6 @@
             "id": 88,
             "name": "Levante UD",
             "shortName": "Levante"
-          },
-          "score": {
-            "winner": null,
-            "duration": "REGULAR",
-            "fullTime": {
-              "home": null,
-              "away": null
-            },
-            "halfTime": {
-              "home": null,
-              "away": null
-            }
-          },
-          "competition": {
-            "name": "Primera Division"
-          },
-          "venue": null
-        },
-        {
-          "utcDate": "2026-08-16T19:30:00Z",
-          "status": "TIMED",
-          "matchday": 1,
-          "homeTeam": {
-            "id": 558,
-            "name": "RC Celta de Vigo",
-            "shortName": "Celta"
-          },
-          "awayTeam": {
-            "id": 79,
-            "name": "CA Osasuna",
-            "shortName": "Osasuna"
           },
           "score": {
             "winner": null,
