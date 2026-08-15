@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-15T10:02:20.397148Z",
+  "generatedAt": "2026-08-15T13:50:11.601631Z",
   "events": [
     {
       "title": "Cold Kuksi Tournament at Dayako Chicken",
@@ -24,7 +24,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Sold out IOSIS ROCK BATTLE",
+      "title": "IOSIS ROCK BATTLE",
       "titleRu": null,
       "category": "concert",
       "venue": "\"SAHNA\" StandUp Club",
@@ -55,7 +55,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Exhibition “Generation Z”",
+      "title": "Выставка «Поколение Z»",
       "titleRu": "Выставка «Поколение Z»",
       "category": "exhibition",
       "venue": "Andakulova galleryТашкент, ул. Батыра Закирова, 7, 1-й этаж",
@@ -110,7 +110,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Exhibition “Photochronicles of the 20th century”",
+      "title": "Выставка «Фотохроника XX века»",
       "titleRu": "Выставка «Фотохроника XX века»",
       "category": "exhibition",
       "venue": "Bonum Factum GalleryТашкент, пер. Садыка Азимова, 20А",
@@ -132,14 +132,15 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Snow White Lullaby",
-      "titleRu": null,
+      "title": "Performance “Lullaby for Snow White”",
+      "titleRu": "Спектакль «Колыбельная для Белоснежки»",
       "category": "theatre",
-      "venue": "Theatre - Studio Silk Route Marionettes Ecopark",
+      "venue": null,
       "startDate": "2026-08-15",
       "endDate": null,
-      "url": "https://iticket.uz/en/events/theaters-tashkent/snow-white-lullabyy",
-      "source": "iticket.uz"
+      "time": "17:00",
+      "url": "https://www.afisha.uz/ru/theatres/2026/08/07/kolybelnaya-dlya-belosnezhki-silk-route",
+      "source": "afisha.uz (calendar)"
     },
     {
       "title": "Children's shows at Sky Park",
@@ -197,7 +198,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Palma & Chilla beach in Milliy Bog’ park",
+      "title": "Пляж Palma & Chilla в парке Milliy Bog’",
       "titleRu": "Пляж Palma & Chilla в парке Milliy Bog’",
       "category": "festival",
       "venue": "Milliy bog‘Ташкент, ул. Сеул, 16",
@@ -285,6 +286,16 @@
       "source": "afisha.uz (calendar)"
     },
     {
+      "title": "Love Legend",
+      "titleRu": null,
+      "category": "concert",
+      "venue": "Концертный Зал Мароканд",
+      "startDate": "2026-08-15",
+      "endDate": null,
+      "url": "https://iticket.uz/en/events/concerts/love-legend",
+      "source": "iticket.uz"
+    },
+    {
       "title": "ЛАБОРАТОРИЯ «СССР»",
       "titleRu": null,
       "category": "concert",
@@ -315,16 +326,6 @@
       "source": "iticket.uz"
     },
     {
-      "title": "Love Legend",
-      "titleRu": null,
-      "category": "concert",
-      "venue": "Концертный Зал Мароканд",
-      "startDate": "2026-08-15",
-      "endDate": null,
-      "url": "https://iticket.uz/en/events/concerts/love-legend",
-      "source": "iticket.uz"
-    },
-    {
       "title": "Open-air concert Amirsoy Paradiso",
       "titleRu": "Open-air концерт Amirsoy Paradiso",
       "category": "concert",
@@ -347,7 +348,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Exhibition “Generation Z”",
+      "title": "Выставка «Поколение Z»",
       "titleRu": "Выставка «Поколение Z»",
       "category": "exhibition",
       "venue": "Andakulova galleryТашкент, ул. Батыра Закирова, 7, 1-й этаж",
@@ -402,7 +403,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Exhibition “Photochronicles of the 20th century”",
+      "title": "Выставка «Фотохроника XX века»",
       "titleRu": "Выставка «Фотохроника XX века»",
       "category": "exhibition",
       "venue": "Bonum Factum GalleryТашкент, пер. Садыка Азимова, 20А",
@@ -413,15 +414,14 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Performance “Lullaby for Snow White”",
-      "titleRu": "Спектакль «Колыбельная для Белоснежки»",
+      "title": "Snow White Lullaby",
+      "titleRu": null,
       "category": "theatre",
-      "venue": null,
+      "venue": "Theatre - Studio Silk Route Marionettes Ecopark",
       "startDate": "2026-08-16",
       "endDate": null,
-      "time": "12:30",
-      "url": "https://www.afisha.uz/ru/theatres/2026/08/07/kolybelnaya-dlya-belosnezhki-silk-route",
-      "source": "afisha.uz (calendar)"
+      "url": "https://iticket.uz/en/events/theaters-tashkent/snow-white-lullabyy",
+      "source": "iticket.uz"
     },
     {
       "title": "Children's shows at Sky Park",
@@ -490,7 +490,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Palma & Chilla beach in Milliy Bog’ park",
+      "title": "Пляж Palma & Chilla в парке Milliy Bog’",
       "titleRu": "Пляж Palma & Chilla в парке Milliy Bog’",
       "category": "festival",
       "venue": "Milliy bog‘Ташкент, ул. Сеул, 16",
@@ -632,7 +632,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Financial literacy training game CashFlow",
+      "title": "Игра-тренинг по финансовой грамотности CashFlow",
       "titleRu": "Игра-тренинг по финансовой грамотности CashFlow",
       "category": "lecture",
       "venue": null,
@@ -643,7 +643,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Master class on painting a cat mask",
+      "title": "Мастер-класс по росписи маски кошки",
       "titleRu": "Мастер-класс по росписи маски кошки",
       "category": "lecture",
       "venue": "Международный Караван-Сарай культуры Икуо ХираямыТашкент, ул. Юсуф Хос Ходжиб, 37А",
@@ -698,7 +698,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Exhibition “Generation Z”",
+      "title": "Выставка «Поколение Z»",
       "titleRu": "Выставка «Поколение Z»",
       "category": "exhibition",
       "venue": "Andakulova galleryТашкент, ул. Батыра Закирова, 7, 1-й этаж",
@@ -731,7 +731,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Exhibition “Photochronicles of the 20th century”",
+      "title": "Выставка «Фотохроника XX века»",
       "titleRu": "Выставка «Фотохроника XX века»",
       "category": "exhibition",
       "venue": "Bonum Factum GalleryТашкент, пер. Садыка Азимова, 20А",
@@ -786,7 +786,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Palma & Chilla beach in Milliy Bog’ park",
+      "title": "Пляж Palma & Chilla в парке Milliy Bog’",
       "titleRu": "Пляж Palma & Chilla в парке Milliy Bog’",
       "category": "festival",
       "venue": "Milliy bog‘Ташкент, ул. Сеул, 16",
@@ -874,7 +874,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Exhibition “Generation Z”",
+      "title": "Выставка «Поколение Z»",
       "titleRu": "Выставка «Поколение Z»",
       "category": "exhibition",
       "venue": "Andakulova galleryТашкент, ул. Батыра Закирова, 7, 1-й этаж",
@@ -907,7 +907,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Exhibition “Photochronicles of the 20th century”",
+      "title": "Выставка «Фотохроника XX века»",
       "titleRu": "Выставка «Фотохроника XX века»",
       "category": "exhibition",
       "venue": "Bonum Factum GalleryТашкент, пер. Садыка Азимова, 20А",
@@ -962,7 +962,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Palma & Chilla beach in Milliy Bog’ park",
+      "title": "Пляж Palma & Chilla в парке Milliy Bog’",
       "titleRu": "Пляж Palma & Chilla в парке Milliy Bog’",
       "category": "festival",
       "venue": "Milliy bog‘Ташкент, ул. Сеул, 16",
@@ -1050,7 +1050,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Exhibition “Generation Z”",
+      "title": "Выставка «Поколение Z»",
       "titleRu": "Выставка «Поколение Z»",
       "category": "exhibition",
       "venue": "Andakulova galleryТашкент, ул. Батыра Закирова, 7, 1-й этаж",
@@ -1083,7 +1083,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Exhibition “Photochronicles of the 20th century”",
+      "title": "Выставка «Фотохроника XX века»",
       "titleRu": "Выставка «Фотохроника XX века»",
       "category": "exhibition",
       "venue": "Bonum Factum GalleryТашкент, пер. Садыка Азимова, 20А",
@@ -1138,7 +1138,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Palma & Chilla beach in Milliy Bog’ park",
+      "title": "Пляж Palma & Chilla в парке Milliy Bog’",
       "titleRu": "Пляж Palma & Chilla в парке Milliy Bog’",
       "category": "festival",
       "venue": "Milliy bog‘Ташкент, ул. Сеул, 16",
@@ -1171,7 +1171,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Financial literacy training game CashFlow",
+      "title": "Игра-тренинг по финансовой грамотности CashFlow",
       "titleRu": "Игра-тренинг по финансовой грамотности CashFlow",
       "category": "lecture",
       "venue": null,
@@ -1248,7 +1248,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Exhibition “Generation Z”",
+      "title": "Выставка «Поколение Z»",
       "titleRu": "Выставка «Поколение Z»",
       "category": "exhibition",
       "venue": "Andakulova galleryТашкент, ул. Батыра Закирова, 7, 1-й этаж",
@@ -1281,7 +1281,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Exhibition “Photochronicles of the 20th century”",
+      "title": "Выставка «Фотохроника XX века»",
       "titleRu": "Выставка «Фотохроника XX века»",
       "category": "exhibition",
       "venue": "Bonum Factum GalleryТашкент, пер. Садыка Азимова, 20А",
@@ -1336,7 +1336,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Palma & Chilla beach in Milliy Bog’ park",
+      "title": "Пляж Palma & Chilla в парке Milliy Bog’",
       "titleRu": "Пляж Palma & Chilla в парке Milliy Bog’",
       "category": "festival",
       "venue": "Milliy bog‘Ташкент, ул. Сеул, 16",
@@ -1413,7 +1413,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Exhibition “Generation Z”",
+      "title": "Выставка «Поколение Z»",
       "titleRu": "Выставка «Поколение Z»",
       "category": "exhibition",
       "venue": "Andakulova galleryТашкент, ул. Батыра Закирова, 7, 1-й этаж",
@@ -1446,7 +1446,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Exhibition “Photochronicles of the 20th century”",
+      "title": "Выставка «Фотохроника XX века»",
       "titleRu": "Выставка «Фотохроника XX века»",
       "category": "exhibition",
       "venue": "Bonum Factum GalleryТашкент, пер. Садыка Азимова, 20А",
@@ -1501,7 +1501,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Palma & Chilla beach in Milliy Bog’ park",
+      "title": "Пляж Palma & Chilla в парке Milliy Bog’",
       "titleRu": "Пляж Palma & Chilla в парке Milliy Bog’",
       "category": "festival",
       "venue": "Milliy bog‘Ташкент, ул. Сеул, 16",
@@ -1588,7 +1588,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Exhibition “Generation Z”",
+      "title": "Выставка «Поколение Z»",
       "titleRu": "Выставка «Поколение Z»",
       "category": "exhibition",
       "venue": "Andakulova galleryТашкент, ул. Батыра Закирова, 7, 1-й этаж",
@@ -1632,7 +1632,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Exhibition “Photochronicles of the 20th century”",
+      "title": "Выставка «Фотохроника XX века»",
       "titleRu": "Выставка «Фотохроника XX века»",
       "category": "exhibition",
       "venue": "Bonum Factum GalleryТашкент, пер. Садыка Азимова, 20А",
@@ -1687,7 +1687,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Palma & Chilla beach in Milliy Bog’ park",
+      "title": "Пляж Palma & Chilla в парке Milliy Bog’",
       "titleRu": "Пляж Palma & Chilla в парке Milliy Bog’",
       "category": "festival",
       "venue": "Milliy bog‘Ташкент, ул. Сеул, 16",
@@ -1861,7 +1861,7 @@
       "source": "iticket.uz"
     },
     {
-      "title": "Exhibition “Generation Z”",
+      "title": "Выставка «Поколение Z»",
       "titleRu": "Выставка «Поколение Z»",
       "category": "exhibition",
       "venue": "Andakulova galleryТашкент, ул. Батыра Закирова, 7, 1-й этаж",
@@ -1905,7 +1905,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Exhibition “Photochronicles of the 20th century”",
+      "title": "Выставка «Фотохроника XX века»",
       "titleRu": "Выставка «Фотохроника XX века»",
       "category": "exhibition",
       "venue": "Bonum Factum GalleryТашкент, пер. Садыка Азимова, 20А",
@@ -1960,7 +1960,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Palma & Chilla beach in Milliy Bog’ park",
+      "title": "Пляж Palma & Chilla в парке Milliy Bog’",
       "titleRu": "Пляж Palma & Chilla в парке Milliy Bog’",
       "category": "festival",
       "venue": "Milliy bog‘Ташкент, ул. Сеул, 16",
@@ -2048,7 +2048,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Financial literacy training game CashFlow",
+      "title": "Игра-тренинг по финансовой грамотности CashFlow",
       "titleRu": "Игра-тренинг по финансовой грамотности CashFlow",
       "category": "lecture",
       "venue": null,
@@ -2113,7 +2113,7 @@
       "source": "iticket.uz"
     },
     {
-      "title": "Exhibition “Generation Z”",
+      "title": "Выставка «Поколение Z»",
       "titleRu": "Выставка «Поколение Z»",
       "category": "exhibition",
       "venue": "Andakulova galleryТашкент, ул. Батыра Закирова, 7, 1-й этаж",
@@ -2146,7 +2146,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Exhibition “Photochronicles of the 20th century”",
+      "title": "Выставка «Фотохроника XX века»",
       "titleRu": "Выставка «Фотохроника XX века»",
       "category": "exhibition",
       "venue": "Bonum Factum GalleryТашкент, пер. Садыка Азимова, 20А",
@@ -2201,7 +2201,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Palma & Chilla beach in Milliy Bog’ park",
+      "title": "Пляж Palma & Chilla в парке Milliy Bog’",
       "titleRu": "Пляж Palma & Chilla в парке Milliy Bog’",
       "category": "festival",
       "venue": "Milliy bog‘Ташкент, ул. Сеул, 16",
@@ -2267,7 +2267,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Exhibition “Generation Z”",
+      "title": "Выставка «Поколение Z»",
       "titleRu": "Выставка «Поколение Z»",
       "category": "exhibition",
       "venue": "Andakulova galleryТашкент, ул. Батыра Закирова, 7, 1-й этаж",
@@ -2300,7 +2300,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Exhibition “Photochronicles of the 20th century”",
+      "title": "Выставка «Фотохроника XX века»",
       "titleRu": "Выставка «Фотохроника XX века»",
       "category": "exhibition",
       "venue": "Bonum Factum GalleryТашкент, пер. Садыка Азимова, 20А",
@@ -2355,7 +2355,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Palma & Chilla beach in Milliy Bog’ park",
+      "title": "Пляж Palma & Chilla в парке Milliy Bog’",
       "titleRu": "Пляж Palma & Chilla в парке Milliy Bog’",
       "category": "festival",
       "venue": "Milliy bog‘Ташкент, ул. Сеул, 16",
@@ -2443,7 +2443,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Palma & Chilla beach in Milliy Bog’ park",
+      "title": "Пляж Palma & Chilla в парке Milliy Bog’",
       "titleRu": "Пляж Palma & Chilla в парке Milliy Bog’",
       "category": "festival",
       "venue": "Milliy bog‘Ташкент, ул. Сеул, 16",
@@ -2476,7 +2476,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Financial literacy training game CashFlow",
+      "title": "Игра-тренинг по финансовой грамотности CashFlow",
       "titleRu": "Игра-тренинг по финансовой грамотности CashFlow",
       "category": "lecture",
       "venue": null,
@@ -2564,7 +2564,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Palma & Chilla beach in Milliy Bog’ park",
+      "title": "Пляж Palma & Chilla в парке Milliy Bog’",
       "titleRu": "Пляж Palma & Chilla в парке Milliy Bog’",
       "category": "festival",
       "venue": "Milliy bog‘Ташкент, ул. Сеул, 16",
@@ -2652,7 +2652,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Palma & Chilla beach in Milliy Bog’ park",
+      "title": "Пляж Palma & Chilla в парке Milliy Bog’",
       "titleRu": "Пляж Palma & Chilla в парке Milliy Bog’",
       "category": "festival",
       "venue": "Milliy bog‘Ташкент, ул. Сеул, 16",
@@ -2761,7 +2761,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Palma & Chilla beach in Milliy Bog’ park",
+      "title": "Пляж Palma & Chilla в парке Milliy Bog’",
       "titleRu": "Пляж Palma & Chilla в парке Milliy Bog’",
       "category": "festival",
       "venue": "Milliy bog‘Ташкент, ул. Сеул, 16",
