@@ -5850,22 +5850,11 @@ function wordOfTheDayHtml(){
     <div class="wotd-example">"${escapeHtml(pick.example)}"</div>
   `;
 }
-async function loadWeather(){
-  const card = document.getElementById('weatherCard');
-  if(!card) return;
-  const randomTwo = [...WORLD_CITIES].sort(()=> Math.random() - 0.5).slice(0, 2);
-  const locations = [{ city:"Tashkent", country:"Uzbekistan", lat:41.2995, lon:69.2401 }, ...randomTwo];
+async function fetchWeatherFor(locations, timeoutMs){
   const lats = locations.map(l => l.lat).join(',');
   const lons = locations.map(l => l.lon).join(',');
-  // Open-Meteo's current docs (checked 2026-08) no longer list the legacy boolean
-  // current_weather=true param at all -- only the explicit current=<variable list> form is
-  // documented now. Migrated to that. Separately (and regardless of which param caused any
-  // past issue): a fetch with no timeout can hang indefinitely on a bad network without ever
-  // resolving or rejecting, which leaves the card stuck on "Loading..." forever with no way
-  // out short of a full reload -- exactly the reported symptom. The AbortController below
-  // guarantees the promise always settles one way or another within 10s.
   const controller = new AbortController();
-  const timeoutId = setTimeout(()=> controller.abort(), 10000);
+  const timeoutId = setTimeout(()=> controller.abort(), timeoutMs);
   try{
     const res = await fetch(
       `https://api.open-meteo.com/v1/forecast?latitude=${lats}&longitude=${lons}&current=temperature_2m,wind_speed_10m,weather_code&wind_speed_unit=kn`,
@@ -5878,26 +5867,61 @@ async function loadWeather(){
     }
     const data = await res.json();
     const results = Array.isArray(data) ? data : [data];
-    const rows = results.map((r, i) => {
-      const loc = locations[i];
-      const cw = r.current;
-      if(!cw) return '';
-      const [icon, label] = WEATHER_CODES[cw.weather_code] || ['🌡️','Current conditions'];
-      if(i === 0) applyWeatherOverlay(label); // Tashkent is always locations[0]
-      return `
-        <div class="weather-row">
-          <a class="weather-city weather-city-link" href="https://www.windy.com/?temp,${loc.lat},${loc.lon},8" target="_blank" rel="noopener">${escapeHtml(loc.city)}, ${escapeHtml(loc.country)} ↗</a>
-          <div class="weather-detail">${icon} ${Math.round(cw.temperature_2m)}°C — ${escapeHtml(label)}, wind ${Math.round(cw.wind_speed_10m)} kn</div>
-        </div>
-      `;
-    }).join('');
-    card.innerHTML = rows || '<div class="otd-text">Couldn\'t load the weather — try refreshing.<br><span style="font-size:11px;opacity:.65;">(got a response, but no usable data in it)</span></div>';
-  }catch(e){
-    console.error('[weather] load failed:', e);
-    card.innerHTML = `<div class="otd-text">Couldn't load the weather — try refreshing.<br><span style="font-size:11px;opacity:.65;">(${escapeHtml(String((e && e.message) || e))})</span></div>`;
+    if(!results.some(r => r && r.current)) throw new Error('got a response, but no usable data in it');
+    return results;
   }finally{
     clearTimeout(timeoutId);
   }
+}
+async function loadWeather(){
+  const card = document.getElementById('weatherCard');
+  if(!card) return;
+  const tashkent = { city:"Tashkent", country:"Uzbekistan", lat:41.2995, lon:69.2401 };
+  const randomTwo = [...WORLD_CITIES].sort(()=> Math.random() - 0.5).slice(0, 2);
+  const fullLocations = [tashkent, ...randomTwo];
+
+  // Open-Meteo's current docs (checked 2026-08) no longer list the legacy boolean
+  // current_weather=true param at all -- only current=<variable list> is documented now.
+  // Migrated to that. On top of that, a real device report (2026-08) showed the request
+  // consistently timing out on school wifi -- not a fast reject (which is what a bad
+  // parameter or CORS block would look like), an actual hang. Rather than just wait longer
+  // and hope, this now tries the full 3-city request first, and if THAT fails for any
+  // reason -- abort, bad response, malformed data -- it retries once with just Tashkent
+  // alone: a much smaller request that stands a real chance of getting through even when
+  // the bigger one doesn't. The person actually needs Tashkent's weather; the two random
+  // world cities are a nice-to-have, not worth failing the whole card over.
+  let locationsUsed = fullLocations;
+  let results;
+  try{
+    results = await fetchWeatherFor(fullLocations, 12000);
+  }catch(e1){
+    console.error('[weather] full request failed, falling back to Tashkent only:', e1);
+    try{
+      locationsUsed = [tashkent];
+      results = await fetchWeatherFor(locationsUsed, 12000);
+    }catch(e2){
+      console.error('[weather] Tashkent-only fallback also failed:', e2);
+      card.innerHTML = `<div class="otd-text">Couldn't load the weather.<br><span style="font-size:11px;opacity:.65;">(${escapeHtml(String((e2 && e2.message) || e2))})</span></div><button data-action="retry-weather" style="margin-top:10px; padding:8px 16px; border-radius:999px; border:none; background:rgba(255,255,255,.15); color:inherit; font-weight:700; cursor:pointer;">Tap to retry</button>`;
+      const retryBtn = card.querySelector('[data-action="retry-weather"]');
+      if(retryBtn) retryBtn.addEventListener('click', ()=>{ card.innerHTML = '<div class="otd-text">Loading…</div>'; loadWeather(); });
+      return;
+    }
+  }
+
+  const rows = results.map((r, i) => {
+    const loc = locationsUsed[i];
+    const cw = r.current;
+    if(!cw || !loc) return '';
+    const [icon, label] = WEATHER_CODES[cw.weather_code] || ['🌡️','Current conditions'];
+    if(i === 0) applyWeatherOverlay(label); // Tashkent is always locationsUsed[0]
+    return `
+      <div class="weather-row">
+        <a class="weather-city weather-city-link" href="https://www.windy.com/?temp,${loc.lat},${loc.lon},8" target="_blank" rel="noopener">${escapeHtml(loc.city)}, ${escapeHtml(loc.country)} ↗</a>
+        <div class="weather-detail">${icon} ${Math.round(cw.temperature_2m)}°C — ${escapeHtml(label)}, wind ${Math.round(cw.wind_speed_10m)} kn</div>
+      </div>
+    `;
+  }).join('');
+  card.innerHTML = rows || '<div class="otd-text">Couldn\'t load the weather — try refreshing.</div>';
 }
 /* ---- Vox Populi — one poll question per day, locked after voting ---- */
 function getTashkentDateKey(){
