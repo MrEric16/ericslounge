@@ -1,5 +1,5 @@
 {
-  "curatedAt": "2026-08-02",
+  "curatedAt": "2026-08-16",
   "note": "Manually curated and vetted by Claude per Mr Eric's strict content rules (free, educational, non-controversial, teen-appropriate, zero tolerance for banned topics). Refreshed on request, not auto-scraped -- this content type requires human judgment per-item, unlike the Tashkent ticketing feed.",
   "dated": [
     {
@@ -55,6 +55,15 @@
       "time": "20:00 Tashkent",
       "category": "science",
       "url": "https://www.roadscholar.org/collections/online-lectures/free/"
+    },
+    {
+      "title": "U.S. Spacewalk 97: Live NASA Coverage",
+      "org": "NASA",
+      "description": "Watch live as astronauts venture outside the International Space Station to upgrade solar arrays and station hardware -- real spacewalk footage, not a simulation.",
+      "startDate": "2026-08-18",
+      "time": "7:00 AM ET (4:00 PM Tashkent)",
+      "category": "science",
+      "url": "https://plus.nasa.gov/scheduled-video/u-s-spacewalk-97/"
     },
     {
       "title": "NASA CTE Day: Armstrong Flight Research Center",
