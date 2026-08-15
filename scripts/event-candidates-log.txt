@@ -1,5 +1,3 @@
-Traceback (most recent call last):
-  File "/home/runner/work/ericslounge/ericslounge/scripts/scrape_event_candidates.py", line 35, in <module>
-    from bs4 import BeautifulSoup
-ModuleNotFoundError: No module named 'bs4'
-FETCH_FAILED_SEE_LOG
+[event-candidates] 21 already published, 0 already pending review
+[event-candidates] NASA live page: found 1 raw candidate(s)
+[event-candidates] done: queued 1 new candidate(s) for review
