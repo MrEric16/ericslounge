@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-15T05:56:30.079783Z",
+  "generatedAt": "2026-08-15T07:18:51.751498Z",
   "standings": {},
   "matches": {
     "PL": {
@@ -549,6 +549,37 @@
             "id": 92,
             "name": "Real Sociedad de Fútbol",
             "shortName": "Real Sociedad"
+          },
+          "score": {
+            "winner": null,
+            "duration": "REGULAR",
+            "fullTime": {
+              "home": null,
+              "away": null
+            },
+            "halfTime": {
+              "home": null,
+              "away": null
+            }
+          },
+          "competition": {
+            "name": "Primera Division"
+          },
+          "venue": null
+        },
+        {
+          "utcDate": "2026-08-27T18:30:00Z",
+          "status": "TIMED",
+          "matchday": 1,
+          "homeTeam": {
+            "id": 558,
+            "name": "RC Celta de Vigo",
+            "shortName": "Celta"
+          },
+          "awayTeam": {
+            "id": 79,
+            "name": "CA Osasuna",
+            "shortName": "Osasuna"
           },
           "score": {
             "winner": null,
