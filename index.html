@@ -11145,18 +11145,6 @@ function mtExit(){
   // route is navigated to next; a detached canvas's requestAnimationFrame loop keeps firing
   // (and eating battery) forever otherwise.
   if(mtActiveEmbeddedCleanup){ mtActiveEmbeddedCleanup(); mtActiveEmbeddedCleanup = null; }
-  // Leaving Mind Temple always lands on a freshly-scrolled-to-top homepage, never wherever
-  // the user happened to be scrolled to before they opened it -- deliberately different
-  // from every other page on the site, which does remember scroll position. The point is
-  // that closing this specific tool shouldn't leave the Mind Temple tile sitting right in
-  // front of someone's eyes the moment they exit; they should have to actively choose to
-  // scroll back down to it. Achieved by zeroing out the home route's saved scroll position
-  // before navigating, rather than fighting the hashchange event's timing directly.
-  try{
-    const mem = getScrollMemory();
-    mem[''] = 0;
-    saveScrollMemory(mem);
-  }catch(e){}
   // No longer touches location.hash -- see mtOpenOverlay/mtCloseOverlay above renderRoute
   // for why: Mind Temple's URL never changes while it's open, on purpose, so there is
   // nothing in browser history for the swipe-back gesture to navigate to in the first
@@ -13086,7 +13074,7 @@ function mtOpenOverlay(parts){
 }
 function mtCloseOverlay(){
   mtOverlayParts = null;
-  renderRoute();
+  renderRoute({ skipScrollSave: true });
 }
 document.addEventListener('click', (e) => {
   const askQuestionBtn = e.target.closest('[data-action="open-ask-question"]');
@@ -13140,8 +13128,13 @@ function renderRoute(opts){
   document.documentElement.classList.toggle('mt-no-swipeback', noSwipeBackRoute);
   document.body.classList.toggle('mt-no-swipeback', noSwipeBackRoute);
 
-  // Remember where we were scrolled to on the page we're about to leave.
-  if(!opts.forceTop && lastRenderedHash !== null){
+  // Remember where we were scrolled to on the page we're about to leave. Skippable via
+  // opts.skipScrollSave -- needed specifically for closing the Mind Temple/arcade overlay,
+  // since it never touches location.hash, so both opening and closing it look identical
+  // to this function ("still on the same hash"). Without the skip, closing it would save
+  // the OVERLAY's own transient scroll position under the home page's key, overwriting the
+  // real homepage position that was correctly captured when the overlay was opened.
+  if(!opts.forceTop && !opts.skipScrollSave && lastRenderedHash !== null){
     const mem = getScrollMemory();
     mem[lastRenderedHash] = window.scrollY;
     saveScrollMemory(mem);
@@ -13795,6 +13788,7 @@ window.addEventListener('hashchange', () => { mtOverlayParts = null; renderRoute
 document.getElementById('bottomTabs').innerHTML = `
   <a href="#" data-tab="home">${icon('home')}<span>Home</span></a>
   <a href="#sports">${icon('ball')}<span>Sports</span></a>
+  <a href="#mind-temple">${icon('brain')}<span>Temple</span></a>
   <a href="#events-hub">${icon('calendar')}<span>Events</span></a>
   <a href="#photos">${icon('camera')}<span>Photos</span></a>
   <a href="#saved">${icon('bookmark')}<span>Saved</span></a>
