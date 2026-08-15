@@ -5850,25 +5850,44 @@ function wordOfTheDayHtml(){
     <div class="wotd-example">"${escapeHtml(pick.example)}"</div>
   `;
 }
-async function fetchWeatherFor(locations, timeoutMs){
-  const lats = locations.map(l => l.lat).join(',');
-  const lons = locations.map(l => l.lon).join(',');
+// Picks an emoji from wttr.in's free-text weather description rather than a lookup table
+// keyed on a numeric code -- wttr.in's JSON gives a plain English phrase directly
+// (weatherDesc[0].value, e.g. "Partly cloudy", "Light rain"), so matching on keywords in
+// that phrase is more robust than trying to map their WWO numeric codes (a different
+// scheme than the WMO codes WEATHER_CODES was built for) and covers phrasing variants for
+// free.
+function wttrIconFor(desc){
+  const d = (desc || '').toLowerCase();
+  if(d.includes('thunder')) return '⛈️';
+  if(d.includes('snow') || d.includes('sleet') || d.includes('ice')) return '🌨️';
+  if(d.includes('drizzle')) return '🌦️';
+  if(d.includes('rain') || d.includes('shower')) return '🌧️';
+  if(d.includes('fog') || d.includes('mist') || d.includes('haze')) return '🌫️';
+  if(d.includes('overcast')) return '☁️';
+  if(d.includes('cloud')) return '⛅';
+  if(d.includes('clear') || d.includes('sunny')) return '☀️';
+  return '🌡️';
+}
+async function fetchWttrFor(loc, timeoutMs){
   const controller = new AbortController();
   const timeoutId = setTimeout(()=> controller.abort(), timeoutMs);
   try{
-    const res = await fetch(
-      `https://api.open-meteo.com/v1/forecast?latitude=${lats}&longitude=${lons}&current=temperature_2m,wind_speed_10m,weather_code&wind_speed_unit=kn`,
-      { signal: controller.signal }
-    );
-    if(!res.ok){
-      let bodyText = '';
-      try{ bodyText = await res.text(); }catch(_){}
-      throw new Error(`HTTP ${res.status}${bodyText ? ': ' + bodyText.slice(0,300) : ''}`);
-    }
+    const res = await fetch(`https://wttr.in/${loc.lat},${loc.lon}?format=j1`, {
+      signal: controller.signal,
+      headers: { 'Accept': 'application/json' },
+    });
+    if(!res.ok) throw new Error(`HTTP ${res.status}`);
     const data = await res.json();
-    const results = Array.isArray(data) ? data : [data];
-    if(!results.some(r => r && r.current)) throw new Error('got a response, but no usable data in it');
-    return results;
+    const cc = data.current_condition && data.current_condition[0];
+    if(!cc) throw new Error('no current_condition in response');
+    const label = (cc.weatherDesc && cc.weatherDesc[0] && cc.weatherDesc[0].value) || 'Current conditions';
+    return {
+      loc,
+      temp: Math.round(parseFloat(cc.temp_C)),
+      windKn: Math.round(parseFloat(cc.windspeedKmph || 0) * 0.539957),
+      label,
+      icon: wttrIconFor(label),
+    };
   }finally{
     clearTimeout(timeoutId);
   }
@@ -5878,50 +5897,42 @@ async function loadWeather(){
   if(!card) return;
   const tashkent = { city:"Tashkent", country:"Uzbekistan", lat:41.2995, lon:69.2401 };
   const randomTwo = [...WORLD_CITIES].sort(()=> Math.random() - 0.5).slice(0, 2);
-  const fullLocations = [tashkent, ...randomTwo];
+  const locations = [tashkent, ...randomTwo];
 
-  // Open-Meteo's current docs (checked 2026-08) no longer list the legacy boolean
-  // current_weather=true param at all -- only current=<variable list> is documented now.
-  // Migrated to that. On top of that, a real device report (2026-08) showed the request
-  // consistently timing out on school wifi -- not a fast reject (which is what a bad
-  // parameter or CORS block would look like), an actual hang. Rather than just wait longer
-  // and hope, this now tries the full 3-city request first, and if THAT fails for any
-  // reason -- abort, bad response, malformed data -- it retries once with just Tashkent
-  // alone: a much smaller request that stands a real chance of getting through even when
-  // the bigger one doesn't. The person actually needs Tashkent's weather; the two random
-  // world cities are a nice-to-have, not worth failing the whole card over.
-  let locationsUsed = fullLocations;
-  let results;
-  try{
-    results = await fetchWeatherFor(fullLocations, 12000);
-  }catch(e1){
-    console.error('[weather] full request failed, falling back to Tashkent only:', e1);
-    try{
-      locationsUsed = [tashkent];
-      results = await fetchWeatherFor(locationsUsed, 12000);
-    }catch(e2){
-      console.error('[weather] Tashkent-only fallback also failed:', e2);
-      card.innerHTML = `<div class="otd-text">Couldn't load the weather.<br><span style="font-size:11px;opacity:.65;">(${escapeHtml(String((e2 && e2.message) || e2))})</span></div><button data-action="retry-weather" style="margin-top:10px; padding:8px 16px; border-radius:999px; border:none; background:rgba(255,255,255,.15); color:inherit; font-weight:700; cursor:pointer;">Tap to retry</button>`;
-      const retryBtn = card.querySelector('[data-action="retry-weather"]');
-      if(retryBtn) retryBtn.addEventListener('click', ()=>{ card.innerHTML = '<div class="otd-text">Loading…</div>'; loadWeather(); });
-      return;
-    }
+  // Switched providers entirely (2026-08): Open-Meteo consistently hung on this device on
+  // BOTH wifi and cellular -- identical failure across two different networks rules out a
+  // school-wifi-specific block and points at Open-Meteo's own infrastructure (their servers
+  // are Europe/North America only per their docs) being poorly reachable from here. wttr.in
+  // runs on different infrastructure. Also moved from one combined multi-location request to
+  // per-city parallel requests (Promise.allSettled) so a single slow or failed city degrades
+  // gracefully -- Tashkent can still show even if a random world city times out, instead of
+  // one bad request taking the whole card down.
+  const settled = await Promise.allSettled(locations.map(loc => fetchWttrFor(loc, 10000)));
+  const okResults = settled.filter(s => s.status === 'fulfilled').map(s => s.value);
+
+  if(okResults.length === 0){
+    const firstError = settled.find(s => s.status === 'rejected');
+    const reason = firstError ? String((firstError.reason && firstError.reason.message) || firstError.reason) : 'unknown error';
+    console.error('[weather] all locations failed:', settled.map(s => s.status === 'rejected' ? s.reason : null));
+    card.innerHTML = `<div class="otd-text">Couldn't load the weather.<br><span style="font-size:11px;opacity:.65;">(${escapeHtml(reason)})</span></div><button data-action="retry-weather" style="margin-top:10px; padding:8px 16px; border-radius:999px; border:none; background:rgba(255,255,255,.15); color:inherit; font-weight:700; cursor:pointer;">Tap to retry</button>`;
+    const retryBtn = card.querySelector('[data-action="retry-weather"]');
+    if(retryBtn) retryBtn.addEventListener('click', ()=>{ card.innerHTML = '<div class="otd-text">Loading…</div>'; loadWeather(); });
+    return;
   }
 
-  const rows = results.map((r, i) => {
-    const loc = locationsUsed[i];
-    const cw = r.current;
-    if(!cw || !loc) return '';
-    const [icon, label] = WEATHER_CODES[cw.weather_code] || ['🌡️','Current conditions'];
-    if(i === 0) applyWeatherOverlay(label); // Tashkent is always locationsUsed[0]
-    return `
-      <div class="weather-row">
-        <a class="weather-city weather-city-link" href="https://www.windy.com/?temp,${loc.lat},${loc.lon},8" target="_blank" rel="noopener">${escapeHtml(loc.city)}, ${escapeHtml(loc.country)} ↗</a>
-        <div class="weather-detail">${icon} ${Math.round(cw.temperature_2m)}°C — ${escapeHtml(label)}, wind ${Math.round(cw.wind_speed_10m)} kn</div>
-      </div>
-    `;
-  }).join('');
-  card.innerHTML = rows || '<div class="otd-text">Couldn\'t load the weather — try refreshing.</div>';
+  // Tashkent's overlay effect only applies if Tashkent specifically came back -- a random
+  // world city succeeding while Tashkent fails shouldn't paint the header with someone
+  // else's weather.
+  const tashkentResult = okResults.find(r => r.loc === tashkent);
+  if(tashkentResult) applyWeatherOverlay(tashkentResult.label);
+
+  const rows = okResults.map(r => `
+    <div class="weather-row">
+      <a class="weather-city weather-city-link" href="https://www.windy.com/?temp,${r.loc.lat},${r.loc.lon},8" target="_blank" rel="noopener">${escapeHtml(r.loc.city)}, ${escapeHtml(r.loc.country)} ↗</a>
+      <div class="weather-detail">${r.icon} ${r.temp}°C — ${escapeHtml(r.label)}, wind ${r.windKn} kn</div>
+    </div>
+  `).join('');
+  card.innerHTML = rows;
 }
 /* ---- Vox Populi — one poll question per day, locked after voting ---- */
 function getTashkentDateKey(){
