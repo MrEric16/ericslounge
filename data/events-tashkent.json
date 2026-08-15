@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-15T07:50:48.204187Z",
+  "generatedAt": "2026-08-15T10:02:20.397148Z",
   "events": [
     {
       "title": "Cold Kuksi Tournament at Dayako Chicken",
@@ -325,23 +325,13 @@
       "source": "iticket.uz"
     },
     {
-      "title": "Emerald fairytale",
-      "titleRu": null,
-      "category": "theatre",
-      "venue": "Theatre - Studio Silk Route Marionettes Ecopark",
-      "startDate": "2026-08-15",
-      "endDate": null,
-      "url": "https://iticket.uz/en/events/theaters-tashkent/emerald-fairytale",
-      "source": "iticket.uz"
-    },
-    {
       "title": "Open-air concert Amirsoy Paradiso",
       "titleRu": "Open-air концерт Amirsoy Paradiso",
       "category": "concert",
-      "venue": null,
+      "venue": "Amirsoy ResortЧарвак, Бостанлыкский район",
       "startDate": "2026-08-16",
       "endDate": null,
-      "time": null,
+      "time": "19:00",
       "url": "https://www.afisha.uz/ru/concerts/2026/07/02/open-air-amirsoy-paradiso",
       "source": "afisha.uz (calendar)"
     },
@@ -566,18 +556,17 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Спектакль «Необыкновенные музыканты»",
-      "titleRu": "Спектакль «Необыкновенные музыканты»",
+      "title": "Extraordinary Musicians",
+      "titleRu": null,
       "category": "theatre",
       "venue": null,
       "startDate": "2026-08-16",
       "endDate": null,
-      "time": "17:00",
-      "url": "https://www.afisha.uz/ru/theatres/2026/08/07/neobyknovennye-muzykanty-silk-route",
-      "source": "afisha.uz (calendar)"
+      "url": "https://iticket.uz/en/events/theaters-tashkent/extraordinary-musicians2",
+      "source": "iticket.uz"
     },
     {
-      "title": "Детские мастер-классы в «Тануки»",
+      "title": "Children's master classes at Tanuki",
       "titleRu": "Детские мастер-классы в «Тануки»",
       "category": "kids",
       "venue": "ТанукиТашкент, ул. Тараса Шевченко, 21А",
@@ -643,7 +632,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Игра-тренинг по финансовой грамотности CashFlow",
+      "title": "Financial literacy training game CashFlow",
       "titleRu": "Игра-тренинг по финансовой грамотности CashFlow",
       "category": "lecture",
       "venue": null,
@@ -665,7 +654,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Мастер-класс «Сам себе парфюмер. Летний флер»",
+      "title": "Master class “Your own perfumer. Summer flair\"",
       "titleRu": "Мастер-класс «Сам себе парфюмер. Летний флер»",
       "category": "lecture",
       "venue": "Human HouseТашкент, ул. Ивлиева, 43",
@@ -696,16 +685,6 @@
       "time": "16:00",
       "url": "https://www.afisha.uz/ru/znaniya/2026/07/31/igra-trening-flixa-founders-cafe",
       "source": "afisha.uz (calendar)"
-    },
-    {
-      "title": "Extraordinary Musicians",
-      "titleRu": null,
-      "category": "theatre",
-      "venue": null,
-      "startDate": "2026-08-16",
-      "endDate": null,
-      "url": "https://iticket.uz/en/events/theaters-tashkent/extraordinary-musicians2",
-      "source": "iticket.uz"
     },
     {
       "title": "Exhibition \"Dialogue\"",
@@ -1192,7 +1171,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Игра-тренинг по финансовой грамотности CashFlow",
+      "title": "Financial literacy training game CashFlow",
       "titleRu": "Игра-тренинг по финансовой грамотности CashFlow",
       "category": "lecture",
       "venue": null,
@@ -2025,7 +2004,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Детские мастер-классы в «Тануки»",
+      "title": "Children's master classes at Tanuki",
       "titleRu": "Детские мастер-классы в «Тануки»",
       "category": "kids",
       "venue": "ТанукиТашкент, ул. Тараса Шевченко, 21А",
@@ -2069,7 +2048,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Игра-тренинг по финансовой грамотности CashFlow",
+      "title": "Financial literacy training game CashFlow",
       "titleRu": "Игра-тренинг по финансовой грамотности CashFlow",
       "category": "lecture",
       "venue": null,
@@ -2497,7 +2476,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Игра-тренинг по финансовой грамотности CashFlow",
+      "title": "Financial literacy training game CashFlow",
       "titleRu": "Игра-тренинг по финансовой грамотности CashFlow",
       "category": "lecture",
       "venue": null,
