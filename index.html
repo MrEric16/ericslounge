@@ -11136,7 +11136,7 @@ function mtWellbeingHtml(){
       <div class="wb-split-seg" style="width:${neuPct}%; background:#B6B235;"></div>
       <div class="wb-split-seg" style="width:${negPct}%; background:#A6342E;"></div>
     </div>
-    <p class="wb-split-caption">${posPct}% positive · ${neuPct}% neutral · ${negPct}% negative</p>
+    <p class="wb-split-caption"><span style="color:${mtValenceColor('positive')}; font-weight:700;">${posPct}% positive</span> · <span style="color:${mtValenceColor('neutral')}; font-weight:700;">${neuPct}% neutral</span> · <span style="color:${mtValenceColor('negative')}; font-weight:700;">${negPct}% negative</span></p>
 
     <p class="wb-section-label">Every emotion, all-time</p>
     <canvas id="wbCategoryChart" class="wb-chart"></canvas>
