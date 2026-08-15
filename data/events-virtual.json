@@ -1,5 +1,5 @@
 {
-  "curatedAt": "2026-08-16",
+  "curatedAt": "2026-08-15",
   "note": "Manually curated and vetted by Claude per Mr Eric's strict content rules (free, educational, non-controversial, teen-appropriate, zero tolerance for banned topics). Refreshed on request, not auto-scraped -- this content type requires human judgment per-item, unlike the Tashkent ticketing feed.",
   "dated": [
     {
@@ -64,6 +64,15 @@
       "time": "7:00 AM ET (4:00 PM Tashkent)",
       "category": "science",
       "url": "https://plus.nasa.gov/scheduled-video/u-s-spacewalk-97/"
+    },
+    {
+      "title": "Coverage of U.S. Spacewalk 97 at the International Space Station. Stream on X , Discovery+ , Amazon Prime , YouTube , NASA+",
+      "org": "NASA",
+      "description": "Coverage of U.S. Spacewalk 97 at the International Space Station. Stream on X , Discovery+ , Amazon Prime , YouTube , NASA+",
+      "startDate": "2026-08-18",
+      "time": "7:00 AM ET",
+      "category": "science",
+      "url": "https://www.nasa.gov/live/"
     },
     {
       "title": "NASA CTE Day: Armstrong Flight Research Center",
