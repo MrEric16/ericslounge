@@ -222,6 +222,55 @@
     width:100%;
   }
   .btn-mark-read:disabled{ opacity:.5; }
+  .pevent-item{
+    background:var(--card);
+    border-radius:14px;
+    padding:16px;
+    margin-bottom:12px;
+    box-shadow:0 2px 0 rgba(58,42,30,.08);
+  }
+  .pevent-title{
+    font-family:'Baloo 2', sans-serif;
+    font-weight:700;
+    font-size:15px;
+    margin-bottom:4px;
+  }
+  .pevent-org{
+    display:inline-block;
+    font-size:10px;
+    font-weight:800;
+    text-transform:uppercase;
+    letter-spacing:.04em;
+    background:var(--teal);
+    color:#fff;
+    padding:2px 8px;
+    border-radius:999px;
+    margin-bottom:8px;
+  }
+  .pevent-desc{
+    font-size:13px;
+    line-height:1.5;
+    margin-bottom:8px;
+  }
+  .pevent-meta{
+    font-family:'Space Mono', monospace;
+    font-size:11px;
+    color:var(--ink-soft);
+    margin-bottom:4px;
+  }
+  .pevent-link{
+    font-size:12px;
+    color:var(--coral);
+    word-break:break-all;
+    display:block;
+    margin-bottom:10px;
+  }
+  .pevent-actions{
+    display:flex;
+    gap:8px;
+  }
+  .pevent-actions button{ flex:1; }
+  .pevent-actions button:disabled{ opacity:.5; }
 </style>
 </head>
 <body>
@@ -246,6 +295,7 @@
   <div class="tab-row">
     <button class="tab-btn active" id="tabPhotosBtn" data-tab="photos">📷 Photos</button>
     <button class="tab-btn" id="tabQuestionsBtn" data-tab="questions">💬 Questions</button>
+    <button class="tab-btn" id="tabEventsBtn" data-tab="events">🌐 Events</button>
   </div>
 
   <div id="photosPanel">
@@ -258,6 +308,11 @@
       <button class="subtab-btn" id="subtabArchiveBtn" data-subtab="archive">Archive</button>
     </div>
     <div id="questionsContainer"><div class="loading-text">Loading questions…</div></div>
+  </div>
+
+  <div id="eventsPanel" class="hidden">
+    <p style="font-size:12px; color:var(--ink-soft); margin:0 0 14px;">Found by the daily scraper, not yet on the site. Approve to publish, reject to discard.</p>
+    <div id="pendingEventsContainer"><div class="loading-text">Loading candidate events…</div></div>
   </div>
 </div>
 
@@ -273,9 +328,11 @@ const loginBtn = document.getElementById('loginBtn');
 const loginError = document.getElementById('loginError');
 const pendingContainer = document.getElementById('pendingContainer');
 const questionsContainer = document.getElementById('questionsContainer');
+const pendingEventsContainer = document.getElementById('pendingEventsContainer');
 const headerCount = document.getElementById('headerCount');
 const photosPanel = document.getElementById('photosPanel');
 const questionsPanel = document.getElementById('questionsPanel');
+const eventsPanel = document.getElementById('eventsPanel');
 
 let activeTab = 'photos';
 let activeQuestionsSubtab = 'unread';
@@ -328,6 +385,7 @@ document.getElementById('signOutBtn').addEventListener('click', async ()=>{
 
 document.getElementById('tabPhotosBtn').addEventListener('click', ()=> switchTab('photos'));
 document.getElementById('tabQuestionsBtn').addEventListener('click', ()=> switchTab('questions'));
+document.getElementById('tabEventsBtn').addEventListener('click', ()=> switchTab('events'));
 document.getElementById('subtabUnreadBtn').addEventListener('click', ()=> switchQuestionsSubtab('unread'));
 document.getElementById('subtabArchiveBtn').addEventListener('click', ()=> switchQuestionsSubtab('archive'));
 
@@ -335,8 +393,10 @@ function switchTab(tab){
   activeTab = tab;
   document.getElementById('tabPhotosBtn').classList.toggle('active', tab === 'photos');
   document.getElementById('tabQuestionsBtn').classList.toggle('active', tab === 'questions');
+  document.getElementById('tabEventsBtn').classList.toggle('active', tab === 'events');
   photosPanel.classList.toggle('hidden', tab !== 'photos');
   questionsPanel.classList.toggle('hidden', tab !== 'questions');
+  eventsPanel.classList.toggle('hidden', tab !== 'events');
   loadActivePanel();
 }
 function switchQuestionsSubtab(subtab){
@@ -347,7 +407,8 @@ function switchQuestionsSubtab(subtab){
 }
 function loadActivePanel(){
   if(activeTab === 'photos') loadPending();
-  else loadQuestions();
+  else if(activeTab === 'questions') loadQuestions();
+  else loadPendingEvents();
 }
 
 async function loadPending(){
@@ -476,6 +537,77 @@ async function handleMarkRead(id, el, btn){
   }catch(e){
     btn.disabled = false;
     btn.textContent = 'Mark as read';
+    alert('Something went wrong — try again.');
+  }
+}
+
+// Pending events: found by a daily scraper (service-role key, never exposed to any
+// browser) checking a small set of trustworthy sources for free/educational/appropriate
+// online events. Only an authenticated session can view or act on them -- there's no
+// public insert policy on this table at all, since candidates are meant to come from the
+// scraper alone, not from random visitors. Approve flips status to 'approved'; a separate
+// scheduled workflow (not this page) picks those up, appends them to the live site's
+// data/events-virtual.json, and clears them from this table. Reject deletes the row
+// immediately -- it just disappears, nothing lingers.
+async function loadPendingEvents(){
+  pendingEventsContainer.innerHTML = '<div class="loading-text">Loading candidate events…</div>';
+  const { data: rows, error } = await sb.from('pending_events')
+    .select('*')
+    .eq('status', 'pending')
+    .order('start_date', { ascending: true })
+    .limit(200);
+  if(error){
+    pendingEventsContainer.innerHTML = '<div class="empty-card">Couldn\'t load events — check your connection and reload.</div>';
+    headerCount.textContent = 'Error';
+    return;
+  }
+  if(activeTab === 'events'){
+    headerCount.textContent = rows.length === 0 ? 'Nothing waiting' : `${rows.length} event${rows.length===1?'':'s'} waiting for review`;
+  }
+  if(rows.length === 0){
+    pendingEventsContainer.innerHTML = '<div class="empty-card">No candidate events right now.</div>';
+    return;
+  }
+  pendingEventsContainer.innerHTML = rows.map(e => `
+    <div class="pevent-item" data-id="${escapeHtml(e.id)}">
+      <div class="pevent-title">${escapeHtml(e.title)}</div>
+      ${e.org ? `<div class="pevent-org">${escapeHtml(e.org)}</div>` : ''}
+      ${e.description ? `<div class="pevent-desc">${escapeHtml(e.description)}</div>` : ''}
+      <div class="pevent-meta">${escapeHtml(e.start_date)}${e.time_text ? ' · ' + escapeHtml(e.time_text) : ''}${e.category ? ' · ' + escapeHtml(e.category) : ''}</div>
+      <a class="pevent-link" href="${escapeHtml(e.url)}" target="_blank" rel="noopener">${escapeHtml(e.url)}</a>
+      ${e.source ? `<div class="pevent-meta">Found via: ${escapeHtml(e.source)}</div>` : ''}
+      <div class="pevent-actions" style="margin-top:10px;">
+        <button class="btn-approve" data-action="approve">Approve</button>
+        <button class="btn-reject" data-action="reject">Reject</button>
+      </div>
+    </div>
+  `).join('');
+  pendingEventsContainer.querySelectorAll('.pevent-item').forEach(el=>{
+    const id = el.dataset.id;
+    el.querySelectorAll('button').forEach(btn=>{
+      btn.addEventListener('click', ()=> handlePendingEventAction(id, btn.dataset.action, el));
+    });
+  });
+}
+
+async function handlePendingEventAction(id, action, el){
+  el.querySelectorAll('button').forEach(b=> b.disabled = true);
+  try{
+    if(action === 'approve'){
+      const { error } = await sb.from('pending_events').update({ status: 'approved' }).eq('id', id);
+      if(error) throw error;
+    } else {
+      const { error } = await sb.from('pending_events').delete().eq('id', id);
+      if(error) throw error;
+    }
+    el.remove();
+    const remaining = pendingEventsContainer.querySelectorAll('.pevent-item').length;
+    headerCount.textContent = remaining === 0 ? 'Nothing waiting' : `${remaining} event${remaining===1?'':'s'} waiting for review`;
+    if(remaining === 0){
+      pendingEventsContainer.innerHTML = '<div class="empty-card">No candidate events right now.</div>';
+    }
+  }catch(e){
+    el.querySelectorAll('button').forEach(b=> b.disabled = false);
     alert('Something went wrong — try again.');
   }
 }
