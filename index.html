@@ -5668,16 +5668,26 @@ async function loadWeather(){
   // cellular). Meanwhile every same-origin data file on this site (Arsenal results, UZ
   // league, events, football standings) was reliable throughout. The common factor wasn't
   // either weather provider, it was making the browser fetch a third-party domain at all.
-  // Weather is now fetched server-side on a schedule (scripts/fetch_weather.py, every 30
-  // min) into data/weather-live.json, and the client just reads that like everything else.
+  // Weather is now fetched server-side (scripts/fetch_weather.py, every 2h) into
+  // data/weather-live.json -- but the WHOLE city pool, not just 2 picks, specifically so
+  // the client can still randomize its OWN pick on every single load exactly like before.
+  // The first version of this rewrite fetched only 2 random cities server-side, which
+  // meant every visitor saw the same two cities until the next scheduled run -- refreshing
+  // did nothing. Picking randomly client-side from the full pool here restores the
+  // original per-refresh rotation (the actual point: exposing kids to different cities
+  // each time they look) without ever making the browser call a third party again.
   try{
     const res = await fetch('./data/weather-live.json', { cache: 'no-store' });
     if(!res.ok) throw new Error(`HTTP ${res.status}`);
     const data = await res.json();
-    const locations = data.locations || [];
-    if(locations.length === 0) throw new Error('no locations in weather data');
+    const allLocations = data.locations || [];
+    if(allLocations.length === 0) throw new Error('no locations in weather data');
 
-    const tashkent = locations.find(l => l.city === 'Tashkent');
+    const tashkent = allLocations.find(l => l.city === 'Tashkent');
+    const others = allLocations.filter(l => l.city !== 'Tashkent');
+    const randomTwo = [...others].sort(()=> Math.random() - 0.5).slice(0, 2);
+    const locations = tashkent ? [tashkent, ...randomTwo] : randomTwo;
+
     if(tashkent) applyWeatherOverlay(tashkent.label);
 
     card.innerHTML = locations.map(loc => `
