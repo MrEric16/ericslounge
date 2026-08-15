@@ -10881,12 +10881,15 @@ function mtDrawLineChart(canvas, points, opts){
   ctx.stroke();
 
   const geometry = [];
-  ctx.fillStyle = opts.color || '#2E7B8A';
   points.forEach((p, i) => {
     const x = n === 1 ? padX + plotW/2 : padX + (i/(n-1)) * plotW;
     const v = p.avgValence == null ? 0 : p.avgValence;
     const y = zeroY - v * (plotH/2);
-    ctx.beginPath(); ctx.arc(x, y, 2.5, 0, Math.PI*2); ctx.fill();
+    ctx.fillStyle = opts.color || '#2E7B8A';
+    ctx.beginPath(); ctx.arc(x, y, 6, 0, Math.PI*2); ctx.fill();
+    ctx.strokeStyle = '#fff';
+    ctx.lineWidth = 1.5;
+    ctx.stroke();
     geometry.push({ x, y, day: p.day });
   });
   return geometry;
@@ -10904,7 +10907,7 @@ function mtWireBarClicks(canvas, geometry, log, entriesFor, titlePrefix){
   });
 }
 function mtWirePointClicks(canvas, geometry, log, titlePrefix){
-  const HIT_RADIUS = 12;
+  const HIT_RADIUS = 16;
   canvas.addEventListener('click', (e)=>{
     const rect = canvas.getBoundingClientRect();
     const x = e.clientX - rect.left, y = e.clientY - rect.top;
