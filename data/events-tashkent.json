@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-15T04:59:20.816749Z",
+  "generatedAt": "2026-08-15T07:50:48.204187Z",
   "events": [
     {
       "title": "Cold Kuksi Tournament at Dayako Chicken",
@@ -24,7 +24,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "IOSIS ROCK BATTLE",
+      "title": "Sold out IOSIS ROCK BATTLE",
       "titleRu": null,
       "category": "concert",
       "venue": "\"SAHNA\" StandUp Club",
@@ -566,17 +566,18 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Extraordinary Musicians",
-      "titleRu": null,
+      "title": "Спектакль «Необыкновенные музыканты»",
+      "titleRu": "Спектакль «Необыкновенные музыканты»",
       "category": "theatre",
       "venue": null,
       "startDate": "2026-08-16",
       "endDate": null,
-      "url": "https://iticket.uz/en/events/theaters-tashkent/extraordinary-musicians2",
-      "source": "iticket.uz"
+      "time": "17:00",
+      "url": "https://www.afisha.uz/ru/theatres/2026/08/07/neobyknovennye-muzykanty-silk-route",
+      "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Children's master classes at Tanuki",
+      "title": "Детские мастер-классы в «Тануки»",
       "titleRu": "Детские мастер-классы в «Тануки»",
       "category": "kids",
       "venue": "ТанукиТашкент, ул. Тараса Шевченко, 21А",
@@ -598,7 +599,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Dino Party в Jungle Family Club",
+      "title": "Dino Party at Jungle Family Club",
       "titleRu": "Dino Party в Jungle Family Club",
       "category": "kids",
       "venue": "Jungle Family ClubТашкент, Юнусабад-12, 20А",
@@ -609,7 +610,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Детская кулинарная школа в Quadro",
+      "title": "Children's culinary school in Quadro",
       "titleRu": "Детская кулинарная школа в Quadro",
       "category": "kids",
       "venue": "QuadroТашкент, ул. Зульфияханум, 24",
@@ -620,7 +621,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Детские шоу и мастер-классы в ресторане Tanuki",
+      "title": "Children's shows and master classes at the Tanuki restaurant",
       "titleRu": "Детские шоу и мастер-классы в ресторане Tanuki",
       "category": "kids",
       "venue": "ТанукиТашкент, ул. Олмазор, 2А",
@@ -642,7 +643,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Financial literacy training game CashFlow",
+      "title": "Игра-тренинг по финансовой грамотности CashFlow",
       "titleRu": "Игра-тренинг по финансовой грамотности CashFlow",
       "category": "lecture",
       "venue": null,
@@ -664,7 +665,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Master class “Your own perfumer. Summer flair\"",
+      "title": "Мастер-класс «Сам себе парфюмер. Летний флер»",
       "titleRu": "Мастер-класс «Сам себе парфюмер. Летний флер»",
       "category": "lecture",
       "venue": "Human HouseТашкент, ул. Ивлиева, 43",
@@ -695,6 +696,16 @@
       "time": "16:00",
       "url": "https://www.afisha.uz/ru/znaniya/2026/07/31/igra-trening-flixa-founders-cafe",
       "source": "afisha.uz (calendar)"
+    },
+    {
+      "title": "Extraordinary Musicians",
+      "titleRu": null,
+      "category": "theatre",
+      "venue": null,
+      "startDate": "2026-08-16",
+      "endDate": null,
+      "url": "https://iticket.uz/en/events/theaters-tashkent/extraordinary-musicians2",
+      "source": "iticket.uz"
     },
     {
       "title": "Exhibition \"Dialogue\"",
@@ -840,7 +851,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Детский день в бассейне Sinbad",
+      "title": "Children's day at the Sinbad pool",
       "titleRu": "Детский день в бассейне Sinbad",
       "category": "kids",
       "venue": "SinbadТашкент, пересечение ул. Ширин и ул. Фазылтепа",
@@ -1181,7 +1192,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Financial literacy training game CashFlow",
+      "title": "Игра-тренинг по финансовой грамотности CashFlow",
       "titleRu": "Игра-тренинг по финансовой грамотности CashFlow",
       "category": "lecture",
       "venue": null,
@@ -2014,7 +2025,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Children's master classes at Tanuki",
+      "title": "Детские мастер-классы в «Тануки»",
       "titleRu": "Детские мастер-классы в «Тануки»",
       "category": "kids",
       "venue": "ТанукиТашкент, ул. Тараса Шевченко, 21А",
@@ -2025,7 +2036,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Dino Party в Jungle Family Club",
+      "title": "Dino Party at Jungle Family Club",
       "titleRu": "Dino Party в Jungle Family Club",
       "category": "kids",
       "venue": "Jungle Family ClubТашкент, Юнусабад-12, 20А",
@@ -2036,7 +2047,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Детская кулинарная школа в Quadro",
+      "title": "Children's culinary school in Quadro",
       "titleRu": "Детская кулинарная школа в Quadro",
       "category": "kids",
       "venue": "QuadroТашкент, ул. Зульфияханум, 24",
@@ -2047,7 +2058,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Детские шоу и мастер-классы в ресторане Tanuki",
+      "title": "Children's shows and master classes at the Tanuki restaurant",
       "titleRu": "Детские шоу и мастер-классы в ресторане Tanuki",
       "category": "kids",
       "venue": "ТанукиТашкент, ул. Олмазор, 2А",
@@ -2058,7 +2069,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Financial literacy training game CashFlow",
+      "title": "Игра-тренинг по финансовой грамотности CashFlow",
       "titleRu": "Игра-тренинг по финансовой грамотности CashFlow",
       "category": "lecture",
       "venue": null,
@@ -2255,7 +2266,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Детский день в бассейне Sinbad",
+      "title": "Children's day at the Sinbad pool",
       "titleRu": "Детский день в бассейне Sinbad",
       "category": "kids",
       "venue": "SinbadТашкент, пересечение ул. Ширин и ул. Фазылтепа",
@@ -2486,7 +2497,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Financial literacy training game CashFlow",
+      "title": "Игра-тренинг по финансовой грамотности CashFlow",
       "titleRu": "Игра-тренинг по финансовой грамотности CashFlow",
       "category": "lecture",
       "venue": null,
