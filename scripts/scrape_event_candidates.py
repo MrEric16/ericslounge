@@ -32,6 +32,7 @@ import re
 from datetime import datetime, timedelta, timezone
 
 import requests
+from bs4 import BeautifulSoup
 
 SUPABASE_URL = "https://uugjyucgeyopyvmhckdg.supabase.co"
 SUPABASE_SERVICE_ROLE_KEY = os.environ.get("SUPABASE_SERVICE_ROLE_KEY", "")
@@ -51,16 +52,15 @@ MONTHS = {
     'jan':1,'feb':2,'mar':3,'apr':4,'may':5,'jun':6,
     'jul':7,'aug':8,'sep':9,'oct':10,'nov':11,'dec':12,
 }
-# Matches NASA's confirmed live-page format: "Tuesday, Aug. 18 · 7 a.m. | <description>"
-# -- weekday name is ignored (redundant with the date, and would need locale handling for
-# no benefit), month is a 3-letter abbreviation with an optional period, time uses "a.m."/
-# "p.m." with periods rather than "am"/"pm". Loose on separators (any whitespace/bullet)
-# since exact characters can't be verified without live access to the page (see module
-# docstring on the UFC scraper for why this matters).
-NASA_EVENT_PATTERN = re.compile(
-    r"[A-Z][a-z]+,\s*([A-Z][a-z]{2})\.?\s+(\d{1,2})\s*[·|]\s*(\d{1,2})(?::(\d{2}))?\s*([ap])\.?m\.?\s*\|\s*([^\n]+)",
-    re.IGNORECASE,
-)
+# Confirmed against the real page's actual HTML (2026-08-16): the date sits alone inside
+# a <p><strong>Tuesday, Aug. 18</strong></p>, and the time + description sit in the very
+# next <p> tag as plain text: "7 a.m. | Coverage of <a href=...>description</a>...". They
+# are NOT on one joined line -- that flattened appearance only came from how a search
+# engine's snippet extraction displays HTML, not the real markup. Parsed structurally
+# (paragraph by paragraph) rather than with one regex spanning both, since the two pieces
+# of information are genuinely in separate elements.
+DATE_PATTERN = re.compile(r"[A-Z][a-z]+,\s*([A-Z][a-z]{2})\.?\s+(\d{1,2})\b")
+TIME_DESC_PATTERN = re.compile(r"(\d{1,2})(?::(\d{2}))?\s*([ap])\.?m\.?\s*\|\s*(.+)", re.IGNORECASE | re.DOTALL)
 
 
 def fetch_nasa_candidates():
@@ -73,44 +73,53 @@ def fetch_nasa_candidates():
         log(f"NASA live page fetch failed: {e}")
         return candidates
 
-    log(f"NASA page: captured {len(text)} chars")
-    idx = text.find("Aug.")
-    if idx == -1:
-        idx = text.find("a.m.")
-    if idx != -1:
-        log(f"NASA page: text sample near a date/time: {text[max(0,idx-80):idx+120]!r}")
-    else:
-        log("NASA page: no 'Aug.' or 'a.m.' substring found anywhere in the fetched text")
-
+    soup = BeautifulSoup(text, "html.parser")
+    paragraphs = soup.find_all("p")
     now = datetime.now(timezone.utc)
-    for m in NASA_EVENT_PATTERN.finditer(text):
-        month_abbr, day, hour_12, minute, meridiem, description = m.groups()
-        month = MONTHS.get(month_abbr.lower())
-        if not month:
+
+    pending_date = None  # (month, day) parsed from the most recent date-only paragraph
+    for p in paragraphs:
+        strong = p.find("strong")
+        if strong:
+            date_match = DATE_PATTERN.search(strong.get_text(strip=True))
+            if date_match:
+                month = MONTHS.get(date_match.group(1).lower())
+                day = date_match.group(2)
+                pending_date = (month, day) if month else None
+                continue
+
+        if not pending_date:
             continue
-        minute = int(minute) if minute else 0
-        hour_24 = int(hour_12) % 12
-        if meridiem.lower() == 'p':
-            hour_24 += 12
-        # Assume current year, roll to next year if that date has already passed --
-        # handles the page listing events that span a year boundary.
-        year = now.year
-        try:
-            candidate_date = datetime(year, month, int(day))
-        except ValueError:
-            continue
-        if candidate_date.date() < now.date():
-            candidate_date = datetime(year + 1, month, int(day))
-        candidates.append({
-            "title": description.strip()[:200],
-            "org": "NASA",
-            "description": description.strip()[:500],
-            "start_date": candidate_date.strftime("%Y-%m-%d"),
-            "time_text": f"{hour_12}:{minute:02d} {meridiem.upper()}M ET",
-            "category": "science",
-            "url": NASA_LIVE_URL,
-            "source": "NASA live events page",
-        })
+
+        ptext = p.get_text(" ", strip=True)
+        m = TIME_DESC_PATTERN.search(ptext)
+        if m:
+            month, day = pending_date
+            hour_12, minute, meridiem, description = m.groups()
+            minute = int(minute) if minute else 0
+            hour_24 = int(hour_12) % 12
+            if meridiem.lower() == 'p':
+                hour_24 += 12
+            year = now.year
+            try:
+                candidate_date = datetime(year, month, int(day))
+            except ValueError:
+                pending_date = None
+                continue
+            if candidate_date.date() < now.date():
+                candidate_date = datetime(year + 1, month, int(day))
+            candidates.append({
+                "title": description.strip()[:200],
+                "org": "NASA",
+                "description": description.strip()[:500],
+                "start_date": candidate_date.strftime("%Y-%m-%d"),
+                "time_text": f"{hour_12}:{minute:02d} {meridiem.upper()}M ET",
+                "category": "science",
+                "url": NASA_LIVE_URL,
+                "source": "NASA live events page",
+            })
+        pending_date = None  # a date only ever applies to the paragraph right after it
+
     log(f"NASA live page: found {len(candidates)} raw candidate(s)")
     return candidates
 
