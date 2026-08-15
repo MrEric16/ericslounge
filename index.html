@@ -1275,6 +1275,11 @@
   .wb-split-bar{ display:flex; width:100%; height:14px; border-radius:999px; overflow:hidden; background:var(--line); }
   .wb-split-seg{ height:100%; }
   .wb-split-caption{ font-size:12px; color:var(--ink-soft); margin-top:6px; }
+  .wb-split-caption-row{ display:flex; width:100%; margin-top:8px; }
+  .wb-split-caption-seg{
+    text-align:center; font-size:12px; font-weight:700;
+    white-space:nowrap; overflow:visible; position:relative;
+  }
   .wb-chart{ width:100%; height:150px; display:block; cursor:pointer; }
   .wb-chart-small{ height:110px; }
   .wb-tap-hint{ font-size:11px; color:var(--ink-soft); opacity:0.75; margin:4px 0 0; }
@@ -11136,7 +11141,11 @@ function mtWellbeingHtml(){
       <div class="wb-split-seg" style="width:${neuPct}%; background:#B6B235;"></div>
       <div class="wb-split-seg" style="width:${negPct}%; background:#A6342E;"></div>
     </div>
-    <p class="wb-split-caption"><span style="color:${mtValenceColor('positive')}; font-weight:700;">${posPct}% positive</span> · <span style="color:${mtValenceColor('neutral')}; font-weight:700;">${neuPct}% neutral</span> · <span style="color:${mtValenceColor('negative')}; font-weight:700;">${negPct}% negative</span></p>
+    <div class="wb-split-caption-row">
+      <div class="wb-split-caption-seg" style="width:${posPct}%; color:${mtValenceColor('positive')};">${posPct}% positive</div>
+      <div class="wb-split-caption-seg" style="width:${neuPct}%; color:${mtValenceColor('neutral')};">${neuPct}% neutral</div>
+      <div class="wb-split-caption-seg" style="width:${negPct}%; color:${mtValenceColor('negative')};">${negPct}% negative</div>
+    </div>
 
     <p class="wb-section-label">Every emotion, all-time</p>
     <canvas id="wbCategoryChart" class="wb-chart"></canvas>
