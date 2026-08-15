@@ -12610,6 +12610,10 @@ function viewHome(){
     <div style="text-align:center; padding:4px 0 24px;">
       <a href="#my-stats" style="display:inline-flex; align-items:center; gap:6px; background:var(--card); border:1px solid var(--line); border-radius:999px; padding:8px 16px; font-family:'Nunito',sans-serif; font-weight:700; font-size:13px; color:var(--ink); text-decoration:none; opacity:.85;">📊 My Stats</a>
     </div>
+
+    <div style="text-align:center; padding:0 0 32px;">
+      <button data-action="open-ask-question" style="background:none; border:none; font-family:'Nunito',sans-serif; font-size:13px; color:var(--ink-soft); text-decoration:underline; cursor:pointer; opacity:.75;">Have a question for Mr Eric?</button>
+    </div>
   `;
 }
 
@@ -12788,6 +12792,89 @@ function wireSwipeBackToHome(container){
 
 /* ---- Router ---- */
 
+// "Have a question for Mr Eric?" -- homepage link, fully anonymous by default. Name is
+// truly optional: the field can be left blank and the question still sends (per explicit
+// instruction -- students who want to leave a name can, students who don't, don't have
+// to). Stores directly into a Supabase table via the same public key already used
+// elsewhere on this page (poll votes, presence) -- INSERT is open to anyone by table
+// policy, but SELECT/UPDATE/DELETE require Eric's own authenticated session in
+// review.html, so nothing submitted here is ever readable by anyone but him, and nothing
+// from this feature is ever rendered anywhere else on the site. The cooldown below is a
+// basic deterrent against accidental double-sends and casual spam, not a hardened defense
+// against a determined attacker -- real rate-limiting would need a server-side function,
+// which is out of scope for what was asked here.
+const ASK_QUESTION_COOLDOWN_MS = 30000;
+const ASK_QUESTION_COOLDOWN_KEY = 'askQuestionLastSent';
+const ASK_QUESTION_MAX_LEN = 1000;
+function showAskQuestionOverlay(){
+  const existing = document.getElementById('askQuestionOverlay');
+  if(existing) existing.remove();
+  const overlay = document.createElement('div');
+  overlay.id = 'askQuestionOverlay';
+  overlay.className = 'wb-breakdown-overlay';
+  overlay.innerHTML = `
+    <div class="wb-breakdown-card" style="max-width:380px;">
+      <div class="wb-breakdown-title">Have a question?</div>
+      <p class="mt-intro" style="margin:8px 0 16px;">Anonymous by default — leave your name only if you want to, or leave it blank. Only Mr Eric ever sees this; it's never shown anywhere else on the site.</p>
+      <input type="text" id="askQuestionName" placeholder="Name (optional)" maxlength="60" style="width:100%; box-sizing:border-box; padding:10px 12px; border-radius:10px; border:1px solid var(--line); background:#fff; color:var(--ink); font-family:'Nunito',sans-serif; font-size:14px; margin-bottom:10px;">
+      <textarea id="askQuestionBody" class="mt-textarea" placeholder="Your question…" maxlength="${ASK_QUESTION_MAX_LEN}" style="min-height:100px;"></textarea>
+      <div id="askQuestionError" style="color:#A6342E; font-size:12px; margin-top:6px; min-height:16px;"></div>
+      <button id="askQuestionSendBtn" style="margin-top:10px; width:100%; border:none; background:var(--coral); color:#fff; border-radius:999px; padding:12px; font-family:'Nunito',sans-serif; font-weight:800; font-size:15px; cursor:pointer;">Send</button>
+      <button data-action="close-ask-question" style="margin-top:8px; width:100%; background:none; border:none; color:var(--ink-soft); font-family:'Nunito',sans-serif; font-size:13px; cursor:pointer;">Cancel</button>
+    </div>
+  `;
+  document.body.appendChild(overlay);
+  overlay.addEventListener('click', (e)=>{ if(e.target === overlay) overlay.remove(); });
+  overlay.querySelector('[data-action="close-ask-question"]').addEventListener('click', ()=> overlay.remove());
+  overlay.querySelector('#askQuestionSendBtn').addEventListener('click', ()=> submitAskQuestion(overlay));
+}
+async function submitAskQuestion(overlay){
+  const errorEl = overlay.querySelector('#askQuestionError');
+  const bodyEl = overlay.querySelector('#askQuestionBody');
+  const nameEl = overlay.querySelector('#askQuestionName');
+  const body = bodyEl.value.trim();
+  const name = nameEl.value.trim();
+  errorEl.textContent = '';
+
+  if(!body){
+    errorEl.textContent = 'Type a question first.';
+    return;
+  }
+  let lastSent = 0;
+  try{ lastSent = parseInt(localStorage.getItem(ASK_QUESTION_COOLDOWN_KEY) || '0', 10); }catch(e){}
+  const elapsed = Date.now() - lastSent;
+  if(elapsed < ASK_QUESTION_COOLDOWN_MS){
+    errorEl.textContent = `Give it ${Math.ceil((ASK_QUESTION_COOLDOWN_MS - elapsed) / 1000)}s before sending another.`;
+    return;
+  }
+  if(!supabaseClient){
+    errorEl.textContent = "Can't send right now — try again later.";
+    return;
+  }
+
+  const sendBtn = overlay.querySelector('#askQuestionSendBtn');
+  sendBtn.disabled = true;
+  sendBtn.textContent = 'Sending…';
+  try{
+    const { error } = await supabaseClient.from('questions').insert({
+      body: body.slice(0, ASK_QUESTION_MAX_LEN),
+      name: name ? name.slice(0, 60) : null,
+    });
+    if(error) throw error;
+    try{ localStorage.setItem(ASK_QUESTION_COOLDOWN_KEY, String(Date.now())); }catch(e){}
+    overlay.querySelector('.wb-breakdown-card').innerHTML = `
+      <div class="wb-breakdown-title">Sent ✓</div>
+      <p class="mt-intro" style="margin:8px 0 0;">Thanks — Mr Eric will see it.</p>
+      <button data-action="close-ask-question" style="margin-top:16px; width:100%; border:none; background:var(--coral); color:#fff; border-radius:999px; padding:12px; font-family:'Nunito',sans-serif; font-weight:800; font-size:15px; cursor:pointer;">Close</button>
+    `;
+    overlay.querySelector('[data-action="close-ask-question"]').addEventListener('click', ()=> overlay.remove());
+  }catch(e){
+    sendBtn.disabled = false;
+    sendBtn.textContent = 'Send';
+    errorEl.textContent = "Couldn't send — try again in a moment.";
+  }
+}
+
 let lastRenderedHash = null;
 function getScrollMemory(){
   try{ return JSON.parse(sessionStorage.getItem('scrollMemory') || '{}'); }catch(e){ return {}; }
@@ -12824,6 +12911,12 @@ function mtCloseOverlay(){
   renderRoute();
 }
 document.addEventListener('click', (e) => {
+  const askQuestionBtn = e.target.closest('[data-action="open-ask-question"]');
+  if(askQuestionBtn){
+    e.preventDefault();
+    showAskQuestionOverlay();
+    return;
+  }
   const exitLink = e.target.closest('[data-mt-exit]');
   if(exitLink){
     e.preventDefault();
