@@ -3,4 +3,7 @@
 [ufc-fetch]   table preceded by/captioned: 'scheduled events'
 [ufc-fetch]   table preceded by/captioned: 'past events'
 [ufc-fetch]   table preceded by/captioned: 'number of events by year'
-[ufc-fetch] done: 11 scheduled events, 793 past events found (kept most recent slices)
+[ufc-fetch] fetching ufc.com/events for Main Card start times (upcoming events only)...
+[ufc-fetch] ufc.com: found Main Card times for 0 event heading(s): []
+[ufc-fetch] attached a confirmed start time to 0/11 upcoming events
+[ufc-fetch] done: 11 scheduled events, 15 past events found (kept most recent slices)
