@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-15T20:50:18.030350Z",
+  "generatedAt": "2026-08-15T21:41:37.575721Z",
   "results": [
     {
       "url": "https://www.goal.com/en/match/girona-vs-arsenal/__LS8d9Oc6I1wXn9g8956",
@@ -124,9 +124,29 @@
         }
       ],
       "competition": "arsenal-friendlies"
+    },
+    {
+      "url": "https://www.goal.com/en/match/deportivo-alaves-vs-getafe/ILVFhRetUUirJj8CNahwC",
+      "date": "2026-08-15",
+      "home": "Deportivo Alaves",
+      "away": "Getafe",
+      "htHome": 0,
+      "htAway": 0,
+      "ftHome": 3,
+      "ftAway": 0,
+      "homeGoals": [],
+      "awayGoals": [
+        {
+          "scorer": "N. Tenaglia",
+          "minute": 73
+        },
+        {
+          "scorer": "M. Diaz",
+          "minute": 90
+        }
+      ],
+      "competition": "PD"
     }
   ],
-  "scorerParseRetryCounts": {
-    "https://www.goal.com/en/match/deportivo-alaves-vs-getafe/ILVFhRetUUirJj8CNahwC": 2
-  }
+  "scorerParseRetryCounts": {}
 }
