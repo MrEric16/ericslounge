@@ -138,12 +138,26 @@ def fetch_ufc_com_main_card_times():
             browser = p.chromium.launch()
             page = browser.new_page()
             page.goto(UFC_EVENTS_URL, timeout=30000)
-            page.wait_for_timeout(3000)
+            try:
+                page.wait_for_load_state("networkidle", timeout=15000)
+            except Exception:
+                log("  ufc.com never reached networkidle within 15s, proceeding with whatever rendered so far")
+            page.wait_for_timeout(4000)  # extra buffer past networkidle for late client-side hydration
             body_text = page.inner_text("body")
             browser.close()
     except Exception as e:
         log(f"ufc.com fetch failed entirely, times will be omitted this run: {e}")
         return times_by_event
+
+    # Diagnostics for the committed log file -- this is the only visibility available into
+    # what the scrape actually saw, since raw Actions logs aren't reachable from outside.
+    log(f"ufc.com: captured {len(body_text)} chars of body text")
+    log(f"ufc.com: contains 'Start Times': {'Start Times' in body_text}")
+    log(f"ufc.com: contains 'Main Card': {'Main Card' in body_text}")
+    log(f"ufc.com: contains any 'EDT'/'EST': {'EDT' in body_text or 'EST' in body_text}")
+    idx = body_text.find("Main Card")
+    if idx != -1:
+        log(f"ufc.com: text around first 'Main Card' match: {body_text[max(0,idx-30):idx+80]!r}")
 
     # Walk the page text tracking the most recent event heading seen, so a
     # Main Card time found later in reading order gets attributed correctly.
