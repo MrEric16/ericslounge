@@ -2953,46 +2953,26 @@ const SPORTS_TILES = [
   { emoji: icon('stick'), name:"KHL", sub:"Table, fixtures, results", url:"#sports/league/KHL", color:"var(--ink)", internal:true },
   { emoji: icon('glove'), name:"UFC", sub:"Upcoming and past events", url:"#ufc", color:"var(--f-des)", internal:true },
 ];
-// UFC events — pulled directly from ufc.com/events. No fixtures/table here, just
-// Upcoming and Past, since UFC isn't a league. Update this by hand periodically.
-// Refreshed 2026-08-01 22:xx Tashkent. Medic vs Rodriguez (Belgrade) kicked off its main
-// card minutes before this update — main event result not yet confirmed across sources,
-// so it stays in "upcoming" rather than being guessed into "past". UFC 331 (Sept 19-20
-// Tashkent, Crypto.com Arena LA) added; its main event (Oliveira vs Tsarukyan 2, rumored
-// for the BMF title) is still unofficial per multiple outlets as of this update, so the
-// event is listed without a fighter name rather than asserting an unconfirmed main event.
-const UFC_EVENTS = {
-  upcoming: [
-    { name:"Gamrot vs Salkilld", start:"2026-08-09T05:00:00+05:00", venue:"Meta APEX, Las Vegas, USA" },
-    { name:"UFC 330: Makhachev vs Machado Garry", start:"2026-08-16T06:00:00+05:00", venue:"Xfinity Mobile Arena, Philadelphia, USA" },
-    { name:"Hernandez vs Rodrigues", start:"2026-08-23T05:00:00+05:00", venue:"Golden 1 Center, Sacramento, USA" },
-    { name:"Nurmagomedov vs Song", start:"2026-08-29T15:00:00+05:00", venue:"Oriental Sports Center, Shanghai, China" },
-    { name:"UFC Fight Night: Hooker vs Parnasse", start:"2026-09-06T00:00:00+05:00", venue:"Accor Arena, Paris, France" },
-    { name:"Noche UFC (main event TBD)", start:"2026-09-13T02:00:00+05:00", venue:"Desert Diamond Arena, Glendale, USA" },
-    { name:"UFC 331", start:"2026-09-20T02:00:00+05:00", venue:"Crypto.com Arena, Los Angeles, USA" },
-  ],
-  past: [
-    { name:"Medic vs Rodriguez", start:"2026-08-01T22:00:00+05:00", venue:"Belgrade Arena, Belgrade, Serbia" },
-    { name:"Ankalaev vs Guskov", start:"2026-07-25T21:00:00+05:00", venue:"Etihad Arena, Abu Dhabi, UAE" },
-    { name:"Du Plessis vs Usman", start:"2026-07-19T05:00:00+05:00", venue:"Paycom Center, Oklahoma City, USA" },
-    { name:"UFC 329: McGregor vs Holloway 2", start:"2026-07-12T06:00:00+05:00", venue:"T-Mobile Arena, Las Vegas, USA" },
-    { name:"Fiziev vs Torres", start:"2026-06-27T21:00:00+05:00", venue:"National Gymnastics Arena, Baku, Azerbaijan" },
-    { name:"Kape vs Horiguchi", start:"2026-06-21T05:00:00+05:00", venue:"Meta APEX, Las Vegas, USA" },
-    { name:"UFC Freedom 250: Topuria vs Gaethje", start:"2026-06-15T05:00:00+05:00", venue:"The White House, Washington DC, USA" },
-    { name:"Muhammad vs Bonfim", start:"2026-06-07T05:00:00+05:00", venue:"Meta APEX, Las Vegas, USA" },
-    { name:"Song vs Figueiredo", start:"2026-05-30T16:00:00+05:00", venue:"Galaxy Arena, Macao" },
-  ],
-};
+// UFC events — server-side scraped from Wikipedia (scripts/scrape_ufc.py via
+// .github/workflows/ufc-fetch.yml, runs daily) into data/ufc-live.json, fetched same-origin
+// by loadUFCEvents() below when the UFC page is opened. This used to be a hardcoded,
+// manually-maintained list ("Update this by hand periodically") completely disconnected
+// from the scraper -- the scraper had been running successfully every day, but nothing on
+// the site ever read its output, so the hardcoded list just quietly went stale (an event
+// from Aug 8 was still sitting in "upcoming" a week later). Migrated to the same
+// server-fetched-then-same-origin-read pattern already used for Arsenal results, the UZ
+// league, events, football standings, and weather, for the same reason all of those were:
+// it self-heals on the scraper's own schedule instead of needing a human to notice and fix
+// it by hand.
 function ufcEventRowsHtml(list){
   if(!list || list.length === 0) return '<div class="empty-card">Nothing here yet.</div>';
   return `<div class="match-list">${list.map(e => {
-    const location = e.venue.split(',').slice(1).join(',').trim();
-    // Strip any "UFC 330:" / "UFC Freedom 250:" style prefix — keep only "Name vs Name".
+    // Strip any "UFC 330:" / "UFC Fight Night:" style prefix — keep only "Name vs. Name".
     const cleanName = e.name.includes(':') ? e.name.split(':').slice(1).join(':').trim() : e.name;
     return `
     <div class="match-row">
       <div class="match-teams">${escapeHtml(cleanName)}</div>
-      <div class="match-date">${formatTashkentDate(e.start)} — ${escapeHtml(location)}</div>
+      <div class="match-date">${escapeHtml(e.date_text)} — ${escapeHtml(e.location)}</div>
     </div>
   `;
   }).join('')}</div>`;
@@ -3002,26 +2982,56 @@ function viewUFC(){
     <a class="back-link" href="#">← Back to Mr Eric's Lounge</a>
     <section style="padding-top:14px;">
       <div class="section-head"><span class="emoji" id="ufcGloveIcon">${icon('glove')}</span><h2>UFC</h2></div>
-      <details class="domain-group">
+      <details class="domain-group" open>
         <summary class="section-head domain-summary">
           <span class="emoji">${icon('calendar')}</span>
           <h2>Upcoming</h2>
-          <span class="domain-count">${UFC_EVENTS.upcoming.length}</span>
+          <span class="domain-count" id="ufcUpcomingCount">…</span>
           <span class="domain-chevron">${icon('chevronDown')}</span>
         </summary>
-        <div class="domain-group-content">${ufcEventRowsHtml(UFC_EVENTS.upcoming)}</div>
+        <div class="domain-group-content" id="ufcUpcomingContent"><div class="empty-card">Loading…</div></div>
       </details>
       <details class="domain-group">
         <summary class="section-head domain-summary">
           <span class="emoji">${icon('trophy')}</span>
           <h2>Past</h2>
-          <span class="domain-count">${UFC_EVENTS.past.length}</span>
+          <span class="domain-count" id="ufcPastCount">…</span>
           <span class="domain-chevron">${icon('chevronDown')}</span>
         </summary>
-        <div class="domain-group-content">${ufcEventRowsHtml(UFC_EVENTS.past)}</div>
+        <div class="domain-group-content" id="ufcPastContent"><div class="empty-card">Loading…</div></div>
       </details>
     </section>
   `;
+}
+async function loadUFCEvents(){
+  const upcomingEl = document.getElementById('ufcUpcomingContent');
+  const pastEl = document.getElementById('ufcPastContent');
+  if(!upcomingEl || !pastEl) return;
+  try{
+    const res = await fetch('./data/ufc-live.json', { cache: 'no-store' });
+    if(!res.ok) throw new Error(`HTTP ${res.status}`);
+    const data = await res.json();
+    // The scraper writes "scheduled" latest-first; flipped here so the soonest upcoming
+    // event shows at the top, which is what actually matters when scanning "what's next".
+    // "past" already comes most-recent-first, which is already the right order to keep.
+    const upcoming = [...(data.scheduled || [])].reverse();
+    const past = data.past || [];
+    upcomingEl.innerHTML = ufcEventRowsHtml(upcoming);
+    pastEl.innerHTML = ufcEventRowsHtml(past);
+    const upcomingCount = document.getElementById('ufcUpcomingCount');
+    const pastCount = document.getElementById('ufcPastCount');
+    if(upcomingCount) upcomingCount.textContent = upcoming.length;
+    if(pastCount) pastCount.textContent = past.length;
+  }catch(e){
+    console.error('[ufc] load failed:', e);
+    const msg = '<div class="empty-card">Couldn\'t load UFC events — try refreshing.</div>';
+    upcomingEl.innerHTML = msg;
+    pastEl.innerHTML = msg;
+    const upcomingCount = document.getElementById('ufcUpcomingCount');
+    const pastCount = document.getElementById('ufcPastCount');
+    if(upcomingCount) upcomingCount.textContent = '?';
+    if(pastCount) pastCount.textContent = '?';
+  }
 }
 const SPORTS_LEAGUES = [
   {
@@ -13216,6 +13226,7 @@ function renderRoute(opts){
   if(parts[0] === 'install'){ wireInstallPage(); }
   if(parts[0] === 'stats'){ loadStats(); }
   if(parts[0] === 'events-tashkent'){ loadTashkentEvents(); }
+  if(parts[0] === 'ufc'){ loadUFCEvents(); }
   if(parts[0] === 'invite'){ wireNativeShareButton(); }
   if(parts[0] === 'my-stats'){ submitStatsSnapshot(); renderComparisonBox(); }
   if(parts[0] === 'events-virtual'){ loadVirtualEvents(); }
