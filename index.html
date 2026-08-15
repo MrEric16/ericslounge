@@ -1282,6 +1282,8 @@
   }
   .wb-chart{ width:100%; height:150px; display:block; cursor:pointer; }
   .wb-chart-small{ height:110px; }
+  .wb-chart-radar{ height:230px; }
+  .wb-chart-heatmap{ height:170px; }
   .wb-tap-hint{ font-size:11px; color:var(--ink-soft); opacity:0.75; margin:4px 0 0; }
   .wb-breakdown-overlay{
     position:fixed; inset:0; background:rgba(30,20,10,0.55); z-index:400;
@@ -10654,6 +10656,7 @@ function mtComputeWellbeingStats(log){
   MT_EMOTIONS.forEach(c => { categoryCounts[c.key] = 0; categoryBreakdown[c.key] = { positive:0, neutral:0, negative:0 }; });
   const valenceCounts = { positive: 0, neutral: 0, negative: 0 };
   const timeOfDayBreakdown = { morning: { positive:0, neutral:0, negative:0 }, afternoon: { positive:0, neutral:0, negative:0 }, evening: { positive:0, neutral:0, negative:0 }, night: { positive:0, neutral:0, negative:0 } };
+  const hourlyBreakdown = Array.from({length:24}, ()=> ({ positive:0, neutral:0, negative:0 }));
   const weekdayBreakdown = [0,1,2,3,4,5,6].map(()=> ({ positive:0, neutral:0, negative:0 }));
   const dailyValence = {}; // 'YYYY-MM-DD' -> [scores] -- trend line still uses average valence, unaffected by the stacked-bar rework below
 
@@ -10666,6 +10669,7 @@ function mtComputeWellbeingStats(log){
     const score = MT_VALENCE_SCORE[e.valence] ?? 0;
     const bucket = MT_TIME_BUCKETS.find(b => b.test(hour));
     if(bucket && timeOfDayBreakdown[bucket.key][e.valence] !== undefined) timeOfDayBreakdown[bucket.key][e.valence]++;
+    if(hourlyBreakdown[hour][e.valence] !== undefined) hourlyBreakdown[hour][e.valence]++;
     if(weekdayBreakdown[d.getDay()][e.valence] !== undefined) weekdayBreakdown[d.getDay()][e.valence]++;
     const dayKey = d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
     (dailyValence[dayKey] = dailyValence[dayKey] || []).push(score);
@@ -10714,6 +10718,7 @@ function mtComputeWellbeingStats(log){
     valenceCounts,
     mostCommonCategory: mostCommonCategory ? mostCommonCategory[0] : null,
     timeOfDay: MT_TIME_BUCKETS.map(b => ({ key:b.key, label:b.label, ...timeOfDayBreakdown[b.key] })),
+    hourly: hourlyBreakdown.map((h, hour) => ({ hour, ...h })),
     weekday: MT_WEEKDAY_LABELS.map((label,i) => ({ label, dayIndex:i, ...weekdayBreakdown[i] })),
     trend,
     streak,
@@ -10761,6 +10766,7 @@ function mtWordBreakdown(entries){
     .sort((a,b)=> b.count - a.count);
 }
 function mtEntriesForCategory(log, key){ return log.filter(e => e.category === key); }
+function mtEntriesForHour(log, hour){ return log.filter(e => new Date(e.ts).getHours() === hour); }
 function mtEntriesForTimeBucket(log, key){
   const bucket = MT_TIME_BUCKETS.find(b => b.key === key);
   return bucket ? log.filter(e => bucket.test(new Date(e.ts).getHours())) : [];
@@ -10894,6 +10900,144 @@ function mtDrawLineChart(canvas, points, opts){
   });
   return geometry;
 }
+// 24-cell hour-of-day heatmap -- finer-grained than the 4-bucket time-of-day chart above
+// it, one cell per hour, shaded by that hour's majority valence across every check-in ever
+// logged in it. An hour with zero check-ins renders as flat neutral gray ("no data yet")
+// rather than defaulting to any valence color, so an empty hour never gets mistaken for a
+// neutral MOOD. Geometry uses the same {x,y,w,h,key} shape as the stacked bar charts, so it
+// plugs directly into the existing mtWireBarClicks -- no separate click-wiring needed.
+const MT_HEATMAP_COLS = 6, MT_HEATMAP_ROWS = 4; // 6x4 = 24, one per hour
+function mtDrawHeatmapChart(canvas, cells){
+  const ctx = canvas.getContext('2d');
+  const dpr = window.devicePixelRatio || 1;
+  const w = canvas.clientWidth, h = canvas.clientHeight;
+  canvas.width = w * dpr; canvas.height = h * dpr;
+  ctx.setTransform(dpr,0,0,dpr,0,0);
+  ctx.clearRect(0,0,w,h);
+
+  const gap = 4;
+  const cellW = (w - gap*(MT_HEATMAP_COLS+1)) / MT_HEATMAP_COLS;
+  const cellH = (h - gap*(MT_HEATMAP_ROWS+1)) / MT_HEATMAP_ROWS;
+  const geometry = [];
+
+  cells.forEach((cell, i) => {
+    const col = i % MT_HEATMAP_COLS;
+    const row = Math.floor(i / MT_HEATMAP_COLS);
+    const x = gap + col*(cellW+gap);
+    const y = gap + row*(cellH+gap);
+    const total = (cell.positive||0)+(cell.neutral||0)+(cell.negative||0);
+    const color = total > 0 ? mtMajorityValenceColor(cell) : '#E0CBA4';
+    const r = 4;
+    ctx.fillStyle = color;
+    ctx.beginPath();
+    ctx.moveTo(x+r, y);
+    ctx.arcTo(x+cellW, y, x+cellW, y+cellH, r);
+    ctx.arcTo(x+cellW, y+cellH, x, y+cellH, r);
+    ctx.arcTo(x, y+cellH, x, y, r);
+    ctx.arcTo(x, y, x+cellW, y, r);
+    ctx.closePath();
+    ctx.fill();
+
+    const label = cell.hour === 0 ? '12a' : cell.hour < 12 ? `${cell.hour}a` : cell.hour === 12 ? '12p' : `${cell.hour-12}p`;
+    ctx.fillStyle = total > 0 ? 'rgba(255,255,255,0.92)' : '#856F5C';
+    ctx.font = '10px sans-serif';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText(label, x + cellW/2, y + cellH/2);
+
+    geometry.push({ x, y, w:cellW, h:cellH, label, key: cell.hour });
+  });
+  return geometry;
+}
+
+// 8-axis radar/spider chart -- same category-frequency data as the "every emotion,
+// all-time" bar chart above, shown as a shape instead of bars specifically so an unusual
+// profile (e.g. one or two categories dominating, or a very even spread) reads at a glance
+// from its silhouette rather than requiring a side-by-side bar comparison. Axis labels are
+// colored by that category's own majority valence, same language as everywhere else on
+// this page; the polygon itself stays one neutral accent color since it's one shape
+// representing all 8 categories at once, not 8 independently-colored segments.
+function mtDrawRadarChart(canvas, categories){
+  const ctx = canvas.getContext('2d');
+  const dpr = window.devicePixelRatio || 1;
+  const w = canvas.clientWidth, h = canvas.clientHeight;
+  canvas.width = w * dpr; canvas.height = h * dpr;
+  ctx.setTransform(dpr,0,0,dpr,0,0);
+  ctx.clearRect(0,0,w,h);
+
+  const n = categories.length;
+  const geometry = [];
+  if(n === 0) return geometry;
+
+  const cx = w/2, cy = h/2;
+  const maxR = Math.min(w,h)/2 - 30;
+  const maxVal = Math.max(1, ...categories.map(c => c.value||0));
+  const angleFor = i => (Math.PI*2/n)*i - Math.PI/2;
+
+  ctx.strokeStyle = 'rgba(90,70,50,0.15)';
+  ctx.lineWidth = 1;
+  [0.25,0.5,0.75,1].forEach(frac => {
+    ctx.beginPath();
+    for(let i=0;i<=n;i++){
+      const a = angleFor(i % n);
+      const x = cx + maxR*frac*Math.cos(a), y = cy + maxR*frac*Math.sin(a);
+      if(i===0) ctx.moveTo(x,y); else ctx.lineTo(x,y);
+    }
+    ctx.stroke();
+  });
+
+  categories.forEach((cat, i) => {
+    const a = angleFor(i);
+    const xEnd = cx + maxR*Math.cos(a), yEnd = cy + maxR*Math.sin(a);
+    ctx.strokeStyle = 'rgba(90,70,50,0.15)';
+    ctx.beginPath(); ctx.moveTo(cx,cy); ctx.lineTo(xEnd,yEnd); ctx.stroke();
+
+    const lx = cx + (maxR+14)*Math.cos(a), ly = cy + (maxR+14)*Math.sin(a);
+    ctx.fillStyle = cat.color;
+    ctx.font = 'bold 10px sans-serif';
+    ctx.textAlign = Math.cos(a) > 0.3 ? 'left' : Math.cos(a) < -0.3 ? 'right' : 'center';
+    ctx.textBaseline = Math.sin(a) > 0.3 ? 'top' : Math.sin(a) < -0.3 ? 'bottom' : 'middle';
+    ctx.fillText(cat.label, lx, ly);
+  });
+
+  ctx.beginPath();
+  categories.forEach((cat, i) => {
+    const a = angleFor(i);
+    const r = (cat.value||0)/maxVal * maxR;
+    const x = cx + r*Math.cos(a), y = cy + r*Math.sin(a);
+    if(i===0) ctx.moveTo(x,y); else ctx.lineTo(x,y);
+    geometry.push({ x, y, label: cat.label, key: cat.key });
+  });
+  ctx.closePath();
+  ctx.fillStyle = 'rgba(46,123,138,0.25)';
+  ctx.fill();
+  ctx.strokeStyle = '#2E7B8A';
+  ctx.lineWidth = 2;
+  ctx.stroke();
+
+  geometry.forEach(g => {
+    ctx.fillStyle = '#2E7B8A';
+    ctx.beginPath(); ctx.arc(g.x, g.y, 4, 0, Math.PI*2); ctx.fill();
+    ctx.strokeStyle = '#fff'; ctx.lineWidth = 1.5; ctx.stroke();
+  });
+
+  return geometry;
+}
+function mtWireRadarClicks(canvas, geometry, log, titlePrefix){
+  const HIT_RADIUS = 18;
+  canvas.addEventListener('click', (e)=>{
+    const rect = canvas.getBoundingClientRect();
+    const x = e.clientX - rect.left, y = e.clientY - rect.top;
+    let closest = null, closestDist = Infinity;
+    geometry.forEach(g => {
+      const dist = Math.hypot(x - g.x, y - g.y);
+      if(dist < closestDist){ closestDist = dist; closest = g; }
+    });
+    if(!closest || closestDist > HIT_RADIUS) return;
+    const entries = mtEntriesForCategory(log, closest.key);
+    mtShowBreakdownPopup(`${titlePrefix}${closest.label}`, entries);
+  });
+}
 // Attaches a single click listener to a canvas that hit-tests against previously-returned
 // bar/point geometry and opens the breakdown popup for whichever one was hit.
 function mtWireBarClicks(canvas, geometry, log, entriesFor, titlePrefix){
@@ -10933,11 +11077,25 @@ function mtMountWellbeing(container){
     const geometry = mtDrawStackedBarChart(catChart, bars);
     mtWireBarClicks(catChart, geometry, log, mtEntriesForCategory, '');
   }
+  const radarChart = container.querySelector('#wbRadarChart');
+  if(radarChart){
+    const cats = [...MT_EMOTIONS].sort((a,b)=> MT_VALENCE_RANK[a.valence] - MT_VALENCE_RANK[b.valence]).map(c => ({
+      key: c.key, label: c.label, value: stats.categoryCounts[c.key] || 0,
+      color: mtMajorityValenceColor(stats.categoryBreakdown[c.key]),
+    }));
+    const geometry = mtDrawRadarChart(radarChart, cats);
+    mtWireRadarClicks(radarChart, geometry, log, '');
+  }
   const todChart = container.querySelector('#wbTimeOfDayChart');
   if(todChart){
     const bars = stats.timeOfDay.map(b => ({ label: b.label, key: b.key, positive: b.positive, neutral: b.neutral, negative: b.negative }));
     const geometry = mtDrawStackedBarChart(todChart, bars);
     mtWireBarClicks(todChart, geometry, log, mtEntriesForTimeBucket, '');
+  }
+  const heatmapChart = container.querySelector('#wbHeatmapChart');
+  if(heatmapChart){
+    const geometry = mtDrawHeatmapChart(heatmapChart, stats.hourly);
+    mtWireBarClicks(heatmapChart, geometry, log, mtEntriesForHour, '');
   }
   const dowChart = container.querySelector('#wbDayOfWeekChart');
   if(dowChart){
@@ -11154,9 +11312,17 @@ function mtWellbeingHtml(){
     <canvas id="wbCategoryChart" class="wb-chart"></canvas>
     <p class="wb-tap-hint">Tap for details</p>
 
+    <p class="wb-section-label">Emotional profile</p>
+    <canvas id="wbRadarChart" class="wb-chart wb-chart-radar"></canvas>
+    <p class="wb-tap-hint">Tap a point for details</p>
+
     <p class="wb-section-label">By time of day</p>
     <canvas id="wbTimeOfDayChart" class="wb-chart wb-chart-small"></canvas>
     <p class="wb-tap-hint">Tap for details</p>
+
+    <p class="wb-section-label">By hour</p>
+    <canvas id="wbHeatmapChart" class="wb-chart wb-chart-heatmap"></canvas>
+    <p class="wb-tap-hint">Tap a cell for details</p>
 
     <p class="wb-section-label">By day of the week</p>
     <canvas id="wbDayOfWeekChart" class="wb-chart wb-chart-small"></canvas>
