@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-08-15T05:56:27.789181Z",
+  "locations": [
+    {
+      "city": "Tashkent",
+      "country": "Uzbekistan",
+      "lat": 41.2995,
+      "lon": 69.2401,
+      "tempC": 36,
+      "windKn": 3,
+      "iconKey": "clear-day",
+      "label": "Clear sky"
+    },
+    {
+      "city": "Bangkok",
+      "country": "Thailand",
+      "lat": 13.7563,
+      "lon": 100.5018,
+      "tempC": 30,
+      "windKn": 6,
+      "iconKey": "drizzle",
+      "label": "Drizzle"
+    },
+    {
+      "city": "Oslo",
+      "country": "Norway",
+      "lat": 59.9139,
+      "lon": 10.7522,
+      "tempC": 19,
+      "windKn": 3,
+      "iconKey": "cloudy",
+      "label": "Overcast"
+    }
+  ]
+}
