@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-15T21:43:04.637952Z",
+  "generatedAt": "2026-08-15T22:50:49.365227Z",
   "standings": {},
   "matches": {
     "PL": {
@@ -569,6 +569,37 @@
         }
       ],
       "results": [
+        {
+          "utcDate": "2026-08-15T19:30:00Z",
+          "status": "FINISHED",
+          "matchday": 1,
+          "homeTeam": {
+            "id": 559,
+            "name": "Sevilla FC",
+            "shortName": "Sevilla FC"
+          },
+          "awayTeam": {
+            "id": 87,
+            "name": "Rayo Vallecano de Madrid",
+            "shortName": "Rayo Vallecano"
+          },
+          "score": {
+            "winner": "HOME_TEAM",
+            "duration": "REGULAR",
+            "fullTime": {
+              "home": 2,
+              "away": 1
+            },
+            "halfTime": {
+              "home": 0,
+              "away": 1
+            }
+          },
+          "competition": {
+            "name": "Primera Division"
+          },
+          "venue": null
+        },
         {
           "utcDate": "2026-08-15T17:30:00Z",
           "status": "FINISHED",
