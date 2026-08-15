@@ -73,6 +73,15 @@ def fetch_nasa_candidates():
         log(f"NASA live page fetch failed: {e}")
         return candidates
 
+    log(f"NASA page: captured {len(text)} chars")
+    idx = text.find("Aug.")
+    if idx == -1:
+        idx = text.find("a.m.")
+    if idx != -1:
+        log(f"NASA page: text sample near a date/time: {text[max(0,idx-80):idx+120]!r}")
+    else:
+        log("NASA page: no 'Aug.' or 'a.m.' substring found anywhere in the fetched text")
+
     now = datetime.now(timezone.utc)
     for m in NASA_EVENT_PATTERN.finditer(text):
         month_abbr, day, hour_12, minute, meridiem, description = m.groups()
