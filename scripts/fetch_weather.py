@@ -285,12 +285,48 @@ def fetch_one(loc):
     }
 
 
+BATCH_SIZE = 25  # keeps each request's URL and response to a sane size
+
+
+def fetch_batch(locations):
+    """Fetches a batch of locations in ONE request using Open-Meteo's documented
+    multi-location support (comma-separated lat/lon -> JSON array of results, one per
+    location, in the same order). Cuts 186 individual round-trips down to ~8 -- the first
+    version of this script made one HTTP request per city and took 15+ minutes to run,
+    almost entirely spent on per-request connection/TLS overhead rather than actual work.
+    """
+    lats = ",".join(str(loc["lat"]) for loc in locations)
+    lons = ",".join(str(loc["lon"]) for loc in locations)
+    url = (
+        f"https://api.open-meteo.com/v1/forecast?latitude={lats}&longitude={lons}"
+        f"&current=temperature_2m,wind_speed_10m,weather_code&wind_speed_unit=kn"
+    )
+    r = requests.get(url, timeout=30)
+    r.raise_for_status()
+    data = r.json()
+    results = data if isinstance(data, list) else [data]
+    out = []
+    for loc, entry in zip(locations, results):
+        cw = (entry or {}).get("current")
+        if not cw:
+            continue
+        code = cw.get("weather_code")
+        icon_key, label = WEATHER_CODES.get(code, ["other", "Current conditions"])
+        out.append({
+            "city": loc["city"], "country": loc["country"], "lat": loc["lat"], "lon": loc["lon"],
+            "tempC": round(cw["temperature_2m"]), "windKn": round(cw["wind_speed_10m"]),
+            "iconKey": icon_key, "label": label,
+        })
+    return out
+
+
 def main():
     output = {"generatedAt": datetime.utcnow().isoformat() + "Z", "locations": []}
     failures = 0
 
-    # Tashkent first and always -- if nothing else in this run succeeds, at least the one
-    # city that actually matters for "what's the weather right now" still gets through.
+    # Tashkent first and always, and always its OWN isolated request -- if a whole batch
+    # of world cities fails, that must never be able to take Tashkent down with it, since
+    # that's the one city that actually matters for "what's the weather right now".
     try:
         output["locations"].append(fetch_one(TASHKENT))
         log("Tashkent: OK")
@@ -298,12 +334,17 @@ def main():
         failures += 1
         log(f"Tashkent: FAILED ({e}) -- this is the one that actually matters, logging loudly")
 
-    for loc in WORLD_CITIES:
+    for i in range(0, len(WORLD_CITIES), BATCH_SIZE):
+        batch = WORLD_CITIES[i:i + BATCH_SIZE]
         try:
-            output["locations"].append(fetch_one(loc))
+            batch_results = fetch_batch(batch)
+            output["locations"].extend(batch_results)
+            missing = len(batch) - len(batch_results)
+            log(f"Batch {i // BATCH_SIZE + 1}: {len(batch_results)}/{len(batch)} OK" + (f", {missing} had no data" if missing else ""))
+            failures += missing
         except Exception as e:
-            failures += 1
-            log(f"{loc['city']}: failed ({e}), skipping")
+            failures += len(batch)
+            log(f"Batch {i // BATCH_SIZE + 1} ({len(batch)} cities): FAILED entirely ({e}), skipping whole batch")
 
     log(f"Done: {len(output['locations'])} succeeded, {failures} failed, out of {len(WORLD_CITIES) + 1} total")
 
