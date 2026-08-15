@@ -2969,10 +2969,14 @@ function ufcEventRowsHtml(list){
   return `<div class="match-list">${list.map(e => {
     // Strip any "UFC 330:" / "UFC Fight Night:" style prefix — keep only "Name vs. Name".
     const cleanName = e.name.includes(':') ? e.name.split(':').slice(1).join(':').trim() : e.name;
+    // start_tashkent is only present when ufc.com had a confirmed Main Card time at
+    // scrape time -- UFC often doesn't lock broadcast slots in until closer to the date,
+    // so events further out legitimately fall back to date-only rather than a guessed time.
+    const whenText = e.start_tashkent ? formatTashkentDate(e.start_tashkent) : escapeHtml(e.date_text);
     return `
     <div class="match-row">
       <div class="match-teams">${escapeHtml(cleanName)}</div>
-      <div class="match-date">${escapeHtml(e.date_text)} — ${escapeHtml(e.location)}</div>
+      <div class="match-date">${whenText} — ${escapeHtml(e.location)}</div>
     </div>
   `;
   }).join('')}</div>`;
