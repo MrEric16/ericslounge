@@ -5857,27 +5857,41 @@ async function loadWeather(){
   const locations = [{ city:"Tashkent", country:"Uzbekistan", lat:41.2995, lon:69.2401 }, ...randomTwo];
   const lats = locations.map(l => l.lat).join(',');
   const lons = locations.map(l => l.lon).join(',');
+  // Open-Meteo's current docs (checked 2026-08) no longer list the legacy boolean
+  // current_weather=true param at all -- only the explicit current=<variable list> form is
+  // documented now. Migrated to that. Separately (and regardless of which param caused any
+  // past issue): a fetch with no timeout can hang indefinitely on a bad network without ever
+  // resolving or rejecting, which leaves the card stuck on "Loading..." forever with no way
+  // out short of a full reload -- exactly the reported symptom. The AbortController below
+  // guarantees the promise always settles one way or another within 10s.
+  const controller = new AbortController();
+  const timeoutId = setTimeout(()=> controller.abort(), 10000);
   try{
-    const res = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lats}&longitude=${lons}&current_weather=true&wind_speed_unit=kn`);
+    const res = await fetch(
+      `https://api.open-meteo.com/v1/forecast?latitude=${lats}&longitude=${lons}&current=temperature_2m,wind_speed_10m,weather_code&wind_speed_unit=kn`,
+      { signal: controller.signal }
+    );
     if(!res.ok) throw new Error('bad response');
     const data = await res.json();
     const results = Array.isArray(data) ? data : [data];
     const rows = results.map((r, i) => {
       const loc = locations[i];
-      const cw = r.current_weather;
+      const cw = r.current;
       if(!cw) return '';
-      const [icon, label] = WEATHER_CODES[cw.weathercode] || ['🌡️','Current conditions'];
+      const [icon, label] = WEATHER_CODES[cw.weather_code] || ['🌡️','Current conditions'];
       if(i === 0) applyWeatherOverlay(label); // Tashkent is always locations[0]
       return `
         <div class="weather-row">
           <a class="weather-city weather-city-link" href="https://www.windy.com/?temp,${loc.lat},${loc.lon},8" target="_blank" rel="noopener">${escapeHtml(loc.city)}, ${escapeHtml(loc.country)} ↗</a>
-          <div class="weather-detail">${icon} ${Math.round(cw.temperature)}°C — ${escapeHtml(label)}, wind ${Math.round(cw.windspeed)} kn</div>
+          <div class="weather-detail">${icon} ${Math.round(cw.temperature_2m)}°C — ${escapeHtml(label)}, wind ${Math.round(cw.wind_speed_10m)} kn</div>
         </div>
       `;
     }).join('');
     card.innerHTML = rows || '<div class="otd-text">Couldn\'t load the weather — try refreshing.</div>';
   }catch(e){
     card.innerHTML = '<div class="otd-text">Couldn\'t load the weather — try refreshing.</div>';
+  }finally{
+    clearTimeout(timeoutId);
   }
 }
 /* ---- Vox Populi — one poll question per day, locked after voting ---- */
