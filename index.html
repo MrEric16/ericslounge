@@ -1432,6 +1432,25 @@
   .events-tile .title{font-weight:800; font-size:19px;}
   .events-tile .sub{font-size:13px; color:rgba(255,255,255,.85); font-weight:600; margin-top:2px;}
 
+  .events-daystrip{
+    display:flex; gap:6px; overflow-x:auto; padding:2px 2px 12px;
+    margin-bottom:16px; -webkit-overflow-scrolling:touch;
+  }
+  .events-daystrip-day{
+    flex:0 0 auto; display:flex; flex-direction:column; align-items:center; gap:4px;
+    width:44px; padding:8px 0 10px; border:none; border-radius:14px;
+    background:var(--card); cursor:pointer; font-family:'Nunito', sans-serif;
+  }
+  .events-daystrip-day.selected{ background:var(--misc-events); }
+  .events-daystrip-dow{ font-size:11px; font-weight:700; color:var(--ink-soft); text-transform:uppercase; }
+  .events-daystrip-day.selected .events-daystrip-dow{ color:rgba(255,255,255,.85); }
+  .events-daystrip-dow.weekend{ color:var(--misc-events); }
+  .events-daystrip-day.selected .events-daystrip-dow.weekend{ color:#fff; }
+  .events-daystrip-num{ font-family:'Baloo 2', sans-serif; font-weight:700; font-size:18px; color:var(--ink); }
+  .events-daystrip-day.selected .events-daystrip-num{ color:#fff; }
+  .events-daystrip-dot{ width:5px; height:5px; border-radius:50%; background:var(--misc-events); }
+  .events-daystrip-day.selected .events-daystrip-dot{ background:#fff; }
+
   .events-day-group{margin-bottom:22px;}
   .events-day-header{
     font-weight:800; font-size:15px; color:var(--ink);
@@ -12212,7 +12231,7 @@ async function loadTashkentEvents(){
     EVENTS_TASHKENT = [];
   }
   const body = document.getElementById('eventsTashkentBody');
-  if(body){ body.outerHTML = eventsTashkentListHtml(); }
+  if(body){ body.outerHTML = eventsTashkentListHtml(); wireEventsDaystrip(); }
   refreshSearchIfActive();
 }
 
@@ -12307,44 +12326,76 @@ function viewEventsHub(){
   `;
 }
 
+let selectedEventsDayIndex = 0; // reset to "today" every time the events-tashkent route is freshly entered
+
+// 8 tappable days -- today through today+7, matching tashkentEventsWindow()'s own bucket
+// count exactly. Weekend day-of-week labels use the Events page's own brand color; a small
+// dot marks days that actually have something on, so a glance at the strip shows which
+// days are worth tapping before tapping any of them.
+function eventsDaystripHtml(buckets){
+  const shortDow = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+  return `<div class="events-daystrip">
+    ${buckets.map((b,i) => {
+      const dow = b.date.getDay();
+      const isWeekend = dow === 0 || dow === 6;
+      const isSelected = i === selectedEventsDayIndex;
+      const hasEvents = b.events.length > 0;
+      return `<button class="events-daystrip-day${isSelected?' selected':''}" data-day-index="${i}">
+        <span class="events-daystrip-dow${isWeekend?' weekend':''}">${shortDow[dow]}</span>
+        <span class="events-daystrip-num">${b.date.getDate()}</span>
+        <span class="events-daystrip-dot" style="opacity:${hasEvents?'1':'0'}"></span>
+      </button>`;
+    }).join('')}
+  </div>`;
+}
+function selectEventsDay(index){
+  selectedEventsDayIndex = index;
+  const body = document.getElementById('eventsTashkentBody');
+  if(body){ body.outerHTML = eventsTashkentListHtml(); }
+  wireEventsDaystrip();
+}
+function wireEventsDaystrip(){
+  document.querySelectorAll('.events-daystrip-day').forEach(btn=>{
+    btn.addEventListener('click', ()=> selectEventsDay(+btn.dataset.dayIndex));
+  });
+}
+
 function eventsTashkentListHtml(){
   const buckets = tashkentEventsWindow();
   const dayNames = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
   const monthNames = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-  const totalCount = buckets.reduce((n,b)=>n+b.events.length, 0);
+  const strip = eventsDaystripHtml(buckets);
 
   if(!eventsTashkentLoaded){
-    return `<div id="eventsTashkentBody" class="empty-card">Loading this week's events…</div>`;
-  }
-  if(totalCount === 0){
-    return `<div id="eventsTashkentBody" class="empty-card">Nothing on the list for the next 8 days. Check back tomorrow.</div>`;
+    return `<div id="eventsTashkentBody">${strip}<div class="empty-card">Loading this week's events…</div></div>`;
   }
 
-  const groups = buckets.map((b, i)=>{
-    if(b.events.length === 0) return '';
-    const label = i === 0 ? 'Today' : i === 1 ? 'Tomorrow' : dayNames[b.date.getDay()];
-    const dateSub = `${b.date.getDate()} ${monthNames[b.date.getMonth()]}`;
-    const cards = b.events.map(e=>{
-      const color = EVENT_CATEGORY_COLORS[e.category] || 'var(--teal)';
-      const catLabel = EVENT_CATEGORY_LABELS[e.category] || e.category;
-      return `<a class="event-card" href="${e.url}" target="_blank" rel="noopener">
-        <div class="event-title">${escapeHtml(e.title)}</div>
-        <div class="event-meta">
-          <span class="event-cat-badge" style="background:${color}">${catLabel}</span>
-          ${e.venue ? `<span class="event-venue">${escapeHtml(e.venue)}</span>` : ''}
-        </div>
-      </a>`;
-    }).join('');
-    return `<div class="events-day-group">
-      <div class="events-day-header">${label} <span class="day-sub">${dateSub}</span></div>
-      ${cards}
-    </div>`;
-  }).join('');
+  const b = buckets[selectedEventsDayIndex];
+  const label = selectedEventsDayIndex === 0 ? 'Today' : selectedEventsDayIndex === 1 ? 'Tomorrow' : dayNames[b.date.getDay()];
+  const dateSub = `${b.date.getDate()} ${monthNames[b.date.getMonth()]}`;
 
-  return `<div id="eventsTashkentBody">${groups}</div>`;
+  const dayContent = b.events.length === 0
+    ? `<div class="empty-card">Nothing on ${escapeHtml(label)}${selectedEventsDayIndex > 1 ? ` (${dateSub})` : ''} yet.</div>`
+    : `<div class="events-day-group">
+        <div class="events-day-header">${label} <span class="day-sub">${dateSub}</span></div>
+        ${b.events.map(e=>{
+          const color = EVENT_CATEGORY_COLORS[e.category] || 'var(--teal)';
+          const catLabel = EVENT_CATEGORY_LABELS[e.category] || e.category;
+          return `<a class="event-card" href="${e.url}" target="_blank" rel="noopener">
+            <div class="event-title">${escapeHtml(e.title)}</div>
+            <div class="event-meta">
+              <span class="event-cat-badge" style="background:${color}">${catLabel}</span>
+              ${e.venue ? `<span class="event-venue">${escapeHtml(e.venue)}</span>` : ''}
+            </div>
+          </a>`;
+        }).join('')}
+      </div>`;
+
+  return `<div id="eventsTashkentBody">${strip}${dayContent}</div>`;
 }
 
 function viewEventsTashkent(){
+  selectedEventsDayIndex = 0; // fresh visit always starts on "today"
   return `
     <a class="back-link" href="#">← Back to Mr Eric's Lounge</a>
     <section style="padding-top:14px;">
@@ -13229,7 +13280,7 @@ function renderRoute(opts){
   if(parts[0] === 'arcade' && parts[1]){ wireArcade(parts[1]); }
   if(parts[0] === 'install'){ wireInstallPage(); }
   if(parts[0] === 'stats'){ loadStats(); }
-  if(parts[0] === 'events-tashkent'){ loadTashkentEvents(); }
+  if(parts[0] === 'events-tashkent'){ loadTashkentEvents(); wireEventsDaystrip(); }
   if(parts[0] === 'ufc'){ loadUFCEvents(); }
   if(parts[0] === 'invite'){ wireNativeShareButton(); }
   if(parts[0] === 'my-stats'){ submitStatsSnapshot(); renderComparisonBox(); }
