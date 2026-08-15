@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-15T13:50:11.601631Z",
+  "generatedAt": "2026-08-15T15:57:50.590168Z",
   "events": [
     {
       "title": "Cold Kuksi Tournament at Dayako Chicken",
@@ -13,7 +13,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Concert of Sevinch Muminova in Milliy bog‘",
+      "title": "Концерт Севинч Муминовой в Milliy bog‘",
       "titleRu": "Концерт Севинч Муминовой в Milliy bog‘",
       "category": "concert",
       "venue": "Milliy bog‘Ташкент, ул. Сеул, 16",
@@ -24,27 +24,29 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "IOSIS ROCK BATTLE",
-      "titleRu": null,
+      "title": "IOSIS ROCK BATTLE Festival",
+      "titleRu": "Фестиваль IOSIS ROCK BATTLE",
       "category": "concert",
-      "venue": "\"SAHNA\" StandUp Club",
+      "venue": null,
       "startDate": "2026-08-15",
       "endDate": null,
-      "url": "https://iticket.uz/en/events/concerts/iosis-rock-battle2026",
-      "source": "iticket.uz"
+      "time": "17:00",
+      "url": "https://www.afisha.uz/ru/concerts/2026/07/16/iosis-rock-battle",
+      "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Amirsoy Paradiso",
-      "titleRu": null,
+      "title": "Open-air concert Amirsoy Paradiso",
+      "titleRu": "Open-air концерт Amirsoy Paradiso",
       "category": "concert",
-      "venue": "Amirsoy Resort Отель Узбекистан",
+      "venue": "Amirsoy ResortЧарвак, Бостанлыкский район",
       "startDate": "2026-08-15",
       "endDate": null,
-      "url": "https://iticket.uz/en/events/concerts/amirsoy-paradiso",
-      "source": "iticket.uz"
+      "time": "19:00",
+      "url": "https://www.afisha.uz/ru/concerts/2026/07/02/open-air-amirsoy-paradiso",
+      "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Exhibition \"Dialogue\"",
+      "title": "Выставка «Диалог»",
       "titleRu": "Выставка «Диалог»",
       "category": "exhibition",
       "venue": "Галерея изобразительного искусства (NBU)Ташкент, ул. Буюк Турон, 2",
@@ -77,7 +79,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Exhibition Qimmat",
+      "title": "Выставка Qimmat",
       "titleRu": "Выставка Qimmat",
       "category": "exhibition",
       "venue": "ZanmakonТашкент, ул. Заркайнар, 48",
@@ -99,7 +101,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Next Market Fair",
+      "title": "Ярмарка Next Market",
       "titleRu": "Ярмарка Next Market",
       "category": "exhibition",
       "venue": null,
@@ -110,7 +112,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Выставка «Фотохроника XX века»",
+      "title": "Exhibition “Photochronicles of the 20th century”",
       "titleRu": "Выставка «Фотохроника XX века»",
       "category": "exhibition",
       "venue": "Bonum Factum GalleryТашкент, пер. Садыка Азимова, 20А",
@@ -198,7 +200,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Пляж Palma & Chilla в парке Milliy Bog’",
+      "title": "Palma & Chilla beach in Milliy Bog’ park",
       "titleRu": "Пляж Palma & Chilla в парке Milliy Bog’",
       "category": "festival",
       "venue": "Milliy bog‘Ташкент, ул. Сеул, 16",
@@ -286,58 +288,17 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Love Legend",
+      "title": "Amirsoy Paradiso",
       "titleRu": null,
       "category": "concert",
-      "venue": "Концертный Зал Мароканд",
-      "startDate": "2026-08-15",
-      "endDate": null,
-      "url": "https://iticket.uz/en/events/concerts/love-legend",
-      "source": "iticket.uz"
-    },
-    {
-      "title": "ЛАБОРАТОРИЯ «СССР»",
-      "titleRu": null,
-      "category": "concert",
-      "venue": "Mysterium",
-      "startDate": "2026-08-15",
-      "endDate": null,
-      "url": "https://iticket.uz/en/events/concerts/laboratoriya-sssr",
-      "source": "iticket.uz"
-    },
-    {
-      "title": "ПРЯТКИ В ТЕМНОТЕ",
-      "titleRu": null,
-      "category": "concert",
-      "venue": "Mysterium",
-      "startDate": "2026-08-15",
-      "endDate": null,
-      "url": "https://iticket.uz/en/events/concerts/pryatki-v-temnote",
-      "source": "iticket.uz"
-    },
-    {
-      "title": "ПЕЩЕРА СОКРОВИЩ",
-      "titleRu": null,
-      "category": "concert",
-      "venue": "Mysterium",
-      "startDate": "2026-08-15",
-      "endDate": null,
-      "url": "https://iticket.uz/en/events/concerts/peshera-sokrovish",
-      "source": "iticket.uz"
-    },
-    {
-      "title": "Open-air concert Amirsoy Paradiso",
-      "titleRu": "Open-air концерт Amirsoy Paradiso",
-      "category": "concert",
-      "venue": "Amirsoy ResortЧарвак, Бостанлыкский район",
+      "venue": "Отель Узбекистан Amirsoy Resort",
       "startDate": "2026-08-16",
       "endDate": null,
-      "time": "19:00",
-      "url": "https://www.afisha.uz/ru/concerts/2026/07/02/open-air-amirsoy-paradiso",
-      "source": "afisha.uz (calendar)"
+      "url": "https://iticket.uz/en/events/concerts/amirsoy-paradiso",
+      "source": "iticket.uz"
     },
     {
-      "title": "Exhibition \"Dialogue\"",
+      "title": "Выставка «Диалог»",
       "titleRu": "Выставка «Диалог»",
       "category": "exhibition",
       "venue": "Галерея изобразительного искусства (NBU)Ташкент, ул. Буюк Турон, 2",
@@ -370,7 +331,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Exhibition Qimmat",
+      "title": "Выставка Qimmat",
       "titleRu": "Выставка Qimmat",
       "category": "exhibition",
       "venue": "ZanmakonТашкент, ул. Заркайнар, 48",
@@ -392,7 +353,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Next Market Fair",
+      "title": "Ярмарка Next Market",
       "titleRu": "Ярмарка Next Market",
       "category": "exhibition",
       "venue": null,
@@ -403,7 +364,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Выставка «Фотохроника XX века»",
+      "title": "Exhibition “Photochronicles of the 20th century”",
       "titleRu": "Выставка «Фотохроника XX века»",
       "category": "exhibition",
       "venue": "Bonum Factum GalleryТашкент, пер. Садыка Азимова, 20А",
@@ -446,7 +407,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Theater and circus show Nova Circus",
+      "title": "Театрально-цирковое шоу Nova Circus",
       "titleRu": "Театрально-цирковое шоу Nova Circus",
       "category": "kids",
       "venue": "Tashkent CityТашкент, просп. Бунёдкор",
@@ -490,7 +451,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Пляж Palma & Chilla в парке Milliy Bog’",
+      "title": "Palma & Chilla beach in Milliy Bog’ park",
       "titleRu": "Пляж Palma & Chilla в парке Milliy Bog’",
       "category": "festival",
       "venue": "Milliy bog‘Ташкент, ул. Сеул, 16",
@@ -556,14 +517,15 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Extraordinary Musicians",
-      "titleRu": null,
+      "title": "Спектакль «Необыкновенные музыканты»",
+      "titleRu": "Спектакль «Необыкновенные музыканты»",
       "category": "theatre",
       "venue": null,
       "startDate": "2026-08-16",
       "endDate": null,
-      "url": "https://iticket.uz/en/events/theaters-tashkent/extraordinary-musicians2",
-      "source": "iticket.uz"
+      "time": "17:00",
+      "url": "https://www.afisha.uz/ru/theatres/2026/08/07/neobyknovennye-muzykanty-silk-route",
+      "source": "afisha.uz (calendar)"
     },
     {
       "title": "Children's master classes at Tanuki",
@@ -632,7 +594,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Игра-тренинг по финансовой грамотности CashFlow",
+      "title": "Financial literacy training game CashFlow",
       "titleRu": "Игра-тренинг по финансовой грамотности CashFlow",
       "category": "lecture",
       "venue": null,
@@ -643,7 +605,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Мастер-класс по росписи маски кошки",
+      "title": "Master class on painting a cat mask",
       "titleRu": "Мастер-класс по росписи маски кошки",
       "category": "lecture",
       "venue": "Международный Караван-Сарай культуры Икуо ХираямыТашкент, ул. Юсуф Хос Ходжиб, 37А",
@@ -665,7 +627,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Forum “I am a mother”",
+      "title": "Форум «Я мама»",
       "titleRu": "Форум «Я мама»",
       "category": "lecture",
       "venue": "Hyatt Regency TashkentТашкент, ул. Алишера Навои, 1А",
@@ -687,7 +649,57 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Exhibition \"Dialogue\"",
+      "title": "ЛАБОРАТОРИЯ «СССР»",
+      "titleRu": null,
+      "category": "concert",
+      "venue": "Mysterium",
+      "startDate": "2026-08-16",
+      "endDate": null,
+      "url": "https://iticket.uz/en/events/concerts/laboratoriya-sssr",
+      "source": "iticket.uz"
+    },
+    {
+      "title": "ПРЯТКИ В ТЕМНОТЕ",
+      "titleRu": null,
+      "category": "concert",
+      "venue": "Mysterium",
+      "startDate": "2026-08-16",
+      "endDate": null,
+      "url": "https://iticket.uz/en/events/concerts/pryatki-v-temnote",
+      "source": "iticket.uz"
+    },
+    {
+      "title": "ПЕЩЕРА СОКРОВИЩ",
+      "titleRu": null,
+      "category": "concert",
+      "venue": "Mysterium",
+      "startDate": "2026-08-16",
+      "endDate": null,
+      "url": "https://iticket.uz/en/events/concerts/peshera-sokrovish",
+      "source": "iticket.uz"
+    },
+    {
+      "title": "Love Legend",
+      "titleRu": null,
+      "category": "concert",
+      "venue": "Концертный Зал Мароканд",
+      "startDate": "2026-08-16",
+      "endDate": null,
+      "url": "https://iticket.uz/en/events/concerts/love-legend",
+      "source": "iticket.uz"
+    },
+    {
+      "title": "Extraordinary Musicians",
+      "titleRu": null,
+      "category": "theatre",
+      "venue": null,
+      "startDate": "2026-08-16",
+      "endDate": null,
+      "url": "https://iticket.uz/en/events/theaters-tashkent/extraordinary-musicians2",
+      "source": "iticket.uz"
+    },
+    {
+      "title": "Выставка «Диалог»",
       "titleRu": "Выставка «Диалог»",
       "category": "exhibition",
       "venue": "Галерея изобразительного искусства (NBU)Ташкент, ул. Буюк Турон, 2",
@@ -709,7 +721,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Exhibition Qimmat",
+      "title": "Выставка Qimmat",
       "titleRu": "Выставка Qimmat",
       "category": "exhibition",
       "venue": "ZanmakonТашкент, ул. Заркайнар, 48",
@@ -731,7 +743,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Выставка «Фотохроника XX века»",
+      "title": "Exhibition “Photochronicles of the 20th century”",
       "titleRu": "Выставка «Фотохроника XX века»",
       "category": "exhibition",
       "venue": "Bonum Factum GalleryТашкент, пер. Садыка Азимова, 20А",
@@ -742,7 +754,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Theater and circus show Nova Circus",
+      "title": "Театрально-цирковое шоу Nova Circus",
       "titleRu": "Театрально-цирковое шоу Nova Circus",
       "category": "kids",
       "venue": "Tashkent CityТашкент, просп. Бунёдкор",
@@ -786,7 +798,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Пляж Palma & Chilla в парке Milliy Bog’",
+      "title": "Palma & Chilla beach in Milliy Bog’ park",
       "titleRu": "Пляж Palma & Chilla в парке Milliy Bog’",
       "category": "festival",
       "venue": "Milliy bog‘Ташкент, ул. Сеул, 16",
@@ -863,7 +875,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Exhibition \"Dialogue\"",
+      "title": "Выставка «Диалог»",
       "titleRu": "Выставка «Диалог»",
       "category": "exhibition",
       "venue": "Галерея изобразительного искусства (NBU)Ташкент, ул. Буюк Турон, 2",
@@ -885,7 +897,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Exhibition Qimmat",
+      "title": "Выставка Qimmat",
       "titleRu": "Выставка Qimmat",
       "category": "exhibition",
       "venue": "ZanmakonТашкент, ул. Заркайнар, 48",
@@ -907,7 +919,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Выставка «Фотохроника XX века»",
+      "title": "Exhibition “Photochronicles of the 20th century”",
       "titleRu": "Выставка «Фотохроника XX века»",
       "category": "exhibition",
       "venue": "Bonum Factum GalleryТашкент, пер. Садыка Азимова, 20А",
@@ -918,7 +930,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Theater and circus show Nova Circus",
+      "title": "Театрально-цирковое шоу Nova Circus",
       "titleRu": "Театрально-цирковое шоу Nova Circus",
       "category": "kids",
       "venue": "Tashkent CityТашкент, просп. Бунёдкор",
@@ -962,7 +974,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Пляж Palma & Chilla в парке Milliy Bog’",
+      "title": "Palma & Chilla beach in Milliy Bog’ park",
       "titleRu": "Пляж Palma & Chilla в парке Milliy Bog’",
       "category": "festival",
       "venue": "Milliy bog‘Ташкент, ул. Сеул, 16",
@@ -1039,7 +1051,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Exhibition \"Dialogue\"",
+      "title": "Выставка «Диалог»",
       "titleRu": "Выставка «Диалог»",
       "category": "exhibition",
       "venue": "Галерея изобразительного искусства (NBU)Ташкент, ул. Буюк Турон, 2",
@@ -1061,7 +1073,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Exhibition Qimmat",
+      "title": "Выставка Qimmat",
       "titleRu": "Выставка Qimmat",
       "category": "exhibition",
       "venue": "ZanmakonТашкент, ул. Заркайнар, 48",
@@ -1083,7 +1095,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Выставка «Фотохроника XX века»",
+      "title": "Exhibition “Photochronicles of the 20th century”",
       "titleRu": "Выставка «Фотохроника XX века»",
       "category": "exhibition",
       "venue": "Bonum Factum GalleryТашкент, пер. Садыка Азимова, 20А",
@@ -1094,7 +1106,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Theater and circus show Nova Circus",
+      "title": "Театрально-цирковое шоу Nova Circus",
       "titleRu": "Театрально-цирковое шоу Nova Circus",
       "category": "kids",
       "venue": "Tashkent CityТашкент, просп. Бунёдкор",
@@ -1138,7 +1150,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Пляж Palma & Chilla в парке Milliy Bog’",
+      "title": "Palma & Chilla beach in Milliy Bog’ park",
       "titleRu": "Пляж Palma & Chilla в парке Milliy Bog’",
       "category": "festival",
       "venue": "Milliy bog‘Ташкент, ул. Сеул, 16",
@@ -1171,7 +1183,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Игра-тренинг по финансовой грамотности CashFlow",
+      "title": "Financial literacy training game CashFlow",
       "titleRu": "Игра-тренинг по финансовой грамотности CashFlow",
       "category": "lecture",
       "venue": null,
@@ -1226,7 +1238,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Pizza making master class at Jungle Family Club",
+      "title": "Мастер-класс по приготовлению пиццы в Jungle Family Club",
       "titleRu": "Мастер-класс по приготовлению пиццы в Jungle Family Club",
       "category": "kids",
       "venue": "Jungle Family ClubТашкент, Юнусабад-12, 20А",
@@ -1237,7 +1249,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Exhibition \"Dialogue\"",
+      "title": "Выставка «Диалог»",
       "titleRu": "Выставка «Диалог»",
       "category": "exhibition",
       "venue": "Галерея изобразительного искусства (NBU)Ташкент, ул. Буюк Турон, 2",
@@ -1259,7 +1271,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Exhibition Qimmat",
+      "title": "Выставка Qimmat",
       "titleRu": "Выставка Qimmat",
       "category": "exhibition",
       "venue": "ZanmakonТашкент, ул. Заркайнар, 48",
@@ -1281,7 +1293,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Выставка «Фотохроника XX века»",
+      "title": "Exhibition “Photochronicles of the 20th century”",
       "titleRu": "Выставка «Фотохроника XX века»",
       "category": "exhibition",
       "venue": "Bonum Factum GalleryТашкент, пер. Садыка Азимова, 20А",
@@ -1292,7 +1304,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Theater and circus show Nova Circus",
+      "title": "Театрально-цирковое шоу Nova Circus",
       "titleRu": "Театрально-цирковое шоу Nova Circus",
       "category": "kids",
       "venue": "Tashkent CityТашкент, просп. Бунёдкор",
@@ -1336,7 +1348,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Пляж Palma & Chilla в парке Milliy Bog’",
+      "title": "Palma & Chilla beach in Milliy Bog’ park",
       "titleRu": "Пляж Palma & Chilla в парке Milliy Bog’",
       "category": "festival",
       "venue": "Milliy bog‘Ташкент, ул. Сеул, 16",
@@ -1424,7 +1436,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Exhibition Qimmat",
+      "title": "Выставка Qimmat",
       "titleRu": "Выставка Qimmat",
       "category": "exhibition",
       "venue": "ZanmakonТашкент, ул. Заркайнар, 48",
@@ -1446,7 +1458,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Выставка «Фотохроника XX века»",
+      "title": "Exhibition “Photochronicles of the 20th century”",
       "titleRu": "Выставка «Фотохроника XX века»",
       "category": "exhibition",
       "venue": "Bonum Factum GalleryТашкент, пер. Садыка Азимова, 20А",
@@ -1457,7 +1469,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Theater and circus show Nova Circus",
+      "title": "Театрально-цирковое шоу Nova Circus",
       "titleRu": "Театрально-цирковое шоу Nova Circus",
       "category": "kids",
       "venue": "Tashkent CityТашкент, просп. Бунёдкор",
@@ -1501,7 +1513,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Пляж Palma & Chilla в парке Milliy Bog’",
+      "title": "Palma & Chilla beach in Milliy Bog’ park",
       "titleRu": "Пляж Palma & Chilla в парке Milliy Bog’",
       "category": "festival",
       "venue": "Milliy bog‘Ташкент, ул. Сеул, 16",
@@ -1556,14 +1568,15 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Aladdin and his magic lamp",
-      "titleRu": null,
+      "title": "Спектакль «Аладдин и его волшебная лампа»",
+      "titleRu": "Спектакль «Аладдин и его волшебная лампа»",
       "category": "theatre",
-      "venue": "Theatre - Studio Silk Route Marionettes Ecopark",
+      "venue": null,
       "startDate": "2026-08-21",
       "endDate": null,
-      "url": "https://iticket.uz/en/events/theaters-tashkent/aladdin-and-his-magic-lamppp",
-      "source": "iticket.uz"
+      "time": "18:00",
+      "url": "https://www.afisha.uz/ru/theatres/2026/08/07/aladdin-silk-route-avgust",
+      "source": "afisha.uz (calendar)"
     },
     {
       "title": "Concert of the group \"Party Member\"",
@@ -1588,6 +1601,16 @@
       "source": "afisha.uz (calendar)"
     },
     {
+      "title": "Aladdin and his magic lamp",
+      "titleRu": null,
+      "category": "theatre",
+      "venue": "Theatre - Studio Silk Route Marionettes Ecopark",
+      "startDate": "2026-08-21",
+      "endDate": null,
+      "url": "https://iticket.uz/en/events/theaters-tashkent/aladdin-and-his-magic-lamppp",
+      "source": "iticket.uz"
+    },
+    {
       "title": "Выставка «Поколение Z»",
       "titleRu": "Выставка «Поколение Z»",
       "category": "exhibition",
@@ -1599,7 +1622,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Exhibition Qimmat",
+      "title": "Выставка Qimmat",
       "titleRu": "Выставка Qimmat",
       "category": "exhibition",
       "venue": "ZanmakonТашкент, ул. Заркайнар, 48",
@@ -1621,7 +1644,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Next Market Fair",
+      "title": "Ярмарка Next Market",
       "titleRu": "Ярмарка Next Market",
       "category": "exhibition",
       "venue": null,
@@ -1632,7 +1655,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Выставка «Фотохроника XX века»",
+      "title": "Exhibition “Photochronicles of the 20th century”",
       "titleRu": "Выставка «Фотохроника XX века»",
       "category": "exhibition",
       "venue": "Bonum Factum GalleryТашкент, пер. Садыка Азимова, 20А",
@@ -1643,7 +1666,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Theater and circus show Nova Circus",
+      "title": "Театрально-цирковое шоу Nova Circus",
       "titleRu": "Театрально-цирковое шоу Nova Circus",
       "category": "kids",
       "venue": "Tashkent CityТашкент, просп. Бунёдкор",
@@ -1687,7 +1710,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Пляж Palma & Chilla в парке Milliy Bog’",
+      "title": "Palma & Chilla beach in Milliy Bog’ park",
       "titleRu": "Пляж Palma & Chilla в парке Milliy Bog’",
       "category": "festival",
       "venue": "Milliy bog‘Ташкент, ул. Сеул, 16",
@@ -1742,7 +1765,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Performance \"Aladdin and his magic lamp\"",
+      "title": "Спектакль «Аладдин и его волшебная лампа»",
       "titleRu": "Спектакль «Аладдин и его волшебная лампа»",
       "category": "theatre",
       "venue": null,
@@ -1872,7 +1895,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Exhibition Qimmat",
+      "title": "Выставка Qimmat",
       "titleRu": "Выставка Qimmat",
       "category": "exhibition",
       "venue": "ZanmakonТашкент, ул. Заркайнар, 48",
@@ -1894,7 +1917,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Next Market Fair",
+      "title": "Ярмарка Next Market",
       "titleRu": "Ярмарка Next Market",
       "category": "exhibition",
       "venue": null,
@@ -1905,7 +1928,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Выставка «Фотохроника XX века»",
+      "title": "Exhibition “Photochronicles of the 20th century”",
       "titleRu": "Выставка «Фотохроника XX века»",
       "category": "exhibition",
       "venue": "Bonum Factum GalleryТашкент, пер. Садыка Азимова, 20А",
@@ -1916,7 +1939,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Theater and circus show Nova Circus",
+      "title": "Театрально-цирковое шоу Nova Circus",
       "titleRu": "Театрально-цирковое шоу Nova Circus",
       "category": "kids",
       "venue": "Tashkent CityТашкент, просп. Бунёдкор",
@@ -1960,7 +1983,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Пляж Palma & Chilla в парке Milliy Bog’",
+      "title": "Palma & Chilla beach in Milliy Bog’ park",
       "titleRu": "Пляж Palma & Chilla в парке Milliy Bog’",
       "category": "festival",
       "venue": "Milliy bog‘Ташкент, ул. Сеул, 16",
@@ -2048,7 +2071,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Игра-тренинг по финансовой грамотности CashFlow",
+      "title": "Financial literacy training game CashFlow",
       "titleRu": "Игра-тренинг по финансовой грамотности CashFlow",
       "category": "lecture",
       "venue": null,
@@ -2124,7 +2147,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Exhibition Qimmat",
+      "title": "Выставка Qimmat",
       "titleRu": "Выставка Qimmat",
       "category": "exhibition",
       "venue": "ZanmakonТашкент, ул. Заркайнар, 48",
@@ -2146,7 +2169,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Выставка «Фотохроника XX века»",
+      "title": "Exhibition “Photochronicles of the 20th century”",
       "titleRu": "Выставка «Фотохроника XX века»",
       "category": "exhibition",
       "venue": "Bonum Factum GalleryТашкент, пер. Садыка Азимова, 20А",
@@ -2157,7 +2180,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Theater and circus show Nova Circus",
+      "title": "Театрально-цирковое шоу Nova Circus",
       "titleRu": "Театрально-цирковое шоу Nova Circus",
       "category": "kids",
       "venue": "Tashkent CityТашкент, просп. Бунёдкор",
@@ -2201,7 +2224,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Пляж Palma & Chilla в парке Milliy Bog’",
+      "title": "Palma & Chilla beach in Milliy Bog’ park",
       "titleRu": "Пляж Palma & Chilla в парке Milliy Bog’",
       "category": "festival",
       "venue": "Milliy bog‘Ташкент, ул. Сеул, 16",
@@ -2278,7 +2301,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Exhibition Qimmat",
+      "title": "Выставка Qimmat",
       "titleRu": "Выставка Qimmat",
       "category": "exhibition",
       "venue": "ZanmakonТашкент, ул. Заркайнар, 48",
@@ -2300,7 +2323,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Выставка «Фотохроника XX века»",
+      "title": "Exhibition “Photochronicles of the 20th century”",
       "titleRu": "Выставка «Фотохроника XX века»",
       "category": "exhibition",
       "venue": "Bonum Factum GalleryТашкент, пер. Садыка Азимова, 20А",
@@ -2311,7 +2334,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Theater and circus show Nova Circus",
+      "title": "Театрально-цирковое шоу Nova Circus",
       "titleRu": "Театрально-цирковое шоу Nova Circus",
       "category": "kids",
       "venue": "Tashkent CityТашкент, просп. Бунёдкор",
@@ -2355,7 +2378,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Пляж Palma & Chilla в парке Milliy Bog’",
+      "title": "Palma & Chilla beach in Milliy Bog’ park",
       "titleRu": "Пляж Palma & Chilla в парке Milliy Bog’",
       "category": "festival",
       "venue": "Milliy bog‘Ташкент, ул. Сеул, 16",
@@ -2399,7 +2422,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Theater and circus show Nova Circus",
+      "title": "Театрально-цирковое шоу Nova Circus",
       "titleRu": "Театрально-цирковое шоу Nova Circus",
       "category": "kids",
       "venue": "Tashkent CityТашкент, просп. Бунёдкор",
@@ -2443,7 +2466,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Пляж Palma & Chilla в парке Milliy Bog’",
+      "title": "Palma & Chilla beach in Milliy Bog’ park",
       "titleRu": "Пляж Palma & Chilla в парке Milliy Bog’",
       "category": "festival",
       "venue": "Milliy bog‘Ташкент, ул. Сеул, 16",
@@ -2476,7 +2499,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Игра-тренинг по финансовой грамотности CashFlow",
+      "title": "Financial literacy training game CashFlow",
       "titleRu": "Игра-тренинг по финансовой грамотности CashFlow",
       "category": "lecture",
       "venue": null,
@@ -2498,7 +2521,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Pizza making master class at Jungle Family Club",
+      "title": "Мастер-класс по приготовлению пиццы в Jungle Family Club",
       "titleRu": "Мастер-класс по приготовлению пиццы в Jungle Family Club",
       "category": "kids",
       "venue": "Jungle Family ClubТашкент, Юнусабад-12, 20А",
@@ -2520,7 +2543,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Theater and circus show Nova Circus",
+      "title": "Театрально-цирковое шоу Nova Circus",
       "titleRu": "Театрально-цирковое шоу Nova Circus",
       "category": "kids",
       "venue": "Tashkent CityТашкент, просп. Бунёдкор",
@@ -2564,7 +2587,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Пляж Palma & Chilla в парке Milliy Bog’",
+      "title": "Palma & Chilla beach in Milliy Bog’ park",
       "titleRu": "Пляж Palma & Chilla в парке Milliy Bog’",
       "category": "festival",
       "venue": "Milliy bog‘Ташкент, ул. Сеул, 16",
@@ -2608,7 +2631,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Theater and circus show Nova Circus",
+      "title": "Театрально-цирковое шоу Nova Circus",
       "titleRu": "Театрально-цирковое шоу Nova Circus",
       "category": "kids",
       "venue": "Tashkent CityТашкент, просп. Бунёдкор",
@@ -2652,7 +2675,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Пляж Palma & Chilla в парке Milliy Bog’",
+      "title": "Palma & Chilla beach in Milliy Bog’ park",
       "titleRu": "Пляж Palma & Chilla в парке Milliy Bog’",
       "category": "festival",
       "venue": "Milliy bog‘Ташкент, ул. Сеул, 16",
@@ -2717,7 +2740,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Theater and circus show Nova Circus",
+      "title": "Театрально-цирковое шоу Nova Circus",
       "titleRu": "Театрально-цирковое шоу Nova Circus",
       "category": "kids",
       "venue": "Tashkent CityТашкент, просп. Бунёдкор",
@@ -2761,7 +2784,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Пляж Palma & Chilla в парке Milliy Bog’",
+      "title": "Palma & Chilla beach in Milliy Bog’ park",
       "titleRu": "Пляж Palma & Chilla в парке Milliy Bog’",
       "category": "festival",
       "venue": "Milliy bog‘Ташкент, ул. Сеул, 16",
