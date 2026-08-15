@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-15T19:01:10.300322Z",
+  "generatedAt": "2026-08-15T19:55:07.556121Z",
   "standings": {},
   "matches": {
     "PL": {
@@ -320,37 +320,6 @@
     "PD": {
       "fixtures": [
         {
-          "utcDate": "2026-08-15T19:30:00Z",
-          "status": "TIMED",
-          "matchday": 1,
-          "homeTeam": {
-            "id": 559,
-            "name": "Sevilla FC",
-            "shortName": "Sevilla FC"
-          },
-          "awayTeam": {
-            "id": 87,
-            "name": "Rayo Vallecano de Madrid",
-            "shortName": "Rayo Vallecano"
-          },
-          "score": {
-            "winner": null,
-            "duration": "REGULAR",
-            "fullTime": {
-              "home": null,
-              "away": null
-            },
-            "halfTime": {
-              "home": null,
-              "away": null
-            }
-          },
-          "competition": {
-            "name": "Primera Division"
-          },
-          "venue": null
-        },
-        {
           "utcDate": "2026-08-16T15:00:00Z",
           "status": "TIMED",
           "matchday": 1,
@@ -599,7 +568,39 @@
           "venue": null
         }
       ],
-      "results": []
+      "results": [
+        {
+          "utcDate": "2026-08-15T17:30:00Z",
+          "status": "FINISHED",
+          "matchday": 1,
+          "homeTeam": {
+            "id": 263,
+            "name": "Deportivo Alavés",
+            "shortName": "Alavés"
+          },
+          "awayTeam": {
+            "id": 82,
+            "name": "Getafe CF",
+            "shortName": "Getafe"
+          },
+          "score": {
+            "winner": "HOME_TEAM",
+            "duration": "REGULAR",
+            "fullTime": {
+              "home": 3,
+              "away": 0
+            },
+            "halfTime": {
+              "home": 0,
+              "away": 0
+            }
+          },
+          "competition": {
+            "name": "Primera Division"
+          },
+          "venue": null
+        }
+      ]
     },
     "BL1": {
       "fixtures": [
