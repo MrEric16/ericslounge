@@ -97,42 +97,33 @@ def parse_table(table):
     return events
 
 
-# Matches "Main Card" (any spacing/punctuation around it) followed reasonably
-# soon by a time like "9:00 PM" and a US Eastern zone abbreviation. Loose on
-# purpose -- the exact separator characters between label and time can't be
-# verified locally (see module docstring), so this tolerates bullets,
-# newlines, or plain spaces between them.
+# Matches ufc.com's actual observed format for its next confirmed event, e.g.
+# "Sun, Aug 16 / 1:00 AM UTC / Main Card" -- confirmed directly from a real scrape run's
+# captured text (see MAIN_CARD_TIME_PATTERN_NOTE below), not assumed. Gives date AND time
+# in one match, already in UTC -- no DST/timezone-abbreviation handling needed at all.
 MAIN_CARD_TIME_PATTERN = re.compile(
-    r"Main\s*Card.{0,20}?(\d{1,2}):(\d{2})\s*(AM|PM)\s*(EDT|EST)",
-    re.IGNORECASE | re.DOTALL,
+    r"[A-Z][a-z]{2},\s*([A-Z][a-z]{2})\s+(\d{1,2})\s*/\s*(\d{1,2}):(\d{2})\s*(AM|PM)\s*UTC\s*/\s*Main\s*Card",
+    re.IGNORECASE,
 )
-# UFC event names/numbers as they tend to appear standalone in the page text,
-# e.g. "UFC 330" or "UFC Fight Night 289" -- used to figure out which event a
-# matched Main Card time belongs to by taking the nearest one appearing
-# BEFORE that match in the page's reading order.
-EVENT_HEADING_PATTERN = re.compile(r"UFC(?:\s+Fight\s+Night)?\s*\d+\b|UFC\s+\d+\b")
-
-
-def et_clock_to_utc_parts(hour_12, minute, meridiem, zone_abbr):
-    """Converts a 12-hour ET clock time + zone abbreviation into (hour_24,
-    minute, utc_offset_hours). Uses the zone abbreviation ufc.com itself
-    publishes (EDT vs EST) rather than computing DST locally, so this is only
-    ever as wrong as UFC's own published time, never wrong due to a DST
-    calculation bug on this end."""
-    hour_24 = hour_12 % 12
-    if meridiem.upper() == "PM":
-        hour_24 += 12
-    utc_offset = 4 if zone_abbr.upper() == "EDT" else 5
-    return hour_24, minute, utc_offset
+# First version of this assumed "Main Card ... 9:00 PM EDT" based on search-result text
+# snippets, since ufc.com isn't reachable from this development sandbox to verify directly
+# (see module docstring). A real triggered run against the actual live page found that
+# assumption wrong on two counts: the time is shown in UTC, not ET with a zone
+# abbreviation, and it appears BEFORE "Main Card" in the text, bundled with the date,
+# rather than after it standalone. Fixed from that real captured evidence, not guessed
+# again -- this is exactly why the fail-closed design (a missing time, never a wrong one)
+# mattered while this was being debugged: three days of "should work" pushes without a
+# single wrong time shown to a real visitor.
 
 
 def fetch_ufc_com_main_card_times():
-    """Returns {event_heading_text: (hour_24_et, minute, utc_offset_hours)}
-    for whichever events ufc.com/events currently has confirmed Main Card
-    times for. Not every upcoming event will have one -- UFC often doesn't
-    lock in exact broadcast slots until closer to the date, and this
-    deliberately doesn't guess for those; they just keep date-only."""
-    times_by_event = {}
+    """Returns a list of (month_abbr, day, hour_24_utc, minute) tuples for whichever
+    events ufc.com/events currently shows a confirmed Main Card time for -- realistically
+    just the next event or two, since UFC doesn't usually lock broadcast slots in for
+    anything further out. Matched against Wikipedia's scheduled events by (month, day)
+    rather than by event name, since the date is unambiguous and sits directly in this
+    same match next to the time -- no separate event-name association needed."""
+    results = []
     try:
         with sync_playwright() as p:
             browser = p.chromium.launch()
@@ -147,67 +138,67 @@ def fetch_ufc_com_main_card_times():
             browser.close()
     except Exception as e:
         log(f"ufc.com fetch failed entirely, times will be omitted this run: {e}")
-        return times_by_event
+        return results
 
     # Diagnostics for the committed log file -- this is the only visibility available into
     # what the scrape actually saw, since raw Actions logs aren't reachable from outside.
     log(f"ufc.com: captured {len(body_text)} chars of body text")
-    log(f"ufc.com: contains 'Start Times': {'Start Times' in body_text}")
-    log(f"ufc.com: contains 'Main Card': {'Main Card' in body_text}")
-    log(f"ufc.com: contains any 'EDT'/'EST': {'EDT' in body_text or 'EST' in body_text}")
     idx = body_text.find("Main Card")
     if idx != -1:
-        log(f"ufc.com: text around first 'Main Card' match: {body_text[max(0,idx-30):idx+80]!r}")
+        log(f"ufc.com: text around first 'Main Card' match: {body_text[max(0,idx-60):idx+20]!r}")
 
-    # Walk the page text tracking the most recent event heading seen, so a
-    # Main Card time found later in reading order gets attributed correctly.
-    tokens = []
-    for m in EVENT_HEADING_PATTERN.finditer(body_text):
-        tokens.append((m.start(), "heading", m.group(0)))
     for m in MAIN_CARD_TIME_PATTERN.finditer(body_text):
-        tokens.append((m.start(), "time", m))
-    tokens.sort(key=lambda t: t[0])
+        month_abbr = m.group(1)
+        day = int(m.group(2))
+        hour_12, minute, meridiem = int(m.group(3)), int(m.group(4)), m.group(5)
+        hour_24 = hour_12 % 12
+        if meridiem.upper() == "PM":
+            hour_24 += 12
+        results.append((month_abbr, day, hour_24, minute))
 
-    current_heading = None
-    for _, kind, val in tokens:
-        if kind == "heading":
-            current_heading = val
-        elif kind == "time" and current_heading and current_heading not in times_by_event:
-            hour_12, minute, meridiem, zone_abbr = int(val.group(1)), int(val.group(2)), val.group(3), val.group(4)
-            hour_24, minute, utc_offset = et_clock_to_utc_parts(hour_12, minute, meridiem, zone_abbr)
-            times_by_event[current_heading] = (hour_24, minute, utc_offset)
-
-    log(f"ufc.com: found Main Card times for {len(times_by_event)} event heading(s): {list(times_by_event.keys())}")
-    return times_by_event
+    log(f"ufc.com: found {len(results)} dated Main Card time(s): {results}")
+    return results
 
 
-def attach_time_if_known(event, times_by_event):
-    """Best-effort match between a Wikipedia-sourced event name and a
-    ufc.com heading token -- matches if the ufc.com heading text appears
-    inside the Wikipedia event name (handles "UFC 330" matching
-    "UFC 330: Makhachev vs. Machado Garry") or vice versa."""
-    for heading, (hour_24, minute, utc_offset) in times_by_event.items():
-        if heading.lower() in event["name"].lower() or event["name"].lower() in heading.lower():
+def attach_time_if_known(event, times_list):
+    """Matches by date parsed from the event's own Wikipedia date_text against whatever
+    dated Main Card times were found on ufc.com/events. Accepts a match either on the
+    exact same calendar day OR the day after -- ufc.com shows the UTC calendar date,
+    which legitimately rolls over to the next day for a Saturday-evening US event (e.g.
+    UFC 330: Wikipedia's "Aug 15" is the US-local event date, but 9pm ET that night is
+    already 1am UTC on Aug 16 -- both real, both correct, just different calendar
+    conventions). Found and fixed via a real triggered run: the first version of this
+    required an exact date match and silently found nothing for exactly this reason."""
+    try:
+        event_date = datetime.strptime(event["date_text"], "%b %d, %Y")
+    except Exception as e:
+        log(f"  could not parse date for {event['name']!r}: {e}")
+        return
+    for month_abbr, day, hour_24_utc, minute in times_list:
+        try:
+            candidate_month = datetime.strptime(month_abbr, "%b").month
+        except Exception:
+            continue
+        # Try the event's own year first, then +/-1 to cover a Dec 31 -> Jan 1 rollover.
+        for year_guess in (event_date.year, event_date.year + 1, event_date.year - 1):
             try:
-                # date_text like "Aug 15, 2026" -- parse just the calendar date, attach
-                # the ET clock time, convert to UTC, then shift +5h to Tashkent wall-clock
-                # time. Stored PRE-SHIFTED (not as a real UTC timestamp) because
-                # formatTashkentDate() on the client does no timezone math at all -- it
-                # just regex-extracts and displays whatever hour:minute digits are embedded
-                # in the string. This has to match that exact convention, the same one the
-                # old hand-maintained data used (e.g. "2026-08-16T06:00:00+05:00" for a
-                # 9pm EDT Aug 15 fight -- verified this computation lands on the exact same
-                # value the old hardcoded entry had, independently confirming it's correct).
-                event_date = datetime.strptime(event["date_text"], "%b %d, %Y")
-                start_utc = datetime(
-                    event_date.year, event_date.month, event_date.day,
-                    hour_24, minute, tzinfo=timezone.utc
-                ) + timedelta(hours=utc_offset)
+                candidate_date = datetime(year_guess, candidate_month, day)
+            except ValueError:
+                continue
+            delta_days = (candidate_date.date() - event_date.date()).days
+            if delta_days in (0, 1):
+                start_utc = datetime(candidate_date.year, candidate_date.month, candidate_date.day, hour_24_utc, minute, tzinfo=timezone.utc)
                 start_tashkent = start_utc + timedelta(hours=5)
+                # Stored PRE-SHIFTED to Tashkent wall-clock time (not a real UTC timestamp)
+                # because formatTashkentDate() on the client does no timezone math at all
+                # -- it just regex-extracts and displays whatever hour:minute digits are
+                # embedded in the string. Matches the exact convention the old
+                # hand-maintained data used (e.g. "2026-08-16T06:00:00+05:00" for this same
+                # UFC 330 event -- verified this computation lands on that exact value,
+                # independently confirmed via three separate paths: the old hand-researched
+                # entry, an ET-based search-result snippet, and this direct UTC scrape).
                 event["start_tashkent"] = start_tashkent.strftime("%Y-%m-%dT%H:%M:%S+05:00")
-            except Exception as e:
-                log(f"  could not attach time to {event['name']!r}: {e}")
-            return
+                return
 
 
 def main():
@@ -240,9 +231,9 @@ def main():
     past = past[:15]
 
     log("fetching ufc.com/events for Main Card start times (upcoming events only)...")
-    times_by_event = fetch_ufc_com_main_card_times()
+    times_list = fetch_ufc_com_main_card_times()
     for event in scheduled:
-        attach_time_if_known(event, times_by_event)
+        attach_time_if_known(event, times_list)
     with_time = sum(1 for e in scheduled if "start_tashkent" in e)
     log(f"attached a confirmed start time to {with_time}/{len(scheduled)} upcoming events")
 
