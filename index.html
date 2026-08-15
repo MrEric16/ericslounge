@@ -5871,7 +5871,11 @@ async function loadWeather(){
       `https://api.open-meteo.com/v1/forecast?latitude=${lats}&longitude=${lons}&current=temperature_2m,wind_speed_10m,weather_code&wind_speed_unit=kn`,
       { signal: controller.signal }
     );
-    if(!res.ok) throw new Error('bad response');
+    if(!res.ok){
+      let bodyText = '';
+      try{ bodyText = await res.text(); }catch(_){}
+      throw new Error(`HTTP ${res.status}${bodyText ? ': ' + bodyText.slice(0,300) : ''}`);
+    }
     const data = await res.json();
     const results = Array.isArray(data) ? data : [data];
     const rows = results.map((r, i) => {
@@ -5887,9 +5891,10 @@ async function loadWeather(){
         </div>
       `;
     }).join('');
-    card.innerHTML = rows || '<div class="otd-text">Couldn\'t load the weather — try refreshing.</div>';
+    card.innerHTML = rows || '<div class="otd-text">Couldn\'t load the weather — try refreshing.<br><span style="font-size:11px;opacity:.65;">(got a response, but no usable data in it)</span></div>';
   }catch(e){
-    card.innerHTML = '<div class="otd-text">Couldn\'t load the weather — try refreshing.</div>';
+    console.error('[weather] load failed:', e);
+    card.innerHTML = `<div class="otd-text">Couldn't load the weather — try refreshing.<br><span style="font-size:11px;opacity:.65;">(${escapeHtml(String((e && e.message) || e))})</span></div>`;
   }finally{
     clearTimeout(timeoutId);
   }
