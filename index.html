@@ -10938,7 +10938,7 @@ function mtDrawHeatmapChart(canvas, cells){
     ctx.closePath();
     ctx.fill();
 
-    const label = cell.hour === 0 ? '12a' : cell.hour < 12 ? `${cell.hour}a` : cell.hour === 12 ? '12p' : `${cell.hour-12}p`;
+    const label = cell.hour === 0 ? '12am' : cell.hour < 12 ? `${cell.hour}am` : cell.hour === 12 ? '12pm' : `${cell.hour-12}pm`;
     ctx.fillStyle = total > 0 ? 'rgba(255,255,255,0.92)' : '#856F5C';
     ctx.font = '10px sans-serif';
     ctx.textAlign = 'center';
