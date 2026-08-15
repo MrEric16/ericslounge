@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-15T14:20:31.761416+00:00",
+  "generatedAt": "2026-08-15T16:09:36.730355+00:00",
   "scheduled": [
     {
       "name": "UFC 333",
@@ -23,49 +23,57 @@
       "name": "UFC 332",
       "date_text": "Oct 3, 2026",
       "venue": "Delta Center",
-      "location": "Salt Lake City,Utah, U.S."
+      "location": "Salt Lake City,Utah, U.S.",
+      "start_tashkent": "2026-10-04T06:00:00+05:00"
     },
     {
       "name": "UFC Fight Night 289",
       "date_text": "Sep 26, 2026",
       "venue": "Meta Apex",
-      "location": "Las Vegas,Nevada, U.S."
+      "location": "Las Vegas,Nevada, U.S.",
+      "start_tashkent": "2026-09-27T03:00:00+05:00"
     },
     {
       "name": "UFC 331: Van vs. Pantoja 2",
       "date_text": "Sep 19, 2026",
       "venue": "Crypto.com Arena",
-      "location": "Los Angeles,California, U.S."
+      "location": "Los Angeles,California, U.S.",
+      "start_tashkent": "2026-09-20T06:00:00+05:00"
     },
     {
       "name": "UFC Fight Night: Rodríguez vs. Silva",
       "date_text": "Sep 12, 2026",
       "venue": "Desert Diamond Arena",
-      "location": "Glendale,Arizona, U.S."
+      "location": "Glendale,Arizona, U.S.",
+      "start_tashkent": "2026-09-13T02:00:00+05:00"
     },
     {
       "name": "UFC Fight Night: Hooker vs. Parnasse",
       "date_text": "Sep 5, 2026",
       "venue": "Accor Arena",
-      "location": "Paris, France"
+      "location": "Paris, France",
+      "start_tashkent": "2026-09-06T00:00:00+05:00"
     },
     {
       "name": "UFC Fight Night: Nurmagomedov vs. Song",
       "date_text": "Aug 29, 2026",
       "venue": "SPD Bank Oriental Sports Center",
-      "location": "Shanghai, China"
+      "location": "Shanghai, China",
+      "start_tashkent": "2026-08-29T15:00:00+05:00"
     },
     {
       "name": "UFC Fight Night: Hernandez vs. Rodrigues",
       "date_text": "Aug 22, 2026",
       "venue": "Golden 1 Center",
-      "location": "Sacramento,California, U.S."
+      "location": "Sacramento,California, U.S.",
+      "start_tashkent": "2026-08-23T05:00:00+05:00"
     },
     {
       "name": "UFC 330: Makhachev vs. Machado Garry",
       "date_text": "Aug 15, 2026",
       "venue": "Xfinity Mobile Arena",
-      "location": "Philadelphia,Pennsylvania, U.S."
+      "location": "Philadelphia,Pennsylvania, U.S.",
+      "start_tashkent": "2026-08-16T06:00:00+05:00"
     }
   ],
   "past": [

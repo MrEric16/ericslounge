@@ -5,10 +5,7 @@
 [ufc-fetch]   table preceded by/captioned: 'number of events by year'
 [ufc-fetch] fetching ufc.com/events for Main Card start times (upcoming events only)...
 [ufc-fetch] ufc.com: captured 1849 chars of body text
-[ufc-fetch] ufc.com: contains 'Start Times': False
-[ufc-fetch] ufc.com: contains 'Main Card': True
-[ufc-fetch] ufc.com: contains any 'EDT'/'EST': False
-[ufc-fetch] ufc.com: text around first 'Main Card' match: 'Y\nSun, Aug 16 / 1:00 AM UTC / Main Card\nXfinity Mobile Arena\n\nPhiladelphia\n,\nPA\n\n\nUnited States\n\nHOW TO WATCH '
-[ufc-fetch] ufc.com: found Main Card times for 0 event heading(s): []
-[ufc-fetch] attached a confirmed start time to 0/11 upcoming events
+[ufc-fetch] ufc.com: text around first 'Main Card' match: 'Next\nMAKHACHEV VS MACHADO GARRY\nSun, Aug 16 / 1:00 AM UTC / Main Card\nXfinity Mo'
+[ufc-fetch] ufc.com: found 8 dated Main Card time(s): [('Aug', 16, 1, 0), ('Aug', 23, 0, 0), ('Aug', 29, 10, 0), ('Sep', 5, 19, 0), ('Sep', 12, 21, 0), ('Sep', 20, 1, 0), ('Sep', 26, 22, 0), ('Oct', 4, 1, 0)]
+[ufc-fetch] attached a confirmed start time to 8/11 upcoming events
 [ufc-fetch] done: 11 scheduled events, 15 past events found (kept most recent slices)
