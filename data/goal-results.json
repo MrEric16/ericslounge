@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-15T21:41:37.575721Z",
+  "generatedAt": "2026-08-15T22:50:11.605431Z",
   "results": [
     {
       "url": "https://www.goal.com/en/match/girona-vs-arsenal/__LS8d9Oc6I1wXn9g8956",
@@ -148,5 +148,7 @@
       "competition": "PD"
     }
   ],
-  "scorerParseRetryCounts": {}
+  "scorerParseRetryCounts": {
+    "https://www.goal.com/en/match/sevilla-vs-rayo-vallecano/cjnWqJvXGPNH1BdoZfR1V": 1
+  }
 }
