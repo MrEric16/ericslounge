@@ -1,0 +1,36 @@
+name: Publish approved online events (every 30 min)
+
+on:
+  schedule:
+    - cron: '*/30 * * * *'
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install Python deps
+        run: pip install requests
+
+      - name: Run publisher
+        env:
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+        run: python scripts/publish_approved_events.py
+
+      - name: Commit results
+        run: |
+          git config user.name "events-bot"
+          git config user.email "actions@github.com"
+          git add data/events-virtual.json || true
+          git diff --cached --quiet && echo "No changes to commit" || git commit -m "Publish approved online events [skip ci]"
+          git pull --rebase --autostash origin main || true
+          git push
