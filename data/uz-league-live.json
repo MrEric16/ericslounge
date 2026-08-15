@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-15T11:52:55.546625Z",
+  "generatedAt": "2026-08-15T19:52:03.530655Z",
   "teams": [
     {
       "name": "Neftchi Fargona",
@@ -63,12 +63,12 @@
     },
     {
       "name": "Lok. Tashkent",
-      "pld": 16,
+      "pld": 17,
       "w": 7,
       "d": 4,
-      "l": 5,
-      "gf": 24,
-      "ga": 22,
+      "l": 6,
+      "gf": 25,
+      "ga": 24,
       "pts": 25
     },
     {
@@ -143,13 +143,13 @@
     },
     {
       "name": "Kokand 1912",
-      "pld": 16,
-      "w": 2,
+      "pld": 17,
+      "w": 3,
       "d": 6,
       "l": 8,
-      "gf": 13,
-      "ga": 24,
-      "pts": 12
+      "gf": 15,
+      "ga": 25,
+      "pts": 15
     },
     {
       "name": "Mashal Muborak",
@@ -163,6 +163,13 @@
     }
   ],
   "results": [
+    {
+      "home": "Kokand 1912",
+      "away": "Lok. Tashkent",
+      "raw_time": "15.08. 14:00",
+      "homeScore": 2,
+      "awayScore": 1
+    },
     {
       "home": "Qizilqum",
       "away": "Mashal Muborak",
@@ -295,21 +302,9 @@
       "raw_time": "02.08. 15:00",
       "homeScore": 1,
       "awayScore": 3
-    },
-    {
-      "home": "Navbahor Namangan",
-      "away": "Xorazm Urganch",
-      "raw_time": "02.08. 14:30",
-      "homeScore": 5,
-      "awayScore": 1
     }
   ],
   "fixtures": [
-    {
-      "home": "Kokand 1912",
-      "away": "Lok. Tashkent",
-      "raw_time": "15.08. 14:00"
-    },
     {
       "home": "Nasaf Qarshi",
       "away": "Pakhtakor",
@@ -404,6 +399,11 @@
       "home": "OKMK",
       "away": "Xorazm Urganch",
       "raw_time": "03.09. 15:00"
+    },
+    {
+      "home": "Nasaf Qarshi",
+      "away": "Neftchi Fargona",
+      "raw_time": "04.09. 15:00"
     }
   ]
 }
