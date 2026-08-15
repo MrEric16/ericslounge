@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex, nofollow">
-<title>Photo Review — Mr Eric's Lounge</title>
+<title>Review — Mr Eric's Lounge</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Nunito:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -85,7 +85,7 @@
     display:flex;
     justify-content:space-between;
     align-items:center;
-    margin-bottom:18px;
+    margin-bottom:14px;
   }
   .signout{
     font-family:'Space Mono', monospace;
@@ -146,12 +146,88 @@
     text-align:center;
     padding:40px 0;
   }
+  .tab-row{
+    display:flex;
+    gap:8px;
+    margin-bottom:18px;
+  }
+  .tab-btn{
+    flex:1;
+    background:var(--card);
+    color:var(--ink-soft);
+    border:1px solid var(--line);
+    border-radius:999px;
+    padding:10px;
+    font-family:'Nunito', sans-serif;
+    font-weight:700;
+    font-size:14px;
+  }
+  .tab-btn.active{
+    background:var(--coral);
+    color:#fff;
+    border-color:var(--coral);
+  }
+  .subtab-row{
+    display:flex;
+    gap:8px;
+    margin-bottom:16px;
+  }
+  .subtab-btn{
+    background:none;
+    border:none;
+    color:var(--ink-soft);
+    font-family:'Nunito', sans-serif;
+    font-weight:700;
+    font-size:13px;
+    padding:6px 4px;
+    border-bottom:2px solid transparent;
+    border-radius:0;
+  }
+  .subtab-btn.active{
+    color:var(--ink);
+    border-bottom-color:var(--coral);
+  }
+  .question-item{
+    background:var(--card);
+    border-radius:14px;
+    padding:16px;
+    margin-bottom:12px;
+    box-shadow:0 2px 0 rgba(58,42,30,.08);
+  }
+  .question-name{
+    font-family:'Baloo 2', sans-serif;
+    font-weight:700;
+    font-size:14px;
+    color:var(--coral);
+    margin-bottom:4px;
+  }
+  .question-body{
+    font-size:15px;
+    line-height:1.5;
+    white-space:pre-wrap;
+    word-break:break-word;
+  }
+  .question-meta{
+    font-family:'Space Mono', monospace;
+    font-size:11px;
+    color:var(--ink-soft);
+    margin-top:10px;
+  }
+  .question-actions{
+    margin-top:12px;
+  }
+  .btn-mark-read{
+    background:var(--teal);
+    color:#fff;
+    width:100%;
+  }
+  .btn-mark-read:disabled{ opacity:.5; }
 </style>
 </head>
 <body>
 
 <div id="loginScreen" class="login-box">
-  <h1>Photo Review</h1>
+  <h1>Review</h1>
   <input type="email" id="loginEmail" placeholder="Email" autocomplete="username">
   <input type="password" id="loginPassword" placeholder="Password" autocomplete="current-password">
   <div class="error-msg" id="loginError"></div>
@@ -161,12 +237,28 @@
 <div id="reviewScreen" class="hidden">
   <div class="topbar">
     <div>
-      <h1>Photo Review</h1>
-      <div class="sub" id="pendingCount">Loading…</div>
+      <h1>Review</h1>
+      <div class="sub" id="headerCount">Loading…</div>
     </div>
     <button class="signout" id="signOutBtn">Sign out</button>
   </div>
-  <div id="pendingContainer"><div class="loading-text">Loading pending photos…</div></div>
+
+  <div class="tab-row">
+    <button class="tab-btn active" id="tabPhotosBtn" data-tab="photos">📷 Photos</button>
+    <button class="tab-btn" id="tabQuestionsBtn" data-tab="questions">💬 Questions</button>
+  </div>
+
+  <div id="photosPanel">
+    <div id="pendingContainer"><div class="loading-text">Loading pending photos…</div></div>
+  </div>
+
+  <div id="questionsPanel" class="hidden">
+    <div class="subtab-row">
+      <button class="subtab-btn active" id="subtabUnreadBtn" data-subtab="unread">Unread</button>
+      <button class="subtab-btn" id="subtabArchiveBtn" data-subtab="archive">Archive</button>
+    </div>
+    <div id="questionsContainer"><div class="loading-text">Loading questions…</div></div>
+  </div>
 </div>
 
 <script>
@@ -180,7 +272,13 @@ const reviewScreen = document.getElementById('reviewScreen');
 const loginBtn = document.getElementById('loginBtn');
 const loginError = document.getElementById('loginError');
 const pendingContainer = document.getElementById('pendingContainer');
-const pendingCount = document.getElementById('pendingCount');
+const questionsContainer = document.getElementById('questionsContainer');
+const headerCount = document.getElementById('headerCount');
+const photosPanel = document.getElementById('photosPanel');
+const questionsPanel = document.getElementById('questionsPanel');
+
+let activeTab = 'photos';
+let activeQuestionsSubtab = 'unread';
 
 function escapeHtml(s){
   const d = document.createElement('div');
@@ -204,7 +302,7 @@ function showLogin(){
 function showReview(){
   loginScreen.classList.add('hidden');
   reviewScreen.classList.remove('hidden');
-  loadPending();
+  loadActivePanel();
 }
 
 loginBtn.addEventListener('click', async ()=>{
@@ -228,6 +326,30 @@ document.getElementById('signOutBtn').addEventListener('click', async ()=>{
   showLogin();
 });
 
+document.getElementById('tabPhotosBtn').addEventListener('click', ()=> switchTab('photos'));
+document.getElementById('tabQuestionsBtn').addEventListener('click', ()=> switchTab('questions'));
+document.getElementById('subtabUnreadBtn').addEventListener('click', ()=> switchQuestionsSubtab('unread'));
+document.getElementById('subtabArchiveBtn').addEventListener('click', ()=> switchQuestionsSubtab('archive'));
+
+function switchTab(tab){
+  activeTab = tab;
+  document.getElementById('tabPhotosBtn').classList.toggle('active', tab === 'photos');
+  document.getElementById('tabQuestionsBtn').classList.toggle('active', tab === 'questions');
+  photosPanel.classList.toggle('hidden', tab !== 'photos');
+  questionsPanel.classList.toggle('hidden', tab !== 'questions');
+  loadActivePanel();
+}
+function switchQuestionsSubtab(subtab){
+  activeQuestionsSubtab = subtab;
+  document.getElementById('subtabUnreadBtn').classList.toggle('active', subtab === 'unread');
+  document.getElementById('subtabArchiveBtn').classList.toggle('active', subtab === 'archive');
+  loadQuestions();
+}
+function loadActivePanel(){
+  if(activeTab === 'photos') loadPending();
+  else loadQuestions();
+}
+
 async function loadPending(){
   pendingContainer.innerHTML = '<div class="loading-text">Loading pending photos…</div>';
   const { data: files, error } = await sb.storage.from(BUCKET).list('pending', {
@@ -236,13 +358,13 @@ async function loadPending(){
   });
   if(error){
     pendingContainer.innerHTML = '<div class="empty-card">Couldn\'t load photos — check your connection and reload.</div>';
-    pendingCount.textContent = 'Error';
+    headerCount.textContent = 'Error';
     return;
   }
   const realFiles = (files || []).filter(f => f.name && !f.name.startsWith('.'));
-  pendingCount.textContent = realFiles.length === 0
+  headerCount.textContent = realFiles.length === 0
     ? 'Nothing waiting'
-    : `${realFiles.length} waiting for review`;
+    : `${realFiles.length} photo${realFiles.length===1?'':'s'} waiting for review`;
   if(realFiles.length === 0){
     pendingContainer.innerHTML = '<div class="empty-card">No pending photos right now.</div>';
     return;
@@ -266,12 +388,12 @@ async function loadPending(){
   pendingContainer.querySelectorAll('.pending-item').forEach(el=>{
     const name = el.dataset.name;
     el.querySelectorAll('button').forEach(btn=>{
-      btn.addEventListener('click', ()=> handleAction(name, btn.dataset.action, el));
+      btn.addEventListener('click', ()=> handlePhotoAction(name, btn.dataset.action, el));
     });
   });
 }
 
-async function handleAction(name, action, el){
+async function handlePhotoAction(name, action, el){
   el.querySelectorAll('button').forEach(b=> b.disabled = true);
   const fromPath = 'pending/' + name;
   try{
@@ -285,12 +407,75 @@ async function handleAction(name, action, el){
     }
     el.remove();
     const remaining = pendingContainer.querySelectorAll('.pending-item').length;
-    pendingCount.textContent = remaining === 0 ? 'Nothing waiting' : `${remaining} waiting for review`;
+    headerCount.textContent = remaining === 0 ? 'Nothing waiting' : `${remaining} photo${remaining===1?'':'s'} waiting for review`;
     if(remaining === 0){
       pendingContainer.innerHTML = '<div class="empty-card">No pending photos right now.</div>';
     }
   }catch(e){
     el.querySelectorAll('button').forEach(b=> b.disabled = false);
+    alert('Something went wrong — try again.');
+  }
+}
+
+// Questions: anyone can INSERT (that's how the public "Have a question?" box on the main
+// site works), but only this authenticated session can SELECT/UPDATE them -- same
+// public-write/private-read split as the photo pending/approved folders, just on a table
+// instead of storage. "Mark as read" sets is_read=true rather than deleting, so there's a
+// real archive to look back through, not a one-shot inbox.
+async function loadQuestions(){
+  questionsContainer.innerHTML = '<div class="loading-text">Loading questions…</div>';
+  const { data: rows, error } = await sb.from('questions')
+    .select('*')
+    .eq('is_read', activeQuestionsSubtab === 'archive')
+    .order('created_at', { ascending: false })
+    .limit(300);
+  if(error){
+    questionsContainer.innerHTML = '<div class="empty-card">Couldn\'t load questions — check your connection and reload.</div>';
+    headerCount.textContent = 'Error';
+    return;
+  }
+  if(activeTab === 'questions'){
+    headerCount.textContent = rows.length === 0
+      ? (activeQuestionsSubtab === 'unread' ? 'Nothing new' : 'Archive is empty')
+      : `${rows.length} question${rows.length===1?'':'s'}${activeQuestionsSubtab === 'unread' ? ' waiting' : ' archived'}`;
+  }
+  if(rows.length === 0){
+    questionsContainer.innerHTML = `<div class="empty-card">${activeQuestionsSubtab === 'unread' ? 'No new questions right now.' : 'No archived questions yet.'}</div>`;
+    return;
+  }
+  questionsContainer.innerHTML = rows.map(q => `
+    <div class="question-item" data-id="${escapeHtml(q.id)}">
+      <div class="question-name">${q.name ? escapeHtml(q.name) : 'Anonymous'}</div>
+      <div class="question-body">${escapeHtml(q.body)}</div>
+      <div class="question-meta">${q.created_at ? new Date(q.created_at).toLocaleString() : ''}</div>
+      ${activeQuestionsSubtab === 'unread' ? `
+        <div class="question-actions">
+          <button class="btn-mark-read" data-action="mark-read">Mark as read</button>
+        </div>
+      ` : ''}
+    </div>
+  `).join('');
+  questionsContainer.querySelectorAll('.question-item').forEach(el=>{
+    const btn = el.querySelector('[data-action="mark-read"]');
+    if(btn) btn.addEventListener('click', ()=> handleMarkRead(el.dataset.id, el, btn));
+  });
+}
+
+async function handleMarkRead(id, el, btn){
+  btn.disabled = true;
+  btn.textContent = 'Marking…';
+  try{
+    const { error } = await sb.from('questions').update({ is_read: true }).eq('id', id);
+    if(error) throw error;
+    el.remove();
+    const remaining = questionsContainer.querySelectorAll('.question-item').length;
+    headerCount.textContent = remaining === 0 ? 'Nothing new' : `${remaining} question${remaining===1?'':'s'} waiting`;
+    if(remaining === 0){
+      questionsContainer.innerHTML = '<div class="empty-card">No new questions right now.</div>';
+    }
+  }catch(e){
+    btn.disabled = false;
+    btn.textContent = 'Mark as read';
     alert('Something went wrong — try again.');
   }
 }
