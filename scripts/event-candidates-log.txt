@@ -1,4 +1,3 @@
-[event-candidates] could not read existing pending_events, proceeding with an empty set: 401 Client Error: Unauthorized for url: https://uugjyucgeyopyvmhckdg.supabase.co/rest/v1/pending_events?select=title,start_date
 [event-candidates] 21 already published, 0 already pending review
 [event-candidates] NASA live page: found 0 raw candidate(s)
 [event-candidates] done: queued 0 new candidate(s) for review
