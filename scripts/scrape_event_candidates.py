@@ -48,6 +48,92 @@ def log(msg):
     print(f"[event-candidates] {msg}", flush=True)
 
 
+NGA_NEWS_URL = "https://www.nga.gov/research/center/news-center"
+NGA_DATE_PATTERN = re.compile(r"([A-Z][a-z]{2,8})\s+(\d{1,2})(?:[\u2013\-]\d{1,2})?,\s*(\d{4})")
+NGA_HEADING_PATTERN = re.compile(r"^(.+?)\s*:\s*(.+)$")
+
+
+def fetch_nga_candidates():
+    """Covers art specifically, per Mr Eric's explicit ask. Confirmed real structure via
+    direct fetch (2026-08-16), not guessed from a search snippet: each program entry is a
+    heading link reading 'DATE : TITLE', followed by a description paragraph. The feed
+    mixes genuinely virtual events ("This virtual panel...") with DC-only in-person ones
+    (a bookstore book launch, gallery lecture hall talks) -- there's no single reliable
+    online/in-person flag field, so only entries whose own title or description text
+    explicitly says "virtual" or "online" are queued. Conservative on purpose: missing an
+    ambiguous hybrid event is a much smaller problem than flooding the review queue with
+    DC-only events Mr Eric's students can't actually attend."""
+    candidates = []
+    try:
+        r = requests.get(NGA_NEWS_URL, headers={"User-Agent": "Mozilla/5.0 (compatible; EricsLoungeBot/1.0)"}, timeout=30)
+        r.raise_for_status()
+        text = r.text
+    except Exception as e:
+        log(f"NGA page fetch failed: {e}")
+        return candidates
+
+    log(f"NGA page: captured {len(text)} chars")
+
+    soup = BeautifulSoup(text, "html.parser")
+    headings = soup.find_all(["h2", "h3"])
+    log(f"NGA page: found {len(headings)} h2/h3 headings to check")
+    now = datetime.now(timezone.utc)
+
+    checked = 0
+    for h in headings:
+        a = h.find("a")
+        if not a:
+            continue
+        heading_text = a.get_text(strip=True)
+        m = NGA_HEADING_PATTERN.match(heading_text)
+        if not m:
+            continue
+        date_part, title = m.groups()
+        date_match = NGA_DATE_PATTERN.search(date_part)
+        if not date_match:
+            continue
+        checked += 1
+
+        desc_el = h.find_next_sibling("p")
+        description = desc_el.get_text(strip=True) if desc_el else ""
+        combined = f"{title} {description}".lower()
+        if "virtual" not in combined and "online" not in combined:
+            continue
+
+        month_name, day, year = date_match.groups()
+        try:
+            candidate_date = datetime.strptime(f"{month_name} {day} {year}", "%B %d %Y")
+        except ValueError:
+            try:
+                candidate_date = datetime.strptime(f"{month_name} {day} {year}", "%b %d %Y")
+            except ValueError:
+                continue
+        if candidate_date.date() < now.date():
+            continue  # NGA's feed includes recent past events too, only want upcoming
+
+        url = a.get("href", "")
+        if url.startswith("/"):
+            url = "https://www.nga.gov" + url
+
+        candidates.append({
+            "title": title.strip()[:200],
+            "org": "National Gallery of Art",
+            "description": description.strip()[:500],
+            "start_date": candidate_date.strftime("%Y-%m-%d"),
+            "time_text": "",
+            "category": "culture",
+            "url": url or NGA_NEWS_URL,
+            "source": "NGA News from the Center",
+        })
+
+    log(f"NGA page: checked {checked} dated headings, found {len(candidates)} explicitly-virtual/online candidate(s)")
+    return candidates
+
+
+def fetch_all_candidates():
+    return fetch_nasa_candidates() + fetch_nga_candidates()
+
+
 MONTHS = {
     'jan':1,'feb':2,'mar':3,'apr':4,'may':5,'jun':6,
     'jul':7,'aug':8,'sep':9,'oct':10,'nov':11,'dec':12,
@@ -184,7 +270,7 @@ def main():
     now = datetime.now(timezone.utc)
     window_end = now + timedelta(days=WINDOW_DAYS)
 
-    all_candidates = fetch_nasa_candidates()
+    all_candidates = fetch_all_candidates()
 
     queued = 0
     for c in all_candidates:
