@@ -1,6 +1,18 @@
 {
-  "generatedAt": "2026-08-15T16:09:36.730355+00:00",
+  "generatedAt": "2026-08-16T05:03:00.502038+00:00",
   "scheduled": [
+    {
+      "name": "UFC Fight Night 293",
+      "date_text": "Nov 7, 2026",
+      "venue": "Meta Apex",
+      "location": "Las Vegas,Nevada, U.S."
+    },
+    {
+      "name": "UFC Fight Night 292",
+      "date_text": "Oct 31, 2026",
+      "venue": "[14]",
+      "location": null
+    },
     {
       "name": "UFC 333",
       "date_text": "Oct 24, 2026",
@@ -11,7 +23,8 @@
       "name": "UFC Fight Night: Buckley vs. Malott",
       "date_text": "Oct 17, 2026",
       "venue": "Rogers Place",
-      "location": "Edmonton, Alberta, Canada"
+      "location": "Edmonton, Alberta, Canada",
+      "start_tashkent": "2026-10-18T05:00:00+05:00"
     },
     {
       "name": "UFC Fight Night 290",
@@ -67,16 +80,15 @@
       "venue": "Golden 1 Center",
       "location": "Sacramento,California, U.S.",
       "start_tashkent": "2026-08-23T05:00:00+05:00"
-    },
+    }
+  ],
+  "past": [
     {
       "name": "UFC 330: Makhachev vs. Machado Garry",
       "date_text": "Aug 15, 2026",
       "venue": "Xfinity Mobile Arena",
-      "location": "Philadelphia,Pennsylvania, U.S.",
-      "start_tashkent": "2026-08-16T06:00:00+05:00"
-    }
-  ],
-  "past": [
+      "location": "Philadelphia,Pennsylvania, U.S."
+    },
     {
       "name": "UFC Fight Night: Gamrot vs. Salkilld",
       "date_text": "Aug 8, 2026",
@@ -160,12 +172,6 @@
       "date_text": "Apr 25, 2026",
       "venue": "Meta Apex",
       "location": "Las Vegas,Nevada, U.S."
-    },
-    {
-      "name": "UFC Fight Night: Burns vs. Malott",
-      "date_text": "Apr 18, 2026",
-      "venue": "Canada Life Centre",
-      "location": "Winnipeg,Manitoba, Canada"
     }
   ]
 }
