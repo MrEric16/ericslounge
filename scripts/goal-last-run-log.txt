@@ -2,9 +2,10 @@
 [goal-scraper] [arsenal-friendlies] Found 1 finished-match links
 [goal-scraper] WARNING: could not assign scorer 'M. Oedegaard' to home or away for https://www.goal.com/en/match/arsenal-vs-manchester-city/lZfyVHjJi35hsXNan4MA0
 [goal-scraper] WARNING: Arsenal scored 3 but 0 scorers were parsed for https://www.goal.com/en/match/arsenal-vs-manchester-city/lZfyVHjJi35hsXNan4MA0
-[goal-scraper] [arsenal-friendlies] SCORER PARSE FAILED (attempt 1/3) for Arsenal 3-0 Manchester City -- NOT committing, will retry next run: https://www.goal.com/en/match/arsenal-vs-manchester-city/lZfyVHjJi35hsXNan4MA0
+[goal-scraper] [arsenal-friendlies] SCORER PARSE FAILED (attempt 2/3) for Arsenal 3-0 Manchester City -- NOT committing, will retry next run: https://www.goal.com/en/match/arsenal-vs-manchester-city/lZfyVHjJi35hsXNan4MA0
 [goal-scraper] [PL] Found 0 finished-match links
-[goal-scraper] [PD] Found 2 finished-match links
+[goal-scraper] [PD] Found 3 finished-match links
+[goal-scraper] [PD] Added: Racing Santander 2-2 Villarreal
 [goal-scraper] [BL1] Found 0 finished-match links
 [goal-scraper] [SA] Found 0 finished-match links
 [goal-scraper] [FL1] Found 0 finished-match links
@@ -14,6 +15,6 @@
 [goal-scraper] WARNING: Paris Saint Germain scored 1 but 0 scorers were parsed for https://www.goal.com/en/match/paris-saint-germain-vs-arsenal/ugWugY2_bPeXkOmUCLC9s
 [goal-scraper] WARNING: Arsenal scored 1 but 0 scorers were parsed for https://www.goal.com/en/match/paris-saint-germain-vs-arsenal/ugWugY2_bPeXkOmUCLC9s
 [goal-scraper] [CL] Skipping stale match (older than 45 days): Paris Saint Germain vs Arsenal on 2026-05-30
-[goal-scraper] TOTAL new results added this run: 0
+[goal-scraper] TOTAL new results added this run: 1
 [goal-scraper] Matches still awaiting a clean scorer parse (not yet committed): ['https://www.goal.com/en/match/arsenal-vs-manchester-city/lZfyVHjJi35hsXNan4MA0']
 [goal-scraper] Wrote data/goal-results.json

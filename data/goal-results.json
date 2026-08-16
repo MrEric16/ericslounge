@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-16T16:54:52.871429Z",
+  "generatedAt": "2026-08-16T17:40:05.639907Z",
   "results": [
     {
       "url": "https://www.goal.com/en/match/girona-vs-arsenal/__LS8d9Oc6I1wXn9g8956",
@@ -164,9 +164,40 @@
         }
       ],
       "competition": "PD"
+    },
+    {
+      "url": "https://www.goal.com/en/match/racing-santander-vs-villarreal/IpaB4xDohdKA1rY5SVWQc",
+      "date": "2026-08-16",
+      "home": "Racing Santander",
+      "away": "Villarreal",
+      "htHome": 2,
+      "htAway": 2,
+      "ftHome": 2,
+      "ftAway": 2,
+      "homeGoals": [
+        {
+          "scorer": "S. Martinez",
+          "minute": 34
+        }
+      ],
+      "awayGoals": [
+        {
+          "scorer": "A. Martin",
+          "minute": 21
+        },
+        {
+          "scorer": "P. Gueye",
+          "minute": 45
+        },
+        {
+          "scorer": "N. Pepe",
+          "minute": 45
+        }
+      ],
+      "competition": "PD"
     }
   ],
   "scorerParseRetryCounts": {
-    "https://www.goal.com/en/match/arsenal-vs-manchester-city/lZfyVHjJi35hsXNan4MA0": 1
+    "https://www.goal.com/en/match/arsenal-vs-manchester-city/lZfyVHjJi35hsXNan4MA0": 2
   }
 }
