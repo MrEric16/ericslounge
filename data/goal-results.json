@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-15T23:40:48.224694Z",
+  "generatedAt": "2026-08-16T03:16:12.762324Z",
   "results": [
     {
       "url": "https://www.goal.com/en/match/girona-vs-arsenal/__LS8d9Oc6I1wXn9g8956",
@@ -146,9 +146,25 @@
         }
       ],
       "competition": "PD"
+    },
+    {
+      "url": "https://www.goal.com/en/match/sevilla-vs-rayo-vallecano/cjnWqJvXGPNH1BdoZfR1V",
+      "date": "2026-08-15",
+      "home": "Sevilla",
+      "away": "Rayo Vallecano",
+      "htHome": 0,
+      "htAway": 1,
+      "ftHome": 2,
+      "ftAway": 1,
+      "homeGoals": [],
+      "awayGoals": [
+        {
+          "scorer": "A. Garcia",
+          "minute": 4
+        }
+      ],
+      "competition": "PD"
     }
   ],
-  "scorerParseRetryCounts": {
-    "https://www.goal.com/en/match/sevilla-vs-rayo-vallecano/cjnWqJvXGPNH1BdoZfR1V": 2
-  }
+  "scorerParseRetryCounts": {}
 }
