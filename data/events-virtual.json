@@ -1,5 +1,5 @@
 {
-  "curatedAt": "2026-08-15",
+  "curatedAt": "2026-08-16",
   "note": "Manually curated and vetted by Claude per Mr Eric's strict content rules (free, educational, non-controversial, teen-appropriate, zero tolerance for banned topics). Refreshed on request, not auto-scraped -- this content type requires human judgment per-item, unlike the Tashkent ticketing feed.",
   "dated": [
     {
@@ -75,6 +75,15 @@
       "url": "https://www.nasa.gov/live/"
     },
     {
+      "title": "Identity Access Management & Security",
+      "org": "ActualTech Media",
+      "description": "Free industry webinar on identity access management and security practices.",
+      "startDate": "2026-08-18",
+      "time": "12:00 PM EDT",
+      "category": "it",
+      "url": "https://events.actualtechmedia.com/"
+    },
+    {
       "title": "NASA CTE Day: Armstrong Flight Research Center",
       "org": "NASA",
       "description": "Live virtual panel with NASA professionals on technical career pathways -- aviation mechanics, welding, and more.",
@@ -82,6 +91,24 @@
       "time": "Time TBD (check registration page)",
       "category": "careers",
       "url": "https://stemgateway.nasa.gov/s/course-offering/a0BSJ000006rIEf/virtual-event-nasas-cte-day-at-armstrong-flight-research-center"
+    },
+    {
+      "title": "Cloud Native, Hybrid Cloud & Multi-Cloud Infrastructure",
+      "org": "ActualTech Media",
+      "description": "Free industry webinar on cloud native architecture, hybrid cloud, and multi-cloud infrastructure modernization.",
+      "startDate": "2026-08-19",
+      "time": "3:00 PM EDT",
+      "category": "technology",
+      "url": "https://events.actualtechmedia.com/"
+    },
+    {
+      "title": "Introduction to Congress.gov",
+      "org": "Library of Congress",
+      "description": "Basic overview of Congress.gov, covering how to search legislation and find congressional member information -- a neutral research-tool walkthrough, not a policy or opinion session.",
+      "startDate": "2026-08-20",
+      "time": "2:00 PM ET",
+      "category": "jurisprudence",
+      "url": "https://www.loc.gov/law/"
     },
     {
       "title": "NASA CTE Day: Johnson Space Center",
