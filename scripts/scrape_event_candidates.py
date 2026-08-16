@@ -139,6 +139,59 @@ def fetch_all_candidates():
     return fetch_nasa_candidates() + fetch_nga_candidates()
 
 
+MANUAL_CANDIDATES = [
+    {
+        "title": "SfN Webinar",
+        "org": "Society for Neuroscience",
+        "description": "Live neuroscience research webinar, free and open registration.",
+        "start_date": "2026-08-19",
+        "time_text": "12:00 PM UTC",
+        "category": "psychology",
+        "url": "https://my.sfn.org/Events/Webinars",
+        "source": "Manual search, SfN webinars page",
+    },
+    {
+        "title": "Building the Dynamic Enterprise: 3 Actions for MSE CIOs to Move From Technology Ownership to Orchestration",
+        "org": "Gartner",
+        "description": "Free webinar on enterprise technology strategy for mid-size enterprise CIOs.",
+        "start_date": "2026-08-20",
+        "time_text": "10:00 AM EDT",
+        "category": "business",
+        "url": "https://www.gartner.com/en/webinars",
+        "source": "Manual search, Gartner webinars page",
+    },
+    {
+        "title": "The Art of Destination Recommendation: Alternative Destination Strategies for Travel Advisors",
+        "org": "Travel Weekly",
+        "description": "Free industry webinar exploring how to recommend travel destinations, including ones the presenter hasn't personally visited, based on traveler research.",
+        "start_date": "2026-08-18",
+        "time_text": "2:00 PM Eastern",
+        "category": "environment",
+        "url": "https://www.travelweekly.com/Virtual-Events",
+        "source": "Manual search, Travel Weekly virtual events page",
+    },
+]
+
+
+def queue_manual_candidates():
+    published_keys = load_existing_published_keys()
+    pending_keys = load_existing_pending_keys()
+    already_seen = published_keys | pending_keys
+    queued = 0
+    for c in MANUAL_CANDIDATES:
+        key = dedup_key(c["title"], c["start_date"])
+        if key in already_seen:
+            log(f"  manual candidate already queued/published, skipping: {c['title']!r}")
+            continue
+        try:
+            insert_candidate(c)
+            queued += 1
+            log(f"  queued manual candidate: {c['title']!r} ({c['start_date']})")
+        except Exception as e:
+            log(f"  could not queue manual candidate {c['title']!r}: {e}")
+    log(f"manual candidates: queued {queued}/{len(MANUAL_CANDIDATES)}")
+
+
 MONTHS = {
     'jan':1,'feb':2,'mar':3,'apr':4,'may':5,'jun':6,
     'jul':7,'aug':8,'sep':9,'oct':10,'nov':11,'dec':12,
@@ -266,6 +319,8 @@ def main():
     if not SUPABASE_SERVICE_ROLE_KEY:
         log("SUPABASE_SERVICE_ROLE_KEY is not set -- nothing to do, exiting without error so the workflow doesn't show a false failure before the secret is configured")
         return
+
+    queue_manual_candidates()
 
     published_keys = load_existing_published_keys()
     pending_keys = load_existing_pending_keys()
