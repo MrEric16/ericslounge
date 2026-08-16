@@ -20,7 +20,7 @@ client already knows how to render (see uzMatchToRow's row shape in index.html).
 import json
 import os
 import re
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 
 import requests
 from bs4 import BeautifulSoup
@@ -84,61 +84,44 @@ MONTHS_NUM = re.compile(r"(\d{2})\.(\d{2})\.(\d{4})")
 
 
 def parse_matches(soup):
-    """Matchday rows: a date header ("dd.mm.yyyy") followed by match rows each containing
-    two team links, a time (HH:MM), and a score cell ("-:-" for not-yet-played, "N:N" once
-    finished). Parsed by walking table rows in document order and tracking the most recent
-    date header seen, since date and match rows share the same table with no per-row date
-    field of their own."""
+    """Confirmed real structure (2026-08-16): each match is a
+    <div data-match_id="..." data-datetime="2026-08-14T14:10:00Z" data-liveticker-status="result" ...>
+    containing team names in .team-name-home / .team-name-away and the score as the link
+    text inside .match-result (e.g. "2:2", or "-:-" for a match not yet played).
+    data-datetime is a real UTC ISO timestamp, which is a much more reliable time source
+    than parsing the separately-displayed "16:10" local-time text would be."""
     matches = []
-    current_date = None
-    date_pattern = re.compile(r"^\d{2}\.\d{2}\.\d{4}$")
-    time_pattern = re.compile(r"^\d{1,2}:\d{2}$")
-
-    for row in soup.find_all("tr"):
-        cells = row.find_all("td")
-        row_text_cells = [c.get_text(strip=True) for c in cells]
-
-        for t in row_text_cells:
-            if date_pattern.match(t):
-                current_date = t
-
-        team_links = [l for l in row.find_all("a", href=re.compile(r"/teams/te\d+/")) if l.get_text(strip=True)]
-        if len(team_links) < 2 or not current_date:
+    for div in soup.find_all("div", attrs={"data-match_id": True}):
+        home_el = div.select_one(".team-name-home a")
+        away_el = div.select_one(".team-name-away a")
+        if not home_el or not away_el:
             continue
-
-        home_name = team_links[0].get_text(strip=True)
-        away_name = team_links[-1].get_text(strip=True)
+        home_name = home_el.get_text(strip=True)
+        away_name = away_el.get_text(strip=True)
         if not home_name or not away_name:
             continue
 
-        time_text = next((t for t in row_text_cells if time_pattern.match(t)), None)
-        score_link = row.find("a", href=re.compile(r"/match-report/"))
-        score_text = score_link.get_text(strip=True) if score_link else None
-
-        dd, mm, yyyy = current_date.split(".")
-        date_iso = f"{yyyy}-{mm}-{dd}"
-        hh, mi = (time_text.split(":") if time_text else ("00", "00"))
-        # worldfootball.net's displayed kickoff times (e.g. 16:10, 18:45) match exactly
-        # against the previously hand-verified Tashkent times for this same Matchday 1
-        # (checked against TNT Sports' own listing in an earlier session) -- treated as
-        # already Tashkent-equivalent on that basis, not assumed. Logged below so this can
-        # be re-checked against the diagnostic output rather than trusted blindly going
-        # forward as new matchdays appear.
-        start = f"{date_iso}T{hh.zfill(2)}:{mi}:00+05:00"
+        dt_utc = div.get("data-datetime", "")
+        m = re.match(r"(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2})", dt_utc)
+        if not m:
+            continue
+        year, month, day, hour, minute = m.groups()
+        utc_dt = datetime(int(year), int(month), int(day), int(hour), int(minute), tzinfo=timezone.utc)
+        tashkent_dt = utc_dt + timedelta(hours=5)
+        start = tashkent_dt.strftime("%Y-%m-%dT%H:%M:00+05:00")
 
         entry = {"home": home_name, "away": away_name, "start": start}
 
-        if score_text and re.match(r"^-?\d+:-?\d+$", score_text):
+        status = div.get("data-liveticker-status", "")
+        score_el = div.select_one(".match-result a")
+        score_text = score_el.get_text(strip=True) if score_el else ""
+        if status == "result" and re.match(r"^-?\d+:-?\d+$", score_text):
             h, a = score_text.split(":")
-            try:
-                entry["homeScore"] = int(h)
-                entry["awayScore"] = int(a)
-                entry["finished"] = True
-            except ValueError:
-                pass
+            entry["homeScore"] = int(h)
+            entry["awayScore"] = int(a)
+            entry["finished"] = True
 
         matches.append(entry)
-
     return matches
 
 
@@ -169,12 +152,10 @@ def main():
 
     matches = parse_matches(soup)
     log(f"parsed {len(matches)} match row(s)")
+    for m in matches:
+        log(f"  match: {m}")
     if not matches:
-        match_div = soup.find("div", attrs={"data-match_id": True})
-        if match_div:
-            log(f"WARNING: 0 match rows -- full first match div: {str(match_div)[:3000]!r}")
-        else:
-            log("WARNING: 0 match rows -- and no div with data-match_id found at all")
+        log("WARNING: 0 match rows -- page structure may have changed since this was last verified")
 
     fixtures = [m for m in matches if not m.get("finished")]
     results = [m for m in matches if m.get("finished")]
