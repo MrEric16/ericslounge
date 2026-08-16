@@ -1,1 +1,7 @@
-[uae-league] fetch failed: 403 Client Error: Forbidden for url: https://www.worldfootball.net/competition/co1183/ua-emirates-uae-pro-league/
+[uae-league] captured 27661 chars
+[uae-league] parsed 0 standings row(s)
+[uae-league] WARNING: 0 standings rows -- page structure may not match what this parser expects, sample: '<!DOCTYPE html><html lang="en-US" dir="ltr"><head><title>Just a moment...</title><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=Edge"><meta name="robots" content="noindex,nofollow"><meta name="viewport" content="width=device-width,initial-scale=1"><meta http-equiv="content-security-policy" content="default-src \'none\'; script-src \'nonce-YtsziIeLYOH8Hg34ohG7ep\' \'unsafe-eval\' https://challenges.cloudflare.com; script-src-attr \'none\''
+[uae-league] parsed 0 match row(s)
+[uae-league] WARNING: 0 match rows -- page structure may not match what this parser expects
+[uae-league] 0 fixture(s), 0 result(s)
+[uae-league] wrote data/uae-league-live.json
