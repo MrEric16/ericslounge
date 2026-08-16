@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-16T10:03:26.945043Z",
+  "generatedAt": "2026-08-16T13:50:53.698430Z",
   "events": [
     {
       "title": "Live Music Night in Central Park",
@@ -27,7 +27,7 @@
       "title": "Amirsoy Paradiso",
       "titleRu": null,
       "category": "concert",
-      "venue": "Отель Узбекистан Amirsoy Resort",
+      "venue": "Amirsoy Resort",
       "startDate": "2026-08-16",
       "endDate": null,
       "url": "https://iticket.uz/en/events/concerts/amirsoy-paradiso",
@@ -111,14 +111,15 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Extraordinary Musicians",
-      "titleRu": null,
+      "title": "Performance “Extraordinary Musicians”",
+      "titleRu": "Спектакль «Необыкновенные музыканты»",
       "category": "theatre",
       "venue": null,
       "startDate": "2026-08-16",
       "endDate": null,
-      "url": "https://iticket.uz/en/events/theaters-tashkent/extraordinary-musicians2",
-      "source": "iticket.uz"
+      "time": "17:00",
+      "url": "https://www.afisha.uz/ru/theatres/2026/08/07/neobyknovennye-muzykanty-silk-route",
+      "source": "afisha.uz (calendar)"
     },
     {
       "title": "Performance “Lullaby for Snow White”",
@@ -325,7 +326,7 @@
       "venue": "Your time your lifeТашкент, пер. Пушкина, 7",
       "startDate": "2026-08-16",
       "endDate": null,
-      "time": "13:00",
+      "time": "17:00",
       "url": "https://www.afisha.uz/ru/znaniya/2026/08/05/your-time-your-life-avgust-2026",
       "source": "afisha.uz (calendar)"
     },
@@ -363,6 +364,16 @@
       "source": "afisha.uz (calendar)"
     },
     {
+      "title": "Love Legend",
+      "titleRu": null,
+      "category": "concert",
+      "venue": "Концертный Зал Мароканд",
+      "startDate": "2026-08-16",
+      "endDate": null,
+      "url": "https://iticket.uz/en/events/concerts/love-legend",
+      "source": "iticket.uz"
+    },
+    {
       "title": "ЛАБОРАТОРИЯ «СССР»",
       "titleRu": null,
       "category": "concert",
@@ -390,16 +401,6 @@
       "startDate": "2026-08-16",
       "endDate": null,
       "url": "https://iticket.uz/en/events/concerts/peshera-sokrovish",
-      "source": "iticket.uz"
-    },
-    {
-      "title": "Love Legend",
-      "titleRu": null,
-      "category": "concert",
-      "venue": "Концертный Зал Мароканд",
-      "startDate": "2026-08-16",
-      "endDate": null,
-      "url": "https://iticket.uz/en/events/concerts/love-legend",
       "source": "iticket.uz"
     },
     {
