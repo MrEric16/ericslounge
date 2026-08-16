@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-16T16:55:00.107902Z",
+  "generatedAt": "2026-08-16T17:40:47.208085Z",
   "standings": {
     "PD": [
       {
@@ -20,6 +20,16 @@
         "l": 0,
         "gf": 2,
         "ga": 1,
+        "pts": 3
+      },
+      {
+        "name": "Espanyol",
+        "pld": 1,
+        "w": 1,
+        "d": 0,
+        "l": 0,
+        "gf": 1,
+        "ga": 0,
         "pts": 3
       },
       {
@@ -93,27 +103,7 @@
         "pts": 0
       },
       {
-        "name": "Espanyol",
-        "pld": 0,
-        "w": 0,
-        "d": 0,
-        "l": 0,
-        "gf": 0,
-        "ga": 0,
-        "pts": 0
-      },
-      {
         "name": "Barça",
-        "pld": 0,
-        "w": 0,
-        "d": 0,
-        "l": 0,
-        "gf": 0,
-        "ga": 0,
-        "pts": 0
-      },
-      {
-        "name": "Levante",
         "pld": 0,
         "w": 0,
         "d": 0,
@@ -190,6 +180,16 @@
         "l": 1,
         "gf": 1,
         "ga": 2,
+        "pts": 0
+      },
+      {
+        "name": "Levante",
+        "pld": 1,
+        "w": 0,
+        "d": 0,
+        "l": 1,
+        "gf": 0,
+        "ga": 1,
         "pts": 0
       },
       {
@@ -523,37 +523,6 @@
     "PD": {
       "fixtures": [
         {
-          "utcDate": "2026-08-16T17:00:00Z",
-          "status": "TIMED",
-          "matchday": 1,
-          "homeTeam": {
-            "id": 80,
-            "name": "RCD Espanyol de Barcelona",
-            "shortName": "Espanyol"
-          },
-          "awayTeam": {
-            "id": 88,
-            "name": "Levante UD",
-            "shortName": "Levante"
-          },
-          "score": {
-            "winner": null,
-            "duration": "REGULAR",
-            "fullTime": {
-              "home": null,
-              "away": null
-            },
-            "halfTime": {
-              "home": null,
-              "away": null
-            }
-          },
-          "competition": {
-            "name": "Primera Division"
-          },
-          "venue": null
-        },
-        {
           "utcDate": "2026-08-17T19:00:00Z",
           "status": "TIMED",
           "matchday": 1,
@@ -741,6 +710,37 @@
         }
       ],
       "results": [
+        {
+          "utcDate": "2026-08-16T15:00:00Z",
+          "status": "FINISHED",
+          "matchday": 1,
+          "homeTeam": {
+            "id": 5335,
+            "name": "Real Racing Club de Santander",
+            "shortName": "Santander"
+          },
+          "awayTeam": {
+            "id": 94,
+            "name": "Villarreal CF",
+            "shortName": "Villarreal"
+          },
+          "score": {
+            "winner": "DRAW",
+            "duration": "REGULAR",
+            "fullTime": {
+              "home": 2,
+              "away": 2
+            },
+            "halfTime": {
+              "home": 2,
+              "away": 2
+            }
+          },
+          "competition": {
+            "name": "Primera Division"
+          },
+          "venue": null
+        },
         {
           "utcDate": "2026-08-15T19:30:00Z",
           "status": "FINISHED",
