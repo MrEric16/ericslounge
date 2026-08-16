@@ -139,59 +139,6 @@ def fetch_all_candidates():
     return fetch_nasa_candidates() + fetch_nga_candidates()
 
 
-MANUAL_CANDIDATES = [
-    {
-        "title": "Introduction to Congress.gov",
-        "org": "Library of Congress",
-        "description": "Basic overview of Congress.gov, covering how to search legislation and find congressional member information -- a neutral research-tool walkthrough, not a policy or opinion session.",
-        "start_date": "2026-08-20",
-        "time_text": "2:00 PM ET",
-        "category": "jurisprudence",
-        "url": "https://www.loc.gov/law/",
-        "source": "Manual search, In Custodia Legis blog",
-    },
-    {
-        "title": "Identity Access Management & Security",
-        "org": "ActualTech Media",
-        "description": "Free industry webinar on identity access management and security practices.",
-        "start_date": "2026-08-18",
-        "time_text": "12:00 PM EDT",
-        "category": "it",
-        "url": "https://events.actualtechmedia.com/",
-        "source": "Manual search, ActualTechMedia webinar calendar",
-    },
-    {
-        "title": "Cloud Native, Hybrid Cloud & Multi-Cloud Infrastructure",
-        "org": "ActualTech Media",
-        "description": "Free industry webinar on cloud native architecture, hybrid cloud, and multi-cloud infrastructure modernization.",
-        "start_date": "2026-08-19",
-        "time_text": "3:00 PM EDT",
-        "category": "technology",
-        "url": "https://events.actualtechmedia.com/",
-        "source": "Manual search, ActualTechMedia webinar calendar",
-    },
-]
-
-
-def queue_manual_candidates():
-    published_keys = load_existing_published_keys()
-    pending_keys = load_existing_pending_keys()
-    already_seen = published_keys | pending_keys
-    queued = 0
-    for c in MANUAL_CANDIDATES:
-        key = dedup_key(c["title"], c["start_date"])
-        if key in already_seen:
-            log(f"  manual candidate already queued/published, skipping: {c['title']!r}")
-            continue
-        try:
-            insert_candidate(c)
-            queued += 1
-            log(f"  queued manual candidate: {c['title']!r} ({c['start_date']})")
-        except Exception as e:
-            log(f"  could not queue manual candidate {c['title']!r}: {e}")
-    log(f"manual candidates: queued {queued}/{len(MANUAL_CANDIDATES)}")
-
-
 MONTHS = {
     'jan':1,'feb':2,'mar':3,'apr':4,'may':5,'jun':6,
     'jul':7,'aug':8,'sep':9,'oct':10,'nov':11,'dec':12,
@@ -319,8 +266,6 @@ def main():
     if not SUPABASE_SERVICE_ROLE_KEY:
         log("SUPABASE_SERVICE_ROLE_KEY is not set -- nothing to do, exiting without error so the workflow doesn't show a false failure before the secret is configured")
         return
-
-    queue_manual_candidates()
 
     published_keys = load_existing_published_keys()
     pending_keys = load_existing_pending_keys()
