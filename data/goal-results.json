@@ -205,8 +205,7 @@
       "htAway": 0,
       "ftHome": 3,
       "ftAway": 0,
-      "homeGoals": [],
-      "awayGoals": [
+      "homeGoals": [
         {
           "scorer": "R. Calafiori",
           "minute": 1
@@ -216,6 +215,7 @@
           "minute": 28
         }
       ],
+      "awayGoals": [],
       "competition": "arsenal-friendlies"
     }
   ],
