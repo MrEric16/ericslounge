@@ -4451,7 +4451,7 @@ function dispatchListHtml(list){
   if(list.length===0){
     return '<div class="empty-card">Tumbleweeds. Nothing filed here yet.</div>';
   }
-  const sorted = [...list].sort((a,b)=> b.date.localeCompare(a.date));
+  const sorted = [...list].sort((a,b)=> (b.date||'').localeCompare(a.date||''));
 
   let html = '';
   sorted.forEach(a=>{
@@ -6723,12 +6723,12 @@ function dictCardHtml(entry){
         <div class="dict-label">Example</div>
         <div class="dict-text dict-example">"${escapeHtml(entry.example)}"</div>
       </div>` : ''}
-      ${entry.synonyms.length ? `
+      ${entry.synonyms && entry.synonyms.length ? `
       <div class="dict-section">
         <div class="dict-label">Synonyms</div>
         <div class="dict-text">${entry.synonyms.map(escapeHtml).join(', ')}</div>
       </div>` : ''}
-      ${entry.antonyms.length ? `
+      ${entry.antonyms && entry.antonyms.length ? `
       <div class="dict-section">
         <div class="dict-label">Antonyms</div>
         <div class="dict-text">${entry.antonyms.map(escapeHtml).join(', ')}</div>
@@ -7151,36 +7151,53 @@ function wireInstallPage(){
 }
 
 function viewSaved(){
-  const saved = getBookmarks();
-  const savedArticles = saved.filter(b => b.type === 'article' || (!b.type && b.url && !b.videoId));
-  const savedVideos = saved.filter(b => b.type === 'video');
-  const savedInstruments = saved.filter(b => b.type === 'instrument');
-  const savedWords = saved.filter(b => b.type === 'word');
+  try{
+    const saved = getBookmarks();
+    const savedArticles = saved.filter(b => b.type === 'article' || (!b.type && b.url && !b.videoId));
+    const savedVideos = saved.filter(b => b.type === 'video');
+    const savedInstruments = saved.filter(b => b.type === 'instrument');
+    // A word bookmark with no word field is unrenderable (dictCardHtml needs entry.word)
+    // and, before this fix, would silently crash the whole page rather than just being
+    // skipped -- filtered out here rather than trusting every entry to be well-formed.
+    const savedWords = saved.filter(b => b.type === 'word' && b.word);
 
-  if(saved.length === 0){
+    if(saved.length === 0){
+      return `
+        <a class="back-link" href="#">← Back to Mr Eric's Lounge</a>
+        <section style="padding-top:14px;">
+          <div class="section-head"><span class="emoji">${icon('bookmark')}</span><h2>Saved</h2></div>
+          <div class="empty-card">Nothing saved yet. Tap the bookmark icon on any article, video, instrument, or word to save it here.</div>
+        </section>
+      `;
+    }
+
+    const asDispatches = savedArticles.map(b => ({ headline: b.headline, url: b.url, faculty: b.faculty, date: b.date, read: null }));
+    const asVideos = savedVideos.map(b => ({ title: b.title, channel: b.channel, videoId: b.videoId, faculty: b.faculty }));
+    const asInstruments = savedInstruments.map(b => ({ name: b.name, desc: b.desc, url: b.url, fac: b.fac }));
+
     return `
       <a class="back-link" href="#">← Back to Mr Eric's Lounge</a>
       <section style="padding-top:14px;">
         <div class="section-head"><span class="emoji">${icon('bookmark')}</span><h2>Saved</h2></div>
-        <div class="empty-card">Nothing saved yet. Tap the bookmark icon on any article, video, instrument, or word to save it here.</div>
+        ${savedArticles.length ? `<h3 style="margin:16px 0 8px;">Articles</h3>${dispatchListHtml(asDispatches)}` : ''}
+        ${savedVideos.length ? `<h3 style="margin:20px 0 8px;">Videos</h3><div class="watch-grid">${watchGridHtml(asVideos, 'saved')}</div>` : ''}
+        ${savedInstruments.length ? `<h3 style="margin:20px 0 8px;">Instruments</h3>${exploreResultsHtml(asInstruments)}` : ''}
+        ${savedWords.length ? `<h3 style="margin:20px 0 8px;">Words</h3><div id="savedWordsContainer" style="display:flex; flex-direction:column; gap:10px;">${savedWords.map(dictCardHtml).join('')}</div>` : ''}
+      </section>
+    `;
+  }catch(e){
+    // Safety net for any bad-data shape not specifically guarded above -- a broken Saved
+    // page should never be a dead end. Offers a way to clear corrupted data and recover,
+    // rather than being stuck on a page that will crash the exact same way every time.
+    console.error('[viewSaved] render failed:', e);
+    return `
+      <a class="back-link" href="#">← Back to Mr Eric's Lounge</a>
+      <section style="padding-top:14px;">
+        <div class="section-head"><span class="emoji">${icon('bookmark')}</span><h2>Saved</h2></div>
+        <div class="empty-card">Something in your saved list is corrupted and won't display. <button data-action="clear-saved" style="margin-top:10px; display:block; background:var(--coral); color:#fff; border:none; border-radius:999px; padding:10px 18px; font-weight:700; cursor:pointer;">Clear saved items and start fresh</button></div>
       </section>
     `;
   }
-
-  const asDispatches = savedArticles.map(b => ({ headline: b.headline, url: b.url, faculty: b.faculty, date: b.date, read: null }));
-  const asVideos = savedVideos.map(b => ({ title: b.title, channel: b.channel, videoId: b.videoId, faculty: b.faculty }));
-  const asInstruments = savedInstruments.map(b => ({ name: b.name, desc: b.desc, url: b.url, fac: b.fac }));
-
-  return `
-    <a class="back-link" href="#">← Back to Mr Eric's Lounge</a>
-    <section style="padding-top:14px;">
-      <div class="section-head"><span class="emoji">${icon('bookmark')}</span><h2>Saved</h2></div>
-      ${savedArticles.length ? `<h3 style="margin:16px 0 8px;">Articles</h3>${dispatchListHtml(asDispatches)}` : ''}
-      ${savedVideos.length ? `<h3 style="margin:20px 0 8px;">Videos</h3><div class="watch-grid">${watchGridHtml(asVideos, 'saved')}</div>` : ''}
-      ${savedInstruments.length ? `<h3 style="margin:20px 0 8px;">Instruments</h3>${exploreResultsHtml(asInstruments)}` : ''}
-      ${savedWords.length ? `<h3 style="margin:20px 0 8px;">Words</h3><div id="savedWordsContainer" style="display:flex; flex-direction:column; gap:10px;">${savedWords.map(dictCardHtml).join('')}</div>` : ''}
-    </section>
-  `;
 }
 
 /* ================================================================
@@ -13180,6 +13197,13 @@ function mtCloseOverlay(){
   renderRoute({ skipScrollSave: true });
 }
 document.addEventListener('click', (e) => {
+  const clearSavedBtn = e.target.closest('[data-action="clear-saved"]');
+  if(clearSavedBtn){
+    e.preventDefault();
+    localStorage.removeItem('bookmarks');
+    renderRoute();
+    return;
+  }
   const askQuestionBtn = e.target.closest('[data-action="open-ask-question"]');
   if(askQuestionBtn){
     e.preventDefault();
