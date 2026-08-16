@@ -1,6 +1,6 @@
-[uae-league] captured 143918 chars
+[uae-league] captured 143966 chars
 [uae-league] parsed 14 standings row(s)
 [uae-league] parsed 0 match row(s)
-[uae-league] WARNING: 0 match rows -- page structure may not match what this parser expects
+[uae-league] WARNING: 0 match rows -- text sample near a known date: '14.08.2026</div><div data-match_id="12268465" data-datetime="2026-08-14T14:10:00Z" data-datetime_end="2026-08-14T16:07:49Z" data-sport_id="1" data-competition_id="1183" data-competition_type="club" data-round_id="327871" data-round_mode_id="1" data-round-mode="Liga" data-avsb="true" data-liveticker-status="result" data-gender="male" data-country_id="231" data-federation_id="6" class="first odd finished match match-1"><div class="team-name team-name-home"><a href="/teams/te17837/al-nasr-sc/">Al Nasr SC</a></div><div class="team-shortname team-shortname-home"><a href="/teams/te17837/al-nasr-sc/">Al Nasr SC</a></div><div class="team-image team-image-home team-autoimage"><a href="/teams/te17837/al-nasr-sc/"><img onerror="this.style.display=\'none\'" data-kind="club" loading="lazy" src="https://s'
 [uae-league] 0 fixture(s), 0 result(s)
 [uae-league] wrote data/uae-league-live.json
