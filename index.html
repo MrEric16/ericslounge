@@ -3155,20 +3155,20 @@ const SPORTS_LEAGUES = [
     // Matchday 1 results confirmed 2026-08-16 against sharjah24.ae, voiceofemirates.com,
     // and uaeproleague.ae's own match reports -- this league has no live scraper (see note
     // further down this file), so these are manually verified, not automated. Hatta v Al
-    // Jazira and Bani Yas v Al Ain are still in `fixtures` below rather than guessed here --
-    // both were too recent to have a published result at the time these were checked.
+    // Jazira and Bani Yas v Al Ain were confirmed slightly later via worldfootball.net's
+    // live standings (mirrored gf/ga numbers between each pair of teams cross-confirm the
+    // scoreline with certainty, even before that source's own fixture-row parsing worked).
     results: [
       { home:"Al Nasr", away:"Ittihad Kalba", homeScore:2, awayScore:2, start:"2026-08-14T16:10:00+05:00", finished:true },
       { home:"Al Wahda", away:"Ajman", homeScore:2, awayScore:3, start:"2026-08-14T18:45:00+05:00", finished:true },
       { home:"Al Dhafra", away:"Sharjah", homeScore:1, awayScore:3, start:"2026-08-15T16:10:00+05:00", finished:true },
       { home:"Khor Fakkan", away:"Shabab Al Ahli", homeScore:1, awayScore:5, start:"2026-08-15T18:45:00+05:00", finished:true },
       { home:"Al Wasl", away:"United FC", homeScore:5, awayScore:1, start:"2026-08-15T18:45:00+05:00", finished:true },
+      { home:"Hatta", away:"Al Jazira", homeScore:0, awayScore:2, start:"2026-08-16T16:10:00+05:00", finished:true },
+      { home:"Bani Yas", away:"Al Ain", homeScore:2, awayScore:4, start:"2026-08-16T18:45:00+05:00", finished:true },
     ],
     // Matchday 1 — verified against TNT Sports' own fixture listing.
-    fixtures: [
-      { home:"Hatta", away:"Al Jazira", start:"2026-08-16T16:10:00+05:00" },
-      { home:"Bani Yas", away:"Al Ain", start:"2026-08-16T18:45:00+05:00" },
-    ],
+    fixtures: [],
   },
   {
     name: "KHL", flag: icon('stick'), note: "Off-season — regular season starts 10 Sep 2026",
