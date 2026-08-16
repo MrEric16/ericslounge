@@ -4571,8 +4571,29 @@ function trackInlineVideoWatch(videoId){
 }
 
 /* ---- Bookmarks (stored per-device only, via localStorage) — articles, videos, AND instruments ---- */
+// A bookmark missing the field(s) required to actually render or link anywhere isn't a
+// real saved item -- it's leftover corrupted data (e.g. from an interrupted save/unsave,
+// or an old crash mid-write). Filtering these out here, once, means every consumer of
+// getBookmarks() automatically sees only genuine entries, and pruneBookmarks() actually
+// deletes them from storage so they don't linger and reappear.
+function isValidBookmark(b){
+  if(!b || typeof b !== 'object') return false;
+  if(b.type === 'word') return !!b.word;
+  if(b.type === 'video') return !!(b.videoId && b.title);
+  if(b.type === 'instrument') return !!(b.name && b.url);
+  // 'article' or untyped legacy entries
+  return !!(b.headline && b.url);
+}
+function pruneBookmarks(){
+  const raw = (() => { try{ return JSON.parse(localStorage.getItem('bookmarks') || '[]'); }catch(e){ return []; } })();
+  const clean = raw.filter(isValidBookmark);
+  if(clean.length !== raw.length){
+    try{ localStorage.setItem('bookmarks', JSON.stringify(clean)); }catch(e){}
+  }
+  return clean;
+}
 function getBookmarks(){
-  try{ return JSON.parse(localStorage.getItem('bookmarks') || '[]'); }catch(e){ return []; }
+  try{ return pruneBookmarks(); }catch(e){ return []; }
 }
 // Matches by key when present; falls back to url match for entries saved before
 // videos were bookmarkable (those older entries have no `key` field).
