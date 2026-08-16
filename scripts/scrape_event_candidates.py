@@ -33,6 +33,7 @@ from datetime import datetime, timedelta, timezone
 
 import requests
 from bs4 import BeautifulSoup
+from playwright.sync_api import sync_playwright
 
 SUPABASE_URL = "https://uugjyucgeyopyvmhckdg.supabase.co"
 SUPABASE_SERVICE_ROLE_KEY = os.environ.get("SUPABASE_SERVICE_ROLE_KEY", "")
@@ -65,17 +66,13 @@ def fetch_nga_candidates():
     DC-only events Mr Eric's students can't actually attend."""
     candidates = []
     try:
-        r = requests.get(
-            NGA_NEWS_URL,
-            headers={
-                "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36",
-                "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8",
-                "Accept-Language": "en-US,en;q=0.9",
-            },
-            timeout=30,
-        )
-        r.raise_for_status()
-        text = r.text
+        with sync_playwright() as p:
+            browser = p.chromium.launch()
+            page = browser.new_page()
+            page.goto(NGA_NEWS_URL, timeout=30000)
+            page.wait_for_timeout(3000)
+            text = page.content()
+            browser.close()
     except Exception as e:
         log(f"NGA page fetch failed: {e}")
         return candidates
