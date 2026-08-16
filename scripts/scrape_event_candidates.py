@@ -139,6 +139,69 @@ def fetch_all_candidates():
     return fetch_nasa_candidates() + fetch_nga_candidates()
 
 
+MANUAL_CANDIDATES = [
+    {
+        "title": "Creating Learner-Centred Language Classrooms",
+        "org": "British Council TeachingEnglish",
+        "description": "Free webinar on moving from teacher-led instruction to active learner engagement in language classrooms.",
+        "start_date": "2026-08-21",
+        "time_text": "",
+        "category": "languages",
+        "url": "https://www.teachingenglish.org.uk/news-and-events/webinars/webinars-teachers",
+        "source": "Manual search, British Council TeachingEnglish",
+    },
+    {
+        "title": "Building the Next 250 Years: Hosting Community Conversations at Your History Organization",
+        "org": "AASLH (American Association for State and Local History)",
+        "description": "Free info session on a new resource for hosting thoughtful, community-driven conversations about local history.",
+        "start_date": "2026-08-19",
+        "time_text": "3:00 PM ET",
+        "category": "history",
+        "url": "https://learn.aaslh.org/upcoming-events",
+        "source": "Manual search, AASLH Learning",
+    },
+    {
+        "title": "ACS Webinars (Weekly Chemistry Webinar)",
+        "org": "American Chemical Society",
+        "description": "Free live weekly chemistry webinar broadcast, open to the general public with a free ACS ID.",
+        "start_date": "2026-08-20",
+        "time_text": "2:00 PM ET",
+        "category": "science",
+        "url": "https://www.acs.org/acs-webinars.html",
+        "source": "Manual search, ACS Webinars (confirmed weekly Thursday slot)",
+    },
+    {
+        "title": "From Starter Site to Professional Site",
+        "org": "Columbus Chamber of Commerce",
+        "description": "Free webinar for business owners who have outgrown their starter website and are considering investing in a professionally designed site.",
+        "start_date": "2026-08-19",
+        "time_text": "12:00 PM",
+        "category": "design",
+        "url": "https://columbus.org/industry-insights/events/",
+        "source": "Manual search, Columbus Chamber of Commerce events",
+    },
+]
+
+
+def queue_manual_candidates():
+    published_keys = load_existing_published_keys()
+    pending_keys = load_existing_pending_keys()
+    already_seen = published_keys | pending_keys
+    queued = 0
+    for c in MANUAL_CANDIDATES:
+        key = dedup_key(c["title"], c["start_date"])
+        if key in already_seen:
+            log(f"  manual candidate already queued/published, skipping: {c['title']!r}")
+            continue
+        try:
+            insert_candidate(c)
+            queued += 1
+            log(f"  queued manual candidate: {c['title']!r} ({c['start_date']})")
+        except Exception as e:
+            log(f"  could not queue manual candidate {c['title']!r}: {e}")
+    log(f"manual candidates: queued {queued}/{len(MANUAL_CANDIDATES)}")
+
+
 MONTHS = {
     'jan':1,'feb':2,'mar':3,'apr':4,'may':5,'jun':6,
     'jul':7,'aug':8,'sep':9,'oct':10,'nov':11,'dec':12,
@@ -266,6 +329,8 @@ def main():
     if not SUPABASE_SERVICE_ROLE_KEY:
         log("SUPABASE_SERVICE_ROLE_KEY is not set -- nothing to do, exiting without error so the workflow doesn't show a false failure before the secret is configured")
         return
+
+    queue_manual_candidates()
 
     published_keys = load_existing_published_keys()
     pending_keys = load_existing_pending_keys()
