@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-16T14:52:45.709277Z",
+  "generatedAt": "2026-08-16T15:46:11.096613Z",
   "standings": {
     "PD": [
       {
@@ -9,6 +9,16 @@
         "d": 0,
         "l": 0,
         "gf": 3,
+        "ga": 0,
+        "pts": 3
+      },
+      {
+        "name": "Santander",
+        "pld": 1,
+        "w": 1,
+        "d": 0,
+        "l": 0,
+        "gf": 2,
         "ga": 0,
         "pts": 3
       },
@@ -113,16 +123,6 @@
         "pts": 0
       },
       {
-        "name": "Santander",
-        "pld": 0,
-        "w": 0,
-        "d": 0,
-        "l": 0,
-        "gf": 0,
-        "ga": 0,
-        "pts": 0
-      },
-      {
         "name": "Celta",
         "pld": 0,
         "w": 0,
@@ -173,22 +173,22 @@
         "pts": 0
       },
       {
-        "name": "Villarreal",
-        "pld": 0,
-        "w": 0,
-        "d": 0,
-        "l": 0,
-        "gf": 0,
-        "ga": 0,
-        "pts": 0
-      },
-      {
         "name": "Rayo Vallecano",
         "pld": 1,
         "w": 0,
         "d": 0,
         "l": 1,
         "gf": 1,
+        "ga": 2,
+        "pts": 0
+      },
+      {
+        "name": "Villarreal",
+        "pld": 1,
+        "w": 0,
+        "d": 0,
+        "l": 1,
+        "gf": 0,
         "ga": 2,
         "pts": 0
       },
@@ -522,37 +522,6 @@
     },
     "PD": {
       "fixtures": [
-        {
-          "utcDate": "2026-08-16T15:00:00Z",
-          "status": "TIMED",
-          "matchday": 1,
-          "homeTeam": {
-            "id": 5335,
-            "name": "Real Racing Club de Santander",
-            "shortName": "Santander"
-          },
-          "awayTeam": {
-            "id": 94,
-            "name": "Villarreal CF",
-            "shortName": "Villarreal"
-          },
-          "score": {
-            "winner": null,
-            "duration": "REGULAR",
-            "fullTime": {
-              "home": null,
-              "away": null
-            },
-            "halfTime": {
-              "home": null,
-              "away": null
-            }
-          },
-          "competition": {
-            "name": "Primera Division"
-          },
-          "venue": null
-        },
         {
           "utcDate": "2026-08-16T17:00:00Z",
           "status": "TIMED",
