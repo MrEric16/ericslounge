@@ -343,6 +343,34 @@ function escapeHtml(s){
   return d.innerHTML;
 }
 
+// Same conversion as index.html's virtualEventCardHtml -- shows Tashkent time here too,
+// so review decisions are made against the real local time, not a raw ET/EDT/PT string.
+const TZ_OFFSETS_FROM_UTC = {
+  ET:-4, EDT:-4, EST:-5, EASTERN:-4,
+  CT:-5, CDT:-5, CST:-6, CENTRAL:-5,
+  MT:-6, MDT:-6, MST:-7, MOUNTAIN:-6,
+  PT:-7, PDT:-7, PST:-8, PACIFIC:-7,
+  UTC:0, GMT:0,
+};
+function timeTextToTashkent(startDate, timeText){
+  if(!startDate || !timeText) return null;
+  const m = timeText.match(/(\d{1,2}):?(\d{2})?\s*([AaPp])\.?[Mm]\.?\s*(ET|EDT|EST|Eastern|CT|CDT|CST|Central|MT|MDT|MST|Mountain|PT|PDT|PST|Pacific|UTC|GMT)\b/);
+  if(!m) return null;
+  const offset = TZ_OFFSETS_FROM_UTC[m[4].toUpperCase()];
+  if(offset === undefined) return null;
+  let hour = parseInt(m[1], 10) % 12;
+  if(m[3].toUpperCase() === 'P') hour += 12;
+  const minute = m[2] ? parseInt(m[2], 10) : 0;
+  const dateParts = startDate.split('-').map(Number);
+  if(dateParts.length !== 3) return null;
+  const [year, month, day] = dateParts;
+  const utcMs = Date.UTC(year, month - 1, day, hour - offset, minute);
+  const tashkentMs = utcMs + 5 * 60 * 60 * 1000;
+  const d = new Date(tashkentMs);
+  const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  return `${String(d.getUTCDate()).padStart(2,'0')} ${months[d.getUTCMonth()]}, ${String(d.getUTCHours()).padStart(2,'0')}:${String(d.getUTCMinutes()).padStart(2,'0')}`;
+}
+
 async function checkSession(){
   const { data } = await sb.auth.getSession();
   if(data.session){
@@ -573,7 +601,7 @@ async function loadPendingEvents(){
       <div class="pevent-title">${escapeHtml(e.title)}</div>
       ${e.org ? `<div class="pevent-org">${escapeHtml(e.org)}</div>` : ''}
       ${e.description ? `<div class="pevent-desc">${escapeHtml(e.description)}</div>` : ''}
-      <div class="pevent-meta">${escapeHtml(e.start_date)}${e.time_text ? ' · ' + escapeHtml(e.time_text) : ''}${e.category ? ' · ' + escapeHtml(e.category) : ''}</div>
+      <div class="pevent-meta">${escapeHtml(e.start_date)}${(() => { const t = timeTextToTashkent(e.start_date, e.time_text); return t ? ` · ${escapeHtml(t)} Tashkent` : (e.time_text ? ` · ${escapeHtml(e.time_text)} (couldn't confirm Tashkent time)` : ''); })()}${e.category ? ' · ' + escapeHtml(e.category) : ''}</div>
       <a class="pevent-link" href="${escapeHtml(e.url)}" target="_blank" rel="noopener">${escapeHtml(e.url)}</a>
       ${e.source ? `<div class="pevent-meta">Found via: ${escapeHtml(e.source)}</div>` : ''}
       <div class="pevent-actions" style="margin-top:10px;">
