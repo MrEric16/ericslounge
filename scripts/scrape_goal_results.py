@@ -121,10 +121,15 @@ def parse_match_page(html, url):
     away_scorers_from_events = set()
     if len(key_events_section) > 1:
         ke_text = key_events_section[1][:2000]
+        # Confirmed via direct evidence (2026-08-16, Arsenal vs Man City: Calafiori and
+        # Havertz, both Arsenal/home players, were landing under the "score-then-name"
+        # pattern) that this pattern corresponds to the HOME side's goals, not away as
+        # originally assumed -- the two assignments below are swapped from the first
+        # version of this scraper for that reason.
         for m in re.finditer(r"(\d+\s*-\s*\d+)\s*\n?\s*([A-Z]\.\s?[A-Za-z\-']+)", ke_text):
-            away_scorers_from_events.add(m.group(2).strip())
+            home_scorers_from_events.add(m.group(2).strip())
         for m in re.finditer(r"([A-Z]\.\s?[A-Za-z\-']+)\s*\n?\s*(\d+\s*-\s*\d+)", ke_text):
-            home_scorers_from_events.add(m.group(1).strip())
+            away_scorers_from_events.add(m.group(1).strip())
 
     home_goals, away_goals = [], []
     for name, minute in all_scorers:
@@ -147,6 +152,16 @@ def parse_match_page(html, url):
         log(f"WARNING: {home_name} scored {ft_home} but 0 scorers were parsed for {url}")
     if ft_away > 0 and not away_goals:
         log(f"WARNING: {away_name} scored {ft_away} but 0 scorers were parsed for {url}")
+    # A partial miss (some but not all scorers captured) wouldn't have tripped either
+    # warning above -- confirmed to happen for real (this same Arsenal 3-0 City match only
+    # captured 2 of 3 goals). Worth its own loud log even though there's no good automatic
+    # fix for it here; at minimum it should show up in the run log rather than only being
+    # noticed by someone counting entries in the popup.
+    if len(home_goals) not in (0, ft_home):
+        log(f"WARNING: {home_name} scored {ft_home} but only {len(home_goals)} scorer(s) were parsed for {url}")
+    if len(away_goals) not in (0, ft_away):
+        log(f"WARNING: {away_name} scored {ft_away} but only {len(away_goals)} scorer(s) were parsed for {url}")
+
 
     return {
         "url": url,
