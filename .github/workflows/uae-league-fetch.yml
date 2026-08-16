@@ -28,7 +28,8 @@ jobs:
         run: |
           git config user.name "uae-league-bot"
           git config user.email "actions@github.com"
-          git add data/uae-league-live.json scripts/uae-league-log.txt || true
+          git add scripts/uae-league-log.txt || true
+          [ -f data/uae-league-live.json ] && git add data/uae-league-live.json || true
           git diff --cached --quiet && echo "No changes to commit" || git commit -m "Auto-update UAE Pro League [skip ci]"
           git pull --rebase --autostash origin main || true
           git push
