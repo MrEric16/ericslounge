@@ -24,6 +24,7 @@ from datetime import datetime, timezone
 
 import requests
 from bs4 import BeautifulSoup
+from playwright.sync_api import sync_playwright
 
 URL = "https://www.worldfootball.net/competition/co1183/ua-emirates-uae-pro-league/"
 OUTPUT_PATH = "data/uae-league-live.json"
@@ -143,9 +144,13 @@ def parse_matches(soup):
 
 def main():
     try:
-        r = requests.get(URL, headers={"User-Agent": "Mozilla/5.0 (compatible; EricsLoungeBot/1.0)"}, timeout=30)
-        r.raise_for_status()
-        text = r.text
+        with sync_playwright() as p:
+            browser = p.chromium.launch()
+            page = browser.new_page()
+            page.goto(URL, timeout=30000)
+            page.wait_for_timeout(2000)
+            text = page.content()
+            browser.close()
     except Exception as e:
         log(f"fetch failed: {e}")
         return
