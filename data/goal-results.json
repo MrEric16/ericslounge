@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-16T17:40:05.639907Z",
+  "generatedAt": "2026-08-16T19:00:05.935347Z",
   "results": [
     {
       "url": "https://www.goal.com/en/match/girona-vs-arsenal/__LS8d9Oc6I1wXn9g8956",
@@ -195,9 +195,29 @@
         }
       ],
       "competition": "PD"
+    },
+    {
+      "url": "https://www.goal.com/en/match/arsenal-vs-manchester-city/lZfyVHjJi35hsXNan4MA0",
+      "date": "2026-08-16",
+      "home": "Arsenal",
+      "away": "Manchester City",
+      "htHome": 2,
+      "htAway": 0,
+      "ftHome": 3,
+      "ftAway": 0,
+      "homeGoals": [],
+      "awayGoals": [
+        {
+          "scorer": "R. Calafiori",
+          "minute": 1
+        },
+        {
+          "scorer": "K. Havertz",
+          "minute": 28
+        }
+      ],
+      "competition": "arsenal-friendlies"
     }
   ],
-  "scorerParseRetryCounts": {
-    "https://www.goal.com/en/match/arsenal-vs-manchester-city/lZfyVHjJi35hsXNan4MA0": 2
-  }
+  "scorerParseRetryCounts": {}
 }
