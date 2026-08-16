@@ -65,7 +65,15 @@ def fetch_nga_candidates():
     DC-only events Mr Eric's students can't actually attend."""
     candidates = []
     try:
-        r = requests.get(NGA_NEWS_URL, headers={"User-Agent": "Mozilla/5.0 (compatible; EricsLoungeBot/1.0)"}, timeout=30)
+        r = requests.get(
+            NGA_NEWS_URL,
+            headers={
+                "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36",
+                "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8",
+                "Accept-Language": "en-US,en;q=0.9",
+            },
+            timeout=30,
+        )
         r.raise_for_status()
         text = r.text
     except Exception as e:
