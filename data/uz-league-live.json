@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-16T11:54:31.399899Z",
+  "generatedAt": "2026-08-16T19:50:04.478246Z",
   "teams": [
     {
       "name": "Neftchi Fargona",
@@ -13,13 +13,13 @@
     },
     {
       "name": "Pakhtakor",
-      "pld": 16,
-      "w": 10,
+      "pld": 17,
+      "w": 11,
       "d": 5,
       "l": 1,
-      "gf": 28,
-      "ga": 16,
-      "pts": 35
+      "gf": 30,
+      "ga": 17,
+      "pts": 38
     },
     {
       "name": "Navbahor Namangan",
@@ -53,12 +53,12 @@
     },
     {
       "name": "Nasaf Qarshi",
-      "pld": 16,
+      "pld": 17,
       "w": 6,
       "d": 7,
-      "l": 3,
-      "gf": 19,
-      "ga": 14,
+      "l": 4,
+      "gf": 20,
+      "ga": 16,
       "pts": 25
     },
     {
@@ -163,6 +163,13 @@
     }
   ],
   "results": [
+    {
+      "home": "Nasaf Qarshi",
+      "away": "Pakhtakor",
+      "raw_time": "16.08. 14:00",
+      "homeScore": 1,
+      "awayScore": 2
+    },
     {
       "home": "Kokand 1912",
       "away": "Lok. Tashkent",
@@ -295,21 +302,9 @@
       "raw_time": "02.08. 15:30\nAwrd",
       "homeScore": 3,
       "awayScore": 0
-    },
-    {
-      "home": "Mashal Muborak",
-      "away": "Sogdiana",
-      "raw_time": "02.08. 15:00",
-      "homeScore": 1,
-      "awayScore": 3
     }
   ],
   "fixtures": [
-    {
-      "home": "Nasaf Qarshi",
-      "away": "Pakhtakor",
-      "raw_time": "16.08. 14:00"
-    },
     {
       "home": "Sogdiana",
       "away": "Qizilqum",
@@ -403,6 +398,11 @@
     {
       "home": "Nasaf Qarshi",
       "away": "Neftchi Fargona",
+      "raw_time": "04.09. 15:00"
+    },
+    {
+      "home": "Navbahor Namangan",
+      "away": "Lok. Tashkent",
       "raw_time": "04.09. 15:00"
     }
   ]
