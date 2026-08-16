@@ -170,11 +170,11 @@ def main():
     matches = parse_matches(soup)
     log(f"parsed {len(matches)} match row(s)")
     if not matches:
-        date_idx = text.find("14.08.2026")
-        if date_idx != -1:
-            log(f"WARNING: 0 match rows -- text sample near a known date: {text[date_idx:date_idx+800]!r}")
+        match_div = soup.find("div", attrs={"data-match_id": True})
+        if match_div:
+            log(f"WARNING: 0 match rows -- full first match div: {str(match_div)[:3000]!r}")
         else:
-            log("WARNING: 0 match rows -- and '14.08.2026' not found anywhere in the captured text at all")
+            log("WARNING: 0 match rows -- and no div with data-match_id found at all")
 
     fixtures = [m for m in matches if not m.get("finished")]
     results = [m for m in matches if m.get("finished")]
