@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-16T19:00:05.935347Z",
+  "generatedAt": "2026-08-16T19:41:13.679810Z",
   "results": [
     {
       "url": "https://www.goal.com/en/match/girona-vs-arsenal/__LS8d9Oc6I1wXn9g8956",
@@ -223,5 +223,7 @@
       "competition": "arsenal-friendlies"
     }
   ],
-  "scorerParseRetryCounts": {}
+  "scorerParseRetryCounts": {
+    "https://www.goal.com/en/match/espanyol-vs-levante/7uHlNtl7JhNa1l19YHKNy": 1
+  }
 }
