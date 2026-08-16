@@ -2996,6 +2996,7 @@ function ufcEventRowsHtml(list){
     <div class="match-row">
       <div class="match-teams">${escapeHtml(cleanName)}</div>
       <div class="match-date">${whenText} — ${escapeHtml(e.location)}</div>
+      ${e.result ? `<div class="match-result" style="font-size:12.5px; font-weight:700; color:var(--teal); margin-top:4px;">${icon('trophy')} ${escapeHtml(e.result)}</div>` : ''}
     </div>
   `;
   }).join('')}</div>`;
