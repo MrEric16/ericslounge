@@ -12451,12 +12451,50 @@ function formatShortDate(dateStr){
   return `${+m[3]} ${monthNames[+m[2]-1]}`;
 }
 
+// Converts a free-text time string carrying a US/UTC timezone abbreviation (as scraped
+// or hand-entered, e.g. "7:00 AM ET", "2:00 PM EDT", "12:00 PM UTC") into a Tashkent-local
+// display string, since showing ET/EDT/PT/UTC etc. directly means nothing to a Tashkent
+// reader and requires them to do the math themselves. Returns null if no recognizable
+// time+zone pattern is found (e.g. "Time TBD") -- an honest gap, not a guessed time.
+// Known simplification: ambiguous zone names without an explicit D/S (ET, CT, MT, PT) are
+// treated as their daylight-saving variant, which is correct for the northern-hemisphere
+// summer months this site has been dealing with so far, but would need a real DST-by-date
+// check to stay correct into winter.
+const TZ_OFFSETS_FROM_UTC = {
+  ET:-4, EDT:-4, EST:-5, EASTERN:-4,
+  CT:-5, CDT:-5, CST:-6, CENTRAL:-5,
+  MT:-6, MDT:-6, MST:-7, MOUNTAIN:-6,
+  PT:-7, PDT:-7, PST:-8, PACIFIC:-7,
+  UTC:0, GMT:0,
+};
+function timeTextToTashkent(startDate, timeText){
+  if(!startDate || !timeText) return null;
+  const m = timeText.match(/(\d{1,2}):?(\d{2})?\s*([AaPp])\.?[Mm]\.?\s*(ET|EDT|EST|Eastern|CT|CDT|CST|Central|MT|MDT|MST|Mountain|PT|PDT|PST|Pacific|UTC|GMT)\b/);
+  if(!m) return null;
+  const offset = TZ_OFFSETS_FROM_UTC[m[4].toUpperCase()];
+  if(offset === undefined) return null;
+  let hour = parseInt(m[1], 10) % 12;
+  if(m[3].toUpperCase() === 'P') hour += 12;
+  const minute = m[2] ? parseInt(m[2], 10) : 0;
+  const dateParts = startDate.split('-').map(Number);
+  if(dateParts.length !== 3) return null;
+  const [year, month, day] = dateParts;
+  const utcMs = Date.UTC(year, month - 1, day, hour - offset, minute);
+  const tashkentMs = utcMs + 5 * 60 * 60 * 1000;
+  const d = new Date(tashkentMs);
+  const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  return `${String(d.getUTCDate()).padStart(2,'0')} ${months[d.getUTCMonth()]}, ${String(d.getUTCHours()).padStart(2,'0')}:${String(d.getUTCMinutes()).padStart(2,'0')}`;
+}
 function virtualEventCardHtml(e){
+  const tashkentTime = timeTextToTashkent(e.startDate, e.time);
+  const whenText = !e.startDate ? ''
+    : tashkentTime ? `${tashkentTime} Tashkent`
+    : `${formatShortDate(e.startDate)} — time not yet confirmed`;
   return `<a class="event-card" href="${e.url}" target="_blank" rel="noopener">
     <div class="event-title">${escapeHtml(e.title)}</div>
     <div class="event-meta">
       <span class="event-cat-badge" style="background:var(--teal)">${escapeHtml(e.org)}</span>
-      ${e.startDate ? `<span class="event-venue">${formatShortDate(e.startDate)}${e.time ? ' · ' + escapeHtml(e.time) : ''}</span>` : ''}
+      ${whenText ? `<span class="event-venue">${escapeHtml(whenText)}</span>` : ''}
     </div>
     <div class="event-venue" style="margin-top:4px;">${escapeHtml(e.description)}</div>
   </a>`;
