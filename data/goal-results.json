@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-16T20:49:27.726966Z",
+  "generatedAt": "2026-08-16T21:39:51.324571Z",
   "results": [
     {
       "url": "https://www.goal.com/en/match/girona-vs-arsenal/__LS8d9Oc6I1wXn9g8956",
@@ -221,9 +221,25 @@
       ],
       "awayGoals": [],
       "competition": "arsenal-friendlies"
+    },
+    {
+      "url": "https://www.goal.com/en/match/espanyol-vs-levante/7uHlNtl7JhNa1l19YHKNy",
+      "date": "2026-08-16",
+      "home": "Espanyol",
+      "away": "Levante",
+      "htHome": 2,
+      "htAway": 0,
+      "ftHome": 3,
+      "ftAway": 0,
+      "homeGoals": [],
+      "awayGoals": [
+        {
+          "scorer": "R. Fernandez",
+          "minute": 5
+        }
+      ],
+      "competition": "PD"
     }
   ],
-  "scorerParseRetryCounts": {
-    "https://www.goal.com/en/match/espanyol-vs-levante/7uHlNtl7JhNa1l19YHKNy": 2
-  }
+  "scorerParseRetryCounts": {}
 }
