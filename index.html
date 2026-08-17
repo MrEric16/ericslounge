@@ -3117,7 +3117,17 @@ function fgFlagEmoji(code){
 // circulating "historical" Samanid flag is literally an AI-generated image); and neither
 // Ancient Greece nor Ancient Rome ever had a unified state flag -- city-states used
 // individual shield emblems, and Rome's vexillum was a military unit standard, not a
-// national symbol.
+// national symbol. Cross-checked against Wikipedia's "List of largest empires" (by area
+// and by population) for further candidates: the Mughal Empire likewise fails ("Flags of
+// the Mughal Empire" -- plural -- explicitly states "it never settled on a single unified
+// flag," and Wikidata marks the commonly-circulated image "fictional speculation"); the
+// Ottoman Empire's only genuinely official flag (1844) is identical to modern Turkey's,
+// already in the main pool, so adding it would just be a pointless duplicate; the British,
+// Spanish, and French colonial empires have the same problem against the UK/Spain/France
+// already in the main pool; and most of the largest-by-population entries (Han, Tang, Qin,
+// Macedonian, Achaemenid, and other ancient dynasties) predate any flag tradition entirely.
+// Empire of Brazil passed and was added -- visually distinct from modern Brazil (a
+// different coat of arms entirely), well documented, no duplication risk.
 // Deliberately excludes any entity whose flag carries live hate-symbol or ongoing-
 // political-conflict weight (Nazi Germany, the Confederacy, Manchukuo, Tibet, South
 // Vietnam) regardless of historical significance -- that line holds even in a casual
@@ -3148,6 +3158,7 @@ const FLAG_BONUS_ENTITIES = [
   { name:"Crimean Khanate", years:"15th–18th c.", file:"Flag of the Crimean Khanate (15th century).svg", palette:"crimson-yellow" },
   { name:"Russian Empire", years:"1858–1896", inlineSvg:`<svg viewBox="0 0 3 2" xmlns="http://www.w3.org/2000/svg"><rect width="3" height="0.667" fill="#000000"/><rect width="3" height="0.667" y="0.667" fill="#FFD900"/><rect width="3" height="0.667" y="1.333" fill="#FFFFFF"/></svg>`, palette:"black-yellow-white" },
   { name:"Navajo Nation", years:"1968–present", file:"Official design of the Navajo Nation flag as it was adopted on May 21, 1968.svg", palette:"tan-multi" },
+  { name:"Empire of Brazil", years:"1822–1889", file:"Flag of Brazil (1853-1889).svg", palette:"green-yellow" },
 ];
 
 function fgBonusImageUrl(filename){
