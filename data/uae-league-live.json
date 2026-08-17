@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-17T19:42:57.169991+00:00",
+  "generatedAt": "2026-08-17T19:57:29.166516+00:00",
   "teams": [
     "Al Wasl",
     "Shabab Al Ahli Club",
@@ -172,7 +172,113 @@
       "points": 0
     }
   ],
-  "fixtures": [],
+  "fixtures": [
+    {
+      "home": "Ittihad Kalba FC",
+      "away": "Al Wasl",
+      "start": "2026-08-21T19:00:00+05:00"
+    },
+    {
+      "home": "Al Nasr SC",
+      "away": "Al Wahda",
+      "start": "2026-08-21T21:35:00+05:00"
+    },
+    {
+      "home": "Ajman Club",
+      "away": "Hatta Club",
+      "start": "2026-08-22T19:00:00+05:00"
+    },
+    {
+      "home": "Shabab Al Ahli Club",
+      "away": "Al Dhafra",
+      "start": "2026-08-22T19:00:00+05:00"
+    },
+    {
+      "home": "Al Ain FC",
+      "away": "Khor Fakkan Club",
+      "start": "2026-08-22T21:35:00+05:00"
+    },
+    {
+      "home": "Baniyas SC",
+      "away": "United FC",
+      "start": "2026-08-23T19:00:00+05:00"
+    },
+    {
+      "home": "Sharjah FC",
+      "away": "Al Jazira Club",
+      "start": "2026-08-23T21:35:00+05:00"
+    },
+    {
+      "home": "United FC",
+      "away": "Ittihad Kalba FC",
+      "start": "2026-08-28T18:55:00+05:00"
+    },
+    {
+      "home": "Al Wasl",
+      "away": "Shabab Al Ahli Club",
+      "start": "2026-08-28T21:30:00+05:00"
+    },
+    {
+      "home": "Khor Fakkan Club",
+      "away": "Al Dhafra",
+      "start": "2026-08-29T18:55:00+05:00"
+    },
+    {
+      "home": "Al Jazira Club",
+      "away": "Ajman Club",
+      "start": "2026-08-29T18:55:00+05:00"
+    },
+    {
+      "home": "Al Ain FC",
+      "away": "Al Nasr SC",
+      "start": "2026-08-29T21:30:00+05:00"
+    },
+    {
+      "home": "Hatta Club",
+      "away": "Sharjah FC",
+      "start": "2026-08-30T18:55:00+05:00"
+    },
+    {
+      "home": "Al Wahda",
+      "away": "Baniyas SC",
+      "start": "2026-08-30T21:30:00+05:00"
+    },
+    {
+      "home": "Ittihad Kalba FC",
+      "away": "Al Ain FC",
+      "start": "2026-09-04T18:45:00+05:00"
+    },
+    {
+      "home": "Al Wasl",
+      "away": "Khor Fakkan Club",
+      "start": "2026-09-04T21:15:00+05:00"
+    },
+    {
+      "home": "Sharjah FC",
+      "away": "United FC",
+      "start": "2026-09-05T18:45:00+05:00"
+    },
+    {
+      "home": "Baniyas SC",
+      "away": "Hatta Club",
+      "start": "2026-09-05T18:45:00+05:00"
+    },
+    {
+      "home": "Shabab Al Ahli Club",
+      "away": "Al Jazira Club",
+      "start": "2026-09-05T21:15:00+05:00"
+    },
+    {
+      "home": "Al Nasr SC",
+      "away": "Ajman Club",
+      "start": "2026-09-06T18:45:00+05:00"
+    },
+    {
+      "home": "Al Dhafra",
+      "away": "Al Wahda",
+      "start": "2026-09-06T21:15:00+05:00"
+    }
+  ],
   "results": [
     {
       "home": "Al Nasr SC",
