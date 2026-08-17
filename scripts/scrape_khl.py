@@ -5,10 +5,13 @@ site) -- the source Wikipedia itself cites for KHL standings tables. Bot-protect
 direct fetch was blocked outright, same kind of wall hit on other official sports sites
 tonight), so this uses Playwright rather than plain requests.
 
-Note: the 2026-27 KHL regular season doesn't start until 5 September 2026, so this script
-will legitimately find an empty or all-zero standings table and no finished matches until
-then -- that's correct, not a bug, and main() handles it by writing valid empty-ish output
-rather than treating it as a failure.
+Note: the 2026-27 KHL regular season doesn't start until 5 September 2026 (confirmed via
+KHL's own calendar page and news coverage, cross-checked against Wikipedia and Russian
+news reporting -- the site's previously-hardcoded note said 10 Sep, which turned out to
+be the actual error, caught while building this), so this script will legitimately find
+an all-zero standings table and no finished matches until then -- that's correct, not a
+bug, and main() handles it by writing valid zero-stat output rather than treating it
+as a failure.
 
 Output: data/khl-live.json, matching the same {standings, fixtures, results} shape as the
 UAE Pro League scraper.
