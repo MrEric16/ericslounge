@@ -53,17 +53,17 @@ def main():
 
     log(f"standings page: captured {len(standings_html)} chars")
     if standings_html:
-        log(f"page title/head sample: {standings_html[:400]!r}")
-        table_idx = standings_html.find("standings-table")
-        if table_idx != -1:
-            log(f"found 'standings-table' marker, sample: {standings_html[table_idx:table_idx+1500]!r}")
+        thead_idx = standings_html.find("<thead")
+        thead_end = standings_html.find("</thead>")
+        if thead_idx != -1 and thead_end != -1:
+            import re as _re
+            sorts = _re.findall(r'data-sort="([^"]+)"', standings_html[thead_idx:thead_end])
+            log(f"all column data-sort values in order: {sorts}")
+        tbody_idx = standings_html.find("<tbody")
+        if tbody_idx != -1:
+            log(f"tbody sample (first data row area): {standings_html[tbody_idx:tbody_idx+2500]!r}")
         else:
-            log("'standings-table' marker not found -- trying a generic <table> search instead")
-            tbl_idx = standings_html.find("<table")
-            if tbl_idx != -1:
-                log(f"found a <table> tag, sample: {standings_html[tbl_idx:tbl_idx+1500]!r}")
-            else:
-                log("no <table> tag found anywhere either")
+            log("no <tbody> found")
 
     output = {
         "generatedAt": datetime.now(timezone.utc).isoformat(),
