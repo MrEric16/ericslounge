@@ -3127,7 +3127,14 @@ function fgFlagEmoji(code){
 // already in the main pool; and most of the largest-by-population entries (Han, Tang, Qin,
 // Macedonian, Achaemenid, and other ancient dynasties) predate any flag tradition entirely.
 // Empire of Brazil passed and was added -- visually distinct from modern Brazil (a
-// different coat of arms entirely), well documented, no duplication risk.
+// different coat of arms entirely), well documented, no duplication risk. Also checked
+// the Byzantine Empire (fails -- "one of the most persistent myths is that [it] had a
+// single official flag... the empire operated within a flexible symbolic system," per
+// direct source, and Commons has a "Fictional or conjectural" category for it) and the
+// Sikh Empire (genuinely ambiguous -- different regiments used different banners by
+// faith, with only mixed signals about one true state-level flag existing -- left out
+// rather than include something not confident about). Kingdom of Prussia passed: a
+// consistent, well-documented national flag from 1823-1918, distinct from modern Germany.
 // Deliberately excludes any entity whose flag carries live hate-symbol or ongoing-
 // political-conflict weight (Nazi Germany, the Confederacy, Manchukuo, Tibet, South
 // Vietnam) regardless of historical significance -- that line holds even in a casual
@@ -3159,6 +3166,7 @@ const FLAG_BONUS_ENTITIES = [
   { name:"Russian Empire", years:"1858–1896", inlineSvg:`<svg viewBox="0 0 3 2" xmlns="http://www.w3.org/2000/svg"><rect width="3" height="0.667" fill="#000000"/><rect width="3" height="0.667" y="0.667" fill="#FFD900"/><rect width="3" height="0.667" y="1.333" fill="#FFFFFF"/></svg>`, palette:"black-yellow-white", capital:"Saint Petersburg" },
   { name:"Navajo Nation", years:"1968–present", file:"Official design of the Navajo Nation flag as it was adopted on May 21, 1968.svg", palette:"tan-multi", capital:"Window Rock" },
   { name:"Empire of Brazil", years:"1822–1889", file:"Flag of Brazil (1853-1889).svg", palette:"green-yellow", capital:"Rio de Janeiro" },
+  { name:"Kingdom of Prussia", years:"1701–1918", file:"Flag of the Kingdom of Prussia (1803-1892).svg", palette:"black-white", capital:"Berlin" },
 ];
 
 function fgBonusImageUrl(filename){
