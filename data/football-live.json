@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-17T20:59:01.524820Z",
+  "generatedAt": "2026-08-17T21:54:59.062601Z",
   "standings": {
     "PD": [
       {
@@ -679,6 +679,37 @@
         }
       ],
       "results": [
+        {
+          "utcDate": "2026-08-17T19:00:00Z",
+          "status": "FINISHED",
+          "matchday": 1,
+          "homeTeam": {
+            "id": 560,
+            "name": "RC Deportivo La Coruña",
+            "shortName": "Deportivo"
+          },
+          "awayTeam": {
+            "id": 285,
+            "name": "Elche CF",
+            "shortName": "Elche"
+          },
+          "score": {
+            "winner": "DRAW",
+            "duration": "REGULAR",
+            "fullTime": {
+              "home": 1,
+              "away": 1
+            },
+            "halfTime": {
+              "home": 1,
+              "away": 0
+            }
+          },
+          "competition": {
+            "name": "Primera Division"
+          },
+          "venue": null
+        },
         {
           "utcDate": "2026-08-16T17:00:00Z",
           "status": "FINISHED",
