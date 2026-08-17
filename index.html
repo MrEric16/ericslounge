@@ -1312,8 +1312,20 @@
     display:flex; align-items:center; justify-content:center;
   }
   .fg-option-flag-thumb img{ width:100%; height:100%; object-fit:contain; }
-  .fg-option-flag-fallback{ align-items:center; justify-content:center; width:100%; height:100%; font-size:32px; } .fg-option-flag-fallback svg{width:28px;height:28px;}
+  .fg-option-flag-fallback{ flex-direction:column; align-items:center; justify-content:center; width:100%; height:100%; gap:4px; }
+  .fg-option-flag-fallback svg{width:34px;height:34px; opacity:.55;}
+  .fg-option-flag-fallback span{ font-size:11px; font-weight:700; color:var(--ink-soft); }
   .fg-option-btn.fg-option-flag.fg-correct .fg-option-flag-thumb, .fg-option-btn.fg-option-flag.fg-wrong .fg-option-flag-thumb{ background:transparent; }
+  .fg-option-btn.fg-option-flag.fg-correct{
+    background:#22C55E; border-color:#15803D; border-width:4px;
+    transform:scale(1.05); box-shadow:0 0 0 4px rgba(34,197,94,.35);
+    z-index:1; position:relative;
+  }
+  .fg-option-btn.fg-option-flag.fg-wrong{
+    background:#EF4444; border-color:#B91C1C; border-width:4px;
+    transform:scale(1.05); box-shadow:0 0 0 4px rgba(239,68,68,.35);
+    z-index:1; position:relative;
+  }
   .fg-end-score{ text-align:center; font-family:'Baloo 2', sans-serif; font-weight:800; font-size:48px; color:var(--misc-flaggame); margin:14px 0 4px; }
   .fg-end-label{ text-align:center; font-size:13px; color:var(--ink-soft); font-weight:700; margin-bottom:22px; }
   .fg-review-item{
@@ -3049,14 +3061,35 @@ function fgPaletteColors(palette){ return palette.split('-'); }
 
 function fgSimilarityScore(a, b){
   let score = 0;
-  if(a.palette === b.palette) score += 6;
-  if(a.layout === b.layout) score += 3;
-  if(a.region === b.region) score += 1;
   const ac = new Set(fgPaletteColors(a.palette));
   const bc = new Set(fgPaletteColors(b.palette));
+  // Same palette as a SET, regardless of tag order -- 'red-white' and 'white-red' are the
+  // same two colors and must score identically. This was the core bug: exact-string
+  // comparison meant Poland ('white-red') scored as unrelated to Indonesia ('red-white')
+  // despite being literally the same two colors, while UK/Australia/NZ/Fiji never
+  // clustered because their layout tags ('union-jack' vs 'union-jack-canton' etc.) never
+  // matched as exact strings either.
+  const isSamePaletteSet = ac.size === bc.size && [...ac].every(c => bc.has(c));
+  if(isSamePaletteSet) score += 6;
   let overlap = 0;
   ac.forEach(c => { if(bc.has(c)) overlap++; });
   score += overlap * 0.75;
+
+  if(a.layout === b.layout){
+    score += 3;
+  } else {
+    // Family match: layout tags are hyphen-joined ('union-jack-canton', 'pan-arab-star',
+    // 'horizontal-triband-sun') -- a shared 2+ token prefix means the same visual family
+    // even when the exact suffix differs (e.g. 'union-jack' + 'union-jack-canton', or
+    // 'pan-arab-star' + 'pan-arab-trapezoid').
+    const aParts = a.layout.split('-');
+    const bParts = b.layout.split('-');
+    let sharedPrefix = 0;
+    while(sharedPrefix < aParts.length && sharedPrefix < bParts.length && aParts[sharedPrefix] === bParts[sharedPrefix]) sharedPrefix++;
+    if(sharedPrefix >= 2) score += 2;
+  }
+
+  if(a.region === b.region) score += 1;
   return score;
 }
 
@@ -3170,7 +3203,7 @@ const FLAG_BONUS_ENTITIES = [
   // designs given no other verified image source exists for defunct-state flags.
   { name:"Czechoslovakia", years:"1920–1992", inlineSvg:`<svg viewBox="0 0 3 2" xmlns="http://www.w3.org/2000/svg"><rect width="3" height="1" fill="#FFFFFF"/><rect width="3" height="1" y="1" fill="#D7141A"/><polygon points="0,0 1.5,1 0,2" fill="#11457E"/></svg>`, palette:"white-red-blue", capital:"Prague" },
   { name:"SFR Yugoslavia", years:"1946–1992", inlineSvg:`<svg viewBox="0 0 3 2" xmlns="http://www.w3.org/2000/svg"><rect width="3" height="0.667" fill="#0033A0"/><rect width="3" height="0.667" y="0.667" fill="#FFFFFF"/><rect width="3" height="0.667" y="1.333" fill="#C8102E"/><polygon points="1.5,0.55 1.63,0.93 2.02,0.93 1.71,1.16 1.82,1.55 1.5,1.31 1.18,1.55 1.29,1.16 0.98,0.93 1.37,0.93" fill="#C8102E" stroke="#FFD100" stroke-width="0.04"/></svg>`, palette:"blue-white-red", capital:"Belgrade" },
-  { name:"Kingdom of Hawaii", years:"1845–1893", file:"Flag of Hawaii.svg", palette:"red-white-blue", capital:"Honolulu" },
+  { name:"Kingdom of Hawaii", years:"1845–1893", inlineSvg:`<svg viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg"><rect y="0" width="300" height="25" fill="#FFFFFF"/><rect y="25" width="300" height="25" fill="#CC142B"/><rect y="50" width="300" height="25" fill="#00247D"/><rect y="75" width="300" height="25" fill="#FFFFFF"/><rect y="100" width="300" height="25" fill="#CC142B"/><rect y="125" width="300" height="25" fill="#00247D"/><rect y="150" width="300" height="25" fill="#FFFFFF"/><rect y="175" width="300" height="25" fill="#CC142B"/><g><rect x="0" y="0" width="120" height="100" fill="#00247D"/><path d="M0,0 L120,100 M120,0 L0,100" stroke="#FFFFFF" stroke-width="20"/><path d="M0,0 L120,100" stroke="#CC142B" stroke-width="8" transform="translate(4,0)"/><path d="M120,0 L0,100" stroke="#CC142B" stroke-width="8" transform="translate(-4,0)"/><rect x="48" y="0" width="24" height="100" fill="#FFFFFF"/><rect x="0" y="38" width="120" height="24" fill="#FFFFFF"/><rect x="54" y="0" width="12" height="100" fill="#CC142B"/><rect x="0" y="44" width="120" height="12" fill="#CC142B"/></g></svg>`, palette:"red-white-blue", capital:"Honolulu" },
   { name:"Qing Dynasty China", years:"1889–1912", file:"Flag of the Qing dynasty.svg", palette:"yellow-blue", capital:"Beijing" },
   { name:"Kingdom of Italy", years:"1861–1946", file:"Flag of Italy (1861-1946).svg", palette:"green-white-red", capital:"Rome" },
   { name:"Imperial State of Iran", years:"1925–1979", file:"State flag of Iran (1964-1980).svg", palette:"green-white-red", capital:"Tehran" },
@@ -7792,17 +7825,19 @@ function fgOptionFlagThumb(item){
   }
   if(item.file){
     return `<div class="fg-option-flag-thumb">
-      <img src="${fgBonusImageUrl(item.file)}" alt="" data-retried="0" onerror="
-        if(this.dataset.retried === '0'){
-          this.dataset.retried = '1';
+      <img src="${fgBonusImageUrl(item.file)}" alt="" data-retries="0" onerror="
+        var tries = parseInt(this.dataset.retries, 10);
+        if(tries < 2){
+          this.dataset.retries = String(tries + 1);
           var freshUrl = this.src.split('?')[0] + '?retry=' + Date.now();
-          setTimeout((function(el, url){ return function(){ el.src = url; }; })(this, freshUrl), 500);
+          var delay = 500 * (tries + 1);
+          setTimeout((function(el, url){ return function(){ el.src = url; }; })(this, freshUrl), delay);
         } else {
           this.style.display='none';
           this.nextElementSibling.style.display='flex';
         }
       ">
-      <div class="fg-option-flag-fallback" style="display:none;">${icon('globe')}</div>
+      <div class="fg-option-flag-fallback" style="display:none;">${icon('globe')}<span>Unavailable</span></div>
     </div>`;
   }
   const emoji = fgFlagEmoji(item.code);
