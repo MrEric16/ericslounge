@@ -74,6 +74,7 @@
     --misc-sporthub:#2B824B;
     --misc-events:#A63061;
     --misc-mindtemple:#4A4280;
+    --misc-flaggame:#2C6E8F;
   }
 
   body.dark-mode{
@@ -1248,6 +1249,63 @@
   .mindtemple-tile .icon{display:inline-flex; align-items:center;} .mindtemple-tile .icon svg{width:30px;height:30px;}
   .mindtemple-tile .title{font-weight:800; font-size:19px;}
   .mindtemple-tile .sub{font-size:13px; color:#DCD8F0; font-weight:600; margin-top:2px;}
+
+  /* ---- Flag game tile (same pattern as mindtemple-tile) ---- */
+  .flaggame-tile{
+    background:var(--misc-flaggame);
+    color:#fff;
+    border-radius:20px;
+    padding:26px 22px;
+    display:flex;
+    align-items:center;
+    gap:16px;
+    text-decoration:none;
+    box-shadow:0 3px 0 rgba(58,42,30,.15);
+  }
+  .flaggame-tile .icon{display:inline-flex; align-items:center; font-size:30px; line-height:1;}
+  .flaggame-tile .title{font-weight:800; font-size:19px;}
+  .flaggame-tile .sub{font-size:13px; color:#D6E7EF; font-weight:600; margin-top:2px;}
+
+  /* ---- Flag game screens ---- */
+  .fg-wrap{ max-width:480px; margin:0 auto; }
+  .fg-progress-row{ display:flex; align-items:center; justify-content:space-between; margin-bottom:18px; font-family:'Space Mono', monospace; font-size:13px; color:var(--ink-soft); }
+  .fg-progress-bar{ height:6px; background:var(--line); border-radius:999px; overflow:hidden; margin-bottom:22px; }
+  .fg-progress-fill{ height:100%; background:var(--misc-flaggame); border-radius:999px; transition:width .3s ease; }
+  .fg-flag-frame{
+    width:100%; max-width:320px; aspect-ratio:4/3; margin:0 auto 24px; border-radius:14px;
+    overflow:hidden; box-shadow:0 4px 16px rgba(0,0,0,.18); background:var(--card);
+    display:flex; align-items:center; justify-content:center;
+  }
+  .fg-flag-frame img{ width:100%; height:100%; object-fit:cover; }
+  .fg-flag-emoji-fallback{ font-size:100px; line-height:1; }
+  .fg-question{ text-align:center; font-family:'Baloo 2', sans-serif; font-weight:700; font-size:18px; color:var(--ink); margin-bottom:20px; }
+  .fg-options{ display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+  .fg-option-btn{
+    border:2px solid var(--line); background:var(--card); border-radius:14px; padding:14px 10px;
+    font-family:'Nunito', sans-serif; font-weight:700; font-size:14.5px; color:var(--ink);
+    cursor:pointer; text-align:center; transition:transform .12s ease;
+  }
+  .fg-option-btn:active{ transform:scale(0.97); }
+  .fg-option-btn.fg-correct{ background:var(--teal); border-color:var(--teal); color:#fff; }
+  .fg-option-btn.fg-wrong{ background:var(--coral); border-color:var(--coral); color:#fff; }
+  .fg-option-btn:disabled{ cursor:default; opacity:.85; }
+  .fg-intro-stats{ display:flex; gap:12px; margin:18px 0 24px; }
+  .fg-intro-stat{ flex:1; text-align:center; background:var(--card); border-radius:14px; padding:16px 8px; border:1px solid var(--line); }
+  .fg-intro-stat .num{ font-family:'Baloo 2', sans-serif; font-weight:800; font-size:24px; color:var(--misc-flaggame); }
+  .fg-intro-stat .label{ font-size:11.5px; color:var(--ink-soft); font-weight:700; text-transform:uppercase; letter-spacing:.03em; margin-top:2px; }
+  .fg-start-btn{
+    display:block; width:100%; border:none; background:var(--misc-flaggame); color:#fff;
+    border-radius:999px; padding:16px; font-family:'Nunito', sans-serif; font-weight:800;
+    font-size:16px; cursor:pointer; box-shadow:0 3px 0 rgba(0,0,0,.15);
+  }
+  .fg-end-score{ text-align:center; font-family:'Baloo 2', sans-serif; font-weight:800; font-size:48px; color:var(--misc-flaggame); margin:14px 0 4px; }
+  .fg-end-label{ text-align:center; font-size:13px; color:var(--ink-soft); font-weight:700; margin-bottom:22px; }
+  .fg-review-item{
+    display:flex; align-items:center; gap:12px; padding:10px 12px; border-radius:12px;
+    background:var(--card); border:1px solid var(--line); margin-bottom:8px; font-size:13.5px;
+  }
+  .fg-review-item img{ width:32px; height:24px; object-fit:cover; border-radius:3px; flex-shrink:0; }
+  .fg-review-item.fg-review-wrong{ border-color:var(--coral); }
 
   /* ---- Mind Temple (situation -> thought -> feeling -> action, no persistence) ---- */
   .mt-wrap{ max-width:520px; margin:0 auto; }
@@ -2958,6 +3016,158 @@ function zeroRows(names){
 // stay inside the site, pulling live data from football-data.org. Uzbekistan Super League
 // and UAE Pro League have their own dedicated scrapers instead (neither is on
 // football-data.org's free tier). KHL and UFC still link out to their official sites.
+// ============ Flag Game: guess-the-flag with confusable multiple choice ============
+// All ~195 UN-recognized countries. Each entry carries a color palette + layout pattern
+// tag used to find genuinely visually-similar flags for wrong-answer options, per
+// explicit requirement -- never random unrelated countries (e.g. Switzerland paired with
+// Libya/Lebanon/America/Britain is exactly what this is designed to avoid).
+const FLAG_COUNTRIES = [{"name": "United States", "code": "us", "region": "americas", "palette": "red-white-blue", "layout": "stars-stripes", "tier": 1}, {"name": "United Kingdom", "code": "gb", "region": "europe", "palette": "red-white-blue", "layout": "union-jack", "tier": 1}, {"name": "France", "code": "fr", "region": "europe", "palette": "blue-white-red", "layout": "vertical-tricolor", "tier": 1}, {"name": "Germany", "code": "de", "region": "europe", "palette": "black-red-yellow", "layout": "horizontal-tricolor", "tier": 1}, {"name": "Italy", "code": "it", "region": "europe", "palette": "green-white-red", "layout": "vertical-tricolor", "tier": 1}, {"name": "Spain", "code": "es", "region": "europe", "palette": "red-yellow", "layout": "horizontal-bands-emblem", "tier": 1}, {"name": "Japan", "code": "jp", "region": "asia", "palette": "red-white", "layout": "disc-center", "tier": 1}, {"name": "China", "code": "cn", "region": "asia", "palette": "red-yellow", "layout": "canton-stars", "tier": 1}, {"name": "Canada", "code": "ca", "region": "americas", "palette": "red-white", "layout": "vertical-bands-emblem", "tier": 1}, {"name": "Brazil", "code": "br", "region": "americas", "palette": "green-yellow-blue", "layout": "diamond-globe", "tier": 1}, {"name": "Russia", "code": "ru", "region": "europe", "palette": "white-blue-red", "layout": "horizontal-tricolor", "tier": 1}, {"name": "Australia", "code": "au", "region": "oceania", "palette": "blue-white-red", "layout": "union-jack-canton", "tier": 1}, {"name": "India", "code": "in", "region": "asia", "palette": "saffron-white-green", "layout": "horizontal-tricolor-wheel", "tier": 1}, {"name": "Mexico", "code": "mx", "region": "americas", "palette": "green-white-red", "layout": "vertical-tricolor-emblem", "tier": 1}, {"name": "South Korea", "code": "kr", "region": "asia", "palette": "white-red-blue", "layout": "taegeuk-trigrams", "tier": 1}, {"name": "Switzerland", "code": "ch", "region": "europe", "palette": "red-white", "layout": "cross-square", "tier": 1}, {"name": "Sweden", "code": "se", "region": "europe", "palette": "blue-yellow", "layout": "nordic-cross", "tier": 1}, {"name": "South Africa", "code": "za", "region": "africa", "palette": "multi-6color", "layout": "y-shape", "tier": 1}, {"name": "Egypt", "code": "eg", "region": "africa", "palette": "red-white-black", "layout": "horizontal-tricolor-eagle", "tier": 1}, {"name": "Turkey", "code": "tr", "region": "asia", "palette": "red-white", "layout": "crescent-star", "tier": 1}, {"name": "Greece", "code": "gr", "region": "europe", "palette": "blue-white", "layout": "stripes-canton-cross", "tier": 1}, {"name": "Portugal", "code": "pt", "region": "europe", "palette": "green-red", "layout": "vertical-bicolor-emblem", "tier": 1}, {"name": "Argentina", "code": "ar", "region": "americas", "palette": "blue-white", "layout": "horizontal-triband-sun", "tier": 1}, {"name": "Ireland", "code": "ie", "region": "europe", "palette": "green-white-orange", "layout": "vertical-tricolor", "tier": 1}, {"name": "Netherlands", "code": "nl", "region": "europe", "palette": "red-white-blue", "layout": "horizontal-tricolor", "tier": 2}, {"name": "Norway", "code": "no", "region": "europe", "palette": "red-white-blue", "layout": "nordic-cross", "tier": 2}, {"name": "Poland", "code": "pl", "region": "europe", "palette": "white-red", "layout": "horizontal-bicolor", "tier": 2}, {"name": "Belgium", "code": "be", "region": "europe", "palette": "black-yellow-red", "layout": "vertical-tricolor", "tier": 2}, {"name": "Austria", "code": "at", "region": "europe", "palette": "red-white", "layout": "horizontal-triband", "tier": 2}, {"name": "Denmark", "code": "dk", "region": "europe", "palette": "red-white", "layout": "nordic-cross", "tier": 2}, {"name": "Finland", "code": "fi", "region": "europe", "palette": "blue-white", "layout": "nordic-cross", "tier": 2}, {"name": "Ukraine", "code": "ua", "region": "europe", "palette": "blue-yellow", "layout": "horizontal-bicolor", "tier": 2}, {"name": "Israel", "code": "il", "region": "asia", "palette": "blue-white", "layout": "star-of-david", "tier": 2}, {"name": "Saudi Arabia", "code": "sa", "region": "asia", "palette": "green-white", "layout": "script-sword", "tier": 2}, {"name": "United Arab Emirates", "code": "ae", "region": "asia", "palette": "red-green-white-black", "layout": "pan-arab-hoist", "tier": 2}, {"name": "Thailand", "code": "th", "region": "asia", "palette": "red-white-blue", "layout": "horizontal-5band", "tier": 2}, {"name": "Vietnam", "code": "vn", "region": "asia", "palette": "red-yellow", "layout": "star-center", "tier": 2}, {"name": "Indonesia", "code": "id", "region": "asia", "palette": "red-white", "layout": "horizontal-bicolor", "tier": 2}, {"name": "Philippines", "code": "ph", "region": "asia", "palette": "blue-red-white-yellow", "layout": "triangle-hoist-sun", "tier": 2}, {"name": "Pakistan", "code": "pk", "region": "asia", "palette": "green-white", "layout": "crescent-star-hoist", "tier": 2}, {"name": "Nigeria", "code": "ng", "region": "africa", "palette": "green-white-green", "layout": "vertical-tricolor", "tier": 2}, {"name": "Kenya", "code": "ke", "region": "africa", "palette": "black-red-green-white", "layout": "horizontal-shield", "tier": 2}, {"name": "Morocco", "code": "ma", "region": "africa", "palette": "red-green", "layout": "star-center", "tier": 2}, {"name": "Colombia", "code": "co", "region": "americas", "palette": "yellow-blue-red", "layout": "horizontal-triband-yellow-half", "tier": 2}, {"name": "Venezuela", "code": "ve", "region": "americas", "palette": "yellow-blue-red", "layout": "horizontal-triband-stars", "tier": 2}, {"name": "Chile", "code": "cl", "region": "americas", "palette": "red-white-blue", "layout": "canton-star", "tier": 2}, {"name": "Peru", "code": "pe", "region": "americas", "palette": "red-white", "layout": "vertical-triband", "tier": 2}, {"name": "Cuba", "code": "cu", "region": "americas", "palette": "red-white-blue", "layout": "stripes-triangle-star", "tier": 2}, {"name": "New Zealand", "code": "nz", "region": "oceania", "palette": "blue-white-red", "layout": "union-jack-canton-southern-cross", "tier": 2}, {"name": "Iceland", "code": "is", "region": "europe", "palette": "blue-white-red", "layout": "nordic-cross", "tier": 2}, {"name": "Czechia", "code": "cz", "region": "europe", "palette": "white-red-blue", "layout": "triangle-hoist-bicolor", "tier": 2}, {"name": "Hungary", "code": "hu", "region": "europe", "palette": "red-white-green", "layout": "horizontal-tricolor", "tier": 2}, {"name": "Romania", "code": "ro", "region": "europe", "palette": "blue-yellow-red", "layout": "vertical-tricolor", "tier": 2}, {"name": "Iran", "code": "ir", "region": "asia", "palette": "green-white-red", "layout": "horizontal-tricolor-emblem", "tier": 2}, {"name": "Iraq", "code": "iq", "region": "asia", "palette": "red-white-black", "layout": "horizontal-tricolor-script", "tier": 2}, {"name": "Singapore", "code": "sg", "region": "asia", "palette": "red-white", "layout": "crescent-stars", "tier": 2}, {"name": "Malaysia", "code": "my", "region": "asia", "palette": "red-white-blue-yellow", "layout": "stripes-canton-crescent", "tier": 2}, {"name": "Kazakhstan", "code": "kz", "region": "asia", "palette": "blue-yellow", "layout": "sun-eagle", "tier": 3}, {"name": "Uzbekistan", "code": "uz", "region": "asia", "palette": "blue-white-green", "layout": "horizontal-crescent-stars", "tier": 3}, {"name": "Mongolia", "code": "mn", "region": "asia", "palette": "red-blue-yellow", "layout": "vertical-soyombo", "tier": 3}, {"name": "Nepal", "code": "np", "region": "asia", "palette": "red-blue-white", "layout": "double-pennant", "tier": 3}, {"name": "Sri Lanka", "code": "lk", "region": "asia", "palette": "maroon-green-orange-yellow", "layout": "lion-stripes", "tier": 3}, {"name": "Bangladesh", "code": "bd", "region": "asia", "palette": "green-red", "layout": "disc-offcenter", "tier": 3}, {"name": "Myanmar", "code": "mm", "region": "asia", "palette": "yellow-green-red", "layout": "horizontal-tricolor-star", "tier": 3}, {"name": "Cambodia", "code": "kh", "region": "asia", "palette": "blue-red-white", "layout": "horizontal-temple", "tier": 3}, {"name": "Laos", "code": "la", "region": "asia", "palette": "red-blue-white", "layout": "horizontal-disc", "tier": 3}, {"name": "North Korea", "code": "kp", "region": "asia", "palette": "red-white-blue", "layout": "horizontal-stripe-star", "tier": 3}, {"name": "Taiwan", "code": "tw", "region": "asia", "palette": "red-blue-white", "layout": "canton-sun", "tier": 3}, {"name": "Jordan", "code": "jo", "region": "asia", "palette": "red-white-black-green", "layout": "pan-arab-star", "tier": 3}, {"name": "Lebanon", "code": "lb", "region": "asia", "palette": "red-white", "layout": "horizontal-cedar", "tier": 3}, {"name": "Syria", "code": "sy", "region": "asia", "palette": "red-white-black", "layout": "horizontal-tricolor-stars", "tier": 3}, {"name": "Yemen", "code": "ye", "region": "asia", "palette": "red-white-black", "layout": "horizontal-tricolor-plain", "tier": 3}, {"name": "Kuwait", "code": "kw", "region": "asia", "palette": "green-white-red-black", "layout": "pan-arab-trapezoid", "tier": 3}, {"name": "Qatar", "code": "qa", "region": "asia", "palette": "maroon-white", "layout": "serrated-hoist", "tier": 3}, {"name": "Bahrain", "code": "bh", "region": "asia", "palette": "red-white", "layout": "serrated-hoist", "tier": 3}, {"name": "Oman", "code": "om", "region": "asia", "palette": "red-white-green", "layout": "hoist-band-tricolor", "tier": 3}, {"name": "Afghanistan", "code": "af", "region": "asia", "palette": "black-red-green", "layout": "vertical-tricolor-emblem", "tier": 3}, {"name": "Azerbaijan", "code": "az", "region": "asia", "palette": "blue-red-green", "layout": "horizontal-tricolor-crescent", "tier": 3}, {"name": "Armenia", "code": "am", "region": "asia", "palette": "red-blue-orange", "layout": "horizontal-tricolor", "tier": 3}, {"name": "Georgia", "code": "ge", "region": "asia", "palette": "white-red", "layout": "five-cross", "tier": 3}, {"name": "Turkmenistan", "code": "tm", "region": "asia", "palette": "green-red", "layout": "vertical-carpet-band", "tier": 3}, {"name": "Tajikistan", "code": "tj", "region": "asia", "palette": "red-white-green", "layout": "horizontal-tricolor-crown", "tier": 3}, {"name": "Kyrgyzstan", "code": "kg", "region": "asia", "palette": "red-yellow", "layout": "sun-tunduk", "tier": 3}, {"name": "Bhutan", "code": "bt", "region": "asia", "palette": "yellow-orange", "layout": "diagonal-dragon", "tier": 3}, {"name": "Maldives", "code": "mv", "region": "asia", "palette": "red-green-white", "layout": "border-crescent", "tier": 3}, {"name": "Brunei", "code": "bn", "region": "asia", "palette": "yellow-white-black", "layout": "diagonal-emblem", "tier": 3}, {"name": "Timor-Leste", "code": "tl", "region": "asia", "palette": "red-yellow-black-white", "layout": "triangle-star", "tier": 4}, {"name": "Ghana", "code": "gh", "region": "africa", "palette": "red-yellow-green", "layout": "horizontal-tricolor-star", "tier": 3}, {"name": "Ethiopia", "code": "et", "region": "africa", "palette": "green-yellow-red", "layout": "horizontal-tricolor-emblem", "tier": 3}, {"name": "Tanzania", "code": "tz", "region": "africa", "palette": "green-yellow-black-blue", "layout": "diagonal-band", "tier": 3}, {"name": "Uganda", "code": "ug", "region": "africa", "palette": "black-yellow-red", "layout": "horizontal-6band-bird", "tier": 3}, {"name": "Algeria", "code": "dz", "region": "africa", "palette": "green-white-red", "layout": "vertical-bicolor-crescent", "tier": 3}, {"name": "Tunisia", "code": "tn", "region": "africa", "palette": "red-white", "layout": "disc-crescent", "tier": 3}, {"name": "Libya", "code": "ly", "region": "africa", "palette": "red-black-green", "layout": "horizontal-tricolor-crescent", "tier": 3}, {"name": "Sudan", "code": "sd", "region": "africa", "palette": "red-white-black-green", "layout": "pan-arab-triangle", "tier": 3}, {"name": "Senegal", "code": "sn", "region": "africa", "palette": "green-yellow-red", "layout": "vertical-tricolor-star", "tier": 3}, {"name": "Mali", "code": "ml", "region": "africa", "palette": "green-yellow-red", "layout": "vertical-tricolor-plain", "tier": 3}, {"name": "Guinea", "code": "gn", "region": "africa", "palette": "red-yellow-green", "layout": "vertical-tricolor-plain", "tier": 3}, {"name": "Ivory Coast", "code": "ci", "region": "africa", "palette": "orange-white-green", "layout": "vertical-tricolor", "tier": 3}, {"name": "Cameroon", "code": "cm", "region": "africa", "palette": "green-red-yellow", "layout": "vertical-tricolor-star", "tier": 3}, {"name": "Zambia", "code": "zm", "region": "africa", "palette": "green-red-black-orange", "layout": "eagle-corner", "tier": 3}, {"name": "Zimbabwe", "code": "zw", "region": "africa", "palette": "green-yellow-red-black-white", "layout": "horizontal-7band-star", "tier": 3}, {"name": "Angola", "code": "ao", "region": "africa", "palette": "red-black-yellow", "layout": "horizontal-bicolor-emblem", "tier": 3}, {"name": "Mozambique", "code": "mz", "region": "africa", "palette": "green-black-yellow-red-white", "layout": "diagonal-emblem", "tier": 3}, {"name": "Namibia", "code": "na", "region": "africa", "palette": "blue-red-green-white-yellow", "layout": "diagonal-sun", "tier": 3}, {"name": "Botswana", "code": "bw", "region": "africa", "palette": "blue-black-white", "layout": "horizontal-band", "tier": 3}, {"name": "Rwanda", "code": "rw", "region": "africa", "palette": "blue-yellow-green", "layout": "horizontal-sun", "tier": 3}, {"name": "Somalia", "code": "so", "region": "africa", "palette": "blue-white", "layout": "star-center", "tier": 3}, {"name": "Democratic Republic of the Congo", "code": "cd", "region": "africa", "palette": "blue-yellow-red", "layout": "diagonal-star", "tier": 3}, {"name": "Republic of the Congo", "code": "cg", "region": "africa", "palette": "green-yellow-red", "layout": "diagonal-bicolor", "tier": 4}, {"name": "Panama", "code": "pa", "region": "americas", "palette": "red-white-blue", "layout": "quartered-stars", "tier": 3}, {"name": "Costa Rica", "code": "cr", "region": "americas", "palette": "blue-white-red", "layout": "horizontal-5band", "tier": 3}, {"name": "Nicaragua", "code": "ni", "region": "americas", "palette": "blue-white-blue", "layout": "horizontal-triband-emblem", "tier": 3}, {"name": "Honduras", "code": "hn", "region": "americas", "palette": "blue-white-blue", "layout": "horizontal-triband-stars", "tier": 3}, {"name": "El Salvador", "code": "sv", "region": "americas", "palette": "blue-white-blue", "layout": "horizontal-triband-emblem", "tier": 3}, {"name": "Guatemala", "code": "gt", "region": "americas", "palette": "blue-white-blue", "layout": "vertical-triband-emblem", "tier": 3}, {"name": "Ecuador", "code": "ec", "region": "americas", "palette": "yellow-blue-red", "layout": "horizontal-triband-yellow-half-emblem", "tier": 3}, {"name": "Bolivia", "code": "bo", "region": "americas", "palette": "red-yellow-green", "layout": "horizontal-tricolor", "tier": 3}, {"name": "Paraguay", "code": "py", "region": "americas", "palette": "red-white-blue", "layout": "horizontal-tricolor-emblem", "tier": 3}, {"name": "Uruguay", "code": "uy", "region": "americas", "palette": "blue-white", "layout": "stripes-sun-canton", "tier": 3}, {"name": "Dominican Republic", "code": "do", "region": "americas", "palette": "red-white-blue", "layout": "cross-quartered", "tier": 3}, {"name": "Haiti", "code": "ht", "region": "americas", "palette": "blue-red", "layout": "horizontal-bicolor-crest", "tier": 3}, {"name": "Jamaica", "code": "jm", "region": "americas", "palette": "black-yellow-green", "layout": "diagonal-saltire", "tier": 3}, {"name": "Slovakia", "code": "sk", "region": "europe", "palette": "white-blue-red", "layout": "horizontal-tricolor-emblem", "tier": 3}, {"name": "Slovenia", "code": "si", "region": "europe", "palette": "white-blue-red", "layout": "horizontal-tricolor-emblem", "tier": 4}, {"name": "Croatia", "code": "hr", "region": "europe", "palette": "red-white-blue", "layout": "horizontal-tricolor-checkered", "tier": 3}, {"name": "Serbia", "code": "rs", "region": "europe", "palette": "red-blue-white", "layout": "horizontal-tricolor-emblem", "tier": 3}, {"name": "Bosnia and Herzegovina", "code": "ba", "region": "europe", "palette": "blue-yellow-white", "layout": "triangle-stars", "tier": 4}, {"name": "Bulgaria", "code": "bg", "region": "europe", "palette": "white-green-red", "layout": "horizontal-tricolor", "tier": 3}, {"name": "North Macedonia", "code": "mk", "region": "europe", "palette": "red-yellow", "layout": "sun-rays", "tier": 4}, {"name": "Albania", "code": "al", "region": "europe", "palette": "red-black", "layout": "eagle-center", "tier": 3}, {"name": "Montenegro", "code": "me", "region": "europe", "palette": "red-gold", "layout": "eagle-crest", "tier": 4}, {"name": "Kosovo", "code": "xk", "region": "europe", "palette": "blue-yellow-white", "layout": "map-stars", "tier": 4}, {"name": "Moldova", "code": "md", "region": "europe", "palette": "blue-yellow-red", "layout": "vertical-tricolor-emblem", "tier": 4}, {"name": "Belarus", "code": "by", "region": "europe", "palette": "red-green", "layout": "horizontal-bicolor-pattern", "tier": 4}, {"name": "Lithuania", "code": "lt", "region": "europe", "palette": "yellow-green-red", "layout": "horizontal-tricolor", "tier": 3}, {"name": "Latvia", "code": "lv", "region": "europe", "palette": "maroon-white", "layout": "horizontal-triband-thin", "tier": 3}, {"name": "Estonia", "code": "ee", "region": "europe", "palette": "blue-black-white", "layout": "horizontal-tricolor", "tier": 3}, {"name": "Luxembourg", "code": "lu", "region": "europe", "palette": "red-white-blue", "layout": "horizontal-tricolor", "tier": 4}, {"name": "Malta", "code": "mt", "region": "europe", "palette": "white-red", "layout": "vertical-bicolor-cross", "tier": 3}, {"name": "Cyprus", "code": "cy", "region": "europe", "palette": "white-orange", "layout": "map-olive", "tier": 4}, {"name": "Liechtenstein", "code": "li", "region": "europe", "palette": "blue-red", "layout": "horizontal-bicolor-crown", "tier": 4}, {"name": "Monaco", "code": "mc", "region": "europe", "palette": "red-white", "layout": "horizontal-bicolor", "tier": 4}, {"name": "San Marino", "code": "sm", "region": "europe", "palette": "white-blue", "layout": "horizontal-bicolor-emblem", "tier": 4}, {"name": "Andorra", "code": "ad", "region": "europe", "palette": "blue-yellow-red", "layout": "vertical-tricolor-emblem", "tier": 4}, {"name": "Vatican City", "code": "va", "region": "europe", "palette": "yellow-white", "layout": "vertical-bicolor-emblem", "tier": 4}, {"name": "Fiji", "code": "fj", "region": "oceania", "palette": "blue-white-red", "layout": "union-jack-canton-shield", "tier": 3}, {"name": "Papua New Guinea", "code": "pg", "region": "oceania", "palette": "red-black-yellow", "layout": "diagonal-bird-stars", "tier": 4}, {"name": "Samoa", "code": "ws", "region": "oceania", "palette": "red-blue-white", "layout": "canton-stars", "tier": 4}, {"name": "Tonga", "code": "to", "region": "oceania", "palette": "red-white", "layout": "canton-cross", "tier": 4}, {"name": "Vanuatu", "code": "vu", "region": "oceania", "palette": "red-green-black-yellow", "layout": "y-shape-tusk", "tier": 4}, {"name": "Solomon Islands", "code": "sb", "region": "oceania", "palette": "blue-green-yellow", "layout": "diagonal-stars", "tier": 4}, {"name": "Kiribati", "code": "ki", "region": "oceania", "palette": "red-blue-white-yellow", "layout": "sun-bird", "tier": 5}, {"name": "Tuvalu", "code": "tv", "region": "oceania", "palette": "blue-white-yellow", "layout": "union-jack-canton-stars", "tier": 5}, {"name": "Nauru", "code": "nr", "region": "oceania", "palette": "blue-yellow-white", "layout": "stripe-star", "tier": 5}, {"name": "Marshall Islands", "code": "mh", "region": "oceania", "palette": "blue-orange-white", "layout": "diagonal-star", "tier": 5}, {"name": "Palau", "code": "pw", "region": "oceania", "palette": "blue-yellow", "layout": "disc-offcenter", "tier": 5}, {"name": "Micronesia", "code": "fm", "region": "oceania", "palette": "blue-white", "layout": "four-stars", "tier": 5}, {"name": "Trinidad and Tobago", "code": "tt", "region": "americas", "palette": "red-black-white", "layout": "diagonal-band", "tier": 4}, {"name": "Bahamas", "code": "bs", "region": "americas", "palette": "blue-yellow-black", "layout": "horizontal-triband-triangle", "tier": 4}, {"name": "Barbados", "code": "bb", "region": "americas", "palette": "blue-yellow-black", "layout": "vertical-tricolor-trident", "tier": 4}, {"name": "Belize", "code": "bz", "region": "americas", "palette": "blue-red-white", "layout": "emblem-center-border", "tier": 4}, {"name": "Guyana", "code": "gy", "region": "americas", "palette": "green-yellow-red-black-white", "layout": "arrowhead", "tier": 4}, {"name": "Suriname", "code": "sr", "region": "americas", "palette": "green-white-red-yellow", "layout": "horizontal-5band-star", "tier": 4}, {"name": "Grenada", "code": "gd", "region": "americas", "palette": "red-yellow-green", "layout": "border-stars-nutmeg", "tier": 5}, {"name": "Saint Lucia", "code": "lc", "region": "americas", "palette": "blue-white-black-yellow", "layout": "triangle-emblem", "tier": 5}, {"name": "Saint Vincent and the Grenadines", "code": "vc", "region": "americas", "palette": "blue-yellow-green", "layout": "diamonds", "tier": 5}, {"name": "Antigua and Barbuda", "code": "ag", "region": "americas", "palette": "red-blue-black-white-yellow", "layout": "sun-rising", "tier": 5}, {"name": "Dominica", "code": "dm", "region": "americas", "palette": "green-red-yellow-black-white", "layout": "cross-parrot", "tier": 5}, {"name": "Saint Kitts and Nevis", "code": "kn", "region": "americas", "palette": "green-red-black-yellow-white", "layout": "diagonal-stars", "tier": 5}, {"name": "South Sudan", "code": "ss", "region": "africa", "palette": "black-red-green-white-blue", "layout": "horizontal-triangle-star", "tier": 4}, {"name": "Chad", "code": "td", "region": "africa", "palette": "blue-yellow-red", "layout": "vertical-tricolor", "tier": 4}, {"name": "Niger", "code": "ne", "region": "africa", "palette": "orange-white-green", "layout": "horizontal-tricolor-disc", "tier": 4}, {"name": "Burkina Faso", "code": "bf", "region": "africa", "palette": "red-green-yellow", "layout": "horizontal-bicolor-star", "tier": 4}, {"name": "Benin", "code": "bj", "region": "africa", "palette": "green-yellow-red", "layout": "vertical-hoist-horizontal", "tier": 4}, {"name": "Togo", "code": "tg", "region": "africa", "palette": "green-yellow-red-white", "layout": "horizontal-5band-canton", "tier": 4}, {"name": "Sierra Leone", "code": "sl", "region": "africa", "palette": "green-white-blue", "layout": "horizontal-tricolor", "tier": 4}, {"name": "Liberia", "code": "lr", "region": "africa", "palette": "red-white-blue", "layout": "stripes-canton-star", "tier": 4}, {"name": "Gambia", "code": "gm", "region": "africa", "palette": "red-blue-green", "layout": "horizontal-tricolor-thin", "tier": 4}, {"name": "Guinea-Bissau", "code": "gw", "region": "africa", "palette": "red-yellow-green", "layout": "vertical-hoist-star", "tier": 5}, {"name": "Equatorial Guinea", "code": "gq", "region": "africa", "palette": "green-white-red-blue", "layout": "horizontal-triangle-emblem", "tier": 5}, {"name": "Gabon", "code": "ga", "region": "africa", "palette": "green-yellow-blue", "layout": "horizontal-tricolor", "tier": 4}, {"name": "Central African Republic", "code": "cf", "region": "africa", "palette": "blue-white-green-yellow-red", "layout": "quartered-star", "tier": 5}, {"name": "Djibouti", "code": "dj", "region": "africa", "palette": "blue-green-white-red", "layout": "triangle-star", "tier": 4}, {"name": "Eritrea", "code": "er", "region": "africa", "palette": "red-green-blue-yellow", "layout": "triangle-wreath", "tier": 5}, {"name": "Burundi", "code": "bi", "region": "africa", "palette": "red-white-green", "layout": "diagonal-cross-stars", "tier": 5}, {"name": "Malawi", "code": "mw", "region": "africa", "palette": "black-red-green", "layout": "horizontal-tricolor-sun", "tier": 4}, {"name": "Madagascar", "code": "mg", "region": "africa", "palette": "white-red-green", "layout": "vertical-horizontal-mix", "tier": 4}, {"name": "Mauritius", "code": "mu", "region": "africa", "palette": "red-blue-yellow-green", "layout": "horizontal-4band", "tier": 4}, {"name": "Seychelles", "code": "sc", "region": "africa", "palette": "blue-yellow-red-white-green", "layout": "diagonal-rays", "tier": 5}, {"name": "Comoros", "code": "km", "region": "africa", "palette": "yellow-white-red-blue-green", "layout": "triangle-crescent-stars", "tier": 5}, {"name": "Cape Verde", "code": "cv", "region": "africa", "palette": "blue-white-red-yellow", "layout": "stars-circle", "tier": 5}, {"name": "Sao Tome and Principe", "code": "st", "region": "africa", "palette": "green-yellow-red-black", "layout": "horizontal-triangle-stars", "tier": 5}, {"name": "Lesotho", "code": "ls", "region": "africa", "palette": "blue-white-green-black", "layout": "horizontal-hat", "tier": 5}, {"name": "Eswatini", "code": "sz", "region": "africa", "palette": "blue-yellow-red-black-white", "layout": "horizontal-shield-spears", "tier": 5}];
+
+const FG_ROUNDS_PER_GAME = 15;
+const FG_BEST_SCORE_KEY = 'flagGameBestScore';
+const FG_STREAK_KEY = 'flagGameStreak';
+
+function fgPaletteColors(palette){ return palette.split('-'); }
+
+function fgSimilarityScore(a, b){
+  let score = 0;
+  if(a.palette === b.palette) score += 6;
+  if(a.layout === b.layout) score += 3;
+  if(a.region === b.region) score += 1;
+  const ac = new Set(fgPaletteColors(a.palette));
+  const bc = new Set(fgPaletteColors(b.palette));
+  let overlap = 0;
+  ac.forEach(c => { if(bc.has(c)) overlap++; });
+  score += overlap * 0.75;
+  return score;
+}
+
+// poolSize controls how tightly clustered the distractor options are: a small poolSize
+// forces picking only from the very closest matches (hardest to tell apart); a larger
+// poolSize samples more loosely from a wider "still genuinely similar" set (easier, but
+// never random/unrelated per the explicit requirement).
+function fgGetOptions(correct, allCountries, optionCount, poolSize, usedNames){
+  const candidates = allCountries.filter(c => c.name !== correct.name && !usedNames.has(c.name));
+  const scored = candidates.map(c => ({ c, s: fgSimilarityScore(correct, c) }));
+  scored.sort((a, b) => b.s - a.s);
+  const pool = scored.slice(0, Math.max(poolSize, optionCount));
+  for(let i = pool.length - 1; i > 0; i--){
+    const j = Math.floor(Math.random() * (i + 1));
+    [pool[i], pool[j]] = [pool[j], pool[i]];
+  }
+  return pool.slice(0, optionCount).map(x => x.c);
+}
+
+// Difficulty curve across the 15 rounds: both which flag is asked AND how tightly
+// clustered the distractor pool is get harder together, per explicit requirement.
+function fgRoundDifficulty(roundIndex, totalRounds){
+  const progress = roundIndex / (totalRounds - 1);
+  const maxTier = 1 + Math.floor(progress * 4);
+  const poolSize = Math.round(15 - progress * 9);
+  return { maxTier, poolSize };
+}
+
+function fgPickFlagForRound(allCountries, maxTier, usedNames){
+  const eligible = allCountries.filter(c => c.tier <= maxTier && !usedNames.has(c.name));
+  const atCeiling = eligible.filter(c => c.tier === maxTier);
+  const pickFrom = atCeiling.length > 0 ? atCeiling : eligible;
+  if(pickFrom.length === 0) return null;
+  return pickFrom[Math.floor(Math.random() * pickFrom.length)];
+}
+
+function fgBuildRounds(allCountries, totalRounds){
+  const usedNames = new Set();
+  const rounds = [];
+  for(let i = 0; i < totalRounds; i++){
+    const { maxTier, poolSize } = fgRoundDifficulty(i, totalRounds);
+    const correct = fgPickFlagForRound(allCountries, maxTier, usedNames);
+    if(!correct) break;
+    usedNames.add(correct.name);
+    const distractors = fgGetOptions(correct, allCountries, 5, poolSize, usedNames);
+    distractors.forEach(d => usedNames.add(d.name));
+    const options = [correct, ...distractors];
+    for(let j = options.length - 1; j > 0; j--){
+      const k = Math.floor(Math.random() * (j + 1));
+      [options[j], options[k]] = [options[k], options[j]];
+    }
+    rounds.push({ correct, options });
+  }
+  return rounds;
+}
+
+function fgFlagEmoji(code){
+  // Fallback if the real flag image fails to load -- converts a 2-letter ISO code to its
+  // Unicode regional-indicator flag emoji. 'xk' (Kosovo) has no real flag emoji in
+  // Unicode, so it falls back to a globe glyph instead of rendering as literal letters.
+  if(code === 'xk') return '\u{1F310}';
+  return [...code.toUpperCase()].map(ch => String.fromCodePoint(0x1F1E6 - 65 + ch.charCodeAt(0))).join('');
+}
+
+let fgState = null; // { rounds, current, correctCount, mistakes, answered }
+
+function fgStart(){
+  fgState = {
+    rounds: fgBuildRounds(FLAG_COUNTRIES, FG_ROUNDS_PER_GAME),
+    current: 0,
+    correctCount: 0,
+    mistakes: [],
+    answered: false,
+  };
+  renderRoute();
+}
+
+function fgAnswer(pickedName){
+  if(!fgState || fgState.answered) return;
+  fgState.answered = true;
+  fgState.lastPicked = pickedName;
+  const round = fgState.rounds[fgState.current];
+  const isCorrect = pickedName === round.correct.name;
+  if(isCorrect){ fgState.correctCount++; }
+  else{ fgState.mistakes.push({ correct: round.correct, picked: round.options.find(o => o.name === pickedName) }); }
+  renderRoute();
+  setTimeout(() => {
+    if(!fgState) return;
+    fgState.current++;
+    fgState.answered = false;
+    fgState.lastPicked = null;
+    if(fgState.current >= fgState.rounds.length){
+      fgFinishGame();
+    }
+    renderRoute();
+  }, 900);
+}
+
+function fgFinishGame(){
+  if(!fgState) return;
+  const score = fgState.correctCount;
+  let best = 0;
+  try{ best = parseInt(localStorage.getItem(FG_BEST_SCORE_KEY) || '0', 10); }catch(e){}
+  if(score > best){
+    try{ localStorage.setItem(FG_BEST_SCORE_KEY, String(score)); }catch(e){}
+  }
+  let streak = 0;
+  try{ streak = parseInt(localStorage.getItem(FG_STREAK_KEY) || '0', 10); }catch(e){}
+  // "Streak" here means consecutive DAYS the game was played at least once, matching the
+  // site's existing visitStreak convention elsewhere -- not consecutive perfect rounds.
+  const todayKey = getTodayKeyLocal();
+  let lastPlayed = null;
+  try{ lastPlayed = localStorage.getItem('flagGameLastPlayedDate'); }catch(e){}
+  if(lastPlayed !== todayKey){
+    const yesterday = new Date(Date.now() - 86400000);
+    const yKey = `${yesterday.getFullYear()}-${String(yesterday.getMonth()+1).padStart(2,'0')}-${String(yesterday.getDate()).padStart(2,'0')}`;
+    streak = (lastPlayed === yKey) ? streak + 1 : 1;
+    try{
+      localStorage.setItem(FG_STREAK_KEY, String(streak));
+      localStorage.setItem('flagGameLastPlayedDate', todayKey);
+    }catch(e){}
+  }
+}
+
+function fgExit(){
+  fgState = null;
+  renderRoute();
+}
+
 const SPORTS_TILES = [
   { emoji: icon('barchart'), name:"League Tables", sub:"All leagues, one page", url:"#sports/tables", color:"var(--teal)", internal:true },
   { emoji:icon('ball'), name:"BBC Football", sub:"News, always current", url:"https://www.bbc.com/sport/football", color:"var(--coral)" },
@@ -7218,6 +7428,103 @@ function wireInstallPage(){
   // Auto-attempt right away — the closest the web platform allows to "automatic".
   setTimeout(tryPrompt, 400);
   if(btn) btn.addEventListener('click', tryPrompt);
+}
+
+function fgIntroHtml(){
+  let best = 0, streak = 0;
+  try{ best = parseInt(localStorage.getItem(FG_BEST_SCORE_KEY) || '0', 10); }catch(e){}
+  try{ streak = parseInt(localStorage.getItem(FG_STREAK_KEY) || '0', 10); }catch(e){}
+  return `
+    <a class="back-link" href="#">← Back to Mr Eric's Lounge</a>
+    <section style="padding-top:14px;">
+      <div class="fg-wrap">
+        <div class="section-head"><span class="emoji">🌍</span><h2>Guess the Flag</h2></div>
+        <p style="font-size:14px; color:var(--ink-soft); line-height:1.6; margin-bottom:6px;">15 flags, 6 options each. The wrong options are always genuinely similar to the right one -- never random. Gets harder as you go.</p>
+        <div class="fg-intro-stats">
+          <div class="fg-intro-stat"><div class="num">${best}/15</div><div class="label">Best Score</div></div>
+          <div class="fg-intro-stat"><div class="num">${streak}</div><div class="label">Day Streak</div></div>
+        </div>
+        <button class="fg-start-btn" data-action="fg-start">Start</button>
+      </div>
+    </section>
+  `;
+}
+
+function fgFlagImageHtml(country){
+  const emoji = fgFlagEmoji(country.code);
+  return `
+    <div class="fg-flag-frame">
+      <img src="https://flagcdn.com/w320/${country.code}.png" alt="Flag" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+      <div class="fg-flag-emoji-fallback" style="display:none; align-items:center; justify-content:center; width:100%; height:100%;">${emoji}</div>
+    </div>
+  `;
+}
+
+function fgPlayingHtml(){
+  const round = fgState.rounds[fgState.current];
+  const pct = Math.round((fgState.current / fgState.rounds.length) * 100);
+  const optionsHtml = round.options.map(o => {
+    let cls = 'fg-option-btn';
+    if(fgState.answered){
+      if(o.name === round.correct.name) cls += ' fg-correct';
+      else if(o.name === fgState.lastPicked) cls += ' fg-wrong';
+    }
+    return `<button class="${cls}" data-action="fg-answer" data-name="${escapeHtml(o.name)}" ${fgState.answered ? 'disabled' : ''}>${escapeHtml(o.name)}</button>`;
+  }).join('');
+  return `
+    <section style="padding-top:14px;">
+      <div class="fg-wrap">
+        <div class="fg-progress-row">
+          <span>Flag ${fgState.current + 1} of ${fgState.rounds.length}</span>
+          <span>Score: ${fgState.correctCount}</span>
+        </div>
+        <div class="fg-progress-bar"><div class="fg-progress-fill" style="width:${pct}%"></div></div>
+        ${fgFlagImageHtml(round.correct)}
+        <div class="fg-question">Which country is this?</div>
+        <div class="fg-options">${optionsHtml}</div>
+      </div>
+    </section>
+  `;
+}
+
+function fgEndHtml(){
+  const score = fgState.correctCount;
+  let best = 0;
+  try{ best = parseInt(localStorage.getItem(FG_BEST_SCORE_KEY) || '0', 10); }catch(e){}
+  const isNewBest = score >= best && score > 0;
+  const reviewHtml = fgState.mistakes.length === 0 ? `<p style="text-align:center; font-size:14px; color:var(--ink-soft);">Perfect round -- no mistakes.</p>` : `
+    <div style="margin-top:8px;">
+      ${fgState.mistakes.map(m => `
+        <div class="fg-review-item fg-review-wrong">
+          <img src="https://flagcdn.com/w80/${m.correct.code}.png" alt="" onerror="this.style.display='none';">
+          <div><strong>${escapeHtml(m.correct.name)}</strong> — you picked ${escapeHtml(m.picked ? m.picked.name : '?')}</div>
+        </div>
+      `).join('')}
+    </div>
+  `;
+  return `
+    <a class="back-link" href="#">← Back to Mr Eric's Lounge</a>
+    <section style="padding-top:14px;">
+      <div class="fg-wrap">
+        <div class="section-head"><span class="emoji">🌍</span><h2>Round Complete</h2></div>
+        <div class="fg-end-score">${score}/${fgState.rounds.length}</div>
+        <div class="fg-end-label">${isNewBest ? 'New best score!' : `Best: ${best}/${fgState.rounds.length}`}</div>
+        <button class="fg-start-btn" data-action="fg-start">Play Again</button>
+        <h3 style="margin:22px 0 4px; font-family:'Baloo 2', sans-serif; font-size:15px;">Missed flags</h3>
+        ${reviewHtml}
+      </div>
+    </section>
+  `;
+}
+
+function viewFlagGame(){
+  if(!fgState){
+    return fgIntroHtml();
+  }
+  if(fgState.current >= fgState.rounds.length){
+    return fgEndHtml();
+  }
+  return fgPlayingHtml();
 }
 
 function viewSaved(){
@@ -12959,6 +13266,16 @@ function viewHome(){
       ${upcomingBirthdayTileHtml()}
     </section>
 
+    <section>
+      <a class="flaggame-tile" href="#flag-game">
+        <span class="icon">🌍</span>
+        <div>
+          <div class="title">Guess the Flag</div>
+          <div class="sub">15 flags, 6 tricky similar options each round</div>
+        </div>
+      </a>
+    </section>
+
     <section style="text-align:center; padding:20px 0 8px;">
       <a class="invite-link" href="#invite">${icon('star')}<span>Invite a friend</span></a>
     </section>
@@ -13267,6 +13584,18 @@ function mtCloseOverlay(){
   renderRoute({ skipScrollSave: true });
 }
 document.addEventListener('click', (e) => {
+  const fgStartBtn = e.target.closest('[data-action="fg-start"]');
+  if(fgStartBtn){
+    e.preventDefault();
+    fgStart();
+    return;
+  }
+  const fgAnswerBtn = e.target.closest('[data-action="fg-answer"]');
+  if(fgAnswerBtn){
+    e.preventDefault();
+    fgAnswer(fgAnswerBtn.dataset.name);
+    return;
+  }
   const clearSavedBtn = e.target.closest('[data-action="clear-saved"]');
   if(clearSavedBtn){
     e.preventDefault();
@@ -13354,6 +13683,8 @@ function renderRoute(opts){
     html = viewPhotos();
   } else if(parts[0] === 'saved'){
     html = viewSaved();
+  } else if(parts[0] === 'flag-game'){
+    html = viewFlagGame();
   } else if(parts[0] === 'mind-temple'){
     html = viewMindTemple();
   } else if(parts[0] === 'arcade' && parts[1]){
@@ -13409,6 +13740,7 @@ function renderRoute(opts){
     });
   }
   if(parts[0] === 'mind-temple'){ mtInit(); }
+  if(parts[0] !== 'flag-game' && fgState){ fgState = null; }
   if(parts[0] === 'arcade' && parts[1]){ wireArcade(parts[1]); }
   if(parts[0] === 'install'){ wireInstallPage(); }
   if(parts[0] === 'stats'){ loadStats(); }
