@@ -94,7 +94,8 @@ def parse_standings(html):
                 "gf": int(stats.get("gf", 0) or 0),
                 "points": int(stats.get("pts", 0) or 0),
             })
-        except ValueError:
+        except ValueError as e:
+            print(f"[khl]   row for {team_name!r} failed: {e}. all_cells count={len(all_cells)}, stat values={values}", flush=True)
             continue
     return standings
 
