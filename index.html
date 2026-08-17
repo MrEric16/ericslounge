@@ -1262,7 +1262,7 @@
     text-decoration:none;
     box-shadow:0 3px 0 rgba(58,42,30,.15);
   }
-  .flaggame-tile .icon{display:inline-flex; align-items:center; font-size:30px; line-height:1;}
+  .flaggame-tile .icon{display:inline-flex; align-items:center; font-size:30px; line-height:1;} .flaggame-tile .icon svg{width:30px;height:30px;}
   .flaggame-tile .title{font-weight:800; font-size:19px;}
   .flaggame-tile .sub{font-size:13px; color:#D6E7EF; font-weight:600; margin-top:2px;}
 
@@ -1277,7 +1277,7 @@
   }
   .fg-flag-frame img{ width:100%; height:auto; display:block; }
   .fg-flag-frame svg{ width:100%; height:auto; display:block; aspect-ratio:3/2; }
-  .fg-flag-emoji-fallback{ font-size:100px; line-height:1; }
+  .fg-flag-emoji-fallback{ font-size:100px; line-height:1; } .fg-flag-emoji-fallback svg{width:64px;height:64px;}
   .fg-question{ text-align:center; font-family:'Baloo 2', sans-serif; font-weight:700; font-size:18px; color:var(--ink); margin-bottom:20px; }
   .fg-options{ display:grid; grid-template-columns:1fr 1fr; gap:10px; }
   .fg-option-btn{
@@ -1312,7 +1312,7 @@
     display:flex; align-items:center; justify-content:center;
   }
   .fg-option-flag-thumb img{ width:100%; height:100%; object-fit:contain; }
-  .fg-option-flag-fallback{ align-items:center; justify-content:center; width:100%; height:100%; font-size:32px; }
+  .fg-option-flag-fallback{ align-items:center; justify-content:center; width:100%; height:100%; font-size:32px; } .fg-option-flag-fallback svg{width:28px;height:28px;}
   .fg-option-btn.fg-option-flag.fg-correct .fg-option-flag-thumb, .fg-option-btn.fg-option-flag.fg-wrong .fg-option-flag-thumb{ background:transparent; }
   .fg-end-score{ text-align:center; font-family:'Baloo 2', sans-serif; font-weight:800; font-size:48px; color:var(--misc-flaggame); margin:14px 0 4px; }
   .fg-end-label{ text-align:center; font-size:13px; color:var(--ink-soft); font-weight:700; margin-bottom:22px; }
@@ -3473,11 +3473,11 @@ function ccExit(){
 function geoHubExternalTile(name){
   const site = EXPLORE_SITES.find(s => s.name === name);
   if(!site) return null;
-  return { name: site.name, emoji: '🔗', url: site.url, internal: false };
+  return { name: site.name, emoji: icon('share'), url: site.url, internal: false };
 }
 const GEOGRAPHY_HUB_TILES = [
-  { name: "Guess the Flag", emoji: '🌍', url: "#flag-game", internal: true },
-  { name: "Capital Cities", emoji: '🏛️', url: "#capital-game", internal: true },
+  { name: "Guess the Flag", emoji: icon('globe'), url: "#flag-game", internal: true },
+  { name: "Capital Cities", emoji: icon('compass2'), url: "#capital-game", internal: true },
   geoHubExternalTile("GeoGuessr"),
   geoHubExternalTile("OpenGuessr"),
   geoHubExternalTile("Radio Garden"),
@@ -3489,7 +3489,7 @@ function viewGeographyHub(){
   return `
     <a class="back-link" href="#">← Back to Mr Eric's Lounge</a>
     <section style="padding-top:14px;">
-      <div class="section-head"><span class="emoji">🌍</span><h2>How's Your Geography?</h2></div>
+      <div class="section-head"><span class="emoji">${icon('globe')}</span><h2>How's Your Geography?</h2></div>
       <div class="sport-hub-grid">
         ${GEOGRAPHY_HUB_TILES.map(sportsTileHtml).join('')}
       </div>
@@ -7767,7 +7767,7 @@ function fgIntroHtml(){
     <a class="back-link" href="#geography-hub">← Back to How's Your Geography?</a>
     <section style="padding-top:14px;">
       <div class="fg-wrap">
-        <div class="section-head"><span class="emoji">🌍</span><h2>Guess the Flag</h2></div>
+        <div class="section-head"><span class="emoji">${icon('globe')}</span><h2>Guess the Flag</h2></div>
         <p style="font-size:14px; color:var(--ink-soft); line-height:1.6; margin-bottom:6px;">${FG_ROUNDS_PER_GAME} flags, 6 options each, plus ${FG_BONUS_ROUNDS} bonus rounds of empires, khanates, and defunct states to finish. The wrong options are always genuinely similar to the right one -- never random. Gets harder as you go.</p>
         <div class="fg-intro-stats">
           <div class="fg-intro-stat"><div class="num">${best}/${FG_TOTAL_ROUNDS}</div><div class="label">Best Score</div></div>
@@ -7775,11 +7775,9 @@ function fgIntroHtml(){
         </div>
         <div class="fg-mode-grid">
           <button class="fg-mode-btn" data-action="fg-start" data-mode="flag-to-country">
-            <div class="fg-mode-title">🏳️ → 🔤</div>
             <div class="fg-mode-sub">Flag → Country</div>
           </button>
           <button class="fg-mode-btn" data-action="fg-start" data-mode="country-to-flag">
-            <div class="fg-mode-title">🔤 → 🏳️</div>
             <div class="fg-mode-sub">Country → Flag</div>
           </button>
         </div>
@@ -7804,7 +7802,7 @@ function fgOptionFlagThumb(item){
           this.nextElementSibling.style.display='flex';
         }
       ">
-      <div class="fg-option-flag-fallback" style="display:none;">🏳️</div>
+      <div class="fg-option-flag-fallback" style="display:none;">${icon('globe')}</div>
     </div>`;
   }
   const emoji = fgFlagEmoji(item.code);
@@ -7839,7 +7837,7 @@ function fgFlagImageHtml(item){
             this.nextElementSibling.style.display='flex';
           }
         ">
-        <div class="fg-flag-emoji-fallback" style="display:none; flex-direction:column; align-items:center; justify-content:center; width:100%; height:200px; font-size:16px; text-align:center; padding:0 16px;">🏳️<div style="margin-top:8px; font-weight:700;">Image unavailable</div></div>
+        <div class="fg-flag-emoji-fallback" style="display:none; flex-direction:column; align-items:center; justify-content:center; width:100%; height:200px; font-size:16px; text-align:center; padding:0 16px;">${icon('globe')}<div style="margin-top:8px; font-weight:700;">Image unavailable</div></div>
       </div>
     `;
   }
@@ -7928,7 +7926,7 @@ function fgEndHtml(){
     <a class="back-link" href="#geography-hub">← Back to How's Your Geography?</a>
     <section style="padding-top:14px;">
       <div class="fg-wrap">
-        <div class="section-head"><span class="emoji">🌍</span><h2>Round Complete</h2></div>
+        <div class="section-head"><span class="emoji">${icon('trophy')}</span><h2>Round Complete</h2></div>
         <div class="fg-end-score">${score}/${fgState.rounds.length}</div>
         <div class="fg-end-label">${isNewBest ? 'New best score!' : `Best: ${best}/${fgState.rounds.length}`}</div>
         <button class="fg-start-btn" data-action="fg-start" data-mode="${fgState.mode}">Play Again</button>
@@ -7957,7 +7955,7 @@ function ccIntroHtml(){
     <a class="back-link" href="#geography-hub">← Back to How's Your Geography?</a>
     <section style="padding-top:14px;">
       <div class="fg-wrap">
-        <div class="section-head"><span class="emoji">🏛️</span><h2>Capital Cities</h2></div>
+        <div class="section-head"><span class="emoji">${icon('compass2')}</span><h2>Capital Cities</h2></div>
         <p style="font-size:14px; color:var(--ink-soft); line-height:1.6; margin-bottom:6px;">${CC_ROUNDS_PER_GAME} countries, 6 capital-city options each, plus ${CC_BONUS_ROUNDS} bonus rounds on historical capitals to finish. Wrong options are always genuinely tricky -- nearby countries or similar-sounding names, never random. Gets harder as you go.</p>
         <div class="fg-intro-stats">
           <div class="fg-intro-stat"><div class="num">${best}/${CC_TOTAL_ROUNDS}</div><div class="label">Best Score</div></div>
@@ -7965,11 +7963,9 @@ function ccIntroHtml(){
         </div>
         <div class="fg-mode-grid">
           <button class="fg-mode-btn" data-action="cc-start" data-mode="country-to-capital">
-            <div class="fg-mode-title">🔤 → 🏛️</div>
             <div class="fg-mode-sub">Country → Capital</div>
           </button>
           <button class="fg-mode-btn" data-action="cc-start" data-mode="capital-to-country">
-            <div class="fg-mode-title">🏛️ → 🔤</div>
             <div class="fg-mode-sub">Capital → Country</div>
           </button>
         </div>
@@ -8034,7 +8030,7 @@ function ccEndHtml(){
     <a class="back-link" href="#geography-hub">← Back to How's Your Geography?</a>
     <section style="padding-top:14px;">
       <div class="fg-wrap">
-        <div class="section-head"><span class="emoji">🏛️</span><h2>Round Complete</h2></div>
+        <div class="section-head"><span class="emoji">${icon('trophy')}</span><h2>Round Complete</h2></div>
         <div class="fg-end-score">${score}/${ccState.rounds.length}</div>
         <div class="fg-end-label">${isNewBest ? 'New best score!' : `Best: ${best}/${ccState.rounds.length}`}</div>
         <button class="fg-start-btn" data-action="cc-start" data-mode="${ccState.mode}">Play Again</button>
@@ -13796,7 +13792,7 @@ function viewHome(){
 
     <section>
       <a class="flaggame-tile" href="#geography-hub">
-        <span class="icon">🌍</span>
+        <span class="icon">${icon('globe')}</span>
         <div>
           <div class="title">How's Your Geography?</div>
           <div class="sub">Flags, capitals, and more</div>
