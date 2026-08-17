@@ -10,8 +10,7 @@
 [football-fetch] standings[SA]: raw season field = {'id': 2494, 'startDate': '2026-08-23', 'endDate': '2027-05-30', 'currentMatchday': 1, 'winner': None}
 [football-fetch] standings[SA]: OK (0 rows)
 [football-fetch] matches[SA]: OK (trimmed from 380 to 10 fixtures + 0 results)
-[football-fetch] standings[FL1]: raw season field = {'id': 2497, 'startDate': '2026-08-22', 'endDate': '2027-05-29', 'currentMatchday': 1, 'winner': None}
-[football-fetch] standings[FL1]: OK (0 rows)
+[football-fetch] standings[FL1]: FAILED (HTTPSConnectionPool(host='api.football-data.org', port=443): Max retries exceeded with url: /v4/competitions/FL1/standings (Caused by SSLError(SSLEOFError(8, '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1016)'))))
 [football-fetch] matches[FL1]: OK (trimmed from 306 to 9 fixtures + 0 results)
 [football-fetch] standings[CL]: raw season field = {'id': 2454, 'startDate': '2025-09-16', 'endDate': '2026-05-30', 'currentMatchday': 8, 'winner': None}
 [football-fetch] standings[CL]: OK (0 rows)
