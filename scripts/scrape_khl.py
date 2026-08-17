@@ -81,22 +81,25 @@ def parse_standings(html):
         stat_cells = all_cells[2:]
         values = [c.get_text(strip=True) for c in stat_cells]
         stats = dict(zip(STAT_COLUMNS, values))
-        try:
-            standings.append({
-                "team": team_name,
-                "played": int(stats.get("gp", 0) or 0),
-                "won": int(stats.get("w", 0) or 0),
-                "otWon": int(stats.get("otw", 0) or 0),
-                "soWon": int(stats.get("sow", 0) or 0),
-                "soLost": int(stats.get("sol", 0) or 0),
-                "otLost": int(stats.get("otl", 0) or 0),
-                "lost": int(stats.get("l", 0) or 0),
-                "gf": int(stats.get("gf", 0) or 0),
-                "points": int(stats.get("pts", 0) or 0),
-            })
-        except ValueError as e:
-            print(f"[khl]   row for {team_name!r} failed: {e}. all_cells count={len(all_cells)}, stat values={values}", flush=True)
-            continue
+        def safe_int(key):
+            v = stats.get(key, "0")
+            try:
+                return int(v)
+            except (ValueError, TypeError):
+                return 0
+
+        standings.append({
+            "team": team_name,
+            "played": safe_int("gp"),
+            "won": safe_int("w"),
+            "otWon": safe_int("otw"),
+            "soWon": safe_int("sow"),
+            "soLost": safe_int("sol"),
+            "otLost": safe_int("otl"),
+            "lost": safe_int("l"),
+            "gf": safe_int("gf"),
+            "points": safe_int("pts"),
+        })
     return standings
 
 
