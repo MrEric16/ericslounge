@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-17T21:54:38.717011Z",
+  "generatedAt": "2026-08-17T22:16:33.004011Z",
   "results": [
     {
       "url": "https://www.goal.com/en/match/girona-vs-arsenal/__LS8d9Oc6I1wXn9g8956",
@@ -239,9 +239,25 @@
         }
       ],
       "competition": "PD"
+    },
+    {
+      "url": "https://www.goal.com/en/match/deportivo-de-a-coruna-vs-elche/fM3cKVxxEF0_8lxJnXexu",
+      "date": "2026-08-17",
+      "home": "Deportivo De A Coruna",
+      "away": "Elche",
+      "htHome": 1,
+      "htAway": 0,
+      "ftHome": 1,
+      "ftAway": 1,
+      "homeGoals": [
+        {
+          "scorer": "M. Aguado",
+          "minute": 76
+        }
+      ],
+      "awayGoals": [],
+      "competition": "PD"
     }
   ],
-  "scorerParseRetryCounts": {
-    "https://www.goal.com/en/match/deportivo-de-a-coruna-vs-elche/fM3cKVxxEF0_8lxJnXexu": 2
-  }
+  "scorerParseRetryCounts": {}
 }
