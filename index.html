@@ -3175,7 +3175,7 @@ const SPORTS_LEAGUES = [
     fixtures: [],
   },
   {
-    name: "KHL", flag: icon('stick'), note: "Off-season — regular season starts 10 Sep 2026",
+    name: "KHL", flag: icon('stick'), note: "Off-season — regular season starts 5 Sep 2026 (standings live, fixtures still manual)",
     divisions: [
       { label: "Western Conference", teams: zeroRows(["CSKA Moscow","Dinamo Minsk","Dynamo Moscow","Lada Togliatti","Lokomotiv Yaroslavl","HC Sochi","Severstal Cherepovets","Shanghai Dragons","SKA Saint Petersburg","Spartak Moscow","Torpedo Nizhny Novgorod"]) },
       { label: "Eastern Conference", teams: zeroRows(["Admiral Vladivostok","Ak Bars Kazan","Amur Khabarovsk","Avangard Omsk","Avtomobilist Ekaterinburg","Barys Astana","Metallurg Magnitogorsk","Neftekhimik Nizhnekamsk","Salavat Yulaev Ufa","Sibir Novosibirsk","Traktor Chelyabinsk"]) },
@@ -3199,7 +3199,8 @@ const SPORTS_LEAGUES = [
 // run by .github/workflows/uz-league-fetch.yml) -- fixed 2026-08-07 after the frontend fetch was
 // never wired up despite the scraper working correctly, which left stale Aug-1 static data
 // showing indefinitely. UAE Pro League now comes from scripts/scrape_uae_league.py
-// (data/uae-league-live.json). KHL still has no live source and stays manual.
+// (data/uae-league-live.json). KHL standings now come from scripts/scrape_khl.py
+// (data/khl-live.json) too -- fixtures/results for KHL are still manual.
 // Refreshes at most once per "day", where the day rolls over at 04:00 Tashkent time (when most
 // games from the previous evening will have finished) — not on every page load, to stay well
 // inside the free tier's 10-requests/minute limit shared across all site visitors.
@@ -3452,6 +3453,21 @@ async function loadLiveSportsData(){
             };
           }
         }catch(e){ /* UAE data file unavailable or malformed -- falls back to static below */ }
+
+        // KHL -- standings only for now (fixtures/results scraping not built yet, still
+        // falls back to static hardcoded data below for those). Same field-name mapping
+        // pattern as UAE above.
+        try{
+          const khlRes = await fetch('./data/khl-live.json', { cache: 'no-store' });
+          if(khlRes.ok){
+            const khlLive = await khlRes.json();
+            if(khlLive.standings && khlLive.standings.length){
+              fresh.leagues['KHL'] = khlLive.standings.map(s => ({
+                name: s.team, pld: s.played, w: s.won + s.otWon + s.soWon, d: 0, l: s.lost + s.otLost + s.soLost, gf: s.gf, ga: 0, pts: s.points,
+              }));
+            }
+          }
+        }catch(e){ /* KHL data file unavailable or malformed -- falls back to static below */ }
 
         if(Object.keys(fresh.leagues).length > 0 || Object.keys(fresh.matches).length > 0 || fresh.arsenalFixture){
           cache = fresh;
