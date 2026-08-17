@@ -1,6 +1,6 @@
 [scrape] Run started. Today (Tashkent): 2026-08-17  Window end: 2026-08-31
 [scrape] NOTE: switched from per-category listing pages to afisha.uz's calendar view (one real day at a time, via Playwright) -- the old approach could only ever see whatever was on the current front page of each category, missing anything pushed down by newer posts. The calendar view asks for each specific date directly instead.
-[scrape] calendar 2026-08-17: 16 new event URLs discovered
+[scrape] calendar 2026-08-17: 17 new event URLs discovered
 [scrape] calendar 2026-08-18: 7 new event URLs discovered
 [scrape] calendar 2026-08-19: 5 new event URLs discovered
 [scrape] calendar 2026-08-20: 0 new event URLs discovered
@@ -14,17 +14,20 @@
 [scrape] exhibitions listing page (supplementary): 11 new event URLs discovered, 20 total exhibition links seen on page
 [scrape]   TARGET CHECK 'our-heritage': FOUND in raw hrefs: ['/ru/exhibitions/2026/07/31/our-heritage']
 [scrape]   TARGET CHECK 'photo-chronicle-xx': FOUND in raw hrefs: ['/ru/exhibitions/2026/06/25/photo-chronicle-xx']
-[scrape] calendar discovery complete: 69 unique event URLs to check
-[scrape]   DEBUG: dumped raw HTML for qimmat page, 138519 chars
+[scrape] calendar discovery complete: 70 unique event URLs to check
+[scrape]   DEBUG: dumped raw HTML for qimmat page, 138476 chars
 [scrape]   TARGET DETAIL CHECK https://www.afisha.uz/ru/exhibitions/2026/07/31/our-heritage: HTTP 200, 139545 chars received, h1 found=True, title='Выставка «Наше наследие»'
 [scrape]   TARGET PASSED ALL CHECKS: https://www.afisha.uz/ru/exhibitions/2026/07/31/our-heritage title='Выставка «Наше наследие»' occurrences=[(datetime.datetime(2026, 7, 31, 0, 0), None), (datetime.datetime(2026, 8, 1, 0, 0), None), (datetime.datetime(2026, 8, 2, 0, 0), None), (datetime.datetime(2026, 8, 3, 0, 0), None), (datetime.datetime(2026, 8, 4, 0, 0), None), (datetime.datetime(2026, 8, 5, 0, 0), None), (datetime.datetime(2026, 8, 6, 0, 0), None), (datetime.datetime(2026, 8, 7, 0, 0), None), (datetime.datetime(2026, 8, 8, 0, 0), None), (datetime.datetime(2026, 8, 9, 0, 0), None), (datetime.datetime(2026, 8, 10, 0, 0), None), (datetime.datetime(2026, 8, 11, 0, 0), None), (datetime.datetime(2026, 8, 12, 0, 0), None), (datetime.datetime(2026, 8, 13, 0, 0), None), (datetime.datetime(2026, 8, 14, 0, 0), None), (datetime.datetime(2026, 8, 15, 0, 0), None), (datetime.datetime(2026, 8, 16, 0, 0), None), (datetime.datetime(2026, 8, 17, 0, 0), None), (datetime.datetime(2026, 8, 18, 0, 0), None), (datetime.datetime(2026, 8, 19, 0, 0), None), (datetime.datetime(2026, 8, 20, 0, 0), None), (datetime.datetime(2026, 8, 21, 0, 0), None), (datetime.datetime(2026, 8, 22, 0, 0), None), (datetime.datetime(2026, 8, 23, 0, 0), None), (datetime.datetime(2026, 8, 24, 0, 0), None), (datetime.datetime(2026, 8, 25, 0, 0), None), (datetime.datetime(2026, 8, 26, 0, 0), None), (datetime.datetime(2026, 8, 27, 0, 0), None), (datetime.datetime(2026, 8, 28, 0, 0), None), (datetime.datetime(2026, 8, 29, 0, 0), None), (datetime.datetime(2026, 8, 30, 0, 0), None)]
 [scrape]   TARGET APPENDED 14 entries to events[] for https://www.afisha.uz/ru/exhibitions/2026/07/31/our-heritage, events[] length now 36
 [scrape]   TARGET DETAIL CHECK https://www.afisha.uz/ru/exhibitions/2026/06/25/photo-chronicle-xx: HTTP 200, 141110 chars received, h1 found=True, title='Выставка «Фотохроника XX века»'
 [scrape]   TARGET PASSED ALL CHECKS: https://www.afisha.uz/ru/exhibitions/2026/06/25/photo-chronicle-xx title='Выставка «Фотохроника XX века»' occurrences=[(datetime.datetime(2026, 6, 25, 0, 0), None), (datetime.datetime(2026, 6, 26, 0, 0), None), (datetime.datetime(2026, 6, 27, 0, 0), None), (datetime.datetime(2026, 6, 28, 0, 0), None), (datetime.datetime(2026, 6, 29, 0, 0), None), (datetime.datetime(2026, 6, 30, 0, 0), None), (datetime.datetime(2026, 7, 1, 0, 0), None), (datetime.datetime(2026, 7, 2, 0, 0), None), (datetime.datetime(2026, 7, 3, 0, 0), None), (datetime.datetime(2026, 7, 4, 0, 0), None), (datetime.datetime(2026, 7, 5, 0, 0), None), (datetime.datetime(2026, 7, 6, 0, 0), None), (datetime.datetime(2026, 7, 7, 0, 0), None), (datetime.datetime(2026, 7, 8, 0, 0), None), (datetime.datetime(2026, 7, 9, 0, 0), None), (datetime.datetime(2026, 7, 10, 0, 0), None), (datetime.datetime(2026, 7, 11, 0, 0), None), (datetime.datetime(2026, 7, 12, 0, 0), None), (datetime.datetime(2026, 7, 13, 0, 0), None), (datetime.datetime(2026, 7, 14, 0, 0), None), (datetime.datetime(2026, 7, 15, 0, 0), None), (datetime.datetime(2026, 7, 16, 0, 0), None), (datetime.datetime(2026, 7, 17, 0, 0), None), (datetime.datetime(2026, 7, 18, 0, 0), None), (datetime.datetime(2026, 7, 19, 0, 0), None), (datetime.datetime(2026, 7, 20, 0, 0), None), (datetime.datetime(2026, 7, 21, 0, 0), None), (datetime.datetime(2026, 7, 22, 0, 0), None), (datetime.datetime(2026, 7, 23, 0, 0), None), (datetime.datetime(2026, 7, 24, 0, 0), None), (datetime.datetime(2026, 7, 25, 0, 0), None), (datetime.datetime(2026, 7, 26, 0, 0), None), (datetime.datetime(2026, 7, 27, 0, 0), None), (datetime.datetime(2026, 7, 28, 0, 0), None), (datetime.datetime(2026, 7, 29, 0, 0), None), (datetime.datetime(2026, 7, 30, 0, 0), None), (datetime.datetime(2026, 7, 31, 0, 0), None), (datetime.datetime(2026, 8, 1, 0, 0), None), (datetime.datetime(2026, 8, 2, 0, 0), None), (datetime.datetime(2026, 8, 3, 0, 0), None), (datetime.datetime(2026, 8, 4, 0, 0), None), (datetime.datetime(2026, 8, 5, 0, 0), None), (datetime.datetime(2026, 8, 6, 0, 0), None), (datetime.datetime(2026, 8, 7, 0, 0), None), (datetime.datetime(2026, 8, 8, 0, 0), None), (datetime.datetime(2026, 8, 9, 0, 0), None), (datetime.datetime(2026, 8, 10, 0, 0), None), (datetime.datetime(2026, 8, 11, 0, 0), None), (datetime.datetime(2026, 8, 12, 0, 0), None), (datetime.datetime(2026, 8, 13, 0, 0), None), (datetime.datetime(2026, 8, 14, 0, 0), None), (datetime.datetime(2026, 8, 15, 0, 0), None), (datetime.datetime(2026, 8, 16, 0, 0), None), (datetime.datetime(2026, 8, 17, 0, 0), None), (datetime.datetime(2026, 8, 18, 0, 0), None), (datetime.datetime(2026, 8, 19, 0, 0), None), (datetime.datetime(2026, 8, 20, 0, 0), None), (datetime.datetime(2026, 8, 21, 0, 0), None), (datetime.datetime(2026, 8, 22, 0, 0), None), (datetime.datetime(2026, 8, 23, 0, 0), None), (datetime.datetime(2026, 8, 24, 0, 0), None), (datetime.datetime(2026, 8, 25, 0, 0), None)]
 [scrape]   TARGET APPENDED 9 entries to events[] for https://www.afisha.uz/ru/exhibitions/2026/06/25/photo-chronicle-xx, events[] length now 45
+[scrape] Translation failed for 'Ярмарка Uzbegim Market в парке Tashkent ': Ярмарка Uzbegim Market в парке Tashkent City --> No translation was found using the current translator. Try another translator?
 [scrape]   DEBUG: dumped raw HTML for madagascar page, 185092 chars
 [scrape]   DROPPED (blacklisted venue): https://www.afisha.uz/ru/restaurants/2026/08/10/vechera-zhivoj-muzyki-v-cultura-2026 | title='Вечера живой музыки в Cultura' venue='CulturaТашкент, просп. Шарафа Рашидова, 40'
 [scrape]   DROPPED (blacklisted venue): https://www.afisha.uz/ru/restaurants/2026/08/12/ladies-night | title='Ladies’ Night в ресторане Steinbrau' venue='SteinbrauТашкент, населённый пункт Барданкуль'
+[scrape] Translation failed for 'Шоу мороженого в Jungle Family Club': Шоу мороженого в Jungle Family Club --> No translation was found using the current translator. Try another translator?
+[scrape] Translation failed for 'Спектакль «Красавица и Чудовище»': Спектакль «Красавица и Чудовище» --> No translation was found using the current translator. Try another translator?
 [scrape]   'CAITME 2026': no dates found in window (no schedule/date-range parsed) -- kept 0 events
 [scrape]   'Silk Road Expo HUAHE 2026': no dates found in window (no schedule/date-range parsed) -- kept 0 events
 [scrape]   'Осенний фестиваль локальных брендов Teplo Fest': no dates found in window (no schedule/date-range parsed) -- kept 0 events
@@ -33,7 +36,7 @@
 [scrape]   'Pharma Eurasia & MedTech 2026: в Ташкенте пройдет выставка фармацевтической отрасли': no dates found in window (no schedule/date-range parsed) -- kept 0 events
 [scrape]   'В университете Кимё проходит выставка Art Engineering 2026, посвященная экологическим решениям': no dates found in window (no schedule/date-range parsed) -- kept 0 events
 [scrape]   'Выставка «Образование и профессия 2026» пройдет в 12-ти городах Узбекистана': no dates found in window (no schedule/date-range parsed) -- kept 0 events
-[scrape] calendar detail pass complete: 230 events kept from 69 pages checked
+[scrape] calendar detail pass complete: 245 events kept from 70 pages checked
 [scrape] special-tracked: FAILED to fetch or failed content check for https://www.afisha.uz/ru/cinema/2026/07/16/kinoprazdnik-v-sredu
 [scrape] iticket.uz cat=concert: 7 events kept
 [scrape] iticket.uz cat=theatre: 5 events kept
@@ -43,5 +46,5 @@
 [scrape] eventbrite.com: 0 events found (dates NOT yet parsed -- see note in script)
 [scrape]   DEDUP: 23 target entries survived Pass 1
 [scrape]   DEDUP: 23 target entries survived Pass 2 (final)
-[scrape] TOTAL before dedup: 242  |  after dedup: 227
+[scrape] TOTAL before dedup: 257  |  after dedup: 243
 [scrape] Wrote data/events-tashkent.json
