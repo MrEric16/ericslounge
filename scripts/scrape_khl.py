@@ -53,12 +53,17 @@ def main():
 
     log(f"standings page: captured {len(standings_html)} chars")
     if standings_html:
-        team_idx = standings_html.find("CSKA")
-        if team_idx != -1:
-            log(f"sample near a known team name: {standings_html[max(0,team_idx-300):team_idx+500]!r}")
-        else:
-            log("'CSKA' not found anywhere in captured text -- may still be a bot-challenge page or fully empty (season hasn't started)")
         log(f"page title/head sample: {standings_html[:400]!r}")
+        table_idx = standings_html.find("standings-table")
+        if table_idx != -1:
+            log(f"found 'standings-table' marker, sample: {standings_html[table_idx:table_idx+1500]!r}")
+        else:
+            log("'standings-table' marker not found -- trying a generic <table> search instead")
+            tbl_idx = standings_html.find("<table")
+            if tbl_idx != -1:
+                log(f"found a <table> tag, sample: {standings_html[tbl_idx:tbl_idx+1500]!r}")
+            else:
+                log("no <table> tag found anywhere either")
 
     output = {
         "generatedAt": datetime.now(timezone.utc).isoformat(),
