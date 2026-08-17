@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-17T18:02:08.007004Z",
+  "generatedAt": "2026-08-17T19:46:39.981609Z",
   "standings": {
     "PD": [
       {
@@ -30,6 +30,16 @@
         "l": 0,
         "gf": 2,
         "ga": 1,
+        "pts": 3
+      },
+      {
+        "name": "Deportivo",
+        "pld": 1,
+        "w": 1,
+        "d": 0,
+        "l": 0,
+        "gf": 1,
+        "ga": 0,
         "pts": 3
       },
       {
@@ -74,26 +84,6 @@
       },
       {
         "name": "Osasuna",
-        "pld": 0,
-        "w": 0,
-        "d": 0,
-        "l": 0,
-        "gf": 0,
-        "ga": 0,
-        "pts": 0
-      },
-      {
-        "name": "Deportivo",
-        "pld": 0,
-        "w": 0,
-        "d": 0,
-        "l": 0,
-        "gf": 0,
-        "ga": 0,
-        "pts": 0
-      },
-      {
-        "name": "Elche",
         "pld": 0,
         "w": 0,
         "d": 0,
@@ -180,6 +170,16 @@
         "l": 1,
         "gf": 1,
         "ga": 2,
+        "pts": 0
+      },
+      {
+        "name": "Elche",
+        "pld": 1,
+        "w": 0,
+        "d": 0,
+        "l": 1,
+        "gf": 0,
+        "ga": 1,
         "pts": 0
       },
       {
@@ -522,37 +522,6 @@
     },
     "PD": {
       "fixtures": [
-        {
-          "utcDate": "2026-08-17T19:00:00Z",
-          "status": "TIMED",
-          "matchday": 1,
-          "homeTeam": {
-            "id": 560,
-            "name": "RC Deportivo La Coruña",
-            "shortName": "Deportivo"
-          },
-          "awayTeam": {
-            "id": 285,
-            "name": "Elche CF",
-            "shortName": "Elche"
-          },
-          "score": {
-            "winner": null,
-            "duration": "REGULAR",
-            "fullTime": {
-              "home": null,
-              "away": null
-            },
-            "halfTime": {
-              "home": null,
-              "away": null
-            }
-          },
-          "competition": {
-            "name": "Primera Division"
-          },
-          "venue": null
-        },
         {
           "utcDate": "2026-08-19T19:00:00Z",
           "status": "TIMED",
