@@ -1276,6 +1276,7 @@
     display:flex; align-items:center; justify-content:center;
   }
   .fg-flag-frame img{ width:100%; height:auto; display:block; }
+  .fg-flag-frame svg{ width:100%; height:auto; display:block; aspect-ratio:3/2; }
   .fg-flag-emoji-fallback{ font-size:100px; line-height:1; }
   .fg-question{ text-align:center; font-family:'Baloo 2', sans-serif; font-weight:700; font-size:18px; color:var(--ink); margin-bottom:20px; }
   .fg-options{ display:grid; grid-template-columns:1fr 1fr; gap:10px; }
@@ -3126,18 +3127,26 @@ function fgFlagEmoji(code){
 const FLAG_BONUS_ENTITIES = [
   { name:"Soviet Union", years:"1922–1991", file:"Flag of the Soviet Union.svg", palette:"red-yellow" },
   { name:"East Germany", years:"1959–1990", file:"Flag of East Germany.svg", palette:"black-red-gold" },
-  { name:"Czechoslovakia", years:"1920–1992", file:"Flag of Czechoslovakia.svg", palette:"white-red-blue" },
-  { name:"SFR Yugoslavia", years:"1946–1992", file:"Flag of Yugoslavia (1946-1992).svg", palette:"blue-white-red" },
+  // Czechoslovakia, SFR Yugoslavia, Abbasid, Umayyad, and Russian Empire (1858-1896) below
+  // use inline SVG instead of a Wikimedia hotlink -- their real designs are simple enough
+  // (solid colors / basic geometric shapes) to hand-draw with real confidence, which
+  // removes the network dependency, and the "sometimes shows Image unavailable" failure,
+  // entirely for these five. The other ten have genuinely detailed emblems (dragons, coats
+  // of arms, calligraphy, illustrated scenes) that can't be hand-drawn reliably, so they
+  // keep the Wikimedia hotlink -- imperfect, but the only real option for those specific
+  // designs given no other verified image source exists for defunct-state flags.
+  { name:"Czechoslovakia", years:"1920–1992", inlineSvg:`<svg viewBox="0 0 3 2" xmlns="http://www.w3.org/2000/svg"><rect width="3" height="1" fill="#FFFFFF"/><rect width="3" height="1" y="1" fill="#D7141A"/><polygon points="0,0 1.5,1 0,2" fill="#11457E"/></svg>`, palette:"white-red-blue" },
+  { name:"SFR Yugoslavia", years:"1946–1992", inlineSvg:`<svg viewBox="0 0 3 2" xmlns="http://www.w3.org/2000/svg"><rect width="3" height="0.667" fill="#0033A0"/><rect width="3" height="0.667" y="0.667" fill="#FFFFFF"/><rect width="3" height="0.667" y="1.333" fill="#C8102E"/><polygon points="1.5,0.55 1.63,0.93 2.02,0.93 1.71,1.16 1.82,1.55 1.5,1.31 1.18,1.55 1.29,1.16 0.98,0.93 1.37,0.93" fill="#C8102E" stroke="#FFD100" stroke-width="0.04"/></svg>`, palette:"blue-white-red" },
   { name:"Kingdom of Hawaii", years:"1845–1893", file:"Flag of Hawaii.svg", palette:"red-white-blue" },
   { name:"Qing Dynasty China", years:"1889–1912", file:"Flag of the Qing dynasty.svg", palette:"yellow-blue" },
   { name:"Kingdom of Italy", years:"1861–1946", file:"Flag of Italy (1861-1946).svg", palette:"green-white-red" },
   { name:"Imperial State of Iran", years:"1925–1979", file:"State flag of Iran (1964-1980).svg", palette:"green-white-red" },
-  { name:"Abbasid Caliphate", years:"750–1258", file:"Abbasid banner.svg", palette:"black" },
-  { name:"Umayyad Caliphate", years:"661–750", file:"Umayyad Flag.svg", palette:"white" },
+  { name:"Abbasid Caliphate", years:"750–1258", inlineSvg:`<svg viewBox="0 0 3 2" xmlns="http://www.w3.org/2000/svg"><rect width="3" height="2" fill="#000000"/></svg>`, palette:"black" },
+  { name:"Umayyad Caliphate", years:"661–750", inlineSvg:`<svg viewBox="0 0 3 2" xmlns="http://www.w3.org/2000/svg"><rect width="3" height="2" fill="#FFFFFF" stroke="#D8D0C0" stroke-width="0.02"/></svg>`, palette:"white" },
   { name:"Emirate of Bukhara", years:"1785–1920", file:"Flag of the Emirate of Bukhara.svg", palette:"green-gold" },
   { name:"Khanate of Kokand", years:"1709–1876", file:"Flag of the Khanate of Kokand.svg", palette:"red-white" },
   { name:"Crimean Khanate", years:"15th–18th c.", file:"Flag of the Crimean Khanate (15th century).svg", palette:"crimson-yellow" },
-  { name:"Russian Empire", years:"1858–1896", file:"Flag of Russia (1858–1896).svg", palette:"black-yellow-white" },
+  { name:"Russian Empire", years:"1858–1896", inlineSvg:`<svg viewBox="0 0 3 2" xmlns="http://www.w3.org/2000/svg"><rect width="3" height="0.667" fill="#000000"/><rect width="3" height="0.667" y="0.667" fill="#FFD900"/><rect width="3" height="0.667" y="1.333" fill="#FFFFFF"/></svg>`, palette:"black-yellow-white" },
   { name:"Navajo Nation", years:"1968–present", file:"Official design of the Navajo Nation flag as it was adopted on May 21, 1968.svg", palette:"tan-multi" },
 ];
 
@@ -7520,12 +7529,30 @@ function fgIntroHtml(){
 }
 
 function fgFlagImageHtml(item){
+  if(item.inlineSvg){
+    // Drawn directly, not loaded as an image at all -- zero network dependency, so this
+    // can never show "Image unavailable". Only used for designs simple enough (solid
+    // colors, basic geometric shapes) to hand-draw with real confidence in accuracy.
+    return `<div class="fg-flag-frame">${item.inlineSvg}</div>`;
+  }
   if(item.file){
-    // Bonus round: historical entity, image from Wikimedia Commons. No flag emoji exists
-    // for a defunct state, so the fallback is a plain text card instead of an emoji.
+    // Bonus round: historical entity, image from Wikimedia Commons. Retries once with a
+    // cache-busted URL before falling back -- most real-world failures on a live wiki are
+    // transient network blips, not the file having actually moved, so a retry clears the
+    // majority of them. No flag emoji exists for a defunct state, so the final fallback is
+    // plain text instead of an emoji.
     return `
       <div class="fg-flag-frame">
-        <img src="${fgBonusImageUrl(item.file)}" alt="Flag" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+        <img src="${fgBonusImageUrl(item.file)}" alt="Flag" data-retried="0" onerror="
+          if(this.dataset.retried === '0'){
+            this.dataset.retried = '1';
+            var freshUrl = this.src.split('?')[0] + '?retry=' + Date.now();
+            setTimeout((function(el, url){ return function(){ el.src = url; }; })(this, freshUrl), 500);
+          } else {
+            this.style.display='none';
+            this.nextElementSibling.style.display='flex';
+          }
+        ">
         <div class="fg-flag-emoji-fallback" style="display:none; flex-direction:column; align-items:center; justify-content:center; width:100%; height:200px; font-size:16px; text-align:center; padding:0 16px;">🏳️<div style="margin-top:8px; font-weight:700;">Image unavailable</div></div>
       </div>
     `;
@@ -7567,6 +7594,9 @@ function fgPlayingHtml(){
 }
 
 function fgReviewItemImageHtml(item){
+  if(item.inlineSvg){
+    return `<span style="display:inline-block; width:32px; height:24px; flex-shrink:0; overflow:hidden; border-radius:3px;">${item.inlineSvg}</span>`;
+  }
   const src = item.file ? fgBonusImageUrl(item.file) : `https://flagcdn.com/w80/${item.code}.png`;
   return `<img src="${src}" alt="" onerror="this.style.display='none';">`;
 }
