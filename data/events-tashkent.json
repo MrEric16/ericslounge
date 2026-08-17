@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-17T14:05:24.268132Z",
+  "generatedAt": "2026-08-17T16:03:09.259285Z",
   "events": [
     {
       "title": "Exhibition \"Dialogue\"",
@@ -35,7 +35,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Exhibition \"Our Heritage\"",
+      "title": "Выставка «Наше наследие»",
       "titleRu": "Выставка «Наше наследие»",
       "category": "exhibition",
       "venue": "Центральный Выставочный зал Академии художеств УзбекистанаТашкент, ул. Шарафа Рашидова, 40",
@@ -68,7 +68,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Детский день в бассейне Sinbad",
+      "title": "Children's day at the Sinbad pool",
       "titleRu": "Детский день в бассейне Sinbad",
       "category": "kids",
       "venue": "SinbadТашкент, пересечение ул. Ширин и ул. Фазылтепа",
@@ -112,7 +112,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Palma & Chilla beach in Milliy Bog’ park",
+      "title": "Пляж Palma & Chilla в парке Milliy Bog’",
       "titleRu": "Пляж Palma & Chilla в парке Milliy Bog’",
       "category": "festival",
       "venue": "Milliy bog‘Ташкент, ул. Сеул, 16",
@@ -123,7 +123,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Performance \"Madagascar\" in Tashkent City Park",
+      "title": "Performance “Madagascar” in Tashkent City Park",
       "titleRu": "Спектакль «Мадагаскар» в парке Tashkent City",
       "category": "festival",
       "venue": "Tashkent CityТашкент, просп. Бунёдкор",
@@ -156,7 +156,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Творческие мастер-классы в Potterville",
+      "title": "Creative workshops in Potterville",
       "titleRu": "Творческие мастер-классы в Potterville",
       "category": "lecture",
       "venue": "PottervilleТашкент, ул. Лабзак, 12/1",
@@ -165,36 +165,6 @@
       "time": null,
       "url": "https://www.afisha.uz/ru/znaniya/2026/07/29/potterville-avgust-2026",
       "source": "afisha.uz (calendar)"
-    },
-    {
-      "title": "ЛАБОРАТОРИЯ «СССР»",
-      "titleRu": null,
-      "category": "concert",
-      "venue": "Mysterium",
-      "startDate": "2026-08-17",
-      "endDate": null,
-      "url": "https://iticket.uz/en/events/concerts/laboratoriya-sssr",
-      "source": "iticket.uz"
-    },
-    {
-      "title": "ПРЯТКИ В ТЕМНОТЕ",
-      "titleRu": null,
-      "category": "concert",
-      "venue": "Mysterium",
-      "startDate": "2026-08-17",
-      "endDate": null,
-      "url": "https://iticket.uz/en/events/concerts/pryatki-v-temnote",
-      "source": "iticket.uz"
-    },
-    {
-      "title": "ПЕЩЕРА СОКРОВИЩ",
-      "titleRu": null,
-      "category": "concert",
-      "venue": "Mysterium",
-      "startDate": "2026-08-17",
-      "endDate": null,
-      "url": "https://iticket.uz/en/events/concerts/peshera-sokrovish",
-      "source": "iticket.uz"
     },
     {
       "title": "Exhibition \"Dialogue\"",
@@ -230,7 +200,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Exhibition \"Our Heritage\"",
+      "title": "Выставка «Наше наследие»",
       "titleRu": "Выставка «Наше наследие»",
       "category": "exhibition",
       "venue": "Центральный Выставочный зал Академии художеств УзбекистанаТашкент, ул. Шарафа Рашидова, 40",
@@ -296,7 +266,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Palma & Chilla beach in Milliy Bog’ park",
+      "title": "Пляж Palma & Chilla в парке Milliy Bog’",
       "titleRu": "Пляж Palma & Chilla в парке Milliy Bog’",
       "category": "festival",
       "venue": "Milliy bog‘Ташкент, ул. Сеул, 16",
@@ -329,7 +299,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Творческие мастер-классы в Potterville",
+      "title": "Creative workshops in Potterville",
       "titleRu": "Творческие мастер-классы в Potterville",
       "category": "lecture",
       "venue": "PottervilleТашкент, ул. Лабзак, 12/1",
@@ -340,7 +310,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Konsta в Самарканде",
+      "title": "Konsta in Samarkand",
       "titleRu": "Konsta в Самарканде",
       "category": "concert",
       "venue": null,
@@ -371,6 +341,36 @@
       "time": null,
       "url": "https://www.afisha.uz/ru/znaniya/2026/08/12/laboratoriya-zero-waste-ikat-design-lab",
       "source": "afisha.uz (calendar)"
+    },
+    {
+      "title": "ЛАБОРАТОРИЯ «СССР»",
+      "titleRu": null,
+      "category": "concert",
+      "venue": "Mysterium",
+      "startDate": "2026-08-18",
+      "endDate": null,
+      "url": "https://iticket.uz/en/events/concerts/laboratoriya-sssr",
+      "source": "iticket.uz"
+    },
+    {
+      "title": "ПРЯТКИ В ТЕМНОТЕ",
+      "titleRu": null,
+      "category": "concert",
+      "venue": "Mysterium",
+      "startDate": "2026-08-18",
+      "endDate": null,
+      "url": "https://iticket.uz/en/events/concerts/pryatki-v-temnote",
+      "source": "iticket.uz"
+    },
+    {
+      "title": "ПЕЩЕРА СОКРОВИЩ",
+      "titleRu": null,
+      "category": "concert",
+      "venue": "Mysterium",
+      "startDate": "2026-08-18",
+      "endDate": null,
+      "url": "https://iticket.uz/en/events/concerts/peshera-sokrovish",
+      "source": "iticket.uz"
     },
     {
       "title": "Love Legend",
@@ -416,7 +416,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Exhibition \"Our Heritage\"",
+      "title": "Выставка «Наше наследие»",
       "titleRu": "Выставка «Наше наследие»",
       "category": "exhibition",
       "venue": "Центральный Выставочный зал Академии художеств УзбекистанаТашкент, ул. Шарафа Рашидова, 40",
@@ -482,7 +482,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Palma & Chilla beach in Milliy Bog’ park",
+      "title": "Пляж Palma & Chilla в парке Milliy Bog’",
       "titleRu": "Пляж Palma & Chilla в парке Milliy Bog’",
       "category": "festival",
       "venue": "Milliy bog‘Ташкент, ул. Сеул, 16",
@@ -493,7 +493,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Performance \"Madagascar\" in Tashkent City Park",
+      "title": "Performance “Madagascar” in Tashkent City Park",
       "titleRu": "Спектакль «Мадагаскар» в парке Tashkent City",
       "category": "festival",
       "venue": "Tashkent CityТашкент, просп. Бунёдкор",
@@ -526,7 +526,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Творческие мастер-классы в Potterville",
+      "title": "Creative workshops in Potterville",
       "titleRu": "Творческие мастер-классы в Potterville",
       "category": "lecture",
       "venue": "PottervilleТашкент, ул. Лабзак, 12/1",
@@ -625,7 +625,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Exhibition \"Our Heritage\"",
+      "title": "Выставка «Наше наследие»",
       "titleRu": "Выставка «Наше наследие»",
       "category": "exhibition",
       "venue": "Центральный Выставочный зал Академии художеств УзбекистанаТашкент, ул. Шарафа Рашидова, 40",
@@ -691,7 +691,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Palma & Chilla beach in Milliy Bog’ park",
+      "title": "Пляж Palma & Chilla в парке Milliy Bog’",
       "titleRu": "Пляж Palma & Chilla в парке Milliy Bog’",
       "category": "festival",
       "venue": "Milliy bog‘Ташкент, ул. Сеул, 16",
@@ -724,7 +724,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Творческие мастер-классы в Potterville",
+      "title": "Creative workshops in Potterville",
       "titleRu": "Творческие мастер-классы в Potterville",
       "category": "lecture",
       "venue": "PottervilleТашкент, ул. Лабзак, 12/1",
@@ -790,7 +790,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Exhibition \"Our Heritage\"",
+      "title": "Выставка «Наше наследие»",
       "titleRu": "Выставка «Наше наследие»",
       "category": "exhibition",
       "venue": "Центральный Выставочный зал Академии художеств УзбекистанаТашкент, ул. Шарафа Рашидова, 40",
@@ -856,7 +856,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Palma & Chilla beach in Milliy Bog’ park",
+      "title": "Пляж Palma & Chilla в парке Milliy Bog’",
       "titleRu": "Пляж Palma & Chilla в парке Milliy Bog’",
       "category": "festival",
       "venue": "Milliy bog‘Ташкент, ул. Сеул, 16",
@@ -878,7 +878,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Творческие мастер-классы в Potterville",
+      "title": "Creative workshops in Potterville",
       "titleRu": "Творческие мастер-классы в Potterville",
       "category": "lecture",
       "venue": "PottervilleТашкент, ул. Лабзак, 12/1",
@@ -943,7 +943,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Master class “Bananas in chocolate”",
+      "title": "Мастер-класс «Бананы в шоколаде»",
       "titleRu": "Мастер-класс «Бананы в шоколаде»",
       "category": "lecture",
       "venue": "Human HouseТашкент, ул. Ивлиева, 43",
@@ -987,7 +987,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Exhibition \"Our Heritage\"",
+      "title": "Выставка «Наше наследие»",
       "titleRu": "Выставка «Наше наследие»",
       "category": "exhibition",
       "venue": "Центральный Выставочный зал Академии художеств УзбекистанаТашкент, ул. Шарафа Рашидова, 40",
@@ -1053,7 +1053,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Palma & Chilla beach in Milliy Bog’ park",
+      "title": "Пляж Palma & Chilla в парке Milliy Bog’",
       "titleRu": "Пляж Palma & Chilla в парке Milliy Bog’",
       "category": "festival",
       "venue": "Milliy bog‘Ташкент, ул. Сеул, 16",
@@ -1064,7 +1064,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Performance \"Madagascar\" in Tashkent City Park",
+      "title": "Performance “Madagascar” in Tashkent City Park",
       "titleRu": "Спектакль «Мадагаскар» в парке Tashkent City",
       "category": "festival",
       "venue": "Tashkent CityТашкент, просп. Бунёдкор",
@@ -1075,7 +1075,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Творческие мастер-классы в Potterville",
+      "title": "Creative workshops in Potterville",
       "titleRu": "Творческие мастер-классы в Potterville",
       "category": "lecture",
       "venue": "PottervilleТашкент, ул. Лабзак, 12/1",
@@ -1108,7 +1108,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Фестиваль «Гиждуванская керамика и кулинарное искусство»",
+      "title": "Festival “Gijduvan Ceramics and Culinary Art”",
       "titleRu": "Фестиваль «Гиждуванская керамика и кулинарное искусство»",
       "category": "exhibition",
       "venue": null,
@@ -1119,7 +1119,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Next Market Fair",
+      "title": "Ярмарка Next Market",
       "titleRu": "Ярмарка Next Market",
       "category": "exhibition",
       "venue": null,
@@ -1271,7 +1271,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Exhibition \"Our Heritage\"",
+      "title": "Выставка «Наше наследие»",
       "titleRu": "Выставка «Наше наследие»",
       "category": "exhibition",
       "venue": "Центральный Выставочный зал Академии художеств УзбекистанаТашкент, ул. Шарафа Рашидова, 40",
@@ -1337,7 +1337,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Palma & Chilla beach in Milliy Bog’ park",
+      "title": "Пляж Palma & Chilla в парке Milliy Bog’",
       "titleRu": "Пляж Palma & Chilla в парке Milliy Bog’",
       "category": "festival",
       "venue": "Milliy bog‘Ташкент, ул. Сеул, 16",
@@ -1348,7 +1348,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Творческие мастер-классы в Potterville",
+      "title": "Creative workshops in Potterville",
       "titleRu": "Творческие мастер-классы в Potterville",
       "category": "lecture",
       "venue": "PottervilleТашкент, ул. Лабзак, 12/1",
@@ -1370,7 +1370,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Next Market Fair",
+      "title": "Ярмарка Next Market",
       "titleRu": "Ярмарка Next Market",
       "category": "exhibition",
       "venue": null,
@@ -1534,7 +1534,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Exhibition \"Our Heritage\"",
+      "title": "Выставка «Наше наследие»",
       "titleRu": "Выставка «Наше наследие»",
       "category": "exhibition",
       "venue": "Центральный Выставочный зал Академии художеств УзбекистанаТашкент, ул. Шарафа Рашидова, 40",
@@ -1578,7 +1578,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Детский день в бассейне Sinbad",
+      "title": "Children's day at the Sinbad pool",
       "titleRu": "Детский день в бассейне Sinbad",
       "category": "kids",
       "venue": "SinbadТашкент, пересечение ул. Ширин и ул. Фазылтепа",
@@ -1622,7 +1622,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Palma & Chilla beach in Milliy Bog’ park",
+      "title": "Пляж Palma & Chilla в парке Milliy Bog’",
       "titleRu": "Пляж Palma & Chilla в парке Milliy Bog’",
       "category": "festival",
       "venue": "Milliy bog‘Ташкент, ул. Сеул, 16",
@@ -1633,7 +1633,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Performance \"Madagascar\" in Tashkent City Park",
+      "title": "Performance “Madagascar” in Tashkent City Park",
       "titleRu": "Спектакль «Мадагаскар» в парке Tashkent City",
       "category": "festival",
       "venue": "Tashkent CityТашкент, просп. Бунёдкор",
@@ -1644,7 +1644,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Творческие мастер-классы в Potterville",
+      "title": "Creative workshops in Potterville",
       "titleRu": "Творческие мастер-классы в Potterville",
       "category": "lecture",
       "venue": "PottervilleТашкент, ул. Лабзак, 12/1",
@@ -1688,7 +1688,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Exhibition \"Our Heritage\"",
+      "title": "Выставка «Наше наследие»",
       "titleRu": "Выставка «Наше наследие»",
       "category": "exhibition",
       "venue": "Центральный Выставочный зал Академии художеств УзбекистанаТашкент, ул. Шарафа Рашидова, 40",
@@ -1754,7 +1754,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Palma & Chilla beach in Milliy Bog’ park",
+      "title": "Пляж Palma & Chilla в парке Milliy Bog’",
       "titleRu": "Пляж Palma & Chilla в парке Milliy Bog’",
       "category": "festival",
       "venue": "Milliy bog‘Ташкент, ул. Сеул, 16",
@@ -1765,7 +1765,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Творческие мастер-классы в Potterville",
+      "title": "Creative workshops in Potterville",
       "titleRu": "Творческие мастер-классы в Potterville",
       "category": "lecture",
       "venue": "PottervilleТашкент, ул. Лабзак, 12/1",
@@ -1787,7 +1787,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Exhibition \"Our Heritage\"",
+      "title": "Выставка «Наше наследие»",
       "titleRu": "Выставка «Наше наследие»",
       "category": "exhibition",
       "venue": "Центральный Выставочный зал Академии художеств УзбекистанаТашкент, ул. Шарафа Рашидова, 40",
@@ -1842,7 +1842,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Palma & Chilla beach in Milliy Bog’ park",
+      "title": "Пляж Palma & Chilla в парке Milliy Bog’",
       "titleRu": "Пляж Palma & Chilla в парке Milliy Bog’",
       "category": "festival",
       "venue": "Milliy bog‘Ташкент, ул. Сеул, 16",
@@ -1853,7 +1853,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Performance \"Madagascar\" in Tashkent City Park",
+      "title": "Performance “Madagascar” in Tashkent City Park",
       "titleRu": "Спектакль «Мадагаскар» в парке Tashkent City",
       "category": "festival",
       "venue": "Tashkent CityТашкент, просп. Бунёдкор",
@@ -1864,7 +1864,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Творческие мастер-классы в Potterville",
+      "title": "Creative workshops in Potterville",
       "titleRu": "Творческие мастер-классы в Potterville",
       "category": "lecture",
       "venue": "PottervilleТашкент, ул. Лабзак, 12/1",
@@ -1908,7 +1908,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Exhibition \"Our Heritage\"",
+      "title": "Выставка «Наше наследие»",
       "titleRu": "Выставка «Наше наследие»",
       "category": "exhibition",
       "venue": "Центральный Выставочный зал Академии художеств УзбекистанаТашкент, ул. Шарафа Рашидова, 40",
@@ -1963,7 +1963,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Palma & Chilla beach in Milliy Bog’ park",
+      "title": "Пляж Palma & Chilla в парке Milliy Bog’",
       "titleRu": "Пляж Palma & Chilla в парке Milliy Bog’",
       "category": "festival",
       "venue": "Milliy bog‘Ташкент, ул. Сеул, 16",
@@ -1974,7 +1974,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Творческие мастер-классы в Potterville",
+      "title": "Creative workshops in Potterville",
       "titleRu": "Творческие мастер-классы в Potterville",
       "category": "lecture",
       "venue": "PottervilleТашкент, ул. Лабзак, 12/1",
@@ -1996,7 +1996,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Exhibition \"Our Heritage\"",
+      "title": "Выставка «Наше наследие»",
       "titleRu": "Выставка «Наше наследие»",
       "category": "exhibition",
       "venue": "Центральный Выставочный зал Академии художеств УзбекистанаТашкент, ул. Шарафа Рашидова, 40",
@@ -2051,7 +2051,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Palma & Chilla beach in Milliy Bog’ park",
+      "title": "Пляж Palma & Chilla в парке Milliy Bog’",
       "titleRu": "Пляж Palma & Chilla в парке Milliy Bog’",
       "category": "festival",
       "venue": "Milliy bog‘Ташкент, ул. Сеул, 16",
@@ -2062,7 +2062,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Творческие мастер-классы в Potterville",
+      "title": "Creative workshops in Potterville",
       "titleRu": "Творческие мастер-классы в Potterville",
       "category": "lecture",
       "venue": "PottervilleТашкент, ул. Лабзак, 12/1",
@@ -2105,7 +2105,7 @@
       "source": "iticket.uz"
     },
     {
-      "title": "Exhibition \"Our Heritage\"",
+      "title": "Выставка «Наше наследие»",
       "titleRu": "Выставка «Наше наследие»",
       "category": "exhibition",
       "venue": "Центральный Выставочный зал Академии художеств УзбекистанаТашкент, ул. Шарафа Рашидова, 40",
@@ -2160,7 +2160,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Palma & Chilla beach in Milliy Bog’ park",
+      "title": "Пляж Palma & Chilla в парке Milliy Bog’",
       "titleRu": "Пляж Palma & Chilla в парке Milliy Bog’",
       "category": "festival",
       "venue": "Milliy bog‘Ташкент, ул. Сеул, 16",
@@ -2171,7 +2171,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Performance \"Madagascar\" in Tashkent City Park",
+      "title": "Performance “Madagascar” in Tashkent City Park",
       "titleRu": "Спектакль «Мадагаскар» в парке Tashkent City",
       "category": "festival",
       "venue": "Tashkent CityТашкент, просп. Бунёдкор",
@@ -2182,7 +2182,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Творческие мастер-классы в Potterville",
+      "title": "Creative workshops in Potterville",
       "titleRu": "Творческие мастер-классы в Potterville",
       "category": "lecture",
       "venue": "PottervilleТашкент, ул. Лабзак, 12/1",
@@ -2215,7 +2215,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Exhibition \"Our Heritage\"",
+      "title": "Выставка «Наше наследие»",
       "titleRu": "Выставка «Наше наследие»",
       "category": "exhibition",
       "venue": "Центральный Выставочный зал Академии художеств УзбекистанаТашкент, ул. Шарафа Рашидова, 40",
@@ -2270,7 +2270,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Palma & Chilla beach in Milliy Bog’ park",
+      "title": "Пляж Palma & Chilla в парке Milliy Bog’",
       "titleRu": "Пляж Palma & Chilla в парке Milliy Bog’",
       "category": "festival",
       "venue": "Milliy bog‘Ташкент, ул. Сеул, 16",
@@ -2281,7 +2281,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Творческие мастер-классы в Potterville",
+      "title": "Creative workshops in Potterville",
       "titleRu": "Творческие мастер-классы в Potterville",
       "category": "lecture",
       "venue": "PottervilleТашкент, ул. Лабзак, 12/1",
@@ -2412,7 +2412,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Детский день в бассейне Sinbad",
+      "title": "Children's day at the Sinbad pool",
       "titleRu": "Детский день в бассейне Sinbad",
       "category": "kids",
       "venue": "SinbadТашкент, пересечение ул. Ширин и ул. Фазылтепа",
@@ -2445,7 +2445,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Palma & Chilla beach in Milliy Bog’ park",
+      "title": "Пляж Palma & Chilla в парке Milliy Bog’",
       "titleRu": "Пляж Palma & Chilla в парке Milliy Bog’",
       "category": "festival",
       "venue": "Milliy bog‘Ташкент, ул. Сеул, 16",
@@ -2456,7 +2456,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Performance \"Madagascar\" in Tashkent City Park",
+      "title": "Performance “Madagascar” in Tashkent City Park",
       "titleRu": "Спектакль «Мадагаскар» в парке Tashkent City",
       "category": "festival",
       "venue": "Tashkent CityТашкент, просп. Бунёдкор",
@@ -2467,7 +2467,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Творческие мастер-классы в Potterville",
+      "title": "Creative workshops in Potterville",
       "titleRu": "Творческие мастер-классы в Potterville",
       "category": "lecture",
       "venue": "PottervilleТашкент, ул. Лабзак, 12/1",
