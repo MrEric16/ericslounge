@@ -1,4 +1,7 @@
-[khl] standings page: captured 350002 chars
+[khl] standings page: captured 349959 chars
 [khl] parsed 0 standings row(s)
-[khl] WARNING: 0 standings rows despite a non-empty page -- structure may have changed
+[khl] WARNING: 0 standings rows. Found 7 <tbody> element(s) total
+[khl] first tbody has 12 <tr> row(s)
+[khl] club link found in first row: True
+[khl] first row raw HTML: '<tr>\n<td class="championshipRegular-table__col championshipRegular-table__col-num">\n<p class="championshipRegular-table__txt">1</p>\n</td>\n<td class="championshipRegular-table__col championshipRegular-table__col-club">\n<a class="championshipRegular-table__club" href="/clubs/dynamo_msk/">\n<div class="championshipRegular-table__club-logo championshipRegular-table__club championshipRegular-table__line-logo">\n<img alt="club" class="championshipRegular-table__club-img championshipRegular-table__line-logoImg" src="//img.khl.ru/teams/en/1436/719/80.png?u=2025"/>\n</div>\n<p class="championshipRegular-table__txt championshipRegular-table__txt-club championshipRegular-table__clubName color-dark roboto-lg">\nDinamo Msk</p>\n</a>\n</td>\n<th class="championshipRegular-table__col championshipRegular-table__col-sm">\n<p class="championshipRegular-table__txt">0</p>\n</th>\n<th class="championshipRegular-table__col championshipRegular-table__col-sm">\n<p class="championshipRegular-table__txt">0</p>\n</th>\n<th class="championshipRegular-table__col championshipRegular-table__col-sm">\n<p class="championshipRegular-table__txt">0</p>\n</th>\n<th class="championshipRegular-table__col championshipRegular-table__col-s'
 [khl] wrote data/khl-live.json -- standings only for now, fixtures/results not yet built
