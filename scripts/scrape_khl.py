@@ -51,23 +51,71 @@ def main():
         log(f"standings fetch failed: {e}")
         standings_html = ""
 
+from bs4 import BeautifulSoup
+
+# Confirmed real column order via diagnostic capture (2026-08-17): the header's data-sort
+# attributes list exactly this sequence. Used to zip against each row's stat cells rather
+# than guessing positions. Note there is genuinely no goals-against column in this table
+# (confirmed, not a parsing gap) -- KHL's compact standings view only shows goals-for.
+STAT_COLUMNS = ["gp", "w", "otw", "sow", "sol", "otl", "pts_pct", "l", "gf", "pts"]
+
+
+def parse_standings(html):
+    soup = BeautifulSoup(html, "html.parser")
+    tbody = soup.find("tbody")
+    if not tbody:
+        return []
+    standings = []
+    for row in tbody.find_all("tr"):
+        club_link = row.select_one(".championshipRegular-table__club")
+        if not club_link:
+            continue
+        name_el = club_link.select_one(".championshipRegular-table__clubName")
+        team_name = (name_el or club_link).get_text(strip=True)
+        if not team_name:
+            continue
+        # All cells after the rank (<td>, first) and team (<td>, second) are stat cells,
+        # in STAT_COLUMNS order, regardless of whether they're <td> or <th> tags (the real
+        # page mixes both for these columns).
+        all_cells = row.find_all(["td", "th"])
+        stat_cells = all_cells[2:]
+        values = [c.get_text(strip=True) for c in stat_cells]
+        stats = dict(zip(STAT_COLUMNS, values))
+        try:
+            standings.append({
+                "team": team_name,
+                "played": int(stats.get("gp", 0) or 0),
+                "won": int(stats.get("w", 0) or 0),
+                "otWon": int(stats.get("otw", 0) or 0),
+                "soWon": int(stats.get("sow", 0) or 0),
+                "soLost": int(stats.get("sol", 0) or 0),
+                "otLost": int(stats.get("otl", 0) or 0),
+                "lost": int(stats.get("l", 0) or 0),
+                "gf": int(stats.get("gf", 0) or 0),
+                "points": int(stats.get("pts", 0) or 0),
+            })
+        except ValueError:
+            continue
+    return standings
+
+
+def main():
+    try:
+        standings_html = fetch_rendered(STANDINGS_URL)
+    except Exception as e:
+        log(f"standings fetch failed: {e}")
+        standings_html = ""
+
     log(f"standings page: captured {len(standings_html)} chars")
-    if standings_html:
-        thead_idx = standings_html.find("<thead")
-        thead_end = standings_html.find("</thead>")
-        if thead_idx != -1 and thead_end != -1:
-            import re as _re
-            sorts = _re.findall(r'data-sort="([^"]+)"', standings_html[thead_idx:thead_end])
-            log(f"all column data-sort values in order: {sorts}")
-        tbody_idx = standings_html.find("<tbody")
-        if tbody_idx != -1:
-            log(f"tbody sample (first data row area): {standings_html[tbody_idx:tbody_idx+2500]!r}")
-        else:
-            log("no <tbody> found")
+
+    standings = parse_standings(standings_html) if standings_html else []
+    log(f"parsed {len(standings)} standings row(s)")
+    if not standings and standings_html:
+        log("WARNING: 0 standings rows despite a non-empty page -- structure may have changed")
 
     output = {
         "generatedAt": datetime.now(timezone.utc).isoformat(),
-        "standings": [],
+        "standings": standings,
         "fixtures": [],
         "results": [],
     }
@@ -75,7 +123,7 @@ def main():
     os.makedirs(os.path.dirname(OUTPUT_PATH), exist_ok=True)
     with open(OUTPUT_PATH, "w", encoding="utf-8") as f:
         json.dump(output, f, indent=2, ensure_ascii=False)
-    log(f"wrote {OUTPUT_PATH} (placeholder -- parsing not yet built, see diagnostic capture above)")
+    log(f"wrote {OUTPUT_PATH} -- standings only for now, fixtures/results not yet built")
 
 
 if __name__ == "__main__":
