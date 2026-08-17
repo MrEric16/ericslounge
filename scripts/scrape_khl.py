@@ -111,7 +111,17 @@ def main():
     standings = parse_standings(standings_html) if standings_html else []
     log(f"parsed {len(standings)} standings row(s)")
     if not standings and standings_html:
-        log("WARNING: 0 standings rows despite a non-empty page -- structure may have changed")
+        soup = BeautifulSoup(standings_html, "html.parser")
+        tbodies = soup.find_all("tbody")
+        log(f"WARNING: 0 standings rows. Found {len(tbodies)} <tbody> element(s) total")
+        if tbodies:
+            first_tbody = tbodies[0]
+            rows = first_tbody.find_all("tr")
+            log(f"first tbody has {len(rows)} <tr> row(s)")
+            if rows:
+                club_link = rows[0].select_one(".championshipRegular-table__club")
+                log(f"club link found in first row: {club_link is not None}")
+                log(f"first row raw HTML: {str(rows[0])[:1200]!r}")
 
     output = {
         "generatedAt": datetime.now(timezone.utc).isoformat(),
