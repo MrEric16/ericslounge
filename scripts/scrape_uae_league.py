@@ -2,17 +2,19 @@
 """
 Live UAE Pro League data: standings + current matchday's fixtures and results.
 
-Source: worldfootball.net's competition page. Chosen over the official uaeproleague.ae
-site because the official site's standings/fixtures are rendered client-side via JS
-(confirmed directly: fetching it returns a "Loading..." spinner and "No records"
-placeholder, not real data) -- worldfootball.net is plain server-rendered HTML instead,
-and its main competition page auto-shows the current/most recent matchday without needing
-to track matchday numbers ourselves, which is exactly the "just keep working forever"
-behavior this needed.
+Source: worldfootball.net's all-matches page (not the base competition page -- confirmed
+directly, 2026-08-18, that the base page was stuck showing only Matchday 1 even though
+Matchday 2, 3, and 4 were already published with real dates on the all-matches page; the
+"auto-shows current matchday" assumption this scraper originally relied on turned out not
+to hold). The all-matches page has the full published schedule plus the same standings
+table, so this fixes the root cause rather than working around it.
+Chosen over the official uaeproleague.ae site because the official site's standings/
+fixtures are rendered client-side via JS (confirmed directly: fetching it returns a
+"Loading..." spinner and "No records" placeholder, not real data).
 
 Replaces the hardcoded SPORTS_LEAGUES entry for UAE Pro League in index.html, which had a
 fixtures array with no results array at all -- meaning nothing ever moved from fixtures to
-results even once matches were played, no matter how much time passed.
+results once matches were played, no matter how much time passed.
 
 Output: data/uae-league-live.json, matching the same {teams, fixtures, results} shape the
 client already knows how to render (see uzMatchToRow's row shape in index.html).
@@ -26,7 +28,7 @@ import requests
 from bs4 import BeautifulSoup
 from playwright.sync_api import sync_playwright
 
-URL = "https://www.worldfootball.net/competition/co1183/ua-emirates-uae-pro-league/"
+URL = "https://www.worldfootball.net/competition/co1183/ua-emirates-uae-pro-league/all-matches/"
 OUTPUT_PATH = "data/uae-league-live.json"
 
 
