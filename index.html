@@ -1298,6 +1298,22 @@
     border-radius:999px; padding:16px; font-family:'Nunito', sans-serif; font-weight:800;
     font-size:16px; cursor:pointer; box-shadow:0 3px 0 rgba(0,0,0,.15);
   }
+  .fg-mode-grid{ display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+  .fg-mode-btn{
+    border:2px solid var(--line); background:var(--card); border-radius:16px; padding:18px 10px;
+    font-family:'Nunito', sans-serif; cursor:pointer; text-align:center; transition:transform .12s ease;
+  }
+  .fg-mode-btn:active{ transform:scale(0.97); }
+  .fg-mode-title{ font-size:22px; margin-bottom:6px; }
+  .fg-mode-sub{ font-weight:800; font-size:13.5px; color:var(--ink); }
+  .fg-option-btn.fg-option-flag{ padding:8px; }
+  .fg-option-flag-thumb{
+    width:100%; aspect-ratio:3/2; border-radius:8px; overflow:hidden; background:var(--cream-2);
+    display:flex; align-items:center; justify-content:center;
+  }
+  .fg-option-flag-thumb img{ width:100%; height:100%; object-fit:contain; }
+  .fg-option-flag-fallback{ align-items:center; justify-content:center; width:100%; height:100%; font-size:32px; }
+  .fg-option-btn.fg-option-flag.fg-correct .fg-option-flag-thumb, .fg-option-btn.fg-option-flag.fg-wrong .fg-option-flag-thumb{ background:transparent; }
   .fg-end-score{ text-align:center; font-family:'Baloo 2', sans-serif; font-weight:800; font-size:48px; color:var(--misc-flaggame); margin:14px 0 4px; }
   .fg-end-label{ text-align:center; font-size:13px; color:var(--ink-soft); font-weight:700; margin-bottom:22px; }
   .fg-review-item{
@@ -3200,7 +3216,7 @@ function fgBuildBonusRounds(entities, count){
 
 let fgState = null; // { rounds, current, correctCount, mistakes, answered }
 
-function fgStart(){
+function fgStart(mode){
   const regularRounds = fgBuildRounds(FLAG_COUNTRIES, FG_ROUNDS_PER_GAME);
   const bonusRounds = fgBuildBonusRounds(FLAG_BONUS_ENTITIES, FG_BONUS_ROUNDS);
   fgState = {
@@ -3209,6 +3225,7 @@ function fgStart(){
     correctCount: 0,
     mistakes: [],
     answered: false,
+    mode: mode || 'flag-to-country',
   };
   renderRoute();
 }
@@ -3297,7 +3314,7 @@ function ccSimilarityScore(correct, other){
   return score;
 }
 
-function ccGetOptions(correct, allCountries, optionCount, poolSize, usedCapitals){
+function ccGetOptions(correct, allCountries, optionCount, poolSize, usedCapitals, applyTrap){
   const candidates = allCountries.filter(c => c.capital !== correct.capital && !usedCapitals.has(c.capital));
   const scored = candidates.map(c => ({ c, s: ccSimilarityScore(correct, c) }));
   scored.sort((a, b) => b.s - a.s);
@@ -3311,7 +3328,11 @@ function ccGetOptions(correct, allCountries, optionCount, poolSize, usedCapitals
   // Guarantee the "famous wrong city" trap fires whenever this country comes up -- these
   // are real, well-documented common mistakes (Toronto isn't Canada's capital, Ottawa is;
   // Sydney isn't Australia's, Canberra is; New York isn't the US's, Washington D.C. is).
-  if(correct.trapCity && !usedCapitals.has(correct.trapCity) && picked.length > 0){
+  // Only applies in forward (country asked, capital options shown) mode -- in reverse mode
+  // the trap's synthetic option shares the correct answer's country name, which would show
+  // up as a confusing duplicate-looking "Australia" / "Australia" pair rather than the
+  // intended "Canberra" / "Sydney" capital-name distinction.
+  if(applyTrap && correct.trapCity && !usedCapitals.has(correct.trapCity) && picked.length > 0){
     picked[picked.length - 1] = { name: correct.name, capital: correct.trapCity, region: correct.region, tier: correct.tier };
   }
   return picked;
@@ -3332,7 +3353,8 @@ function ccPickForRound(allCountries, maxTier, usedCapitals){
   return pickFrom[Math.floor(Math.random() * pickFrom.length)];
 }
 
-function ccBuildRounds(allCountries, totalRounds){
+function ccBuildRounds(allCountries, totalRounds, mode){
+  const applyTrap = mode !== 'capital-to-country';
   const usedCapitals = new Set();
   const rounds = [];
   for(let i = 0; i < totalRounds; i++){
@@ -3340,7 +3362,7 @@ function ccBuildRounds(allCountries, totalRounds){
     const correct = ccPickForRound(allCountries, maxTier, usedCapitals);
     if(!correct) break;
     usedCapitals.add(correct.capital);
-    const distractors = ccGetOptions(correct, allCountries, 5, poolSize, usedCapitals);
+    const distractors = ccGetOptions(correct, allCountries, 5, poolSize, usedCapitals, applyTrap);
     distractors.forEach(d => usedCapitals.add(d.capital));
     const options = [correct, ...distractors];
     for(let j = options.length - 1; j > 0; j--){
@@ -3378,8 +3400,9 @@ function ccBuildBonusRounds(entities, count){
 
 let ccState = null;
 
-function ccStart(){
-  const regularRounds = ccBuildRounds(FLAG_COUNTRIES, CC_ROUNDS_PER_GAME);
+function ccStart(mode){
+  const resolvedMode = mode || 'country-to-capital';
+  const regularRounds = ccBuildRounds(FLAG_COUNTRIES, CC_ROUNDS_PER_GAME, resolvedMode);
   const bonusRounds = ccBuildBonusRounds(FLAG_BONUS_ENTITIES, CC_BONUS_ROUNDS);
   ccState = {
     rounds: [...regularRounds, ...bonusRounds],
@@ -3387,6 +3410,7 @@ function ccStart(){
     correctCount: 0,
     mistakes: [],
     answered: false,
+    mode: resolvedMode,
   };
   renderRoute();
 }
@@ -7749,10 +7773,45 @@ function fgIntroHtml(){
           <div class="fg-intro-stat"><div class="num">${best}/${FG_TOTAL_ROUNDS}</div><div class="label">Best Score</div></div>
           <div class="fg-intro-stat"><div class="num">${streak}</div><div class="label">Day Streak</div></div>
         </div>
-        <button class="fg-start-btn" data-action="fg-start">Start</button>
+        <div class="fg-mode-grid">
+          <button class="fg-mode-btn" data-action="fg-start" data-mode="flag-to-country">
+            <div class="fg-mode-title">🏳️ → 🔤</div>
+            <div class="fg-mode-sub">Flag → Country</div>
+          </button>
+          <button class="fg-mode-btn" data-action="fg-start" data-mode="country-to-flag">
+            <div class="fg-mode-title">🔤 → 🏳️</div>
+            <div class="fg-mode-sub">Country → Flag</div>
+          </button>
+        </div>
       </div>
     </section>
   `;
+}
+
+function fgOptionFlagThumb(item){
+  if(item.inlineSvg){
+    return `<div class="fg-option-flag-thumb">${item.inlineSvg}</div>`;
+  }
+  if(item.file){
+    return `<div class="fg-option-flag-thumb">
+      <img src="${fgBonusImageUrl(item.file)}" alt="" data-retried="0" onerror="
+        if(this.dataset.retried === '0'){
+          this.dataset.retried = '1';
+          var freshUrl = this.src.split('?')[0] + '?retry=' + Date.now();
+          setTimeout((function(el, url){ return function(){ el.src = url; }; })(this, freshUrl), 500);
+        } else {
+          this.style.display='none';
+          this.nextElementSibling.style.display='flex';
+        }
+      ">
+      <div class="fg-option-flag-fallback" style="display:none;">🏳️</div>
+    </div>`;
+  }
+  const emoji = fgFlagEmoji(item.code);
+  return `<div class="fg-option-flag-thumb">
+    <img src="https://flagcdn.com/w160/${item.code}.png" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+    <div class="fg-option-flag-fallback" style="display:none;">${emoji}</div>
+  </div>`;
 }
 
 function fgFlagImageHtml(item){
@@ -7796,14 +7855,37 @@ function fgFlagImageHtml(item){
 function fgPlayingHtml(){
   const round = fgState.rounds[fgState.current];
   const pct = Math.round((fgState.current / fgState.rounds.length) * 100);
-  const optionsHtml = round.options.map(o => {
-    let cls = 'fg-option-btn';
-    if(fgState.answered){
-      if(o.name === round.correct.name) cls += ' fg-correct';
-      else if(o.name === fgState.lastPicked) cls += ' fg-wrong';
-    }
-    return `<button class="${cls}" data-action="fg-answer" data-name="${escapeHtml(o.name)}" ${fgState.answered ? 'disabled' : ''}>${escapeHtml(o.name)}${o.years ? ` <span style="opacity:.6; font-weight:600;">(${escapeHtml(o.years)})</span>` : ''}</button>`;
-  }).join('');
+  const isReverse = fgState.mode === 'country-to-flag';
+
+  let questionHtml, optionsHtml;
+  if(isReverse){
+    questionHtml = `
+      <div style="text-align:center; padding:36px 20px; font-family:'Baloo 2', sans-serif; font-weight:800; font-size:26px; color:var(--ink);">${escapeHtml(round.correct.name)}${round.correct.years ? ` <span style="font-size:15px; font-weight:700; opacity:.6;">(${escapeHtml(round.correct.years)})</span>` : ''}</div>
+      <div class="fg-question">${round.isBonus ? 'Which flag did this nation or empire fly?' : 'Which flag is this country\'s?'}</div>
+    `;
+    optionsHtml = round.options.map(o => {
+      let cls = 'fg-option-btn fg-option-flag';
+      if(fgState.answered){
+        if(o.name === round.correct.name) cls += ' fg-correct';
+        else if(o.name === fgState.lastPicked) cls += ' fg-wrong';
+      }
+      return `<button class="${cls}" data-action="fg-answer" data-name="${escapeHtml(o.name)}" ${fgState.answered ? 'disabled' : ''}>${fgOptionFlagThumb(o)}</button>`;
+    }).join('');
+  } else {
+    questionHtml = `
+      ${fgFlagImageHtml(round.correct)}
+      <div class="fg-question">${round.isBonus ? 'Which nation or empire flies or flew this flag?' : 'Which country is this?'}</div>
+    `;
+    optionsHtml = round.options.map(o => {
+      let cls = 'fg-option-btn';
+      if(fgState.answered){
+        if(o.name === round.correct.name) cls += ' fg-correct';
+        else if(o.name === fgState.lastPicked) cls += ' fg-wrong';
+      }
+      return `<button class="${cls}" data-action="fg-answer" data-name="${escapeHtml(o.name)}" ${fgState.answered ? 'disabled' : ''}>${escapeHtml(o.name)}${o.years ? ` <span style="opacity:.6; font-weight:600;">(${escapeHtml(o.years)})</span>` : ''}</button>`;
+    }).join('');
+  }
+
   return `
     <section style="padding-top:14px;">
       <div class="fg-wrap">
@@ -7812,8 +7894,7 @@ function fgPlayingHtml(){
           <span>Score: ${fgState.correctCount}</span>
         </div>
         <div class="fg-progress-bar"><div class="fg-progress-fill" style="width:${pct}%"></div></div>
-        ${fgFlagImageHtml(round.correct)}
-        <div class="fg-question">${round.isBonus ? 'Which nation or empire flies or flew this flag?' : 'Which country is this?'}</div>
+        ${questionHtml}
         <div class="fg-options">${optionsHtml}</div>
       </div>
     </section>
@@ -7850,7 +7931,7 @@ function fgEndHtml(){
         <div class="section-head"><span class="emoji">🌍</span><h2>Round Complete</h2></div>
         <div class="fg-end-score">${score}/${fgState.rounds.length}</div>
         <div class="fg-end-label">${isNewBest ? 'New best score!' : `Best: ${best}/${fgState.rounds.length}`}</div>
-        <button class="fg-start-btn" data-action="fg-start">Play Again</button>
+        <button class="fg-start-btn" data-action="fg-start" data-mode="${fgState.mode}">Play Again</button>
         <h3 style="margin:22px 0 4px; font-family:'Baloo 2', sans-serif; font-size:15px;">Missed flags</h3>
         ${reviewHtml}
       </div>
@@ -7882,7 +7963,16 @@ function ccIntroHtml(){
           <div class="fg-intro-stat"><div class="num">${best}/${CC_TOTAL_ROUNDS}</div><div class="label">Best Score</div></div>
           <div class="fg-intro-stat"><div class="num">${streak}</div><div class="label">Day Streak</div></div>
         </div>
-        <button class="fg-start-btn" data-action="cc-start">Start</button>
+        <div class="fg-mode-grid">
+          <button class="fg-mode-btn" data-action="cc-start" data-mode="country-to-capital">
+            <div class="fg-mode-title">🔤 → 🏛️</div>
+            <div class="fg-mode-sub">Country → Capital</div>
+          </button>
+          <button class="fg-mode-btn" data-action="cc-start" data-mode="capital-to-country">
+            <div class="fg-mode-title">🏛️ → 🔤</div>
+            <div class="fg-mode-sub">Capital → Country</div>
+          </button>
+        </div>
       </div>
     </section>
   `;
@@ -7891,13 +7981,20 @@ function ccIntroHtml(){
 function ccPlayingHtml(){
   const round = ccState.rounds[ccState.current];
   const pct = Math.round((ccState.current / ccState.rounds.length) * 100);
+  const isReverse = ccState.mode === 'capital-to-country';
+
+  const questionText = isReverse ? round.correct.capital : round.correct.name;
+  const questionSub = isReverse
+    ? (round.isBonus ? 'Which nation or empire was this the capital of?' : 'Which country is this the capital of?')
+    : (round.isBonus ? 'What was its capital?' : 'What is its capital city?');
   const optionsHtml = round.options.map(o => {
     let cls = 'fg-option-btn';
     if(ccState.answered){
       if(o.capital === round.correct.capital) cls += ' fg-correct';
       else if(o.capital === ccState.lastPicked) cls += ' fg-wrong';
     }
-    return `<button class="${cls}" data-action="cc-answer" data-capital="${escapeHtml(o.capital)}" ${ccState.answered ? 'disabled' : ''}>${escapeHtml(o.capital)}</button>`;
+    const label = isReverse ? o.name : o.capital;
+    return `<button class="${cls}" data-action="cc-answer" data-capital="${escapeHtml(o.capital)}" ${ccState.answered ? 'disabled' : ''}>${escapeHtml(label)}</button>`;
   }).join('');
   return `
     <section style="padding-top:14px;">
@@ -7907,8 +8004,8 @@ function ccPlayingHtml(){
           <span>Score: ${ccState.correctCount}</span>
         </div>
         <div class="fg-progress-bar"><div class="fg-progress-fill" style="width:${pct}%"></div></div>
-        <div style="text-align:center; padding:36px 20px; font-family:'Baloo 2', sans-serif; font-weight:800; font-size:26px; color:var(--ink);">${escapeHtml(round.correct.name)}${round.correct.years ? ` <span style="font-size:15px; font-weight:700; opacity:.6;">(${escapeHtml(round.correct.years)})</span>` : ''}</div>
-        <div class="fg-question">${round.isBonus ? 'What was its capital?' : 'What is its capital city?'}</div>
+        <div style="text-align:center; padding:36px 20px; font-family:'Baloo 2', sans-serif; font-weight:800; font-size:26px; color:var(--ink);">${escapeHtml(questionText)}${(!isReverse && round.correct.years) ? ` <span style="font-size:15px; font-weight:700; opacity:.6;">(${escapeHtml(round.correct.years)})</span>` : ''}</div>
+        <div class="fg-question">${questionSub}</div>
         <div class="fg-options">${optionsHtml}</div>
       </div>
     </section>
@@ -7920,11 +8017,15 @@ function ccEndHtml(){
   let best = 0;
   try{ best = parseInt(localStorage.getItem(CC_BEST_SCORE_KEY) || '0', 10); }catch(e){}
   const isNewBest = score >= best && score > 0;
+  const isReverse = ccState.mode === 'capital-to-country';
   const reviewHtml = ccState.mistakes.length === 0 ? `<p style="text-align:center; font-size:14px; color:var(--ink-soft);">Perfect round -- no mistakes.</p>` : `
     <div style="margin-top:8px;">
       ${ccState.mistakes.map(m => `
         <div class="fg-review-item fg-review-wrong">
-          <div><strong>${escapeHtml(m.correct.name)}</strong>: ${escapeHtml(m.correct.capital)} — you picked ${escapeHtml(m.picked ? m.picked.capital : '?')}</div>
+          <div>${isReverse
+            ? `<strong>${escapeHtml(m.correct.capital)}</strong> is the capital of ${escapeHtml(m.correct.name)} — you picked ${escapeHtml(m.picked ? m.picked.name : '?')}`
+            : `<strong>${escapeHtml(m.correct.name)}</strong>: ${escapeHtml(m.correct.capital)} — you picked ${escapeHtml(m.picked ? m.picked.capital : '?')}`
+          }</div>
         </div>
       `).join('')}
     </div>
@@ -7936,7 +8037,7 @@ function ccEndHtml(){
         <div class="section-head"><span class="emoji">🏛️</span><h2>Round Complete</h2></div>
         <div class="fg-end-score">${score}/${ccState.rounds.length}</div>
         <div class="fg-end-label">${isNewBest ? 'New best score!' : `Best: ${best}/${ccState.rounds.length}`}</div>
-        <button class="fg-start-btn" data-action="cc-start">Play Again</button>
+        <button class="fg-start-btn" data-action="cc-start" data-mode="${ccState.mode}">Play Again</button>
         <h3 style="margin:22px 0 4px; font-family:'Baloo 2', sans-serif; font-size:15px;">Missed capitals</h3>
         ${reviewHtml}
       </div>
@@ -14014,7 +14115,7 @@ document.addEventListener('click', (e) => {
   const fgStartBtn = e.target.closest('[data-action="fg-start"]');
   if(fgStartBtn){
     e.preventDefault();
-    fgStart();
+    fgStart(fgStartBtn.dataset.mode);
     return;
   }
   const fgAnswerBtn = e.target.closest('[data-action="fg-answer"]');
@@ -14026,7 +14127,7 @@ document.addEventListener('click', (e) => {
   const ccStartBtn = e.target.closest('[data-action="cc-start"]');
   if(ccStartBtn){
     e.preventDefault();
-    ccStart();
+    ccStart(ccStartBtn.dataset.mode);
     return;
   }
   const ccAnswerBtn = e.target.closest('[data-action="cc-answer"]');
