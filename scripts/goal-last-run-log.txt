@@ -4,7 +4,7 @@
 [goal-scraper] [PD] Found 5 finished-match links
 [goal-scraper] WARNING: could not assign scorer 'P. Aubameyang' to home or away for https://www.goal.com/en/match/deportivo-de-a-coruna-vs-elche/fM3cKVxxEF0_8lxJnXexu
 [goal-scraper] WARNING: Elche scored 1 but 0 scorers were parsed for https://www.goal.com/en/match/deportivo-de-a-coruna-vs-elche/fM3cKVxxEF0_8lxJnXexu
-[goal-scraper] [PD] SCORER PARSE FAILED (attempt 1/3) for Deportivo De A Coruna 1-1 Elche -- NOT committing, will retry next run: https://www.goal.com/en/match/deportivo-de-a-coruna-vs-elche/fM3cKVxxEF0_8lxJnXexu
+[goal-scraper] [PD] SCORER PARSE FAILED (attempt 2/3) for Deportivo De A Coruna 1-1 Elche -- NOT committing, will retry next run: https://www.goal.com/en/match/deportivo-de-a-coruna-vs-elche/fM3cKVxxEF0_8lxJnXexu
 [goal-scraper] [BL1] Found 0 finished-match links
 [goal-scraper] [SA] Found 0 finished-match links
 [goal-scraper] [FL1] Found 0 finished-match links
