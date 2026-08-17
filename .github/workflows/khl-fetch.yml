@@ -1,0 +1,37 @@
+name: Fetch KHL (every 6 hours)
+
+on:
+  schedule:
+    - cron: '30 */6 * * *'
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install Python deps
+        run: |
+          pip install playwright
+          playwright install --with-deps chromium
+
+      - name: Run scraper
+        run: python scripts/scrape_khl.py > scripts/khl-log.txt 2>&1 || echo "FETCH_FAILED_SEE_LOG" >> scripts/khl-log.txt
+
+      - name: Commit results
+        run: |
+          git config user.name "khl-bot"
+          git config user.email "actions@github.com"
+          git add scripts/khl-log.txt || true
+          [ -f data/khl-live.json ] && git add data/khl-live.json || true
+          git diff --cached --quiet && echo "No changes to commit" || git commit -m "Auto-update KHL [skip ci]"
+          git pull --rebase --autostash origin main || true
+          git push
