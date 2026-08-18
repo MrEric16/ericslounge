@@ -1299,6 +1299,44 @@
     font-size:16px; cursor:pointer; box-shadow:0 3px 0 rgba(0,0,0,.15);
   }
   .fg-mode-grid{ display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+
+  /* ---- Wordle ---- */
+  .wordle-wrap{ max-width:400px; margin:0 auto; display:flex; flex-direction:column; align-items:center; }
+  .wordle-grid{ display:grid; grid-template-rows:repeat(6, 1fr); gap:6px; margin:0 auto 20px; }
+  .wordle-row{ display:grid; grid-template-columns:repeat(5, 1fr); gap:6px; }
+  .wordle-tile{
+    width:56px; height:56px; border:2px solid var(--line); border-radius:6px;
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Baloo 2', sans-serif; font-weight:800; font-size:26px; text-transform:uppercase;
+    color:var(--ink); background:var(--card);
+    transition:transform .15s ease;
+  }
+  .wordle-tile.filled{ border-color:var(--ink-soft); }
+  .wordle-tile.correct{ background:#6AAA64; border-color:#6AAA64; color:#fff; }
+  .wordle-tile.present{ background:#C9B458; border-color:#C9B458; color:#fff; }
+  .wordle-tile.absent{ background:#787C7E; border-color:#787C7E; color:#fff; }
+  .wordle-row.shake .wordle-tile{ animation:wordle-shake .5s; }
+  @keyframes wordle-shake{
+    10%,90%{ transform:translateX(-2px); } 20%,80%{ transform:translateX(4px); }
+    30%,50%,70%{ transform:translateX(-8px); } 40%,60%{ transform:translateX(8px); }
+  }
+  .wordle-message{
+    text-align:center; font-weight:700; font-size:14px; color:var(--coral);
+    height:20px; margin-bottom:6px;
+  }
+  .wordle-keyboard{ display:flex; flex-direction:column; gap:6px; width:100%; max-width:480px; }
+  .wordle-kb-row{ display:flex; justify-content:center; gap:5px; }
+  .wordle-key{
+    border:none; border-radius:6px; background:var(--line); color:var(--ink);
+    font-family:'Nunito', sans-serif; font-weight:700; font-size:13px;
+    height:46px; min-width:30px; flex:1; max-width:40px; cursor:pointer;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .wordle-key.wide{ flex:1.6; max-width:64px; font-size:11px; }
+  .wordle-key.correct{ background:#6AAA64; color:#fff; }
+  .wordle-key.present{ background:#C9B458; color:#fff; }
+  .wordle-key.absent{ background:#3A3A3C; color:#fff; opacity:.6; }
+  .wordle-stats-row{ display:flex; gap:10px; justify-content:center; margin-bottom:10px; font-size:13px; color:var(--ink-soft); font-weight:700; }
   .fg-mode-btn{
     border:2px solid var(--line); background:var(--card); border-radius:16px; padding:18px 10px;
     font-family:'Nunito', sans-serif; cursor:pointer; text-align:center; transition:transform .12s ease;
@@ -3540,6 +3578,171 @@ function ccExit(){
   renderRoute();
 }
 
+// ============ Wordle game: British spelling only, replayable unlimited times ============
+// Word lists deliberately exclude known American-only 5-letter spellings where a British
+// variant exists at a different length (COLOR/HONOR/FAVOR/LABOR/ARMOR/RUMOR/VALOR/VIGOR
+// are American; the British COLOUR/HONOUR/FAVOUR/LABOUR/ARMOUR/RUMOUR/VALOUR/VIGOUR are
+// 6 letters, so none of those words appear here in either spelling).
+const WORDLE_EASY_WORDS = ["ABOUT", "ABOVE", "AFTER", "AGAIN", "ANGRY", "APPLE", "BEACH", "BEGIN", "BLACK", "BOARD", "BREAD", "BREAK", "BRING", "BROWN", "BUILD", "CATCH", "CHAIR", "CHEAP", "CHILD", "CLASS", "CLEAN", "CLOCK", "CLOSE", "CLOUD", "DANCE", "DOUBT", "DRESS", "DRINK", "DRIVE", "EARLY", "EARTH", "EMPTY", "ENJOY", "ENTER", "EQUAL", "EVERY", "FAULT", "FIELD", "FIGHT", "FINAL", "FIRST", "FLOOR", "FOCUS", "FORCE", "FRESH", "FRONT", "FRUIT", "GLASS", "GRAND", "GRASS", "GREAT", "GREEN", "GROUP", "GROWN", "GUESS", "GUEST", "HAPPY", "HEART", "HEAVY", "HORSE", "HOTEL", "HOUSE", "HUMAN", "IMAGE", "JUICE", "KNIFE", "LARGE", "LATER", "LAUGH", "LEARN", "LEVEL", "LIGHT", "LOCAL", "LUCKY", "LUNCH", "MARCH", "MATCH", "MONEY", "MONTH", "MUSIC", "NEVER", "NIGHT", "NORTH", "NURSE", "OCEAN", "OFFER", "OFTEN", "ORDER", "OTHER", "PAPER", "PARTY", "PEACE", "PHONE", "PHOTO", "PIZZA", "PLACE", "PLANT", "PLATE", "POINT", "POUND", "PRICE", "PROUD", "QUICK", "QUIET", "RADIO", "REACH", "READY", "RIGHT", "RIVER", "ROUND", "ROUTE", "SCARE", "SHARE", "SHEEP", "SHELF", "SHIRT", "SHORT", "SIGHT", "SINCE", "SLEEP", "SMALL", "SMILE", "SOUND", "SOUTH", "SPACE", "SPEAK", "SPEED", "SPORT", "STAGE", "START", "STATE", "STORE", "STORY", "STUDY", "SUGAR", "TABLE", "TEACH", "THANK", "THEIR", "THERE", "THESE", "THINK", "THIRD", "THOSE", "THREE", "TODAY", "TOOTH", "TOUCH", "TOWEL", "TOWER", "TRACK", "TRAIN", "TREAT", "TRUCK", "TRUST", "TRUTH", "UNCLE", "UNTIL", "VALUE", "VIDEO", "VISIT", "VOICE", "WATCH", "WATER", "WHEEL", "WHERE", "WHICH", "WHILE", "WHITE", "WHOLE", "WOMAN", "WORLD", "WORRY", "WORTH", "WOULD", "WRITE", "WRONG", "YOUNG"];
+const WORDLE_HARD_WORDS = ["ABIDE", "ABYSS", "ACRID", "ADAGE", "ADEPT", "ADORN", "AFFIX", "AGILE", "ALIBI", "ALIGN", "ALPHA", "ALTER", "AMBER", "AMPLE", "ANNOY", "ANVIL", "AORTA", "ARGUE", "ARISE", "AROMA", "ASHEN", "ASKEW", "ASSET", "AUDIO", "AUGUR", "AVAIL", "AVERT", "AWAIT", "AWOKE", "AXIOM", "BLADE", "BLEAK", "BLIMP", "BLITZ", "BLOAT", "BLUNT", "BLURT", "BOGUS", "BOOST", "BRAWN", "BRISK", "BROOD", "BRUTE", "BUDGE", "BUGLE", "BULKY", "BURLY", "CAIRN", "CANNY", "CARVE", "CEASE", "CHIDE", "CHUNK", "CLASP", "CLEFT", "CLOUT", "CLUMP", "COBRA", "COMET", "CRAVE", "CREED", "CRISP", "CRONY", "CRYPT", "CURIO", "CURVY", "CYNIC", "DAUNT", "DEBUT", "DECRY", "DEFER", "DELVE", "DEMUR", "DERBY", "DIRGE", "DITTY", "DODGY", "DOWRY", "DROLL", "DROSS", "DWELL", "EAGER", "EBONY", "EJECT", "ELATE", "EMBER", "ENSUE", "EPOCH", "EQUIP", "ERUPT", "EVOKE", "EXALT", "EXCEL", "EXPEL", "EXULT", "FEIGN", "FETCH", "FLAIL", "FLECK", "FLINT", "FLOUT", "FRAIL", "FRISK", "FROND", "FROTH", "GAUGE", "GAUNT", "GHOUL", "GLADE", "GLEAN", "GLYPH", "GNARL", "GORGE", "GOUGE", "GRIME", "GROAN", "GRUFF", "GUISE", "HAUNT", "HAVOC", "HEDGE", "HINGE", "HOARD", "HOVEL", "HUMID", "HUSKY", "IDIOM", "IMBUE", "INANE", "INEPT", "INERT", "IRATE", "JOUST", "JUDGE", "KNEAD", "KNOLL", "LATCH", "LEDGE", "LILAC", "LIMBO", "LITHE", "LOATH", "LOFTY", "LURID", "MAUVE", "MIRTH", "MOULD", "MURKY", "NICHE", "NUDGE", "OMEGA", "OUTDO", "OUTGO", "PARCH", "PIETY", "PIQUE", "PLUME", "POACH", "PRISM", "PROSE", "PRUDE", "PUTTY", "QUASH", "QUELL", "QUIRK", "RAVEL", "REALM", "RELIC", "REVEL", "RIVET", "SCOFF", "SCORN", "SHREW", "SHUNT", "SIEGE", "SKEIN", "SLATE", "SLOTH", "SMIRK", "SMOTE", "SNIDE", "SNARL", "SPRIG", "STAID", "STARK", "STEED", "STOIC", "SURLY", "SWATH", "TAINT", "TENET", "THORN", "TRYST", "TWINE", "VAPID", "VERGE", "VIGIL", "WAFER", "WAIVE", "WRATH", "WREAK", "WRYLY", "YEARN", "ZEBRA"];
+const WORDLE_BEST_STREAK_KEY = 'wordleBestStreak';
+const WORDLE_CURRENT_STREAK_KEY = 'wordleCurrentStreak';
+const WORDLE_WINS_KEY = 'wordleWins';
+const WORDLE_GAMES_KEY = 'wordleGamesPlayed';
+
+// Standard two-pass Wordle evaluation, correctly handling duplicate letters (a guess with
+// more copies of a letter than the answer contains should only show as many green/yellow
+// as the answer actually has -- verified against several known tricky cases before this
+// was used in any UI, including PAPER-vs-APPLE and PPPPP-vs-APPLE).
+function wordleEvaluateGuess(guess, answer){
+  const result = new Array(5).fill('absent');
+  const pool = {};
+  for(let i = 0; i < 5; i++){
+    if(guess[i] === answer[i]){
+      result[i] = 'correct';
+    } else {
+      pool[answer[i]] = (pool[answer[i]] || 0) + 1;
+    }
+  }
+  for(let i = 0; i < 5; i++){
+    if(result[i] === 'correct') continue;
+    const ch = guess[i];
+    if(pool[ch] > 0){
+      result[i] = 'present';
+      pool[ch]--;
+    }
+  }
+  return result;
+}
+
+let wordleState = null;
+
+function wordleValidWords(difficulty){
+  return difficulty === 'hard' ? [...WORDLE_EASY_WORDS, ...WORDLE_HARD_WORDS] : WORDLE_EASY_WORDS;
+}
+
+function wordleStart(difficulty){
+  const pool = difficulty === 'hard' ? WORDLE_HARD_WORDS : WORDLE_EASY_WORDS;
+  const answer = pool[Math.floor(Math.random() * pool.length)];
+  wordleState = {
+    answer,
+    difficulty: difficulty || 'easy',
+    guesses: [],       // array of {word, result}
+    currentGuess: '',
+    gameOver: false,
+    won: false,
+    shake: false,
+    message: null,
+  };
+  renderRoute();
+}
+
+function wordleKeyStates(){
+  // Best-known state per letter across all submitted guesses (correct beats present beats
+  // absent, so a letter already known correct in one guess doesn't get downgraded by a
+  // later guess that placed it wrong).
+  const states = {};
+  const rank = { absent: 0, present: 1, correct: 2 };
+  wordleState.guesses.forEach(g => {
+    g.result.forEach((state, i) => {
+      const ch = g.word[i];
+      if(!states[ch] || rank[state] > rank[states[ch]]){
+        states[ch] = state;
+      }
+    });
+  });
+  return states;
+}
+
+function wordleFinishGame(won){
+  wordleState.gameOver = true;
+  wordleState.won = won;
+  let games = 0, wins = 0, streak = 0, best = 0;
+  try{
+    games = parseInt(localStorage.getItem(WORDLE_GAMES_KEY) || '0', 10);
+    wins = parseInt(localStorage.getItem(WORDLE_WINS_KEY) || '0', 10);
+    streak = parseInt(localStorage.getItem(WORDLE_CURRENT_STREAK_KEY) || '0', 10);
+    best = parseInt(localStorage.getItem(WORDLE_BEST_STREAK_KEY) || '0', 10);
+  }catch(e){}
+  games += 1;
+  if(won){
+    wins += 1;
+    streak += 1;
+    if(streak > best) best = streak;
+  } else {
+    streak = 0;
+  }
+  try{
+    localStorage.setItem(WORDLE_GAMES_KEY, String(games));
+    localStorage.setItem(WORDLE_WINS_KEY, String(wins));
+    localStorage.setItem(WORDLE_CURRENT_STREAK_KEY, String(streak));
+    localStorage.setItem(WORDLE_BEST_STREAK_KEY, String(best));
+  }catch(e){}
+}
+
+function wordleSubmitGuess(){
+  if(!wordleState || wordleState.gameOver) return;
+  const guess = wordleState.currentGuess.toUpperCase();
+  if(guess.length !== 5){
+    wordleState.message = 'Not enough letters';
+    wordleState.shake = true;
+    renderRoute();
+    setTimeout(() => { if(wordleState){ wordleState.message = null; wordleState.shake = false; renderRoute(); } }, 1200);
+    return;
+  }
+  const valid = wordleValidWords(wordleState.difficulty);
+  if(!valid.includes(guess)){
+    wordleState.message = 'Not in word list';
+    wordleState.shake = true;
+    renderRoute();
+    setTimeout(() => { if(wordleState){ wordleState.message = null; wordleState.shake = false; renderRoute(); } }, 1200);
+    return;
+  }
+  const result = wordleEvaluateGuess(guess, wordleState.answer);
+  wordleState.guesses.push({ word: guess, result });
+  wordleState.currentGuess = '';
+  const won = result.every(r => r === 'correct');
+  if(won){
+    wordleFinishGame(true);
+  } else if(wordleState.guesses.length >= 6){
+    wordleFinishGame(false);
+  }
+  renderRoute();
+}
+
+function wordleKeyPress(key){
+  if(!wordleState || wordleState.gameOver) return;
+  if(key === 'ENTER'){
+    wordleSubmitGuess();
+    return;
+  }
+  if(key === 'BACKSPACE'){
+    wordleState.currentGuess = wordleState.currentGuess.slice(0, -1);
+    renderRoute();
+    return;
+  }
+  if(/^[A-Z]$/.test(key) && wordleState.currentGuess.length < 5){
+    wordleState.currentGuess += key;
+    renderRoute();
+  }
+}
+
+function wordleExit(){
+  wordleState = null;
+  renderRoute();
+}
+
+document.addEventListener('keydown', (e) => {
+  if(!wordleState || wordleState.gameOver) return;
+  // Don't hijack typing when focus is on a genuine text input elsewhere on the page.
+  const tag = document.activeElement && document.activeElement.tagName;
+  if(tag === 'INPUT' || tag === 'TEXTAREA') return;
+  if(e.key === 'Enter'){ wordleKeyPress('ENTER'); }
+  else if(e.key === 'Backspace'){ wordleKeyPress('BACKSPACE'); }
+  else if(/^[a-zA-Z]$/.test(e.key)){ wordleKeyPress(e.key.toUpperCase()); }
+});
+
+
 // Geography hub tiles: Guess the Flag and Capital Cities are built-in games (moved inward
 // per explicit request -- the homepage tile now leads here instead of directly to the
 // flag game). The rest are duplicated from EXPLORE_SITES (looked up by name, not
@@ -3553,6 +3756,7 @@ function geoHubExternalTile(name){
 const GEOGRAPHY_HUB_TILES = [
   { name: "Guess the Flag", emoji: icon('globe'), url: "#flag-game", internal: true },
   { name: "Capital Cities", emoji: icon('compass2'), url: "#capital-game", internal: true },
+  { name: "Wordle", emoji: icon('gradcap'), url: "#wordle-game", internal: true },
   geoHubExternalTile("GeoGuessr"),
   geoHubExternalTile("OpenGuessr"),
   geoHubExternalTile("Radio Garden"),
@@ -8222,6 +8426,124 @@ function viewCapitalGame(){
     return ccEndHtml();
   }
   return ccPlayingHtml();
+}
+
+function wordleIntroHtml(){
+  let best = 0, wins = 0, games = 0;
+  try{
+    best = parseInt(localStorage.getItem(WORDLE_BEST_STREAK_KEY) || '0', 10);
+    wins = parseInt(localStorage.getItem(WORDLE_WINS_KEY) || '0', 10);
+    games = parseInt(localStorage.getItem(WORDLE_GAMES_KEY) || '0', 10);
+  }catch(e){}
+  const winRate = games > 0 ? Math.round((wins / games) * 100) : 0;
+  return `
+    <a class="back-link" href="#geography-hub">← Back to How's Your Geography?</a>
+    <section style="padding-top:14px;">
+      <div class="fg-wrap">
+        <div class="section-head"><span class="emoji">${icon('gradcap')}</span><h2>Wordle</h2></div>
+        <p style="font-size:14px; color:var(--ink-soft); line-height:1.6; margin-bottom:6px;">British spelling only. Six goes to get it.</p>
+        <div class="fg-intro-stats">
+          <div class="fg-intro-stat"><div class="num">${best}</div><div class="label">Best Streak</div></div>
+          <div class="fg-intro-stat"><div class="num">${winRate}%</div><div class="label">Win Rate</div></div>
+        </div>
+        <div class="fg-mode-grid">
+          <button class="fg-mode-btn" data-action="wordle-start" data-mode="easy">
+            <div class="fg-mode-sub">Easy</div>
+          </button>
+          <button class="fg-mode-btn" data-action="wordle-start" data-mode="hard">
+            <div class="fg-mode-sub">Hard</div>
+          </button>
+        </div>
+      </div>
+    </section>
+  `;
+}
+
+function wordlePlayingHtml(){
+  const rows = [];
+  for(let r = 0; r < 6; r++){
+    const guess = wordleState.guesses[r];
+    let cells;
+    if(guess){
+      cells = guess.word.split('').map((ch, i) => `<div class="wordle-tile ${guess.result[i]}">${escapeHtml(ch)}</div>`).join('');
+    } else if(r === wordleState.guesses.length){
+      const letters = wordleState.currentGuess.padEnd(5, ' ').split('');
+      cells = letters.map(ch => `<div class="wordle-tile ${ch.trim() ? 'filled' : ''}">${ch.trim() ? escapeHtml(ch) : ''}</div>`).join('');
+    } else {
+      cells = '<div class="wordle-tile"></div>'.repeat(5);
+    }
+    const isShakeRow = wordleState.shake && r === wordleState.guesses.length;
+    rows.push(`<div class="wordle-row${isShakeRow ? ' shake' : ''}">${cells}</div>`);
+  }
+
+  const keyStates = wordleKeyStates();
+  const kbRows = [
+    ['Q','W','E','R','T','Y','U','I','O','P'],
+    ['A','S','D','F','G','H','J','K','L'],
+    ['ENTER','Z','X','C','V','B','N','M','BACKSPACE'],
+  ];
+  const keyboardHtml = kbRows.map(row => `
+    <div class="wordle-kb-row">
+      ${row.map(k => {
+        if(k === 'ENTER') return `<button class="wordle-key wide" data-action="wordle-key" data-key="ENTER">Enter</button>`;
+        if(k === 'BACKSPACE') return `<button class="wordle-key wide" data-action="wordle-key" data-key="BACKSPACE">⌫</button>`;
+        const state = keyStates[k] ? ` ${keyStates[k]}` : '';
+        return `<button class="wordle-key${state}" data-action="wordle-key" data-key="${k}">${k}</button>`;
+      }).join('')}
+    </div>
+  `).join('');
+
+  return `
+    <section style="padding-top:14px;">
+      <div class="wordle-wrap">
+        <div class="fg-progress-row" style="width:100%; max-width:320px;">
+          <span>Guess ${wordleState.guesses.length + (wordleState.gameOver ? 0 : 1)} of 6</span>
+          <span>${wordleState.difficulty === 'hard' ? 'Hard' : 'Easy'}</span>
+        </div>
+        <div class="wordle-message">${wordleState.message ? escapeHtml(wordleState.message) : ''}</div>
+        <div class="wordle-grid">${rows.join('')}</div>
+        <div class="wordle-keyboard">${keyboardHtml}</div>
+      </div>
+    </section>
+  `;
+}
+
+function wordleEndHtml(){
+  const won = wordleState.won;
+  let best = 0, wins = 0, games = 0, streak = 0;
+  try{
+    best = parseInt(localStorage.getItem(WORDLE_BEST_STREAK_KEY) || '0', 10);
+    wins = parseInt(localStorage.getItem(WORDLE_WINS_KEY) || '0', 10);
+    games = parseInt(localStorage.getItem(WORDLE_GAMES_KEY) || '0', 10);
+    streak = parseInt(localStorage.getItem(WORDLE_CURRENT_STREAK_KEY) || '0', 10);
+  }catch(e){}
+  const winRate = games > 0 ? Math.round((wins / games) * 100) : 0;
+  return `
+    <a class="back-link" href="#geography-hub">← Back to How's Your Geography?</a>
+    <section style="padding-top:14px;">
+      <div class="fg-wrap">
+        <div class="section-head"><span class="emoji">${icon('gradcap')}</span><h2>${won ? 'Solved it' : 'Out of guesses'}</h2></div>
+        <div class="fg-end-score">${wordleState.answer}</div>
+        <div class="fg-end-label">${won ? `Solved in ${wordleState.guesses.length}/6` : 'Better luck next time'}</div>
+        <div class="wordle-stats-row" style="margin-top:14px;">
+          <span>Streak: ${streak}</span>
+          <span>Best: ${best}</span>
+          <span>Win rate: ${winRate}%</span>
+        </div>
+        <button class="fg-start-btn" data-action="wordle-start" data-mode="${wordleState.difficulty}">Play Again</button>
+      </div>
+    </section>
+  `;
+}
+
+function viewWordleGame(){
+  if(!wordleState){
+    return wordleIntroHtml();
+  }
+  if(wordleState.gameOver){
+    return wordleEndHtml();
+  }
+  return wordlePlayingHtml();
 }
 
 function viewSaved(){
@@ -14326,6 +14648,18 @@ document.addEventListener('click', (e) => {
     ccAnswer(ccAnswerBtn.dataset.capital);
     return;
   }
+  const wordleStartBtn = e.target.closest('[data-action="wordle-start"]');
+  if(wordleStartBtn){
+    e.preventDefault();
+    wordleStart(wordleStartBtn.dataset.mode);
+    return;
+  }
+  const wordleKeyBtn = e.target.closest('[data-action="wordle-key"]');
+  if(wordleKeyBtn){
+    e.preventDefault();
+    wordleKeyPress(wordleKeyBtn.dataset.key);
+    return;
+  }
   const clearSavedBtn = e.target.closest('[data-action="clear-saved"]');
   if(clearSavedBtn){
     e.preventDefault();
@@ -14417,6 +14751,8 @@ function renderRoute(opts){
     html = viewFlagGame();
   } else if(parts[0] === 'capital-game'){
     html = viewCapitalGame();
+  } else if(parts[0] === 'wordle-game'){
+    html = viewWordleGame();
   } else if(parts[0] === 'geography-hub'){
     html = viewGeographyHub();
   } else if(parts[0] === 'mind-temple'){
@@ -14476,6 +14812,7 @@ function renderRoute(opts){
   if(parts[0] === 'mind-temple'){ mtInit(); }
   if(parts[0] !== 'flag-game' && fgState){ fgState = null; }
   if(parts[0] !== 'capital-game' && ccState){ ccState = null; }
+  if(parts[0] !== 'wordle-game' && wordleState){ wordleState = null; }
   if(parts[0] === 'arcade' && parts[1]){ wireArcade(parts[1]); }
   if(parts[0] === 'install'){ wireInstallPage(); }
   if(parts[0] === 'stats'){ loadStats(); }
