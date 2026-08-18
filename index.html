@@ -1364,6 +1364,20 @@
   .anagram-btn.check{ background:var(--teal); color:#fff; }
   .anagram-btn.skip{ background:var(--line); color:var(--ink); }
   .anagram-message{ text-align:center; font-weight:700; font-size:13px; color:var(--coral); height:18px; margin-bottom:8px; }
+
+  /* ---- Odd One Out ---- */
+  .ooo-options{ display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:24px; }
+  .ooo-option-btn{
+    border:2px solid var(--line); background:var(--card); border-radius:14px; padding:20px 12px;
+    font-family:'Nunito', sans-serif; font-weight:700; font-size:16px; color:var(--ink);
+    cursor:pointer; text-align:center;
+  }
+  .ooo-option-btn.fg-correct{ background:#22C55E; border-color:#15803D; color:#fff; }
+  .ooo-option-btn.fg-wrong{ background:#EF4444; border-color:#B91C1C; color:#fff; }
+  .ooo-reason{
+    text-align:center; font-size:13.5px; color:var(--ink-soft); font-weight:600;
+    line-height:1.5; margin-top:16px; min-height:20px; padding:0 12px;
+  }
   .fg-mode-btn{
     border:2px solid var(--line); background:var(--card); border-radius:16px; padding:18px 10px;
     font-family:'Nunito', sans-serif; cursor:pointer; text-align:center; transition:transform .12s ease;
@@ -3915,6 +3929,104 @@ function anagramExit(){
   renderRoute();
 }
 
+// ============ Odd One Out ============
+const OOO_PUZZLES = [{"items": ["Apple", "Banana", "Carrot", "Orange"], "odd": 2, "reason": "Carrot is a vegetable; the others are fruits.", "tier": 1}, {"items": ["Salmon", "Trout", "Chicken", "Cod"], "odd": 2, "reason": "Chicken is poultry; the others are fish.", "tier": 1}, {"items": ["Dog", "Cat", "Snake", "Rabbit"], "odd": 2, "reason": "A snake is a reptile; the others are mammals.", "tier": 1}, {"items": ["Whale", "Dolphin", "Shark", "Porpoise"], "odd": 2, "reason": "A shark is a fish; the others are marine mammals.", "tier": 2}, {"items": ["Spider", "Ant", "Bee", "Butterfly"], "odd": 0, "reason": "A spider has 8 legs (arachnid); the others are 6-legged insects.", "tier": 2}, {"items": ["Frog", "Toad", "Lizard", "Newt"], "odd": 2, "reason": "A lizard is a reptile; the others are amphibians.", "tier": 2}, {"items": ["Paris", "Berlin", "Madrid", "Cairo"], "odd": 3, "reason": "Cairo is in Africa; the others are European capitals.", "tier": 1}, {"items": ["Nile", "Amazon", "Thames", "Sahara"], "odd": 3, "reason": "The Sahara is a desert; the others are rivers.", "tier": 1}, {"items": ["Everest", "Kilimanjaro", "Sahara", "Fuji"], "odd": 2, "reason": "The Sahara is a desert; the others are mountains.", "tier": 1}, {"items": ["Pacific", "Atlantic", "Arctic", "Amazon"], "odd": 3, "reason": "The Amazon is a river; the others are oceans.", "tier": 1}, {"items": ["France", "Germany", "Japan", "Italy"], "odd": 2, "reason": "Japan is in Asia; the others are in Europe.", "tier": 1}, {"items": ["Spain", "Portugal", "Brazil", "Italy"], "odd": 2, "reason": "Brazil is in South America; the others are in Europe.", "tier": 2}, {"items": ["Run", "Jump", "Quickly", "Swim"], "odd": 2, "reason": "'Quickly' is an adverb; the others are verbs.", "tier": 2}, {"items": ["Happy", "Sad", "Quickly", "Angry"], "odd": 2, "reason": "'Quickly' is an adverb; the others are adjectives.", "tier": 2}, {"items": ["Went", "Saw", "Walked", "Ate"], "odd": 2, "reason": "'Walked' is a regular past tense; the others are irregular.", "tier": 3}, {"items": ["Cat", "Dog", "Run", "Bird"], "odd": 2, "reason": "'Run' is a verb; the others are nouns.", "tier": 1}, {"items": ["Oxygen", "Hydrogen", "Water", "Nitrogen"], "odd": 2, "reason": "Water is a compound; the others are elements.", "tier": 2}, {"items": ["Mercury", "Venus", "Moon", "Mars"], "odd": 2, "reason": "The Moon is not a planet; the others are.", "tier": 1}, {"items": ["Diamond", "Ruby", "Emerald", "Iron"], "odd": 3, "reason": "Iron is a metal; the others are gemstones.", "tier": 1}, {"items": ["Football", "Basketball", "Volleyball", "Swimming"], "odd": 3, "reason": "Swimming doesn't use a ball; the others do.", "tier": 1}, {"items": ["Referee", "Umpire", "Judge", "Player"], "odd": 3, "reason": "A player takes part; the others officiate.", "tier": 2}, {"items": ["Circle", "Square", "Triangle", "Sphere"], "odd": 3, "reason": "A sphere is a 3D shape; the others are 2D.", "tier": 2}, {"items": ["2", "3", "5", "9"], "odd": 3, "reason": "9 is not a prime number; 2, 3, and 5 are.", "tier": 2}, {"items": ["Add", "Subtract", "Multiply", "Number"], "odd": 3, "reason": "'Number' is not a mathematical operation.", "tier": 1}, {"items": ["Red", "Blue", "Yellow", "Green"], "odd": 3, "reason": "Green is a secondary colour; the others are primary colours.", "tier": 2}, {"items": ["Guitar", "Violin", "Cello", "Drum"], "odd": 3, "reason": "A drum is a percussion instrument; the others are string instruments.", "tier": 1}, {"items": ["Car", "Bus", "Motorcycle", "Bicycle"], "odd": 3, "reason": "A bicycle has no engine; the others are motorised.", "tier": 2}, {"items": ["Rain", "Snow", "Hail", "Wind"], "odd": 3, "reason": "Wind is not precipitation; the others fall from the sky.", "tier": 2}, {"items": ["Heart", "Lungs", "Brain", "Skin"], "odd": 3, "reason": "Skin is not an internal organ; the others are.", "tier": 2}, {"items": ["Monday", "Tuesday", "January", "Friday"], "odd": 2, "reason": "January is a month; the others are days of the week.", "tier": 1}, {"items": ["Square", "Rectangle", "Cube", "Triangle"], "odd": 2, "reason": "A cube is a 3D shape; the others are 2D.", "tier": 2}, {"items": ["Lion", "Tiger", "Leopard", "Wolf"], "odd": 3, "reason": "A wolf is a canine; the others are big cats.", "tier": 2}, {"items": ["Rose", "Tulip", "Oak", "Daisy"], "odd": 2, "reason": "An oak is a tree; the others are flowers.", "tier": 1}, {"items": ["Doctor", "Teacher", "Nurse", "Hospital"], "odd": 3, "reason": "A hospital is a place; the others are professions.", "tier": 1}, {"items": ["Summer", "Winter", "Monday", "Autumn"], "odd": 2, "reason": "Monday is a day; the others are seasons.", "tier": 1}, {"items": ["Trumpet", "Flute", "Saxophone", "Xylophone"], "odd": 3, "reason": "A xylophone is percussion; the others are wind instruments.", "tier": 2}, {"items": ["Shakespeare", "Einstein", "Newton", "Darwin"], "odd": 0, "reason": "Shakespeare was a writer; the others were scientists.", "tier": 2}, {"items": ["Kenya", "Egypt", "Nigeria", "Sweden"], "odd": 3, "reason": "Sweden is in Europe; the others are in Africa.", "tier": 1}, {"items": ["Rugby", "Cricket", "Chess", "Hockey"], "odd": 2, "reason": "Chess involves no physical exertion; the others are physical sports.", "tier": 2}, {"items": ["Copper", "Gold", "Oxygen", "Silver"], "odd": 2, "reason": "Oxygen is a gas; the others are metals.", "tier": 2}, {"items": ["Piano", "Harp", "Guitar", "Clarinet"], "odd": 3, "reason": "A clarinet is a wind instrument; the others have strings.", "tier": 3}, {"items": ["Triangle", "Pentagon", "Hexagon", "Cylinder"], "odd": 3, "reason": "A cylinder is a 3D shape; the others are 2D polygons.", "tier": 2}, {"items": ["Novel", "Poem", "Play", "Painting"], "odd": 3, "reason": "A painting is visual art; the others are forms of writing.", "tier": 2}, {"items": ["Butter", "Cheese", "Cream", "Bread"], "odd": 3, "reason": "Bread is not a dairy product; the others are.", "tier": 1}, {"items": ["Comma", "Period", "Adjective", "Semicolon"], "odd": 2, "reason": "'Adjective' is a word type; the others are punctuation marks.", "tier": 2}, {"items": ["Saturn", "Jupiter", "Sirius", "Neptune"], "odd": 2, "reason": "Sirius is a star; the others are planets.", "tier": 2}];
+const OOO_ROUNDS_PER_GAME = 15;
+const OOO_BEST_SCORE_KEY = 'oddOneOutBestScore';
+const OOO_STREAK_KEY = 'oddOneOutStreak';
+
+function oooPickForRound(roundIndex, totalRounds, usedIndices){
+  const progress = roundIndex / (totalRounds - 1);
+  const maxTier = 1 + Math.floor(progress * 2); // 1 through 3
+  const eligible = OOO_PUZZLES.map((p, i) => ({ p, i })).filter(x => x.p.tier <= maxTier && !usedIndices.has(x.i));
+  const atCeiling = eligible.filter(x => x.p.tier === maxTier);
+  const pickFrom = atCeiling.length > 0 ? atCeiling : eligible;
+  if(pickFrom.length === 0) return null;
+  return pickFrom[Math.floor(Math.random() * pickFrom.length)];
+}
+
+function oooBuildRounds(totalRounds){
+  const usedIndices = new Set();
+  const rounds = [];
+  for(let i = 0; i < totalRounds; i++){
+    const picked = oooPickForRound(i, totalRounds, usedIndices);
+    if(!picked) break;
+    usedIndices.add(picked.i);
+    // Shuffle item display order each time so the odd one isn't always in the same slot
+    const items = picked.p.items.map((text, idx) => ({ text, isOdd: idx === picked.p.odd }));
+    for(let j = items.length - 1; j > 0; j--){
+      const k = Math.floor(Math.random() * (j + 1));
+      [items[j], items[k]] = [items[k], items[j]];
+    }
+    rounds.push({ items, reason: picked.p.reason });
+  }
+  return rounds;
+}
+
+let oooState = null;
+
+function oooStart(){
+  oooState = {
+    rounds: oooBuildRounds(OOO_ROUNDS_PER_GAME),
+    current: 0,
+    correctCount: 0,
+    mistakes: [],
+    answered: false,
+    lastPickedText: null,
+  };
+  renderRoute();
+}
+
+function oooAnswer(pickedText){
+  if(!oooState || oooState.answered) return;
+  oooState.answered = true;
+  oooState.lastPickedText = pickedText;
+  const round = oooState.rounds[oooState.current];
+  const pickedItem = round.items.find(it => it.text === pickedText);
+  const isCorrect = pickedItem && pickedItem.isOdd;
+  if(isCorrect){ oooState.correctCount++; }
+  else{ oooState.mistakes.push({ round, picked: pickedText }); }
+  renderRoute();
+  setTimeout(() => {
+    if(!oooState) return;
+    oooState.current++;
+    oooState.answered = false;
+    oooState.lastPickedText = null;
+    if(oooState.current >= oooState.rounds.length){
+      oooFinishGame();
+    }
+    renderRoute();
+  }, 2200); // longer than the other games -- gives time to read the explanation
+}
+
+function oooFinishGame(){
+  const score = oooState.correctCount;
+  let best = 0, streak = 0;
+  try{ best = parseInt(localStorage.getItem(OOO_BEST_SCORE_KEY) || '0', 10); }catch(e){}
+  if(score > best){
+    try{ localStorage.setItem(OOO_BEST_SCORE_KEY, String(score)); }catch(e){}
+  }
+  try{ streak = parseInt(localStorage.getItem(OOO_STREAK_KEY) || '0', 10); }catch(e){}
+  const todayKey = getTodayKeyLocal();
+  let lastPlayed = null;
+  try{ lastPlayed = localStorage.getItem('oddOneOutLastPlayedDate'); }catch(e){}
+  if(lastPlayed !== todayKey){
+    const yesterday = new Date(Date.now() - 86400000);
+    const yKey = `${yesterday.getFullYear()}-${String(yesterday.getMonth()+1).padStart(2,'0')}-${String(yesterday.getDate()).padStart(2,'0')}`;
+    streak = (lastPlayed === yKey) ? streak + 1 : 1;
+    try{
+      localStorage.setItem(OOO_STREAK_KEY, String(streak));
+      localStorage.setItem('oddOneOutLastPlayedDate', todayKey);
+    }catch(e){}
+  }
+}
+
+function oooExit(){
+  oooState = null;
+  renderRoute();
+}
+
+
 
 document.addEventListener('keydown', (e) => {
   if(!wordleState || wordleState.gameOver) return;
@@ -3942,6 +4054,7 @@ const GEOGRAPHY_HUB_TILES = [
   { name: "Capital Cities", emoji: icon('compass2'), url: "#capital-game", internal: true },
   { name: "Wordle", emoji: icon('gradcap'), url: "#wordle-game", internal: true },
   { name: "Word Scramble", emoji: icon('dice'), url: "#anagram-game", internal: true },
+  { name: "Odd One Out", emoji: icon('scales'), url: "#odd-one-out-game", internal: true },
   geoHubExternalTile("GeoGuessr"),
   geoHubExternalTile("OpenGuessr"),
   geoHubExternalTile("Radio Garden"),
@@ -8824,6 +8937,96 @@ function viewAnagramGame(){
     return anagramEndHtml();
   }
   return anagramPlayingHtml();
+}
+
+function oooIntroHtml(){
+  let best = 0, streak = 0;
+  try{
+    best = parseInt(localStorage.getItem(OOO_BEST_SCORE_KEY) || '0', 10);
+    streak = parseInt(localStorage.getItem(OOO_STREAK_KEY) || '0', 10);
+  }catch(e){}
+  return `
+    <a class="back-link" href="#geography-hub">← Back to Train Your Brain</a>
+    <section style="padding-top:14px;">
+      <div class="fg-wrap">
+        <div class="section-head"><span class="emoji">${icon('scales')}</span><h2>Odd One Out</h2></div>
+        <p style="font-size:14px; color:var(--ink-soft); line-height:1.6; margin-bottom:6px;">One of these doesn't belong. Find it.</p>
+        <div class="fg-intro-stats">
+          <div class="fg-intro-stat"><div class="num">${best}/${OOO_ROUNDS_PER_GAME}</div><div class="label">Best Score</div></div>
+          <div class="fg-intro-stat"><div class="num">${streak}</div><div class="label">Day Streak</div></div>
+        </div>
+        <button class="fg-start-btn" data-action="ooo-start">Start</button>
+      </div>
+    </section>
+  `;
+}
+
+function oooPlayingHtml(){
+  const round = oooState.rounds[oooState.current];
+  const pct = Math.round((oooState.current / oooState.rounds.length) * 100);
+  const optionsHtml = round.items.map(it => {
+    let cls = 'ooo-option-btn';
+    if(oooState.answered){
+      if(it.isOdd) cls += ' fg-correct';
+      else if(it.text === oooState.lastPickedText) cls += ' fg-wrong';
+    }
+    return `<button class="${cls}" data-action="ooo-answer" data-text="${escapeHtml(it.text)}" ${oooState.answered ? 'disabled' : ''}>${escapeHtml(it.text)}</button>`;
+  }).join('');
+  return `
+    <section style="padding-top:14px;">
+      <div class="fg-wrap">
+        <div class="fg-progress-row">
+          <span>Round ${oooState.current + 1} of ${oooState.rounds.length}</span>
+          <span>Score: ${oooState.correctCount}</span>
+        </div>
+        <div class="fg-progress-bar"><div class="fg-progress-fill" style="width:${pct}%"></div></div>
+        <div class="fg-question" style="margin-top:20px;">Which one doesn't belong?</div>
+        <div class="ooo-options">${optionsHtml}</div>
+        <div class="ooo-reason">${oooState.answered ? escapeHtml(round.reason) : ''}</div>
+      </div>
+    </section>
+  `;
+}
+
+function oooEndHtml(){
+  const score = oooState.correctCount;
+  let best = 0;
+  try{ best = parseInt(localStorage.getItem(OOO_BEST_SCORE_KEY) || '0', 10); }catch(e){}
+  const isNewBest = score >= best && score > 0;
+  const reviewHtml = oooState.mistakes.length === 0 ? `<p style="text-align:center; font-size:14px; color:var(--ink-soft);">Perfect round -- no mistakes.</p>` : `
+    <div style="margin-top:8px;">
+      ${oooState.mistakes.map(m => {
+        const correctItem = m.round.items.find(it => it.isOdd);
+        return `
+        <div class="fg-review-item fg-review-wrong">
+          <div><strong>${escapeHtml(correctItem.text)}</strong> was the odd one out — you picked ${escapeHtml(m.picked)}<br><span style="opacity:.75;">${escapeHtml(m.round.reason)}</span></div>
+        </div>
+      `;}).join('')}
+    </div>
+  `;
+  return `
+    <a class="back-link" href="#geography-hub">← Back to Train Your Brain</a>
+    <section style="padding-top:14px;">
+      <div class="fg-wrap">
+        <div class="section-head"><span class="emoji">${icon('trophy')}</span><h2>Round Complete</h2></div>
+        <div class="fg-end-score">${score}/${oooState.rounds.length}</div>
+        <div class="fg-end-label">${isNewBest ? 'New best score!' : `Best: ${best}/${oooState.rounds.length}`}</div>
+        <button class="fg-start-btn" data-action="ooo-start">Play Again</button>
+        <h3 style="margin:22px 0 4px; font-family:'Baloo 2', sans-serif; font-size:15px;">Missed ones</h3>
+        ${reviewHtml}
+      </div>
+    </section>
+  `;
+}
+
+function viewOddOneOutGame(){
+  if(!oooState){
+    return oooIntroHtml();
+  }
+  if(oooState.current >= oooState.rounds.length){
+    return oooEndHtml();
+  }
+  return oooPlayingHtml();
 }
 
 function viewSaved(){
@@ -14970,6 +15173,18 @@ document.addEventListener('click', (e) => {
     anagramSkip();
     return;
   }
+  const oooStartBtn = e.target.closest('[data-action="ooo-start"]');
+  if(oooStartBtn){
+    e.preventDefault();
+    oooStart();
+    return;
+  }
+  const oooAnswerBtn = e.target.closest('[data-action="ooo-answer"]');
+  if(oooAnswerBtn){
+    e.preventDefault();
+    oooAnswer(oooAnswerBtn.dataset.text);
+    return;
+  }
   const clearSavedBtn = e.target.closest('[data-action="clear-saved"]');
   if(clearSavedBtn){
     e.preventDefault();
@@ -15065,6 +15280,8 @@ function renderRoute(opts){
     html = viewWordleGame();
   } else if(parts[0] === 'anagram-game'){
     html = viewAnagramGame();
+  } else if(parts[0] === 'odd-one-out-game'){
+    html = viewOddOneOutGame();
   } else if(parts[0] === 'geography-hub'){
     html = viewGeographyHub();
   } else if(parts[0] === 'mind-temple'){
@@ -15126,6 +15343,7 @@ function renderRoute(opts){
   if(parts[0] !== 'capital-game' && ccState){ ccState = null; }
   if(parts[0] !== 'wordle-game' && wordleState){ wordleState = null; }
   if(parts[0] !== 'anagram-game' && anagramState){ anagramState = null; }
+  if(parts[0] !== 'odd-one-out-game' && oooState){ oooState = null; }
   if(parts[0] === 'arcade' && parts[1]){ wireArcade(parts[1]); }
   if(parts[0] === 'install'){ wireInstallPage(); }
   if(parts[0] === 'stats'){ loadStats(); }
