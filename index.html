@@ -6253,6 +6253,84 @@ const MIXUP_OF_THE_DAY_POOL = [
   { a:"Assure", b:"Ensure / Insure", explanation:"'Assure' means to tell someone confidently to remove doubt. 'Ensure' means to make certain something happens. 'Insure' relates to insurance policies." },
 ];
 
+// Common abbreviations pool. The 16 from the original list plus 52 more, all genuinely
+// everyday/common ones (not obscure jargon), matching that list's style. UNICEF uses its
+// current official name (verified) -- the acronym is retained from a 1946 original name
+// but the organization renamed itself in 1953 and that's the name that's actually correct
+// to give today.
+const ABBREVIATION_POOL = [
+  { abbr:"Wi-Fi", full:"Wireless Fidelity" },
+  { abbr:"ATM", full:"Automated Teller Machine" },
+  { abbr:"RIP", full:"Rest In Peace" },
+  { abbr:"VIP", full:"Very Important Person" },
+  { abbr:"CEO", full:"Chief Executive Officer" },
+  { abbr:"AM", full:"Ante Meridiem" },
+  { abbr:"PM", full:"Post Meridiem" },
+  { abbr:"QR Code", full:"Quick Response Code" },
+  { abbr:"PIN", full:"Personal Identification Number" },
+  { abbr:"IQ", full:"Intelligence Quotient" },
+  { abbr:"PhD", full:"Doctor of Philosophy" },
+  { abbr:"PDF", full:"Portable Document Format" },
+  { abbr:"SIM", full:"Subscriber Identity Module" },
+  { abbr:"SMS", full:"Short Message Service" },
+  { abbr:"WWW", full:"World Wide Web" },
+  { abbr:"GPS", full:"Global Positioning System" },
+  { abbr:"DIY", full:"Do It Yourself" },
+  { abbr:"ASAP", full:"As Soon As Possible" },
+  { abbr:"FYI", full:"For Your Information" },
+  { abbr:"ETA", full:"Estimated Time of Arrival" },
+  { abbr:"RSVP", full:"Répondez S'il Vous Plaît (French for \"please respond\")" },
+  { abbr:"AKA", full:"Also Known As" },
+  { abbr:"FAQ", full:"Frequently Asked Questions" },
+  { abbr:"USA", full:"United States of America" },
+  { abbr:"UK", full:"United Kingdom" },
+  { abbr:"UN", full:"United Nations" },
+  { abbr:"EU", full:"European Union" },
+  { abbr:"NATO", full:"North Atlantic Treaty Organization" },
+  { abbr:"FBI", full:"Federal Bureau of Investigation" },
+  { abbr:"CIA", full:"Central Intelligence Agency" },
+  { abbr:"NASA", full:"National Aeronautics and Space Administration" },
+  { abbr:"WHO", full:"World Health Organization" },
+  { abbr:"UNICEF", full:"United Nations Children's Fund" },
+  { abbr:"GDP", full:"Gross Domestic Product" },
+  { abbr:"CFO", full:"Chief Financial Officer" },
+  { abbr:"HR", full:"Human Resources" },
+  { abbr:"IT", full:"Information Technology" },
+  { abbr:"AI", full:"Artificial Intelligence" },
+  { abbr:"CPU", full:"Central Processing Unit" },
+  { abbr:"RAM", full:"Random Access Memory" },
+  { abbr:"USB", full:"Universal Serial Bus" },
+  { abbr:"HTML", full:"HyperText Markup Language" },
+  { abbr:"URL", full:"Uniform Resource Locator" },
+  { abbr:"HTTP", full:"HyperText Transfer Protocol" },
+  { abbr:"GIF", full:"Graphics Interchange Format" },
+  { abbr:"JPEG", full:"Joint Photographic Experts Group" },
+  { abbr:"DVD", full:"Digital Versatile Disc" },
+  { abbr:"CD", full:"Compact Disc" },
+  { abbr:"LED", full:"Light Emitting Diode" },
+  { abbr:"LCD", full:"Liquid Crystal Display" },
+  { abbr:"EV", full:"Electric Vehicle" },
+  { abbr:"e.g.", full:"exempli gratia (Latin for \"for example\")" },
+  { abbr:"i.e.", full:"id est (Latin for \"that is\")" },
+  { abbr:"etc.", full:"et cetera (Latin for \"and so on\")" },
+  { abbr:"Mr", full:"Mister" },
+  { abbr:"Mrs", full:"Mistress" },
+  { abbr:"Dr", full:"Doctor" },
+  { abbr:"Ave", full:"Avenue" },
+  { abbr:"Blvd", full:"Boulevard" },
+  { abbr:"BC", full:"Before Christ" },
+  { abbr:"AD", full:"Anno Domini (Latin for \"in the year of the Lord\")" },
+  { abbr:"approx.", full:"approximately" },
+  { abbr:"dept.", full:"department" },
+  { abbr:"govt.", full:"government" },
+  { abbr:"TBD", full:"To Be Determined" },
+  { abbr:"TBA", full:"To Be Announced" },
+  { abbr:"N/A", full:"Not Applicable" },
+  { abbr:"P.S.", full:"Post Scriptum (Latin for \"written after\")" },
+  { abbr:"ID", full:"Identification" },
+  { abbr:"MBA", full:"Master of Business Administration" },
+];
+
 const RIDDLE_OF_THE_DAY_POOL = [
   { riddle:"What has keys but no locks, space but no room, and you can enter but not go in?", answer:"A keyboard." },
   { riddle:"The more you take, the more you leave behind. What am I?", answer:"Footsteps." },
@@ -6597,6 +6675,14 @@ function riddleOfTheDayHtml(){
     <div class="riddle-answer" hidden>${escapeHtml(pick.answer)}</div>
   `;
 }
+function abbreviationOfTheDayHtml(){
+  const pick = ABBREVIATION_POOL[dayOfYearIndex() % ABBREVIATION_POOL.length];
+  return `
+    <div class="wotd-word">${escapeHtml(pick.abbr)}</div>
+    <div class="wotd-def">${escapeHtml(pick.full)}</div>
+  `;
+}
+
 function quoteOfTheDayHtml(){
   const pick = QUOTE_OF_THE_DAY_POOL[dayOfYearIndex() % QUOTE_OF_THE_DAY_POOL.length];
   return `
@@ -13737,7 +13823,11 @@ function viewHome(){
           <div class="carousel-label">${icon('brain')} Riddle of the Day</div>
           ${riddleOfTheDayHtml()}
         </div>
-        <div class="carousel-slide otd-card otd-card--quote" data-pos="6" data-type="quote">
+        <div class="carousel-slide otd-card otd-card--abbrev" data-pos="6" data-type="abbrev">
+          <div class="carousel-label">${icon('gradcap')} Common Abbreviations</div>
+          ${abbreviationOfTheDayHtml()}
+        </div>
+        <div class="carousel-slide otd-card otd-card--quote" data-pos="7" data-type="quote">
           <div class="carousel-label">${icon('star')} Quote of the Day</div>
           ${quoteOfTheDayHtml()}
         </div>
@@ -13750,6 +13840,7 @@ function viewHome(){
         <span class="carousel-dot" data-idx="4"></span>
         <span class="carousel-dot" data-idx="5"></span>
         <span class="carousel-dot" data-idx="6"></span>
+        <span class="carousel-dot" data-idx="7"></span>
       </div>
     </section>
 
