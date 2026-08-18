@@ -1363,6 +1363,20 @@
   .nerdle-key.present{ background:#C9B458; color:#fff; }
   .nerdle-key.absent{ background:#3A3A3C; color:#fff; opacity:.6; }
 
+  /* ---- Memory Match ---- */
+  .memory-grid{ display:grid; grid-template-columns:repeat(4, 1fr); gap:8px; max-width:400px; margin:0 auto; }
+  .memory-card{
+    aspect-ratio:3/4; border-radius:10px; border:none; cursor:pointer;
+    display:flex; align-items:center; justify-content:center; padding:6px;
+    background:var(--coral); box-shadow:0 3px 0 rgba(0,0,0,.15);
+  }
+  .memory-card.flipped, .memory-card.matched{ background:var(--card); border:2px solid var(--line); box-shadow:none; }
+  .memory-card.matched{ opacity:.5; border-color:#6AAA64; }
+  .memory-card-back{ font-size:22px; color:#fff; font-weight:800; }
+  .memory-card-name{ font-size:10.5px; font-weight:800; text-align:center; color:var(--ink); line-height:1.2; }
+  .memory-card-flag{ width:100%; height:100%; }
+  .memory-card-flag img, .memory-card-flag svg{ width:100%; height:100%; object-fit:contain; }
+
   /* ---- Word Scramble / Anagram ---- */
   .anagram-clue{ text-align:center; font-size:15px; font-weight:700; color:var(--ink); line-height:1.5; padding:0 16px; margin-bottom:22px; }
   .anagram-answer-row{ display:flex; gap:6px; justify-content:center; margin-bottom:24px; flex-wrap:wrap; }
@@ -4355,6 +4369,109 @@ function nerdleExit(){
   renderRoute();
 }
 
+// ============ Memory Match ============
+// Reuses FLAG_COUNTRIES and the same 3-tier flag image logic (inline SVG / Wikimedia+
+// retry / flagcdn+emoji) already proven reliable in the flag game -- flag <-> country
+// name pairs, a genuinely different mechanic from Guess the Flag rather than a duplicate.
+const MEMORY_PAIR_COUNT = 8;
+const MEMORY_BEST_MOVES_KEY = 'memoryBestMoves';
+const MEMORY_STREAK_KEY = 'memoryStreak';
+
+function memoryBuildCards(countries, pairCount){
+  const chosen = [...countries].sort(() => Math.random() - 0.5).slice(0, pairCount);
+  const cards = [];
+  chosen.forEach((c, i) => {
+    cards.push({ id: `flag-${i}`, country: c.name, type: 'flag', code: c.code, inlineSvg: c.inlineSvg, file: c.file, flipped: false, matched: false });
+    cards.push({ id: `name-${i}`, country: c.name, type: 'name', code: c.code, flipped: false, matched: false });
+  });
+  for(let i = cards.length - 1; i > 0; i--){
+    const j = Math.floor(Math.random() * (i + 1));
+    [cards[i], cards[j]] = [cards[j], cards[i]];
+  }
+  return cards;
+}
+
+let memoryState = null;
+
+function memoryStart(){
+  memoryState = {
+    cards: memoryBuildCards(FLAG_COUNTRIES, MEMORY_PAIR_COUNT),
+    flippedIds: [],
+    moves: 0,
+    matchedPairs: 0,
+    locked: false,
+    complete: false,
+  };
+  renderRoute();
+}
+
+function memoryTapCard(cardId){
+  if(!memoryState || memoryState.locked || memoryState.complete) return;
+  const card = memoryState.cards.find(c => c.id === cardId);
+  if(!card || card.matched || card.flipped) return;
+
+  card.flipped = true;
+  memoryState.flippedIds.push(cardId);
+  renderRoute();
+
+  if(memoryState.flippedIds.length === 2){
+    memoryState.moves++;
+    memoryState.locked = true;
+    const [id1, id2] = memoryState.flippedIds;
+    const c1 = memoryState.cards.find(c => c.id === id1);
+    const c2 = memoryState.cards.find(c => c.id === id2);
+    const isMatch = c1.country === c2.country && c1.type !== c2.type;
+    setTimeout(() => {
+      if(!memoryState) return;
+      if(isMatch){
+        c1.matched = true;
+        c2.matched = true;
+        memoryState.matchedPairs++;
+        if(memoryState.matchedPairs === MEMORY_PAIR_COUNT){
+          memoryFinishGame();
+        }
+      } else {
+        c1.flipped = false;
+        c2.flipped = false;
+      }
+      memoryState.flippedIds = [];
+      memoryState.locked = false;
+      renderRoute();
+    }, isMatch ? 500 : 900);
+  }
+}
+
+function memoryFinishGame(){
+  memoryState.complete = true;
+  const moves = memoryState.moves;
+  let best = 0, streak = 0;
+  try{ best = parseInt(localStorage.getItem(MEMORY_BEST_MOVES_KEY) || '0', 10); }catch(e){}
+  memoryState.isNewBest = (best === 0 || moves < best);
+  if(memoryState.isNewBest){
+    try{ localStorage.setItem(MEMORY_BEST_MOVES_KEY, String(moves)); }catch(e){}
+  }
+  try{ streak = parseInt(localStorage.getItem(MEMORY_STREAK_KEY) || '0', 10); }catch(e){}
+  const todayKey = getTodayKeyLocal();
+  let lastPlayed = null;
+  try{ lastPlayed = localStorage.getItem('memoryLastPlayedDate'); }catch(e){}
+  if(lastPlayed !== todayKey){
+    const yesterday = new Date(Date.now() - 86400000);
+    const yKey = `${yesterday.getFullYear()}-${String(yesterday.getMonth()+1).padStart(2,'0')}-${String(yesterday.getDate()).padStart(2,'0')}`;
+    streak = (lastPlayed === yKey) ? streak + 1 : 1;
+    try{
+      localStorage.setItem(MEMORY_STREAK_KEY, String(streak));
+      localStorage.setItem('memoryLastPlayedDate', todayKey);
+    }catch(e){}
+  }
+}
+
+function memoryExit(){
+  memoryState = null;
+  renderRoute();
+}
+
+
+
 document.addEventListener('keydown', (e) => {
   if(!nerdleState || nerdleState.gameOver) return;
   const tag = document.activeElement && document.activeElement.tagName;
@@ -4399,6 +4516,7 @@ const GEOGRAPHY_HUB_TILES = [
   { name: "Odd One Out", emoji: icon('scales'), url: "#odd-one-out-game", internal: true },
   { name: "Idiom Match", emoji: icon('newspaper'), url: "#idiom-match-game", internal: true },
   { name: "Nerdle", emoji: icon('chip'), url: "#nerdle-game", internal: true },
+  { name: "Memory Match", emoji: icon('coin'), url: "#memory-game", internal: true },
   geoHubExternalTile("GeoGuessr"),
   geoHubExternalTile("OpenGuessr"),
   geoHubExternalTile("Radio Garden"),
@@ -9576,6 +9694,85 @@ function viewNerdleGame(){
     return nerdleEndHtml();
   }
   return nerdlePlayingHtml();
+}
+
+function memoryIntroHtml(){
+  let best = 0, streak = 0;
+  try{
+    best = parseInt(localStorage.getItem(MEMORY_BEST_MOVES_KEY) || '0', 10);
+    streak = parseInt(localStorage.getItem(MEMORY_STREAK_KEY) || '0', 10);
+  }catch(e){}
+  return `
+    <a class="back-link" href="#geography-hub">← Back to Train Your Brain</a>
+    <section style="padding-top:14px;">
+      <div class="fg-wrap">
+        <div class="section-head"><span class="emoji">${icon('coin')}</span><h2>Memory Match</h2></div>
+        <p style="font-size:14px; color:var(--ink-soft); line-height:1.6; margin-bottom:6px;">Flip two. Flag meets its country. Fewest moves wins.</p>
+        <div class="fg-intro-stats">
+          <div class="fg-intro-stat"><div class="num">${best > 0 ? best : '—'}</div><div class="label">Best Moves</div></div>
+          <div class="fg-intro-stat"><div class="num">${streak}</div><div class="label">Day Streak</div></div>
+        </div>
+        <button class="fg-start-btn" data-action="memory-start">Start</button>
+      </div>
+    </section>
+  `;
+}
+
+function memoryCardHtml(card){
+  const faceUp = card.flipped || card.matched;
+  let inner;
+  if(!faceUp){
+    inner = `<div class="memory-card-back">?</div>`;
+  } else if(card.type === 'flag'){
+    inner = `<div class="memory-card-flag">${fgOptionFlagThumb(card)}</div>`;
+  } else {
+    inner = `<div class="memory-card-name">${escapeHtml(card.country)}</div>`;
+  }
+  const cls = `memory-card${card.flipped ? ' flipped' : ''}${card.matched ? ' matched' : ''}`;
+  return `<button class="${cls}" data-action="memory-tap" data-id="${card.id}" ${faceUp || memoryState.locked ? 'disabled' : ''}>${inner}</button>`;
+}
+
+function memoryPlayingHtml(){
+  const cardsHtml = memoryState.cards.map(memoryCardHtml).join('');
+  return `
+    <section style="padding-top:14px;">
+      <div class="fg-wrap">
+        <div class="fg-progress-row">
+          <span>Pairs: ${memoryState.matchedPairs} of ${MEMORY_PAIR_COUNT}</span>
+          <span>Moves: ${memoryState.moves}</span>
+        </div>
+        <div class="memory-grid">${cardsHtml}</div>
+      </div>
+    </section>
+  `;
+}
+
+function memoryEndHtml(){
+  const moves = memoryState.moves;
+  let best = 0;
+  try{ best = parseInt(localStorage.getItem(MEMORY_BEST_MOVES_KEY) || '0', 10); }catch(e){}
+  const isNewBest = memoryState.isNewBest;
+  return `
+    <a class="back-link" href="#geography-hub">← Back to Train Your Brain</a>
+    <section style="padding-top:14px;">
+      <div class="fg-wrap">
+        <div class="section-head"><span class="emoji">${icon('trophy')}</span><h2>All Matched</h2></div>
+        <div class="fg-end-score">${moves}</div>
+        <div class="fg-end-label">${isNewBest ? 'New best -- fewest moves yet!' : `moves this round (best: ${best})`}</div>
+        <button class="fg-start-btn" data-action="memory-start">Play Again</button>
+      </div>
+    </section>
+  `;
+}
+
+function viewMemoryGame(){
+  if(!memoryState){
+    return memoryIntroHtml();
+  }
+  if(memoryState.complete){
+    return memoryEndHtml();
+  }
+  return memoryPlayingHtml();
 }
 
 function viewSaved(){
@@ -15758,6 +15955,18 @@ document.addEventListener('click', (e) => {
     nerdleKeyPress(nerdleKeyBtn.dataset.key);
     return;
   }
+  const memoryStartBtn = e.target.closest('[data-action="memory-start"]');
+  if(memoryStartBtn){
+    e.preventDefault();
+    memoryStart();
+    return;
+  }
+  const memoryTapBtn = e.target.closest('[data-action="memory-tap"]');
+  if(memoryTapBtn){
+    e.preventDefault();
+    memoryTapCard(memoryTapBtn.dataset.id);
+    return;
+  }
   const clearSavedBtn = e.target.closest('[data-action="clear-saved"]');
   if(clearSavedBtn){
     e.preventDefault();
@@ -15859,6 +16068,8 @@ function renderRoute(opts){
     html = viewIdiomMatchGame();
   } else if(parts[0] === 'nerdle-game'){
     html = viewNerdleGame();
+  } else if(parts[0] === 'memory-game'){
+    html = viewMemoryGame();
   } else if(parts[0] === 'geography-hub'){
     html = viewGeographyHub();
   } else if(parts[0] === 'mind-temple'){
@@ -15923,6 +16134,7 @@ function renderRoute(opts){
   if(parts[0] !== 'odd-one-out-game' && oooState){ oooState = null; }
   if(parts[0] !== 'idiom-match-game' && idiomMatchState){ idiomMatchState = null; }
   if(parts[0] !== 'nerdle-game' && nerdleState){ nerdleState = null; }
+  if(parts[0] !== 'memory-game' && memoryState){ memoryState = null; }
   if(parts[0] === 'arcade' && parts[1]){ wireArcade(parts[1]); }
   if(parts[0] === 'install'){ wireInstallPage(); }
   if(parts[0] === 'stats'){ loadStats(); }
