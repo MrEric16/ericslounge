@@ -1967,6 +1967,25 @@
     font-size:12px;
     font-weight:600;
   }
+  footer.site-presence-footer{ cursor:pointer; }
+  footer.site-presence-footer:active{ opacity:.6; }
+
+  .solo-video-overlay{
+    position:fixed; inset:0; background:rgba(0,0,0,.7); z-index:2000;
+    display:flex; align-items:center; justify-content:center; padding:20px;
+  }
+  .solo-video-card{
+    background:var(--card); border-radius:20px; padding:16px; max-width:420px; width:100%;
+    position:relative; box-shadow:0 10px 40px rgba(0,0,0,.4);
+  }
+  .solo-video-close{
+    position:absolute; top:-14px; right:-14px; width:36px; height:36px; border-radius:50%;
+    background:var(--coral); color:#fff; border:none; font-size:20px; line-height:1;
+    cursor:pointer; box-shadow:0 2px 8px rgba(0,0,0,.3); z-index:1;
+  }
+  .solo-video-frame{ aspect-ratio:16/9; border-radius:12px; overflow:hidden; }
+  .solo-video-frame iframe{ width:100%; height:100%; border:none; }
+  .solo-video-caption{ text-align:center; font-size:13.5px; color:var(--ink-soft); font-weight:600; margin-top:12px; line-height:1.5; }
 
   /* ---------- Watch page: white + red theme (layout unchanged) ---------- */
   body.theme-watch{background:#FFFFFF;}
@@ -2953,9 +2972,31 @@ const supabaseClient = (window.supabase && window.supabase.createClient)
 // currently connected, no polling or manual cleanup required (disconnects are handled
 // automatically by the Realtime server). Falls back to hiding the footer text entirely
 // if Realtime isn't reachable, rather than showing a wrong or frozen number.
+// This specific video is a deliberate, permanent choice -- always this one, not a
+// rotating pool -- shown only when the counter reads exactly 1 (the viewer is genuinely
+// alone on the site), so they don't feel alone. Not shown for any other count.
+const SOLO_COMFORT_VIDEO_ID = 'G4e24tHpocI';
+let currentSitePresenceCount = null;
+
+function showSoloComfortVideo(){
+  const overlay = document.createElement('div');
+  overlay.className = 'solo-video-overlay';
+  overlay.innerHTML = `
+    <div class="solo-video-card">
+      <button class="solo-video-close" data-action="close-solo-video" aria-label="Close">×</button>
+      <div class="solo-video-frame">
+        <iframe src="https://www.youtube-nocookie.com/embed/${SOLO_COMFORT_VIDEO_ID}?autoplay=1&playsinline=1" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      </div>
+      <div class="solo-video-caption">You're the only one here right now. Here's something for the quiet.</div>
+    </div>
+  `;
+  document.body.appendChild(overlay);
+}
+
 function initLiveUserCounter(){
   const footerEl = document.querySelector('footer');
   if(!footerEl || !supabaseClient) return;
+  footerEl.classList.add('site-presence-footer');
 
   const presenceKey = Math.random().toString(36).slice(2) + '-' + Date.now();
   const channel = supabaseClient.channel('site-presence', {
@@ -2965,6 +3006,7 @@ function initLiveUserCounter(){
   function render(){
     const state = channel.presenceState();
     const count = Object.keys(state).length;
+    currentSitePresenceCount = count;
     footerEl.textContent = count === 1
       ? '1 user on the site right now'
       : `${count} users on the site right now`;
@@ -7801,7 +7843,7 @@ function fgIntroHtml(){
     <section style="padding-top:14px;">
       <div class="fg-wrap">
         <div class="section-head"><span class="emoji">${icon('globe')}</span><h2>Guess the Flag</h2></div>
-        <p style="font-size:14px; color:var(--ink-soft); line-height:1.6; margin-bottom:6px;">${FG_ROUNDS_PER_GAME} flags, 6 options each, plus ${FG_BONUS_ROUNDS} bonus rounds of empires, khanates, and defunct states to finish. The wrong options are always genuinely similar to the right one -- never random. Gets harder as you go.</p>
+        <p style="font-size:14px; color:var(--ink-soft); line-height:1.6; margin-bottom:6px;">Starts easy. Ends with flags you've never seen in your life.</p>
         <div class="fg-intro-stats">
           <div class="fg-intro-stat"><div class="num">${best}/${FG_TOTAL_ROUNDS}</div><div class="label">Best Score</div></div>
           <div class="fg-intro-stat"><div class="num">${streak}</div><div class="label">Day Streak</div></div>
@@ -7991,7 +8033,7 @@ function ccIntroHtml(){
     <section style="padding-top:14px;">
       <div class="fg-wrap">
         <div class="section-head"><span class="emoji">${icon('compass2')}</span><h2>Capital Cities</h2></div>
-        <p style="font-size:14px; color:var(--ink-soft); line-height:1.6; margin-bottom:6px;">${CC_ROUNDS_PER_GAME} countries, 6 capital-city options each, plus ${CC_BONUS_ROUNDS} bonus rounds on historical capitals to finish. Wrong options are always genuinely tricky -- nearby countries or similar-sounding names, never random. Gets harder as you go.</p>
+        <p style="font-size:14px; color:var(--ink-soft); line-height:1.6; margin-bottom:6px;">Starts with Paris. Ends with cities you can't pronounce.</p>
         <div class="fg-intro-stats">
           <div class="fg-intro-stat"><div class="num">${best}/${CC_TOTAL_ROUNDS}</div><div class="label">Best Score</div></div>
           <div class="fg-intro-stat"><div class="num">${streak}</div><div class="label">Day Streak</div></div>
@@ -13821,11 +13863,6 @@ function viewHome(){
     </section>
 
     <section>
-      <div class="section-head"><span class="emoji">${icon('cake')}</span><h2>Birthdays</h2></div>
-      ${upcomingBirthdayTileHtml()}
-    </section>
-
-    <section>
       <a class="flaggame-tile" href="#geography-hub">
         <span class="icon">${icon('globe')}</span>
         <div>
@@ -13833,6 +13870,11 @@ function viewHome(){
           <div class="sub">Flags, capitals, and more</div>
         </div>
       </a>
+    </section>
+
+    <section>
+      <div class="section-head"><span class="emoji">${icon('cake')}</span><h2>Birthdays</h2></div>
+      ${upcomingBirthdayTileHtml()}
     </section>
 
     <section style="text-align:center; padding:20px 0 8px;">
@@ -14143,6 +14185,25 @@ function mtCloseOverlay(){
   renderRoute({ skipScrollSave: true });
 }
 document.addEventListener('click', (e) => {
+  const presenceFooter = e.target.closest('footer.site-presence-footer');
+  if(presenceFooter){
+    e.preventDefault();
+    if(currentSitePresenceCount === 1){
+      showSoloComfortVideo();
+    }
+    return;
+  }
+  const closeSoloVideoBtn = e.target.closest('[data-action="close-solo-video"]');
+  if(closeSoloVideoBtn){
+    e.preventDefault();
+    const overlay = closeSoloVideoBtn.closest('.solo-video-overlay');
+    if(overlay) overlay.remove();
+    return;
+  }
+  if(e.target.classList && e.target.classList.contains('solo-video-overlay')){
+    e.target.remove();
+    return;
+  }
   const fgStartBtn = e.target.closest('[data-action="fg-start"]');
   if(fgStartBtn){
     e.preventDefault();
