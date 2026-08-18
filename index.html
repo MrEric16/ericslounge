@@ -1338,6 +1338,31 @@
   .wordle-key.absent{ background:#3A3A3C; color:#fff; opacity:.6; }
   .wordle-stats-row{ display:flex; gap:10px; justify-content:center; margin-bottom:10px; font-size:13px; color:var(--ink-soft); font-weight:700; }
 
+  /* ---- Nerdle (reuses Wordle's tile/colour system for 8 narrower columns) ---- */
+  .nerdle-grid{ display:grid; grid-template-rows:repeat(6, 1fr); gap:5px; margin:0 auto 20px; }
+  .nerdle-row{ display:grid; grid-template-columns:repeat(8, 1fr); gap:5px; }
+  .nerdle-tile{
+    width:36px; height:44px; border:2px solid var(--line); border-radius:5px;
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Space Mono', monospace; font-weight:700; font-size:18px; color:var(--ink);
+    background:var(--card);
+  }
+  .nerdle-tile.filled{ border-color:var(--ink-soft); }
+  .nerdle-tile.correct{ background:#6AAA64; border-color:#6AAA64; color:#fff; }
+  .nerdle-tile.present{ background:#C9B458; border-color:#C9B458; color:#fff; }
+  .nerdle-tile.absent{ background:#787C7E; border-color:#787C7E; color:#fff; }
+  .nerdle-row.shake .nerdle-tile{ animation:wordle-shake .5s; }
+  .nerdle-keypad{ display:grid; grid-template-columns:repeat(5, 1fr); gap:6px; width:100%; max-width:340px; margin:0 auto; }
+  .nerdle-key{
+    border:none; border-radius:6px; background:var(--line); color:var(--ink);
+    font-family:'Space Mono', monospace; font-weight:700; font-size:16px;
+    height:48px; cursor:pointer; display:flex; align-items:center; justify-content:center;
+  }
+  .nerdle-key.wide{ grid-column:span 2; font-family:'Nunito', sans-serif; font-size:12px; font-weight:800; }
+  .nerdle-key.correct{ background:#6AAA64; color:#fff; }
+  .nerdle-key.present{ background:#C9B458; color:#fff; }
+  .nerdle-key.absent{ background:#3A3A3C; color:#fff; opacity:.6; }
+
   /* ---- Word Scramble / Anagram ---- */
   .anagram-clue{ text-align:center; font-size:15px; font-weight:700; color:var(--ink); line-height:1.5; padding:0 16px; margin-bottom:22px; }
   .anagram-answer-row{ display:flex; gap:6px; justify-content:center; margin-bottom:24px; flex-wrap:wrap; }
@@ -4118,6 +4143,229 @@ function idiomMatchExit(){
   renderRoute();
 }
 
+// ============ Nerdle: Wordle but with maths equations ============
+const NERDLE_ANSWER_POOL = ["8+7+9=24","2+2+9=13","13+61=74","23+53=76","18+75=93","15+13=28","18+56=74","11+23=34","17+56=73","27+68=95","30+36=66","47+45=92","43+12=55","11+44=55","40+57=97","68+13=81","26+15=41","9+7+6=22","48+12=60","61+12=73","27+19=46","53+26=79","60+11=71","6+3+9=18","22+47=69","20+17=37","13+84=97","18+12=30","11+47=58","41+29=70","4+6+7=17","63+25=88","72+21=93","13+18=31","23+65=88","15+36=51","7+7+2=16","55+39=94","51+38=89","20+45=65","20+63=83","63+30=93","3+4+6=13","25+52=77","15+22=37","78+18=96","24+27=51","17+58=75","61+34=95","12+17=29","66+31=97","31+11=42","5+5+7=17","40+13=53","5+6+2=13","65+17=82","46+32=78","8+4+2=14","18+80=98","17+69=86","5+6+1=12","1+9+8=18","61+16=77","11+83=94","88+11=99","33+20=53","51+10=61","52+47=99","27+35=62","43+40=83","44+44=88","46+14=60","50+42=92","22+65=87","6+7+6=19","27+49=76","73+25=98","69+29=98","46+25=71","25+27=52","24+65=89","23+66=89","41+30=71","27+28=55","28+70=98","26+47=73","34+46=80","19+79=98","18+29=47","21+73=94","8+1+6=15","6+2+7=15","3+3+7=13","25+68=93","9+5+6=20","60+39=99","79+11=90","6+9+3=18","13+25=38","13+41=54","94-23=71","92-34=58","83-45=38","88-17=71","83-23=60","84-49=35","60-23=37","65-39=26","87-76=11","94-38=56","93-66=27","96-15=81","97-75=22","80-28=52","81-26=55","53-28=25","60-10=50","94-48=46","28-17=11","66-13=53","65-35=30","81-21=60","52-38=14","90-22=68","81-18=63","74-12=62","79-21=58","65-43=22","69-59=10","95-65=30","92-20=72","78-61=17","68-47=21","46-28=18","85-41=44","82-18=64","62-40=22","79-12=67","72-23=49","82-66=16","46-30=16","83-57=26","93-38=55","92-46=46","81-60=21","94-46=48","83-18=65","97-23=74","62-22=40","63-23=40","80-33=47","80-18=62","71-51=20","77-51=26","33-11=22","83-67=16","55-35=20","68-36=32","77-37=40","41-26=15","95-41=54","74-45=29","99-25=74","92-32=60","98-75=23","84-22=62","88-64=24","86-15=71","74-36=38","55-42=13","72-24=48","66-36=30","70-45=25","78-45=33","78-13=65","78-21=57","78-32=46","85-47=38","58-10=48","99-84=15","9*81=729","5*20=100","6*54=324","4*45=180","7*31=217","4*51=204","5*54=270","4*95=380","5*47=235","7*87=609","2*54=108","4*71=284","4*64=256","5*27=135","9*86=774","5*62=310","3*48=144","3*36=108","9*53=477","4*46=184","3*34=102","4*80=320","9*17=153","8*14=112","5*52=260","6*93=558","9*90=810","6*26=156","4*99=396","8*72=576","3*80=240","2*89=178","7*72=504","9*46=414","9*91=819","7*15=105","3*73=219","5*53=265","6*56=336","7*22=154","8*24=192","6*37=222","6*24=144","8*16=128","8*52=416","6*50=300","3*51=153","7*48=336","9*41=369","4*86=344","7*52=364","6*51=306","4*28=112","5*77=385","6*92=552","6*79=474","2*67=134","4*96=384","7*55=385","2*76=152","664/8=83","330/5=66","178/2=89","156/2=78","483/7=69","774/9=86","440/8=55","413/7=59","291/3=97","390/6=65","272/8=34","116/2=58","360/6=60","576/9=64","640/8=80","129/3=43","435/5=87","336/4=84","414/9=46","234/3=78","510/6=85","495/5=99","128/4=32","402/6=67","161/7=23","138/2=69","234/6=39","156/6=26","546/7=78","140/5=28","570/6=95","792/9=88","304/8=38","144/6=24","420/7=60","406/7=58","222/3=74","122/2=61","300/4=75","549/9=61","504/9=56","246/6=41","176/8=22","236/4=59","192/4=48","123/3=41","445/5=89","195/3=65","324/9=36","480/8=60","630/7=90","486/9=54","192/2=96","498/6=83","504/7=72","300/5=60","265/5=53","132/6=22","180/6=30","469/7=67"];
+const NERDLE_LENGTH = 8;
+const NERDLE_BEST_STREAK_KEY = 'nerdleBestStreak';
+const NERDLE_CURRENT_STREAK_KEY = 'nerdleCurrentStreak';
+const NERDLE_WINS_KEY = 'nerdleWins';
+const NERDLE_GAMES_KEY = 'nerdleGamesPlayed';
+
+function nerdleTokenize(expr){
+  const tokens = [];
+  let current = '';
+  for(const ch of expr){
+    if('+-*/'.includes(ch)){
+      if(current === '') return null;
+      tokens.push(current);
+      tokens.push(ch);
+      current = '';
+    } else if(/[0-9]/.test(ch)){
+      current += ch;
+    } else {
+      return null;
+    }
+  }
+  if(current === '') return null;
+  tokens.push(current);
+  for(let i = 0; i < tokens.length; i += 2){
+    if(tokens[i].length > 1 && tokens[i][0] === '0') return null;
+  }
+  return tokens;
+}
+
+function nerdleEvaluateExpr(tokens){
+  if(!tokens) return null;
+  let nums = [parseInt(tokens[0], 10)];
+  let ops = [];
+  for(let i = 1; i < tokens.length; i += 2){
+    ops.push(tokens[i]);
+    nums.push(parseInt(tokens[i+1], 10));
+  }
+  let i = 0;
+  while(i < ops.length){
+    if(ops[i] === '*' || ops[i] === '/'){
+      let result;
+      if(ops[i] === '*'){
+        result = nums[i] * nums[i+1];
+      } else {
+        if(nums[i+1] === 0) return null;
+        if(nums[i] % nums[i+1] !== 0) return null;
+        result = nums[i] / nums[i+1];
+      }
+      nums.splice(i, 2, result);
+      ops.splice(i, 1);
+    } else {
+      i++;
+    }
+  }
+  let total = nums[0];
+  for(let j = 0; j < ops.length; j++){
+    if(ops[j] === '+') total += nums[j+1];
+    else if(ops[j] === '-') total -= nums[j+1];
+  }
+  return total;
+}
+
+// A guess is VALID if it's a well-formed, mathematically correct equation -- unlike
+// Wordle, this doesn't need a dictionary lookup, just arithmetic (any equation that
+// balances is a legitimate guess, not just ones from the answer pool).
+function nerdleValidateEquation(str){
+  if(str.length !== NERDLE_LENGTH) return false;
+  const parts = str.split('=');
+  if(parts.length !== 2) return false;
+  const [left, right] = parts;
+  if(!/^\d+$/.test(right)) return false;
+  if(right.length > 1 && right[0] === '0') return false;
+  const tokens = nerdleTokenize(left);
+  if(!tokens) return false;
+  const result = nerdleEvaluateExpr(tokens);
+  if(result === null) return false;
+  return result === parseInt(right, 10) && result >= 0;
+}
+
+// Same two-pass duplicate-character handling as Wordle's evaluateGuess, generalized to
+// work on any length/alphabet (digits and operators here instead of letters).
+function nerdleEvaluateGuess(guess, answer){
+  const len = answer.length;
+  const result = new Array(len).fill('absent');
+  const pool = {};
+  for(let i = 0; i < len; i++){
+    if(guess[i] === answer[i]){
+      result[i] = 'correct';
+    } else {
+      pool[answer[i]] = (pool[answer[i]] || 0) + 1;
+    }
+  }
+  for(let i = 0; i < len; i++){
+    if(result[i] === 'correct') continue;
+    const ch = guess[i];
+    if(pool[ch] > 0){
+      result[i] = 'present';
+      pool[ch]--;
+    }
+  }
+  return result;
+}
+
+let nerdleState = null;
+
+function nerdleStart(){
+  const answer = NERDLE_ANSWER_POOL[Math.floor(Math.random() * NERDLE_ANSWER_POOL.length)];
+  nerdleState = {
+    answer,
+    guesses: [],
+    currentGuess: '',
+    gameOver: false,
+    won: false,
+    shake: false,
+    message: null,
+  };
+  renderRoute();
+}
+
+function nerdleKeyStates(){
+  const states = {};
+  const rank = { absent: 0, present: 1, correct: 2 };
+  nerdleState.guesses.forEach(g => {
+    g.result.forEach((state, i) => {
+      const ch = g.word[i];
+      if(!states[ch] || rank[state] > rank[states[ch]]){
+        states[ch] = state;
+      }
+    });
+  });
+  return states;
+}
+
+function nerdleFinishGame(won){
+  nerdleState.gameOver = true;
+  nerdleState.won = won;
+  let games = 0, wins = 0, streak = 0, best = 0;
+  try{
+    games = parseInt(localStorage.getItem(NERDLE_GAMES_KEY) || '0', 10);
+    wins = parseInt(localStorage.getItem(NERDLE_WINS_KEY) || '0', 10);
+    streak = parseInt(localStorage.getItem(NERDLE_CURRENT_STREAK_KEY) || '0', 10);
+    best = parseInt(localStorage.getItem(NERDLE_BEST_STREAK_KEY) || '0', 10);
+  }catch(e){}
+  games += 1;
+  if(won){
+    wins += 1;
+    streak += 1;
+    if(streak > best) best = streak;
+  } else {
+    streak = 0;
+  }
+  try{
+    localStorage.setItem(NERDLE_GAMES_KEY, String(games));
+    localStorage.setItem(NERDLE_WINS_KEY, String(wins));
+    localStorage.setItem(NERDLE_CURRENT_STREAK_KEY, String(streak));
+    localStorage.setItem(NERDLE_BEST_STREAK_KEY, String(best));
+  }catch(e){}
+}
+
+function nerdleSubmitGuess(){
+  if(!nerdleState || nerdleState.gameOver) return;
+  const guess = nerdleState.currentGuess;
+  if(guess.length !== NERDLE_LENGTH){
+    nerdleState.message = 'Not enough characters';
+    nerdleState.shake = true;
+    renderRoute();
+    setTimeout(() => { if(nerdleState){ nerdleState.message = null; nerdleState.shake = false; renderRoute(); } }, 1200);
+    return;
+  }
+  if(!nerdleValidateEquation(guess)){
+    nerdleState.message = "That doesn't add up";
+    nerdleState.shake = true;
+    renderRoute();
+    setTimeout(() => { if(nerdleState){ nerdleState.message = null; nerdleState.shake = false; renderRoute(); } }, 1200);
+    return;
+  }
+  const result = nerdleEvaluateGuess(guess, nerdleState.answer);
+  nerdleState.guesses.push({ word: guess, result });
+  nerdleState.currentGuess = '';
+  const won = result.every(r => r === 'correct');
+  if(won){
+    nerdleFinishGame(true);
+  } else if(nerdleState.guesses.length >= 6){
+    nerdleFinishGame(false);
+  }
+  renderRoute();
+}
+
+function nerdleKeyPress(key){
+  if(!nerdleState || nerdleState.gameOver) return;
+  if(key === 'ENTER'){
+    nerdleSubmitGuess();
+    return;
+  }
+  if(key === 'BACKSPACE'){
+    nerdleState.currentGuess = nerdleState.currentGuess.slice(0, -1);
+    renderRoute();
+    return;
+  }
+  if(/^[0-9+\-*/=]$/.test(key) && nerdleState.currentGuess.length < NERDLE_LENGTH){
+    nerdleState.currentGuess += key;
+    renderRoute();
+  }
+}
+
+function nerdleExit(){
+  nerdleState = null;
+  renderRoute();
+}
+
+document.addEventListener('keydown', (e) => {
+  if(!nerdleState || nerdleState.gameOver) return;
+  const tag = document.activeElement && document.activeElement.tagName;
+  if(tag === 'INPUT' || tag === 'TEXTAREA') return;
+  if(e.key === 'Enter'){ nerdleKeyPress('ENTER'); }
+  else if(e.key === 'Backspace'){ nerdleKeyPress('BACKSPACE'); }
+  else if(/^[0-9+\-*/=]$/.test(e.key)){ nerdleKeyPress(e.key); }
+});
+
+
+
 
 
 
@@ -4150,6 +4398,7 @@ const GEOGRAPHY_HUB_TILES = [
   { name: "Word Scramble", emoji: icon('dice'), url: "#anagram-game", internal: true },
   { name: "Odd One Out", emoji: icon('scales'), url: "#odd-one-out-game", internal: true },
   { name: "Idiom Match", emoji: icon('newspaper'), url: "#idiom-match-game", internal: true },
+  { name: "Nerdle", emoji: icon('chip'), url: "#nerdle-game", internal: true },
   geoHubExternalTile("GeoGuessr"),
   geoHubExternalTile("OpenGuessr"),
   geoHubExternalTile("Radio Garden"),
@@ -9211,6 +9460,122 @@ function viewIdiomMatchGame(){
     return idiomMatchEndHtml();
   }
   return idiomMatchPlayingHtml();
+}
+
+function nerdleIntroHtml(){
+  let best = 0, wins = 0, games = 0;
+  try{
+    best = parseInt(localStorage.getItem(NERDLE_BEST_STREAK_KEY) || '0', 10);
+    wins = parseInt(localStorage.getItem(NERDLE_WINS_KEY) || '0', 10);
+    games = parseInt(localStorage.getItem(NERDLE_GAMES_KEY) || '0', 10);
+  }catch(e){}
+  const winRate = games > 0 ? Math.round((wins / games) * 100) : 0;
+  return `
+    <a class="back-link" href="#geography-hub">← Back to Train Your Brain</a>
+    <section style="padding-top:14px;">
+      <div class="fg-wrap">
+        <div class="section-head"><span class="emoji">${icon('chip')}</span><h2>Nerdle</h2></div>
+        <p style="font-size:14px; color:var(--ink-soft); line-height:1.6; margin-bottom:6px;">Wordle, but it's maths. Six goes to balance the equation.</p>
+        <div class="fg-intro-stats">
+          <div class="fg-intro-stat"><div class="num">${best}</div><div class="label">Best Streak</div></div>
+          <div class="fg-intro-stat"><div class="num">${winRate}%</div><div class="label">Win Rate</div></div>
+        </div>
+        <button class="fg-start-btn" data-action="nerdle-start">Start</button>
+      </div>
+    </section>
+  `;
+}
+
+function nerdlePlayingHtml(){
+  const rows = [];
+  for(let r = 0; r < 6; r++){
+    const guess = nerdleState.guesses[r];
+    let cells;
+    if(guess){
+      cells = guess.word.split('').map((ch, i) => `<div class="nerdle-tile ${guess.result[i]}">${escapeHtml(ch)}</div>`).join('');
+    } else if(r === nerdleState.guesses.length){
+      const chars = nerdleState.currentGuess.padEnd(NERDLE_LENGTH, ' ').split('');
+      cells = chars.map(ch => `<div class="nerdle-tile ${ch.trim() ? 'filled' : ''}">${ch.trim() ? escapeHtml(ch) : ''}</div>`).join('');
+    } else {
+      cells = '<div class="nerdle-tile"></div>'.repeat(NERDLE_LENGTH);
+    }
+    const isShakeRow = nerdleState.shake && r === nerdleState.guesses.length;
+    rows.push(`<div class="nerdle-row${isShakeRow ? ' shake' : ''}">${cells}</div>`);
+  }
+
+  const keyStates = nerdleKeyStates();
+  const digitRows = [
+    ['1','2','3','4','5'],
+    ['6','7','8','9','0'],
+  ];
+  const digitHtml = digitRows.map(row => `
+    <div style="display:contents;">
+      ${row.map(k => {
+        const state = keyStates[k] ? ` ${keyStates[k]}` : '';
+        return `<button class="nerdle-key${state}" data-action="nerdle-key" data-key="${k}">${k}</button>`;
+      }).join('')}
+    </div>
+  `).join('');
+  const opRow = ['+','-','*','/','='].map(k => {
+    const state = keyStates[k] ? ` ${keyStates[k]}` : '';
+    return `<button class="nerdle-key${state}" data-action="nerdle-key" data-key="${k}">${k}</button>`;
+  }).join('');
+
+  return `
+    <section style="padding-top:14px;">
+      <div class="wordle-wrap">
+        <div class="fg-progress-row" style="width:100%; max-width:320px;">
+          <span>Guess ${nerdleState.guesses.length + (nerdleState.gameOver ? 0 : 1)} of 6</span>
+        </div>
+        <div class="wordle-message">${nerdleState.message ? escapeHtml(nerdleState.message) : ''}</div>
+        <div class="nerdle-grid">${rows.join('')}</div>
+        <div class="nerdle-keypad">
+          ${digitHtml}
+          ${opRow}
+          <button class="nerdle-key wide" data-action="nerdle-key" data-key="BACKSPACE">⌫ Del</button>
+          <button class="nerdle-key wide" data-action="nerdle-key" data-key="ENTER" style="grid-column:span 3;">Enter</button>
+        </div>
+      </div>
+    </section>
+  `;
+}
+
+function nerdleEndHtml(){
+  const won = nerdleState.won;
+  let best = 0, wins = 0, games = 0, streak = 0;
+  try{
+    best = parseInt(localStorage.getItem(NERDLE_BEST_STREAK_KEY) || '0', 10);
+    wins = parseInt(localStorage.getItem(NERDLE_WINS_KEY) || '0', 10);
+    games = parseInt(localStorage.getItem(NERDLE_GAMES_KEY) || '0', 10);
+    streak = parseInt(localStorage.getItem(NERDLE_CURRENT_STREAK_KEY) || '0', 10);
+  }catch(e){}
+  const winRate = games > 0 ? Math.round((wins / games) * 100) : 0;
+  return `
+    <a class="back-link" href="#geography-hub">← Back to Train Your Brain</a>
+    <section style="padding-top:14px;">
+      <div class="fg-wrap">
+        <div class="section-head"><span class="emoji">${icon('chip')}</span><h2>${won ? 'Balanced it' : 'Out of guesses'}</h2></div>
+        <div class="fg-end-score" style="font-family:'Space Mono', monospace; font-size:34px;">${nerdleState.answer}</div>
+        <div class="fg-end-label">${won ? `Solved in ${nerdleState.guesses.length}/6` : 'Better luck next time'}</div>
+        <div class="wordle-stats-row" style="margin-top:14px;">
+          <span>Streak: ${streak}</span>
+          <span>Best: ${best}</span>
+          <span>Win rate: ${winRate}%</span>
+        </div>
+        <button class="fg-start-btn" data-action="nerdle-start">Play Again</button>
+      </div>
+    </section>
+  `;
+}
+
+function viewNerdleGame(){
+  if(!nerdleState){
+    return nerdleIntroHtml();
+  }
+  if(nerdleState.gameOver){
+    return nerdleEndHtml();
+  }
+  return nerdlePlayingHtml();
 }
 
 function viewSaved(){
@@ -15381,6 +15746,18 @@ document.addEventListener('click', (e) => {
     idiomMatchAnswer(idiomAnswerBtn.dataset.meaning);
     return;
   }
+  const nerdleStartBtn = e.target.closest('[data-action="nerdle-start"]');
+  if(nerdleStartBtn){
+    e.preventDefault();
+    nerdleStart();
+    return;
+  }
+  const nerdleKeyBtn = e.target.closest('[data-action="nerdle-key"]');
+  if(nerdleKeyBtn){
+    e.preventDefault();
+    nerdleKeyPress(nerdleKeyBtn.dataset.key);
+    return;
+  }
   const clearSavedBtn = e.target.closest('[data-action="clear-saved"]');
   if(clearSavedBtn){
     e.preventDefault();
@@ -15480,6 +15857,8 @@ function renderRoute(opts){
     html = viewOddOneOutGame();
   } else if(parts[0] === 'idiom-match-game'){
     html = viewIdiomMatchGame();
+  } else if(parts[0] === 'nerdle-game'){
+    html = viewNerdleGame();
   } else if(parts[0] === 'geography-hub'){
     html = viewGeographyHub();
   } else if(parts[0] === 'mind-temple'){
@@ -15543,6 +15922,7 @@ function renderRoute(opts){
   if(parts[0] !== 'anagram-game' && anagramState){ anagramState = null; }
   if(parts[0] !== 'odd-one-out-game' && oooState){ oooState = null; }
   if(parts[0] !== 'idiom-match-game' && idiomMatchState){ idiomMatchState = null; }
+  if(parts[0] !== 'nerdle-game' && nerdleState){ nerdleState = null; }
   if(parts[0] === 'arcade' && parts[1]){ wireArcade(parts[1]); }
   if(parts[0] === 'install'){ wireInstallPage(); }
   if(parts[0] === 'stats'){ loadStats(); }
