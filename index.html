@@ -1337,6 +1337,33 @@
   .wordle-key.present{ background:#C9B458; color:#fff; }
   .wordle-key.absent{ background:#3A3A3C; color:#fff; opacity:.6; }
   .wordle-stats-row{ display:flex; gap:10px; justify-content:center; margin-bottom:10px; font-size:13px; color:var(--ink-soft); font-weight:700; }
+
+  /* ---- Word Scramble / Anagram ---- */
+  .anagram-clue{ text-align:center; font-size:15px; font-weight:700; color:var(--ink); line-height:1.5; padding:0 16px; margin-bottom:22px; }
+  .anagram-answer-row{ display:flex; gap:6px; justify-content:center; margin-bottom:24px; flex-wrap:wrap; }
+  .anagram-answer-slot{
+    width:44px; height:44px; border:2px solid var(--ink-soft); border-radius:6px;
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Baloo 2', sans-serif; font-weight:800; font-size:20px; color:var(--ink);
+    background:var(--card); cursor:pointer;
+  }
+  .anagram-answer-slot.solved{ background:#6AAA64; border-color:#6AAA64; color:#fff; }
+  .anagram-answer-row.shake .anagram-answer-slot{ animation:wordle-shake .5s; }
+  .anagram-scramble-row{ display:flex; gap:8px; justify-content:center; flex-wrap:wrap; margin-bottom:20px; }
+  .anagram-tile{
+    width:44px; height:44px; border:none; border-radius:6px; background:var(--coral);
+    color:#fff; font-family:'Baloo 2', sans-serif; font-weight:800; font-size:20px;
+    cursor:pointer; box-shadow:0 3px 0 rgba(0,0,0,.15);
+  }
+  .anagram-tile:disabled{ visibility:hidden; }
+  .anagram-btn-row{ display:flex; gap:10px; justify-content:center; }
+  .anagram-btn{
+    border:none; border-radius:999px; padding:12px 24px; font-family:'Nunito', sans-serif;
+    font-weight:800; font-size:14px; cursor:pointer;
+  }
+  .anagram-btn.check{ background:var(--teal); color:#fff; }
+  .anagram-btn.skip{ background:var(--line); color:var(--ink); }
+  .anagram-message{ text-align:center; font-weight:700; font-size:13px; color:var(--coral); height:18px; margin-bottom:8px; }
   .fg-mode-btn{
     border:2px solid var(--line); background:var(--card); border-radius:16px; padding:18px 10px;
     font-family:'Nunito', sans-serif; cursor:pointer; text-align:center; transition:transform .12s ease;
@@ -3732,6 +3759,163 @@ function wordleExit(){
   renderRoute();
 }
 
+// ============ Word Scramble / Anagram ============
+const ANAGRAM_WORDS = [{"word": "OCEAN", "clue": "A vast body of salt water", "tier": 1}, {"word": "BREAD", "clue": "Baked food made from flour", "tier": 1}, {"word": "CLOUD", "clue": "A visible mass of water vapour in the sky", "tier": 1}, {"word": "HEART", "clue": "The organ that pumps blood", "tier": 1}, {"word": "MUSIC", "clue": "Organised sound, often with melody and rhythm", "tier": 1}, {"word": "PLANT", "clue": "A living organism that grows in soil", "tier": 1}, {"word": "RIVER", "clue": "A large natural stream of water", "tier": 1}, {"word": "SMILE", "clue": "An expression of happiness on the face", "tier": 1}, {"word": "STORM", "clue": "Violent weather with wind and rain", "tier": 1}, {"word": "TABLE", "clue": "A piece of furniture with a flat top", "tier": 1}, {"word": "TIGER", "clue": "A large striped wild cat", "tier": 1}, {"word": "WATER", "clue": "H2O, essential for life", "tier": 1}, {"word": "BRAIN", "clue": "The organ used for thinking", "tier": 1}, {"word": "CHAIR", "clue": "A seat with a back, for one person", "tier": 1}, {"word": "EARTH", "clue": "The planet we live on", "tier": 1}, {"word": "ANIMAL", "clue": "A living creature, not a plant", "tier": 2}, {"word": "BRIDGE", "clue": "A structure built to cross a river or valley", "tier": 2}, {"word": "CASTLE", "clue": "A large fortified building, often medieval", "tier": 2}, {"word": "DESERT", "clue": "A dry, barren area with little rainfall", "tier": 2}, {"word": "FLOWER", "clue": "The colourful part of a plant that produces seeds", "tier": 2}, {"word": "GARDEN", "clue": "A piece of land for growing plants", "tier": 2}, {"word": "ISLAND", "clue": "A piece of land surrounded by water", "tier": 2}, {"word": "JOURNEY", "clue": "A trip from one place to another", "tier": 2}, {"word": "KITCHEN", "clue": "A room used for cooking", "tier": 2}, {"word": "MARKET", "clue": "A place where goods are bought and sold", "tier": 2}, {"word": "NATURE", "clue": "The physical world, including plants and animals", "tier": 2}, {"word": "ORANGE", "clue": "A citrus fruit, also a colour", "tier": 2}, {"word": "PLANET", "clue": "A large body orbiting a star, like Earth", "tier": 2}, {"word": "SILVER", "clue": "A shiny grey-white precious metal", "tier": 2}, {"word": "WINTER", "clue": "The coldest season of the year", "tier": 2}, {"word": "AIRPORT", "clue": "A place where aeroplanes take off and land", "tier": 3}, {"word": "BALANCE", "clue": "A state of equal weight or distribution", "tier": 3}, {"word": "CULTURE", "clue": "The customs and beliefs of a society", "tier": 3}, {"word": "DIAMOND", "clue": "A precious, extremely hard gemstone", "tier": 3}, {"word": "ECONOMY", "clue": "The system of trade and industry in a country", "tier": 3}, {"word": "FREEDOM", "clue": "The state of being free", "tier": 3}, {"word": "HARVEST", "clue": "The gathering of ripe crops", "tier": 3}, {"word": "JOURNAL", "clue": "A diary or a scholarly publication", "tier": 3}, {"word": "KINGDOM", "clue": "A country ruled by a king or queen", "tier": 3}, {"word": "LANTERN", "clue": "A portable light source with a case", "tier": 3}, {"word": "MYSTERY", "clue": "Something difficult to explain or understand", "tier": 3}, {"word": "NEIGHBOUR", "clue": "Someone who lives next door", "tier": 4}, {"word": "ORCHESTRA", "clue": "A large group of musicians playing together", "tier": 4}, {"word": "PARLIAMENT", "clue": "The body that makes a country's laws", "tier": 4}, {"word": "QUESTION", "clue": "A sentence that asks for information", "tier": 3}, {"word": "ATMOSPHERE", "clue": "The layer of gases surrounding a planet", "tier": 4}, {"word": "CHAMPION", "clue": "The winner of a competition", "tier": 3}, {"word": "DEMOCRACY", "clue": "Government by the people, through elected representatives", "tier": 4}, {"word": "EQUATION", "clue": "A mathematical statement that two things are equal", "tier": 3}, {"word": "FOUNTAIN", "clue": "A structure that shoots water into the air", "tier": 3}, {"word": "GRAMMAR", "clue": "The rules of a language", "tier": 3}, {"word": "HORIZON", "clue": "The line where the sky meets the land or sea", "tier": 3}, {"word": "INSTRUMENT", "clue": "A tool, often used to make music", "tier": 4}, {"word": "JUDGEMENT", "clue": "The ability to make sensible decisions", "tier": 4}, {"word": "KNOWLEDGE", "clue": "Information and understanding gained through experience", "tier": 4}, {"word": "LANDSCAPE", "clue": "The visible features of an area of land", "tier": 4}, {"word": "MEMORABLE", "clue": "Worth remembering", "tier": 4}, {"word": "NEGOTIATE", "clue": "To discuss something to reach an agreement", "tier": 4}, {"word": "OBSERVANT", "clue": "Quick to notice things", "tier": 4}, {"word": "PHILOSOPHY", "clue": "The study of knowledge, reality, and existence", "tier": 4}];
+const ANAGRAM_ROUNDS_PER_GAME = 15;
+const ANAGRAM_BEST_SCORE_KEY = 'anagramBestScore';
+const ANAGRAM_STREAK_KEY = 'anagramStreak';
+
+function anagramScrambleWord(word){
+  const letters = word.split('');
+  let attempts = 0;
+  let shuffled;
+  do {
+    shuffled = [...letters];
+    for(let i = shuffled.length - 1; i > 0; i--){
+      const j = Math.floor(Math.random() * (i + 1));
+      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
+    attempts++;
+  } while(shuffled.join('') === word && attempts < 20);
+  return shuffled;
+}
+
+function anagramPickForRound(roundIndex, totalRounds, usedWords){
+  const progress = roundIndex / (totalRounds - 1);
+  const maxTier = 1 + Math.floor(progress * 3); // 1 through 4
+  const eligible = ANAGRAM_WORDS.filter(w => w.tier <= maxTier && !usedWords.has(w.word));
+  const atCeiling = eligible.filter(w => w.tier === maxTier);
+  const pickFrom = atCeiling.length > 0 ? atCeiling : eligible;
+  if(pickFrom.length === 0) return null;
+  return pickFrom[Math.floor(Math.random() * pickFrom.length)];
+}
+
+function anagramBuildRounds(totalRounds){
+  const usedWords = new Set();
+  const rounds = [];
+  for(let i = 0; i < totalRounds; i++){
+    const entry = anagramPickForRound(i, totalRounds, usedWords);
+    if(!entry) break;
+    usedWords.add(entry.word);
+    rounds.push(entry);
+  }
+  return rounds;
+}
+
+let anagramState = null;
+
+function anagramBuildScrambleTiles(word){
+  return anagramScrambleWord(word).map(ch => ({ char: ch, used: false }));
+}
+
+function anagramStart(){
+  const rounds = anagramBuildRounds(ANAGRAM_ROUNDS_PER_GAME);
+  anagramState = {
+    rounds,
+    current: 0,
+    correctCount: 0,
+    skipped: [],
+    scrambled: anagramBuildScrambleTiles(rounds[0].word),
+    answer: [],
+    message: null,
+    shake: false,
+    solvedFlash: false,
+  };
+  renderRoute();
+}
+
+function anagramCurrentAnswerWord(){
+  return anagramState.answer.map(idx => anagramState.scrambled[idx].char).join('');
+}
+
+function anagramTapScramble(idx){
+  if(!anagramState || anagramState.scrambled[idx].used) return;
+  anagramState.scrambled[idx].used = true;
+  anagramState.answer.push(idx);
+  renderRoute();
+}
+
+function anagramTapAnswer(answerPos){
+  if(!anagramState) return;
+  const scrambleIdx = anagramState.answer[answerPos];
+  anagramState.scrambled[scrambleIdx].used = false;
+  anagramState.answer.splice(answerPos, 1);
+  renderRoute();
+}
+
+function anagramNextRound(){
+  anagramState.current++;
+  if(anagramState.current >= anagramState.rounds.length){
+    anagramFinishGame();
+    renderRoute();
+    return;
+  }
+  anagramState.scrambled = anagramBuildScrambleTiles(anagramState.rounds[anagramState.current].word);
+  anagramState.answer = [];
+  anagramState.message = null;
+  anagramState.shake = false;
+  anagramState.solvedFlash = false;
+  renderRoute();
+}
+
+function anagramCheck(){
+  if(!anagramState) return;
+  const target = anagramState.rounds[anagramState.current].word;
+  const built = anagramCurrentAnswerWord();
+  if(built.length !== target.length){
+    anagramState.message = 'Use all the letters';
+    anagramState.shake = true;
+    renderRoute();
+    setTimeout(() => { if(anagramState){ anagramState.shake = false; renderRoute(); } }, 500);
+    return;
+  }
+  if(built === target){
+    anagramState.correctCount++;
+    anagramState.solvedFlash = true;
+    renderRoute();
+    setTimeout(() => { if(anagramState) anagramNextRound(); }, 900);
+  } else {
+    anagramState.message = 'Not quite';
+    anagramState.shake = true;
+    renderRoute();
+    setTimeout(() => { if(anagramState){ anagramState.shake = false; anagramState.message = null; renderRoute(); } }, 700);
+  }
+}
+
+function anagramSkip(){
+  if(!anagramState) return;
+  anagramState.skipped.push(anagramState.rounds[anagramState.current]);
+  anagramNextRound();
+}
+
+function anagramFinishGame(){
+  const score = anagramState.correctCount;
+  let best = 0, streak = 0;
+  try{ best = parseInt(localStorage.getItem(ANAGRAM_BEST_SCORE_KEY) || '0', 10); }catch(e){}
+  if(score > best){
+    try{ localStorage.setItem(ANAGRAM_BEST_SCORE_KEY, String(score)); }catch(e){}
+  }
+  try{ streak = parseInt(localStorage.getItem(ANAGRAM_STREAK_KEY) || '0', 10); }catch(e){}
+  const todayKey = getTodayKeyLocal();
+  let lastPlayed = null;
+  try{ lastPlayed = localStorage.getItem('anagramLastPlayedDate'); }catch(e){}
+  if(lastPlayed !== todayKey){
+    const yesterday = new Date(Date.now() - 86400000);
+    const yKey = `${yesterday.getFullYear()}-${String(yesterday.getMonth()+1).padStart(2,'0')}-${String(yesterday.getDate()).padStart(2,'0')}`;
+    streak = (lastPlayed === yKey) ? streak + 1 : 1;
+    try{
+      localStorage.setItem(ANAGRAM_STREAK_KEY, String(streak));
+      localStorage.setItem('anagramLastPlayedDate', todayKey);
+    }catch(e){}
+  }
+}
+
+function anagramExit(){
+  anagramState = null;
+  renderRoute();
+}
+
+
 document.addEventListener('keydown', (e) => {
   if(!wordleState || wordleState.gameOver) return;
   // Don't hijack typing when focus is on a genuine text input elsewhere on the page.
@@ -3757,6 +3941,7 @@ const GEOGRAPHY_HUB_TILES = [
   { name: "Guess the Flag", emoji: icon('globe'), url: "#flag-game", internal: true },
   { name: "Capital Cities", emoji: icon('compass2'), url: "#capital-game", internal: true },
   { name: "Wordle", emoji: icon('gradcap'), url: "#wordle-game", internal: true },
+  { name: "Word Scramble", emoji: icon('dice'), url: "#anagram-game", internal: true },
   geoHubExternalTile("GeoGuessr"),
   geoHubExternalTile("OpenGuessr"),
   geoHubExternalTile("Radio Garden"),
@@ -8544,6 +8729,101 @@ function viewWordleGame(){
     return wordleEndHtml();
   }
   return wordlePlayingHtml();
+}
+
+function anagramIntroHtml(){
+  let best = 0, streak = 0;
+  try{
+    best = parseInt(localStorage.getItem(ANAGRAM_BEST_SCORE_KEY) || '0', 10);
+    streak = parseInt(localStorage.getItem(ANAGRAM_STREAK_KEY) || '0', 10);
+  }catch(e){}
+  return `
+    <a class="back-link" href="#geography-hub">← Back to Train Your Brain</a>
+    <section style="padding-top:14px;">
+      <div class="fg-wrap">
+        <div class="section-head"><span class="emoji">${icon('dice')}</span><h2>Word Scramble</h2></div>
+        <p style="font-size:14px; color:var(--ink-soft); line-height:1.6; margin-bottom:6px;">Unscramble the letters. Clue included, no excuses.</p>
+        <div class="fg-intro-stats">
+          <div class="fg-intro-stat"><div class="num">${best}/${ANAGRAM_ROUNDS_PER_GAME}</div><div class="label">Best Score</div></div>
+          <div class="fg-intro-stat"><div class="num">${streak}</div><div class="label">Day Streak</div></div>
+        </div>
+        <button class="fg-start-btn" data-action="anagram-start">Start</button>
+      </div>
+    </section>
+  `;
+}
+
+function anagramPlayingHtml(){
+  const round = anagramState.rounds[anagramState.current];
+  const pct = Math.round((anagramState.current / anagramState.rounds.length) * 100);
+
+  const answerHtml = anagramState.answer.map((scrambleIdx, pos) => {
+    const ch = anagramState.scrambled[scrambleIdx].char;
+    return `<button class="anagram-answer-slot${anagramState.solvedFlash ? ' solved' : ''}" data-action="anagram-untap" data-pos="${pos}">${escapeHtml(ch)}</button>`;
+  }).join('') + '<div class="anagram-answer-slot" style="visibility:hidden;"></div>'.repeat(Math.max(0, round.word.length - anagramState.answer.length));
+
+  const scrambleHtml = anagramState.scrambled.map((tile, idx) => {
+    return `<button class="anagram-tile" data-action="anagram-tap" data-idx="${idx}" ${tile.used ? 'disabled' : ''}>${escapeHtml(tile.char)}</button>`;
+  }).join('');
+
+  return `
+    <section style="padding-top:14px;">
+      <div class="fg-wrap">
+        <div class="fg-progress-row">
+          <span>Word ${anagramState.current + 1} of ${anagramState.rounds.length}</span>
+          <span>Score: ${anagramState.correctCount}</span>
+        </div>
+        <div class="fg-progress-bar"><div class="fg-progress-fill" style="width:${pct}%"></div></div>
+        <div class="anagram-clue">${escapeHtml(round.clue)}</div>
+        <div class="anagram-message">${anagramState.message ? escapeHtml(anagramState.message) : ''}</div>
+        <div class="anagram-answer-row${anagramState.shake ? ' shake' : ''}">${answerHtml}</div>
+        <div class="anagram-scramble-row">${scrambleHtml}</div>
+        <div class="anagram-btn-row">
+          <button class="anagram-btn skip" data-action="anagram-skip">Skip</button>
+          <button class="anagram-btn check" data-action="anagram-check">Check</button>
+        </div>
+      </div>
+    </section>
+  `;
+}
+
+function anagramEndHtml(){
+  const score = anagramState.correctCount;
+  let best = 0;
+  try{ best = parseInt(localStorage.getItem(ANAGRAM_BEST_SCORE_KEY) || '0', 10); }catch(e){}
+  const isNewBest = score >= best && score > 0;
+  const reviewHtml = anagramState.skipped.length === 0 ? `<p style="text-align:center; font-size:14px; color:var(--ink-soft);">Nothing skipped -- nice.</p>` : `
+    <div style="margin-top:8px;">
+      ${anagramState.skipped.map(w => `
+        <div class="fg-review-item fg-review-wrong">
+          <div><strong>${escapeHtml(w.word)}</strong> — ${escapeHtml(w.clue)}</div>
+        </div>
+      `).join('')}
+    </div>
+  `;
+  return `
+    <a class="back-link" href="#geography-hub">← Back to Train Your Brain</a>
+    <section style="padding-top:14px;">
+      <div class="fg-wrap">
+        <div class="section-head"><span class="emoji">${icon('trophy')}</span><h2>Round Complete</h2></div>
+        <div class="fg-end-score">${score}/${anagramState.rounds.length}</div>
+        <div class="fg-end-label">${isNewBest ? 'New best score!' : `Best: ${best}/${anagramState.rounds.length}`}</div>
+        <button class="fg-start-btn" data-action="anagram-start">Play Again</button>
+        <h3 style="margin:22px 0 4px; font-family:'Baloo 2', sans-serif; font-size:15px;">Skipped words</h3>
+        ${reviewHtml}
+      </div>
+    </section>
+  `;
+}
+
+function viewAnagramGame(){
+  if(!anagramState){
+    return anagramIntroHtml();
+  }
+  if(anagramState.current >= anagramState.rounds.length){
+    return anagramEndHtml();
+  }
+  return anagramPlayingHtml();
 }
 
 function viewSaved(){
@@ -14660,6 +14940,36 @@ document.addEventListener('click', (e) => {
     wordleKeyPress(wordleKeyBtn.dataset.key);
     return;
   }
+  const anagramStartBtn = e.target.closest('[data-action="anagram-start"]');
+  if(anagramStartBtn){
+    e.preventDefault();
+    anagramStart();
+    return;
+  }
+  const anagramTapBtn = e.target.closest('[data-action="anagram-tap"]');
+  if(anagramTapBtn){
+    e.preventDefault();
+    anagramTapScramble(parseInt(anagramTapBtn.dataset.idx, 10));
+    return;
+  }
+  const anagramUntapBtn = e.target.closest('[data-action="anagram-untap"]');
+  if(anagramUntapBtn){
+    e.preventDefault();
+    anagramTapAnswer(parseInt(anagramUntapBtn.dataset.pos, 10));
+    return;
+  }
+  const anagramCheckBtn = e.target.closest('[data-action="anagram-check"]');
+  if(anagramCheckBtn){
+    e.preventDefault();
+    anagramCheck();
+    return;
+  }
+  const anagramSkipBtn = e.target.closest('[data-action="anagram-skip"]');
+  if(anagramSkipBtn){
+    e.preventDefault();
+    anagramSkip();
+    return;
+  }
   const clearSavedBtn = e.target.closest('[data-action="clear-saved"]');
   if(clearSavedBtn){
     e.preventDefault();
@@ -14753,6 +15063,8 @@ function renderRoute(opts){
     html = viewCapitalGame();
   } else if(parts[0] === 'wordle-game'){
     html = viewWordleGame();
+  } else if(parts[0] === 'anagram-game'){
+    html = viewAnagramGame();
   } else if(parts[0] === 'geography-hub'){
     html = viewGeographyHub();
   } else if(parts[0] === 'mind-temple'){
@@ -14813,6 +15125,7 @@ function renderRoute(opts){
   if(parts[0] !== 'flag-game' && fgState){ fgState = null; }
   if(parts[0] !== 'capital-game' && ccState){ ccState = null; }
   if(parts[0] !== 'wordle-game' && wordleState){ wordleState = null; }
+  if(parts[0] !== 'anagram-game' && anagramState){ anagramState = null; }
   if(parts[0] === 'arcade' && parts[1]){ wireArcade(parts[1]); }
   if(parts[0] === 'install'){ wireInstallPage(); }
   if(parts[0] === 'stats'){ loadStats(); }
