@@ -6837,14 +6837,12 @@ function viewSearch(){
 
 function birthdayResultsHtml(list){
   return list.map(b => {
-    const dd = String(b.day).padStart(2,'0');
-    const mm = String(b.month).padStart(2,'0');
     return `
       <a class="page-result" href="#birthdays">
         <span class="page-result-icon">${icon('cake')}</span>
         <div>
           <div class="page-result-name">${escapeHtml(b.name)}</div>
-          <div class="page-result-desc">Birthday: ${dd}/${mm}</div>
+          <div class="page-result-desc">Birthday: ${formatBdayDate(b.day, b.month)}</div>
         </div>
       </a>
     `;
@@ -13571,6 +13569,11 @@ function viewEventsVirtual(){
   `;
 }
 
+const BDAY_MONTH_ABBR = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+function formatBdayDate(day, month){
+  return `${String(day).padStart(2,'0')} ${BDAY_MONTH_ABBR[month-1]}`;
+}
+
 function upcomingBirthdayTileHtml(){
   if(BIRTHDAYS.length===0){
     return '<a class="bday-tile-card" href="#birthdays"><div class="empty-card" style="margin:0;">No birthdays yet. Nobody\'s been born apparently.</div></a>';
@@ -13600,9 +13603,7 @@ function upcomingBirthdayTileHtml(){
   const toShow = withinThreeDays.length > 0 ? withinThreeDays : [withNext[0]];
 
   const rows = toShow.map(b => {
-    const dd = String(b.day).padStart(2,'0');
-    const mm = String(b.month).padStart(2,'0');
-    return `<span class="bday-tile-name">${escapeHtml(b.name)}, ${dd}/${mm}</span>`;
+    return `<span class="bday-tile-name">${escapeHtml(b.name)}, ${formatBdayDate(b.day, b.month)}</span>`;
   }).join('');
   return `<a class="bday-tile-card" href="#birthdays">
     <span class="bday-tile-label">Upcoming</span>
@@ -13615,8 +13616,6 @@ function birthdaysHtml(){
   }
   const today = new Date();
   const todayM = today.getMonth()+1, todayD = today.getDate();
-  const todayDD = String(todayD).padStart(2,'0');
-  const todayMM = String(todayM).padStart(2,'0');
   const withNext = BIRTHDAYS.map(b=>{
     let next = new Date(today.getFullYear(), b.month-1, b.day);
     if(next < new Date(today.getFullYear(), todayM-1, todayD)){
@@ -13626,18 +13625,16 @@ function birthdaysHtml(){
   }).sort((a,b)=> a.next - b.next);
   const rows = withNext.map(b=>{
     const isToday = b.month===todayM && b.day===todayD;
-    const dd = String(b.day).padStart(2,'0');
-    const mm = String(b.month).padStart(2,'0');
     const nameHtml = isToday
       ? `<span class="bday-name bday-trigger" data-name="${escapeHtml(b.name)}">${escapeHtml(b.name)} 🎉</span>`
       : `<span class="bday-name">${escapeHtml(b.name)}</span>`;
     return `<div class="bday-item ${isToday?'today':''}">
       ${nameHtml}
-      <span class="bday-date">${dd}/${mm}</span>
+      <span class="bday-date">${formatBdayDate(b.day, b.month)}</span>
     </div>`;
   }).join('');
   return `
-    <div class="bday-today-banner">Today is ${todayDD}/${todayMM}</div>
+    <div class="bday-today-banner">Today is ${formatBdayDate(todayD, todayM)}</div>
     <div class="bday-list">${rows}</div>
   `;
 }
@@ -13666,28 +13663,26 @@ function viewHome(){
     </a>`;
   }).join('');
 
+  const todayForStories = new Date();
+  const hasTodayBirthday = BIRTHDAYS.some(b => b.month === todayForStories.getMonth()+1 && b.day === todayForStories.getDate());
+  const storyCircleDefs = [
+    { id:'weather', emoji:'☀️', label:'Weather' },
+    { id:'word', emoji:'📖', label:'Word' },
+    { id:'fact', emoji:'🎲', label:'Fact' },
+    { id:'quote', emoji:'💬', label:'Quote' },
+    { id:'birthdays', emoji:'🎂', label:"B'days" },
+  ];
+  const bdayCircleIdx = storyCircleDefs.findIndex(s => s.id === 'birthdays');
+  const bdayCircleDef = storyCircleDefs.splice(bdayCircleIdx, 1)[0];
+  if(hasTodayBirthday){ storyCircleDefs.unshift(bdayCircleDef); } else { storyCircleDefs.push(bdayCircleDef); }
+  const storyBarHtml = storyCircleDefs.map(s => `
+      <button class="story-circle" data-story-id="${s.id}" onclick="openStory('${s.id}')">
+        <div class="story-ring"><div class="story-ring-inner">${s.emoji}</div></div>
+        <div class="story-label">${s.label}</div>
+      </button>`).join('');
+
   return `
-    <div class="story-bar">
-      <button class="story-circle" data-story-id="weather" onclick="openStory('weather')">
-        <div class="story-ring"><div class="story-ring-inner">☀️</div></div>
-        <div class="story-label">Weather</div>
-      </button>
-      <button class="story-circle" data-story-id="word" onclick="openStory('word')">
-        <div class="story-ring"><div class="story-ring-inner">📖</div></div>
-        <div class="story-label">Word</div>
-      </button>
-      <button class="story-circle" data-story-id="fact" onclick="openStory('fact')">
-        <div class="story-ring"><div class="story-ring-inner">🎲</div></div>
-        <div class="story-label">Fact</div>
-      </button>
-      <button class="story-circle" data-story-id="quote" onclick="openStory('quote')">
-        <div class="story-ring"><div class="story-ring-inner">💬</div></div>
-        <div class="story-label">Quote</div>
-      </button>
-      <button class="story-circle" data-story-id="birthdays" onclick="openStory('birthdays')">
-        <div class="story-ring"><div class="story-ring-inner">🎂</div></div>
-        <div class="story-label">B'days</div>
-      </button>
+    <div class="story-bar">${storyBarHtml}
     </div>
     <section>
       <div class="section-head"><span class="emoji">${icon('gradcap')}</span><h2>Domains</h2></div>
