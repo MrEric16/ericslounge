@@ -4026,6 +4026,100 @@ function oooExit(){
   renderRoute();
 }
 
+// ============ Idiom Match ============
+// Reuses IDIOM_OF_THE_DAY_POOL directly (64 real idioms, already verified) rather than
+// duplicating content -- this array must be defined earlier in the file already.
+const IDIOM_MATCH_ROUNDS_PER_GAME = 15;
+const IDIOM_MATCH_BEST_SCORE_KEY = 'idiomMatchBestScore';
+const IDIOM_MATCH_STREAK_KEY = 'idiomMatchStreak';
+
+function idiomMatchBuildRounds(totalRounds){
+  const pool = [...IDIOM_OF_THE_DAY_POOL];
+  for(let i = pool.length - 1; i > 0; i--){
+    const j = Math.floor(Math.random() * (i + 1));
+    [pool[i], pool[j]] = [pool[j], pool[i]];
+  }
+  const chosen = pool.slice(0, Math.min(totalRounds, pool.length));
+  return chosen.map(correct => {
+    const others = IDIOM_OF_THE_DAY_POOL.filter(x => x.idiom !== correct.idiom);
+    for(let i = others.length - 1; i > 0; i--){
+      const j = Math.floor(Math.random() * (i + 1));
+      [others[i], others[j]] = [others[j], others[i]];
+    }
+    const distractors = others.slice(0, 3);
+    const options = [correct, ...distractors];
+    for(let i = options.length - 1; i > 0; i--){
+      const j = Math.floor(Math.random() * (i + 1));
+      [options[i], options[j]] = [options[j], options[i]];
+    }
+    return { correct, options };
+  });
+}
+
+let idiomMatchState = null;
+
+function idiomMatchStart(){
+  idiomMatchState = {
+    rounds: idiomMatchBuildRounds(IDIOM_MATCH_ROUNDS_PER_GAME),
+    current: 0,
+    correctCount: 0,
+    mistakes: [],
+    answered: false,
+    lastPickedMeaning: null,
+  };
+  renderRoute();
+}
+
+function idiomMatchAnswer(pickedMeaning){
+  if(!idiomMatchState || idiomMatchState.answered) return;
+  idiomMatchState.answered = true;
+  idiomMatchState.lastPickedMeaning = pickedMeaning;
+  const round = idiomMatchState.rounds[idiomMatchState.current];
+  const isCorrect = pickedMeaning === round.correct.meaning;
+  if(isCorrect){ idiomMatchState.correctCount++; }
+  else{ idiomMatchState.mistakes.push({ round, picked: pickedMeaning }); }
+  renderRoute();
+  setTimeout(() => {
+    if(!idiomMatchState) return;
+    idiomMatchState.current++;
+    idiomMatchState.answered = false;
+    idiomMatchState.lastPickedMeaning = null;
+    if(idiomMatchState.current >= idiomMatchState.rounds.length){
+      idiomMatchFinishGame();
+    }
+    renderRoute();
+  }, 1800);
+}
+
+function idiomMatchFinishGame(){
+  const score = idiomMatchState.correctCount;
+  let best = 0, streak = 0;
+  try{ best = parseInt(localStorage.getItem(IDIOM_MATCH_BEST_SCORE_KEY) || '0', 10); }catch(e){}
+  if(score > best){
+    try{ localStorage.setItem(IDIOM_MATCH_BEST_SCORE_KEY, String(score)); }catch(e){}
+  }
+  try{ streak = parseInt(localStorage.getItem(IDIOM_MATCH_STREAK_KEY) || '0', 10); }catch(e){}
+  const todayKey = getTodayKeyLocal();
+  let lastPlayed = null;
+  try{ lastPlayed = localStorage.getItem('idiomMatchLastPlayedDate'); }catch(e){}
+  if(lastPlayed !== todayKey){
+    const yesterday = new Date(Date.now() - 86400000);
+    const yKey = `${yesterday.getFullYear()}-${String(yesterday.getMonth()+1).padStart(2,'0')}-${String(yesterday.getDate()).padStart(2,'0')}`;
+    streak = (lastPlayed === yKey) ? streak + 1 : 1;
+    try{
+      localStorage.setItem(IDIOM_MATCH_STREAK_KEY, String(streak));
+      localStorage.setItem('idiomMatchLastPlayedDate', todayKey);
+    }catch(e){}
+  }
+}
+
+function idiomMatchExit(){
+  idiomMatchState = null;
+  renderRoute();
+}
+
+
+
 
 
 document.addEventListener('keydown', (e) => {
@@ -4055,6 +4149,7 @@ const GEOGRAPHY_HUB_TILES = [
   { name: "Wordle", emoji: icon('gradcap'), url: "#wordle-game", internal: true },
   { name: "Word Scramble", emoji: icon('dice'), url: "#anagram-game", internal: true },
   { name: "Odd One Out", emoji: icon('scales'), url: "#odd-one-out-game", internal: true },
+  { name: "Idiom Match", emoji: icon('newspaper'), url: "#idiom-match-game", internal: true },
   geoHubExternalTile("GeoGuessr"),
   geoHubExternalTile("OpenGuessr"),
   geoHubExternalTile("Radio Garden"),
@@ -9027,6 +9122,95 @@ function viewOddOneOutGame(){
     return oooEndHtml();
   }
   return oooPlayingHtml();
+}
+
+function idiomMatchIntroHtml(){
+  let best = 0, streak = 0;
+  try{
+    best = parseInt(localStorage.getItem(IDIOM_MATCH_BEST_SCORE_KEY) || '0', 10);
+    streak = parseInt(localStorage.getItem(IDIOM_MATCH_STREAK_KEY) || '0', 10);
+  }catch(e){}
+  return `
+    <a class="back-link" href="#geography-hub">← Back to Train Your Brain</a>
+    <section style="padding-top:14px;">
+      <div class="fg-wrap">
+        <div class="section-head"><span class="emoji">${icon('newspaper')}</span><h2>Idiom Match</h2></div>
+        <p style="font-size:14px; color:var(--ink-soft); line-height:1.6; margin-bottom:6px;">What does it actually mean? Not literally.</p>
+        <div class="fg-intro-stats">
+          <div class="fg-intro-stat"><div class="num">${best}/${IDIOM_MATCH_ROUNDS_PER_GAME}</div><div class="label">Best Score</div></div>
+          <div class="fg-intro-stat"><div class="num">${streak}</div><div class="label">Day Streak</div></div>
+        </div>
+        <button class="fg-start-btn" data-action="idiom-match-start">Start</button>
+      </div>
+    </section>
+  `;
+}
+
+function idiomMatchPlayingHtml(){
+  const round = idiomMatchState.rounds[idiomMatchState.current];
+  const pct = Math.round((idiomMatchState.current / idiomMatchState.rounds.length) * 100);
+  const optionsHtml = round.options.map(o => {
+    let cls = 'fg-option-btn';
+    if(idiomMatchState.answered){
+      if(o.meaning === round.correct.meaning) cls += ' fg-correct';
+      else if(o.meaning === idiomMatchState.lastPickedMeaning) cls += ' fg-wrong';
+    }
+    return `<button class="${cls}" data-action="idiom-match-answer" data-meaning="${escapeHtml(o.meaning)}" ${idiomMatchState.answered ? 'disabled' : ''} style="text-align:left; font-weight:600; font-size:13.5px;">${escapeHtml(o.meaning)}</button>`;
+  }).join('');
+  return `
+    <section style="padding-top:14px;">
+      <div class="fg-wrap">
+        <div class="fg-progress-row">
+          <span>Idiom ${idiomMatchState.current + 1} of ${idiomMatchState.rounds.length}</span>
+          <span>Score: ${idiomMatchState.correctCount}</span>
+        </div>
+        <div class="fg-progress-bar"><div class="fg-progress-fill" style="width:${pct}%"></div></div>
+        <div style="text-align:center; padding:30px 16px 10px; font-family:'Baloo 2', sans-serif; font-weight:800; font-size:23px; color:var(--ink);">"${escapeHtml(round.correct.idiom)}"</div>
+        <div class="fg-question">What does this mean?</div>
+        <div class="fg-options" style="grid-template-columns:1fr;">${optionsHtml}</div>
+        <div class="ooo-reason">${idiomMatchState.answered ? escapeHtml(round.correct.example) : ''}</div>
+      </div>
+    </section>
+  `;
+}
+
+function idiomMatchEndHtml(){
+  const score = idiomMatchState.correctCount;
+  let best = 0;
+  try{ best = parseInt(localStorage.getItem(IDIOM_MATCH_BEST_SCORE_KEY) || '0', 10); }catch(e){}
+  const isNewBest = score >= best && score > 0;
+  const reviewHtml = idiomMatchState.mistakes.length === 0 ? `<p style="text-align:center; font-size:14px; color:var(--ink-soft);">Perfect round -- no mistakes.</p>` : `
+    <div style="margin-top:8px;">
+      ${idiomMatchState.mistakes.map(m => `
+        <div class="fg-review-item fg-review-wrong">
+          <div><strong>"${escapeHtml(m.round.correct.idiom)}"</strong> means: ${escapeHtml(m.round.correct.meaning)}</div>
+        </div>
+      `).join('')}
+    </div>
+  `;
+  return `
+    <a class="back-link" href="#geography-hub">← Back to Train Your Brain</a>
+    <section style="padding-top:14px;">
+      <div class="fg-wrap">
+        <div class="section-head"><span class="emoji">${icon('trophy')}</span><h2>Round Complete</h2></div>
+        <div class="fg-end-score">${score}/${idiomMatchState.rounds.length}</div>
+        <div class="fg-end-label">${isNewBest ? 'New best score!' : `Best: ${best}/${idiomMatchState.rounds.length}`}</div>
+        <button class="fg-start-btn" data-action="idiom-match-start">Play Again</button>
+        <h3 style="margin:22px 0 4px; font-family:'Baloo 2', sans-serif; font-size:15px;">Missed idioms</h3>
+        ${reviewHtml}
+      </div>
+    </section>
+  `;
+}
+
+function viewIdiomMatchGame(){
+  if(!idiomMatchState){
+    return idiomMatchIntroHtml();
+  }
+  if(idiomMatchState.current >= idiomMatchState.rounds.length){
+    return idiomMatchEndHtml();
+  }
+  return idiomMatchPlayingHtml();
 }
 
 function viewSaved(){
@@ -15185,6 +15369,18 @@ document.addEventListener('click', (e) => {
     oooAnswer(oooAnswerBtn.dataset.text);
     return;
   }
+  const idiomStartBtn = e.target.closest('[data-action="idiom-match-start"]');
+  if(idiomStartBtn){
+    e.preventDefault();
+    idiomMatchStart();
+    return;
+  }
+  const idiomAnswerBtn = e.target.closest('[data-action="idiom-match-answer"]');
+  if(idiomAnswerBtn){
+    e.preventDefault();
+    idiomMatchAnswer(idiomAnswerBtn.dataset.meaning);
+    return;
+  }
   const clearSavedBtn = e.target.closest('[data-action="clear-saved"]');
   if(clearSavedBtn){
     e.preventDefault();
@@ -15282,6 +15478,8 @@ function renderRoute(opts){
     html = viewAnagramGame();
   } else if(parts[0] === 'odd-one-out-game'){
     html = viewOddOneOutGame();
+  } else if(parts[0] === 'idiom-match-game'){
+    html = viewIdiomMatchGame();
   } else if(parts[0] === 'geography-hub'){
     html = viewGeographyHub();
   } else if(parts[0] === 'mind-temple'){
@@ -15344,6 +15542,7 @@ function renderRoute(opts){
   if(parts[0] !== 'wordle-game' && wordleState){ wordleState = null; }
   if(parts[0] !== 'anagram-game' && anagramState){ anagramState = null; }
   if(parts[0] !== 'odd-one-out-game' && oooState){ oooState = null; }
+  if(parts[0] !== 'idiom-match-game' && idiomMatchState){ idiomMatchState = null; }
   if(parts[0] === 'arcade' && parts[1]){ wireArcade(parts[1]); }
   if(parts[0] === 'install'){ wireInstallPage(); }
   if(parts[0] === 'stats'){ loadStats(); }
