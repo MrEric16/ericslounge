@@ -5,7 +5,7 @@
 [goal-scraper] WARNING: could not assign scorer 'K. Lee' to home or away for https://www.goal.com/en/match/atletico-madrid-vs-malaga/1NHWOfijgZOSBqBO8Sf6x
 [goal-scraper] WARNING: Atletico Madrid scored 2 but 0 scorers were parsed for https://www.goal.com/en/match/atletico-madrid-vs-malaga/1NHWOfijgZOSBqBO8Sf6x
 [goal-scraper] WARNING: Malaga scored 0 but only 1 scorer(s) were parsed for https://www.goal.com/en/match/atletico-madrid-vs-malaga/1NHWOfijgZOSBqBO8Sf6x
-[goal-scraper] [PD] SCORER PARSE FAILED (attempt 1/3) for Atletico Madrid 2-0 Malaga -- NOT committing, will retry next run: https://www.goal.com/en/match/atletico-madrid-vs-malaga/1NHWOfijgZOSBqBO8Sf6x
+[goal-scraper] [PD] SCORER PARSE FAILED (attempt 2/3) for Atletico Madrid 2-0 Malaga -- NOT committing, will retry next run: https://www.goal.com/en/match/atletico-madrid-vs-malaga/1NHWOfijgZOSBqBO8Sf6x
 [goal-scraper] [BL1] Found 0 finished-match links
 [goal-scraper] [SA] Found 0 finished-match links
 [goal-scraper] [FL1] Found 0 finished-match links
