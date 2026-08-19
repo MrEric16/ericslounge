@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-19T11:40:32.413189Z",
+  "generatedAt": "2026-08-19T20:20:34.870305Z",
   "teams": [
     {
       "name": "Neftchi Fargona",
@@ -43,12 +43,12 @@
     },
     {
       "name": "OKMK",
-      "pld": 17,
+      "pld": 18,
       "w": 8,
       "d": 4,
-      "l": 5,
+      "l": 6,
       "gf": 27,
-      "ga": 24,
+      "ga": 25,
       "pts": 28
     },
     {
@@ -72,6 +72,26 @@
       "pts": 25
     },
     {
+      "name": "Din. Samarkand",
+      "pld": 18,
+      "w": 7,
+      "d": 4,
+      "l": 7,
+      "gf": 28,
+      "ga": 29,
+      "pts": 25
+    },
+    {
+      "name": "Andijan",
+      "pld": 18,
+      "w": 7,
+      "d": 3,
+      "l": 8,
+      "gf": 23,
+      "ga": 20,
+      "pts": 24
+    },
+    {
       "name": "Sogdiana",
       "pld": 18,
       "w": 7,
@@ -80,26 +100,6 @@
       "gf": 32,
       "ga": 36,
       "pts": 24
-    },
-    {
-      "name": "Din. Samarkand",
-      "pld": 17,
-      "w": 6,
-      "d": 4,
-      "l": 7,
-      "gf": 27,
-      "ga": 29,
-      "pts": 22
-    },
-    {
-      "name": "Andijan",
-      "pld": 17,
-      "w": 6,
-      "d": 3,
-      "l": 8,
-      "gf": 22,
-      "ga": 20,
-      "pts": 21
     },
     {
       "name": "Xorazm Urganch",
@@ -153,16 +153,30 @@
     },
     {
       "name": "Mashal Muborak",
-      "pld": 17,
+      "pld": 18,
       "w": 1,
       "d": 1,
-      "l": 15,
+      "l": 16,
       "gf": 8,
-      "ga": 31,
+      "ga": 32,
       "pts": 4
     }
   ],
   "results": [
+    {
+      "home": "Mashal Muborak",
+      "away": "Andijan",
+      "raw_time": "19.08. 15:00",
+      "homeScore": 0,
+      "awayScore": 1
+    },
+    {
+      "home": "OKMK",
+      "away": "Din. Samarkand",
+      "raw_time": "19.08. 14:00",
+      "homeScore": 0,
+      "awayScore": 1
+    },
     {
       "home": "Buxoro",
       "away": "Neftchi Fargona",
@@ -288,33 +302,9 @@
       "raw_time": "06.08. 14:00",
       "homeScore": 1,
       "awayScore": 0
-    },
-    {
-      "home": "Din. Samarkand",
-      "away": "Neftchi Fargona",
-      "raw_time": "03.08. 15:30",
-      "homeScore": 0,
-      "awayScore": 0
-    },
-    {
-      "home": "OKMK",
-      "away": "Nasaf Qarshi",
-      "raw_time": "03.08. 15:00",
-      "homeScore": 1,
-      "awayScore": 2
     }
   ],
   "fixtures": [
-    {
-      "home": "OKMK",
-      "away": "Din. Samarkand",
-      "raw_time": "19.08. 14:00"
-    },
-    {
-      "home": "Mashal Muborak",
-      "away": "Andijan",
-      "raw_time": "19.08. 15:00"
-    },
     {
       "home": "Bunyodkor",
       "away": "Kokand 1912",
@@ -403,6 +393,16 @@
     {
       "home": "Kokand 1912",
       "away": "Din. Samarkand",
+      "raw_time": "05.09. 15:00"
+    },
+    {
+      "home": "Qizilqum",
+      "away": "Buxoro",
+      "raw_time": "05.09. 15:00"
+    },
+    {
+      "home": "Sogdiana",
+      "away": "Mashal Muborak",
       "raw_time": "05.09. 15:00"
     }
   ]
