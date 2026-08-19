@@ -1386,6 +1386,12 @@
   .silhouette-credit{ text-align:center; font-size:11px; color:var(--ink-soft); opacity:.7; margin-top:-12px; margin-bottom:16px; }
   .silhouette-credit a{ color:inherit; }
 
+  /* ---- Hangman ---- */
+  .hangman-word{ text-align:center; font-family:'Space Mono', monospace; font-weight:700; font-size:28px; letter-spacing:4px; color:var(--ink); margin:24px 0 20px; word-break:break-all; }
+  .hangman-lives-row{ display:flex; justify-content:center; gap:6px; margin-bottom:20px; }
+  .hangman-life-dot{ width:14px; height:14px; border-radius:50%; background:#6AAA64; }
+  .hangman-life-dot.lost{ background:#EF4444; opacity:.35; }
+
   /* ---- Word Scramble / Anagram ---- */
   .anagram-clue{ text-align:center; font-size:15px; font-weight:700; color:var(--ink); line-height:1.5; padding:0 16px; margin-bottom:22px; }
   .anagram-answer-row{ display:flex; gap:6px; justify-content:center; margin-bottom:24px; flex-wrap:wrap; }
@@ -4618,6 +4624,101 @@ function silhouetteExit(){
   renderRoute();
 }
 
+// ============ Hangman ============
+// Reuses the Wordle word pools directly (already verified, British spelling, no
+// Americanism conflicts) rather than sourcing new content. Deliberately does NOT use the
+// traditional gallows/hanging-figure visual -- that imagery has an unnecessary dark
+// overtone for a letter-guessing game aimed at students, so a plain lives-remaining
+// counter is used instead.
+const HANGMAN_MAX_WRONG = 6;
+const HANGMAN_BEST_STREAK_KEY = 'hangmanBestStreak';
+const HANGMAN_CURRENT_STREAK_KEY = 'hangmanCurrentStreak';
+const HANGMAN_WINS_KEY = 'hangmanWins';
+const HANGMAN_GAMES_KEY = 'hangmanGamesPlayed';
+
+function hangmanWordPool(difficulty){
+  return difficulty === 'hard' ? WORDLE_HARD_WORDS : WORDLE_EASY_WORDS;
+}
+
+let hangmanState = null;
+
+function hangmanStart(difficulty){
+  const pool = hangmanWordPool(difficulty);
+  const word = pool[Math.floor(Math.random() * pool.length)];
+  hangmanState = {
+    word,
+    difficulty: difficulty || 'easy',
+    guessedLetters: new Set(),
+    wrongCount: 0,
+    won: false,
+    lost: false,
+  };
+  renderRoute();
+}
+
+function hangmanDisplayWord(){
+  return [...hangmanState.word].map(ch => hangmanState.guessedLetters.has(ch) ? ch : '_').join(' ');
+}
+
+function hangmanFinishGame(won){
+  let games = 0, wins = 0, streak = 0, best = 0;
+  try{
+    games = parseInt(localStorage.getItem(HANGMAN_GAMES_KEY) || '0', 10);
+    wins = parseInt(localStorage.getItem(HANGMAN_WINS_KEY) || '0', 10);
+    streak = parseInt(localStorage.getItem(HANGMAN_CURRENT_STREAK_KEY) || '0', 10);
+    best = parseInt(localStorage.getItem(HANGMAN_BEST_STREAK_KEY) || '0', 10);
+  }catch(e){}
+  games += 1;
+  if(won){
+    wins += 1;
+    streak += 1;
+    if(streak > best) best = streak;
+  } else {
+    streak = 0;
+  }
+  try{
+    localStorage.setItem(HANGMAN_GAMES_KEY, String(games));
+    localStorage.setItem(HANGMAN_WINS_KEY, String(wins));
+    localStorage.setItem(HANGMAN_CURRENT_STREAK_KEY, String(streak));
+    localStorage.setItem(HANGMAN_BEST_STREAK_KEY, String(best));
+  }catch(e){}
+}
+
+function hangmanGuessLetter(letter){
+  if(!hangmanState || hangmanState.won || hangmanState.lost) return;
+  letter = letter.toUpperCase();
+  if(hangmanState.guessedLetters.has(letter)) return;
+  hangmanState.guessedLetters.add(letter);
+  if(!hangmanState.word.includes(letter)){
+    hangmanState.wrongCount++;
+    if(hangmanState.wrongCount >= HANGMAN_MAX_WRONG){
+      hangmanState.lost = true;
+      hangmanFinishGame(false);
+    }
+  } else {
+    const allRevealed = [...hangmanState.word].every(ch => hangmanState.guessedLetters.has(ch));
+    if(allRevealed){
+      hangmanState.won = true;
+      hangmanFinishGame(true);
+    }
+  }
+  renderRoute();
+}
+
+function hangmanExit(){
+  hangmanState = null;
+  renderRoute();
+}
+
+document.addEventListener('keydown', (e) => {
+  if(!hangmanState || hangmanState.won || hangmanState.lost) return;
+  const tag = document.activeElement && document.activeElement.tagName;
+  if(tag === 'INPUT' || tag === 'TEXTAREA') return;
+  if(/^[a-zA-Z]$/.test(e.key)){ hangmanGuessLetter(e.key.toUpperCase()); }
+});
+
+
+
 
 
 
@@ -4668,6 +4769,7 @@ const GEOGRAPHY_HUB_TILES = [
   { name: "Nerdle", emoji: icon('chip'), url: "#nerdle-game", internal: true },
   { name: "Memory Match", emoji: icon('coin'), url: "#memory-game", internal: true },
   { name: "Country Silhouette", emoji: icon('moon'), url: "#silhouette-game", internal: true },
+  { name: "Hangman", emoji: icon('brain'), url: "#hangman-game", internal: true },
   geoHubExternalTile("GeoGuessr"),
   geoHubExternalTile("OpenGuessr"),
   geoHubExternalTile("Radio Garden"),
@@ -10033,6 +10135,112 @@ function viewSilhouetteGame(){
     return silhouetteEndHtml();
   }
   return silhouettePlayingHtml();
+}
+
+function hangmanIntroHtml(){
+  let best = 0, wins = 0, games = 0;
+  try{
+    best = parseInt(localStorage.getItem(HANGMAN_BEST_STREAK_KEY) || '0', 10);
+    wins = parseInt(localStorage.getItem(HANGMAN_WINS_KEY) || '0', 10);
+    games = parseInt(localStorage.getItem(HANGMAN_GAMES_KEY) || '0', 10);
+  }catch(e){}
+  const winRate = games > 0 ? Math.round((wins / games) * 100) : 0;
+  return `
+    <a class="back-link" href="#geography-hub">← Back to Train Your Brain</a>
+    <section style="padding-top:14px;">
+      <div class="fg-wrap">
+        <div class="section-head"><span class="emoji">${icon('brain')}</span><h2>Hangman</h2></div>
+        <p style="font-size:14px; color:var(--ink-soft); line-height:1.6; margin-bottom:6px;">Guess the word, one letter at a time. Six wrong guesses and it's over.</p>
+        <div class="fg-intro-stats">
+          <div class="fg-intro-stat"><div class="num">${best}</div><div class="label">Best Streak</div></div>
+          <div class="fg-intro-stat"><div class="num">${winRate}%</div><div class="label">Win Rate</div></div>
+        </div>
+        <div class="fg-mode-grid">
+          <button class="fg-mode-btn" data-action="hangman-start" data-mode="easy">
+            <div class="fg-mode-sub">Easy</div>
+          </button>
+          <button class="fg-mode-btn" data-action="hangman-start" data-mode="hard">
+            <div class="fg-mode-sub">Hard</div>
+          </button>
+        </div>
+      </div>
+    </section>
+  `;
+}
+
+function hangmanPlayingHtml(){
+  const livesHtml = Array.from({ length: HANGMAN_MAX_WRONG }, (_, i) =>
+    `<div class="hangman-life-dot${i < hangmanState.wrongCount ? ' lost' : ''}"></div>`
+  ).join('');
+
+  const kbRows = [
+    ['Q','W','E','R','T','Y','U','I','O','P'],
+    ['A','S','D','F','G','H','J','K','L'],
+    ['Z','X','C','V','B','N','M'],
+  ];
+  const keyboardHtml = kbRows.map(row => `
+    <div class="wordle-kb-row">
+      ${row.map(k => {
+        let state = '';
+        if(hangmanState.guessedLetters.has(k)){
+          state = hangmanState.word.includes(k) ? ' correct' : ' absent';
+        }
+        return `<button class="wordle-key${state}" data-action="hangman-key" data-key="${k}" ${hangmanState.guessedLetters.has(k) ? 'disabled' : ''}>${k}</button>`;
+      }).join('')}
+    </div>
+  `).join('');
+
+  return `
+    <section style="padding-top:14px;">
+      <div class="wordle-wrap">
+        <div class="fg-progress-row" style="width:100%; max-width:320px;">
+          <span>${hangmanState.difficulty === 'hard' ? 'Hard' : 'Easy'}</span>
+          <span>${HANGMAN_MAX_WRONG - hangmanState.wrongCount} lives left</span>
+        </div>
+        <div class="hangman-lives-row">${livesHtml}</div>
+        <div class="hangman-word">${hangmanDisplayWord()}</div>
+        <div class="wordle-keyboard">${keyboardHtml}</div>
+      </div>
+    </section>
+  `;
+}
+
+function hangmanEndHtml(){
+  const won = hangmanState.won;
+  let best = 0, wins = 0, games = 0, streak = 0;
+  try{
+    best = parseInt(localStorage.getItem(HANGMAN_BEST_STREAK_KEY) || '0', 10);
+    wins = parseInt(localStorage.getItem(HANGMAN_WINS_KEY) || '0', 10);
+    games = parseInt(localStorage.getItem(HANGMAN_GAMES_KEY) || '0', 10);
+    streak = parseInt(localStorage.getItem(HANGMAN_CURRENT_STREAK_KEY) || '0', 10);
+  }catch(e){}
+  const winRate = games > 0 ? Math.round((wins / games) * 100) : 0;
+  return `
+    <a class="back-link" href="#geography-hub">← Back to Train Your Brain</a>
+    <section style="padding-top:14px;">
+      <div class="fg-wrap">
+        <div class="section-head"><span class="emoji">${icon('brain')}</span><h2>${won ? 'Solved it' : 'Out of lives'}</h2></div>
+        <div class="fg-end-score" style="font-family:'Space Mono', monospace; font-size:30px;">${hangmanState.word}</div>
+        <div class="fg-end-label">${won ? 'Nicely guessed' : 'Better luck next time'}</div>
+        <div class="wordle-stats-row" style="margin-top:14px;">
+          <span>Streak: ${streak}</span>
+          <span>Best: ${best}</span>
+          <span>Win rate: ${winRate}%</span>
+        </div>
+        <button class="fg-start-btn" data-action="hangman-start" data-mode="${hangmanState.difficulty}">Play Again</button>
+      </div>
+    </section>
+  `;
+}
+
+function viewHangmanGame(){
+  if(!hangmanState){
+    return hangmanIntroHtml();
+  }
+  if(hangmanState.won || hangmanState.lost){
+    return hangmanEndHtml();
+  }
+  return hangmanPlayingHtml();
 }
 
 function viewSaved(){
@@ -16239,6 +16447,18 @@ document.addEventListener('click', (e) => {
     silhouetteAnswer(silhouetteAnswerBtn.dataset.name);
     return;
   }
+  const hangmanStartBtn = e.target.closest('[data-action="hangman-start"]');
+  if(hangmanStartBtn){
+    e.preventDefault();
+    hangmanStart(hangmanStartBtn.dataset.mode);
+    return;
+  }
+  const hangmanKeyBtn = e.target.closest('[data-action="hangman-key"]');
+  if(hangmanKeyBtn){
+    e.preventDefault();
+    hangmanGuessLetter(hangmanKeyBtn.dataset.key);
+    return;
+  }
   const clearSavedBtn = e.target.closest('[data-action="clear-saved"]');
   if(clearSavedBtn){
     e.preventDefault();
@@ -16344,6 +16564,8 @@ function renderRoute(opts){
     html = viewMemoryGame();
   } else if(parts[0] === 'silhouette-game'){
     html = viewSilhouetteGame();
+  } else if(parts[0] === 'hangman-game'){
+    html = viewHangmanGame();
   } else if(parts[0] === 'geography-hub'){
     html = viewGeographyHub();
   } else if(parts[0] === 'mind-temple'){
@@ -16410,6 +16632,7 @@ function renderRoute(opts){
   if(parts[0] !== 'nerdle-game' && nerdleState){ nerdleState = null; }
   if(parts[0] !== 'memory-game' && memoryState){ memoryState = null; }
   if(parts[0] !== 'silhouette-game' && silhouetteState){ silhouetteState = null; }
+  if(parts[0] !== 'hangman-game' && hangmanState){ hangmanState = null; }
   if(parts[0] === 'arcade' && parts[1]){ wireArcade(parts[1]); }
   if(parts[0] === 'install'){ wireInstallPage(); }
   if(parts[0] === 'stats'){ loadStats(); }
