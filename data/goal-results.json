@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-19T20:52:02.143488Z",
+  "generatedAt": "2026-08-19T21:18:18.300488Z",
   "results": [
     {
       "url": "https://www.goal.com/en/match/girona-vs-arsenal/__LS8d9Oc6I1wXn9g8956",
@@ -259,5 +259,7 @@
       "competition": "PD"
     }
   ],
-  "scorerParseRetryCounts": {}
+  "scorerParseRetryCounts": {
+    "https://www.goal.com/en/match/atletico-madrid-vs-malaga/1NHWOfijgZOSBqBO8Sf6x": 1
+  }
 }
