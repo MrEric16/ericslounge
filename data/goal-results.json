@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-19T21:48:21.753632Z",
+  "generatedAt": "2026-08-19T22:16:21.797251Z",
   "results": [
     {
       "url": "https://www.goal.com/en/match/girona-vs-arsenal/__LS8d9Oc6I1wXn9g8956",
@@ -257,9 +257,25 @@
       ],
       "awayGoals": [],
       "competition": "PD"
+    },
+    {
+      "url": "https://www.goal.com/en/match/atletico-madrid-vs-malaga/1NHWOfijgZOSBqBO8Sf6x",
+      "date": "2026-08-19",
+      "home": "Atletico Madrid",
+      "away": "Malaga",
+      "htHome": 0,
+      "htAway": 0,
+      "ftHome": 2,
+      "ftAway": 0,
+      "homeGoals": [],
+      "awayGoals": [
+        {
+          "scorer": "A. Baena",
+          "minute": 85
+        }
+      ],
+      "competition": "PD"
     }
   ],
-  "scorerParseRetryCounts": {
-    "https://www.goal.com/en/match/atletico-madrid-vs-malaga/1NHWOfijgZOSBqBO8Sf6x": 2
-  }
+  "scorerParseRetryCounts": {}
 }
