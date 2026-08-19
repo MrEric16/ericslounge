@@ -1374,8 +1374,9 @@
   .memory-card.matched{ opacity:.5; border-color:#6AAA64; }
   .memory-card-back{ font-size:22px; color:#fff; font-weight:800; }
   .memory-card-name{ font-size:10.5px; font-weight:800; text-align:center; color:var(--ink); line-height:1.2; }
-  .memory-card-flag{ width:100%; height:100%; }
+  .memory-card-flag{ width:100%; height:100%; display:flex; align-items:center; justify-content:center; }
   .memory-card-flag img, .memory-card-flag svg{ width:100%; height:100%; object-fit:contain; }
+  .memory-card-flag .fg-option-flag-thumb{ aspect-ratio:auto; height:100%; }
 
   /* ---- Country Silhouette Guess ---- */
   .silhouette-frame{ width:100%; max-width:280px; aspect-ratio:1/1; margin:0 auto 20px; display:flex; align-items:center; justify-content:center; background:#fff; border-radius:14px; }
@@ -3330,67 +3331,51 @@ function fgFlagEmoji(code){
 }
 
 // ============ Bonus round: flags of historical states (rounds 31-40) ============
+// Every entry below is inline SVG -- ZERO network dependency, cannot ever show "Image
+// unavailable". This is a deliberate reduction from a larger, partly Wikimedia-hotlinked
+// pool (17 entities) after confirmed, recurring production failures: real screenshots
+// showed blank/broken images and, worse, at least one case of an unrelated image loading
+// successfully in place of the intended flag (meaning it wasn't even hitting the error
+// handler, since the request "succeeded" with the wrong content). This can't be tested
+// directly from this environment (Wikimedia isn't network-reachable here), so rather than
+// keep patching retry logic against a failure mode that can't be reproduced or diagnosed,
+// the fix is to stop depending on it: entities that could be hand-drawn with genuine
+// confidence stay; the rest were removed rather than left "sometimes broken."
+// Removed (too visually complex to hand-draw reliably -- dragons, detailed coats of arms,
+// calligraphy, illustrated scenes -- and no other verified image source exists for
+// defunct-state flags): Qing Dynasty China, Imperial State of Iran, Emirate of Bukhara,
+// Khanate of Kokand, Crimean Khanate, Navajo Nation, Empire of Brazil. Each of these was
+// individually verified earlier as having a genuine singular flag -- that research wasn't
+// wrong, the images just couldn't be served reliably. If a better-verified image source
+// for historical flags turns up, these are worth re-adding.
 // Each entry individually verified (2026-08-17) to have had one clear, singular, official
 // flag design -- not just assumed. Several "obvious" candidates were checked and dropped
 // because they turned out not to qualify: Austria-Hungary never had one official national
 // flag at all (per Wikipedia's own dedicated article); the Mongol Empire explicitly
 // "lacked a designated national flag... did not possess a singular heraldic symbol" per
 // Wikipedia; the Timurid and Samanid empires' commonly-circulated "flags" are marked
-// uncertain/disputed by every serious source checked (one popular Timurid image is even
-// filed on Wikimedia Commons under "Fictional flags... to be replaced and deleted"; one
-// circulating "historical" Samanid flag is literally an AI-generated image); and neither
-// Ancient Greece nor Ancient Rome ever had a unified state flag -- city-states used
-// individual shield emblems, and Rome's vexillum was a military unit standard, not a
-// national symbol. Cross-checked against Wikipedia's "List of largest empires" (by area
-// and by population) for further candidates: the Mughal Empire likewise fails ("Flags of
-// the Mughal Empire" -- plural -- explicitly states "it never settled on a single unified
-// flag," and Wikidata marks the commonly-circulated image "fictional speculation"); the
-// Ottoman Empire's only genuinely official flag (1844) is identical to modern Turkey's,
-// already in the main pool, so adding it would just be a pointless duplicate; the British,
-// Spanish, and French colonial empires have the same problem against the UK/Spain/France
-// already in the main pool; and most of the largest-by-population entries (Han, Tang, Qin,
-// Macedonian, Achaemenid, and other ancient dynasties) predate any flag tradition entirely.
-// Empire of Brazil passed and was added -- visually distinct from modern Brazil (a
-// different coat of arms entirely), well documented, no duplication risk. Also checked
-// the Byzantine Empire (fails -- "one of the most persistent myths is that [it] had a
-// single official flag... the empire operated within a flexible symbolic system," per
-// direct source, and Commons has a "Fictional or conjectural" category for it) and the
-// Sikh Empire (genuinely ambiguous -- different regiments used different banners by
-// faith, with only mixed signals about one true state-level flag existing -- left out
-// rather than include something not confident about). Kingdom of Prussia passed: a
-// consistent, well-documented national flag from 1823-1918, distinct from modern Germany.
+// uncertain/disputed by every serious source checked; neither Ancient Greece nor Ancient
+// Rome ever had a unified state flag; the Mughal Empire likewise fails ("Flags of the
+// Mughal Empire" -- plural -- explicitly states "it never settled on a single unified
+// flag"); the Ottoman Empire's only genuinely official flag (1844) is identical to modern
+// Turkey's; the Byzantine Empire fails ("one of the most persistent myths is that it had a
+// single official flag... the empire operated within a flexible symbolic system"); and the
+// Sikh Empire is genuinely ambiguous (mixed signals about one true state-level flag).
 // Deliberately excludes any entity whose flag carries live hate-symbol or ongoing-
 // political-conflict weight (Nazi Germany, the Confederacy, Manchukuo, Tibet, South
 // Vietnam) regardless of historical significance -- that line holds even in a casual
 // trivia context.
-// Images via Wikimedia Commons' Special:FilePath redirect, which resolves a bare filename
-// to the actual file without needing to know its internal hash-based storage path.
 const FLAG_BONUS_ENTITIES = [
-  { name:"Soviet Union", years:"1922–1991", file:"Flag of the Soviet Union.svg", palette:"red-yellow", capital:"Moscow" },
-  { name:"East Germany", years:"1959–1990", file:"Flag of East Germany.svg", palette:"black-red-gold", capital:"East Berlin" },
-  // Czechoslovakia, SFR Yugoslavia, Abbasid, Umayyad, and Russian Empire (1858-1896) below
-  // use inline SVG instead of a Wikimedia hotlink -- their real designs are simple enough
-  // (solid colors / basic geometric shapes) to hand-draw with real confidence, which
-  // removes the network dependency, and the "sometimes shows Image unavailable" failure,
-  // entirely for these five. The other ten have genuinely detailed emblems (dragons, coats
-  // of arms, calligraphy, illustrated scenes) that can't be hand-drawn reliably, so they
-  // keep the Wikimedia hotlink -- imperfect, but the only real option for those specific
-  // designs given no other verified image source exists for defunct-state flags.
+  { name:"Soviet Union", years:"1922–1991", inlineSvg:`<svg viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg"><rect width="300" height="200" fill="#CC0000"/><g transform="translate(75,70) scale(1.3)" fill="none" stroke="#FFD700" stroke-width="4" stroke-linecap="round"><path d="M -18,10 A 14,14 0 1 1 -4,-4" stroke-width="4"/><path d="M -4,-4 L 6,6" stroke-width="4"/><path d="M -2,-2 L 14,14" stroke-width="4"/><rect x="10" y="-14" width="16" height="8" fill="#FFD700" stroke="none" transform="rotate(45 18 -10)"/></g><polygon points="0,-11 2.6,-3.4 10.5,-3.4 4.1,1.4 6.5,9 0,4.2 -6.5,9 -4.1,1.4 -10.5,-3.4 -2.6,-3.4" fill="#FFD700" transform="translate(75,25) scale(1.1)"/></svg>`, palette:"red-yellow", capital:"Moscow" },
+  { name:"East Germany", years:"1959–1990", inlineSvg:`<svg viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg"><rect y="0" width="300" height="66" fill="#000000"/><rect y="66" width="300" height="68" fill="#CC0000"/><rect y="134" width="300" height="66" fill="#FFCC00"/><circle cx="150" cy="100" r="26" fill="#FFCC00" stroke="#000" stroke-width="2"/><g transform="translate(150,100) scale(0.6)"><path d="M-15,-5 L15,-5 M-15,5 L15,5 M0,-15 L0,15" stroke="#000" stroke-width="4"/><circle r="6" fill="none" stroke="#000" stroke-width="3"/></g></svg>`, palette:"black-red-gold", capital:"East Berlin" },
   { name:"Czechoslovakia", years:"1920–1992", inlineSvg:`<svg viewBox="0 0 3 2" xmlns="http://www.w3.org/2000/svg"><rect width="3" height="1" fill="#FFFFFF"/><rect width="3" height="1" y="1" fill="#D7141A"/><polygon points="0,0 1.5,1 0,2" fill="#11457E"/></svg>`, palette:"white-red-blue", capital:"Prague" },
   { name:"SFR Yugoslavia", years:"1946–1992", inlineSvg:`<svg viewBox="0 0 3 2" xmlns="http://www.w3.org/2000/svg"><rect width="3" height="0.667" fill="#0033A0"/><rect width="3" height="0.667" y="0.667" fill="#FFFFFF"/><rect width="3" height="0.667" y="1.333" fill="#C8102E"/><polygon points="1.5,0.55 1.63,0.93 2.02,0.93 1.71,1.16 1.82,1.55 1.5,1.31 1.18,1.55 1.29,1.16 0.98,0.93 1.37,0.93" fill="#C8102E" stroke="#FFD100" stroke-width="0.04"/></svg>`, palette:"blue-white-red", capital:"Belgrade" },
   { name:"Kingdom of Hawaii", years:"1845–1893", inlineSvg:`<svg viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg"><rect y="0" width="300" height="25" fill="#FFFFFF"/><rect y="25" width="300" height="25" fill="#CC142B"/><rect y="50" width="300" height="25" fill="#00247D"/><rect y="75" width="300" height="25" fill="#FFFFFF"/><rect y="100" width="300" height="25" fill="#CC142B"/><rect y="125" width="300" height="25" fill="#00247D"/><rect y="150" width="300" height="25" fill="#FFFFFF"/><rect y="175" width="300" height="25" fill="#CC142B"/><g><rect x="0" y="0" width="120" height="100" fill="#00247D"/><path d="M0,0 L120,100 M120,0 L0,100" stroke="#FFFFFF" stroke-width="20"/><path d="M0,0 L120,100" stroke="#CC142B" stroke-width="8" transform="translate(4,0)"/><path d="M120,0 L0,100" stroke="#CC142B" stroke-width="8" transform="translate(-4,0)"/><rect x="48" y="0" width="24" height="100" fill="#FFFFFF"/><rect x="0" y="38" width="120" height="24" fill="#FFFFFF"/><rect x="54" y="0" width="12" height="100" fill="#CC142B"/><rect x="0" y="44" width="120" height="12" fill="#CC142B"/></g></svg>`, palette:"red-white-blue", capital:"Honolulu" },
-  { name:"Qing Dynasty China", years:"1889–1912", file:"Flag of the Qing dynasty.svg", palette:"yellow-blue", capital:"Beijing" },
-  { name:"Kingdom of Italy", years:"1861–1946", file:"Flag of Italy (1861-1946).svg", palette:"green-white-red", capital:"Rome" },
-  { name:"Imperial State of Iran", years:"1925–1979", file:"State flag of Iran (1964-1980).svg", palette:"green-white-red", capital:"Tehran" },
+  { name:"Kingdom of Italy", years:"1861–1946", inlineSvg:`<svg viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="200" fill="#008C45"/><rect x="100" width="100" height="200" fill="#F4F5F0"/><rect x="200" width="100" height="200" fill="#CD212A"/><g transform="translate(150,100)"><rect x="-22" y="-28" width="44" height="56" rx="4" fill="#CD212A" stroke="#1E3A8A" stroke-width="5"/><rect x="-4" y="-22" width="8" height="44" fill="#fff"/><rect x="-20" y="-4" width="40" height="8" fill="#fff"/></g></svg>`, palette:"green-white-red", capital:"Rome" },
   { name:"Abbasid Caliphate", years:"750–1258", inlineSvg:`<svg viewBox="0 0 3 2" xmlns="http://www.w3.org/2000/svg"><rect width="3" height="2" fill="#000000"/></svg>`, palette:"black", capital:"Baghdad" },
   { name:"Umayyad Caliphate", years:"661–750", inlineSvg:`<svg viewBox="0 0 3 2" xmlns="http://www.w3.org/2000/svg"><rect width="3" height="2" fill="#FFFFFF" stroke="#D8D0C0" stroke-width="0.02"/></svg>`, palette:"white", capital:"Damascus" },
-  { name:"Emirate of Bukhara", years:"1785–1920", file:"Flag of the Emirate of Bukhara.svg", palette:"green-gold", capital:"Bukhara" },
-  { name:"Khanate of Kokand", years:"1709–1876", file:"Flag of the Khanate of Kokand.svg", palette:"red-white", capital:"Kokand" },
-  { name:"Crimean Khanate", years:"15th–18th c.", file:"Flag of the Crimean Khanate (15th century).svg", palette:"crimson-yellow", capital:"Bakhchysarai" },
   { name:"Russian Empire", years:"1858–1896", inlineSvg:`<svg viewBox="0 0 3 2" xmlns="http://www.w3.org/2000/svg"><rect width="3" height="0.667" fill="#000000"/><rect width="3" height="0.667" y="0.667" fill="#FFD900"/><rect width="3" height="0.667" y="1.333" fill="#FFFFFF"/></svg>`, palette:"black-yellow-white", capital:"Saint Petersburg" },
-  { name:"Navajo Nation", years:"1968–present", file:"Official design of the Navajo Nation flag as it was adopted on May 21, 1968.svg", palette:"tan-multi", capital:"Window Rock" },
-  { name:"Empire of Brazil", years:"1822–1889", file:"Flag of Brazil (1853-1889).svg", palette:"green-yellow", capital:"Rio de Janeiro" },
-  { name:"Kingdom of Prussia", years:"1701–1918", file:"Flag of the Kingdom of Prussia (1803-1892).svg", palette:"black-white", capital:"Berlin" },
+  { name:"Kingdom of Prussia", years:"1701–1918", inlineSvg:`<svg viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg"><rect width="300" height="200" fill="#FFFFFF" stroke="#ddd" stroke-width="1"/><g transform="translate(150,105)" fill="#1A1A1A"><ellipse cx="0" cy="0" rx="10" ry="20"/><circle cx="0" cy="-24" r="8"/><polygon points="0,-24 10,-20 3,-18" fill="#D4A017"/><path d="M -8,-8 L -45,-30 L -38,-18 L -50,-10 L -35,-8 L -45,4 L -25,-2 L -30,10 L -12,2 Z"/><path d="M 8,-8 L 45,-30 L 38,-18 L 50,-10 L 35,-8 L 45,4 L 25,-2 L 30,10 L 12,2 Z"/><path d="M -6,18 L -10,32 L -3,22 M 6,18 L 10,32 L 3,22 M 0,20 L 0,34"/><path d="M -4,18 L -8,26 M 4,18 L 8,26" stroke="#1A1A1A" stroke-width="2"/></g></svg>`, palette:"black-white", capital:"Berlin" },
 ];
 
 function fgBonusImageUrl(filename){
@@ -4420,6 +4405,22 @@ function memoryStart(){
   renderRoute();
 }
 
+// Updates only the grid + progress text in place, rather than rebuilding the entire page
+// via renderRoute(). This is the real fix for the full-screen flash on every tap -- the
+// previous version called the global renderRoute() on every single flip, which tears down
+// and rebuilds the ENTIRE page (header, background decorations, nav) each time, not just
+// the card grid. A full-page rebuild dozens of times per game is also the likely cause of
+// the reported zoom drift, on top of being wasteful.
+function memoryRerenderLocal(){
+  const gridEl = document.getElementById('memoryGridContainer');
+  const progressEl = document.getElementById('memoryProgressRow');
+  if(gridEl) gridEl.innerHTML = memoryState.cards.map(memoryCardHtml).join('');
+  if(progressEl) progressEl.innerHTML = `
+    <span>Pairs: ${memoryState.matchedPairs} of ${MEMORY_PAIR_COUNT}</span>
+    <span>Moves: ${memoryState.moves}</span>
+  `;
+}
+
 function memoryTapCard(cardId){
   if(!memoryState || memoryState.locked || memoryState.complete) return;
   const card = memoryState.cards.find(c => c.id === cardId);
@@ -4427,7 +4428,7 @@ function memoryTapCard(cardId){
 
   card.flipped = true;
   memoryState.flippedIds.push(cardId);
-  renderRoute();
+  memoryRerenderLocal();
 
   if(memoryState.flippedIds.length === 2){
     memoryState.moves++;
@@ -4444,6 +4445,8 @@ function memoryTapCard(cardId){
         memoryState.matchedPairs++;
         if(memoryState.matchedPairs === MEMORY_PAIR_COUNT){
           memoryFinishGame();
+          renderRoute(); // full render is correct here -- transitioning to the end screen
+          return;
         }
       } else {
         c1.flipped = false;
@@ -4451,7 +4454,7 @@ function memoryTapCard(cardId){
       }
       memoryState.flippedIds = [];
       memoryState.locked = false;
-      renderRoute();
+      memoryRerenderLocal();
     }, isMatch ? 500 : 900);
   }
 }
@@ -9990,11 +9993,11 @@ function memoryPlayingHtml(){
   return `
     <section style="padding-top:14px;">
       <div class="fg-wrap">
-        <div class="fg-progress-row">
+        <div class="fg-progress-row" id="memoryProgressRow">
           <span>Pairs: ${memoryState.matchedPairs} of ${MEMORY_PAIR_COUNT}</span>
           <span>Moves: ${memoryState.moves}</span>
         </div>
-        <div class="memory-grid">${cardsHtml}</div>
+        <div class="memory-grid" id="memoryGridContainer">${cardsHtml}</div>
       </div>
     </section>
   `;
@@ -16516,6 +16519,17 @@ function renderRoute(opts){
   const noSwipeBackRoute = parts[0] === 'mind-temple' || parts[0] === 'arcade';
   document.documentElement.classList.toggle('mt-no-swipeback', noSwipeBackRoute);
   document.body.classList.toggle('mt-no-swipeback', noSwipeBackRoute);
+
+  // Zoom disabled specifically on the Memory Match page (per explicit request) -- rapid
+  // successive taps on small card targets were triggering the browser's native
+  // double-tap-to-zoom gesture. Every other route keeps normal pinch/double-tap zoom.
+  const noZoomRoute = parts[0] === 'memory-game';
+  const viewportMeta = document.querySelector('meta[name="viewport"]');
+  if(viewportMeta){
+    viewportMeta.setAttribute('content', noZoomRoute
+      ? 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no'
+      : 'width=device-width, initial-scale=1.0');
+  }
 
   // Remember where we were scrolled to on the page we're about to leave. Skippable via
   // opts.skipScrollSave -- needed specifically for closing the Mind Temple/arcade overlay,
