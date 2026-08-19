@@ -166,6 +166,7 @@
      Temple and arcade routes via this class, toggled in renderRoute() -- everywhere else
      on the site keeps completely normal swipe/scroll behavior, unchanged. */
   html.mt-no-swipeback, body.mt-no-swipeback{ overscroll-behavior-x:none; }
+  html.mm-no-zoom, body.mm-no-zoom{ touch-action:manipulation; }
   body{
     background:var(--cream);
     color:var(--ink);
@@ -1364,19 +1365,21 @@
   .nerdle-key.absent{ background:#3A3A3C; color:#fff; opacity:.6; }
 
   /* ---- Memory Match ---- */
-  .memory-grid{ display:grid; grid-template-columns:repeat(4, 1fr); gap:8px; max-width:400px; margin:0 auto; }
+  .memory-grid{ display:grid; grid-template-columns:repeat(4, 1fr); gap:8px; max-width:400px; margin:0 auto; touch-action:manipulation; }
   .memory-card{
     aspect-ratio:3/4; border-radius:10px; border:none; cursor:pointer;
     display:flex; align-items:center; justify-content:center; padding:6px;
     background:var(--coral); box-shadow:0 3px 0 rgba(0,0,0,.15);
+    touch-action:manipulation; -webkit-tap-highlight-color:transparent;
+    user-select:none; -webkit-user-select:none;
   }
   .memory-card.flipped, .memory-card.matched{ background:var(--card); border:2px solid var(--line); box-shadow:none; }
   .memory-card.matched{ opacity:.5; border-color:#6AAA64; }
   .memory-card-back{ font-size:22px; color:#fff; font-weight:800; }
   .memory-card-name{ font-size:10.5px; font-weight:800; text-align:center; color:var(--ink); line-height:1.2; }
-  .memory-card-flag{ width:100%; height:100%; display:flex; align-items:center; justify-content:center; }
-  .memory-card-flag img, .memory-card-flag svg{ width:100%; height:100%; object-fit:contain; }
-  .memory-card-flag .fg-option-flag-thumb{ aspect-ratio:auto; height:100%; }
+  .memory-card-flag{ width:100%; height:100%; display:flex; align-items:center; justify-content:center; overflow:hidden; }
+  .memory-card-flag img, .memory-card-flag svg{ width:100%; height:100%; object-fit:contain; display:block; }
+  .memory-card-flag .fg-option-flag-thumb{ aspect-ratio:auto; height:100%; width:100%; }
 
   /* ---- Country Silhouette Guess ---- */
   .silhouette-frame{ width:100%; max-width:280px; aspect-ratio:1/1; margin:0 auto 20px; display:flex; align-items:center; justify-content:center; background:#fff; border-radius:14px; }
@@ -16465,6 +16468,8 @@ function renderRoute(opts){
       ? 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no'
       : 'width=device-width, initial-scale=1.0');
   }
+  document.documentElement.classList.toggle('mm-no-zoom', noZoomRoute);
+  document.body.classList.toggle('mm-no-zoom', noZoomRoute);
 
   // Remember where we were scrolled to on the page we're about to leave. Skippable via
   // opts.skipScrollSave -- needed specifically for closing the Mind Temple/arcade overlay,
