@@ -1,7 +1,7 @@
 [football-fetch] standings[PL]: raw season field = {'id': 2502, 'startDate': '2026-08-21', 'endDate': '2027-05-30', 'currentMatchday': 1, 'winner': None}
 [football-fetch] standings[PL]: OK (0 rows)
 [football-fetch] matches[PL]: OK (trimmed from 380 to 10 fixtures + 0 results)
-[football-fetch] standings[PD]: raw season field = {'id': 2518, 'startDate': '2026-08-16', 'endDate': '2027-05-30', 'currentMatchday': 1, 'winner': None}
+[football-fetch] standings[PD]: raw season field = {'id': 2518, 'startDate': '2026-08-16', 'endDate': '2027-05-30', 'currentMatchday': 2, 'winner': None}
 [football-fetch] standings[PD]: OK (20 rows)
 [football-fetch] matches[PD]: OK (trimmed from 380 to 5 fixtures + 5 results)
 [football-fetch] standings[BL1]: raw season field = {'id': 2522, 'startDate': '2026-08-28', 'endDate': '2027-05-22', 'currentMatchday': 1, 'winner': None}

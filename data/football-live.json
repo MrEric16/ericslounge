@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-19T18:29:18.186228Z",
+  "generatedAt": "2026-08-19T19:04:01.640332Z",
   "standings": {
     "PD": [
       {
@@ -73,17 +73,27 @@
         "pts": 1
       },
       {
-        "name": "Athletic",
-        "pld": 0,
+        "name": "Atleti",
+        "pld": 1,
         "w": 0,
-        "d": 0,
+        "d": 1,
         "l": 0,
         "gf": 0,
         "ga": 0,
-        "pts": 0
+        "pts": 1
       },
       {
-        "name": "Atleti",
+        "name": "Málaga",
+        "pld": 1,
+        "w": 0,
+        "d": 1,
+        "l": 0,
+        "gf": 0,
+        "ga": 0,
+        "pts": 1
+      },
+      {
+        "name": "Athletic",
         "pld": 0,
         "w": 0,
         "d": 0,
@@ -104,16 +114,6 @@
       },
       {
         "name": "Barça",
-        "pld": 0,
-        "w": 0,
-        "d": 0,
-        "l": 0,
-        "gf": 0,
-        "ga": 0,
-        "pts": 0
-      },
-      {
-        "name": "Málaga",
         "pld": 0,
         "w": 0,
         "d": 0,
