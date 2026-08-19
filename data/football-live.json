@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-19T20:53:31.942876Z",
+  "generatedAt": "2026-08-19T21:21:19.720742Z",
   "standings": {
     "PD": [
       {
@@ -23,6 +23,16 @@
         "pts": 3
       },
       {
+        "name": "Atleti",
+        "pld": 1,
+        "w": 1,
+        "d": 0,
+        "l": 0,
+        "gf": 2,
+        "ga": 0,
+        "pts": 3
+      },
+      {
         "name": "Sevilla FC",
         "pld": 1,
         "w": 1,
@@ -30,16 +40,6 @@
         "l": 0,
         "gf": 2,
         "ga": 1,
-        "pts": 3
-      },
-      {
-        "name": "Atleti",
-        "pld": 1,
-        "w": 1,
-        "d": 0,
-        "l": 0,
-        "gf": 1,
-        "ga": 0,
         "pts": 3
       },
       {
@@ -179,7 +179,7 @@
         "d": 0,
         "l": 1,
         "gf": 0,
-        "ga": 1,
+        "ga": 2,
         "pts": 0
       },
       {
@@ -834,6 +834,37 @@
         }
       ],
       "results": [
+        {
+          "utcDate": "2026-08-19T19:00:00Z",
+          "status": "FINISHED",
+          "matchday": 1,
+          "homeTeam": {
+            "id": 78,
+            "name": "Club Atlético de Madrid",
+            "shortName": "Atleti"
+          },
+          "awayTeam": {
+            "id": 84,
+            "name": "Málaga CF",
+            "shortName": "Málaga"
+          },
+          "score": {
+            "winner": "HOME_TEAM",
+            "duration": "REGULAR",
+            "fullTime": {
+              "home": 2,
+              "away": 0
+            },
+            "halfTime": {
+              "home": 0,
+              "away": 0
+            }
+          },
+          "competition": {
+            "name": "Primera Division"
+          },
+          "venue": null
+        },
         {
           "utcDate": "2026-08-17T19:00:00Z",
           "status": "FINISHED",
