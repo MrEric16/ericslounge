@@ -1377,6 +1377,15 @@
   .memory-card-flag{ width:100%; height:100%; }
   .memory-card-flag img, .memory-card-flag svg{ width:100%; height:100%; object-fit:contain; }
 
+  /* ---- Country Silhouette Guess ---- */
+  .silhouette-frame{ width:100%; max-width:280px; aspect-ratio:1/1; margin:0 auto 20px; display:flex; align-items:center; justify-content:center; background:#fff; border-radius:14px; }
+  .silhouette-frame img{ width:88%; height:88%; object-fit:contain; }
+  .silhouette-fallback{ display:none; flex-direction:column; align-items:center; justify-content:center; width:100%; height:100%; gap:6px; }
+  .silhouette-fallback svg{ width:40px; height:40px; opacity:.5; }
+  .silhouette-fallback span{ font-size:12px; font-weight:700; color:var(--ink-soft); }
+  .silhouette-credit{ text-align:center; font-size:11px; color:var(--ink-soft); opacity:.7; margin-top:-12px; margin-bottom:16px; }
+  .silhouette-credit a{ color:inherit; }
+
   /* ---- Word Scramble / Anagram ---- */
   .anagram-clue{ text-align:center; font-size:15px; font-weight:700; color:var(--ink); line-height:1.5; padding:0 16px; margin-bottom:22px; }
   .anagram-answer-row{ display:flex; gap:6px; justify-content:center; margin-bottom:24px; flex-wrap:wrap; }
@@ -4470,6 +4479,147 @@ function memoryExit(){
   renderRoute();
 }
 
+// ============ Country Silhouette Guess ============
+// Real country outline SVGs from djaiss/mapsicon (raw.githubusercontent.com), verified
+// directly before use -- rendered France/Japan/Chile/Uzbekistan and confirmed each is
+// genuinely recognizable. License (from the repo's own README, no formal LICENSE file):
+// "Do what you want with them as long as you mention me in your project. Please don't
+// resell them." Credit given both here and visibly on the game's intro screen.
+// 4 of the 195 countries in FLAG_COUNTRIES aren't covered by this source (Kosovo, Tuvalu,
+// Marshall Islands, Micronesia -- all explicitly listed as omitted in the source's own
+// README), so this game uses a filtered 191-country pool.
+const SILHOUETTE_MISSING_CODES = new Set(['xk', 'tv', 'mh', 'fm']);
+const SILHOUETTE_COUNTRIES = FLAG_COUNTRIES.filter(c => !SILHOUETTE_MISSING_CODES.has(c.code));
+const SILHOUETTE_ROUNDS_PER_GAME = 30;
+const SILHOUETTE_BEST_SCORE_KEY = 'silhouetteBestScore';
+const SILHOUETTE_STREAK_KEY = 'silhouetteStreak';
+
+function silhouetteImageUrl(code){
+  return `https://raw.githubusercontent.com/djaiss/mapsicon/master/all/${code}/vector.svg`;
+}
+
+// Distractor selection: region is the dominant signal for shape confusability (countries
+// on the same continent are far more likely to have genuinely similar outlines than a
+// palette-based approach would capture), with a size/tier closeness as a secondary signal.
+function silhouetteSimilarityScore(a, b){
+  let score = 0;
+  if(a.region === b.region) score += 6;
+  const tierDiff = Math.abs(a.tier - b.tier);
+  score += Math.max(0, 3 - tierDiff);
+  return score;
+}
+
+function silhouetteGetOptions(correct, allCountries, optionCount, poolSize, usedNames){
+  const candidates = allCountries.filter(c => c.name !== correct.name && !usedNames.has(c.name));
+  const scored = candidates.map(c => ({ c, s: silhouetteSimilarityScore(correct, c) }));
+  scored.sort((a, b) => b.s - a.s);
+  const pool = scored.slice(0, Math.max(poolSize, optionCount));
+  for(let i = pool.length - 1; i > 0; i--){
+    const j = Math.floor(Math.random() * (i + 1));
+    [pool[i], pool[j]] = [pool[j], pool[i]];
+  }
+  return pool.slice(0, optionCount).map(x => x.c);
+}
+
+function silhouetteRoundDifficulty(roundIndex, totalRounds){
+  const progress = roundIndex / (totalRounds - 1);
+  const maxTier = 1 + Math.floor(progress * 4);
+  const poolSize = Math.round(15 - progress * 9);
+  return { maxTier, poolSize };
+}
+
+function silhouettePickForRound(allCountries, maxTier, usedNames){
+  const eligible = allCountries.filter(c => c.tier <= maxTier && !usedNames.has(c.name));
+  const atCeiling = eligible.filter(c => c.tier === maxTier);
+  const pickFrom = atCeiling.length > 0 ? atCeiling : eligible;
+  if(pickFrom.length === 0) return null;
+  return pickFrom[Math.floor(Math.random() * pickFrom.length)];
+}
+
+function silhouetteBuildRounds(allCountries, totalRounds){
+  const usedNames = new Set();
+  const rounds = [];
+  for(let i = 0; i < totalRounds; i++){
+    const { maxTier, poolSize } = silhouetteRoundDifficulty(i, totalRounds);
+    const correct = silhouettePickForRound(allCountries, maxTier, usedNames);
+    if(!correct) break;
+    usedNames.add(correct.name);
+    const distractors = silhouetteGetOptions(correct, allCountries, 5, poolSize, usedNames);
+    distractors.forEach(d => usedNames.add(d.name));
+    const options = [correct, ...distractors];
+    for(let j = options.length - 1; j > 0; j--){
+      const k = Math.floor(Math.random() * (j + 1));
+      [options[j], options[k]] = [options[k], options[j]];
+    }
+    rounds.push({ correct, options });
+  }
+  return rounds;
+}
+
+let silhouetteState = null;
+
+function silhouetteStart(){
+  silhouetteState = {
+    rounds: silhouetteBuildRounds(SILHOUETTE_COUNTRIES, SILHOUETTE_ROUNDS_PER_GAME),
+    current: 0,
+    correctCount: 0,
+    mistakes: [],
+    answered: false,
+    lastPickedName: null,
+  };
+  renderRoute();
+}
+
+function silhouetteAnswer(pickedName){
+  if(!silhouetteState || silhouetteState.answered) return;
+  silhouetteState.answered = true;
+  silhouetteState.lastPickedName = pickedName;
+  const round = silhouetteState.rounds[silhouetteState.current];
+  const isCorrect = pickedName === round.correct.name;
+  if(isCorrect){ silhouetteState.correctCount++; }
+  else{ silhouetteState.mistakes.push({ correct: round.correct, picked: round.options.find(o => o.name === pickedName) }); }
+  renderRoute();
+  setTimeout(() => {
+    if(!silhouetteState) return;
+    silhouetteState.current++;
+    silhouetteState.answered = false;
+    silhouetteState.lastPickedName = null;
+    if(silhouetteState.current >= silhouetteState.rounds.length){
+      silhouetteFinishGame();
+    }
+    renderRoute();
+  }, 900);
+}
+
+function silhouetteFinishGame(){
+  const score = silhouetteState.correctCount;
+  let best = 0, streak = 0;
+  try{ best = parseInt(localStorage.getItem(SILHOUETTE_BEST_SCORE_KEY) || '0', 10); }catch(e){}
+  if(score > best){
+    try{ localStorage.setItem(SILHOUETTE_BEST_SCORE_KEY, String(score)); }catch(e){}
+  }
+  try{ streak = parseInt(localStorage.getItem(SILHOUETTE_STREAK_KEY) || '0', 10); }catch(e){}
+  const todayKey = getTodayKeyLocal();
+  let lastPlayed = null;
+  try{ lastPlayed = localStorage.getItem('silhouetteLastPlayedDate'); }catch(e){}
+  if(lastPlayed !== todayKey){
+    const yesterday = new Date(Date.now() - 86400000);
+    const yKey = `${yesterday.getFullYear()}-${String(yesterday.getMonth()+1).padStart(2,'0')}-${String(yesterday.getDate()).padStart(2,'0')}`;
+    streak = (lastPlayed === yKey) ? streak + 1 : 1;
+    try{
+      localStorage.setItem(SILHOUETTE_STREAK_KEY, String(streak));
+      localStorage.setItem('silhouetteLastPlayedDate', todayKey);
+    }catch(e){}
+  }
+}
+
+function silhouetteExit(){
+  silhouetteState = null;
+  renderRoute();
+}
+
+
+
 
 
 document.addEventListener('keydown', (e) => {
@@ -4517,6 +4667,7 @@ const GEOGRAPHY_HUB_TILES = [
   { name: "Idiom Match", emoji: icon('newspaper'), url: "#idiom-match-game", internal: true },
   { name: "Nerdle", emoji: icon('chip'), url: "#nerdle-game", internal: true },
   { name: "Memory Match", emoji: icon('coin'), url: "#memory-game", internal: true },
+  { name: "Country Silhouette", emoji: icon('moon'), url: "#silhouette-game", internal: true },
   geoHubExternalTile("GeoGuessr"),
   geoHubExternalTile("OpenGuessr"),
   geoHubExternalTile("Radio Garden"),
@@ -9773,6 +9924,115 @@ function viewMemoryGame(){
     return memoryEndHtml();
   }
   return memoryPlayingHtml();
+}
+
+function silhouetteImageHtml(country){
+  return `
+    <div class="silhouette-frame">
+      <img src="${silhouetteImageUrl(country.code)}" alt="" data-retries="0" onerror="
+        var tries = parseInt(this.dataset.retries, 10);
+        if(tries < 2){
+          this.dataset.retries = String(tries + 1);
+          var freshUrl = this.src.split('?')[0] + '?retry=' + Date.now();
+          var delay = 500 * (tries + 1);
+          setTimeout((function(el, url){ return function(){ el.src = url; }; })(this, freshUrl), delay);
+        } else {
+          this.style.display='none';
+          this.nextElementSibling.style.display='flex';
+        }
+      ">
+      <div class="silhouette-fallback">${icon('globe')}<span>Image unavailable</span></div>
+    </div>
+  `;
+}
+
+function silhouetteIntroHtml(){
+  let best = 0, streak = 0;
+  try{
+    best = parseInt(localStorage.getItem(SILHOUETTE_BEST_SCORE_KEY) || '0', 10);
+    streak = parseInt(localStorage.getItem(SILHOUETTE_STREAK_KEY) || '0', 10);
+  }catch(e){}
+  return `
+    <a class="back-link" href="#geography-hub">← Back to Train Your Brain</a>
+    <section style="padding-top:14px;">
+      <div class="fg-wrap">
+        <div class="section-head"><span class="emoji">${icon('moon')}</span><h2>Country Silhouette</h2></div>
+        <p style="font-size:14px; color:var(--ink-soft); line-height:1.6; margin-bottom:6px;">Just the outline. No flag, no colours, no mercy.</p>
+        <div class="fg-intro-stats">
+          <div class="fg-intro-stat"><div class="num">${best}/${SILHOUETTE_ROUNDS_PER_GAME}</div><div class="label">Best Score</div></div>
+          <div class="fg-intro-stat"><div class="num">${streak}</div><div class="label">Day Streak</div></div>
+        </div>
+        <button class="fg-start-btn" data-action="silhouette-start">Start</button>
+        <div class="silhouette-credit">Map outlines by <a href="https://github.com/djaiss/mapsicon" target="_blank" rel="noopener">djaiss/mapsicon</a></div>
+      </div>
+    </section>
+  `;
+}
+
+function silhouettePlayingHtml(){
+  const round = silhouetteState.rounds[silhouetteState.current];
+  const pct = Math.round((silhouetteState.current / silhouetteState.rounds.length) * 100);
+  const optionsHtml = round.options.map(o => {
+    let cls = 'fg-option-btn';
+    if(silhouetteState.answered){
+      if(o.name === round.correct.name) cls += ' fg-correct';
+      else if(o.name === silhouetteState.lastPickedName) cls += ' fg-wrong';
+    }
+    return `<button class="${cls}" data-action="silhouette-answer" data-name="${escapeHtml(o.name)}" ${silhouetteState.answered ? 'disabled' : ''}>${escapeHtml(o.name)}</button>`;
+  }).join('');
+  return `
+    <section style="padding-top:14px;">
+      <div class="fg-wrap">
+        <div class="fg-progress-row">
+          <span>Country ${silhouetteState.current + 1} of ${silhouetteState.rounds.length}</span>
+          <span>Score: ${silhouetteState.correctCount}</span>
+        </div>
+        <div class="fg-progress-bar"><div class="fg-progress-fill" style="width:${pct}%"></div></div>
+        ${silhouetteImageHtml(round.correct)}
+        <div class="fg-question">Which country is this?</div>
+        <div class="fg-options">${optionsHtml}</div>
+      </div>
+    </section>
+  `;
+}
+
+function silhouetteEndHtml(){
+  const score = silhouetteState.correctCount;
+  let best = 0;
+  try{ best = parseInt(localStorage.getItem(SILHOUETTE_BEST_SCORE_KEY) || '0', 10); }catch(e){}
+  const isNewBest = score >= best && score > 0;
+  const reviewHtml = silhouetteState.mistakes.length === 0 ? `<p style="text-align:center; font-size:14px; color:var(--ink-soft);">Perfect round -- no mistakes.</p>` : `
+    <div style="margin-top:8px;">
+      ${silhouetteState.mistakes.map(m => `
+        <div class="fg-review-item fg-review-wrong">
+          <div><strong>${escapeHtml(m.correct.name)}</strong> — you picked ${escapeHtml(m.picked ? m.picked.name : '?')}</div>
+        </div>
+      `).join('')}
+    </div>
+  `;
+  return `
+    <a class="back-link" href="#geography-hub">← Back to Train Your Brain</a>
+    <section style="padding-top:14px;">
+      <div class="fg-wrap">
+        <div class="section-head"><span class="emoji">${icon('trophy')}</span><h2>Round Complete</h2></div>
+        <div class="fg-end-score">${score}/${silhouetteState.rounds.length}</div>
+        <div class="fg-end-label">${isNewBest ? 'New best score!' : `Best: ${best}/${silhouetteState.rounds.length}`}</div>
+        <button class="fg-start-btn" data-action="silhouette-start">Play Again</button>
+        <h3 style="margin:22px 0 4px; font-family:'Baloo 2', sans-serif; font-size:15px;">Missed ones</h3>
+        ${reviewHtml}
+      </div>
+    </section>
+  `;
+}
+
+function viewSilhouetteGame(){
+  if(!silhouetteState){
+    return silhouetteIntroHtml();
+  }
+  if(silhouetteState.current >= silhouetteState.rounds.length){
+    return silhouetteEndHtml();
+  }
+  return silhouettePlayingHtml();
 }
 
 function viewSaved(){
@@ -15967,6 +16227,18 @@ document.addEventListener('click', (e) => {
     memoryTapCard(memoryTapBtn.dataset.id);
     return;
   }
+  const silhouetteStartBtn = e.target.closest('[data-action="silhouette-start"]');
+  if(silhouetteStartBtn){
+    e.preventDefault();
+    silhouetteStart();
+    return;
+  }
+  const silhouetteAnswerBtn = e.target.closest('[data-action="silhouette-answer"]');
+  if(silhouetteAnswerBtn){
+    e.preventDefault();
+    silhouetteAnswer(silhouetteAnswerBtn.dataset.name);
+    return;
+  }
   const clearSavedBtn = e.target.closest('[data-action="clear-saved"]');
   if(clearSavedBtn){
     e.preventDefault();
@@ -16070,6 +16342,8 @@ function renderRoute(opts){
     html = viewNerdleGame();
   } else if(parts[0] === 'memory-game'){
     html = viewMemoryGame();
+  } else if(parts[0] === 'silhouette-game'){
+    html = viewSilhouetteGame();
   } else if(parts[0] === 'geography-hub'){
     html = viewGeographyHub();
   } else if(parts[0] === 'mind-temple'){
@@ -16135,6 +16409,7 @@ function renderRoute(opts){
   if(parts[0] !== 'idiom-match-game' && idiomMatchState){ idiomMatchState = null; }
   if(parts[0] !== 'nerdle-game' && nerdleState){ nerdleState = null; }
   if(parts[0] !== 'memory-game' && memoryState){ memoryState = null; }
+  if(parts[0] !== 'silhouette-game' && silhouetteState){ silhouetteState = null; }
   if(parts[0] === 'arcade' && parts[1]){ wireArcade(parts[1]); }
   if(parts[0] === 'install'){ wireInstallPage(); }
   if(parts[0] === 'stats'){ loadStats(); }
