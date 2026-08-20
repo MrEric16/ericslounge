@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-20T20:57:15.608504Z",
+  "generatedAt": "2026-08-20T21:29:54.128400Z",
   "standings": {
     "PD": [
       {
@@ -803,6 +803,37 @@
         }
       ],
       "results": [
+        {
+          "utcDate": "2026-08-20T19:00:00Z",
+          "status": "FINISHED",
+          "matchday": 2,
+          "homeTeam": {
+            "id": 87,
+            "name": "Rayo Vallecano de Madrid",
+            "shortName": "Rayo Vallecano"
+          },
+          "awayTeam": {
+            "id": 263,
+            "name": "Deportivo Alavés",
+            "shortName": "Alavés"
+          },
+          "score": {
+            "winner": "DRAW",
+            "duration": "REGULAR",
+            "fullTime": {
+              "home": 1,
+              "away": 1
+            },
+            "halfTime": {
+              "home": 0,
+              "away": 0
+            }
+          },
+          "competition": {
+            "name": "Primera Division"
+          },
+          "venue": null
+        },
         {
           "utcDate": "2026-08-19T19:00:00Z",
           "status": "FINISHED",
