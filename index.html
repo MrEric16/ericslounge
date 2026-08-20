@@ -1370,6 +1370,15 @@
     height:48px; cursor:pointer; display:flex; align-items:center; justify-content:center;
   }
   .nerdle-key.wide{ grid-column:span 2; font-family:'Nunito', sans-serif; font-size:12px; font-weight:800; }
+
+  /* Enter/Backspace/any function key, separated below the keyboard grid itself -- not mixed
+     into the letter/digit rows. Shared by Wordle, Nerdle, and Mini Crossword's keyboards. */
+  .keyboard-actions-row{ display:flex; gap:8px; justify-content:center; margin-top:10px; width:100%; max-width:480px; margin-left:auto; margin-right:auto; }
+  .keyboard-action-btn{
+    flex:1; max-width:150px; padding:13px 0; border-radius:8px; border:none;
+    font-family:'Nunito', sans-serif; font-weight:800; font-size:13px; color:#fff;
+    background:var(--ink-solid); cursor:pointer; touch-action:manipulation;
+  }
   .nerdle-key.correct{ background:#6AAA64; color:#fff; }
   .nerdle-key.present{ background:#C9B458; color:#fff; }
   .nerdle-key.absent{ background:#3A3A3C; color:#fff; opacity:.6; }
@@ -10663,13 +10672,11 @@ function wordlePlayingHtml(){
   const kbRows = [
     ['Q','W','E','R','T','Y','U','I','O','P'],
     ['A','S','D','F','G','H','J','K','L'],
-    ['ENTER','Z','X','C','V','B','N','M','BACKSPACE'],
+    ['Z','X','C','V','B','N','M'],
   ];
   const keyboardHtml = kbRows.map(row => `
     <div class="wordle-kb-row">
       ${row.map(k => {
-        if(k === 'ENTER') return `<button class="wordle-key wide" data-action="wordle-key" data-key="ENTER">Enter</button>`;
-        if(k === 'BACKSPACE') return `<button class="wordle-key wide" data-action="wordle-key" data-key="BACKSPACE">⌫</button>`;
         const state = keyStates[k] ? ` ${keyStates[k]}` : '';
         return `<button class="wordle-key${state}" data-action="wordle-key" data-key="${k}">${k}</button>`;
       }).join('')}
@@ -10686,6 +10693,10 @@ function wordlePlayingHtml(){
         <div class="wordle-message">${wordleState.message ? escapeHtml(wordleState.message) : ''}</div>
         <div class="wordle-grid">${rows.join('')}</div>
         <div class="wordle-keyboard">${keyboardHtml}</div>
+        <div class="keyboard-actions-row">
+          <button class="keyboard-action-btn" data-action="wordle-key" data-key="BACKSPACE">⌫ Delete</button>
+          <button class="keyboard-action-btn" data-action="wordle-key" data-key="ENTER">Enter</button>
+        </div>
       </div>
     </section>
   `;
@@ -11082,8 +11093,10 @@ function nerdlePlayingHtml(){
         <div class="nerdle-keypad">
           ${digitHtml}
           ${opRow}
-          <button class="nerdle-key wide" data-action="nerdle-key" data-key="BACKSPACE">⌫ Del</button>
-          <button class="nerdle-key wide" data-action="nerdle-key" data-key="ENTER" style="grid-column:span 3;">Enter</button>
+        </div>
+        <div class="keyboard-actions-row">
+          <button class="keyboard-action-btn" data-action="nerdle-key" data-key="BACKSPACE">⌫ Delete</button>
+          <button class="keyboard-action-btn" data-action="nerdle-key" data-key="ENTER">Enter</button>
         </div>
       </div>
     </section>
@@ -11667,18 +11680,18 @@ function xwKeyboardHtml(){
   const rows = [
     ['Q','W','E','R','T','Y','U','I','O','P'],
     ['A','S','D','F','G','H','J','K','L'],
-    ['BACKSPACE','Z','X','C','V','B','N','M'],
+    ['Z','X','C','V','B','N','M'],
   ];
   return `
     <div class="wordle-keyboard">
       ${rows.map(row => `
         <div class="wordle-kb-row">
-          ${row.map(k => {
-            if(k === 'BACKSPACE') return `<button class="wordle-key wide" data-action="xword-key" data-key="BACKSPACE">⌫</button>`;
-            return `<button class="wordle-key" data-action="xword-key" data-key="${k}">${k}</button>`;
-          }).join('')}
+          ${row.map(k => `<button class="wordle-key" data-action="xword-key" data-key="${k}">${k}</button>`).join('')}
         </div>
       `).join('')}
+    </div>
+    <div class="keyboard-actions-row">
+      <button class="keyboard-action-btn" data-action="xword-key" data-key="BACKSPACE">⌫ Delete</button>
     </div>
   `;
 }
