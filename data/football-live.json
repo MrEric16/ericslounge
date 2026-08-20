@@ -1,16 +1,16 @@
 {
-  "generatedAt": "2026-08-20T18:35:33.189346Z",
+  "generatedAt": "2026-08-20T19:27:42.088079Z",
   "standings": {
     "PD": [
       {
         "name": "Alavés",
-        "pld": 1,
+        "pld": 2,
         "w": 1,
-        "d": 0,
+        "d": 1,
         "l": 0,
         "gf": 3,
         "ga": 0,
-        "pts": 3
+        "pts": 4
       },
       {
         "name": "Espanyol",
@@ -80,6 +80,16 @@
         "l": 0,
         "gf": 1,
         "ga": 1,
+        "pts": 1
+      },
+      {
+        "name": "Rayo Vallecano",
+        "pld": 2,
+        "w": 0,
+        "d": 1,
+        "l": 1,
+        "gf": 1,
+        "ga": 2,
         "pts": 1
       },
       {
@@ -160,16 +170,6 @@
         "l": 0,
         "gf": 0,
         "ga": 0,
-        "pts": 0
-      },
-      {
-        "name": "Rayo Vallecano",
-        "pld": 1,
-        "w": 0,
-        "d": 0,
-        "l": 1,
-        "gf": 1,
-        "ga": 2,
         "pts": 0
       },
       {
@@ -522,37 +522,6 @@
     },
     "PD": {
       "fixtures": [
-        {
-          "utcDate": "2026-08-20T19:00:00Z",
-          "status": "TIMED",
-          "matchday": 2,
-          "homeTeam": {
-            "id": 87,
-            "name": "Rayo Vallecano de Madrid",
-            "shortName": "Rayo Vallecano"
-          },
-          "awayTeam": {
-            "id": 263,
-            "name": "Deportivo Alavés",
-            "shortName": "Alavés"
-          },
-          "score": {
-            "winner": null,
-            "duration": "REGULAR",
-            "fullTime": {
-              "home": null,
-              "away": null
-            },
-            "halfTime": {
-              "home": null,
-              "away": null
-            }
-          },
-          "competition": {
-            "name": "Primera Division"
-          },
-          "venue": null
-        },
         {
           "utcDate": "2026-08-21T19:00:00Z",
           "status": "TIMED",
