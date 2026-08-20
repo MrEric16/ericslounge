@@ -1442,8 +1442,6 @@
 
   /* ---- True or False ---- */
   .tf-progress-row{ display:flex; justify-content:space-between; align-items:center; width:100%; max-width:340px; margin:0 auto 14px; font-family:'Space Mono', monospace; font-size:13px; color:var(--ink-soft); }
-  .tf-timer-track{ width:100%; max-width:340px; height:6px; background:var(--line); border-radius:3px; margin:0 auto 20px; overflow:hidden; }
-  .tf-timer-fill{ height:100%; background:var(--coral); border-radius:3px; transition:width 1s linear; }
   .tf-domain-tag{ display:inline-block; font-size:11px; font-weight:800; text-transform:uppercase; letter-spacing:.5px; color:#fff; padding:3px 10px; border-radius:20px; margin:0 auto 16px; }
   .tf-statement-card{
     max-width:340px; margin:0 auto 22px; padding:22px 18px; border-radius:14px;
@@ -4874,8 +4872,11 @@ function higherLowerExit(){
 }
 
 // ---- True or False ----
-// Rapid-fire trivia across the 16 academic domains (FACULTIES). Fixed 15-question round,
-// 6-second timer per question -- answer or the clock takes it as wrong and moves on.
+// Trivia across the 16 academic domains (FACULTIES). Fixed 15-question round, untimed --
+// answer at your own pace, next question loads after a brief reveal. (Originally had a
+// 6-second per-question timer; removed per direct request -- it called renderRoute(), a
+// full-page rebuild, every second for the duration of every question, which was the actual
+// cause of the reported flashing. No timer, no per-second rebuilds.)
 // Score out of 15, best score saved to localStorage. Statements are well-established,
 // commonly-taught facts (same accuracy bar as Higher or Lower's event dates) -- balanced
 // close to evenly between true and false answers so "always guess true" isn't a viable
@@ -4931,7 +4932,6 @@ const TF_QUESTIONS = [
   { statement: "Helicopters cannot fly backwards.", answer: false, domain: 'aviation' },
 ];
 const TF_ROUND_SIZE = 15;
-const TF_QUESTION_SECONDS = 6;
 const TF_BEST_SCORE_KEY = 'trueFalseBestScore';
 
 let tfState = null;
@@ -4941,52 +4941,22 @@ function tfPickRoundQuestions(){
   return shuffled.slice(0, TF_ROUND_SIZE);
 }
 
-// Every route change checks this and clears the interval if the player has navigated away
-// from true-false-game -- see the state-cleanup hook in renderRoute(). Without this, a
-// leaked setInterval would keep calling renderRoute() every second on whatever page the
-// player is actually looking at, silently corrupting it.
-function tfClearTimer(){
-  if(tfState && tfState.timerId){
-    clearInterval(tfState.timerId);
-    tfState.timerId = null;
-  }
-}
-
-function tfStartTimer(){
-  tfClearTimer();
-  tfState.timeLeft = TF_QUESTION_SECONDS;
-  tfState.timerId = setInterval(() => {
-    if(!tfState) return;
-    tfState.timeLeft--;
-    if(tfState.timeLeft <= 0){
-      tfClearTimer();
-      tfAnswer(null); // timeout -- counts as wrong
-      return;
-    }
-    renderRoute();
-  }, 1000);
-}
-
 function tfStart(){
   tfState = {
     questions: tfPickRoundQuestions(),
     index: 0,
     score: 0,
-    timeLeft: TF_QUESTION_SECONDS,
     answered: false,
     lastCorrect: null,
     over: false,
-    timerId: null,
   };
   renderRoute();
-  tfStartTimer();
 }
 
 function tfAnswer(guess){
   if(!tfState || tfState.over || tfState.answered) return;
-  tfClearTimer();
   const q = tfState.questions[tfState.index];
-  const correct = guess !== null && guess === q.answer;
+  const correct = guess === q.answer;
   tfState.answered = true;
   tfState.lastCorrect = correct;
   if(correct) tfState.score++;
@@ -5008,12 +4978,10 @@ function tfAnswer(guess){
     tfState.answered = false;
     tfState.lastCorrect = null;
     renderRoute();
-    tfStartTimer();
   }, 900);
 }
 
 function tfExit(){
-  tfClearTimer();
   tfState = null;
   renderRoute();
 }
@@ -10670,7 +10638,7 @@ function tfIntroHtml(){
     <section style="padding-top:14px;">
       <div class="fg-wrap">
         <div class="section-head"><span class="emoji">${icon('checkDouble')}</span><h2>True or False</h2></div>
-        <p style="font-size:14px; color:var(--ink-soft); line-height:1.6; margin-bottom:6px;">${TF_ROUND_SIZE} rapid-fire statements across all 16 domains. ${TF_QUESTION_SECONDS} seconds each -- answer or the clock decides for you.</p>
+        <p style="font-size:14px; color:var(--ink-soft); line-height:1.6; margin-bottom:6px;">${TF_ROUND_SIZE} statements across all 16 domains. Take your time on each one.</p>
         <div class="fg-intro-stats">
           <div class="fg-intro-stat"><div class="num">${best}/${TF_ROUND_SIZE}</div><div class="label">Best Score</div></div>
         </div>
@@ -10686,7 +10654,6 @@ function tfPlayingHtml(){
   const revealed = tfState.answered;
   let cardClass = 'tf-statement-card';
   if(revealed) cardClass += tfState.lastCorrect ? ' correct' : ' wrong';
-  const pct = Math.max(0, (tfState.timeLeft / TF_QUESTION_SECONDS) * 100);
   return `
     <section style="padding-top:14px;">
       <div class="fg-wrap">
@@ -10694,7 +10661,6 @@ function tfPlayingHtml(){
           <span>Question ${tfState.index + 1} of ${tfState.questions.length}</span>
           <span>Score: ${tfState.score}</span>
         </div>
-        <div class="tf-timer-track"><div class="tf-timer-fill" style="width:${pct}%;"></div></div>
         <div style="text-align:center;">
           <span class="tf-domain-tag" style="background:${fac ? fac.color : 'var(--ink-solid)'};">${fac ? fac.label : q.domain}</span>
         </div>
@@ -17174,7 +17140,7 @@ function renderRoute(opts){
   if(parts[0] !== 'silhouette-game' && silhouetteState){ silhouetteState = null; }
   if(parts[0] !== 'hangman-game' && hangmanState){ hangmanState = null; }
   if(parts[0] !== 'higher-lower-game' && higherLowerState){ higherLowerState = null; }
-  if(parts[0] !== 'true-false-game' && tfState){ tfClearTimer(); tfState = null; }
+  if(parts[0] !== 'true-false-game' && tfState){ tfState = null; }
   if(parts[0] === 'arcade' && parts[1]){ wireArcade(parts[1]); }
   if(parts[0] === 'install'){ wireInstallPage(); }
   if(parts[0] === 'stats'){ loadStats(); }
