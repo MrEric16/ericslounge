@@ -18363,44 +18363,19 @@ function triggerWeekendEgg(){
   }, { passive: false });
 })();
 
-/* ---- 14: Memory Match zoom circuit-breaker + VISIBLE DEBUG READOUT ----
-   Prior version of this circuit-breaker ran silently and did not visibly stop the zoom on
-   device (confirmed via video, frame-by-frame -- zoomed instantly on tap and stayed zoomed,
-   no snap-back at all). That means either the reset technique itself doesn't work on this
-   iOS/Safari version, or the resize/scroll listeners aren't firing the way assumed, or
-   scale genuinely isn't the thing changing. No way to tell which from here without live
-   numbers -- so this version shows them, on-screen, in real time, only on the memory-game
-   route. This turns the next test from "still broken" into actual diagnostic data: does
-   scale visibly go above 1.00, does the reset counter increment, does scale visibly drop
-   back after a reset attempt. */
+/* ---- 14: Memory Match zoom circuit-breaker (silent, defence-in-depth) ----
+   Debug readout removed -- user confirmed via screenshot after the cell-size-lock fix
+   (contain:size layout style on .memory-card) that zoom scale stayed at 1.000 with 0 reset
+   attempts needed. That fix (locking cell dimensions so nothing inside a card can ever
+   resize it) appears to be what actually solved it. This silent watcher stays in place as
+   a costless safety net -- inert unless visualViewport.scale genuinely drifts above 1 on
+   the memory-game route, in which case it still forces it back. */
 (function(){
   if(!('visualViewport' in window)) return;
   let resetting = false;
-  let resetAttempts = 0;
-  let debugEl = null;
-
-  function ensureDebugEl(){
-    if(debugEl && document.body.contains(debugEl)) return debugEl;
-    debugEl = document.createElement('div');
-    debugEl.id = 'mmZoomDebug';
-    debugEl.style.cssText = 'position:fixed;top:env(safe-area-inset-top,8px);left:8px;z-index:999999;background:rgba(0,0,0,.82);color:#3f3;font:11px/1.4 monospace;padding:5px 9px;border-radius:7px;pointer-events:none;white-space:pre;';
-    document.body.appendChild(debugEl);
-    return debugEl;
-  }
-  function removeDebugEl(){
-    if(debugEl){ debugEl.remove(); debugEl = null; }
-  }
-  function updateDebug(){
-    if(!document.body.classList.contains('mm-no-zoom')){ removeDebugEl(); return; }
-    const el = ensureDebugEl();
-    const s = window.visualViewport.scale;
-    el.textContent = `zoom scale: ${s.toFixed(3)}\nreset attempts: ${resetAttempts}`;
-  }
-
   function forceResetZoom(){
     if(resetting) return;
     resetting = true;
-    resetAttempts++;
     const vp = document.querySelector('meta[name="viewport"]');
     if(vp){
       const original = vp.getAttribute('content');
@@ -18408,28 +18383,19 @@ function triggerWeekendEgg(){
       requestAnimationFrame(() => {
         vp.setAttribute('content', original);
         resetting = false;
-        updateDebug();
       });
     } else {
       resetting = false;
     }
-    updateDebug();
   }
-
   window.visualViewport.addEventListener('resize', function(){
-    updateDebug();
     if(!document.body.classList.contains('mm-no-zoom')) return;
     if(window.visualViewport.scale > 1.02){ forceResetZoom(); }
   });
   window.visualViewport.addEventListener('scroll', function(){
-    updateDebug();
     if(!document.body.classList.contains('mm-no-zoom')) return;
     if(window.visualViewport.scale > 1.02){ forceResetZoom(); }
   });
-  // Route changes toggle mm-no-zoom outside of any visualViewport event, so poll briefly
-  // on an interval too -- this is what shows/hides the readout on entering/leaving the page,
-  // and catches any scale change that doesn't happen to fire a visualViewport event.
-  setInterval(updateDebug, 200);
 })();
 </script>
 
