@@ -3529,6 +3529,27 @@ function fgStart(mode){
   fgLockScroll();
 }
 
+// Surgical update for the immediate answer reveal -- updates the existing 6 option buttons
+// and the score display in place via direct DOM APIs, WITHOUT calling the global
+// renderRoute() (a full #app rebuild). This runs synchronously inside the tap handler,
+// which is exactly the moment renderRoute() there was proven to cause real bugs elsewhere
+// this session (Memory Match's zoom, Wordle/Nerdle's keystroke flash) -- replacing the DOM
+// under an active touch confuses WebKit's gesture/focus handling. Keeping the same button
+// nodes alive and only changing their class/disabled attribute avoids that entirely.
+// The delayed round-advance (900ms later, in fgAnswer's setTimeout) still uses the normal
+// renderRoute() -- by then the touch has long since ended, so that risk doesn't apply, and
+// a new round is different-enough content that a full re-render is the simpler correct move.
+function fgRevealAnswer(round, pickedName){
+  document.querySelectorAll('.fg-options [data-action="fg-answer"]').forEach(btn => {
+    const name = btn.dataset.name;
+    btn.disabled = true;
+    if(name === round.correct.name) btn.classList.add('fg-correct');
+    else if(name === pickedName) btn.classList.add('fg-wrong');
+  });
+  const scoreEl = document.getElementById('fg-score-value');
+  if(scoreEl) scoreEl.textContent = `Score: ${fgState.correctCount}`;
+}
+
 function fgAnswer(pickedName){
   if(!fgState || fgState.answered) return;
   fgState.answered = true;
@@ -3537,8 +3558,7 @@ function fgAnswer(pickedName){
   const isCorrect = pickedName === round.correct.name;
   if(isCorrect){ fgState.correctCount++; }
   else{ fgState.mistakes.push({ correct: round.correct, picked: round.options.find(o => o.name === pickedName) }); }
-  renderRoute();
-  fgLockScroll();
+  fgRevealAnswer(round, pickedName);
   setTimeout(() => {
     if(!fgState) return;
     fgState.current++;
@@ -10133,7 +10153,7 @@ function fgPlayingHtml(){
       <div class="fg-wrap">
         <div class="fg-progress-row">
           <span>Flag ${fgState.current + 1} of ${fgState.rounds.length}${round.isBonus ? ' · BONUS' : ''}</span>
-          <span>Score: ${fgState.correctCount}</span>
+          <span id="fg-score-value">Score: ${fgState.correctCount}</span>
         </div>
         <div class="fg-progress-bar"><div class="fg-progress-fill" style="width:${pct}%"></div></div>
         ${questionHtml}
