@@ -4,7 +4,7 @@
 [ufc-fetch]   table preceded by/captioned: 'past events'
 [ufc-fetch]   table preceded by/captioned: 'number of events by year'
 [ufc-fetch] fetching ufc.com/events for Main Card start times (upcoming events only)...
-[ufc-fetch] ufc.com: captured 1966 chars of body text
+[ufc-fetch] ufc.com: captured 1974 chars of body text
 [ufc-fetch] ufc.com: text around first 'Main Card' match: 'us\nNext\nHERNANDEZ VS RODRIGUES\nSun, Aug 23 / 12:00 AM UTC / Main Card\nGolden 1 C'
 [ufc-fetch] ufc.com: found 8 dated Main Card time(s): [('Aug', 23, 0, 0), ('Aug', 29, 10, 0), ('Sep', 5, 19, 0), ('Sep', 12, 21, 0), ('Sep', 20, 1, 0), ('Sep', 26, 22, 0), ('Oct', 4, 1, 0), ('Oct', 18, 0, 0)]
 [ufc-fetch] attached a confirmed start time to 8/12 upcoming events
