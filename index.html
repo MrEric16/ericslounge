@@ -1386,10 +1386,16 @@
   .memory-card.matched{ opacity:.5; border-color:#6AAA64; }
   .memory-card-back{ font-size:22px; color:#fff; font-weight:800; pointer-events:none; }
   .memory-card-name{ font-size:10.5px; font-weight:800; text-align:center; color:var(--ink); line-height:1.2; pointer-events:none; }
-  .memory-card-flag{ width:100%; height:100%; display:flex; align-items:center; justify-content:center; overflow:hidden; pointer-events:none; touch-action:manipulation; }
-  .memory-card-flag *{ pointer-events:none; touch-action:manipulation; -webkit-touch-callout:none; -webkit-user-select:none; user-select:none; }
+  .memory-card-flag{ width:100%; height:100%; display:flex; align-items:center; justify-content:center; overflow:hidden; pointer-events:none; touch-action:pan-y; }
+  .memory-card-flag *{ pointer-events:none; touch-action:pan-y; -webkit-touch-callout:none; -webkit-user-select:none; user-select:none; }
   .memory-card-flag img, .memory-card-flag svg{ width:100%; height:100%; object-fit:contain; display:block; }
   .memory-card-flag .fg-option-flag-thumb{ aspect-ratio:auto; height:100%; width:100%; }
+  /* No live img/svg element ever sits under the tap point -- see memoryFlagHtml(). */
+  .memory-card-flag-bg{
+    width:100%; height:100%; background-size:contain; background-position:center;
+    background-repeat:no-repeat; pointer-events:none; touch-action:pan-y;
+  }
+  .memory-card-flag-fallback{ display:flex; align-items:center; justify-content:center; font-size:28px; }
 
   /* ---- Country Silhouette Guess ---- */
   .silhouette-frame{ width:100%; max-width:280px; aspect-ratio:1/1; margin:0 auto 20px; display:flex; align-items:center; justify-content:center; background:#fff; border-radius:14px; }
@@ -9922,13 +9928,36 @@ function memoryIntroHtml(){
   `;
 }
 
+// Flags render as a CSS background-image on a plain div, never a live <img>/<svg> element.
+// Root cause of the zoom-on-flip bug (flags only, never text -- confirmed via user video):
+// the previous fix (pointer-events:none on the img/svg) still left it IN the render tree,
+// just non-interactive. iOS Safari's smart-zoom targeting evidently doesn't respect that --
+// it can still pick an img/svg as a zoom target even with pointer-events:none. A
+// background-image on a div has no image element for the heuristic to find at all. The
+// <img> below exists only to detect load success/failure; display:none removes it from the
+// render tree entirely (unlike pointer-events:none, which only removes it from hit-testing),
+// so it can never be a tap/zoom target regardless of how WebKit's heuristic actually works.
+function memoryFlagHtml(card){
+  if(card.inlineSvg){
+    const dataUri = 'data:image/svg+xml,' + encodeURIComponent(card.inlineSvg);
+    return `<div class="memory-card-flag-bg" style="background-image:url('${dataUri}')"></div>`;
+  }
+  const emoji = fgFlagEmoji(card.code) || '';
+  const url = card.file ? fgBonusImageUrl(card.file) : `https://flagcdn.com/w160/${card.code}.png`;
+  return `<div class="memory-card-flag-bg" data-fallback="${escapeHtml(emoji)}">` +
+    `<img src="${url}" alt="" style="display:none" ` +
+    `onload="this.parentElement.style.backgroundImage='url('+this.src+')'" ` +
+    `onerror="this.parentElement.textContent=this.parentElement.dataset.fallback; this.parentElement.classList.add('memory-card-flag-fallback');">` +
+    `</div>`;
+}
+
 function memoryCardHtml(card){
   const faceUp = card.flipped || card.matched;
   let inner;
   if(!faceUp){
     inner = `<div class="memory-card-back">?</div>`;
   } else if(card.type === 'flag'){
-    inner = `<div class="memory-card-flag">${fgOptionFlagThumb(card)}</div>`;
+    inner = `<div class="memory-card-flag">${memoryFlagHtml(card)}</div>`;
   } else {
     inner = `<div class="memory-card-name">${escapeHtml(card.country)}</div>`;
   }
