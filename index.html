@@ -1284,6 +1284,7 @@
   .fg-flag-frame{
     width:100%; max-width:320px; margin:0 auto 24px;
     display:flex; align-items:center; justify-content:center;
+    aspect-ratio:3/2;
   }
   .fg-flag-frame img{ width:100%; height:auto; display:block; }
   .fg-flag-frame svg{ width:100%; height:auto; display:block; aspect-ratio:3/2; }
@@ -3537,6 +3538,30 @@ function fgRevealAnswer(round, pickedName){
   if(scoreEl) scoreEl.textContent = `Score: ${fgState.correctCount}`;
 }
 
+function fgWaitForImagesThenRestoreScroll(preservedY){
+  const doRestore = () => requestAnimationFrame(() => window.scrollTo({ top: preservedY, left: 0, behavior: 'instant' }));
+  const container = document.querySelector('.fg-wrap');
+  if(!container){ doRestore(); return; }
+  const imgs = Array.from(container.querySelectorAll('img')).filter(img => !img.complete);
+  if(imgs.length === 0){ doRestore(); return; }
+  let settled = 0;
+  let done = false;
+  function finish(){
+    if(done) return;
+    done = true;
+    doRestore();
+  }
+  imgs.forEach(img => {
+    const onSettle = () => {
+      settled++;
+      if(settled >= imgs.length) finish();
+    };
+    img.addEventListener('load', onSettle, { once: true });
+    img.addEventListener('error', onSettle, { once: true });
+  });
+  setTimeout(finish, 1200); // safety net -- never leave the page stuck if a network request hangs
+}
+
 function fgAnswer(pickedName){
   if(!fgState || fgState.answered) return;
   fgState.answered = true;
@@ -3562,7 +3587,7 @@ function fgAnswer(pickedName){
     }
     renderRoute();
     if(!gameJustEnded){
-      requestAnimationFrame(() => window.scrollTo({ top: preservedY, left: 0, behavior: 'instant' }));
+      fgWaitForImagesThenRestoreScroll(preservedY);
     }
   }, 900);
 }
