@@ -3510,7 +3510,7 @@ let fgState = null; // { rounds, current, correctCount, mistakes, answered }
 function fgLockScroll(){
   requestAnimationFrame(() => {
     const wrap = document.querySelector('.fg-wrap');
-    if(wrap) wrap.scrollIntoView({ block: 'start' });
+    if(wrap) wrap.scrollIntoView({ block: 'start', behavior: 'instant' });
   });
 }
 
@@ -17922,7 +17922,7 @@ function renderRoute(opts){
   } else {
     savedY = scrollMem[hash];
   }
-  requestAnimationFrame(()=> window.scrollTo(0, savedY !== undefined ? savedY : 0));
+  requestAnimationFrame(()=> window.scrollTo({ top: savedY !== undefined ? savedY : 0, left: 0, behavior: 'instant' }));
   lastRenderedHash = hash;
 }
 
