@@ -1461,6 +1461,29 @@
   .tf-answer-btn.tf-false{ background:#EF4444; }
   .tf-answer-btn:disabled{ opacity:.5; }
 
+  /* ---- Mini Crossword ---- */
+  .xw-grid{ display:grid; gap:3px; max-width:280px; margin:0 auto 18px; }
+  .xw-cell{
+    position:relative; aspect-ratio:1; background:var(--card); border:1.5px solid var(--line);
+    border-radius:3px; display:flex; align-items:center; justify-content:center;
+    font-family:'Space Mono', monospace; font-weight:700; font-size:20px; color:var(--ink);
+    cursor:pointer; touch-action:manipulation; -webkit-tap-highlight-color:transparent;
+  }
+  .xw-cell.selected{ background:var(--coral); border-color:var(--coral); color:#fff; }
+  .xw-cell.in-word{ background:#FCE8D8; border-color:var(--coral); }
+  .xw-cell.solved{ background:#6AAA64; border-color:#6AAA64; color:#fff; }
+  .xw-cell-number{
+    position:absolute; top:2px; left:3px; font-size:9px; font-weight:700;
+    color:var(--ink-soft); font-family:'Nunito', sans-serif;
+  }
+  .xw-cell.selected .xw-cell-number, .xw-cell.solved .xw-cell-number{ color:rgba(255,255,255,.85); }
+  .xw-clue-lists{ display:flex; flex-direction:column; gap:14px; margin-bottom:18px; max-width:340px; margin-left:auto; margin-right:auto; }
+  .xw-clue-group-title{ font-size:12px; font-weight:800; text-transform:uppercase; letter-spacing:.5px; color:var(--ink-soft); margin-bottom:6px; }
+  .xw-clue-row{ display:flex; gap:8px; font-size:13px; color:var(--ink); line-height:1.5; padding:4px 6px; border-radius:6px; cursor:pointer; touch-action:manipulation; }
+  .xw-clue-row.active{ background:#FCE8D8; font-weight:700; }
+  .xw-clue-num{ font-weight:800; color:var(--ink-soft); min-width:16px; }
+  .xw-solved-banner{ text-align:center; font-size:16px; font-weight:800; color:#6AAA64; margin-bottom:14px; }
+
   /* ---- Word Scramble / Anagram ---- */
   .anagram-clue{ text-align:center; font-size:15px; font-weight:700; color:var(--ink); line-height:1.5; padding:0 16px; margin-bottom:22px; }
   .anagram-answer-row{ display:flex; gap:6px; justify-content:center; margin-bottom:24px; flex-wrap:wrap; }
@@ -4986,6 +5009,211 @@ function tfExit(){
   renderRoute();
 }
 
+// ---- Mini Crossword ----
+// Small hand-designed fixed grids, not a random generator -- per direct instruction, too
+// complex for the value. Each puzzle is a fully open 4x4 grid (no black squares): every
+// row is an across word, every column is a down word, and all 8 words per puzzle are real,
+// common, unambiguous English words. Grids were found with a constraint solver against a
+// curated 4-letter word list (removes any risk of a hand-guessed grid containing a fake
+// "word" at an intersection), then verified letter-by-letter by hand before use. No word
+// is reused across the 4 puzzles.
+const XWORD_PUZZLES = [
+  {
+    size: 4,
+    across: ["MASK","ICON","LINE","EDGE"],
+    down:   ["MILE","ACID","SONG","KNEE"],
+    acrossClues: [
+      "Covering worn over the face",
+      "Small picture symbol on a screen",
+      "A straight mark, or a queue of people",
+      "The outer boundary of something",
+    ],
+    downClues: [
+      "Unit of distance, 1,760 yards",
+      "Sour-tasting chemical compound",
+      "A piece of music with lyrics",
+      "Joint between the thigh and shin",
+    ],
+  },
+  {
+    size: 4,
+    across: ["TWIN","HIDE","AREA","TEAR"],
+    down:   ["THAT","WIRE","IDEA","NEAR"],
+    acrossClues: [
+      "One of two identical siblings",
+      "To conceal from view",
+      "The size of a surface, or a region",
+      "A drop of liquid from crying",
+    ],
+    downClues: [
+      "Used to point to something further away, not 'this'",
+      "Thin strand of metal",
+      "A thought or plan",
+      "Close by",
+    ],
+  },
+  {
+    size: 4,
+    across: ["MORE","EVIL","LESS","TREE"],
+    down:   ["MELT","OVER","RISE","ELSE"],
+    acrossClues: [
+      "A greater amount",
+      "Morally wrong or wicked",
+      "A smaller amount",
+      "A tall plant with a trunk and branches",
+    ],
+    downClues: [
+      "To turn from solid to liquid with heat",
+      "Above, or finished",
+      "To go upward",
+      "Otherwise, or in addition",
+    ],
+  },
+  {
+    size: 4,
+    across: ["SHOT","LOVE","OPEN","WENT"],
+    down:   ["SLOW","HOPE","OVEN","TENT"],
+    acrossClues: [
+      "A single firing of a gun, or an attempt",
+      "A deep feeling of affection",
+      "Not closed",
+      "Past tense of 'go'",
+    ],
+    downClues: [
+      "Not fast",
+      "A feeling of expectation for something good",
+      "Appliance used for baking",
+      "Portable shelter made of fabric, used for camping",
+    ],
+  },
+];
+
+// Standard crossword numbering, generalised for any NxN fully-open grid: a cell gets a
+// number if it starts an across word (column 0) or a down word (row 0), assigned in
+// reading order. Returns per-row across numbers and per-column down numbers.
+function xwNumbering(size){
+  const acrossNumbers = new Array(size).fill(null);
+  const downNumbers = new Array(size).fill(null);
+  let n = 1;
+  for(let r=0;r<size;r++){
+    for(let c=0;c<size;c++){
+      const startsAcross = (c===0);
+      const startsDown = (r===0);
+      if(startsAcross || startsDown){
+        if(startsAcross) acrossNumbers[r] = n;
+        if(startsDown) downNumbers[c] = n;
+        n++;
+      }
+    }
+  }
+  return { acrossNumbers, downNumbers };
+}
+
+let xwState = null;
+
+function xwCell(r,c){ return xwState.userGrid[r*xwState.size + c]; }
+function xwSetCell(r,c,val){ xwState.userGrid[r*xwState.size + c] = val; }
+
+function xwStart(puzzleIndex){
+  const idx = puzzleIndex !== undefined && puzzleIndex !== null
+    ? puzzleIndex
+    : Math.floor(Math.random() * XWORD_PUZZLES.length);
+  const puzzle = XWORD_PUZZLES[idx];
+  const { acrossNumbers, downNumbers } = xwNumbering(puzzle.size);
+  xwState = {
+    puzzleIndex: idx,
+    puzzle,
+    size: puzzle.size,
+    userGrid: new Array(puzzle.size * puzzle.size).fill(''),
+    selected: { r: 0, c: 0 },
+    direction: 'across',
+    solved: false,
+    acrossNumbers,
+    downNumbers,
+  };
+  renderRoute();
+}
+
+function xwSelectCell(r,c){
+  if(!xwState || xwState.solved) return;
+  if(xwState.selected && xwState.selected.r === r && xwState.selected.c === c){
+    xwState.direction = xwState.direction === 'across' ? 'down' : 'across';
+  } else {
+    xwState.selected = { r, c };
+  }
+  renderRoute();
+}
+
+function xwCheckSolved(){
+  const p = xwState.puzzle;
+  for(let r=0;r<xwState.size;r++){
+    for(let c=0;c<xwState.size;c++){
+      if(xwCell(r,c) !== p.across[r][c]) return false;
+    }
+  }
+  return true;
+}
+
+function xwAdvance(){
+  const { r, c } = xwState.selected;
+  if(xwState.direction === 'across'){
+    if(c + 1 < xwState.size) xwState.selected = { r, c: c+1 };
+  } else {
+    if(r + 1 < xwState.size) xwState.selected = { r: r+1, c };
+  }
+}
+
+function xwRetreat(){
+  const { r, c } = xwState.selected;
+  if(xwState.direction === 'across'){
+    if(c - 1 >= 0) xwState.selected = { r, c: c-1 };
+  } else {
+    if(r - 1 >= 0) xwState.selected = { r: r-1, c };
+  }
+}
+
+function xwTypeLetter(letter){
+  if(!xwState || xwState.solved || !xwState.selected) return;
+  const { r, c } = xwState.selected;
+  xwSetCell(r, c, letter.toUpperCase());
+  if(xwCheckSolved()){
+    xwState.solved = true;
+    renderRoute();
+    return;
+  }
+  xwAdvance();
+  renderRoute();
+}
+
+function xwBackspace(){
+  if(!xwState || xwState.solved || !xwState.selected) return;
+  const { r, c } = xwState.selected;
+  if(xwCell(r,c) !== ''){
+    xwSetCell(r, c, '');
+  } else {
+    xwRetreat();
+    const { r: r2, c: c2 } = xwState.selected;
+    xwSetCell(r2, c2, '');
+  }
+  renderRoute();
+}
+
+function xwSelectClue(direction, number){
+  if(!xwState) return;
+  const numbers = direction === 'across' ? xwState.acrossNumbers : xwState.downNumbers;
+  const idx = numbers.indexOf(number);
+  if(idx === -1) return;
+  if(direction === 'across') xwState.selected = { r: idx, c: 0 };
+  else xwState.selected = { r: 0, c: idx };
+  xwState.direction = direction;
+  renderRoute();
+}
+
+function xwExit(){
+  xwState = null;
+  renderRoute();
+}
+
 
 function hangmanWordPool(difficulty){
   return difficulty === 'hard' ? WORDLE_HARD_WORDS : WORDLE_EASY_WORDS;
@@ -5123,6 +5351,7 @@ const GEOGRAPHY_HUB_TILES = [
   { name: "Hangman", emoji: icon('brain'), url: "#hangman-game", internal: true },
   { name: "Higher or Lower", emoji: icon('hourglass'), url: "#higher-lower-game", internal: true },
   { name: "True or False", emoji: icon('checkDouble'), url: "#true-false-game", internal: true },
+  { name: "Mini Crossword", emoji: icon('book'), url: "#xword-game", internal: true },
   geoHubExternalTile("GeoGuessr"),
   geoHubExternalTile("OpenGuessr"),
   geoHubExternalTile("Radio Garden"),
@@ -10698,6 +10927,111 @@ function viewTrueFalseGame(){
     return tfEndHtml();
   }
   return tfPlayingHtml();
+}
+
+function xwIntroHtml(){
+  return `
+    <a class="back-link" href="#geography-hub">← Back to Train Your Brain</a>
+    <section style="padding-top:14px;">
+      <div class="fg-wrap">
+        <div class="section-head"><span class="emoji">${icon('book')}</span><h2>Mini Crossword</h2></div>
+        <p style="font-size:14px; color:var(--ink-soft); line-height:1.6; margin-bottom:6px;">A small 4x4 crossword. Tap a cell to select it, tap again to switch between across and down. No timer -- take your time.</p>
+        <button class="fg-start-btn" data-action="xword-start">Start</button>
+      </div>
+    </section>
+  `;
+}
+
+function xwGridHtml(){
+  const { size, puzzle, userGrid, selected, direction, solved, acrossNumbers, downNumbers } = xwState;
+  let cells = '';
+  for(let r=0;r<size;r++){
+    for(let c=0;c<size;c++){
+      const letter = userGrid[r*size+c];
+      const isSelected = !solved && selected.r === r && selected.c === c;
+      const inSelectedWord = !solved && !isSelected && (
+        (direction === 'across' && selected.r === r) ||
+        (direction === 'down' && selected.c === c)
+      );
+      let cls = 'xw-cell';
+      if(solved) cls += ' solved';
+      else if(isSelected) cls += ' selected';
+      else if(inSelectedWord) cls += ' in-word';
+      let numberLabel = '';
+      if(c === 0 && acrossNumbers[r] !== null) numberLabel = acrossNumbers[r];
+      else if(r === 0 && downNumbers[c] !== null) numberLabel = downNumbers[c];
+      cells += `<button class="${cls}" data-action="xword-cell" data-r="${r}" data-c="${c}" ${solved ? 'disabled' : ''}>${numberLabel ? `<span class="xw-cell-number">${numberLabel}</span>` : ''}${escapeHtml(letter)}</button>`;
+    }
+  }
+  return `<div class="xw-grid" style="grid-template-columns:repeat(${size}, 1fr);">${cells}</div>`;
+}
+
+function xwCluesHtml(){
+  const { puzzle, selected, direction, acrossNumbers, downNumbers, solved } = xwState;
+  const acrossRows = puzzle.acrossClues.map((clue, r) => {
+    const active = !solved && direction === 'across' && selected.r === r;
+    return `<div class="xw-clue-row${active ? ' active' : ''}" data-action="xword-clue" data-direction="across" data-number="${acrossNumbers[r]}"><span class="xw-clue-num">${acrossNumbers[r]}.</span><span>${escapeHtml(clue)}</span></div>`;
+  }).join('');
+  const downRows = puzzle.downClues.map((clue, c) => {
+    const active = !solved && direction === 'down' && selected.c === c;
+    return `<div class="xw-clue-row${active ? ' active' : ''}" data-action="xword-clue" data-direction="down" data-number="${downNumbers[c]}"><span class="xw-clue-num">${downNumbers[c]}.</span><span>${escapeHtml(clue)}</span></div>`;
+  }).join('');
+  return `
+    <div class="xw-clue-lists">
+      <div>
+        <div class="xw-clue-group-title">Across</div>
+        ${acrossRows}
+      </div>
+      <div>
+        <div class="xw-clue-group-title">Down</div>
+        ${downRows}
+      </div>
+    </div>
+  `;
+}
+
+function xwKeyboardHtml(){
+  const rows = [
+    ['Q','W','E','R','T','Y','U','I','O','P'],
+    ['A','S','D','F','G','H','J','K','L'],
+    ['BACKSPACE','Z','X','C','V','B','N','M'],
+  ];
+  return `
+    <div class="wordle-keyboard">
+      ${rows.map(row => `
+        <div class="wordle-kb-row">
+          ${row.map(k => {
+            if(k === 'BACKSPACE') return `<button class="wordle-key wide" data-action="xword-key" data-key="BACKSPACE">⌫</button>`;
+            return `<button class="wordle-key" data-action="xword-key" data-key="${k}">${k}</button>`;
+          }).join('')}
+        </div>
+      `).join('')}
+    </div>
+  `;
+}
+
+function xwPlayingHtml(){
+  return `
+    <a class="back-link" href="#geography-hub">← Back to Train Your Brain</a>
+    <section style="padding-top:14px;">
+      <div class="fg-wrap">
+        ${xwState.solved ? `<div class="xw-solved-banner">Solved! 🎉</div>` : ''}
+        ${xwGridHtml()}
+        ${xwCluesHtml()}
+        ${xwState.solved
+          ? `<button class="fg-start-btn" data-action="xword-start">New Puzzle</button>`
+          : xwKeyboardHtml()
+        }
+      </div>
+    </section>
+  `;
+}
+
+function viewXwordGame(){
+  if(!xwState){
+    return xwIntroHtml();
+  }
+  return xwPlayingHtml();
 }
 
 function viewSaved(){
@@ -16948,6 +17282,31 @@ document.addEventListener('click', (e) => {
     tfAnswer(tfAnswerBtn.dataset.guess === 'true');
     return;
   }
+  const xwordStartBtn = e.target.closest('[data-action="xword-start"]');
+  if(xwordStartBtn){
+    e.preventDefault();
+    xwStart();
+    return;
+  }
+  const xwordCellBtn = e.target.closest('[data-action="xword-cell"]');
+  if(xwordCellBtn){
+    e.preventDefault();
+    xwSelectCell(parseInt(xwordCellBtn.dataset.r, 10), parseInt(xwordCellBtn.dataset.c, 10));
+    return;
+  }
+  const xwordClueBtn = e.target.closest('[data-action="xword-clue"]');
+  if(xwordClueBtn){
+    e.preventDefault();
+    xwSelectClue(xwordClueBtn.dataset.direction, parseInt(xwordClueBtn.dataset.number, 10));
+    return;
+  }
+  const xwordKeyBtn = e.target.closest('[data-action="xword-key"]');
+  if(xwordKeyBtn){
+    e.preventDefault();
+    if(xwordKeyBtn.dataset.key === 'BACKSPACE') xwBackspace();
+    else xwTypeLetter(xwordKeyBtn.dataset.key);
+    return;
+  }
   const clearSavedBtn = e.target.closest('[data-action="clear-saved"]');
   if(clearSavedBtn){
     e.preventDefault();
@@ -17072,6 +17431,8 @@ function renderRoute(opts){
     html = viewHigherLowerGame();
   } else if(parts[0] === 'true-false-game'){
     html = viewTrueFalseGame();
+  } else if(parts[0] === 'xword-game'){
+    html = viewXwordGame();
   } else if(parts[0] === 'geography-hub'){
     html = viewGeographyHub();
   } else if(parts[0] === 'mind-temple'){
@@ -17141,6 +17502,7 @@ function renderRoute(opts){
   if(parts[0] !== 'hangman-game' && hangmanState){ hangmanState = null; }
   if(parts[0] !== 'higher-lower-game' && higherLowerState){ higherLowerState = null; }
   if(parts[0] !== 'true-false-game' && tfState){ tfState = null; }
+  if(parts[0] !== 'xword-game' && xwState){ xwState = null; }
   if(parts[0] === 'arcade' && parts[1]){ wireArcade(parts[1]); }
   if(parts[0] === 'install'){ wireInstallPage(); }
   if(parts[0] === 'stats'){ loadStats(); }
