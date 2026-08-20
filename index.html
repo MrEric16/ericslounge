@@ -1375,9 +1375,10 @@
   }
   .memory-card.flipped, .memory-card.matched{ background:var(--card); border:2px solid var(--line); box-shadow:none; }
   .memory-card.matched{ opacity:.5; border-color:#6AAA64; }
-  .memory-card-back{ font-size:22px; color:#fff; font-weight:800; }
-  .memory-card-name{ font-size:10.5px; font-weight:800; text-align:center; color:var(--ink); line-height:1.2; }
-  .memory-card-flag{ width:100%; height:100%; display:flex; align-items:center; justify-content:center; overflow:hidden; }
+  .memory-card-back{ font-size:22px; color:#fff; font-weight:800; pointer-events:none; }
+  .memory-card-name{ font-size:10.5px; font-weight:800; text-align:center; color:var(--ink); line-height:1.2; pointer-events:none; }
+  .memory-card-flag{ width:100%; height:100%; display:flex; align-items:center; justify-content:center; overflow:hidden; pointer-events:none; touch-action:manipulation; }
+  .memory-card-flag *{ pointer-events:none; touch-action:manipulation; -webkit-touch-callout:none; -webkit-user-select:none; user-select:none; }
   .memory-card-flag img, .memory-card-flag svg{ width:100%; height:100%; object-fit:contain; display:block; }
   .memory-card-flag .fg-option-flag-thumb{ aspect-ratio:auto; height:100%; width:100%; }
 
