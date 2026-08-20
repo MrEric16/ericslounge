@@ -18361,6 +18361,45 @@ function triggerWeekendEgg(){
     if(document.body.classList.contains('mm-no-zoom')) e.preventDefault();
   }, { passive: false });
 })();
+
+/* ---- 14: Memory Match zoom circuit-breaker (catches ANY zoom, regardless of cause) ----
+   Four prior attempts each targeted a specific suspected trigger (touch-action loophole,
+   img/svg smart-zoom targeting, DOM-recreation-under-touch, focus-triggered auto-scroll).
+   Each addressed something real, none fully stopped it -- there may be more than one path
+   to the same symptom, or one this hasn't found yet. Rather than keep guessing triggers,
+   this watches the actual result directly: window.visualViewport reports the page's live
+   zoom scale no matter what caused it to change. Any time that scale drifts above 1 while
+   on the memory-game route, this forces it back by toggling the viewport meta tag's content
+   attribute -- a documented, reliable way to make Safari immediately recompute and snap the
+   zoom back to 1.0. This does not try to be right about the cause. It just undoes the
+   effect, every single time, automatically, as fast as the browser reports it. */
+(function(){
+  if(!('visualViewport' in window)) return;
+  let resetting = false;
+  function forceResetZoom(){
+    if(resetting) return;
+    resetting = true;
+    const vp = document.querySelector('meta[name="viewport"]');
+    if(vp){
+      const original = vp.getAttribute('content');
+      vp.setAttribute('content', original + ', shrink-to-fit=no');
+      requestAnimationFrame(() => {
+        vp.setAttribute('content', original);
+        resetting = false;
+      });
+    } else {
+      resetting = false;
+    }
+  }
+  window.visualViewport.addEventListener('resize', function(){
+    if(!document.body.classList.contains('mm-no-zoom')) return;
+    if(window.visualViewport.scale > 1.02){ forceResetZoom(); }
+  });
+  window.visualViewport.addEventListener('scroll', function(){
+    if(!document.body.classList.contains('mm-no-zoom')) return;
+    if(window.visualViewport.scale > 1.02){ forceResetZoom(); }
+  });
+})();
 </script>
 
 </body>
