@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-20T21:51:19.432159Z",
+  "generatedAt": "2026-08-20T22:18:17.572744Z",
   "results": [
     {
       "url": "https://www.goal.com/en/match/girona-vs-arsenal/__LS8d9Oc6I1wXn9g8956",
@@ -275,9 +275,25 @@
         }
       ],
       "competition": "PD"
+    },
+    {
+      "url": "https://www.goal.com/en/match/rayo-vallecano-vs-deportivo-alaves/Kz0cyFp6Yrx0loxuBLHwr",
+      "date": "2026-08-20",
+      "home": "Rayo Vallecano",
+      "away": "Deportivo Alaves",
+      "htHome": 0,
+      "htAway": 0,
+      "ftHome": 1,
+      "ftAway": 1,
+      "homeGoals": [
+        {
+          "scorer": "M. Diaz",
+          "minute": 84
+        }
+      ],
+      "awayGoals": [],
+      "competition": "PD"
     }
   ],
-  "scorerParseRetryCounts": {
-    "https://www.goal.com/en/match/rayo-vallecano-vs-deportivo-alaves/Kz0cyFp6Yrx0loxuBLHwr": 2
-  }
+  "scorerParseRetryCounts": {}
 }
