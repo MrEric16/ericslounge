@@ -4424,16 +4424,48 @@ function memoryStart(){
   renderRoute();
 }
 
-// Updates only the grid + progress text in place, rather than rebuilding the entire page
-// via renderRoute(). This is the real fix for the full-screen flash on every tap -- the
-// previous version called the global renderRoute() on every single flip, which tears down
-// and rebuilds the ENTIRE page (header, background decorations, nav) each time, not just
-// the card grid. A full-page rebuild dozens of times per game is also the likely cause of
-// the reported zoom drift, on top of being wasteful.
-function memoryRerenderLocal(){
-  const gridEl = document.getElementById('memoryGridContainer');
+// Surgical, per-card DOM updates -- NOT a full grid innerHTML replace. Only the button(s)
+// whose state actually changed get touched; every other card node (including, critically,
+// the one the finger is currently resolving a touch on) is left completely alone.
+//
+// Previous version (memoryRerenderLocal) replaced ALL 16 button elements via innerHTML on
+// every single tap, including the tapped card itself, synchronously inside the tap handler.
+// Destroying and recreating the DOM node under an active touch, in the same tick as the
+// touch event, is a documented trigger for WebKit's gesture recognizer to misresolve what
+// was tapped -- and it can fall back to a zoom-to-fit heuristic when it can't. Flag reveals
+// do measurably heavier DOM work per swap (image src / larger inline SVG) than a plain text
+// swap, which is consistent with the zoom being flag-biased without being 100% deterministic
+// per flip -- it's a race, not a guarantee, which also fits it not firing on every flag tap.
+function memoryUpdateCardEl(card){
+  const btn = document.querySelector(`.memory-card[data-id="${card.id}"]`);
+  if(!btn) return;
+  const faceUp = card.flipped || card.matched;
+  let inner;
+  if(!faceUp){
+    inner = `<div class="memory-card-back">?</div>`;
+  } else if(card.type === 'flag'){
+    inner = `<div class="memory-card-flag">${memoryFlagHtml(card)}</div>`;
+  } else {
+    inner = `<div class="memory-card-name">${escapeHtml(card.country)}</div>`;
+  }
+  btn.innerHTML = inner;
+  btn.className = `memory-card${card.flipped ? ' flipped' : ''}${card.matched ? ' matched' : ''}`;
+  if(faceUp || memoryState.locked){ btn.setAttribute('disabled', ''); } else { btn.removeAttribute('disabled'); }
+}
+
+// Toggling the disabled attribute is a plain attribute change, not a node replacement --
+// safe to do across every card without any risk of the DOM-recreation-under-touch problem.
+function memorySetLocked(locked){
+  document.querySelectorAll('.memory-card').forEach(btn => {
+    const card = memoryState.cards.find(c => c.id === btn.dataset.id);
+    if(!card) return;
+    const faceUp = card.flipped || card.matched;
+    if(faceUp || locked){ btn.setAttribute('disabled', ''); } else { btn.removeAttribute('disabled'); }
+  });
+}
+
+function memoryUpdateProgress(){
   const progressEl = document.getElementById('memoryProgressRow');
-  if(gridEl) gridEl.innerHTML = memoryState.cards.map(memoryCardHtml).join('');
   if(progressEl) progressEl.innerHTML = `
     <span>Pairs: ${memoryState.matchedPairs} of ${MEMORY_PAIR_COUNT}</span>
     <span>Moves: ${memoryState.moves}</span>
@@ -4447,11 +4479,13 @@ function memoryTapCard(cardId){
 
   card.flipped = true;
   memoryState.flippedIds.push(cardId);
-  memoryRerenderLocal();
+  memoryUpdateCardEl(card);
 
   if(memoryState.flippedIds.length === 2){
     memoryState.moves++;
     memoryState.locked = true;
+    memorySetLocked(true);
+    memoryUpdateProgress();
     const [id1, id2] = memoryState.flippedIds;
     const c1 = memoryState.cards.find(c => c.id === id1);
     const c2 = memoryState.cards.find(c => c.id === id2);
@@ -4473,7 +4507,10 @@ function memoryTapCard(cardId){
       }
       memoryState.flippedIds = [];
       memoryState.locked = false;
-      memoryRerenderLocal();
+      memoryUpdateCardEl(c1);
+      memoryUpdateCardEl(c2);
+      memorySetLocked(false);
+      memoryUpdateProgress();
     }, isMatch ? 500 : 900);
   }
 }
