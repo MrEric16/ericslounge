@@ -1414,6 +1414,32 @@
   .hangman-life-dot{ width:14px; height:14px; border-radius:50%; background:#6AAA64; }
   .hangman-life-dot.lost{ background:#EF4444; opacity:.35; }
 
+  /* ---- Higher or Lower ---- */
+  .hl-cards-row{ display:flex; align-items:center; justify-content:center; gap:10px; margin:20px 0 24px; }
+  .hl-card{
+    flex:1; max-width:160px; min-height:190px; border-radius:14px; padding:16px 10px;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    text-align:center; background:var(--card); border:2px solid var(--line);
+  }
+  .hl-card-event{ font-size:13px; font-weight:700; color:var(--ink); line-height:1.4; margin-bottom:12px; }
+  .hl-card-year{ font-family:'Space Mono', monospace; font-weight:800; font-size:30px; color:var(--ink); }
+  .hl-card-year.hidden{ color:var(--ink-soft); font-size:26px; }
+  .hl-card.next{ background:var(--coral); border-color:var(--coral); }
+  .hl-card.next .hl-card-event, .hl-card.next .hl-card-year{ color:#fff; }
+  .hl-card.correct{ background:#6AAA64; border-color:#6AAA64; }
+  .hl-card.correct .hl-card-event, .hl-card.correct .hl-card-year{ color:#fff; }
+  .hl-card.wrong{ background:#EF4444; border-color:#EF4444; }
+  .hl-card.wrong .hl-card-event, .hl-card.wrong .hl-card-year{ color:#fff; }
+  .hl-vs{ font-family:'Baloo 2', sans-serif; font-weight:800; font-size:13px; color:var(--ink-soft); }
+  .hl-guess-row{ display:flex; gap:12px; justify-content:center; margin-top:4px; }
+  .hl-guess-btn{
+    flex:1; max-width:150px; padding:14px 0; border-radius:12px; border:none;
+    font-family:'Baloo 2', sans-serif; font-weight:800; font-size:15px; color:#fff;
+    background:var(--ink-solid); cursor:pointer; touch-action:manipulation;
+  }
+  .hl-guess-btn:disabled{ opacity:.5; }
+  .hl-streak-row{ text-align:center; font-family:'Space Mono', monospace; font-weight:700; font-size:15px; color:var(--ink-soft); margin-bottom:6px; }
+
   /* ---- Word Scramble / Anagram ---- */
   .anagram-clue{ text-align:center; font-size:15px; font-weight:700; color:var(--ink); line-height:1.5; padding:0 16px; margin-bottom:22px; }
   .anagram-answer-row{ display:flex; gap:6px; justify-content:center; margin-bottom:24px; flex-wrap:wrap; }
@@ -4697,6 +4723,134 @@ const HANGMAN_CURRENT_STREAK_KEY = 'hangmanCurrentStreak';
 const HANGMAN_WINS_KEY = 'hangmanWins';
 const HANGMAN_GAMES_KEY = 'hangmanGamesPlayed';
 
+// ---- Higher or Lower ----
+// Chain game: shown one event with its year revealed, guess whether the next event
+// happened before or after it. Correct -> the next event becomes the new anchor, chain
+// continues. Wrong -> game over, streak recorded. Dates are well-established, commonly
+// taught historical facts -- not obscure or contested, so no per-item source citation
+// needed (matches how other games' general-knowledge content is handled sitewide).
+const HL_EVENTS = [
+  { event: "The first Moon landing", year: 1969 },
+  { event: "The fall of the Berlin Wall", year: 1989 },
+  { event: "The invention of the World Wide Web", year: 1989 },
+  { event: "The end of World War II", year: 1945 },
+  { event: "The sinking of the Titanic", year: 1912 },
+  { event: "The first iPhone released", year: 2007 },
+  { event: "The French Revolution began", year: 1789 },
+  { event: "The signing of the US Declaration of Independence", year: 1776 },
+  { event: "The first flight by the Wright brothers", year: 1903 },
+  { event: "The collapse of the Soviet Union", year: 1991 },
+  { event: "The first modern Olympic Games", year: 1896 },
+  { event: "Christopher Columbus reached the Americas", year: 1492 },
+  { event: "The Great Fire of London", year: 1666 },
+  { event: "The first successful heart transplant", year: 1967 },
+  { event: "The founding of Facebook", year: 2004 },
+  { event: "The Chernobyl nuclear disaster", year: 1986 },
+  { event: "The assassination of John F. Kennedy", year: 1963 },
+  { event: "The launch of Sputnik, the first artificial satellite", year: 1957 },
+  { event: "The publication of Darwin's On the Origin of Species", year: 1859 },
+  { event: "The abolition of slavery in the British Empire", year: 1833 },
+  { event: "The start of the First World War", year: 1914 },
+  { event: "The independence of India", year: 1947 },
+  { event: "The invention of the telephone", year: 1876 },
+  { event: "The first V-2 rocket to reach space", year: 1944 },
+  { event: "The Cuban Missile Crisis", year: 1962 },
+  { event: "The premiere of the first Star Wars film", year: 1977 },
+  { event: "The death of Queen Elizabeth II", year: 2022 },
+  { event: "The release of the first PlayStation console", year: 1994 },
+  { event: "The Battle of Hastings", year: 1066 },
+  { event: "The unification of Germany", year: 1871 },
+  { event: "The founding of Google", year: 1998 },
+  { event: "The Treaty of Paris, ending the American Revolutionary War", year: 1783 },
+  { event: "The Wall Street Crash", year: 1929 },
+  { event: "The first colour television broadcasts", year: 1953 },
+  { event: "The completion of the Suez Canal", year: 1869 },
+  { event: "The fall of Constantinople", year: 1453 },
+  { event: "The first edition of the Guinness World Records", year: 1955 },
+  { event: "The release of the first Harry Potter book", year: 1997 },
+  { event: "The launch of the Hubble Space Telescope", year: 1990 },
+  { event: "The independence of Uzbekistan", year: 1991 },
+];
+const HL_BEST_STREAK_KEY = 'higherLowerBestStreak';
+
+let higherLowerState = null;
+
+function hlPickNext(usedIndexes){
+  const available = HL_EVENTS.map((_, i) => i).filter(i => !usedIndexes.has(i));
+  if(available.length === 0) return null;
+  return available[Math.floor(Math.random() * available.length)];
+}
+
+function higherLowerStart(){
+  const used = new Set();
+  const startIdx = hlPickNext(used);
+  used.add(startIdx);
+  const nextIdx = hlPickNext(used);
+  used.add(nextIdx);
+  higherLowerState = {
+    usedIndexes: used,
+    currentIdx: startIdx,
+    nextIdx,
+    streak: 0,
+    revealed: false,   // true briefly while showing correct/wrong before advancing
+    lastCorrect: null,
+    over: false,
+  };
+  renderRoute();
+}
+
+function higherLowerGuess(direction){
+  if(!higherLowerState || higherLowerState.over || higherLowerState.revealed) return;
+  const current = HL_EVENTS[higherLowerState.currentIdx];
+  const next = HL_EVENTS[higherLowerState.nextIdx];
+  const actual = next.year >= current.year ? 'higher' : 'lower';
+  const correct = direction === actual;
+  higherLowerState.revealed = true;
+  higherLowerState.lastCorrect = correct;
+  renderRoute();
+  setTimeout(() => {
+    if(!higherLowerState) return;
+    if(!correct){
+      higherLowerState.over = true;
+      let best = 0;
+      try{ best = parseInt(localStorage.getItem(HL_BEST_STREAK_KEY) || '0', 10); }catch(e){}
+      higherLowerState.isNewBest = higherLowerState.streak > best;
+      if(higherLowerState.isNewBest){
+        try{ localStorage.setItem(HL_BEST_STREAK_KEY, String(higherLowerState.streak)); }catch(e){}
+      }
+      renderRoute();
+      return;
+    }
+    higherLowerState.streak++;
+    higherLowerState.currentIdx = higherLowerState.nextIdx;
+    const nextIdx = hlPickNext(higherLowerState.usedIndexes);
+    if(nextIdx === null){
+      // Ran out of events -- treat as a clean win, not a loss.
+      higherLowerState.over = true;
+      higherLowerState.ranOut = true;
+      let best = 0;
+      try{ best = parseInt(localStorage.getItem(HL_BEST_STREAK_KEY) || '0', 10); }catch(e){}
+      higherLowerState.isNewBest = higherLowerState.streak > best;
+      if(higherLowerState.isNewBest){
+        try{ localStorage.setItem(HL_BEST_STREAK_KEY, String(higherLowerState.streak)); }catch(e){}
+      }
+      renderRoute();
+      return;
+    }
+    higherLowerState.usedIndexes.add(nextIdx);
+    higherLowerState.nextIdx = nextIdx;
+    higherLowerState.revealed = false;
+    higherLowerState.lastCorrect = null;
+    renderRoute();
+  }, correct ? 900 : 1600);
+}
+
+function higherLowerExit(){
+  higherLowerState = null;
+  renderRoute();
+}
+
+
 function hangmanWordPool(difficulty){
   return difficulty === 'hard' ? WORDLE_HARD_WORDS : WORDLE_EASY_WORDS;
 }
@@ -4831,6 +4985,7 @@ const GEOGRAPHY_HUB_TILES = [
   { name: "Memory Match", emoji: icon('coin'), url: "#memory-game", internal: true },
   { name: "Country Silhouette", emoji: icon('moon'), url: "#silhouette-game", internal: true },
   { name: "Hangman", emoji: icon('brain'), url: "#hangman-game", internal: true },
+  { name: "Higher or Lower", emoji: icon('hourglass'), url: "#higher-lower-game", internal: true },
   geoHubExternalTile("GeoGuessr"),
   geoHubExternalTile("OpenGuessr"),
   geoHubExternalTile("Radio Garden"),
@@ -10260,6 +10415,82 @@ function viewHangmanGame(){
     return hangmanEndHtml();
   }
   return hangmanPlayingHtml();
+}
+
+function higherLowerIntroHtml(){
+  let best = 0;
+  try{ best = parseInt(localStorage.getItem(HL_BEST_STREAK_KEY) || '0', 10); }catch(e){}
+  return `
+    <a class="back-link" href="#geography-hub">← Back to Train Your Brain</a>
+    <section style="padding-top:14px;">
+      <div class="fg-wrap">
+        <div class="section-head"><span class="emoji">${icon('hourglass')}</span><h2>Higher or Lower</h2></div>
+        <p style="font-size:14px; color:var(--ink-soft); line-height:1.6; margin-bottom:6px;">You'll see a historical event and its year. Guess whether the next event happened before or after it. One wrong guess ends the run.</p>
+        <div class="fg-intro-stats">
+          <div class="fg-intro-stat"><div class="num">${best}</div><div class="label">Best Streak</div></div>
+        </div>
+        <button class="fg-start-btn" data-action="higher-lower-start">Start</button>
+      </div>
+    </section>
+  `;
+}
+
+function higherLowerPlayingHtml(){
+  const current = HL_EVENTS[higherLowerState.currentIdx];
+  const next = HL_EVENTS[higherLowerState.nextIdx];
+  const revealed = higherLowerState.revealed;
+  const correct = higherLowerState.lastCorrect;
+  let nextCardClass = 'hl-card next';
+  if(revealed) nextCardClass = correct ? 'hl-card correct' : 'hl-card wrong';
+  return `
+    <section style="padding-top:14px;">
+      <div class="fg-wrap">
+        <div class="hl-streak-row">Streak: ${higherLowerState.streak}</div>
+        <div class="hl-cards-row">
+          <div class="hl-card">
+            <div class="hl-card-event">${escapeHtml(current.event)}</div>
+            <div class="hl-card-year">${current.year}</div>
+          </div>
+          <div class="hl-vs">VS</div>
+          <div class="${nextCardClass}">
+            <div class="hl-card-event">${escapeHtml(next.event)}</div>
+            <div class="hl-card-year${revealed ? '' : ' hidden'}">${revealed ? next.year : '?'}</div>
+          </div>
+        </div>
+        <div class="hl-guess-row">
+          <button class="hl-guess-btn" data-action="higher-lower-guess" data-direction="lower" ${revealed ? 'disabled' : ''}>Before ${current.year}</button>
+          <button class="hl-guess-btn" data-action="higher-lower-guess" data-direction="higher" ${revealed ? 'disabled' : ''}>After ${current.year}</button>
+        </div>
+      </div>
+    </section>
+  `;
+}
+
+function higherLowerEndHtml(){
+  let best = 0;
+  try{ best = parseInt(localStorage.getItem(HL_BEST_STREAK_KEY) || '0', 10); }catch(e){}
+  const heading = higherLowerState.ranOut ? "You've seen them all" : "Run over";
+  return `
+    <a class="back-link" href="#geography-hub">← Back to Train Your Brain</a>
+    <section style="padding-top:14px;">
+      <div class="fg-wrap">
+        <div class="section-head"><span class="emoji">${icon('hourglass')}</span><h2>${heading}</h2></div>
+        <div class="fg-end-score" style="font-family:'Space Mono', monospace; font-size:36px;">${higherLowerState.streak}</div>
+        <div class="fg-end-label">${higherLowerState.isNewBest ? 'New best streak!' : `Best streak: ${best}`}</div>
+        <button class="fg-start-btn" data-action="higher-lower-start">Play Again</button>
+      </div>
+    </section>
+  `;
+}
+
+function viewHigherLowerGame(){
+  if(!higherLowerState){
+    return higherLowerIntroHtml();
+  }
+  if(higherLowerState.over){
+    return higherLowerEndHtml();
+  }
+  return higherLowerPlayingHtml();
 }
 
 function viewSaved(){
@@ -16486,6 +16717,18 @@ document.addEventListener('click', (e) => {
     hangmanGuessLetter(hangmanKeyBtn.dataset.key);
     return;
   }
+  const higherLowerStartBtn = e.target.closest('[data-action="higher-lower-start"]');
+  if(higherLowerStartBtn){
+    e.preventDefault();
+    higherLowerStart();
+    return;
+  }
+  const higherLowerGuessBtn = e.target.closest('[data-action="higher-lower-guess"]');
+  if(higherLowerGuessBtn){
+    e.preventDefault();
+    higherLowerGuess(higherLowerGuessBtn.dataset.direction);
+    return;
+  }
   const clearSavedBtn = e.target.closest('[data-action="clear-saved"]');
   if(clearSavedBtn){
     e.preventDefault();
@@ -16606,6 +16849,8 @@ function renderRoute(opts){
     html = viewSilhouetteGame();
   } else if(parts[0] === 'hangman-game'){
     html = viewHangmanGame();
+  } else if(parts[0] === 'higher-lower-game'){
+    html = viewHigherLowerGame();
   } else if(parts[0] === 'geography-hub'){
     html = viewGeographyHub();
   } else if(parts[0] === 'mind-temple'){
@@ -16673,6 +16918,7 @@ function renderRoute(opts){
   if(parts[0] !== 'memory-game' && memoryState){ memoryState = null; }
   if(parts[0] !== 'silhouette-game' && silhouetteState){ silhouetteState = null; }
   if(parts[0] !== 'hangman-game' && hangmanState){ hangmanState = null; }
+  if(parts[0] !== 'higher-lower-game' && higherLowerState){ higherLowerState = null; }
   if(parts[0] === 'arcade' && parts[1]){ wireArcade(parts[1]); }
   if(parts[0] === 'install'){ wireInstallPage(); }
   if(parts[0] === 'stats'){ loadStats(); }
@@ -18363,19 +18609,44 @@ function triggerWeekendEgg(){
   }, { passive: false });
 })();
 
-/* ---- 14: Memory Match zoom circuit-breaker (silent, defence-in-depth) ----
-   Debug readout removed -- user confirmed via screenshot after the cell-size-lock fix
-   (contain:size layout style on .memory-card) that zoom scale stayed at 1.000 with 0 reset
-   attempts needed. That fix (locking cell dimensions so nothing inside a card can ever
-   resize it) appears to be what actually solved it. This silent watcher stays in place as
-   a costless safety net -- inert unless visualViewport.scale genuinely drifts above 1 on
-   the memory-game route, in which case it still forces it back. */
+/* ---- 14: Memory Match zoom circuit-breaker + VISIBLE DEBUG READOUT ----
+   Prior version of this circuit-breaker ran silently and did not visibly stop the zoom on
+   device (confirmed via video, frame-by-frame -- zoomed instantly on tap and stayed zoomed,
+   no snap-back at all). That means either the reset technique itself doesn't work on this
+   iOS/Safari version, or the resize/scroll listeners aren't firing the way assumed, or
+   scale genuinely isn't the thing changing. No way to tell which from here without live
+   numbers -- so this version shows them, on-screen, in real time, only on the memory-game
+   route. This turns the next test from "still broken" into actual diagnostic data: does
+   scale visibly go above 1.00, does the reset counter increment, does scale visibly drop
+   back after a reset attempt. */
 (function(){
   if(!('visualViewport' in window)) return;
   let resetting = false;
+  let resetAttempts = 0;
+  let debugEl = null;
+
+  function ensureDebugEl(){
+    if(debugEl && document.body.contains(debugEl)) return debugEl;
+    debugEl = document.createElement('div');
+    debugEl.id = 'mmZoomDebug';
+    debugEl.style.cssText = 'position:fixed;top:env(safe-area-inset-top,8px);left:8px;z-index:999999;background:rgba(0,0,0,.82);color:#3f3;font:11px/1.4 monospace;padding:5px 9px;border-radius:7px;pointer-events:none;white-space:pre;';
+    document.body.appendChild(debugEl);
+    return debugEl;
+  }
+  function removeDebugEl(){
+    if(debugEl){ debugEl.remove(); debugEl = null; }
+  }
+  function updateDebug(){
+    if(!document.body.classList.contains('mm-no-zoom')){ removeDebugEl(); return; }
+    const el = ensureDebugEl();
+    const s = window.visualViewport.scale;
+    el.textContent = `zoom scale: ${s.toFixed(3)}\nreset attempts: ${resetAttempts}`;
+  }
+
   function forceResetZoom(){
     if(resetting) return;
     resetting = true;
+    resetAttempts++;
     const vp = document.querySelector('meta[name="viewport"]');
     if(vp){
       const original = vp.getAttribute('content');
@@ -18383,19 +18654,28 @@ function triggerWeekendEgg(){
       requestAnimationFrame(() => {
         vp.setAttribute('content', original);
         resetting = false;
+        updateDebug();
       });
     } else {
       resetting = false;
     }
+    updateDebug();
   }
+
   window.visualViewport.addEventListener('resize', function(){
+    updateDebug();
     if(!document.body.classList.contains('mm-no-zoom')) return;
     if(window.visualViewport.scale > 1.02){ forceResetZoom(); }
   });
   window.visualViewport.addEventListener('scroll', function(){
+    updateDebug();
     if(!document.body.classList.contains('mm-no-zoom')) return;
     if(window.visualViewport.scale > 1.02){ forceResetZoom(); }
   });
+  // Route changes toggle mm-no-zoom outside of any visualViewport event, so poll briefly
+  // on an interval too -- this is what shows/hides the readout on entering/leaving the page,
+  // and catches any scale change that doesn't happen to fire a visualViewport event.
+  setInterval(updateDebug, 200);
 })();
 </script>
 
