@@ -3889,12 +3889,12 @@ function wordleKeyPress(key){
   }
   if(key === 'BACKSPACE'){
     wordleState.currentGuess = wordleState.currentGuess.slice(0, -1);
-    renderRoute();
+    wordleUpdateCurrentRow();
     return;
   }
   if(/^[A-Z]$/.test(key) && wordleState.currentGuess.length < 5){
     wordleState.currentGuess += key;
-    renderRoute();
+    wordleUpdateCurrentRow();
   }
 }
 
@@ -4446,12 +4446,12 @@ function nerdleKeyPress(key){
   }
   if(key === 'BACKSPACE'){
     nerdleState.currentGuess = nerdleState.currentGuess.slice(0, -1);
-    renderRoute();
+    nerdleUpdateCurrentRow();
     return;
   }
   if(/^[0-9+\-*/=]$/.test(key) && nerdleState.currentGuess.length < NERDLE_LENGTH){
     nerdleState.currentGuess += key;
-    renderRoute();
+    nerdleUpdateCurrentRow();
   }
 }
 
@@ -9989,21 +9989,35 @@ function wordleIntroHtml(){
   `;
 }
 
+function wordleRowCellsHtml(r){
+  const guess = wordleState.guesses[r];
+  if(guess){
+    return guess.word.split('').map((ch, i) => `<div class="wordle-tile ${guess.result[i]}">${escapeHtml(ch)}</div>`).join('');
+  } else if(r === wordleState.guesses.length){
+    const letters = wordleState.currentGuess.padEnd(5, ' ').split('');
+    return letters.map(ch => `<div class="wordle-tile ${ch.trim() ? 'filled' : ''}">${ch.trim() ? escapeHtml(ch) : ''}</div>`).join('');
+  }
+  return '<div class="wordle-tile"></div>'.repeat(5);
+}
+
+// Typing/backspacing calls wordleUpdateCurrentRow() (see wordleKeyPress) instead of the
+// global renderRoute() -- updating only this one row's tiles in place, not rebuilding the
+// entire page. renderRoute() on every keystroke (up to ~25-30 times per game) is the exact
+// same DOM-recreation-under-touch/focus pattern that caused confirmed real zoom and flash
+// bugs for Memory Match and True False's timer earlier -- just firing far more often here.
+function wordleUpdateCurrentRow(){
+  const r = wordleState.guesses.length;
+  const rowEl = document.getElementById('wordle-row-' + r);
+  if(!rowEl){ renderRoute(); return; } // fallback safety net, should never trigger
+  rowEl.innerHTML = wordleRowCellsHtml(r);
+}
+
 function wordlePlayingHtml(){
   const rows = [];
   for(let r = 0; r < 6; r++){
-    const guess = wordleState.guesses[r];
-    let cells;
-    if(guess){
-      cells = guess.word.split('').map((ch, i) => `<div class="wordle-tile ${guess.result[i]}">${escapeHtml(ch)}</div>`).join('');
-    } else if(r === wordleState.guesses.length){
-      const letters = wordleState.currentGuess.padEnd(5, ' ').split('');
-      cells = letters.map(ch => `<div class="wordle-tile ${ch.trim() ? 'filled' : ''}">${ch.trim() ? escapeHtml(ch) : ''}</div>`).join('');
-    } else {
-      cells = '<div class="wordle-tile"></div>'.repeat(5);
-    }
+    const cells = wordleRowCellsHtml(r);
     const isShakeRow = wordleState.shake && r === wordleState.guesses.length;
-    rows.push(`<div class="wordle-row${isShakeRow ? ' shake' : ''}">${cells}</div>`);
+    rows.push(`<div class="wordle-row${isShakeRow ? ' shake' : ''}" id="wordle-row-${r}">${cells}</div>`);
   }
 
   const keyStates = wordleKeyStates();
@@ -10374,21 +10388,30 @@ function nerdleIntroHtml(){
   `;
 }
 
+function nerdleRowCellsHtml(r){
+  const guess = nerdleState.guesses[r];
+  if(guess){
+    return guess.word.split('').map((ch, i) => `<div class="nerdle-tile ${guess.result[i]}">${escapeHtml(ch)}</div>`).join('');
+  } else if(r === nerdleState.guesses.length){
+    const chars = nerdleState.currentGuess.padEnd(NERDLE_LENGTH, ' ').split('');
+    return chars.map(ch => `<div class="nerdle-tile ${ch.trim() ? 'filled' : ''}">${ch.trim() ? escapeHtml(ch) : ''}</div>`).join('');
+  }
+  return '<div class="nerdle-tile"></div>'.repeat(NERDLE_LENGTH);
+}
+
+function nerdleUpdateCurrentRow(){
+  const r = nerdleState.guesses.length;
+  const rowEl = document.getElementById('nerdle-row-' + r);
+  if(!rowEl){ renderRoute(); return; }
+  rowEl.innerHTML = nerdleRowCellsHtml(r);
+}
+
 function nerdlePlayingHtml(){
   const rows = [];
   for(let r = 0; r < 6; r++){
-    const guess = nerdleState.guesses[r];
-    let cells;
-    if(guess){
-      cells = guess.word.split('').map((ch, i) => `<div class="nerdle-tile ${guess.result[i]}">${escapeHtml(ch)}</div>`).join('');
-    } else if(r === nerdleState.guesses.length){
-      const chars = nerdleState.currentGuess.padEnd(NERDLE_LENGTH, ' ').split('');
-      cells = chars.map(ch => `<div class="nerdle-tile ${ch.trim() ? 'filled' : ''}">${ch.trim() ? escapeHtml(ch) : ''}</div>`).join('');
-    } else {
-      cells = '<div class="nerdle-tile"></div>'.repeat(NERDLE_LENGTH);
-    }
+    const cells = nerdleRowCellsHtml(r);
     const isShakeRow = nerdleState.shake && r === nerdleState.guesses.length;
-    rows.push(`<div class="nerdle-row${isShakeRow ? ' shake' : ''}">${cells}</div>`);
+    rows.push(`<div class="nerdle-row${isShakeRow ? ' shake' : ''}" id="nerdle-row-${r}">${cells}</div>`);
   }
 
   const keyStates = nerdleKeyStates();
