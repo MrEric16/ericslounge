@@ -3502,18 +3502,6 @@ let fgState = null; // { rounds, current, correctCount, mistakes, answered }
 
 // Locks scroll to a consistent point every time the flag-game route renders -- so flag
 // and all 6 options are visible together without the student needing to scroll down again
-// after every round. Called after every fgState-driven renderRoute() (start, answer reveal,
-// round advance). Runs its own requestAnimationFrame AFTER renderRoute()'s internal
-// scroll-memory restore (queued in the order called, so this one finalizes the position).
-// Doesn't disable scrolling -- the student can still scroll freely, this only sets where
-// each new round/reveal lands.
-function fgLockScroll(){
-  requestAnimationFrame(() => {
-    const wrap = document.querySelector('.fg-wrap');
-    if(wrap) wrap.scrollIntoView({ block: 'start', behavior: 'instant' });
-  });
-}
-
 function fgStart(mode){
   const regularRounds = fgBuildRounds(FLAG_COUNTRIES, FG_ROUNDS_PER_GAME);
   const bonusRounds = fgBuildBonusRounds(FLAG_BONUS_ENTITIES, FG_BONUS_ROUNDS);
@@ -3526,7 +3514,6 @@ function fgStart(mode){
     mode: mode || 'flag-to-country',
   };
   renderRoute();
-  fgLockScroll();
 }
 
 // Surgical update for the immediate answer reveal -- updates the existing 6 option buttons
@@ -3561,6 +3548,11 @@ function fgAnswer(pickedName){
   fgRevealAnswer(round, pickedName);
   setTimeout(() => {
     if(!fgState) return;
+    // No programmatic scrolling of any kind, per explicit instruction -- the page must stay
+    // exactly where the student left it, full stop. Capturing the exact scroll position here,
+    // before anything else happens, and forcing it back after the round-advance render is the
+    // most direct guarantee of that -- not relying on any indirect/shared logic.
+    const preservedY = window.scrollY;
     fgState.current++;
     fgState.answered = false;
     fgState.lastPicked = null;
@@ -3569,7 +3561,9 @@ function fgAnswer(pickedName){
       fgFinishGame();
     }
     renderRoute();
-    if(!gameJustEnded) fgLockScroll();
+    if(!gameJustEnded){
+      requestAnimationFrame(() => window.scrollTo({ top: preservedY, left: 0, behavior: 'instant' }));
+    }
   }, 900);
 }
 
