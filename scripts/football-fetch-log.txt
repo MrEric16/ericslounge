@@ -1,8 +1,7 @@
 [football-fetch] standings[PL]: raw season field = {'id': 2502, 'startDate': '2026-08-21', 'endDate': '2027-05-30', 'currentMatchday': 1, 'winner': None}
 [football-fetch] standings[PL]: OK (0 rows)
 [football-fetch] matches[PL]: OK (trimmed from 380 to 10 fixtures + 0 results)
-[football-fetch] standings[PD]: raw season field = {'id': 2518, 'startDate': '2026-08-16', 'endDate': '2027-05-30', 'currentMatchday': 2, 'winner': None}
-[football-fetch] standings[PD]: OK (20 rows)
+[football-fetch] standings[PD]: FAILED (HTTPSConnectionPool(host='api.football-data.org', port=443): Max retries exceeded with url: /v4/competitions/PD/standings (Caused by SSLError(SSLEOFError(8, '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1016)'))))
 [football-fetch] matches[PD]: OK (trimmed from 380 to 10 fixtures + 6 results)
 [football-fetch] standings[BL1]: raw season field = {'id': 2522, 'startDate': '2026-08-28', 'endDate': '2027-05-22', 'currentMatchday': 1, 'winner': None}
 [football-fetch] standings[BL1]: OK (0 rows)
@@ -18,4 +17,4 @@
 [football-fetch] matches[CL]: OK (trimmed from 189 to 0 fixtures + 15 results)
 [football-fetch] arsenalNextFixture: OK
 [football-fetch] arsenalFinishedMatches: OK (0 matches)
-[football-fetch] Wrote data/football-live.json (56.9 KB)
+[football-fetch] Wrote data/football-live.json (53.7 KB)
