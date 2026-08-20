@@ -3500,6 +3500,20 @@ function fgBuildBonusRounds(entities, count){
 
 let fgState = null; // { rounds, current, correctCount, mistakes, answered }
 
+// Locks scroll to a consistent point every time the flag-game route renders -- so flag
+// and all 6 options are visible together without the student needing to scroll down again
+// after every round. Called after every fgState-driven renderRoute() (start, answer reveal,
+// round advance). Runs its own requestAnimationFrame AFTER renderRoute()'s internal
+// scroll-memory restore (queued in the order called, so this one finalizes the position).
+// Doesn't disable scrolling -- the student can still scroll freely, this only sets where
+// each new round/reveal lands.
+function fgLockScroll(){
+  requestAnimationFrame(() => {
+    const wrap = document.querySelector('.fg-wrap');
+    if(wrap) wrap.scrollIntoView({ block: 'start' });
+  });
+}
+
 function fgStart(mode){
   const regularRounds = fgBuildRounds(FLAG_COUNTRIES, FG_ROUNDS_PER_GAME);
   const bonusRounds = fgBuildBonusRounds(FLAG_BONUS_ENTITIES, FG_BONUS_ROUNDS);
@@ -3512,6 +3526,7 @@ function fgStart(mode){
     mode: mode || 'flag-to-country',
   };
   renderRoute();
+  fgLockScroll();
 }
 
 function fgAnswer(pickedName){
@@ -3523,15 +3538,18 @@ function fgAnswer(pickedName){
   if(isCorrect){ fgState.correctCount++; }
   else{ fgState.mistakes.push({ correct: round.correct, picked: round.options.find(o => o.name === pickedName) }); }
   renderRoute();
+  fgLockScroll();
   setTimeout(() => {
     if(!fgState) return;
     fgState.current++;
     fgState.answered = false;
     fgState.lastPicked = null;
-    if(fgState.current >= fgState.rounds.length){
+    const gameJustEnded = fgState.current >= fgState.rounds.length;
+    if(gameJustEnded){
       fgFinishGame();
     }
     renderRoute();
+    if(!gameJustEnded) fgLockScroll();
   }, 900);
 }
 
