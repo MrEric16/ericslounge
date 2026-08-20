@@ -166,7 +166,16 @@
      Temple and arcade routes via this class, toggled in renderRoute() -- everywhere else
      on the site keeps completely normal swipe/scroll behavior, unchanged. */
   html.mt-no-swipeback, body.mt-no-swipeback{ overscroll-behavior-x:none; }
-  html.mm-no-zoom, body.mm-no-zoom{ touch-action:manipulation; }
+  /* touch-action:manipulation (the previous approach) still permits pinch-zoom, and on
+     iOS Safari a single manipulation-valued element anywhere on the page can re-enable
+     the browser's global double-tap-zoom gesture recognizer even when this element and
+     its ancestors are set more restrictively -- a known WebKit inconsistency, not a
+     touch-action spec behaviour. pan-y blocks pinch-zoom AND double-tap-zoom outright,
+     and the wildcard forces every descendant (cards, board-cell, nav buttons, anything)
+     to the same value so nothing on the page can re-open the loophole. Scoped to the
+     memory-game route only via the mm-no-zoom class toggle in renderRoute(). */
+  html.mm-no-zoom, body.mm-no-zoom{ touch-action:pan-y; }
+  html.mm-no-zoom *, body.mm-no-zoom *{ touch-action:pan-y !important; }
   body{
     background:var(--cream);
     color:var(--ink);
@@ -18254,6 +18263,28 @@ function triggerWeekendEgg(){
       showToast("OK, OK, chill");
     }
   });
+})();
+
+/* ---- 13: Memory Match zoom kill-switch (JS layer) ----
+   The CSS touch-action approach (mm-no-zoom class, see renderRoute()) is the first line
+   of defence, but iOS Safari has a documented history of still firing its native
+   double-tap-to-zoom gesture in edge cases even with touch-action set correctly. This is
+   the independent, historically-reliable fallback: explicitly preventDefault() on any
+   touchend that lands within ~350ms of the previous one (the classic double-tap window),
+   and preventDefault() on Safari's non-standard gesturestart (pinch) event. Both are
+   no-ops everywhere except the memory-game route -- gated on the same mm-no-zoom class
+   the route dispatcher already toggles, so there's exactly one source of truth for scope. */
+(function(){
+  let mmLastTouchEnd = 0;
+  document.addEventListener('touchend', function(e){
+    if(!document.body.classList.contains('mm-no-zoom')) return;
+    const now = Date.now();
+    if(now - mmLastTouchEnd <= 350){ e.preventDefault(); }
+    mmLastTouchEnd = now;
+  }, { passive: false });
+  document.addEventListener('gesturestart', function(e){
+    if(document.body.classList.contains('mm-no-zoom')) e.preventDefault();
+  }, { passive: false });
 })();
 </script>
 
