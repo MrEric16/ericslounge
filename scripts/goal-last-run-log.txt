@@ -2,10 +2,6 @@
 [goal-scraper] [arsenal-friendlies] Found 1 finished-match links
 [goal-scraper] [PL] Found 0 finished-match links
 [goal-scraper] [PD] Found 1 finished-match links
-[goal-scraper] WARNING: could not assign scorer 'S. Camello' to home or away for https://www.goal.com/en/match/rayo-vallecano-vs-deportivo-alaves/Kz0cyFp6Yrx0loxuBLHwr
-[goal-scraper] WARNING: Deportivo Alaves scored 1 but 0 scorers were parsed for https://www.goal.com/en/match/rayo-vallecano-vs-deportivo-alaves/Kz0cyFp6Yrx0loxuBLHwr
-[goal-scraper] [PD] SCORER PARSE FAILED 3 times, giving up and committing WITH INCOMPLETE SCORER DATA (page structure likely changed) for Rayo Vallecano 1-1 Deportivo Alaves: https://www.goal.com/en/match/rayo-vallecano-vs-deportivo-alaves/Kz0cyFp6Yrx0loxuBLHwr
-[goal-scraper] [PD] Added: Rayo Vallecano 1-1 Deportivo Alaves
 [goal-scraper] [BL1] Found 0 finished-match links
 [goal-scraper] [SA] Found 0 finished-match links
 [goal-scraper] [FL1] Found 0 finished-match links
@@ -15,5 +11,5 @@
 [goal-scraper] WARNING: Paris Saint Germain scored 1 but 0 scorers were parsed for https://www.goal.com/en/match/paris-saint-germain-vs-arsenal/ugWugY2_bPeXkOmUCLC9s
 [goal-scraper] WARNING: Arsenal scored 1 but 0 scorers were parsed for https://www.goal.com/en/match/paris-saint-germain-vs-arsenal/ugWugY2_bPeXkOmUCLC9s
 [goal-scraper] [CL] Skipping stale match (older than 45 days): Paris Saint Germain vs Arsenal on 2026-05-30
-[goal-scraper] TOTAL new results added this run: 1
+[goal-scraper] TOTAL new results added this run: 0
 [goal-scraper] Wrote data/goal-results.json
