@@ -1380,8 +1380,9 @@
     display:flex; align-items:center; justify-content:center; padding:6px;
     background:var(--coral); box-shadow:0 3px 0 rgba(0,0,0,.15);
     touch-action:manipulation; -webkit-tap-highlight-color:transparent;
-    user-select:none; -webkit-user-select:none;
+    user-select:none; -webkit-user-select:none; outline:none;
   }
+  .memory-card:focus, .memory-card:focus-visible{ outline:none; }
   .memory-card.flipped, .memory-card.matched{ background:var(--card); border:2px solid var(--line); box-shadow:none; }
   .memory-card.matched{ opacity:.5; border-color:#6AAA64; }
   .memory-card-back{ font-size:22px; color:#fff; font-weight:800; pointer-events:none; }
@@ -16450,6 +16451,14 @@ document.addEventListener('click', (e) => {
   if(memoryTapBtn){
     e.preventDefault();
     memoryTapCard(memoryTapBtn.dataset.id);
+    // The card button used to be destroyed and rebuilt on every tap (see memoryUpdateCardEl's
+    // history), which incidentally meant it could never retain browser focus. Now that the
+    // same node persists across taps, it keeps native :focus after a tap -- and Mobile Safari's
+    // default "scroll/zoom the focused element into view" behaviour follows the focused
+    // element. That's the visible blue focus ring in the user's video, present for exactly the
+    // duration of the zoomed state. Blurring immediately after handling removes it at the
+    // source rather than just hiding the ring with CSS.
+    if(memoryTapBtn.blur) memoryTapBtn.blur();
     return;
   }
   const silhouetteStartBtn = e.target.closest('[data-action="silhouette-start"]');
