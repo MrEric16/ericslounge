@@ -1704,6 +1704,48 @@
   .ms-overlay-msg{ font-family:'Baloo 2', sans-serif; font-weight:800; font-size:24px; color:#fff; text-align:center; }
   .sdk-num-btn.active{ background:var(--coral); color:#fff; }
 
+  .g2048-board{
+    position:relative; width:100%; aspect-ratio:1;
+    background:var(--line); border-radius:8px; padding:8px; box-sizing:border-box;
+  }
+  .g2048-cellbg{
+    position:absolute; top:0; left:0; width:calc(25% - 6px); height:calc(25% - 6px); margin:3px;
+    background:var(--card); border-radius:6px;
+  }
+  .g2048-tiles-layer{ position:absolute; inset:8px; }
+  .g2048-tile{
+    position:absolute; top:0; left:0; width:calc(25% - 6px); height:calc(25% - 6px); margin:3px;
+    transition:transform 100ms ease-in-out;
+  }
+  .g2048-tile-face{
+    width:100%; height:100%; display:flex; align-items:center; justify-content:center;
+    border-radius:6px; font-family:'Space Mono', monospace; font-weight:800;
+    font-size:clamp(14px,5vw,26px); background:#EEE4D3; color:#3D2A22;
+  }
+  .g2048-tile-face[data-value="4"]{ background:#EDE0C8; }
+  .g2048-tile-face[data-value="8"]{ background:#F2B179; color:#fff; }
+  .g2048-tile-face[data-value="16"]{ background:#F59563; color:#fff; }
+  .g2048-tile-face[data-value="32"]{ background:#F67C5F; color:#fff; }
+  .g2048-tile-face[data-value="64"]{ background:#F65E3B; color:#fff; }
+  .g2048-tile-face[data-value="128"]{ background:#EDCF72; color:#fff; font-size:clamp(12px,4.4vw,22px); }
+  .g2048-tile-face[data-value="256"]{ background:#EDCC61; color:#fff; font-size:clamp(12px,4.4vw,22px); }
+  .g2048-tile-face[data-value="512"]{ background:#EDC850; color:#fff; font-size:clamp(12px,4.4vw,22px); }
+  .g2048-tile-face[data-value="1024"]{ background:#EDC53F; color:#fff; font-size:clamp(10px,3.8vw,18px); }
+  .g2048-tile-face[data-value="2048"]{ background:#EDC22E; color:#fff; font-size:clamp(10px,3.8vw,18px); }
+  .g2048-tile-face[data-value="2048plus"]{ background:#3C3A32; color:#fff; font-size:clamp(10px,3.8vw,18px); }
+  .g2048-tile-face.g2048-pop-new{ animation:g2048-pop .18s ease; }
+  .g2048-tile-face.g2048-pop-merge{ animation:g2048-merge-pop .18s ease; }
+  @keyframes g2048-pop{ from{ transform:scale(0); } to{ transform:scale(1); } }
+  @keyframes g2048-merge-pop{ 0%{ transform:scale(1); } 50%{ transform:scale(1.15); } 100%{ transform:scale(1); } }
+  .g2048-controls{
+    display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin-top:14px;
+    max-width:220px; margin-left:auto; margin-right:auto;
+  }
+  .g2048-arrow-btn{
+    height:48px; border-radius:10px; border:none; background:var(--card); color:var(--ink);
+    font-size:20px; cursor:pointer; box-shadow:0 2px 0 rgba(0,0,0,.08);
+  }
+
   .fg-end-label{ text-align:center; font-size:13px; color:var(--ink-soft); font-weight:700; margin-bottom:22px; }
   .fg-review-item{
     display:flex; align-items:center; gap:12px; padding:10px 12px; border-radius:12px;
@@ -6256,7 +6298,233 @@ function updateSudokuTimer(){
   el.textContent = `${mm}:${ss}`;
 }
 
-// ---------- Minesweeper ----------
+// ---------- 2048 ----------
+// Tiles are tracked as {id, row, col, value} with stable IDs across moves, specifically
+// so the DOM layer can animate an existing element's position (smooth CSS transform
+// transition) instead of destroying and recreating tiles on every move -- the standing
+// rule against per-move full re-renders applies here more than anywhere else, since
+// this game's whole appeal IS movement, and it has to be the *intentional* kind.
+
+function g2048BuildGrid(tiles){
+  const grid = Array.from({ length: 4 }, () => Array(4).fill(null));
+  for(const t of tiles) grid[t.row][t.col] = t;
+  return grid;
+}
+
+// Returns the 4 cells of a row/column in "processing order" -- index 0 is always the
+// edge tiles are moving toward (the destination edge for that direction).
+function g2048GetLine(grid, direction, index){
+  if(direction === 'left')  return [0,1,2,3].map(c => grid[index][c]);
+  if(direction === 'right') return [3,2,1,0].map(c => grid[index][c]);
+  if(direction === 'up')    return [0,1,2,3].map(r => grid[r][index]);
+  return [3,2,1,0].map(r => grid[r][index]); // 'down'
+}
+
+// Maps position i (0..3) in a processed/compacted line back to its real (row, col),
+// consistent with the processing order g2048GetLine used for the same direction/index.
+function g2048LineToCoords(direction, index){
+  if(direction === 'left')  return [0,1,2,3].map(c => [index, c]);
+  if(direction === 'right') return [3,2,1,0].map(c => [index, c]);
+  if(direction === 'up')    return [0,1,2,3].map(r => [r, index]);
+  return [3,2,1,0].map(r => [r, index]); // 'down' -- row 3 is the destination edge, same sequence g2048GetLine used
+}
+
+// Compacts one line toward its destination edge and merges adjacent equal values.
+// Each tile merges at most once per move: three equal tiles in a row only merge the
+// pair closest to the destination edge (e.g. [2,2,2] moving left becomes [4,2], not a
+// second merge of the leftover 2 into the new 4).
+function g2048ProcessLine(line){
+  const compact = line.filter(t => t !== null);
+  const outSlots = [];
+  let scoreGained = 0;
+  let i = 0;
+  while(i < compact.length){
+    const cur = compact[i];
+    const next = compact[i + 1];
+    if(next && next.value === cur.value){
+      const value = cur.value * 2;
+      outSlots.push({ tile: cur, mergedWith: next, value });
+      scoreGained += value;
+      i += 2;
+    } else {
+      outSlots.push({ tile: cur, mergedWith: null, value: cur.value });
+      i += 1;
+    }
+  }
+  return { outSlots, scoreGained };
+}
+
+function g2048ComputeMove(tiles, direction){
+  const grid = g2048BuildGrid(tiles);
+  const newTiles = [];
+  const removedIds = new Set();
+  const mergedIds = new Set();
+  let moved = false;
+  let scoreGained = 0;
+
+  for(let index = 0; index < 4; index++){
+    const line = g2048GetLine(grid, direction, index);
+    const { outSlots, scoreGained: gained } = g2048ProcessLine(line);
+    scoreGained += gained;
+    const coords = g2048LineToCoords(direction, index);
+    for(let slot = 0; slot < outSlots.length; slot++){
+      const { tile, mergedWith, value } = outSlots[slot];
+      const [newRow, newCol] = coords[slot];
+      if(tile.row !== newRow || tile.col !== newCol || value !== tile.value) moved = true;
+      newTiles.push({ id: tile.id, row: newRow, col: newCol, value });
+      if(mergedWith){
+        removedIds.add(mergedWith.id);
+        mergedIds.add(tile.id);
+      }
+    }
+  }
+  return { tiles: newTiles, moved, scoreGained, mergedIds, removedIds };
+}
+
+function g2048RandomEmptyCell(tiles){
+  const occupied = new Set(tiles.map(t => `${t.row},${t.col}`));
+  const empties = [];
+  for(let r = 0; r < 4; r++){
+    for(let c = 0; c < 4; c++){
+      if(!occupied.has(`${r},${c}`)) empties.push([r, c]);
+    }
+  }
+  if(empties.length === 0) return null;
+  return empties[Math.floor(Math.random() * empties.length)];
+}
+
+function g2048SpawnTile(tiles, nextId){
+  const cell = g2048RandomEmptyCell(tiles);
+  if(!cell) return { tiles, nextId, spawned: null };
+  const [row, col] = cell;
+  const value = Math.random() < 0.9 ? 2 : 4;
+  const newTile = { id: nextId, row, col, value };
+  return { tiles: [...tiles, newTile], nextId: nextId + 1, spawned: newTile };
+}
+
+function g2048HasMoves(tiles){
+  if(tiles.length < 16) return true;
+  const grid = g2048BuildGrid(tiles);
+  for(let r = 0; r < 4; r++){
+    for(let c = 0; c < 4; c++){
+      const v = grid[r][c].value;
+      if(c < 3 && grid[r][c + 1].value === v) return true;
+      if(r < 3 && grid[r + 1][c].value === v) return true;
+    }
+  }
+  return false;
+}
+
+function g2048DetectSwipeDirection(dx, dy, threshold){
+  if(Math.abs(dx) < threshold && Math.abs(dy) < threshold) return null;
+  if(Math.abs(dx) > Math.abs(dy)) return dx > 0 ? 'right' : 'left';
+  return dy > 0 ? 'down' : 'up';
+}
+
+let g2048State = null;
+
+function g2048Start(){
+  let tiles = [];
+  let nextId = 1;
+  for(let i = 0; i < 2; i++){
+    const res = g2048SpawnTile(tiles, nextId);
+    tiles = res.tiles;
+    nextId = res.nextId;
+  }
+  let best = 0;
+  try{ best = parseInt(localStorage.getItem('g2048Best') || '0', 10); }catch(e){}
+  g2048State = { tiles, nextId, score: 0, best, over: false, won: false, wonAcknowledged: false };
+  renderRoute();
+}
+
+function g2048UpdateScoreDOM(){
+  const scoreEl = document.querySelector('.g2048-score');
+  const bestEl = document.querySelector('.g2048-best');
+  if(scoreEl) scoreEl.textContent = String(g2048State.score);
+  if(bestEl) bestEl.textContent = String(g2048State.best);
+}
+
+// Patches only the tile elements that need to change -- moved tiles get their transform
+// updated (the browser animates the transition on its own), merged-away tiles are
+// removed, new tiles are created. The static board background and everything else on
+// the page is never touched.
+function g2048SyncDOM(moveResult, spawned){
+  const s = g2048State;
+  const board = document.querySelector('.g2048-tiles-layer');
+  if(!board) return;
+
+  const existing = new Map();
+  board.querySelectorAll('.g2048-tile').forEach(el => existing.set(el.dataset.id, el));
+
+  const currentIds = new Set(s.tiles.map(t => String(t.id)));
+  existing.forEach((el, id) => { if(!currentIds.has(id)) el.remove(); });
+
+  for(const t of s.tiles){
+    const idStr = String(t.id);
+    let el = existing.get(idStr);
+    let face;
+    if(!el){
+      el = document.createElement('div');
+      el.className = 'g2048-tile';
+      el.dataset.id = idStr;
+      face = document.createElement('div');
+      face.className = 'g2048-tile-face';
+      el.appendChild(face);
+      board.appendChild(el);
+      if(spawned && spawned.id === t.id) face.classList.add('g2048-pop-new');
+    } else {
+      face = el.querySelector('.g2048-tile-face');
+    }
+    face.textContent = t.value;
+    face.setAttribute('data-value', t.value > 2048 ? '2048plus' : String(t.value));
+    el.style.transform = `translate(${t.col * 100}%, ${t.row * 100}%)`;
+    if(moveResult.mergedIds.has(t.id)){
+      face.classList.remove('g2048-pop-merge'); // allow retriggering if it merges again later
+      void face.offsetWidth; // force reflow so the class re-add below actually restarts the animation
+      face.classList.add('g2048-pop-merge');
+    }
+  }
+}
+
+function g2048HandleMove(direction){
+  const s = g2048State;
+  if(!s || s.over || (s.won && !s.wonAcknowledged)) return;
+  const result = g2048ComputeMove(s.tiles, direction);
+  if(!result.moved) return;
+
+  s.tiles = result.tiles;
+  s.score += result.scoreGained;
+  if(s.score > s.best){
+    s.best = s.score;
+    try{ localStorage.setItem('g2048Best', String(s.best)); }catch(e){}
+  }
+  const spawnResult = g2048SpawnTile(s.tiles, s.nextId);
+  s.tiles = spawnResult.tiles;
+  s.nextId = spawnResult.nextId;
+
+  const justWon = !s.won && s.tiles.some(t => t.value >= 2048);
+  if(justWon){
+    s.won = true;
+    renderRoute(); // genuine one-time transition to the win overlay
+    return;
+  }
+  if(!g2048HasMoves(s.tiles)){
+    s.over = true;
+    renderRoute(); // genuine one-time transition to the game-over overlay
+    return;
+  }
+
+  g2048SyncDOM(result, spawnResult.spawned);
+  g2048UpdateScoreDOM();
+}
+
+function g2048KeepPlaying(){
+  if(!g2048State) return;
+  g2048State.wonAcknowledged = true;
+  renderRoute();
+}
+
+
 const MINESWEEPER_DIFFICULTIES = {
   easy:   { rows: 8,  cols: 8,  mines: 10 },
   medium: { rows: 12, cols: 12, mines: 24 },
@@ -6622,6 +6890,7 @@ const GEOGRAPHY_HUB_TILES = [
   { name: "Nerdle", emoji: icon('chip'), url: "#nerdle-game", internal: true },
   { name: "Memory Match", emoji: icon('coin'), url: "#memory-game", internal: true },
   { name: "Country Silhouette", emoji: icon('moon'), url: "#silhouette-game", internal: true },
+  { name: "2048", emoji: icon('dice'), url: "#2048-game", internal: true },
   { name: "Minesweeper", emoji: icon('flask'), url: "#minesweeper-game", internal: true },
   { name: "Sudoku", emoji: icon('gear'), url: "#sudoku-game", internal: true },
   { name: "Hangman", emoji: icon('brain'), url: "#hangman-game", internal: true },
@@ -12244,6 +12513,77 @@ function sudokuCompleteHtml(){
         <div class="fg-end-score" style="font-family:'Space Mono', monospace; font-size:36px;">${mm}:${ss}</div>
         <p style="text-align:center; font-size:14px; color:var(--ink-soft); margin-top:4px;">${s.difficulty[0].toUpperCase() + s.difficulty.slice(1)} · ${s.mistakes} mistake${s.mistakes === 1 ? '' : 's'}</p>
         <button class="fg-start-btn" data-action="sudoku-start" data-mode="${s.difficulty}" style="margin-top:16px;">Play Again</button>
+      </div>
+    </section>
+  `;
+}
+
+function viewG2048Game(){
+  if(!g2048State) return g2048IntroHtml();
+  return g2048PlayingHtml();
+}
+
+function g2048IntroHtml(){
+  return `
+    <a class="back-link" href="#geography-hub">← Back to Train Your Brain</a>
+    <section style="padding-top:14px;">
+      <div class="fg-wrap">
+        <div class="section-head"><span class="emoji">${icon('dice')}</span><h2>2048</h2></div>
+        <p style="font-size:14px; color:var(--ink-soft); line-height:1.6; margin-bottom:16px;">Swipe or use the arrows to slide every tile. Two tiles with the same number merge into one when they touch. Reach 2048 to win -- or keep going for a higher score.</p>
+        <button class="fg-start-btn" data-action="g2048-start">Start</button>
+      </div>
+    </section>
+  `;
+}
+
+function g2048PlayingHtml(){
+  const s = g2048State;
+  const tilesHtml = s.tiles.map(t => `
+    <div class="g2048-tile" data-id="${t.id}" style="transform:translate(${t.col * 100}%, ${t.row * 100}%);">
+      <div class="g2048-tile-face" data-value="${t.value > 2048 ? '2048plus' : t.value}">${t.value}</div>
+    </div>
+  `).join('');
+  const cellBgHtml = Array.from({ length: 16 }, (_, i) => {
+    const r = Math.floor(i / 4), c = i % 4;
+    return `<div class="g2048-cellbg" style="transform:translate(${c * 100}%, ${r * 100}%);"></div>`;
+  }).join('');
+
+  let overlayHtml = '';
+  if(s.over){
+    overlayHtml = `
+      <div class="ms-overlay">
+        <div class="ms-overlay-msg">No more moves</div>
+        <button class="fg-start-btn" data-action="g2048-start">New Game</button>
+      </div>
+    `;
+  } else if(s.won && !s.wonAcknowledged){
+    overlayHtml = `
+      <div class="ms-overlay">
+        <div class="ms-overlay-msg">You reached 2048!</div>
+        <div style="display:flex; gap:10px;">
+          <button class="fg-start-btn" data-action="g2048-keep-playing">Keep Playing</button>
+          <button class="fg-start-btn" data-action="g2048-start">New Game</button>
+        </div>
+      </div>
+    `;
+  }
+
+  return `
+    <a class="back-link" href="#geography-hub">← Back to Train Your Brain</a>
+    <section style="padding-top:14px;">
+      <div class="fg-wrap">
+        <div class="hl-streak-row">Score: <span class="g2048-score">${s.score}</span> · Best: <span class="g2048-best">${s.best}</span></div>
+        <div class="ms-board-wrap g2048-board-wrap">
+          <div class="g2048-board">${cellBgHtml}</div>
+          <div class="g2048-tiles-layer">${tilesHtml}</div>
+          ${overlayHtml}
+        </div>
+        <div class="g2048-controls">
+          <div></div><button class="g2048-arrow-btn" data-action="g2048-move" data-dir="up">${'\u2191'}</button><div></div>
+          <button class="g2048-arrow-btn" data-action="g2048-move" data-dir="left">${'\u2190'}</button>
+          <button class="g2048-arrow-btn" data-action="g2048-move" data-dir="down">${'\u2193'}</button>
+          <button class="g2048-arrow-btn" data-action="g2048-move" data-dir="right">${'\u2192'}</button>
+        </div>
       </div>
     </section>
   `;
@@ -18931,6 +19271,24 @@ document.addEventListener('click', (e) => {
     silhouetteAnswer(silhouetteAnswerBtn.dataset.name);
     return;
   }
+  const g2048StartBtn = e.target.closest('[data-action="g2048-start"]');
+  if(g2048StartBtn){
+    e.preventDefault();
+    g2048Start();
+    return;
+  }
+  const g2048MoveBtn = e.target.closest('[data-action="g2048-move"]');
+  if(g2048MoveBtn){
+    e.preventDefault();
+    g2048HandleMove(g2048MoveBtn.dataset.dir);
+    return;
+  }
+  const g2048KeepPlayingBtn = e.target.closest('[data-action="g2048-keep-playing"]');
+  if(g2048KeepPlayingBtn){
+    e.preventDefault();
+    g2048KeepPlaying();
+    return;
+  }
   const minesweeperStartBtn = e.target.closest('[data-action="minesweeper-start"]');
   if(minesweeperStartBtn){
     e.preventDefault();
@@ -19159,6 +19517,8 @@ function renderRoute(opts){
     html = viewMemoryGame();
   } else if(parts[0] === 'silhouette-game'){
     html = viewSilhouetteGame();
+  } else if(parts[0] === '2048-game'){
+    html = viewG2048Game();
   } else if(parts[0] === 'minesweeper-game'){
     html = viewMinesweeperGame();
   } else if(parts[0] === 'sudoku-game'){
@@ -20674,6 +21034,32 @@ setInterval(updateClock, 1000);
 setInterval(updateWeekendCountdown, 1000);
 setInterval(updateArsenalCountdown, 1000);
 setInterval(updateSudokuTimer, 1000);
+
+(function(){
+  let startX = 0, startY = 0, tracking = false;
+  document.addEventListener('touchstart', (e) => {
+    if(!e.target.closest('.g2048-board-wrap')) return;
+    tracking = true;
+    startX = e.touches[0].clientX;
+    startY = e.touches[0].clientY;
+  }, { passive: true });
+  document.addEventListener('touchend', (e) => {
+    if(!tracking) return;
+    tracking = false;
+    const endX = e.changedTouches[0].clientX;
+    const endY = e.changedTouches[0].clientY;
+    const dir = g2048DetectSwipeDirection(endX - startX, endY - startY, 24);
+    if(dir) g2048HandleMove(dir);
+  }, { passive: true });
+  document.addEventListener('keydown', (e) => {
+    if(!document.querySelector('.g2048-board-wrap')) return;
+    const map = { ArrowUp: 'up', ArrowDown: 'down', ArrowLeft: 'left', ArrowRight: 'right' };
+    if(map[e.key]){
+      e.preventDefault();
+      g2048HandleMove(map[e.key]);
+    }
+  });
+})();
 
 // Real bug found and fixed via testing: renderRoute() was only ever wired to
 // hashchange, which fires on a CHANGE from one hash to another -- it does NOT
