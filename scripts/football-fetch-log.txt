@@ -1,4 +1,5 @@
-[football-fetch] standings[PL]: FAILED (HTTPSConnectionPool(host='api.football-data.org', port=443): Max retries exceeded with url: /v4/competitions/PL/standings (Caused by SSLError(SSLEOFError(8, '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1016)'))))
+[football-fetch] standings[PL]: raw season field = {'id': 2502, 'startDate': '2026-08-21', 'endDate': '2027-05-30', 'currentMatchday': 1, 'winner': None}
+[football-fetch] standings[PL]: OK (0 rows)
 [football-fetch] matches[PL]: OK (trimmed from 380 to 10 fixtures + 0 results)
 [football-fetch] standings[PD]: raw season field = {'id': 2518, 'startDate': '2026-08-16', 'endDate': '2027-05-30', 'currentMatchday': 2, 'winner': None}
 [football-fetch] standings[PD]: OK (20 rows)
@@ -11,10 +12,10 @@
 [football-fetch] matches[SA]: OK (trimmed from 380 to 10 fixtures + 0 results)
 [football-fetch] standings[FL1]: raw season field = {'id': 2497, 'startDate': '2026-08-22', 'endDate': '2027-05-29', 'currentMatchday': 1, 'winner': None}
 [football-fetch] standings[FL1]: OK (0 rows)
-[football-fetch] matches[FL1]: OK (trimmed from 306 to 1 fixtures + 0 results)
+[football-fetch] matches[FL1]: OK (trimmed from 306 to 9 fixtures + 0 results)
 [football-fetch] standings[CL]: raw season field = {'id': 2454, 'startDate': '2025-09-16', 'endDate': '2026-05-30', 'currentMatchday': 8, 'winner': None}
 [football-fetch] standings[CL]: OK (0 rows)
 [football-fetch] matches[CL]: OK (trimmed from 189 to 0 fixtures + 15 results)
 [football-fetch] arsenalNextFixture: OK
 [football-fetch] arsenalFinishedMatches: OK (0 matches)
-[football-fetch] Wrote data/football-live.json (51.0 KB)
+[football-fetch] Wrote data/football-live.json (56.9 KB)
