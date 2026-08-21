@@ -201,6 +201,37 @@ def attach_time_if_known(event, times_list):
                 return
 
 
+def merge_preserved_results(new_past):
+    """Carries forward any 'result' value already recorded for a past event with the
+    same name, from whatever is currently on disk at OUTPUT_PATH, into the freshly
+    scraped list. This scraper has no way to determine a winner itself (see module
+    docstring on why real result-scraping was deliberately not attempted) -- it only
+    ever preserves a value that a human or a separate process already verified and
+    wrote in. Matching is by exact event name string, which has been stable across
+    real runs of this scraper to date. Fails closed: any problem reading the old file
+    (first run ever, corrupt JSON, unexpected shape) just means nothing to preserve
+    this run, never a crash of the whole scrape over what's a best-effort courtesy."""
+    try:
+        with open(OUTPUT_PATH, "r", encoding="utf-8") as f:
+            old_data = json.load(f)
+        old_results = {
+            e["name"]: e["result"]
+            for e in old_data.get("past", [])
+            if isinstance(e, dict) and e.get("name") and e.get("result")
+        }
+    except Exception as e:
+        log(f"  no existing results to preserve this run ({e})")
+        return new_past
+
+    preserved = 0
+    for event in new_past:
+        if event["name"] in old_results:
+            event["result"] = old_results[event["name"]]
+            preserved += 1
+    log(f"  preserved {preserved} previously-recorded result(s) across this run")
+    return new_past
+
+
 def main():
     log("fetching Wikipedia List of UFC events...")
     r = requests.get(URL, headers=HEADERS, timeout=30)
@@ -229,6 +260,7 @@ def main():
 
     scheduled = scheduled[:15]
     past = past[:15]
+    past = merge_preserved_results(past)
 
     log("fetching ufc.com/events for Main Card start times (upcoming events only)...")
     times_list = fetch_ufc_com_main_card_times()
