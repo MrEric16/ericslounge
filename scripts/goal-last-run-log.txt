@@ -4,12 +4,15 @@
 [goal-scraper] [PD] Found 1 finished-match links
 [goal-scraper] [BL1] Found 0 finished-match links
 [goal-scraper] [SA] Found 0 finished-match links
-[goal-scraper] [FL1] Found 0 finished-match links
+[goal-scraper] [FL1] Found 1 finished-match links
+[goal-scraper] WARNING: Marseille scored 4 but only 1 scorer(s) were parsed for https://www.goal.com/en/match/marseille-vs-strasbourg/xckmrY_gB8GPpCzbnh0_Q
+[goal-scraper] WARNING: Strasbourg scored 0 but only 2 scorer(s) were parsed for https://www.goal.com/en/match/marseille-vs-strasbourg/xckmrY_gB8GPpCzbnh0_Q
+[goal-scraper] [FL1] Added: Marseille 4-0 Strasbourg
 [goal-scraper] [CL] Found 1 finished-match links
 [goal-scraper] WARNING: could not assign scorer 'O. Dembele' to home or away for https://www.goal.com/en/match/paris-saint-germain-vs-arsenal/ugWugY2_bPeXkOmUCLC9s
 [goal-scraper] WARNING: could not assign scorer 'K. Havertz' to home or away for https://www.goal.com/en/match/paris-saint-germain-vs-arsenal/ugWugY2_bPeXkOmUCLC9s
 [goal-scraper] WARNING: Paris Saint Germain scored 1 but 0 scorers were parsed for https://www.goal.com/en/match/paris-saint-germain-vs-arsenal/ugWugY2_bPeXkOmUCLC9s
 [goal-scraper] WARNING: Arsenal scored 1 but 0 scorers were parsed for https://www.goal.com/en/match/paris-saint-germain-vs-arsenal/ugWugY2_bPeXkOmUCLC9s
 [goal-scraper] [CL] Skipping stale match (older than 45 days): Paris Saint Germain vs Arsenal on 2026-05-30
-[goal-scraper] TOTAL new results added this run: 0
+[goal-scraper] TOTAL new results added this run: 1
 [goal-scraper] Wrote data/goal-results.json

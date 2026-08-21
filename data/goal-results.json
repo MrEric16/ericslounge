@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-21T20:16:45.979899Z",
+  "generatedAt": "2026-08-21T20:46:48.220416Z",
   "results": [
     {
       "url": "https://www.goal.com/en/match/girona-vs-arsenal/__LS8d9Oc6I1wXn9g8956",
@@ -293,6 +293,33 @@
       ],
       "awayGoals": [],
       "competition": "PD"
+    },
+    {
+      "url": "https://www.goal.com/en/match/marseille-vs-strasbourg/xckmrY_gB8GPpCzbnh0_Q",
+      "date": "2026-08-21",
+      "home": "Marseille",
+      "away": "Strasbourg",
+      "htHome": 0,
+      "htAway": 0,
+      "ftHome": 4,
+      "ftAway": 0,
+      "homeGoals": [
+        {
+          "scorer": "A. Gouiri",
+          "minute": 46
+        }
+      ],
+      "awayGoals": [
+        {
+          "scorer": "K. Abdallah",
+          "minute": 89
+        },
+        {
+          "scorer": "P. Hoejbjerg",
+          "minute": 90
+        }
+      ],
+      "competition": "FL1"
     }
   ],
   "scorerParseRetryCounts": {}
