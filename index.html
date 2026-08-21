@@ -6177,10 +6177,44 @@ function sudokuStart(difficulty){
   }, 30); // small delay so the loading state actually paints before the blocking work starts
 }
 
+function sudokuCellClasses(row, col){
+  const s = sudokuState;
+  const val = s.puzzle[row][col];
+  const given = s.given[row][col];
+  const isSelected = s.selected && s.selected.row === row && s.selected.col === col;
+  const wrong = !given && val !== 0 && val !== s.solution[row][col];
+  const classes = ['sdk-cell'];
+  if(given) classes.push('given');
+  if(isSelected) classes.push('selected');
+  if(wrong) classes.push('wrong');
+  if(col % 3 === 0) classes.push('box-left');
+  if(row % 3 === 0) classes.push('box-top');
+  return classes;
+}
+
+// Patches a single cell button in place -- classList/textContent only, never a grid
+// rebuild. Same fix as Minesweeper's minesweeperSyncCells and for the same reason: a
+// full renderRoute() on every tap was destroying and recreating all 81 buttons on every
+// keystroke, which read as flashing.
+function sudokuSyncCell(row, col){
+  const btn = document.querySelector(`.sdk-grid [data-row="${row}"][data-col="${col}"]`);
+  if(!btn) return;
+  btn.className = sudokuCellClasses(row, col).join(' ');
+  const val = sudokuState.puzzle[row][col];
+  btn.textContent = val !== 0 ? val : '';
+}
+
+function sudokuUpdateMistakesDOM(){
+  const el = document.querySelector('.sdk-mistakes');
+  if(el) el.textContent = String(sudokuState.mistakes);
+}
+
 function sudokuSelectCell(row, col){
   if(!sudokuState || sudokuState.complete) return;
+  const prevSel = sudokuState.selected;
   sudokuState.selected = { row, col };
-  renderRoute();
+  if(prevSel) sudokuSyncCell(prevSel.row, prevSel.col);
+  sudokuSyncCell(row, col);
 }
 
 function sudokuEnterNumber(n){
@@ -6193,8 +6227,11 @@ function sudokuEnterNumber(n){
   if(done){
     sudokuState.complete = true;
     sudokuState.endTime = Date.now();
+    renderRoute(); // genuine screen transition to the completion view
+    return;
   }
-  renderRoute();
+  sudokuSyncCell(row, col);
+  sudokuUpdateMistakesDOM();
 }
 
 function sudokuClearCell(){
@@ -6202,7 +6239,21 @@ function sudokuClearCell(){
   const { row, col } = sudokuState.selected;
   if(sudokuState.given[row][col]) return;
   sudokuState.puzzle[row][col] = 0;
-  renderRoute();
+  sudokuSyncCell(row, col);
+}
+
+// The elapsed-time display used to only update as a side effect of some OTHER render
+// (entering a number, etc). Now that taps no longer trigger full renders, it needs its
+// own ticking clock to keep counting during play -- same global-interval-with-a-null-
+// check pattern already used for the header clock (updateClock/updateWeekendCountdown).
+function updateSudokuTimer(){
+  if(!sudokuState || sudokuState.complete) return;
+  const el = document.querySelector('.sdk-timer');
+  if(!el) return;
+  const elapsed = Math.floor((Date.now() - sudokuState.startTime) / 1000);
+  const mm = String(Math.floor(elapsed / 60)).padStart(2, '0');
+  const ss = String(elapsed % 60).padStart(2, '0');
+  el.textContent = `${mm}:${ss}`;
 }
 
 // ---------- Minesweeper ----------
@@ -12155,21 +12206,11 @@ function sudokuLoadingHtml(){
 
 function sudokuPlayingHtml(){
   const s = sudokuState;
-  const sel = s.selected;
   let cellsHtml = '';
   for(let r = 0; r < 9; r++){
     for(let c = 0; c < 9; c++){
       const val = s.puzzle[r][c];
-      const given = s.given[r][c];
-      const isSelected = sel && sel.row === r && sel.col === c;
-      const wrong = !given && val !== 0 && val !== s.solution[r][c];
-      const classes = ['sdk-cell'];
-      if(given) classes.push('given');
-      if(isSelected) classes.push('selected');
-      if(wrong) classes.push('wrong');
-      if(c % 3 === 0) classes.push('box-left');
-      if(r % 3 === 0) classes.push('box-top');
-      cellsHtml += `<button class="${classes.join(' ')}" data-action="sudoku-cell" data-row="${r}" data-col="${c}">${val !== 0 ? val : ''}</button>`;
+      cellsHtml += `<button class="${sudokuCellClasses(r, c).join(' ')}" data-action="sudoku-cell" data-row="${r}" data-col="${c}">${val !== 0 ? val : ''}</button>`;
     }
   }
   const elapsed = Math.floor((Date.now() - s.startTime) / 1000);
@@ -12179,7 +12220,7 @@ function sudokuPlayingHtml(){
     <a class="back-link" href="#geography-hub">← Back to Train Your Brain</a>
     <section style="padding-top:14px;">
       <div class="fg-wrap">
-        <div class="hl-streak-row">${s.difficulty[0].toUpperCase() + s.difficulty.slice(1)} · Mistakes: ${s.mistakes} · ${mm}:${ss}</div>
+        <div class="hl-streak-row">${s.difficulty[0].toUpperCase() + s.difficulty.slice(1)} · Mistakes: <span class="sdk-mistakes">${s.mistakes}</span> · <span class="sdk-timer">${mm}:${ss}</span></div>
         <div class="sdk-grid">${cellsHtml}</div>
         <div class="sdk-numpad">
           ${[1,2,3,4,5,6,7,8,9].map(n => `<button class="sdk-num-btn" data-action="sudoku-key" data-num="${n}">${n}</button>`).join('')}
@@ -20632,6 +20673,7 @@ wireClockTapCycling();
 setInterval(updateClock, 1000);
 setInterval(updateWeekendCountdown, 1000);
 setInterval(updateArsenalCountdown, 1000);
+setInterval(updateSudokuTimer, 1000);
 
 // Real bug found and fixed via testing: renderRoute() was only ever wired to
 // hashchange, which fires on a CHANGE from one hash to another -- it does NOT
