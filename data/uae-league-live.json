@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-21T14:52:05.750786+00:00",
+  "generatedAt": "2026-08-21T16:49:51.185861+00:00",
   "teams": [
     "Al Wasl",
     "Shabab Al Ahli Club",
@@ -8,8 +8,8 @@
     "Al Jazira Club",
     "Ajman Club",
     "Al Nasr SC",
-    "Ittihad Kalba FC",
     "Al Wahda",
+    "Ittihad Kalba FC",
     "Baniyas SC",
     "Al Dhafra",
     "Hatta Club",
@@ -23,9 +23,9 @@
       "won": 2,
       "drawn": 0,
       "lost": 0,
-      "gf": 7,
+      "gf": 8,
       "ga": 1,
-      "gd": 6,
+      "gd": 7,
       "points": 6
     },
     {
@@ -85,13 +85,24 @@
     },
     {
       "team": "Al Nasr SC",
-      "played": 1,
+      "played": 2,
       "won": 0,
-      "drawn": 1,
+      "drawn": 2,
       "lost": 0,
       "gf": 2,
       "ga": 2,
       "gd": 0,
+      "points": 2
+    },
+    {
+      "team": "Al Wahda",
+      "played": 2,
+      "won": 0,
+      "drawn": 1,
+      "lost": 1,
+      "gf": 2,
+      "ga": 3,
+      "gd": -1,
       "points": 1
     },
     {
@@ -101,20 +112,9 @@
       "drawn": 1,
       "lost": 1,
       "gf": 2,
-      "ga": 4,
-      "gd": -2,
+      "ga": 5,
+      "gd": -3,
       "points": 1
-    },
-    {
-      "team": "Al Wahda",
-      "played": 1,
-      "won": 0,
-      "drawn": 0,
-      "lost": 1,
-      "gf": 2,
-      "ga": 3,
-      "gd": -1,
-      "points": 0
     },
     {
       "team": "Baniyas SC",
@@ -173,11 +173,6 @@
     }
   ],
   "fixtures": [
-    {
-      "home": "Al Nasr SC",
-      "away": "Al Wahda",
-      "start": "2026-08-21T21:35:00+05:00"
-    },
     {
       "home": "Ajman Club",
       "away": "Hatta Club",
@@ -336,7 +331,15 @@
       "away": "Al Wasl",
       "start": "2026-08-21T19:00:00+05:00",
       "homeScore": 0,
-      "awayScore": 2,
+      "awayScore": 3,
+      "finished": true
+    },
+    {
+      "home": "Al Nasr SC",
+      "away": "Al Wahda",
+      "start": "2026-08-21T21:35:00+05:00",
+      "homeScore": 0,
+      "awayScore": 0,
       "finished": true
     }
   ]
