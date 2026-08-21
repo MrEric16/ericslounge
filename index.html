@@ -1695,6 +1695,14 @@
   .ms-cell.n7{ color:#212121; }
   .ms-cell.n8{ color:#757575; }
   .ms-cell:disabled{ cursor:default; }
+  .ms-board-wrap{ position:relative; }
+  .ms-overlay{
+    position:absolute; inset:0; z-index:2; border-radius:8px;
+    background:rgba(20,15,12,.72);
+    display:flex; flex-direction:column; align-items:center; justify-content:center; gap:12px;
+  }
+  .ms-overlay-msg{ font-family:'Baloo 2', sans-serif; font-weight:800; font-size:24px; color:#fff; text-align:center; }
+  .sdk-num-btn.active{ background:var(--coral); color:#fff; }
 
   .fg-end-label{ text-align:center; font-size:13px; color:var(--ink-soft); font-weight:700; margin-bottom:22px; }
   .fg-review-item{
@@ -6318,7 +6326,6 @@ function minesweeperReveal(r, c){
     s.over = true;
     s.won = false;
     s.endTime = Date.now();
-    renderRoute();
     return;
   }
 
@@ -6334,7 +6341,6 @@ function minesweeperReveal(r, c){
     s.won = true;
     s.endTime = Date.now();
   }
-  renderRoute();
 }
 
 function minesweeperToggleFlag(r, c){
@@ -6344,19 +6350,91 @@ function minesweeperToggleFlag(r, c){
   if(s.revealed.has(key)) return;
   if(s.flagged.has(key)) s.flagged.delete(key);
   else s.flagged.add(key);
-  renderRoute();
+}
+
+// Patches exactly the cell buttons named in `keys` in place -- direct classList/textContent
+// changes, never an innerHTML rebuild of the grid or a full renderRoute(). Full re-renders
+// on every tap were destroying and recreating every button element in the board on each
+// click, which is what read as flashing/strobing -- the same DOM-recreation-under-touch
+// pattern already documented and fixed elsewhere in this codebase (Flag Game, Memory
+// Match, Wordle/Nerdle).
+function minesweeperSyncCells(keys){
+  if(!keys.size) return;
+  const s = minesweeperState;
+  const grid = document.querySelector('.ms-grid');
+  if(!grid) return;
+  grid.querySelectorAll('[data-action="ms-cell"]').forEach(btn => {
+    const key = btn.dataset.row + ',' + btn.dataset.col;
+    if(!keys.has(key)) return;
+    const r = parseInt(btn.dataset.row, 10), c = parseInt(btn.dataset.col, 10);
+    const isRevealed = s.revealed.has(key);
+    const isFlagged = s.flagged.has(key);
+    const isMine = !!(s.mines && s.mines.has(key));
+    btn.className = 'ms-cell';
+    let content = '';
+    if(s.over && isMine){
+      btn.classList.add('mine');
+      if(isRevealed) btn.classList.add('mine-hit');
+      content = '\uD83D\uDCA3';
+    } else if(s.over && isFlagged && !isMine){
+      btn.classList.add('flag-wrong');
+      content = '\u2715';
+    } else if(isRevealed){
+      btn.classList.add('revealed');
+      const n = s.counts ? s.counts[r][c] : 0;
+      if(n > 0){ btn.classList.add('n' + n); content = String(n); }
+    } else if(isFlagged){
+      btn.classList.add('flagged');
+      content = '\uD83D\uDEA9';
+    }
+    btn.textContent = content;
+    if(s.over) btn.disabled = true;
+  });
+}
+
+function minesweeperUpdateMinesLeft(){
+  const el = document.querySelector('.ms-mines-left');
+  if(el) el.textContent = String(minesweeperState.mineCount - minesweeperState.flagged.size);
 }
 
 function minesweeperCellTap(r, c){
-  if(!minesweeperState) return;
-  if(minesweeperState.flagMode) minesweeperToggleFlag(r, c);
-  else minesweeperReveal(r, c);
+  const s = minesweeperState;
+  if(!s || s.over) return;
+  const key = `${r},${c}`;
+
+  if(s.flagMode){
+    if(s.revealed.has(key)) return;
+    minesweeperToggleFlag(r, c);
+    minesweeperSyncCells(new Set([key]));
+    minesweeperUpdateMinesLeft();
+    return;
+  }
+
+  const beforeRevealed = new Set(s.revealed);
+  minesweeperReveal(r, c);
+
+  if(s.over){
+    // Genuine screen transition (win/loss banner appears, every mine becomes visible,
+    // the board locks) -- a real one-off full render, not a per-tap flash source, and the
+    // overlay it produces is absolutely positioned so it can't shift the board either.
+    renderRoute();
+    return;
+  }
+
+  const changed = new Set();
+  for(const k of s.revealed){ if(!beforeRevealed.has(k)) changed.add(k); }
+  minesweeperSyncCells(changed);
 }
 
 function minesweeperToggleFlagMode(){
   if(!minesweeperState || minesweeperState.over) return;
   minesweeperState.flagMode = !minesweeperState.flagMode;
-  renderRoute();
+  const btn = document.querySelector('[data-action="minesweeper-flag-mode"]');
+  if(btn){
+    const on = minesweeperState.flagMode;
+    btn.textContent = on ? '\uD83D\uDEA9 Flag mode ON \u2014 tap to switch back to reveal' : '\uD83D\uDEA9 Switch to flag mode';
+    btn.classList.toggle('active', on);
+  }
 }
 
 function hangmanWordPool(difficulty){
@@ -12183,24 +12261,28 @@ function minesweeperPlayingHtml(){
   }
   const minesLeft = s.mineCount - s.flagged.size;
   const gridStyle = `grid-template-columns:repeat(${s.cols},1fr); grid-template-rows:repeat(${s.rows},1fr);`;
-  let bannerHtml = '';
+  let overlayHtml = '';
   if(s.over){
     const elapsed = Math.floor((s.endTime - s.startTime) / 1000);
     const mm = String(Math.floor(elapsed / 60)).padStart(2, '0');
     const ss = String(elapsed % 60).padStart(2, '0');
-    bannerHtml = `
-      <div class="fg-end-score" style="font-family:'Space Mono', monospace; font-size:28px; margin:6px 0;">${s.won ? 'Cleared! ' + mm + ':' + ss : 'Boom.'}</div>
-      <button class="fg-start-btn" data-action="minesweeper-start" data-mode="${s.difficulty}" style="margin-bottom:14px;">Play Again</button>
+    overlayHtml = `
+      <div class="ms-overlay">
+        <div class="ms-overlay-msg">${s.won ? 'Cleared! ' + mm + ':' + ss : 'Boom.'}</div>
+        <button class="fg-start-btn" data-action="minesweeper-start" data-mode="${s.difficulty}">Play Again</button>
+      </div>
     `;
   }
   return `
     <a class="back-link" href="#geography-hub">← Back to Train Your Brain</a>
     <section style="padding-top:14px;">
       <div class="fg-wrap">
-        <div class="hl-streak-row">${s.difficulty[0].toUpperCase() + s.difficulty.slice(1)} · Mines left: ${minesLeft}</div>
-        ${bannerHtml}
-        ${!s.over ? `<button class="sdk-num-btn" data-action="minesweeper-flag-mode" style="width:100%; margin-bottom:10px; ${s.flagMode ? 'background:var(--coral); color:#fff;' : ''}">${s.flagMode ? '\uD83D\uDEA9 Flag mode ON -- tap to switch back to reveal' : '\uD83D\uDEA9 Switch to flag mode'}</button>` : ''}
-        <div class="ms-grid" style="${gridStyle}">${cellsHtml}</div>
+        <div class="hl-streak-row">${s.difficulty[0].toUpperCase() + s.difficulty.slice(1)} · Mines left: <span class="ms-mines-left">${minesLeft}</span></div>
+        <button class="sdk-num-btn${s.flagMode ? ' active' : ''}" data-action="minesweeper-flag-mode" style="width:100%; margin-bottom:10px;"${s.over ? ' disabled' : ''}>${s.flagMode ? '\uD83D\uDEA9 Flag mode ON \u2014 tap to switch back to reveal' : '\uD83D\uDEA9 Switch to flag mode'}</button>
+        <div class="ms-board-wrap">
+          <div class="ms-grid" style="${gridStyle}">${cellsHtml}</div>
+          ${overlayHtml}
+        </div>
       </div>
     </section>
   `;
