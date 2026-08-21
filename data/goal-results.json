@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-21T20:46:48.220416Z",
+  "generatedAt": "2026-08-21T21:16:06.602385Z",
   "results": [
     {
       "url": "https://www.goal.com/en/match/girona-vs-arsenal/__LS8d9Oc6I1wXn9g8956",
@@ -320,7 +320,32 @@
         }
       ],
       "competition": "FL1"
+    },
+    {
+      "url": "https://www.goal.com/en/match/arsenal-vs-coventry-city/Lo-ZgSjSEfJVOlIXX9nzl",
+      "date": "2026-08-21",
+      "home": "Arsenal",
+      "away": "Coventry City",
+      "htHome": 2,
+      "htAway": 0,
+      "ftHome": 3,
+      "ftAway": 0,
+      "homeGoals": [
+        {
+          "scorer": "K. Havertz",
+          "minute": 15
+        }
+      ],
+      "awayGoals": [
+        {
+          "scorer": "B. Saka",
+          "minute": 23
+        }
+      ],
+      "competition": "arsenal-friendlies"
     }
   ],
-  "scorerParseRetryCounts": {}
+  "scorerParseRetryCounts": {
+    "https://www.goal.com/en/match/real-betis-vs-real-sociedad/zmizwjO0LGBwrNn5i_EvI": 1
+  }
 }
