@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-21T13:08:50.425319+00:00",
+  "generatedAt": "2026-08-21T14:52:05.750786+00:00",
   "teams": [
     "Al Wasl",
     "Shabab Al Ahli Club",
@@ -19,14 +19,14 @@
   "standings": [
     {
       "team": "Al Wasl",
-      "played": 1,
-      "won": 1,
+      "played": 2,
+      "won": 2,
       "drawn": 0,
       "lost": 0,
-      "gf": 5,
+      "gf": 7,
       "ga": 1,
-      "gd": 4,
-      "points": 3
+      "gd": 6,
+      "points": 6
     },
     {
       "team": "Shabab Al Ahli Club",
@@ -96,13 +96,13 @@
     },
     {
       "team": "Ittihad Kalba FC",
-      "played": 1,
+      "played": 2,
       "won": 0,
       "drawn": 1,
-      "lost": 0,
+      "lost": 1,
       "gf": 2,
-      "ga": 2,
-      "gd": 0,
+      "ga": 4,
+      "gd": -2,
       "points": 1
     },
     {
@@ -173,11 +173,6 @@
     }
   ],
   "fixtures": [
-    {
-      "home": "Ittihad Kalba FC",
-      "away": "Al Wasl",
-      "start": "2026-08-21T19:00:00+05:00"
-    },
     {
       "home": "Al Nasr SC",
       "away": "Al Wahda",
@@ -334,6 +329,14 @@
       "start": "2026-08-16T21:45:00+05:00",
       "homeScore": 2,
       "awayScore": 4,
+      "finished": true
+    },
+    {
+      "home": "Ittihad Kalba FC",
+      "away": "Al Wasl",
+      "start": "2026-08-21T19:00:00+05:00",
+      "homeScore": 0,
+      "awayScore": 2,
       "finished": true
     }
   ]
