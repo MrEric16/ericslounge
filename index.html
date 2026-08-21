@@ -1645,6 +1645,32 @@
     z-index:1; position:relative;
   }
   .fg-end-score{ text-align:center; font-family:'Baloo 2', sans-serif; font-weight:800; font-size:48px; color:var(--misc-flaggame); margin:14px 0 4px; }
+
+  .sdk-grid{
+    display:grid; grid-template-columns:repeat(9,1fr); grid-template-rows:repeat(9,1fr);
+    aspect-ratio:1; width:100%; max-width:420px; margin:0 auto 16px;
+    background:var(--line); border:2px solid var(--ink); border-radius:8px; overflow:hidden;
+    gap:1px;
+  }
+  .sdk-cell{
+    background:var(--card); border:none; display:flex; align-items:center; justify-content:center;
+    font-family:'Space Mono', monospace; font-weight:700; font-size:clamp(14px,3.6vw,20px);
+    color:var(--ink); cursor:pointer; padding:0;
+  }
+  .sdk-cell.given{ color:var(--ink-soft); }
+  .sdk-cell.selected{ background:var(--gold); background:color-mix(in srgb, var(--coral) 22%, var(--card)); }
+  .sdk-cell.wrong{ color:#C0392B; }
+  .sdk-cell.box-top{ border-top:2px solid var(--ink); }
+  .sdk-cell.box-left{ border-left:2px solid var(--ink); }
+  .sdk-numpad{ display:grid; grid-template-columns:repeat(5,1fr); gap:8px; }
+  .sdk-num-btn{
+    height:46px; border-radius:10px; border:none; background:var(--card); color:var(--ink);
+    font-family:'Space Mono', monospace; font-weight:700; font-size:17px; cursor:pointer;
+    box-shadow:0 2px 0 rgba(0,0,0,.08); display:flex; align-items:center; justify-content:center;
+  }
+  .sdk-num-btn.sdk-erase{ color:var(--coral-dark); }
+  .sdk-num-btn.sdk-erase svg{ width:16px; height:16px; }
+
   .fg-end-label{ text-align:center; font-size:13px; color:var(--ink-soft); font-weight:700; margin-bottom:22px; }
   .fg-review-item{
     display:flex; align-items:center; gap:12px; padding:10px 12px; border-radius:12px;
@@ -6002,6 +6028,150 @@ const HANGMAN_WORDS = {
   ],
 };
 
+// ---------- Sudoku ----------
+// Standard approach: generate a full valid solved grid via randomized backtracking, then
+// dig holes down to the target clue count, checking after each removal that the puzzle
+// still has exactly one solution (not zero, not many) -- a puzzle with more than one
+// solution isn't really solvable in the normal sense, so every candidate removal gets
+// verified via a capped solution-counter (stops as soon as it finds a 2nd solution,
+// rather than exhaustively counting all of them, since only "is it exactly 1" matters).
+const SUDOKU_CLUES = { easy: 40, medium: 32, hard: 26 };
+
+function sdkShuffle(arr){
+  const a = arr.slice();
+  for(let i = a.length - 1; i > 0; i--){
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+function sdkIsValid(grid, row, col, n){
+  for(let i = 0; i < 9; i++){
+    if(grid[row][i] === n) return false;
+    if(grid[i][col] === n) return false;
+  }
+  const br = Math.floor(row / 3) * 3, bc = Math.floor(col / 3) * 3;
+  for(let r = br; r < br + 3; r++){
+    for(let c = bc; c < bc + 3; c++){
+      if(grid[r][c] === n) return false;
+    }
+  }
+  return true;
+}
+
+function sdkGenerateSolved(){
+  const grid = Array.from({ length: 9 }, () => Array(9).fill(0));
+  function fill(pos){
+    if(pos === 81) return true;
+    const row = Math.floor(pos / 9), col = pos % 9;
+    for(const n of sdkShuffle([1,2,3,4,5,6,7,8,9])){
+      if(sdkIsValid(grid, row, col, n)){
+        grid[row][col] = n;
+        if(fill(pos + 1)) return true;
+        grid[row][col] = 0;
+      }
+    }
+    return false;
+  }
+  fill(0);
+  return grid;
+}
+
+function sdkCountSolutions(grid, cap){
+  let count = 0;
+  function solve(pos){
+    if(count >= cap) return;
+    if(pos === 81){ count++; return; }
+    const row = Math.floor(pos / 9), col = pos % 9;
+    if(grid[row][col] !== 0){ solve(pos + 1); return; }
+    for(let n = 1; n <= 9; n++){
+      if(sdkIsValid(grid, row, col, n)){
+        grid[row][col] = n;
+        solve(pos + 1);
+        grid[row][col] = 0;
+        if(count >= cap) return;
+      }
+    }
+  }
+  solve(0);
+  return count;
+}
+
+function sdkDigHoles(solved, clues){
+  const puzzle = solved.map(row => row.slice());
+  let filled = 81;
+  for(const pos of sdkShuffle(Array.from({ length: 81 }, (_, i) => i))){
+    if(filled <= clues) break;
+    const row = Math.floor(pos / 9), col = pos % 9;
+    const backup = puzzle[row][col];
+    puzzle[row][col] = 0;
+    if(sdkCountSolutions(puzzle.map(r => r.slice()), 2) !== 1){
+      puzzle[row][col] = backup; // removing this cell would allow more than one solution
+    } else {
+      filled--;
+    }
+  }
+  return puzzle;
+}
+
+function sdkGeneratePuzzle(difficulty){
+  const clues = SUDOKU_CLUES[difficulty] || SUDOKU_CLUES.medium;
+  const solution = sdkGenerateSolved();
+  const puzzle = sdkDigHoles(solution, clues);
+  return { puzzle, solution };
+}
+
+let sudokuState = null;
+
+function sudokuStart(difficulty){
+  sudokuState = { loading: true, difficulty: difficulty || 'medium' };
+  renderRoute();
+  setTimeout(() => {
+    const { puzzle, solution } = sdkGeneratePuzzle(difficulty || 'medium');
+    sudokuState = {
+      loading: false,
+      difficulty: difficulty || 'medium',
+      puzzle: puzzle.map(r => r.slice()),
+      given: puzzle.map(row => row.map(v => v !== 0)),
+      solution,
+      selected: null,
+      mistakes: 0,
+      startTime: Date.now(),
+      complete: false,
+    };
+    renderRoute();
+  }, 30); // small delay so the loading state actually paints before the blocking work starts
+}
+
+function sudokuSelectCell(row, col){
+  if(!sudokuState || sudokuState.complete) return;
+  sudokuState.selected = { row, col };
+  renderRoute();
+}
+
+function sudokuEnterNumber(n){
+  if(!sudokuState || sudokuState.complete || !sudokuState.selected) return;
+  const { row, col } = sudokuState.selected;
+  if(sudokuState.given[row][col]) return;
+  if(n !== sudokuState.solution[row][col]) sudokuState.mistakes++;
+  sudokuState.puzzle[row][col] = n;
+  const done = sudokuState.puzzle.every((r, ri) => r.every((v, ci) => v === sudokuState.solution[ri][ci]));
+  if(done){
+    sudokuState.complete = true;
+    sudokuState.endTime = Date.now();
+  }
+  renderRoute();
+}
+
+function sudokuClearCell(){
+  if(!sudokuState || sudokuState.complete || !sudokuState.selected) return;
+  const { row, col } = sudokuState.selected;
+  if(sudokuState.given[row][col]) return;
+  sudokuState.puzzle[row][col] = 0;
+  renderRoute();
+}
+
 function hangmanWordPool(difficulty){
   return difficulty === 'hard' ? HANGMAN_WORDS.hard : HANGMAN_WORDS.easy;
 }
@@ -6136,6 +6306,7 @@ const GEOGRAPHY_HUB_TILES = [
   { name: "Nerdle", emoji: icon('chip'), url: "#nerdle-game", internal: true },
   { name: "Memory Match", emoji: icon('coin'), url: "#memory-game", internal: true },
   { name: "Country Silhouette", emoji: icon('moon'), url: "#silhouette-game", internal: true },
+  { name: "Sudoku", emoji: icon('gear'), url: "#sudoku-game", internal: true },
   { name: "Hangman", emoji: icon('brain'), url: "#hangman-game", internal: true },
   { name: "Higher or Lower", emoji: icon('hourglass'), url: "#higher-lower-game", internal: true },
   { name: "True or False", emoji: icon('checkDouble'), url: "#true-false-game", internal: true },
@@ -11676,6 +11847,96 @@ function hangmanEndHtml(){
           <span>Win rate: ${winRate}%</span>
         </div>
         <button class="fg-start-btn" data-action="hangman-start" data-mode="${hangmanState.difficulty}">Play Again</button>
+      </div>
+    </section>
+  `;
+}
+
+function viewSudokuGame(){
+  if(!sudokuState) return sudokuIntroHtml();
+  if(sudokuState.loading) return sudokuLoadingHtml();
+  if(sudokuState.complete) return sudokuCompleteHtml();
+  return sudokuPlayingHtml();
+}
+
+function sudokuIntroHtml(){
+  return `
+    <a class="back-link" href="#geography-hub">← Back to Train Your Brain</a>
+    <section style="padding-top:14px;">
+      <div class="fg-wrap">
+        <div class="section-head"><span class="emoji">${icon('gear')}</span><h2>Sudoku</h2></div>
+        <p style="font-size:14px; color:var(--ink-soft); line-height:1.6; margin-bottom:16px;">Fill the 9x9 grid so every row, column, and 3x3 box contains 1 through 9 with no repeats. Every puzzle has exactly one solution.</p>
+        <div style="display:flex; flex-direction:column; gap:10px;">
+          <button class="fg-start-btn" data-action="sudoku-start" data-mode="easy">Easy</button>
+          <button class="fg-start-btn" data-action="sudoku-start" data-mode="medium">Medium</button>
+          <button class="fg-start-btn" data-action="sudoku-start" data-mode="hard">Hard</button>
+        </div>
+      </div>
+    </section>
+  `;
+}
+
+function sudokuLoadingHtml(){
+  return `
+    <section style="padding-top:14px;">
+      <div class="fg-wrap" style="text-align:center; padding:60px 0;">
+        <div class="section-head" style="justify-content:center;"><span class="emoji">${icon('gear')}</span><h2>Building your puzzle…</h2></div>
+        <p style="font-size:13px; color:var(--ink-soft);">Every board is checked to make sure it has exactly one solution -- this can take a moment on Hard.</p>
+      </div>
+    </section>
+  `;
+}
+
+function sudokuPlayingHtml(){
+  const s = sudokuState;
+  const sel = s.selected;
+  let cellsHtml = '';
+  for(let r = 0; r < 9; r++){
+    for(let c = 0; c < 9; c++){
+      const val = s.puzzle[r][c];
+      const given = s.given[r][c];
+      const isSelected = sel && sel.row === r && sel.col === c;
+      const wrong = !given && val !== 0 && val !== s.solution[r][c];
+      const classes = ['sdk-cell'];
+      if(given) classes.push('given');
+      if(isSelected) classes.push('selected');
+      if(wrong) classes.push('wrong');
+      if(c % 3 === 0) classes.push('box-left');
+      if(r % 3 === 0) classes.push('box-top');
+      cellsHtml += `<button class="${classes.join(' ')}" data-action="sudoku-cell" data-row="${r}" data-col="${c}">${val !== 0 ? val : ''}</button>`;
+    }
+  }
+  const elapsed = Math.floor((Date.now() - s.startTime) / 1000);
+  const mm = String(Math.floor(elapsed / 60)).padStart(2, '0');
+  const ss = String(elapsed % 60).padStart(2, '0');
+  return `
+    <a class="back-link" href="#geography-hub">← Back to Train Your Brain</a>
+    <section style="padding-top:14px;">
+      <div class="fg-wrap">
+        <div class="hl-streak-row">${s.difficulty[0].toUpperCase() + s.difficulty.slice(1)} · Mistakes: ${s.mistakes} · ${mm}:${ss}</div>
+        <div class="sdk-grid">${cellsHtml}</div>
+        <div class="sdk-numpad">
+          ${[1,2,3,4,5,6,7,8,9].map(n => `<button class="sdk-num-btn" data-action="sudoku-key" data-num="${n}">${n}</button>`).join('')}
+          <button class="sdk-num-btn sdk-erase" data-action="sudoku-clear">${icon('share')}</button>
+        </div>
+      </div>
+    </section>
+  `;
+}
+
+function sudokuCompleteHtml(){
+  const s = sudokuState;
+  const elapsed = Math.floor((s.endTime - s.startTime) / 1000);
+  const mm = String(Math.floor(elapsed / 60)).padStart(2, '0');
+  const ss = String(elapsed % 60).padStart(2, '0');
+  return `
+    <a class="back-link" href="#geography-hub">← Back to Train Your Brain</a>
+    <section style="padding-top:14px;">
+      <div class="fg-wrap">
+        <div class="section-head"><span class="emoji">${icon('gear')}</span><h2>Solved!</h2></div>
+        <div class="fg-end-score" style="font-family:'Space Mono', monospace; font-size:36px;">${mm}:${ss}</div>
+        <p style="text-align:center; font-size:14px; color:var(--ink-soft); margin-top:4px;">${s.difficulty[0].toUpperCase() + s.difficulty.slice(1)} · ${s.mistakes} mistake${s.mistakes === 1 ? '' : 's'}</p>
+        <button class="fg-start-btn" data-action="sudoku-start" data-mode="${s.difficulty}" style="margin-top:16px;">Play Again</button>
       </div>
     </section>
   `;
@@ -18283,6 +18544,30 @@ document.addEventListener('click', (e) => {
     silhouetteAnswer(silhouetteAnswerBtn.dataset.name);
     return;
   }
+  const sudokuStartBtn = e.target.closest('[data-action="sudoku-start"]');
+  if(sudokuStartBtn){
+    e.preventDefault();
+    sudokuStart(sudokuStartBtn.dataset.mode);
+    return;
+  }
+  const sudokuCellBtn = e.target.closest('[data-action="sudoku-cell"]');
+  if(sudokuCellBtn){
+    e.preventDefault();
+    sudokuSelectCell(parseInt(sudokuCellBtn.dataset.row, 10), parseInt(sudokuCellBtn.dataset.col, 10));
+    return;
+  }
+  const sudokuKeyBtn = e.target.closest('[data-action="sudoku-key"]');
+  if(sudokuKeyBtn){
+    e.preventDefault();
+    sudokuEnterNumber(parseInt(sudokuKeyBtn.dataset.num, 10));
+    return;
+  }
+  const sudokuClearBtn = e.target.closest('[data-action="sudoku-clear"]');
+  if(sudokuClearBtn){
+    e.preventDefault();
+    sudokuClearCell();
+    return;
+  }
   const hangmanStartBtn = e.target.closest('[data-action="hangman-start"]');
   if(hangmanStartBtn){
     e.preventDefault();
@@ -18469,6 +18754,8 @@ function renderRoute(opts){
     html = viewMemoryGame();
   } else if(parts[0] === 'silhouette-game'){
     html = viewSilhouetteGame();
+  } else if(parts[0] === 'sudoku-game'){
+    html = viewSudokuGame();
   } else if(parts[0] === 'hangman-game'){
     html = viewHangmanGame();
   } else if(parts[0] === 'higher-lower-game'){
