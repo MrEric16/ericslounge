@@ -18799,12 +18799,21 @@ const COMPLIMENTS = [
   const prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   let animating = false;
   let breakClickCount = 0;
+  let lastClickTime = 0;
+  const RAPID_CLICK_MS = 600; // max gap between consecutive taps to still count as "rapid"
   const root = document.documentElement;
 
   toggle.addEventListener('click', ()=>{
+    const now = Date.now();
+    if(now - lastClickTime > RAPID_CLICK_MS){
+      breakClickCount = 0; // too slow since the last tap -- streak broken, start over
+    }
+    lastClickTime = now;
     breakClickCount++;
     if(breakClickCount === 4){
       triggerBrokenEgg();
+      breakClickCount = 0; // repeatable -- another rapid 4-tap later in the same visit
+                            // can trigger it again, rather than a one-shot-per-session gag
       return;
     }
     if(animating) return;
