@@ -1696,6 +1696,14 @@
   .ms-cell.n8{ color:#757575; }
   .ms-cell:disabled{ cursor:default; }
   .ms-board-wrap{ position:relative; }
+  /* 2048 specifically: a drag on the board IS the game input (swipe = direction), so it
+     must never be interpreted as a page scroll. touch-action:none is the CSS half of the
+     fix; mtPreventTouchNav (JS, applied after render -- see renderRoute) is the other
+     half, same established pattern already used for the drawing canvas games. Deliberately
+     NOT applied to .ms-board-wrap itself (Minesweeper/Sudoku) -- those are tap-only with no
+     competing gesture, so a drag there is just a normal scroll and should stay one; students
+     need to be able to scroll past a tall Hard-difficulty grid. */
+  .g2048-board-wrap{ touch-action:none; }
   .ms-overlay{
     position:absolute; inset:0; z-index:2; border-radius:8px;
     background:rgba(20,15,12,.72);
@@ -6524,6 +6532,15 @@ function g2048KeepPlaying(){
   renderRoute();
 }
 
+// Applied after every full render on the 2048 route (see renderRoute) -- a fresh
+// .g2048-board-wrap element exists each time (game start, win, game-over, keep-playing
+// all rebuild the DOM), so attaching fresh listeners each time is correct, not a leak.
+// Reuses the same touch-scroll-prevention utility already established for the drawing
+// canvas games (mtPreventTouchNav) rather than inventing a parallel mechanism.
+function wireG2048Touch(container){
+  const wrap = container.querySelector('.g2048-board-wrap');
+  if(wrap) mtPreventTouchNav(wrap);
+}
 
 const MINESWEEPER_DIFFICULTIES = {
   easy:   { rows: 8,  cols: 8,  mines: 10 },
@@ -19595,6 +19612,7 @@ function renderRoute(opts){
     });
   }
   if(parts[0] === 'mind-temple'){ mtInit(); }
+  if(parts[0] === '2048-game'){ wireG2048Touch(app); }
   if(parts[0] !== 'flag-game' && fgState){ fgState = null; }
   if(parts[0] !== 'capital-game' && ccState){ ccState = null; }
   if(parts[0] !== 'wordle-game' && wordleState){ wordleState = null; }
