@@ -1423,7 +1423,7 @@
   .hangman-hint{ text-align:center; font-size:13px; font-style:italic; color:var(--ink-soft); margin:10px 0 4px; }
   .hangman-lives-row{ display:flex; justify-content:center; gap:6px; margin-bottom:20px; }
   .hangman-life-dot{ width:14px; height:14px; border-radius:50%; background:#6AAA64; }
-  .hangman-life-dot.lost{ background:#EF4444; opacity:.35; }
+  .hangman-life-dot.lost{ background:#EF4444; }
 
   /* ---- Higher or Lower ---- */
   .hl-cards-row{ display:flex; align-items:center; justify-content:center; gap:10px; margin:20px 0 24px; }
@@ -1548,6 +1548,7 @@
     display:flex; align-items:center; justify-content:center;
   }
   .fg-option-flag-thumb img{ width:100%; height:100%; object-fit:contain; }
+  .fg-option-flag-thumb svg{ width:100%; height:100%; display:block; }
   .fg-option-flag-fallback{ flex-direction:column; align-items:center; justify-content:center; width:100%; height:100%; gap:4px; }
   .fg-option-flag-fallback svg{width:34px;height:34px; opacity:.55;}
   .fg-option-flag-fallback span{ font-size:11px; font-weight:700; color:var(--ink-soft); }
@@ -3161,7 +3162,9 @@ const ARSENAL_FIXTURES = [
 let LIVE_ARSENAL_FIXTURE = null;
 function getNextArsenalFixture(){
   const now = new Date();
-  const pool = LIVE_ARSENAL_FIXTURE ? [LIVE_ARSENAL_FIXTURE, ...ARSENAL_FIXTURES] : ARSENAL_FIXTURES;
+  const pool = LIVE_ARSENAL_FIXTURE
+    ? [LIVE_ARSENAL_FIXTURE, ...ARSENAL_FIXTURES.filter(f => f.start.slice(0,10) !== LIVE_ARSENAL_FIXTURE.start.slice(0,10))]
+    : ARSENAL_FIXTURES;
   const upcoming = pool
     .map(f => ({ ...f, dateObj: new Date(f.start) }))
     .filter(f => f.dateObj > now)
@@ -5092,22 +5095,39 @@ function hlPickNextNearby(usedIndexes, anchorYear){
   return sorted[Math.floor(Math.random() * poolSize)].i;
 }
 
+// Every HL_ERA_JUMP_INTERVAL rounds, the nearby-chaining above traps the whole game in one
+// era: hlPickNextNearby only ever steps a few years at a time, so a 30-round game starting
+// in (say) the 1900s can chain forward/backward within a couple of decades all game and
+// never reach medieval or ancient events at all -- reported directly, and correct: the
+// nearby-selection fix (7-year median gap) was working exactly as designed, it just had
+// this side effect at the whole-game level that wasn't considered at the time. Fixed by
+// periodically breaking the chain: hlPickFarIndex is hlPickNextNearby's mirror image,
+// weighted toward the FARTHEST remaining events rather than the closest, so the game can
+// only ever land in a fresh era, not drift there gradually. HL_JUMP_POOL_SIZE keeps the
+// same anti-guessability property as the nearby pool (picks randomly among the 8 most
+// distant candidates, not always the single most extreme).
+const HL_ERA_JUMP_INTERVAL = 10;
+const HL_JUMP_POOL_SIZE = 8;
+function hlPickFarIndex(usedIndexes, anchorYear){
+  const available = HL_EVENTS.map((_, i) => i).filter(i => !usedIndexes.has(i));
+  if(available.length === 0) return null;
+  const sorted = available
+    .map(i => ({ i, dist: Math.abs(HL_EVENTS[i].year - anchorYear) }))
+    .sort((a, b) => b.dist - a.dist);
+  const poolSize = Math.min(HL_JUMP_POOL_SIZE, sorted.length);
+  return sorted[Math.floor(Math.random() * poolSize)].i;
+}
+
 function higherLowerStart(){
   const startIdx = Math.floor(Math.random() * HL_EVENTS.length);
   const used = new Set([startIdx]);
   const questions = [HL_EVENTS[startIdx]];
-  let anchorYear = HL_EVENTS[startIdx].year;
-  for(let q = 0; q < HL_ROUND_SIZE; q++){
-    const nextIdx = hlPickNextNearby(used, anchorYear);
-    if(nextIdx === null) break; // pool exhausted -- shouldn't happen with 196 events, safety only
-    used.add(nextIdx);
-    questions.push(HL_EVENTS[nextIdx]);
-    anchorYear = HL_EVENTS[nextIdx].year;
-  }
+  const firstNextIdx = hlPickNextNearby(used, HL_EVENTS[startIdx].year);
+  if(firstNextIdx !== null){ questions.push(HL_EVENTS[firstNextIdx]); }
   higherLowerState = {
     questions,
     currentIdx: 0,   // index into `questions` of the currently-anchored (revealed) card
-    qIndex: 1,       // index into `questions` of the next (hidden) card being compared
+    qIndex: questions.length - 1, // index into `questions` of the next (hidden) card being compared
     qNumber: 1,      // 1-based question number shown to the player, out of HL_ROUND_SIZE
     score: 0,
     mistakes: [],    // { question, yourGuess, correctYear, anchorEvent, anchorYear }
@@ -5151,9 +5171,48 @@ function higherLowerGuess(direction){
       renderRoute();
       return;
     }
-    // the just-revealed card becomes the new anchor, chain continues regardless of right/wrong
-    higherLowerState.currentIdx = higherLowerState.qIndex;
-    higherLowerState.qIndex++;
+    // Every HL_ERA_JUMP_INTERVAL rounds, break out of the local era entirely: two brand new
+    // tiles (both anchor and comparison), deliberately far from where the chain has been
+    // sitting, instead of the usual single-new-tile chain step. See hlPickFarIndex above for
+    // why this is needed.
+    if(higherLowerState.qNumber % HL_ERA_JUMP_INTERVAL === 0){
+      const usedIndexes = new Set(higherLowerState.questions.map(q => HL_EVENTS.indexOf(q)));
+      const farIdx = hlPickFarIndex(usedIndexes, next.year);
+      const newAnchor = farIdx !== null ? HL_EVENTS[farIdx] : null;
+      const newNextIdx = newAnchor ? (usedIndexes.add(farIdx), hlPickNextNearby(usedIndexes, newAnchor.year)) : null;
+      if(newAnchor && newNextIdx !== null){
+        higherLowerState.questions.push(newAnchor, HL_EVENTS[newNextIdx]);
+        higherLowerState.currentIdx = higherLowerState.questions.length - 2;
+        higherLowerState.qIndex = higherLowerState.questions.length - 1;
+        higherLowerState.qNumber++;
+        higherLowerState.revealed = false;
+        higherLowerState.lastCorrect = null;
+        renderRoute();
+        return;
+      }
+      // pool exhausted (shouldn't happen with 196 events) -- fall through to normal chain
+    }
+    // the just-revealed card becomes the new anchor; one fresh tile picked nearby continues
+    // the chain (built one round at a time, not prebuilt -- necessary so era jumps above can
+    // safely append extra tiles out of sequence without a fixed-size array falling out of sync)
+    const usedIndexes = new Set(higherLowerState.questions.map(q => HL_EVENTS.indexOf(q)));
+    const nextIdx = hlPickNextNearby(usedIndexes, next.year);
+    if(nextIdx === null){
+      // pool exhausted (shouldn't happen with 196 events) -- end the round early rather than
+      // reading past the array
+      higherLowerState.over = true;
+      let best = 0;
+      try{ best = parseInt(localStorage.getItem(HL_BEST_SCORE_KEY) || '0', 10); }catch(e){}
+      higherLowerState.isNewBest = higherLowerState.score > best;
+      if(higherLowerState.isNewBest){
+        try{ localStorage.setItem(HL_BEST_SCORE_KEY, String(higherLowerState.score)); }catch(e){}
+      }
+      renderRoute();
+      return;
+    }
+    higherLowerState.questions.push(HL_EVENTS[nextIdx]);
+    higherLowerState.currentIdx = higherLowerState.questions.length - 2;
+    higherLowerState.qIndex = higherLowerState.questions.length - 1;
     higherLowerState.qNumber++;
     higherLowerState.revealed = false;
     higherLowerState.lastCorrect = null;
@@ -6005,9 +6064,6 @@ const GEOGRAPHY_HUB_TILES = [
   { name: "Connect 4", emoji: icon('barchart'), url: "#bt-connect4", internal: true },
   geoHubExternalTile("GeoGuessr"),
   geoHubExternalTile("OpenGuessr"),
-  geoHubExternalTile("Radio Garden"),
-  geoHubExternalTile("Drive & Listen"),
-  geoHubExternalTile("Window Swap"),
 ].filter(Boolean);
 
 function viewGeographyHub(){
@@ -6023,7 +6079,7 @@ function viewGeographyHub(){
 }
 
 const SPORTS_TILES = [
-  { emoji: icon('barchart'), name:"League Tables", sub:"All leagues, one page", url:"#sports/tables", color:"var(--teal)", internal:true },
+  { emoji: `<img src="https://download.logo.wine/logo/Arsenal_F.C./Arsenal_F.C.-Logo.wine.png" alt="" style="width:20px;height:20px;object-fit:contain;display:inline-block;vertical-align:-2px;">`, name:"Arsenal", sub:"Fixtures, results, table", url:"#arsenal", color:"var(--f-jur)", internal:true },
   { emoji:icon('ball'), name:"BBC Football", sub:"News, always current", url:"https://www.bbc.com/sport/football", color:"var(--coral)" },
   { emoji:flagIcon('england'), name:"Premier League", sub:"Table, fixtures, results", url:"#sports/league/PL", color:"var(--f-jur)", internal:true },
   { emoji: flagIcon('spain'), name:"La Liga", sub:"Table, fixtures, results", url:"#sports/league/PD", color:"var(--f-ir)", internal:true },
@@ -6047,6 +6103,19 @@ const SPORTS_TILES = [
 // league, events, football standings, and weather, for the same reason all of those were:
 // it self-heals on the scraper's own schedule instead of needing a human to notice and fix
 // it by hand.
+// Manual winner overrides, keyed by the exact event "name" string as it appears in
+// data/ufc-live.json's "past" list (copy verbatim, including any diacritics like "Medić").
+// Chosen deliberately over auto-scraping: Wikipedia's per-event results tables use
+// rowspan-heavy HTML that can't be reliably parsed/tested in this environment, and a
+// silently-wrong winner is worse than a missing one (same fail-closed philosophy as the
+// rest of this scraper). Low-effort to keep current: after a card airs, ask for the
+// winner and this list gets one more line. Not required to cover every past event --
+// entries simply without an override here just show no result line, same as today.
+const UFC_RESULT_OVERRIDES = {
+  "UFC 330: Makhachev vs. Machado Garry": "Islam Makhachev def. Ian Machado Garry (Unanimous Decision)",
+  "UFC Fight Night: Gamrot vs. Salkilld": "Quillan Salkilld def. Mateusz Gamrot (Submission, R1)",
+  "UFC Fight Night: Medić vs. Rodriguez": "Uroš Medić def. Daniel Rodriguez (TKO, R1)",
+};
 function ufcEventRowsHtml(list){
   if(!list || list.length === 0) return '<div class="empty-card">Nothing here yet.</div>';
   return `<div class="match-list">${list.map(e => {
@@ -6056,11 +6125,12 @@ function ufcEventRowsHtml(list){
     // scrape time -- UFC often doesn't lock broadcast slots in until closer to the date,
     // so events further out legitimately fall back to date-only rather than a guessed time.
     const whenText = e.start_tashkent ? formatTashkentDate(e.start_tashkent) : escapeHtml(e.date_text);
+    const resultText = UFC_RESULT_OVERRIDES[e.name] || e.result;
     return `
     <div class="match-row">
       <div class="match-teams">${escapeHtml(cleanName)}</div>
       <div class="match-date">${whenText} — ${escapeHtml(e.location)}</div>
-      ${e.result ? `<div class="match-result" style="font-size:12.5px; font-weight:700; color:var(--teal); margin-top:4px;">${icon('trophy')} ${escapeHtml(e.result)}</div>` : ''}
+      ${resultText ? `<div class="match-result" style="font-size:12.5px; font-weight:700; color:var(--teal); margin-top:4px;">${icon('trophy')} ${escapeHtml(resultText)}</div>` : ''}
     </div>
   `;
   }).join('')}</div>`;
@@ -6803,15 +6873,19 @@ function leagueDetailBodyHtml(code){
   let results = matches.results.length > 0 ? matches.results : ((staticLeague && staticLeague.results) || []);
   if(code === 'CL'){
     // Champions League has a long summer gap between seasons (final in late May, next
-    // season doesn't start until September) -- without this, "Results" would keep showing
-    // last season's final stretch of matches for the entire off-season: stale, and per
-    // direct feedback, actively unpleasant to look at for a fan of a team that lost late.
-    // Only the last 35 days are shown; once the new season starts producing matches again,
-    // they reappear on their own with no further changes needed here.
-    const cutoff = Date.now() - 35*24*60*60*1000;
+    // season's League Phase doesn't start until September) -- without this, "Results" would
+    // keep showing last season's final stretch of matches for the entire off-season: stale,
+    // and per direct feedback, actively unpleasant to look at for a fan of a team that lost
+    // late. A rolling "last 35 days" window was tried first, but it backfired: UCL qualifying
+    // and play-off rounds run through July and August, so a rolling window started pulling in
+    // those results too -- which isn't "the season" from a fan's perspective and isn't what
+    // was wanted. Fixed cutoff instead: nothing shows until the real League Phase kicks off
+    // (Matchday 1, 8 Sept 2026). Update LEAGUE_PHASE_START_CL if UEFA moves the date for a
+    // future season.
+    const LEAGUE_PHASE_START_CL = Date.parse('2026-09-08T00:00:00Z');
     results = results.filter(m => {
       const t = Date.parse(m.start);
-      return !isNaN(t) && t >= cutoff;
+      return !isNaN(t) && t >= LEAGUE_PHASE_START_CL;
     });
   }
   return `
@@ -7482,6 +7556,7 @@ const BIRTHDAYS = [
   { name:"Mr Otabek Diyorovich", month:1, day:20 },
   { name:"Mr Ilxom Baxromovich", month:7, day:26 },
   { name:"Mr Ayk", month:3, day:1 },
+  { name:"Mr Davron Abitovich", month:6, day:20 },
 ];
 
 // Rotating subtitle — a random one shows each visit.
@@ -7706,6 +7781,7 @@ function isValidBookmark(b){
   if(b.type === 'word') return !!b.word;
   if(b.type === 'video') return !!(b.videoId && b.title);
   if(b.type === 'instrument') return !!(b.name && b.url);
+  if(b.type === 'game') return !!(b.name && b.url);
   // 'article' or untyped legacy entries
   return !!(b.headline && b.url);
 }
@@ -7760,6 +7836,8 @@ function wireEntryActions(container){
         item = { key: btn.dataset.key, type:'video', videoId: btn.dataset.videoid, title: btn.dataset.title, channel: btn.dataset.channel, faculty: btn.dataset.faculty };
       } else if(type === 'instrument'){
         item = { key: btn.dataset.key, type:'instrument', url: btn.dataset.url, name: btn.dataset.title, desc: btn.dataset.desc, fac: btn.dataset.fac };
+      } else if(type === 'game'){
+        item = { key: btn.dataset.key, type:'game', url: btn.dataset.url, name: btn.dataset.title, emoji: btn.dataset.emoji };
       } else {
         item = { key: btn.dataset.key, type:'article', url: btn.dataset.url, headline: btn.dataset.title, faculty: btn.dataset.faculty, date: btn.dataset.date };
       }
@@ -9358,6 +9436,28 @@ function exploreResultsHtml(list){
   `;
   }).join('');
 }
+// Games from GEOGRAPHY_HUB_TILES (Brain Train), made findable via Search and saveable via
+// Saved -- neither worked before this, since the hub's tiles were only ever rendered inline
+// on the Brain Train page itself and nowhere else knew they existed. Mirrors
+// exploreResultsHtml's card structure (link and bookmark button as siblings, not nested,
+// since a <button> inside an <a> is invalid HTML and would double-fire on click) rather
+// than instruments' external-site styling, since these are internal site routes.
+function gameResultsHtml(list){
+  return list.map(g => {
+    const key = 'game:' + g.url;
+    return `
+    <div class="explore-card" style="background:${hexToRgba('#7A2E35', 0.14)}">
+      <a class="explore-card-link" href="${g.url}">
+        <div class="explore-card-name" style="color:var(--coral); display:flex; align-items:center; gap:8px;"><span style="display:inline-flex;">${g.emoji}</span>${escapeHtml(g.name)}</div>
+        <div class="explore-card-desc">Brain Train game — tap to play.</div>
+      </a>
+      <div class="explore-card-actions">
+        <button class="bookmark-btn ${isBookmarked(key)?'active':''}" data-key="${key}" data-type="game" data-url="${g.url}" data-title="${escapeHtml(g.name)}" title="Save for later">${isBookmarked(key)?icon('bookmarkFilled'):icon('bookmark')}</button>
+      </div>
+    </div>
+  `;
+  }).join('');
+}
 
 /* ---- Dictionary lookup (built into search, not a separate feature) ----
    Triggers only when the query looks like a single real word (letters only, no spaces,
@@ -9973,6 +10073,10 @@ function wireSearch(container){
     const articleMatches = DISPATCHES.filter(a => a.headline.toLowerCase().includes(q));
     const videoMatches = WATCH_VIDEOS.filter(v => v.title.toLowerCase().includes(q) || v.channel.toLowerCase().includes(q));
     const exploreMatches = EXPLORE_SITES.filter(s => s.name.toLowerCase().includes(q) || s.desc.toLowerCase().includes(q));
+    // Brain Train games (GEOGRAPHY_HUB_TILES) -- internal:true only, since the external
+    // entries (GeoGuessr, OpenGuessr) already surface under Instruments via exploreMatches,
+    // and listing them twice would just be noise.
+    const gameMatches = GEOGRAPHY_HUB_TILES.filter(g => g.internal && g.name.toLowerCase().includes(q));
     const pageMatches = allPages.filter(p => p.name.toLowerCase().includes(q) || p.desc.toLowerCase().includes(q) || (p.keywords||[]).some(k => k.includes(q)));
     const birthdayMatches = BIRTHDAYS.filter(b => b.name.toLowerCase().includes(q));
     // Matches on title OR category (e.g. typing "theatre" finds every theatre
@@ -9984,7 +10088,7 @@ function wireSearch(container){
       (e.title||'').toLowerCase().includes(q) || (e.category||'').toLowerCase().includes(q)
     );
 
-    if(articleMatches.length === 0 && videoMatches.length === 0 && exploreMatches.length === 0 && pageMatches.length === 0 && birthdayMatches.length === 0 && tashkentEventMatches.length === 0 && virtualEventMatches.length === 0){
+    if(articleMatches.length === 0 && videoMatches.length === 0 && exploreMatches.length === 0 && gameMatches.length === 0 && pageMatches.length === 0 && birthdayMatches.length === 0 && tashkentEventMatches.length === 0 && virtualEventMatches.length === 0){
       results.innerHTML = `<div class="empty-card">Nothing found for "${escapeHtml(input.value.trim())}". Try something else.</div>`;
       return;
     }
@@ -10025,6 +10129,10 @@ function wireSearch(container){
     if(exploreMatches.length > 0){
       html += `<div class="section-head" style="margin-top:${html?'24px':'0'};"><span class="emoji">${icon('compass2')}</span><h2>Websites</h2></div>`;
       html += exploreResultsHtml(exploreMatches);
+    }
+    if(gameMatches.length > 0){
+      html += `<div class="section-head" style="margin-top:${html?'24px':'0'};"><span class="emoji">${icon('dice')}</span><h2>Games</h2></div>`;
+      html += gameResultsHtml(gameMatches);
     }
     if(articleMatches.length > 0){
       html += `<div class="section-head" style="margin-top:${html?'24px':'0'};"><span class="emoji">${icon('newspaper')}</span><h2>Articles</h2></div>`;
@@ -11729,6 +11837,7 @@ function viewSaved(){
     const savedArticles = saved.filter(b => b.type === 'article' || (!b.type && b.url && !b.videoId));
     const savedVideos = saved.filter(b => b.type === 'video');
     const savedInstruments = saved.filter(b => b.type === 'instrument');
+    const savedGames = saved.filter(b => b.type === 'game');
     // A word bookmark with no word field is unrenderable (dictCardHtml needs entry.word)
     // and, before this fix, would silently crash the whole page rather than just being
     // skipped -- filtered out here rather than trusting every entry to be well-formed.
@@ -11739,7 +11848,7 @@ function viewSaved(){
         <a class="back-link" href="#">← Back to Mr Eric's Lounge</a>
         <section style="padding-top:14px;">
           <div class="section-head"><span class="emoji">${icon('bookmark')}</span><h2>Saved</h2></div>
-          <div class="empty-card">Nothing saved yet. Tap the bookmark icon on any article, video, instrument, or word to save it here.</div>
+          <div class="empty-card">Nothing saved yet. Tap the bookmark icon on any article, video, instrument, game, or word to save it here.</div>
         </section>
       `;
     }
@@ -11747,6 +11856,14 @@ function viewSaved(){
     const asDispatches = savedArticles.map(b => ({ headline: b.headline, url: b.url, faculty: b.faculty, date: b.date, read: null }));
     const asVideos = savedVideos.map(b => ({ title: b.title, channel: b.channel, videoId: b.videoId, faculty: b.faculty }));
     const asInstruments = savedInstruments.map(b => ({ name: b.name, desc: b.desc, url: b.url, fac: b.fac }));
+    // Bookmarked games only stored {name, url} (no emoji persisted -- data-emoji wasn't set
+    // on the button, since HTML attributes can't safely hold arbitrary embedded SVG markup).
+    // Look the tile back up in GEOGRAPHY_HUB_TILES by url for its real icon; if a game was
+    // ever removed from that list, fall back to a generic dice icon rather than breaking.
+    const asGames = savedGames.map(b => {
+      const tile = GEOGRAPHY_HUB_TILES.find(g => g.url === b.url);
+      return { name: b.name, url: b.url, emoji: tile ? tile.emoji : icon('dice') };
+    });
 
     return `
       <a class="back-link" href="#">← Back to Mr Eric's Lounge</a>
@@ -11755,6 +11872,7 @@ function viewSaved(){
         ${savedArticles.length ? `<h3 style="margin:16px 0 8px;">Articles</h3>${dispatchListHtml(asDispatches)}` : ''}
         ${savedVideos.length ? `<h3 style="margin:20px 0 8px;">Videos</h3><div class="watch-grid">${watchGridHtml(asVideos, 'saved')}</div>` : ''}
         ${savedInstruments.length ? `<h3 style="margin:20px 0 8px;">Instruments</h3>${exploreResultsHtml(asInstruments)}` : ''}
+        ${savedGames.length ? `<h3 style="margin:20px 0 8px;">Games</h3>${gameResultsHtml(asGames)}` : ''}
         ${savedWords.length ? `<h3 style="margin:20px 0 8px;">Words</h3><div id="savedWordsContainer" style="display:flex; flex-direction:column; gap:10px;">${savedWords.map(dictCardHtml).join('')}</div>` : ''}
       </section>
     `;
@@ -16753,7 +16871,9 @@ function sportsTileHtml(t){
   </a>`;
 }
 function arsenalFixtureRows(){
-  const pool = LIVE_ARSENAL_FIXTURE ? [LIVE_ARSENAL_FIXTURE, ...ARSENAL_FIXTURES] : ARSENAL_FIXTURES;
+  const pool = LIVE_ARSENAL_FIXTURE
+    ? [LIVE_ARSENAL_FIXTURE, ...ARSENAL_FIXTURES.filter(f => f.start.slice(0,10) !== LIVE_ARSENAL_FIXTURE.start.slice(0,10))]
+    : ARSENAL_FIXTURES;
   const now = new Date();
   return pool
     .map(f => { const [home, away] = f.title.split(' v '); return { home, away, start: f.start }; })
