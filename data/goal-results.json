@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-21T21:46:17.286345Z",
+  "generatedAt": "2026-08-21T22:15:16.350580Z",
   "results": [
     {
       "url": "https://www.goal.com/en/match/girona-vs-arsenal/__LS8d9Oc6I1wXn9g8956",
@@ -343,9 +343,20 @@
         }
       ],
       "competition": "arsenal-friendlies"
+    },
+    {
+      "url": "https://www.goal.com/en/match/real-betis-vs-real-sociedad/zmizwjO0LGBwrNn5i_EvI",
+      "date": "2026-08-21",
+      "home": "Real Betis",
+      "away": "Real Sociedad",
+      "htHome": 0,
+      "htAway": 0,
+      "ftHome": 1,
+      "ftAway": 0,
+      "homeGoals": [],
+      "awayGoals": [],
+      "competition": "PD"
     }
   ],
-  "scorerParseRetryCounts": {
-    "https://www.goal.com/en/match/real-betis-vs-real-sociedad/zmizwjO0LGBwrNn5i_EvI": 2
-  }
+  "scorerParseRetryCounts": {}
 }
