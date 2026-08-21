@@ -1671,6 +1671,31 @@
   .sdk-num-btn.sdk-erase{ color:var(--coral-dark); }
   .sdk-num-btn.sdk-erase svg{ width:16px; height:16px; }
 
+  .ms-grid{
+    display:grid; width:100%; max-width:420px; margin:0 auto;
+    background:var(--line); border:2px solid var(--ink); border-radius:8px; overflow:hidden;
+    gap:1px;
+  }
+  .ms-cell{
+    background:var(--card); border:none; display:flex; align-items:center; justify-content:center;
+    aspect-ratio:1; font-family:'Space Mono', monospace; font-weight:700;
+    font-size:clamp(9px,2.6vw,14px); color:var(--ink); cursor:pointer; padding:0;
+  }
+  .ms-cell.revealed{ background:var(--cream-2); }
+  .ms-cell.flagged{ font-size:clamp(9px,2.4vw,13px); }
+  .ms-cell.mine{ background:#E8B0AC; }
+  .ms-cell.mine-hit{ background:#D9534F; }
+  .ms-cell.flag-wrong{ background:#E8B0AC; color:#8A2A21; }
+  .ms-cell.n1{ color:#1565C0; }
+  .ms-cell.n2{ color:#2E7D32; }
+  .ms-cell.n3{ color:#C62828; }
+  .ms-cell.n4{ color:#4527A0; }
+  .ms-cell.n5{ color:#6D4C41; }
+  .ms-cell.n6{ color:#00838F; }
+  .ms-cell.n7{ color:#212121; }
+  .ms-cell.n8{ color:#757575; }
+  .ms-cell:disabled{ cursor:default; }
+
   .fg-end-label{ text-align:center; font-size:13px; color:var(--ink-soft); font-weight:700; margin-bottom:22px; }
   .fg-review-item{
     display:flex; align-items:center; gap:12px; padding:10px 12px; border-radius:12px;
@@ -6172,6 +6197,168 @@ function sudokuClearCell(){
   renderRoute();
 }
 
+// ---------- Minesweeper ----------
+const MINESWEEPER_DIFFICULTIES = {
+  easy:   { rows: 8,  cols: 8,  mines: 10 },
+  medium: { rows: 12, cols: 12, mines: 24 },
+  hard:   { rows: 16, cols: 16, mines: 50 },
+};
+
+function msShuffle(arr){
+  const a = arr.slice();
+  for(let i = a.length - 1; i > 0; i--){
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+function msNeighbors(rows, cols, r, c){
+  const out = [];
+  for(let dr = -1; dr <= 1; dr++){
+    for(let dc = -1; dc <= 1; dc++){
+      if(dr === 0 && dc === 0) continue;
+      const nr = r + dr, nc = c + dc;
+      if(nr >= 0 && nr < rows && nc >= 0 && nc < cols) out.push([nr, nc]);
+    }
+  }
+  return out;
+}
+
+// Mines are placed only after the first click, excluding that cell AND its neighbors --
+// the first tap is never a mine, and typically opens up a reasonably-sized safe area
+// rather than a single lonely revealed cell, matching how real Minesweeper behaves.
+function msPlaceMines(rows, cols, mineCount, safeR, safeC){
+  const safeSet = new Set([`${safeR},${safeC}`]);
+  for(const [nr, nc] of msNeighbors(rows, cols, safeR, safeC)) safeSet.add(`${nr},${nc}`);
+  const candidates = [];
+  for(let r = 0; r < rows; r++){
+    for(let c = 0; c < cols; c++){
+      if(!safeSet.has(`${r},${c}`)) candidates.push([r, c]);
+    }
+  }
+  const shuffled = msShuffle(candidates);
+  const mines = new Set();
+  for(let i = 0; i < mineCount && i < shuffled.length; i++){
+    mines.add(`${shuffled[i][0]},${shuffled[i][1]}`);
+  }
+  return mines;
+}
+
+function msComputeCounts(rows, cols, mines){
+  const counts = Array.from({ length: rows }, () => Array(cols).fill(0));
+  for(let r = 0; r < rows; r++){
+    for(let c = 0; c < cols; c++){
+      if(mines.has(`${r},${c}`)) continue;
+      let n = 0;
+      for(const [nr, nc] of msNeighbors(rows, cols, r, c)){
+        if(mines.has(`${nr},${nc}`)) n++;
+      }
+      counts[r][c] = n;
+    }
+  }
+  return counts;
+}
+
+// Iterative (not recursive) flood-fill -- a fully-empty large board could otherwise blow
+// the call stack on a naive recursive implementation.
+function msFloodFill(rows, cols, counts, mines, startR, startC, revealed){
+  const stack = [[startR, startC]];
+  while(stack.length){
+    const [r, c] = stack.pop();
+    const key = `${r},${c}`;
+    if(revealed.has(key)) continue;
+    revealed.add(key);
+    if(counts[r][c] === 0){
+      for(const [nr, nc] of msNeighbors(rows, cols, r, c)){
+        const nkey = `${nr},${nc}`;
+        if(!revealed.has(nkey) && !mines.has(nkey)) stack.push([nr, nc]);
+      }
+    }
+  }
+}
+
+let minesweeperState = null;
+
+function minesweeperStart(difficulty){
+  const cfg = MINESWEEPER_DIFFICULTIES[difficulty] || MINESWEEPER_DIFFICULTIES.easy;
+  minesweeperState = {
+    difficulty: difficulty || 'easy',
+    rows: cfg.rows,
+    cols: cfg.cols,
+    mineCount: cfg.mines,
+    mines: null,      // set on first reveal, once the safe zone is known
+    counts: null,
+    revealed: new Set(),
+    flagged: new Set(),
+    flagMode: false,
+    firstClickDone: false,
+    startTime: null,
+    over: false,
+    won: false,
+  };
+  renderRoute();
+}
+
+function minesweeperReveal(r, c){
+  const s = minesweeperState;
+  if(!s || s.over) return;
+  const key = `${r},${c}`;
+  if(s.flagged.has(key) || s.revealed.has(key)) return;
+
+  if(!s.firstClickDone){
+    s.mines = msPlaceMines(s.rows, s.cols, s.mineCount, r, c);
+    s.counts = msComputeCounts(s.rows, s.cols, s.mines);
+    s.firstClickDone = true;
+    s.startTime = Date.now();
+  }
+
+  if(s.mines.has(key)){
+    s.revealed.add(key);
+    s.over = true;
+    s.won = false;
+    s.endTime = Date.now();
+    renderRoute();
+    return;
+  }
+
+  if(s.counts[r][c] === 0){
+    msFloodFill(s.rows, s.cols, s.counts, s.mines, r, c, s.revealed);
+  } else {
+    s.revealed.add(key);
+  }
+
+  const nonMineCells = s.rows * s.cols - s.mineCount;
+  if(s.revealed.size === nonMineCells){
+    s.over = true;
+    s.won = true;
+    s.endTime = Date.now();
+  }
+  renderRoute();
+}
+
+function minesweeperToggleFlag(r, c){
+  const s = minesweeperState;
+  if(!s || s.over) return;
+  const key = `${r},${c}`;
+  if(s.revealed.has(key)) return;
+  if(s.flagged.has(key)) s.flagged.delete(key);
+  else s.flagged.add(key);
+  renderRoute();
+}
+
+function minesweeperCellTap(r, c){
+  if(!minesweeperState) return;
+  if(minesweeperState.flagMode) minesweeperToggleFlag(r, c);
+  else minesweeperReveal(r, c);
+}
+
+function minesweeperToggleFlagMode(){
+  if(!minesweeperState || minesweeperState.over) return;
+  minesweeperState.flagMode = !minesweeperState.flagMode;
+  renderRoute();
+}
+
 function hangmanWordPool(difficulty){
   return difficulty === 'hard' ? HANGMAN_WORDS.hard : HANGMAN_WORDS.easy;
 }
@@ -6306,6 +6493,7 @@ const GEOGRAPHY_HUB_TILES = [
   { name: "Nerdle", emoji: icon('chip'), url: "#nerdle-game", internal: true },
   { name: "Memory Match", emoji: icon('coin'), url: "#memory-game", internal: true },
   { name: "Country Silhouette", emoji: icon('moon'), url: "#silhouette-game", internal: true },
+  { name: "Minesweeper", emoji: icon('flask'), url: "#minesweeper-game", internal: true },
   { name: "Sudoku", emoji: icon('gear'), url: "#sudoku-game", internal: true },
   { name: "Hangman", emoji: icon('brain'), url: "#hangman-game", internal: true },
   { name: "Higher or Lower", emoji: icon('hourglass'), url: "#higher-lower-game", internal: true },
@@ -11937,6 +12125,82 @@ function sudokuCompleteHtml(){
         <div class="fg-end-score" style="font-family:'Space Mono', monospace; font-size:36px;">${mm}:${ss}</div>
         <p style="text-align:center; font-size:14px; color:var(--ink-soft); margin-top:4px;">${s.difficulty[0].toUpperCase() + s.difficulty.slice(1)} · ${s.mistakes} mistake${s.mistakes === 1 ? '' : 's'}</p>
         <button class="fg-start-btn" data-action="sudoku-start" data-mode="${s.difficulty}" style="margin-top:16px;">Play Again</button>
+      </div>
+    </section>
+  `;
+}
+
+function viewMinesweeperGame(){
+  if(!minesweeperState) return minesweeperIntroHtml();
+  return minesweeperPlayingHtml();
+}
+
+function minesweeperIntroHtml(){
+  return `
+    <a class="back-link" href="#geography-hub">← Back to Train Your Brain</a>
+    <section style="padding-top:14px;">
+      <div class="fg-wrap">
+        <div class="section-head"><span class="emoji">${icon('flask')}</span><h2>Minesweeper</h2></div>
+        <p style="font-size:14px; color:var(--ink-soft); line-height:1.6; margin-bottom:16px;">Reveal every safe cell. A number tells you how many mines are touching it. Flag any cell you suspect is a mine -- your first tap is always safe.</p>
+        <div style="display:flex; flex-direction:column; gap:10px;">
+          <button class="fg-start-btn" data-action="minesweeper-start" data-mode="easy">Easy · 8x8, 10 mines</button>
+          <button class="fg-start-btn" data-action="minesweeper-start" data-mode="medium">Medium · 12x12, 24 mines</button>
+          <button class="fg-start-btn" data-action="minesweeper-start" data-mode="hard">Hard · 16x16, 50 mines</button>
+        </div>
+      </div>
+    </section>
+  `;
+}
+
+function minesweeperPlayingHtml(){
+  const s = minesweeperState;
+  let cellsHtml = '';
+  for(let r = 0; r < s.rows; r++){
+    for(let c = 0; c < s.cols; c++){
+      const key = `${r},${c}`;
+      const isRevealed = s.revealed.has(key);
+      const isFlagged = s.flagged.has(key);
+      const isMine = !!(s.mines && s.mines.has(key));
+      const classes = ['ms-cell'];
+      let content = '';
+      if(s.over && isMine){
+        classes.push('mine');
+        if(isRevealed) classes.push('mine-hit');
+        content = '\uD83D\uDCA3';
+      } else if(s.over && isFlagged && !isMine){
+        classes.push('flag-wrong');
+        content = '\u2715';
+      } else if(isRevealed){
+        classes.push('revealed');
+        const n = s.counts ? s.counts[r][c] : 0;
+        if(n > 0){ classes.push('n' + n); content = n; }
+      } else if(isFlagged){
+        classes.push('flagged');
+        content = '\uD83D\uDEA9';
+      }
+      cellsHtml += `<button class="${classes.join(' ')}" data-action="ms-cell" data-row="${r}" data-col="${c}"${s.over ? ' disabled' : ''}>${content}</button>`;
+    }
+  }
+  const minesLeft = s.mineCount - s.flagged.size;
+  const gridStyle = `grid-template-columns:repeat(${s.cols},1fr); grid-template-rows:repeat(${s.rows},1fr);`;
+  let bannerHtml = '';
+  if(s.over){
+    const elapsed = Math.floor((s.endTime - s.startTime) / 1000);
+    const mm = String(Math.floor(elapsed / 60)).padStart(2, '0');
+    const ss = String(elapsed % 60).padStart(2, '0');
+    bannerHtml = `
+      <div class="fg-end-score" style="font-family:'Space Mono', monospace; font-size:28px; margin:6px 0;">${s.won ? 'Cleared! ' + mm + ':' + ss : 'Boom.'}</div>
+      <button class="fg-start-btn" data-action="minesweeper-start" data-mode="${s.difficulty}" style="margin-bottom:14px;">Play Again</button>
+    `;
+  }
+  return `
+    <a class="back-link" href="#geography-hub">← Back to Train Your Brain</a>
+    <section style="padding-top:14px;">
+      <div class="fg-wrap">
+        <div class="hl-streak-row">${s.difficulty[0].toUpperCase() + s.difficulty.slice(1)} · Mines left: ${minesLeft}</div>
+        ${bannerHtml}
+        ${!s.over ? `<button class="sdk-num-btn" data-action="minesweeper-flag-mode" style="width:100%; margin-bottom:10px; ${s.flagMode ? 'background:var(--coral); color:#fff;' : ''}">${s.flagMode ? '\uD83D\uDEA9 Flag mode ON -- tap to switch back to reveal' : '\uD83D\uDEA9 Switch to flag mode'}</button>` : ''}
+        <div class="ms-grid" style="${gridStyle}">${cellsHtml}</div>
       </div>
     </section>
   `;
@@ -18544,6 +18808,24 @@ document.addEventListener('click', (e) => {
     silhouetteAnswer(silhouetteAnswerBtn.dataset.name);
     return;
   }
+  const minesweeperStartBtn = e.target.closest('[data-action="minesweeper-start"]');
+  if(minesweeperStartBtn){
+    e.preventDefault();
+    minesweeperStart(minesweeperStartBtn.dataset.mode);
+    return;
+  }
+  const msCellBtn = e.target.closest('[data-action="ms-cell"]');
+  if(msCellBtn){
+    e.preventDefault();
+    minesweeperCellTap(parseInt(msCellBtn.dataset.row, 10), parseInt(msCellBtn.dataset.col, 10));
+    return;
+  }
+  const msFlagModeBtn = e.target.closest('[data-action="minesweeper-flag-mode"]');
+  if(msFlagModeBtn){
+    e.preventDefault();
+    minesweeperToggleFlagMode();
+    return;
+  }
   const sudokuStartBtn = e.target.closest('[data-action="sudoku-start"]');
   if(sudokuStartBtn){
     e.preventDefault();
@@ -18754,6 +19036,8 @@ function renderRoute(opts){
     html = viewMemoryGame();
   } else if(parts[0] === 'silhouette-game'){
     html = viewSilhouetteGame();
+  } else if(parts[0] === 'minesweeper-game'){
+    html = viewMinesweeperGame();
   } else if(parts[0] === 'sudoku-game'){
     html = viewSudokuGame();
   } else if(parts[0] === 'hangman-game'){
