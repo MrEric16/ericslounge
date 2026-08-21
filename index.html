@@ -131,6 +131,27 @@
     --coral:#B5562E; --coral-dark:#8A3F1F; --gold:#D9A441; --teal:#8C6B3D; --line:#E3C89A;
   }
 
+  /* Uzbekistan National Day 2026 -- one-off, time-triggered (not the usual whole-day
+     SEASONAL_THEMES mechanism -- see NATIONAL_DAY_WINDOW and applySeasonalTheme() in the
+     script), since this one needed an exact hour rather than a calendar date. "Flag
+     Stripes" variant, picked from 5 options shown for review. Runs 28 Aug 2026 18:00
+     Tashkent through the end of 1 Sept 2026 (Independence Day), then reverts on its own --
+     no manual step needed to turn it back off. */
+  body.theme-nationalday:not(.dark-mode){
+    --cream:#F7F5EE; --cream-2:#ECE8D8; --card:#FFFFFF;
+    --coral:#0099B5; --coral-dark:#00707F; --gold:#CE1126; --teal:#1EB53A; --line:#DCD8C8;
+    --board-bg:rgba(0,0,0,.55);
+  }
+  body.theme-nationalday:not(.dark-mode) header::before{
+    background-image:
+      linear-gradient(180deg, #0099B5 0%, #0099B5 40%, #FFFFFF 40%, #FFFFFF 46%, #CE1126 46%, #CE1126 52%, #FFFFFF 52%, #FFFFFF 58%, #1EB53A 58%, #1EB53A 100%);
+    background-size:auto;
+    opacity:.16;
+  }
+  body.theme-nationalday:not(.dark-mode) .aurora-layer{
+    opacity:0;
+  }
+
   /* ---------- User-chosen themes ----------
      Same pattern as seasonal themes above -- only CSS custom properties change, so every
      component reskins automatically with zero other edits. Unlike seasonal themes (date-
@@ -6472,20 +6493,46 @@ const SEASONAL_THEMES = [
   { key:'nowruz',        start:'2027-03-20', end:'2027-03-22' },
   { key:'eidadha',       start:'2027-05-15', end:'2027-05-17' },
 ];
+// One-off, time-triggered rather than date-only like every theme in SEASONAL_THEMES above --
+// this one needed an exact hour (28 Aug 2026, 18:00 Tashkent), not a calendar date, and
+// runs through the end of 1 Sept 2026 (Independence Day) before reverting on its own. Kept
+// as a separate mechanism rather than stretching SEASONAL_THEMES' day-only granularity to
+// fit. Same Intl.DateTimeFormat approach as tashkentEffectiveDay() for reliable Tashkent
+// wall-clock time regardless of the viewer's own device timezone, compared as a plain
+// sortable number (YYYYMMDDHHmm) rather than juggling Date objects across timezones.
+const NATIONAL_DAY_WINDOW = {
+  key: 'nationalday',
+  startNum: 202608281800,
+  endNum:   202609020000,
+};
+function tashkentMomentNum(){
+  const parts = new Intl.DateTimeFormat('en-CA', {
+    timeZone: 'Asia/Tashkent', year:'numeric', month:'2-digit', day:'2-digit', hour:'2-digit', minute:'2-digit', hour12:false
+  }).formatToParts(new Date());
+  const get = t => parts.find(p=>p.type===t).value;
+  return +(get('year') + get('month') + get('day') + get('hour') + get('minute'));
+}
 function applySeasonalTheme(){
   // An explicit pick from the theme-cycle button always wins -- someone who chose "Dark 3"
-  // shouldn't have Christmas colors silently override it on Dec 24. Presence of the key at
-  // all (even 'default', a conscious choice to opt out of every named theme) counts as an
-  // explicit preference; only a visitor who has never touched the picker gets the automatic
-  // seasonal reskin.
+  // shouldn't have Christmas colors (or the national day theme) silently override it.
+  // Presence of the key at all (even 'default', a conscious choice to opt out of every
+  // named theme) counts as an explicit preference; only a visitor who has never touched
+  // the picker gets any automatic reskin.
+  const allKeys = SEASONAL_THEMES.map(t => t.key).concat(NATIONAL_DAY_WINDOW.key);
   const hasUserThemeChoice = (()=>{ try{ return localStorage.getItem('themeChoice') !== null; }catch(e){ return false; } })();
   if(hasUserThemeChoice){
-    SEASONAL_THEMES.forEach(t => document.body.classList.remove('theme-' + t.key));
+    allKeys.forEach(k => document.body.classList.remove('theme-' + k));
+    return;
+  }
+  const nowNum = tashkentMomentNum();
+  if(nowNum >= NATIONAL_DAY_WINDOW.startNum && nowNum < NATIONAL_DAY_WINDOW.endNum){
+    allKeys.forEach(k => document.body.classList.remove('theme-' + k));
+    document.body.classList.add('theme-' + NATIONAL_DAY_WINDOW.key);
     return;
   }
   const today = tashkentEffectiveDay();
   const active = SEASONAL_THEMES.find(t => today >= t.start && today <= t.end);
-  SEASONAL_THEMES.forEach(t => document.body.classList.remove('theme-' + t.key));
+  allKeys.forEach(k => document.body.classList.remove('theme-' + k));
   if(active) document.body.classList.add('theme-' + active.key);
 }
 
