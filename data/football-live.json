@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-21T20:48:58.602627Z",
+  "generatedAt": "2026-08-21T21:20:08.879685Z",
   "standings": {
     "PL": [
       {
@@ -689,7 +689,39 @@
           "venue": null
         }
       ],
-      "results": []
+      "results": [
+        {
+          "utcDate": "2026-08-21T19:00:00Z",
+          "status": "FINISHED",
+          "matchday": 1,
+          "homeTeam": {
+            "id": 57,
+            "name": "Arsenal FC",
+            "shortName": "Arsenal"
+          },
+          "awayTeam": {
+            "id": 1076,
+            "name": "Coventry City FC",
+            "shortName": "Coventry City"
+          },
+          "score": {
+            "winner": "HOME_TEAM",
+            "duration": "REGULAR",
+            "fullTime": {
+              "home": 3,
+              "away": 0
+            },
+            "halfTime": {
+              "home": 2,
+              "away": 0
+            }
+          },
+          "competition": {
+            "name": "Premier League"
+          },
+          "venue": null
+        }
+      ]
     },
     "PD": {
       "fixtures": [
@@ -943,6 +975,37 @@
         }
       ],
       "results": [
+        {
+          "utcDate": "2026-08-21T19:00:00Z",
+          "status": "FINISHED",
+          "matchday": 2,
+          "homeTeam": {
+            "id": 90,
+            "name": "Real Betis Balompié",
+            "shortName": "Real Betis"
+          },
+          "awayTeam": {
+            "id": 92,
+            "name": "Real Sociedad de Fútbol",
+            "shortName": "Real Sociedad"
+          },
+          "score": {
+            "winner": "HOME_TEAM",
+            "duration": "REGULAR",
+            "fullTime": {
+              "home": 1,
+              "away": 0
+            },
+            "halfTime": {
+              "home": 0,
+              "away": 0
+            }
+          },
+          "competition": {
+            "name": "Primera Division"
+          },
+          "venue": null
+        },
         {
           "utcDate": "2026-08-20T19:00:00Z",
           "status": "FINISHED",
@@ -2560,5 +2623,37 @@
     },
     "venue": null
   },
-  "arsenalFinishedMatches": []
+  "arsenalFinishedMatches": [
+    {
+      "utcDate": "2026-08-21T19:00:00Z",
+      "status": "FINISHED",
+      "matchday": 1,
+      "homeTeam": {
+        "id": 57,
+        "name": "Arsenal FC",
+        "shortName": "Arsenal"
+      },
+      "awayTeam": {
+        "id": 1076,
+        "name": "Coventry City FC",
+        "shortName": "Coventry City"
+      },
+      "score": {
+        "winner": "HOME_TEAM",
+        "duration": "REGULAR",
+        "fullTime": {
+          "home": 3,
+          "away": 0
+        },
+        "halfTime": {
+          "home": 2,
+          "away": 0
+        }
+      },
+      "competition": {
+        "name": "Premier League"
+      },
+      "venue": null
+    }
+  ]
 }
