@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-21T20:21:27.678705Z",
+  "generatedAt": "2026-08-21T20:48:58.602627Z",
   "standings": {
     "PL": [
       {
@@ -245,6 +245,16 @@
         "pts": 3
       },
       {
+        "name": "Real Betis",
+        "pld": 1,
+        "w": 1,
+        "d": 0,
+        "l": 0,
+        "gf": 1,
+        "ga": 0,
+        "pts": 3
+      },
+      {
         "name": "Santander",
         "pld": 1,
         "w": 0,
@@ -282,26 +292,6 @@
         "l": 0,
         "gf": 1,
         "ga": 1,
-        "pts": 1
-      },
-      {
-        "name": "Real Betis",
-        "pld": 1,
-        "w": 0,
-        "d": 1,
-        "l": 0,
-        "gf": 0,
-        "ga": 0,
-        "pts": 1
-      },
-      {
-        "name": "Real Sociedad",
-        "pld": 1,
-        "w": 0,
-        "d": 1,
-        "l": 0,
-        "gf": 0,
-        "ga": 0,
         "pts": 1
       },
       {
@@ -372,6 +362,16 @@
         "l": 0,
         "gf": 0,
         "ga": 0,
+        "pts": 0
+      },
+      {
+        "name": "Real Sociedad",
+        "pld": 1,
+        "w": 0,
+        "d": 0,
+        "l": 1,
+        "gf": 0,
+        "ga": 1,
         "pts": 0
       },
       {
@@ -2012,7 +2012,39 @@
           "venue": null
         }
       ],
-      "results": []
+      "results": [
+        {
+          "utcDate": "2026-08-21T18:45:00Z",
+          "status": "FINISHED",
+          "matchday": 1,
+          "homeTeam": {
+            "id": 516,
+            "name": "Olympique de Marseille",
+            "shortName": "Marseille"
+          },
+          "awayTeam": {
+            "id": 576,
+            "name": "RC Strasbourg Alsace",
+            "shortName": "Strasbourg"
+          },
+          "score": {
+            "winner": "HOME_TEAM",
+            "duration": "REGULAR",
+            "fullTime": {
+              "home": 4,
+              "away": 0
+            },
+            "halfTime": {
+              "home": 0,
+              "away": 0
+            }
+          },
+          "competition": {
+            "name": "Ligue 1"
+          },
+          "venue": null
+        }
+      ]
     },
     "CL": {
       "fixtures": [],
