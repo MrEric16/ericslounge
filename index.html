@@ -1787,6 +1787,22 @@
     background:var(--gold); opacity:1; box-shadow:0 0 10px color-mix(in srgb, var(--gold) 60%, transparent);
   }
 
+  .mm-board{ display:flex; flex-direction:column-reverse; gap:6px; margin-bottom:16px; max-height:340px; overflow-y:auto; }
+  .mm-row{ display:flex; align-items:center; justify-content:space-between; background:var(--card); border-radius:10px; padding:8px 10px; }
+  .mm-current-row{ background:color-mix(in srgb, var(--coral) 8%, var(--card)); }
+  .mm-pegs{ display:flex; gap:6px; }
+  .mm-peg{ width:28px; height:28px; border-radius:50%; background:var(--line); box-shadow:inset 0 0 0 2px rgba(0,0,0,.08); }
+  .mm-slot{ width:32px; height:32px; border-radius:50%; border:2px dashed var(--line); background:var(--card); cursor:pointer; padding:0; }
+  .mm-slot.filled{ border-style:solid; border-color:transparent; }
+  .mm-slot.selected{ box-shadow:0 0 0 3px var(--coral); }
+  .mm-feedback{ display:grid; grid-template-columns:repeat(2,1fr); gap:3px; width:20px; }
+  .mm-fb-dot{ width:8px; height:8px; border-radius:50%; }
+  .mm-fb-black{ background:#2A2118; }
+  .mm-fb-white{ background:#fff; box-shadow:inset 0 0 0 1px rgba(0,0,0,.2); }
+  .mm-fb-empty{ background:transparent; box-shadow:inset 0 0 0 1px rgba(0,0,0,.1); }
+  .mm-palette{ display:flex; justify-content:center; gap:10px; margin-bottom:14px; }
+  .mm-palette-btn{ width:38px; height:38px; border-radius:50%; border:none; cursor:pointer; box-shadow:0 2px 0 rgba(0,0,0,.15); }
+
   .fg-end-label{ text-align:center; font-size:13px; color:var(--ink-soft); font-weight:700; margin-bottom:22px; }
   .fg-review-item{
     display:flex; align-items:center; gap:12px; padding:10px 12px; border-radius:12px;
@@ -6750,6 +6766,104 @@ function lightsOutTapCell(r, c){
   }
 }
 
+// ---------- Mastermind ----------
+const MASTERMIND_COLORS = ['red', 'orange', 'yellow', 'green', 'blue', 'purple'];
+const MASTERMIND_COLOR_HEX = {
+  red: '#D64545', orange: '#E08A3E', yellow: '#E0C23E',
+  green: '#4CA64C', blue: '#3E7FD6', purple: '#8B5AA6',
+};
+const MASTERMIND_CODE_LENGTH = 4;
+const MASTERMIND_MAX_GUESSES = 10;
+
+// Standard duplicate-color-aware scoring: exact position+color matches count as black
+// and are removed first; among what's left, a color match (regardless of position)
+// counts as white, decrementing a running count so the same secret peg can't be
+// claimed by two different guess pegs.
+function mastermindScoreGuess(secret, guess){
+  let black = 0;
+  const secretRemain = [];
+  const guessRemain = [];
+  for(let i = 0; i < secret.length; i++){
+    if(secret[i] === guess[i]){
+      black++;
+    } else {
+      secretRemain.push(secret[i]);
+      guessRemain.push(guess[i]);
+    }
+  }
+  let white = 0;
+  const counts = {};
+  for(const c of secretRemain) counts[c] = (counts[c] || 0) + 1;
+  for(const c of guessRemain){
+    if(counts[c] > 0){
+      white++;
+      counts[c]--;
+    }
+  }
+  return { black, white };
+}
+
+let mastermindState = null;
+
+function mastermindStart(){
+  const secret = Array.from({ length: MASTERMIND_CODE_LENGTH }, () =>
+    MASTERMIND_COLORS[Math.floor(Math.random() * MASTERMIND_COLORS.length)]
+  );
+  mastermindState = {
+    secret,
+    guesses: [],
+    currentGuess: Array(MASTERMIND_CODE_LENGTH).fill(null),
+    selectedSlot: 0,
+    over: false,
+    won: false,
+  };
+  renderRoute();
+}
+
+function mastermindSyncCurrentRow(){
+  const s = mastermindState;
+  for(let i = 0; i < s.currentGuess.length; i++){
+    const slotEl = document.querySelector(`.mm-current-row [data-slot="${i}"]`);
+    if(!slotEl) continue;
+    slotEl.classList.toggle('selected', s.selectedSlot === i);
+    const color = s.currentGuess[i];
+    slotEl.style.background = color ? MASTERMIND_COLOR_HEX[color] : '';
+    slotEl.classList.toggle('filled', !!color);
+  }
+  const submitBtn = document.querySelector('.mm-submit-btn');
+  if(submitBtn) submitBtn.disabled = s.currentGuess.some(v => v === null);
+}
+
+function mastermindSelectSlot(i){
+  const s = mastermindState;
+  if(!s || s.over) return;
+  s.selectedSlot = i;
+  mastermindSyncCurrentRow();
+}
+
+function mastermindPickColor(color){
+  const s = mastermindState;
+  if(!s || s.over) return;
+  s.currentGuess[s.selectedSlot] = color;
+  const nextEmpty = s.currentGuess.findIndex((v, i) => v === null && i > s.selectedSlot);
+  s.selectedSlot = nextEmpty !== -1 ? nextEmpty : s.currentGuess.findIndex(v => v === null);
+  if(s.selectedSlot === -1) s.selectedSlot = MASTERMIND_CODE_LENGTH - 1;
+  mastermindSyncCurrentRow();
+}
+
+function mastermindSubmitGuess(){
+  const s = mastermindState;
+  if(!s || s.over) return;
+  if(s.currentGuess.some(v => v === null)) return;
+  const { black, white } = mastermindScoreGuess(s.secret, s.currentGuess);
+  s.guesses.push({ guess: s.currentGuess.slice(), black, white });
+  s.won = black === MASTERMIND_CODE_LENGTH;
+  s.over = s.won || s.guesses.length >= MASTERMIND_MAX_GUESSES;
+  s.currentGuess = Array(MASTERMIND_CODE_LENGTH).fill(null);
+  s.selectedSlot = 0;
+  renderRoute(); // genuine content-reveal moment (a new feedback row), not a per-tap event
+}
+
 const MINESWEEPER_DIFFICULTIES = {
   easy:   { rows: 8,  cols: 8,  mines: 10 },
   medium: { rows: 12, cols: 12, mines: 24 },
@@ -7115,6 +7229,7 @@ const GEOGRAPHY_HUB_TILES = [
   { name: "Nerdle", emoji: icon('chip'), url: "#nerdle-game", internal: true },
   { name: "Memory Match", emoji: icon('coin'), url: "#memory-game", internal: true },
   { name: "Country Silhouette", emoji: icon('moon'), url: "#silhouette-game", internal: true },
+  { name: "Mastermind", emoji: icon('coin'), url: "#mastermind-game", internal: true },
   { name: "Lights Out", emoji: icon('sun'), url: "#lightsout-game", internal: true },
   { name: "Tower of Hanoi", emoji: icon('hourglass'), url: "#hanoi-game", internal: true },
   { name: "2048", emoji: icon('dice'), url: "#2048-game", internal: true },
@@ -12811,6 +12926,93 @@ function g2048PlayingHtml(){
           <button class="g2048-arrow-btn" data-action="g2048-move" data-dir="down">${'\u2193'}</button>
           <button class="g2048-arrow-btn" data-action="g2048-move" data-dir="right">${'\u2192'}</button>
         </div>
+      </div>
+    </section>
+  `;
+}
+
+function viewMastermindGame(){
+  if(!mastermindState) return mastermindIntroHtml();
+  if(mastermindState.over) return mastermindCompleteHtml();
+  return mastermindPlayingHtml();
+}
+
+function mastermindIntroHtml(){
+  return `
+    <a class="back-link" href="#geography-hub">← Back to Train Your Brain</a>
+    <section style="padding-top:14px;">
+      <div class="fg-wrap">
+        <div class="section-head"><span class="emoji">${icon('coin')}</span><h2>Mastermind</h2></div>
+        <p style="font-size:14px; color:var(--ink-soft); line-height:1.6; margin-bottom:16px;">Guess the secret 4-colour code. After each guess: a black peg means a colour is right AND in the right spot; a white peg means the colour is right but in the wrong spot. Colours can repeat. ${MASTERMIND_MAX_GUESSES} guesses to crack it.</p>
+        <button class="fg-start-btn" data-action="mastermind-start">Start</button>
+      </div>
+    </section>
+  `;
+}
+
+function mastermindPegHtml(color){
+  const bg = color ? MASTERMIND_COLOR_HEX[color] : '';
+  return `<div class="mm-peg" style="background:${bg};"></div>`;
+}
+
+function mastermindFeedbackHtml(black, white){
+  const dots = [
+    ...Array(black).fill('<span class="mm-fb-dot mm-fb-black"></span>'),
+    ...Array(white).fill('<span class="mm-fb-dot mm-fb-white"></span>'),
+    ...Array(MASTERMIND_CODE_LENGTH - black - white).fill('<span class="mm-fb-dot mm-fb-empty"></span>'),
+  ];
+  return `<div class="mm-feedback">${dots.join('')}</div>`;
+}
+
+function mastermindPlayingHtml(){
+  const s = mastermindState;
+  const pastRowsHtml = s.guesses.map(g => `
+    <div class="mm-row">
+      <div class="mm-pegs">${g.guess.map(mastermindPegHtml).join('')}</div>
+      ${mastermindFeedbackHtml(g.black, g.white)}
+    </div>
+  `).join('');
+  const currentSlotsHtml = s.currentGuess.map((color, i) => {
+    const bg = color ? MASTERMIND_COLOR_HEX[color] : '';
+    const classes = ['mm-slot'];
+    if(s.selectedSlot === i) classes.push('selected');
+    if(color) classes.push('filled');
+    return `<button class="${classes.join(' ')}" style="background:${bg};" data-action="mm-slot" data-slot="${i}"></button>`;
+  }).join('');
+  const canSubmit = s.currentGuess.every(v => v !== null);
+  const paletteHtml = MASTERMIND_COLORS.map(color =>
+    `<button class="mm-palette-btn" style="background:${MASTERMIND_COLOR_HEX[color]};" data-action="mm-color" data-color="${color}"></button>`
+  ).join('');
+
+  return `
+    <a class="back-link" href="#geography-hub">← Back to Train Your Brain</a>
+    <section style="padding-top:14px;">
+      <div class="fg-wrap">
+        <div class="hl-streak-row">Guess ${s.guesses.length + 1} of ${MASTERMIND_MAX_GUESSES}</div>
+        <div class="mm-board">
+          ${pastRowsHtml}
+          <div class="mm-row mm-current-row">
+            <div class="mm-pegs">${currentSlotsHtml}</div>
+            <div class="mm-feedback"></div>
+          </div>
+        </div>
+        <div class="mm-palette">${paletteHtml}</div>
+        <button class="fg-start-btn mm-submit-btn" data-action="mm-submit"${canSubmit ? '' : ' disabled'}>Submit Guess</button>
+      </div>
+    </section>
+  `;
+}
+
+function mastermindCompleteHtml(){
+  const s = mastermindState;
+  return `
+    <a class="back-link" href="#geography-hub">← Back to Train Your Brain</a>
+    <section style="padding-top:14px;">
+      <div class="fg-wrap">
+        <div class="section-head"><span class="emoji">${icon('coin')}</span><h2>${s.won ? 'Cracked it!' : 'Out of guesses'}</h2></div>
+        <p style="text-align:center; font-size:14px; color:var(--ink-soft); margin-bottom:8px;">${s.won ? `Solved in ${s.guesses.length} guess${s.guesses.length === 1 ? '' : 'es'}.` : 'The code was:'}</p>
+        <div class="mm-pegs" style="justify-content:center; margin-bottom:16px;">${s.secret.map(mastermindPegHtml).join('')}</div>
+        <button class="fg-start-btn" data-action="mastermind-start">Play Again</button>
       </div>
     </section>
   `;
@@ -19616,6 +19818,30 @@ document.addEventListener('click', (e) => {
     silhouetteAnswer(silhouetteAnswerBtn.dataset.name);
     return;
   }
+  const mastermindStartBtn = e.target.closest('[data-action="mastermind-start"]');
+  if(mastermindStartBtn){
+    e.preventDefault();
+    mastermindStart();
+    return;
+  }
+  const mmSlotBtn = e.target.closest('[data-action="mm-slot"]');
+  if(mmSlotBtn){
+    e.preventDefault();
+    mastermindSelectSlot(parseInt(mmSlotBtn.dataset.slot, 10));
+    return;
+  }
+  const mmColorBtn = e.target.closest('[data-action="mm-color"]');
+  if(mmColorBtn){
+    e.preventDefault();
+    mastermindPickColor(mmColorBtn.dataset.color);
+    return;
+  }
+  const mmSubmitBtn = e.target.closest('[data-action="mm-submit"]');
+  if(mmSubmitBtn){
+    e.preventDefault();
+    mastermindSubmitGuess();
+    return;
+  }
   const lightsOutStartBtn = e.target.closest('[data-action="lightsout-start"]');
   if(lightsOutStartBtn){
     e.preventDefault();
@@ -19886,6 +20112,8 @@ function renderRoute(opts){
     html = viewMemoryGame();
   } else if(parts[0] === 'silhouette-game'){
     html = viewSilhouetteGame();
+  } else if(parts[0] === 'mastermind-game'){
+    html = viewMastermindGame();
   } else if(parts[0] === 'lightsout-game'){
     html = viewLightsOutGame();
   } else if(parts[0] === 'hanoi-game'){
