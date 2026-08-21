@@ -1754,6 +1754,27 @@
     font-size:20px; cursor:pointer; box-shadow:0 2px 0 rgba(0,0,0,.08);
   }
 
+  .hanoi-board{ display:flex; justify-content:space-around; align-items:flex-end; gap:8px; max-width:420px; margin:0 auto; height:220px; }
+  .hanoi-peg{
+    flex:1; height:100%; border:none; background:transparent; cursor:pointer;
+    display:flex; flex-direction:column; justify-content:flex-end; align-items:center; position:relative;
+    padding:0 0 10px; border-radius:8px;
+  }
+  .hanoi-peg.selected{ background:color-mix(in srgb, var(--coral) 14%, transparent); }
+  .hanoi-pole{ position:absolute; bottom:10px; left:50%; transform:translateX(-50%); width:8px; height:calc(100% - 10px); background:var(--line); border-radius:4px 4px 0 0; z-index:0; }
+  .hanoi-base{ position:absolute; bottom:0; left:10%; width:80%; height:10px; background:var(--ink-soft); border-radius:4px; z-index:0; }
+  .hanoi-discs{ display:flex; flex-direction:column-reverse; align-items:center; gap:3px; z-index:1; width:100%; margin-bottom:10px; }
+  .hanoi-disc{
+    height:16px; border-radius:5px; background:var(--coral); box-shadow:0 2px 0 rgba(0,0,0,.1);
+  }
+  .hanoi-disc[data-size="1"]{ background:var(--coral); }
+  .hanoi-disc[data-size="2"]{ background:var(--gold); }
+  .hanoi-disc[data-size="3"]{ background:var(--teal); }
+  .hanoi-disc[data-size="4"]{ background:var(--coral-dark); }
+  .hanoi-disc[data-size="5"]{ background:#8B6FB0; }
+  .hanoi-disc[data-size="6"]{ background:#5F9EA0; }
+  .hanoi-disc[data-size="7"]{ background:#C97C4A; }
+
   .fg-end-label{ text-align:center; font-size:13px; color:var(--ink-soft); font-weight:700; margin-bottom:22px; }
   .fg-review-item{
     display:flex; align-items:center; gap:12px; padding:10px 12px; border-radius:12px;
@@ -6542,6 +6563,99 @@ function wireG2048Touch(container){
   if(wrap) mtPreventTouchNav(wrap);
 }
 
+// ---------- Tower of Hanoi ----------
+// No generator needed -- the board always starts fully stacked on peg 0 (largest disc
+// at the bottom, size N down to 1). The entire rule set is move validation: a disc can
+// only be placed on an empty peg or on top of a strictly larger disc.
+const HANOI_DISC_OPTIONS = [3, 5, 7];
+
+let hanoiState = null;
+
+function hanoiStart(discCount){
+  const n = HANOI_DISC_OPTIONS.includes(discCount) ? discCount : 5;
+  hanoiState = {
+    pegs: [Array.from({ length: n }, (_, i) => n - i), [], []], // peg0[0]=n (bottom) ... peg0[n-1]=1 (top)
+    discCount: n,
+    selected: null,
+    moves: 0,
+    minMoves: Math.pow(2, n) - 1,
+    over: false,
+    startTime: Date.now(),
+  };
+  renderRoute();
+}
+
+function hanoiDiscWidthPct(size, discCount){
+  return 30 + (size / discCount) * 60;
+}
+
+function hanoiDiscsHtml(pegIndex){
+  const s = hanoiState;
+  return s.pegs[pegIndex].map(size =>
+    `<div class="hanoi-disc" style="width:${hanoiDiscWidthPct(size, s.discCount)}%;" data-size="${size}"></div>`
+  ).join('');
+}
+
+// Rebuilds only the given peg's own disc stack (a handful of small divs) and its
+// selected-state class -- not the grid, not the page. This is a tap-only interface
+// (no drag/swipe), so there's no scroll-hijack risk to guard against, only the
+// standing rule against full-page rebuilds on ordinary gameplay taps.
+function hanoiSyncPeg(pegIndex){
+  const btn = document.querySelector(`.hanoi-peg[data-peg="${pegIndex}"]`);
+  if(!btn) return;
+  btn.classList.toggle('selected', hanoiState.selected === pegIndex);
+  const discsEl = btn.querySelector('.hanoi-discs');
+  if(discsEl) discsEl.innerHTML = hanoiDiscsHtml(pegIndex);
+}
+
+function hanoiUpdateMovesDOM(){
+  const el = document.querySelector('.hanoi-moves');
+  if(el) el.textContent = String(hanoiState.moves);
+}
+
+function hanoiSelectPeg(pegIndex){
+  const s = hanoiState;
+  if(!s || s.over) return;
+
+  if(s.selected === null){
+    if(s.pegs[pegIndex].length === 0) return;
+    s.selected = pegIndex;
+    hanoiSyncPeg(pegIndex);
+    return;
+  }
+  if(s.selected === pegIndex){
+    s.selected = null;
+    hanoiSyncPeg(pegIndex);
+    return;
+  }
+
+  const fromIdx = s.selected;
+  const fromPeg = s.pegs[fromIdx];
+  const toPeg = s.pegs[pegIndex];
+  const disc = fromPeg[fromPeg.length - 1];
+  const topOfTo = toPeg[toPeg.length - 1];
+
+  if(topOfTo !== undefined && topOfTo < disc){
+    s.selected = null; // illegal move -- just deselect, no move made
+    hanoiSyncPeg(fromIdx);
+    return;
+  }
+
+  fromPeg.pop();
+  toPeg.push(disc);
+  s.moves++;
+  s.selected = null;
+  hanoiSyncPeg(fromIdx);
+  hanoiSyncPeg(pegIndex);
+  hanoiUpdateMovesDOM();
+
+  if(s.pegs[2].length === s.discCount){
+    s.over = true;
+    s.endTime = Date.now();
+    renderRoute(); // genuine one-time transition to the completion view
+  }
+}
+
 const MINESWEEPER_DIFFICULTIES = {
   easy:   { rows: 8,  cols: 8,  mines: 10 },
   medium: { rows: 12, cols: 12, mines: 24 },
@@ -6907,6 +7021,7 @@ const GEOGRAPHY_HUB_TILES = [
   { name: "Nerdle", emoji: icon('chip'), url: "#nerdle-game", internal: true },
   { name: "Memory Match", emoji: icon('coin'), url: "#memory-game", internal: true },
   { name: "Country Silhouette", emoji: icon('moon'), url: "#silhouette-game", internal: true },
+  { name: "Tower of Hanoi", emoji: icon('hourglass'), url: "#hanoi-game", internal: true },
   { name: "2048", emoji: icon('dice'), url: "#2048-game", internal: true },
   { name: "Minesweeper", emoji: icon('flask'), url: "#minesweeper-game", internal: true },
   { name: "Sudoku", emoji: icon('gear'), url: "#sudoku-game", internal: true },
@@ -12601,6 +12716,68 @@ function g2048PlayingHtml(){
           <button class="g2048-arrow-btn" data-action="g2048-move" data-dir="down">${'\u2193'}</button>
           <button class="g2048-arrow-btn" data-action="g2048-move" data-dir="right">${'\u2192'}</button>
         </div>
+      </div>
+    </section>
+  `;
+}
+
+function viewHanoiGame(){
+  if(!hanoiState) return hanoiIntroHtml();
+  if(hanoiState.over) return hanoiCompleteHtml();
+  return hanoiPlayingHtml();
+}
+
+function hanoiIntroHtml(){
+  return `
+    <a class="back-link" href="#geography-hub">← Back to Train Your Brain</a>
+    <section style="padding-top:14px;">
+      <div class="fg-wrap">
+        <div class="section-head"><span class="emoji">${icon('hourglass')}</span><h2>Tower of Hanoi</h2></div>
+        <p style="font-size:14px; color:var(--ink-soft); line-height:1.6; margin-bottom:16px;">Move the whole stack to the last peg. Only one disc at a time, and a disc can never sit on top of a smaller one.</p>
+        <div style="display:flex; flex-direction:column; gap:10px;">
+          <button class="fg-start-btn" data-action="hanoi-start" data-discs="3">3 Discs</button>
+          <button class="fg-start-btn" data-action="hanoi-start" data-discs="5">5 Discs</button>
+          <button class="fg-start-btn" data-action="hanoi-start" data-discs="7">7 Discs</button>
+        </div>
+      </div>
+    </section>
+  `;
+}
+
+function hanoiPlayingHtml(){
+  const s = hanoiState;
+  const pegsHtml = [0, 1, 2].map(i => `
+    <button class="hanoi-peg${s.selected === i ? ' selected' : ''}" data-action="hanoi-peg" data-peg="${i}">
+      <div class="hanoi-pole"></div>
+      <div class="hanoi-discs">${hanoiDiscsHtml(i)}</div>
+      <div class="hanoi-base"></div>
+    </button>
+  `).join('');
+  return `
+    <a class="back-link" href="#geography-hub">← Back to Train Your Brain</a>
+    <section style="padding-top:14px;">
+      <div class="fg-wrap">
+        <div class="hl-streak-row">${s.discCount} discs · Moves: <span class="hanoi-moves">${s.moves}</span> · Minimum: ${s.minMoves}</div>
+        <div class="hanoi-board">${pegsHtml}</div>
+      </div>
+    </section>
+  `;
+}
+
+function hanoiCompleteHtml(){
+  const s = hanoiState;
+  const elapsed = Math.floor((s.endTime - s.startTime) / 1000);
+  const mm = String(Math.floor(elapsed / 60)).padStart(2, '0');
+  const ss = String(elapsed % 60).padStart(2, '0');
+  const optimal = s.moves === s.minMoves;
+  return `
+    <a class="back-link" href="#geography-hub">← Back to Train Your Brain</a>
+    <section style="padding-top:14px;">
+      <div class="fg-wrap">
+        <div class="section-head"><span class="emoji">${icon('hourglass')}</span><h2>Solved!</h2></div>
+        <div class="fg-end-score" style="font-family:'Space Mono', monospace; font-size:36px;">${s.moves} moves</div>
+        <p style="text-align:center; font-size:14px; color:var(--ink-soft); margin-top:4px;">${mm}:${ss} · Minimum possible was ${s.minMoves}${optimal ? ' — perfect!' : ''}</p>
+        <button class="fg-start-btn" data-action="hanoi-start" data-discs="${s.discCount}" style="margin-top:16px;">Play Again</button>
       </div>
     </section>
   `;
@@ -19288,6 +19465,18 @@ document.addEventListener('click', (e) => {
     silhouetteAnswer(silhouetteAnswerBtn.dataset.name);
     return;
   }
+  const hanoiStartBtn = e.target.closest('[data-action="hanoi-start"]');
+  if(hanoiStartBtn){
+    e.preventDefault();
+    hanoiStart(parseInt(hanoiStartBtn.dataset.discs, 10));
+    return;
+  }
+  const hanoiPegBtn = e.target.closest('[data-action="hanoi-peg"]');
+  if(hanoiPegBtn){
+    e.preventDefault();
+    hanoiSelectPeg(parseInt(hanoiPegBtn.dataset.peg, 10));
+    return;
+  }
   const g2048StartBtn = e.target.closest('[data-action="g2048-start"]');
   if(g2048StartBtn){
     e.preventDefault();
@@ -19534,6 +19723,8 @@ function renderRoute(opts){
     html = viewMemoryGame();
   } else if(parts[0] === 'silhouette-game'){
     html = viewSilhouetteGame();
+  } else if(parts[0] === 'hanoi-game'){
+    html = viewHanoiGame();
   } else if(parts[0] === '2048-game'){
     html = viewG2048Game();
   } else if(parts[0] === 'minesweeper-game'){
