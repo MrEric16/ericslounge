@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-22T16:47:35.739595Z",
+  "generatedAt": "2026-08-22T17:13:31.763496Z",
   "results": [
     {
       "url": "https://www.goal.com/en/match/girona-vs-arsenal/__LS8d9Oc6I1wXn9g8956",
@@ -392,10 +392,66 @@
       ],
       "awayGoals": [],
       "competition": "PL"
+    },
+    {
+      "url": "https://www.goal.com/en/match/nottingham-forest-vs-leeds-united/yAWkKuVpJISNPG9tbpaYA",
+      "date": "2026-08-22",
+      "home": "Nottingham Forest",
+      "away": "Leeds United",
+      "htHome": 0,
+      "htAway": 0,
+      "ftHome": 0,
+      "ftAway": 1,
+      "homeGoals": [
+        {
+          "scorer": "A. Stach",
+          "minute": 88
+        }
+      ],
+      "awayGoals": [],
+      "competition": "PL"
+    },
+    {
+      "url": "https://www.goal.com/en/match/ipswich-town-vs-sunderland/yX9Iwq2uLGCTLbU24c3sT",
+      "date": "2026-08-22",
+      "home": "Ipswich Town",
+      "away": "Sunderland",
+      "htHome": 1,
+      "htAway": 1,
+      "ftHome": 2,
+      "ftAway": 1,
+      "homeGoals": [
+        {
+          "scorer": "N. Angulo",
+          "minute": 39
+        }
+      ],
+      "awayGoals": [],
+      "competition": "PL"
+    },
+    {
+      "url": "https://www.goal.com/en/match/athletic-bilbao-vs-sevilla/5ZCdz1OOh-dJBxomBaSDR",
+      "date": "2026-08-22",
+      "home": "Athletic Bilbao",
+      "away": "Sevilla",
+      "htHome": 0,
+      "htAway": 1,
+      "ftHome": 1,
+      "ftAway": 3,
+      "homeGoals": [
+        {
+          "scorer": "C. Ejuke",
+          "minute": 50
+        }
+      ],
+      "awayGoals": [
+        {
+          "scorer": "I. Romero",
+          "minute": 57
+        }
+      ],
+      "competition": "PD"
     }
   ],
-  "scorerParseRetryCounts": {
-    "https://www.goal.com/en/match/nottingham-forest-vs-leeds-united/yAWkKuVpJISNPG9tbpaYA": 2,
-    "https://www.goal.com/en/match/ipswich-town-vs-sunderland/yX9Iwq2uLGCTLbU24c3sT": 2
-  }
+  "scorerParseRetryCounts": {}
 }
