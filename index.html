@@ -21447,7 +21447,21 @@ document.getElementById('bottomTabs').addEventListener('click', (e)=>{
 logEvent('open');
 wireSwipeBackToHome(document.getElementById('app'));
 renderRoute({ forceTop:true });
-setTimeout(checkTodaysBirthdays, 700);
+// A pull-to-refresh now does a genuine page reload (see below) so the app actually picks
+// up new pushes instead of just re-rendering stale in-memory state. But a real reload runs
+// through this exact same boot sequence as a cold reopen -- which would mean the birthday
+// popup, weekend confetti etc. fire on every single pull-to-refresh too. This one-shot flag
+// (set right before the reload, consumed and cleared here) lets us tell "refresh" and
+// "genuine reopen" apart: refresh = reopen minus the popups, exactly once, then gone.
+const mtSkipReopenPopups = (function(){
+  let flag = false;
+  try{
+    flag = sessionStorage.getItem('mtSkipReopenPopups') === '1';
+    if(flag) sessionStorage.removeItem('mtSkipReopenPopups');
+  }catch(e){}
+  return flag;
+})();
+if(!mtSkipReopenPopups){ setTimeout(checkTodaysBirthdays, 700); }
 // Tab bar is now populated and visible (show-bottom-tabs added during renderRoute) —
 // safe to measure its real height now.
 syncTabBarHeight();
@@ -21487,12 +21501,15 @@ requestAnimationFrame(syncTabBarHeight); // catch any late font-load reflow
       indicator.classList.add('spinning');
       indicator.style.transform = 'translateY(14px)';
       setTimeout(()=>{
-        renderRoute({ forceTop:true });
-        setTimeout(()=>{
-          indicator.classList.remove('spinning','ready');
-          indicator.style.transform = '';
-          refreshing = false;
-        }, 450);
+        // This used to just call renderRoute({forceTop:true}), which re-rendered the
+        // current in-memory state and picked up NOTHING new -- the whole point of a
+        // refresh gesture is to actually get code/data pushed since the app was opened.
+        // A real reload does that (sw.js is network-first, so this always hits the
+        // network when online). The mtSkipReopenPopups flag set here is consumed once
+        // at the top of the script on the next load, so this reload skips the birthday
+        // popup / weekend confetti a genuine reopen would show.
+        try{ sessionStorage.setItem('mtSkipReopenPopups', '1'); }catch(e){}
+        location.reload();
       }, 300);
     } else {
       setPull(0);
@@ -21672,7 +21689,7 @@ function updateWeekendCountdown(){
   if(isWeekendNow(now)){
     el.textContent = "it's here 🎉";
     try{
-      if(!sessionStorage.getItem('weekendCelebrated')){
+      if(!sessionStorage.getItem('weekendCelebrated') && !mtSkipReopenPopups){
         sessionStorage.setItem('weekendCelebrated', '1');
         burstConfetti();
       }
