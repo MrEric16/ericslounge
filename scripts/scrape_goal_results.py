@@ -111,36 +111,41 @@ def parse_match_page(html, url):
             except ValueError:
                 continue
 
-    pre_ht = full_text.split("(HT")[0]
-    tail = pre_ht[-600:]
-    scorer_pattern = re.compile(r"([A-Z]\.\s?[A-Za-z\-']+)\s*(\d+)'")
-    all_scorers = scorer_pattern.findall(tail)
+    # REWRITTEN 2026-08-22: the old approach inferred home/away from whether a running
+    # score number appeared before or after the scorer's name in the "Key Events" text
+    # blob -- a fragile heuristic that, confirmed by inspecting the real captured HTML
+    # (scripts/debug-goal-com-match.html), does not reliably track home vs away at all
+    # (it happened to match for one Arsenal-at-home example the original comment cited,
+    # then broke for Arsenal-away matches, which is exactly the kind of silent, spread-out
+    # failure a 24-mismatch audit across the whole results file turned up). The page
+    # actually ships a clean, semantic, purpose-built element for this in the match
+    # header: two <div class="team-scorers_team-a__...">/<div class="team-scorers_team-b__...">
+    # blocks (team-a is always the side listed first/left = home, team-b = away, matching
+    # the home-vs-away URL slug order), each containing one <span data-testid="team-scorer">
+    # per goal with a scorer_player-name__ span and a goal-event_period__ span. Verified
+    # directly against real captured HTML before shipping (Girona 1-4 Arsenal: team-a
+    # correctly returned only A. Martinez per Girona's actual single goal, team-b correctly
+    # returned all 4 Arsenal scorers) -- not assumed from a search snippet or guessed at.
+    # The CSS module hash suffixes (e.g. __mqsRA) are matched as a prefix regex since those
+    # hashes can change between goal.com deployments; the semantic class prefix is stable.
+    def extract_team_scorers(team_letter):
+        div = soup.find("div", class_=re.compile(rf"team-scorers_team-{team_letter}__"))
+        if not div:
+            return []
+        out = []
+        for span in div.find_all("span", attrs={"data-testid": "team-scorer"}):
+            name_el = span.find("span", class_=re.compile(r"scorer_player-name__"))
+            period_el = span.find("span", class_=re.compile(r"goal-event_period__"))
+            if not name_el or not period_el:
+                continue
+            name = name_el.get_text(strip=True)
+            minute_match = re.search(r"(\d+)", period_el.get_text(strip=True))
+            if minute_match:
+                out.append({"scorer": name, "minute": int(minute_match.group(1))})
+        return out
 
-    key_events_section = full_text.split("Key Events", 1)
-    home_scorers_from_events = set()
-    away_scorers_from_events = set()
-    if len(key_events_section) > 1:
-        ke_text = key_events_section[1][:2000]
-        # Confirmed via direct evidence (2026-08-16, Arsenal vs Man City: Calafiori and
-        # Havertz, both Arsenal/home players, were landing under the "score-then-name"
-        # pattern) that this pattern corresponds to the HOME side's goals, not away as
-        # originally assumed -- the two assignments below are swapped from the first
-        # version of this scraper for that reason.
-        for m in re.finditer(r"(\d+\s*-\s*\d+)\s*\n?\s*([A-Z]\.\s?[A-Za-z\-']+)", ke_text):
-            home_scorers_from_events.add(m.group(2).strip())
-        for m in re.finditer(r"([A-Z]\.\s?[A-Za-z\-']+)\s*\n?\s*(\d+\s*-\s*\d+)", ke_text):
-            away_scorers_from_events.add(m.group(1).strip())
-
-    home_goals, away_goals = [], []
-    for name, minute in all_scorers:
-        name = name.strip()
-        entry = {"scorer": name, "minute": int(minute)}
-        if name in away_scorers_from_events:
-            away_goals.append(entry)
-        elif name in home_scorers_from_events:
-            home_goals.append(entry)
-        else:
-            log(f"WARNING: could not assign scorer '{name}' to home or away for {url}")
+    home_goals = extract_team_scorers("a")
+    away_goals = extract_team_scorers("b")
 
     # If the scoreline shows goals happened but scorer parsing came back completely empty
     # on a side, that's a parse failure, not a real 0-0-style result -- and it happened for
@@ -252,10 +257,23 @@ def main():
     retry_counts = existing.get("scorerParseRetryCounts", {})
     total_new = 0
 
-    total_new += process_source(ARSENAL_URL, existing_urls, existing["results"], "arsenal-friendlies", retry_counts)
-
+    # ORDER FIX 2026-08-22: LEAGUES must run BEFORE the Arsenal team page. The Arsenal
+    # page lists every one of Arsenal's matches -- friendlies AND official competition
+    # games alike, with no way to tell them apart -- and previously ran first, so it
+    # permanently tagged competitive Arsenal fixtures (e.g. the Aug 21 Premier League
+    # opener vs Coventry City) as "arsenal-friendlies" and added the URL to existing_urls.
+    # When the correctly-tagged PL scrape reached the same match afterward, it was
+    # already in existing_urls and got silently skipped -- so the correct "PL" tag never
+    # got written at all, and the match ended up duplicated client-side (see
+    # arsenalAllResults()'s merge logic, which only pulls "arsenal-friendlies" entries
+    # through a separate path with its own date handling). Running LEAGUES first means
+    # a competitive Arsenal match gets its correct tag and claims the URL first; only
+    # genuine friendlies (never in a league fixtures page at all) still reach the
+    # Arsenal-page scrape and get the "arsenal-friendlies" tag, which is exactly right.
     for code, url in LEAGUES.items():
         total_new += process_source(url, existing_urls, existing["results"], code, retry_counts)
+
+    total_new += process_source(ARSENAL_URL, existing_urls, existing["results"], "arsenal-friendlies", retry_counts)
 
     log(f"TOTAL new results added this run: {total_new}")
     if retry_counts:

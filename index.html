@@ -1178,7 +1178,7 @@
   .sports-header{
     display:flex;
     align-items:center;
-    gap:6px;
+    gap:3px;
     margin-bottom:12px;
   }
   .sports-header .crest{
@@ -5029,19 +5029,21 @@ function silhouetteGetOptions(correct, allCountries, optionCount, poolSize, used
 
 function silhouetteRoundDifficulty(roundIndex, totalRounds, difficulty){
   const progress = totalRounds > 1 ? roundIndex / (totalRounds - 1) : 0;
-  if(difficulty === 'easy'){
-    const maxTier = 1 + Math.floor(progress * 2); // 1 -> 3, sticks to well-known shapes
-    const poolSize = Math.round(20 - progress * 5); // 20 -> 15, generous/low-confusability distractors
-    return { minTier: 1, maxTier, poolSize };
-  }
   if(difficulty === 'hard'){
-    const maxTier = 3 + Math.floor(progress * 2); // 3 -> 5, skips the easy/obvious countries entirely
+    // minTier fixed at 2 (skips only the handful of most-obvious countries), ceiling
+    // ramps 2 -> 5 so the back half of the game reaches the truly obscure tier. Eligible
+    // pool: tiers 2-5 (~171 countries) -- much larger than the old 3-way split's tier
+    // 3-5 hard pool (~138), since Medium's removal freed up tier 2 to join Hard too.
+    const maxTier = 2 + Math.floor(progress * 3);
     const poolSize = Math.round(8 - progress * 4); // 8 -> 4, tight/high-confusability distractors
-    return { minTier: 3, maxTier, poolSize };
+    return { minTier: 2, maxTier, poolSize };
   }
-  // medium -- original behaviour, unchanged
-  const maxTier = 1 + Math.floor(progress * 4);
-  const poolSize = Math.round(15 - progress * 9);
+  // easy (default): minTier fixed at 1, ceiling ramps 1 -> 4 so the back half of the
+  // game reaches genuinely recognisable-but-not-trivial shapes. Eligible pool: tiers
+  // 1-4 (~172 countries) -- much larger than the old 3-way split's tier 1-3 easy pool
+  // (~131), since Medium's removal freed up tier 4 to join Easy too.
+  const maxTier = 1 + Math.floor(progress * 3);
+  const poolSize = Math.round(20 - progress * 6); // 20 -> 14, generous/low-confusability distractors
   return { minTier: 1, maxTier, poolSize };
 }
 
@@ -5081,7 +5083,7 @@ function silhouetteBuildRounds(allCountries, totalRounds, difficulty){
 let silhouetteState = null;
 
 function silhouetteStart(difficulty){
-  const chosenDifficulty = difficulty || 'medium';
+  const chosenDifficulty = difficulty || 'easy';
   silhouetteState = {
     difficulty: chosenDifficulty,
     rounds: silhouetteBuildRounds(SILHOUETTE_COUNTRIES, SILHOUETTE_ROUNDS_PER_GAME, chosenDifficulty),
@@ -8425,7 +8427,15 @@ function arsenalAllResults(){
   const goalFriendly = GOAL_RESULTS
     .filter(d => d.competition === 'arsenal-friendlies')
     .map(d => {
-      const fixtureMatch = ARSENAL_FIXTURES.find(f => f.start.slice(0,10) === d.date);
+      // f.start.slice(0,10) used to compare the raw Tashkent-local date string directly
+      // against d.date (goal.com's UTC/UK-local date) -- silently wrong for any evening
+      // UK kickoff, since 19:00+ UTC in England is already past midnight in Tashkent
+      // (+5), landing on the NEXT calendar day. Confirmed as the root cause of a real
+      // duplicate: the Aug 21 19:00 UTC Arsenal-Coventry kickoff is "2026-08-22" in this
+      // fixture list but "2026-08-21" from goal.com, so this lookup always missed for
+      // it. Converting the fixture's start to a real UTC date before comparing fixes
+      // that for every future evening friendly too, not just this one.
+      const fixtureMatch = ARSENAL_FIXTURES.find(f => new Date(f.start).toISOString().slice(0,10) === d.date);
       return {
         home: d.home, away: d.away, homeScore: d.ftHome, awayScore: d.ftAway,
         start: fixtureMatch ? fixtureMatch.start : `${d.date}T12:00:00+05:00`,
@@ -13155,7 +13165,6 @@ function silhouetteIntroHtml(){
         </div>
         <div style="display:flex; flex-direction:column; gap:10px;">
           <button class="fg-start-btn" data-action="silhouette-start" data-mode="easy">Easy</button>
-          <button class="fg-start-btn" data-action="silhouette-start" data-mode="medium">Medium</button>
           <button class="fg-start-btn" data-action="silhouette-start" data-mode="hard">Hard</button>
         </div>
         <div class="silhouette-credit">Map outlines by <a href="https://github.com/djaiss/mapsicon" target="_blank" rel="noopener">djaiss/mapsicon</a></div>
@@ -14841,10 +14850,12 @@ function mtCkHasAnyMove(b, color){
 function mtMountCheckersGame(container, opts){
   opts = opts || {};
   const mode = opts.mode === 'human' ? 'human' : 'cpu';
+  const kamikaze = !!opts.kamikaze;
+  const kamikazeHint = kamikaze ? ' Kamikaze: lose every piece first to win.' : '';
   container.innerHTML = `
     <div class="mt-checkers-wrap">
       <canvas class="mt-embedded-canvas mt-checkers-canvas"></canvas>
-      <div class="mt-embedded-hint" id="mtCheckersMsg">${mode === 'human' ? "Red's move. Tap a piece, then tap where to move." : 'Your move (red). Tap a piece, then tap where to move.'}</div>
+      <div class="mt-embedded-hint" id="mtCheckersMsg">${(mode === 'human' ? "Red's move. Tap a piece, then tap where to move." : 'Your move (red). Tap a piece, then tap where to move.') + kamikazeHint}</div>
       <div class="mt-embedded-controls"><button class="mt-embedded-btn" data-checkers-reset>New game</button></div>
     </div>
   `;
@@ -14865,7 +14876,7 @@ function mtMountCheckersGame(container, opts){
   function setupBoard(){
     board = mtCkInitBoard();
     turn = 'player'; activeColor = 'red'; selected = null; gameOver = false; aiThinking = false; aiCaptureQueue = null;
-    setMsg(mode === 'human' ? "Red's move. Tap a piece, then tap where to move." : 'Your move (red). Tap a piece, then tap where to move.');
+    setMsg((mode === 'human' ? "Red's move. Tap a piece, then tap where to move." : 'Your move (red). Tap a piece, then tap where to move.') + kamikazeHint);
   }
   setupBoard();
 
@@ -14926,7 +14937,15 @@ function mtMountCheckersGame(container, opts){
   function checkGameOver(){
     if(!mtCkHasAnyMove(board,'red')){
       gameOver = true;
-      if(mode === 'human'){
+      if(kamikaze){
+        if(mode === 'human'){
+          setMsg('Red is out of moves \u2014 Red wins by sacrifice! Tap New game to try again.');
+          mtShowResultPopup(container, 'RED WINS', 'win');
+        } else {
+          setMsg("You're out of moves \u2014 you win by sacrifice! Tap New game to play again.");
+          mtShowResultPopup(container, 'YOU WIN', 'win');
+        }
+      } else if(mode === 'human'){
         setMsg('No moves left for Red \u2014 Black wins. Tap New game to try again.');
         mtShowResultPopup(container, 'BLACK WINS', 'win');
       } else {
@@ -14937,7 +14956,15 @@ function mtMountCheckersGame(container, opts){
     }
     if(!mtCkHasAnyMove(board,'black')){
       gameOver = true;
-      if(mode === 'human'){
+      if(kamikaze){
+        if(mode === 'human'){
+          setMsg('Black is out of moves \u2014 Black wins by sacrifice! Tap New game to try again.');
+          mtShowResultPopup(container, 'BLACK WINS', 'win');
+        } else {
+          setMsg('The computer is out of moves \u2014 it wins by sacrifice! Tap New game to try again.');
+          mtShowResultPopup(container, 'LOUNGE WINS', 'lose');
+        }
+      } else if(mode === 'human'){
         setMsg('No moves left for Black \u2014 Red wins. Tap New game to try again.');
         mtShowResultPopup(container, 'RED WINS', 'win');
       } else {
@@ -15085,7 +15112,13 @@ function mtMountCheckersGame(container, opts){
     if(kinged) score += 6;
     else if(!nb[m.toR][m.toC].king) score += m.toR * 0.15; // black advances toward row 7
     score += (3.5 - Math.abs(m.toC - 3.5)) * 0.15; // mild center preference
-    score -= mtCkBestCaptureValue(nb, 'red') * 4; // heavily punish handing over a capture
+    // Kamikaze flips the exposure term: instead of avoiding a position that lets red
+    // capture next turn, the AI actively WANTS to hand red a capture, since every one of
+    // its own pieces taken off the board is progress toward its real win condition
+    // (losing everything first). Capture rules themselves are unchanged -- must-capture
+    // still applies to both sides -- this only changes which quiet move black prefers
+    // when it isn't currently forced to capture.
+    score += mtCkBestCaptureValue(nb, 'red') * (kamikaze ? 4 : -4);
     score += Math.random() * 0.4; // small tie-break jitter, not the deciding factor anymore
     return score;
   }
@@ -15106,7 +15139,16 @@ function mtMountCheckersGame(container, opts){
             rr = mv.toR; cc = mv.toC;
           }
           const exposure = mtCkBestCaptureValue(nb, 'red');
-          const score = s.value * 10 - exposure * 3 + Math.random() * 0.3;
+          // Capturing is mandatory for both colours in Kamikaze too -- black still has
+          // to take SOME capture when one is available. What flips is which forced
+          // capture it prefers among the legal options: normally it wants to capture as
+          // much red value as possible while staying safe afterward; in Kamikaze it
+          // wants to capture as LITTLE as possible (fewer red pieces removed means more
+          // red pieces left that can capture black back) while leaving itself as exposed
+          // as possible to being captured next turn.
+          const score = kamikaze
+            ? (exposure * 10 - s.value * 3 + Math.random() * 0.3)
+            : (s.value * 10 - exposure * 3 + Math.random() * 0.3);
           if(score > bestScore){ bestScore = score; best = {r: piece.r, c: piece.c, path: s.path}; }
         }
       }
@@ -18764,6 +18806,25 @@ function viewBtModeChoice(key){
   `;
 }
 
+// Checkers-only: a second choice screen between player-count and the actual game,
+// since Kamikaze is a checkers-specific ruleset variant (Connect 4 has no equivalent).
+// Same rules as Classic throughout (must-capture, flying kings, men capture backwards
+// too) -- only the win condition is flipped: the side that loses ALL its pieces first
+// wins, rather than the side left with no legal move.
+function viewBtCheckersVariantChoice(mode){
+  return `
+    <a class="back-link" href="#bt-checkers">← Back to Train Your Brain</a>
+    <section style="padding-top:14px;">
+      <div class="section-head"><h2>Checkers</h2></div>
+      <div class="fg-wrap">
+        <p style="font-size:14px; color:var(--ink-soft); line-height:1.6; margin-bottom:16px;">Classic or Kamikaze? Same rules either way -- must capture, kings fly, men capture backwards too.</p>
+        <button class="fg-start-btn" data-action="bt-checkers-variant-pick" data-mode="${mode}" data-variant="classic" style="margin-bottom:12px;">Classic <span style="opacity:.7; font-weight:600;">— last piece standing wins</span></button>
+        <button class="fg-start-btn" data-action="bt-checkers-variant-pick" data-mode="${mode}" data-variant="kamikaze">Kamikaze <span style="opacity:.7; font-weight:600;">— lose every piece first to win</span></button>
+      </div>
+    </section>
+  `;
+}
+
 function viewBtGame(key){
   const g = BT_TWO_PLAYER_GAMES[key];
   const game = g ? MT_EMBEDDED_GAMES[g.id] : null;
@@ -18773,16 +18834,18 @@ function viewBtGame(key){
       <section style="padding-top:14px;"><div class="empty-card">That game doesn't exist.</div></section>
     `;
   }
+  const variantSuffix = (key === 'checkers' && btCheckersKamikaze) ? ' — Kamikaze' : '';
   return `
     <a class="back-link" href="#geography-hub">← Back to Train Your Brain</a>
     <section style="padding-top:14px;">
-      <div class="section-head"><h2>${escapeHtml(game.title.replace(' (vs computer)', ''))}${btGameMode === 'human' ? ' (2 Player)' : ' (vs Computer)'}</h2></div>
+      <div class="section-head"><h2>${escapeHtml(game.title.replace(' (vs computer)', ''))}${btGameMode === 'human' ? ' (2 Player)' : ' (vs Computer)'}${variantSuffix}</h2></div>
       <div class="mt-wrap" id="btGameContainer"></div>
     </section>
   `;
 }
 
 let btGameMode = 'cpu';
+let btCheckersKamikaze = false;
 
 function wireBtGame(key){
   const g = BT_TWO_PLAYER_GAMES[key];
@@ -18790,7 +18853,7 @@ function wireBtGame(key){
   const slot = document.getElementById('btGameContainer');
   if(!game || !slot) return;
   if(mtActiveEmbeddedCleanup){ mtActiveEmbeddedCleanup(); mtActiveEmbeddedCleanup = null; }
-  mtActiveEmbeddedCleanup = game.mount(slot, { mode: btGameMode });
+  mtActiveEmbeddedCleanup = game.mount(slot, { mode: btGameMode, kamikaze: key === 'checkers' && btCheckersKamikaze });
   slot.querySelectorAll('canvas').forEach(mtPreventTouchNav);
 }
 
@@ -20602,6 +20665,12 @@ document.addEventListener('click', (e) => {
     location.hash = '#' + gameKey + '/' + btModePickBtn.dataset.mode;
     return;
   }
+  const btCheckersVariantBtn = e.target.closest('[data-action="bt-checkers-variant-pick"]');
+  if(btCheckersVariantBtn){
+    e.preventDefault();
+    location.hash = '#bt-checkers/' + btCheckersVariantBtn.dataset.mode + '/' + btCheckersVariantBtn.dataset.variant;
+    return;
+  }
   const clearSavedBtn = e.target.closest('[data-action="clear-saved"]');
   if(clearSavedBtn){
     e.preventDefault();
@@ -20746,9 +20815,15 @@ function renderRoute(opts){
     html = viewMindTemple();
   } else if(parts[0] === 'arcade' && parts[1]){
     html = viewArcade(parts[1]);
-  } else if((parts[0] === 'bt-checkers' || parts[0] === 'bt-connect4') && parts[1]){
+  } else if(parts[0] === 'bt-checkers' && parts[1] && parts[2]){
     btGameMode = parts[1] === 'human' ? 'human' : 'cpu';
-    html = viewBtGame(parts[0] === 'bt-checkers' ? 'checkers' : 'connect4');
+    btCheckersKamikaze = parts[2] === 'kamikaze';
+    html = viewBtGame('checkers');
+  } else if(parts[0] === 'bt-connect4' && parts[1]){
+    btGameMode = parts[1] === 'human' ? 'human' : 'cpu';
+    html = viewBtGame('connect4');
+  } else if(parts[0] === 'bt-checkers' && parts[1]){
+    html = viewBtCheckersVariantChoice(parts[1]);
   } else if(parts[0] === 'bt-checkers'){
     html = viewBtModeChoice('checkers');
   } else if(parts[0] === 'bt-connect4'){
@@ -20821,8 +20896,10 @@ function renderRoute(opts){
   if(parts[0] !== 'true-false-game' && tfState){ tfState = null; }
   if(parts[0] !== 'xword-game' && xwState){ xwState = null; }
   if(parts[0] === 'arcade' && parts[1]){ wireArcade(parts[1]); }
-  if((parts[0] === 'bt-checkers' || parts[0] === 'bt-connect4') && parts[1]){
-    wireBtGame(parts[0] === 'bt-checkers' ? 'checkers' : 'connect4');
+  if(parts[0] === 'bt-checkers' && parts[1] && parts[2]){
+    wireBtGame('checkers');
+  } else if(parts[0] === 'bt-connect4' && parts[1]){
+    wireBtGame('connect4');
   }
   if(parts[0] === 'install'){ wireInstallPage(); }
   if(parts[0] === 'stats'){ loadStats(); }
