@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-22T21:17:55.693047Z",
+  "generatedAt": "2026-08-22T21:44:54.267648Z",
   "standings": {
     "PL": [
       {
@@ -228,11 +228,11 @@
         "name": "Espanyol",
         "pld": 2,
         "w": 1,
-        "d": 1,
-        "l": 0,
+        "d": 0,
+        "l": 1,
         "gf": 4,
-        "ga": 1,
-        "pts": 4
+        "ga": 2,
+        "pts": 3
       },
       {
         "name": "Atleti",
@@ -242,6 +242,16 @@
         "l": 0,
         "gf": 2,
         "ga": 0,
+        "pts": 3
+      },
+      {
+        "name": "Real Madrid",
+        "pld": 1,
+        "w": 1,
+        "d": 0,
+        "l": 0,
+        "gf": 2,
+        "ga": 1,
         "pts": 3
       },
       {
@@ -286,16 +296,6 @@
       },
       {
         "name": "Elche",
-        "pld": 1,
-        "w": 0,
-        "d": 1,
-        "l": 0,
-        "gf": 1,
-        "ga": 1,
-        "pts": 1
-      },
-      {
-        "name": "Real Madrid",
         "pld": 1,
         "w": 0,
         "d": 1,
@@ -882,6 +882,37 @@
         }
       ],
       "results": [
+        {
+          "utcDate": "2026-08-22T19:30:00Z",
+          "status": "FINISHED",
+          "matchday": 2,
+          "homeTeam": {
+            "id": 80,
+            "name": "RCD Espanyol de Barcelona",
+            "shortName": "Espanyol"
+          },
+          "awayTeam": {
+            "id": 86,
+            "name": "Real Madrid CF",
+            "shortName": "Real Madrid"
+          },
+          "score": {
+            "winner": "AWAY_TEAM",
+            "duration": "REGULAR",
+            "fullTime": {
+              "home": 1,
+              "away": 2
+            },
+            "halfTime": {
+              "home": 1,
+              "away": 1
+            }
+          },
+          "competition": {
+            "name": "Primera Division"
+          },
+          "venue": null
+        },
         {
           "utcDate": "2026-08-22T17:30:00Z",
           "status": "FINISHED",
