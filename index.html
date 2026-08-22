@@ -1178,7 +1178,7 @@
   .sports-header{
     display:flex;
     align-items:center;
-    gap:12px;
+    gap:6px;
     margin-bottom:12px;
   }
   .sports-header .crest{
@@ -17774,7 +17774,7 @@ function mtStepHtml(){
   if(s.step === 'picker'){
     const sortedCategories = [...MT_EMOTIONS].sort((a,b)=> MT_VALENCE_RANK[a.valence] - MT_VALENCE_RANK[b.valence]);
     return `
-      <p class="mt-intro">No one sees this, and you can stop at any point. A private mood log stays on this device only — never sent anywhere, never seen by anyone else, not even me — so you can see your own patterns over time. Pick whatever's closest to how you're feeling right now.</p>
+      <p class="mt-intro">A private mood log that stays on this device only — never sent anywhere, never seen by anyone else, not even me — so you can see your own patterns over time. Pick whatever's closest to how you're feeling right now.</p>
       <div class="mt-cat-grid">
         ${sortedCategories.map(c => `<button class="mt-cat-btn" style="background:${mtValenceColor(c.valence)}" data-cat="${c.key}">${escapeHtml(c.label)}</button>`).join('')}
       </div>
@@ -18791,7 +18791,7 @@ function viewEventsHub(){
           <span class="icon">${icon('globe')}</span>
           <div>
             <div class="title" style="color:#fff;">Upcoming and Current Online Events</div>
-            <div class="sub" style="color:rgba(255,255,255,.85);">Free live sessions this week, plus real ongoing projects you can join any day</div>
+            <div class="sub" style="color:rgba(255,255,255,.85);">Free live sessions happening online over the next 8 days, plus real ongoing projects you can join any day</div>
           </div>
         </a>
       </div>
@@ -20489,7 +20489,7 @@ const COMPLIMENTS = [
     // FIRST, force the browser to register it, THEN flip the classes one frame later —
     // otherwise both changes land in the same tick and the transition never engages.
     animating = true;
-    root.style.setProperty('--theme-fade', '5s');
+    root.style.setProperty('--theme-fade', '2.5s');
     void root.offsetWidth; // force reflow so the new duration is committed
     requestAnimationFrame(()=>{
       applyThemeState(nextKey);
@@ -20498,7 +20498,7 @@ const COMPLIMENTS = [
     setTimeout(()=>{
       root.style.setProperty('--theme-fade', '.25s');
       animating = false;
-    }, 5100);
+    }, 2600);
   });
 })();
 
@@ -20514,6 +20514,54 @@ function showToast(msg, duration = 2600){
     t.style.opacity = '0';
     setTimeout(()=> t.remove(), 400);
   }, duration);
+}
+/* Center-screen popup variant of showToast -- used for rage-click "chill" egg.
+   Swipe in any direction to dismiss, or tap the close button. Auto-dismisses too. */
+function showCenterToast(msg, duration = 3200){
+  const overlay = document.createElement('div');
+  overlay.style.cssText = 'position:fixed;inset:0;z-index:9999;display:flex;align-items:center;justify-content:center;pointer-events:none;';
+  const card = document.createElement('div');
+  card.style.cssText = 'position:relative;background:#3A2A1E;color:#fff;padding:20px 40px 20px 32px;border-radius:20px;font-family:"Nunito",sans-serif;font-weight:700;font-size:16px;box-shadow:0 8px 24px rgba(0,0,0,.35);max-width:80vw;text-align:center;pointer-events:auto;touch-action:pan-y;transition:transform .2s;';
+  const text = document.createElement('span');
+  text.textContent = msg;
+  card.appendChild(text);
+  const closeBtn = document.createElement('button');
+  closeBtn.textContent = '✕';
+  closeBtn.setAttribute('aria-label', 'Close');
+  closeBtn.style.cssText = 'position:absolute;top:-10px;right:-10px;width:28px;height:28px;border-radius:50%;background:#fff;color:#3A2A1E;border:none;font-size:13px;font-weight:800;cursor:pointer;box-shadow:0 2px 6px rgba(0,0,0,.25);display:flex;align-items:center;justify-content:center;line-height:1;padding:0;';
+  card.appendChild(closeBtn);
+  overlay.appendChild(card);
+  document.body.appendChild(overlay);
+  let dismissed = false;
+  function dismiss(){
+    if(dismissed) return;
+    dismissed = true;
+    card.style.transition = 'opacity .3s, transform .3s';
+    card.style.opacity = '0';
+    setTimeout(()=> overlay.remove(), 300);
+  }
+  closeBtn.addEventListener('click', dismiss);
+  let startX = null, startY = null;
+  card.addEventListener('touchstart', (e)=>{
+    if(e.touches.length !== 1) return;
+    startX = e.touches[0].clientX; startY = e.touches[0].clientY;
+  }, { passive: true });
+  card.addEventListener('touchmove', (e)=>{
+    if(startX === null) return;
+    const dx = e.touches[0].clientX - startX;
+    const dy = e.touches[0].clientY - startY;
+    card.style.transform = `translate(${dx}px, ${dy}px)`;
+    if(Math.abs(dx) > 60 || Math.abs(dy) > 60){
+      dismiss();
+      startX = null;
+    }
+  }, { passive: true });
+  card.addEventListener('touchend', ()=>{
+    if(!dismissed){ card.style.transform = 'translate(0,0)'; }
+    startX = null; startY = null;
+  }, { passive: true });
+  const timer = setTimeout(dismiss, duration);
+  overlay.addEventListener('click', (e)=>{ if(e.target === overlay) dismiss(); });
 }
 function spawnConfettiParticle(colors){
   const p = document.createElement('div');
@@ -21074,7 +21122,6 @@ function updateWeekendCountdown(){
       if(!sessionStorage.getItem('weekendCelebrated')){
         sessionStorage.setItem('weekendCelebrated', '1');
         burstConfetti();
-        showToast("🎉 WEEKEND. Go outside. Or don't.");
       }
     }catch(e){}
     return;
@@ -21939,7 +21986,7 @@ function triggerWeekendEgg(){
     clickTimes = clickTimes.filter(t => now - t < 1000);
     if(clickTimes.length >= 5){
       clickTimes = [];
-      showToast("OK, OK, chill");
+      showCenterToast("OK, OK, chill");
     }
   });
 })();
