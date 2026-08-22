@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-22T21:14:11.843245Z",
+  "generatedAt": "2026-08-22T21:43:25.495633Z",
   "results": [
     {
       "url": "https://www.goal.com/en/match/girona-vs-arsenal/__LS8d9Oc6I1wXn9g8956",
@@ -697,6 +697,33 @@
         }
       ],
       "competition": "FL1"
+    },
+    {
+      "url": "https://www.goal.com/en/match/espanyol-vs-real-madrid/bKJ579FbGUXB1ohQ-SEjG",
+      "date": "2026-08-22",
+      "home": "Espanyol",
+      "away": "Real Madrid",
+      "htHome": 1,
+      "htAway": 1,
+      "ftHome": 1,
+      "ftAway": 2,
+      "homeGoals": [
+        {
+          "scorer": "A. Calatrava",
+          "minute": 30
+        }
+      ],
+      "awayGoals": [
+        {
+          "scorer": "J. Bellingham",
+          "minute": 9
+        },
+        {
+          "scorer": "C. Espi",
+          "minute": 90
+        }
+      ],
+      "competition": "PD"
     }
   ],
   "scorerParseRetryCounts": {}

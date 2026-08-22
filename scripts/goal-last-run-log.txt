@@ -1,11 +1,12 @@
 [goal-scraper] Run started.
 [goal-scraper] [PL] Found 6 finished-match links
-[goal-scraper] [PD] Found 4 finished-match links
+[goal-scraper] [PD] Found 5 finished-match links
+[goal-scraper] [PD] Added: Espanyol 1-2 Real Madrid
 [goal-scraper] [BL1] Found 0 finished-match links
 [goal-scraper] [SA] Found 4 finished-match links
 [goal-scraper] [FL1] Found 6 finished-match links
 [goal-scraper] [CL] Found 1 finished-match links
 [goal-scraper] [CL] Skipping stale match (older than 45 days): Paris Saint Germain vs Arsenal on 2026-05-30
 [goal-scraper] [arsenal-friendlies] Found 1 finished-match links
-[goal-scraper] TOTAL new results added this run: 0
+[goal-scraper] TOTAL new results added this run: 1
 [goal-scraper] Wrote data/goal-results.json
