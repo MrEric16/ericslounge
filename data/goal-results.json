@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-22T20:13:43.455887Z",
+  "generatedAt": "2026-08-22T20:46:20.207256Z",
   "results": [
     {
       "url": "https://www.goal.com/en/match/girona-vs-arsenal/__LS8d9Oc6I1wXn9g8956",
@@ -578,6 +578,125 @@
       "homeGoals": [],
       "awayGoals": [],
       "competition": "PD"
+    },
+    {
+      "url": "https://www.goal.com/en/match/genoa-vs-ssc-napoli/wuEsGaaRQafhKj-65hYxy",
+      "date": "2026-08-22",
+      "home": "Genoa",
+      "away": "Ssc Napoli",
+      "htHome": 0,
+      "htAway": 0,
+      "ftHome": 0,
+      "ftAway": 2,
+      "homeGoals": [],
+      "awayGoals": [
+        {
+          "scorer": "K. De Bruyne",
+          "minute": 82
+        },
+        {
+          "scorer": "A. Vergara",
+          "minute": 87
+        }
+      ],
+      "competition": "SA"
+    },
+    {
+      "url": "https://www.goal.com/en/match/parma-calcio-1913-vs-cagliari/rMLwJfDiO0YFXTBTcTS4L",
+      "date": "2026-08-22",
+      "home": "Parma Calcio 1913",
+      "away": "Cagliari",
+      "htHome": 0,
+      "htAway": 0,
+      "ftHome": 0,
+      "ftAway": 1,
+      "homeGoals": [],
+      "awayGoals": [
+        {
+          "scorer": "A. Romano",
+          "minute": 79
+        }
+      ],
+      "competition": "SA"
+    },
+    {
+      "url": "https://www.goal.com/en/match/toulouse-vs-lyon/77zC4MY8N0wHO9oiOAM87",
+      "date": "2026-08-22",
+      "home": "Toulouse",
+      "away": "Lyon",
+      "htHome": 0,
+      "htAway": 0,
+      "ftHome": 0,
+      "ftAway": 2,
+      "homeGoals": [],
+      "awayGoals": [
+        {
+          "scorer": "N. Nartey",
+          "minute": 68
+        },
+        {
+          "scorer": "M. Fofana",
+          "minute": 85
+        }
+      ],
+      "competition": "FL1"
+    },
+    {
+      "url": "https://www.goal.com/en/match/nice-vs-lorient/WZy4F4-o6d6kZEhq0FYb8",
+      "date": "2026-08-22",
+      "home": "Nice",
+      "away": "Lorient",
+      "htHome": 0,
+      "htAway": 0,
+      "ftHome": 0,
+      "ftAway": 0,
+      "homeGoals": [],
+      "awayGoals": [],
+      "competition": "FL1"
+    },
+    {
+      "url": "https://www.goal.com/en/match/troyes-vs-paris-fc/-BfuNBH0A7o1laiOtGt69",
+      "date": "2026-08-22",
+      "home": "Troyes",
+      "away": "Paris Fc",
+      "htHome": 0,
+      "htAway": 0,
+      "ftHome": 0,
+      "ftAway": 0,
+      "homeGoals": [],
+      "awayGoals": [],
+      "competition": "FL1"
+    },
+    {
+      "url": "https://www.goal.com/en/match/le-mans-vs-brest/iTWxqdd3Gh-3B-HHhzbEV",
+      "date": "2026-08-22",
+      "home": "Le Mans",
+      "away": "Brest",
+      "htHome": 1,
+      "htAway": 1,
+      "ftHome": 2,
+      "ftAway": 2,
+      "homeGoals": [
+        {
+          "scorer": "D. Gueye",
+          "minute": 45
+        },
+        {
+          "scorer": "L. Mafouta",
+          "minute": 55
+        }
+      ],
+      "awayGoals": [
+        {
+          "scorer": "R. Del Castillo",
+          "minute": 31
+        },
+        {
+          "scorer": "K. Doumbia",
+          "minute": 62
+        }
+      ],
+      "competition": "FL1"
     }
   ],
   "scorerParseRetryCounts": {}

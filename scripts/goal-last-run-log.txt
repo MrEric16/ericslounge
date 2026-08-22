@@ -2,10 +2,16 @@
 [goal-scraper] [PL] Found 6 finished-match links
 [goal-scraper] [PD] Found 4 finished-match links
 [goal-scraper] [BL1] Found 0 finished-match links
-[goal-scraper] [SA] Found 2 finished-match links
-[goal-scraper] [FL1] Found 2 finished-match links
+[goal-scraper] [SA] Found 4 finished-match links
+[goal-scraper] [SA] Added: Genoa 0-2 Ssc Napoli
+[goal-scraper] [SA] Added: Parma Calcio 1913 0-1 Cagliari
+[goal-scraper] [FL1] Found 6 finished-match links
+[goal-scraper] [FL1] Added: Toulouse 0-2 Lyon
+[goal-scraper] [FL1] Added: Nice 0-0 Lorient
+[goal-scraper] [FL1] Added: Troyes 0-0 Paris Fc
+[goal-scraper] [FL1] Added: Le Mans 2-2 Brest
 [goal-scraper] [CL] Found 1 finished-match links
 [goal-scraper] [CL] Skipping stale match (older than 45 days): Paris Saint Germain vs Arsenal on 2026-05-30
 [goal-scraper] [arsenal-friendlies] Found 1 finished-match links
-[goal-scraper] TOTAL new results added this run: 0
+[goal-scraper] TOTAL new results added this run: 6
 [goal-scraper] Wrote data/goal-results.json
