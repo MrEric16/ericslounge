@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-22T14:46:39.065372Z",
+  "generatedAt": "2026-08-22T15:16:41.055274Z",
   "standings": {
     "PL": [
       {
@@ -23,6 +23,16 @@
         "pts": 3
       },
       {
+        "name": "Everton",
+        "pld": 1,
+        "w": 1,
+        "d": 0,
+        "l": 0,
+        "gf": 1,
+        "ga": 0,
+        "pts": 3
+      },
+      {
         "name": "Ipswich Town",
         "pld": 1,
         "w": 0,
@@ -40,26 +50,6 @@
         "l": 0,
         "gf": 1,
         "ga": 1,
-        "pts": 1
-      },
-      {
-        "name": "Crystal Palace",
-        "pld": 1,
-        "w": 0,
-        "d": 1,
-        "l": 0,
-        "gf": 0,
-        "ga": 0,
-        "pts": 1
-      },
-      {
-        "name": "Everton",
-        "pld": 1,
-        "w": 0,
-        "d": 1,
-        "l": 0,
-        "gf": 0,
-        "ga": 0,
         "pts": 1
       },
       {
@@ -183,6 +173,16 @@
         "pts": 0
       },
       {
+        "name": "Crystal Palace",
+        "pld": 1,
+        "w": 0,
+        "d": 0,
+        "l": 1,
+        "gf": 0,
+        "ga": 1,
+        "pts": 0
+      },
+      {
         "name": "Man United",
         "pld": 1,
         "w": 0,
@@ -215,6 +215,16 @@
         "pts": 4
       },
       {
+        "name": "Sevilla FC",
+        "pld": 2,
+        "w": 1,
+        "d": 1,
+        "l": 0,
+        "gf": 2,
+        "ga": 1,
+        "pts": 4
+      },
+      {
         "name": "Espanyol",
         "pld": 1,
         "w": 1,
@@ -232,16 +242,6 @@
         "l": 0,
         "gf": 2,
         "ga": 0,
-        "pts": 3
-      },
-      {
-        "name": "Sevilla FC",
-        "pld": 1,
-        "w": 1,
-        "d": 0,
-        "l": 0,
-        "gf": 2,
-        "ga": 1,
         "pts": 3
       },
       {
@@ -295,6 +295,16 @@
         "pts": 1
       },
       {
+        "name": "Athletic",
+        "pld": 1,
+        "w": 0,
+        "d": 1,
+        "l": 0,
+        "gf": 0,
+        "ga": 0,
+        "pts": 1
+      },
+      {
         "name": "Rayo Vallecano",
         "pld": 2,
         "w": 0,
@@ -303,16 +313,6 @@
         "gf": 2,
         "ga": 3,
         "pts": 1
-      },
-      {
-        "name": "Athletic",
-        "pld": 0,
-        "w": 0,
-        "d": 0,
-        "l": 0,
-        "gf": 0,
-        "ga": 0,
-        "pts": 0
       },
       {
         "name": "Osasuna",
@@ -632,37 +632,6 @@
     },
     "PD": {
       "fixtures": [
-        {
-          "utcDate": "2026-08-22T15:00:00Z",
-          "status": "TIMED",
-          "matchday": 2,
-          "homeTeam": {
-            "id": 77,
-            "name": "Athletic Club",
-            "shortName": "Athletic"
-          },
-          "awayTeam": {
-            "id": 559,
-            "name": "Sevilla FC",
-            "shortName": "Sevilla FC"
-          },
-          "score": {
-            "winner": null,
-            "duration": "REGULAR",
-            "fullTime": {
-              "home": null,
-              "away": null
-            },
-            "halfTime": {
-              "home": null,
-              "away": null
-            }
-          },
-          "competition": {
-            "name": "Primera Division"
-          },
-          "venue": null
-        },
         {
           "utcDate": "2026-08-22T17:30:00Z",
           "status": "TIMED",
