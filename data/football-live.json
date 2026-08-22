@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-22T16:48:30.254454Z",
+  "generatedAt": "2026-08-22T17:17:13.140607Z",
   "standings": {
     "PL": [
       {
@@ -9,6 +9,16 @@
         "d": 0,
         "l": 0,
         "gf": 3,
+        "ga": 0,
+        "pts": 3
+      },
+      {
+        "name": "Brentford",
+        "pld": 1,
+        "w": 1,
+        "d": 0,
+        "l": 0,
+        "gf": 2,
         "ga": 0,
         "pts": 3
       },
@@ -51,26 +61,6 @@
         "gf": 1,
         "ga": 0,
         "pts": 3
-      },
-      {
-        "name": "Brentford",
-        "pld": 1,
-        "w": 0,
-        "d": 1,
-        "l": 0,
-        "gf": 0,
-        "ga": 0,
-        "pts": 1
-      },
-      {
-        "name": "Tottenham",
-        "pld": 1,
-        "w": 0,
-        "d": 1,
-        "l": 0,
-        "gf": 0,
-        "ga": 0,
-        "pts": 1
       },
       {
         "name": "Bournemouth",
@@ -184,6 +174,16 @@
       },
       {
         "name": "Man United",
+        "pld": 1,
+        "w": 0,
+        "d": 0,
+        "l": 1,
+        "gf": 0,
+        "ga": 2,
+        "pts": 0
+      },
+      {
+        "name": "Tottenham",
         "pld": 1,
         "w": 0,
         "d": 0,
@@ -913,6 +913,37 @@
         }
       ],
       "results": [
+        {
+          "utcDate": "2026-08-22T15:00:00Z",
+          "status": "FINISHED",
+          "matchday": 2,
+          "homeTeam": {
+            "id": 77,
+            "name": "Athletic Club",
+            "shortName": "Athletic"
+          },
+          "awayTeam": {
+            "id": 559,
+            "name": "Sevilla FC",
+            "shortName": "Sevilla FC"
+          },
+          "score": {
+            "winner": "AWAY_TEAM",
+            "duration": "REGULAR",
+            "fullTime": {
+              "home": 1,
+              "away": 3
+            },
+            "halfTime": {
+              "home": 0,
+              "away": 1
+            }
+          },
+          "competition": {
+            "name": "Primera Division"
+          },
+          "venue": null
+        },
         {
           "utcDate": "2026-08-21T19:00:00Z",
           "status": "FINISHED",
