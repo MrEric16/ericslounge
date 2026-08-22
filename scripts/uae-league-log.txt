@@ -1,4 +1,4 @@
-[uae-league] captured 342836 chars
+[uae-league] captured 339214 chars
 [uae-league] parsed 14 standings row(s)
 [uae-league] parsed 28 match row(s)
 [uae-league]   match: {'home': 'Al Nasr SC', 'away': 'Ittihad Kalba FC', 'start': '2026-08-14T19:10:00+05:00', 'homeScore': 2, 'awayScore': 2, 'finished': True}
@@ -10,8 +10,8 @@
 [uae-league]   match: {'home': 'Baniyas SC', 'away': 'Al Ain FC', 'start': '2026-08-16T21:45:00+05:00', 'homeScore': 2, 'awayScore': 4, 'finished': True}
 [uae-league]   match: {'home': 'Ittihad Kalba FC', 'away': 'Al Wasl', 'start': '2026-08-21T19:00:00+05:00', 'homeScore': 0, 'awayScore': 3, 'finished': True}
 [uae-league]   match: {'home': 'Al Nasr SC', 'away': 'Al Wahda', 'start': '2026-08-21T21:35:00+05:00', 'homeScore': 1, 'awayScore': 0, 'finished': True}
-[uae-league]   match: {'home': 'Ajman Club', 'away': 'Hatta Club', 'start': '2026-08-22T19:00:00+05:00'}
-[uae-league]   match: {'home': 'Shabab Al Ahli Club', 'away': 'Al Dhafra', 'start': '2026-08-22T19:00:00+05:00'}
+[uae-league]   match: {'home': 'Ajman Club', 'away': 'Hatta Club', 'start': '2026-08-22T19:00:00+05:00', 'homeScore': 2, 'awayScore': 2, 'finished': True}
+[uae-league]   match: {'home': 'Shabab Al Ahli Club', 'away': 'Al Dhafra', 'start': '2026-08-22T19:00:00+05:00', 'homeScore': 0, 'awayScore': 0, 'finished': True}
 [uae-league]   match: {'home': 'Al Ain FC', 'away': 'Khor Fakkan Club', 'start': '2026-08-22T21:35:00+05:00'}
 [uae-league]   match: {'home': 'Baniyas SC', 'away': 'United FC', 'start': '2026-08-23T19:00:00+05:00'}
 [uae-league]   match: {'home': 'Sharjah FC', 'away': 'Al Jazira Club', 'start': '2026-08-23T21:35:00+05:00'}
@@ -29,5 +29,5 @@
 [uae-league]   match: {'home': 'Shabab Al Ahli Club', 'away': 'Al Jazira Club', 'start': '2026-09-05T21:15:00+05:00'}
 [uae-league]   match: {'home': 'Al Nasr SC', 'away': 'Ajman Club', 'start': '2026-09-06T18:45:00+05:00'}
 [uae-league]   match: {'home': 'Al Dhafra', 'away': 'Al Wahda', 'start': '2026-09-06T21:15:00+05:00'}
-[uae-league] 19 fixture(s), 9 result(s)
+[uae-league] 17 fixture(s), 11 result(s)
 [uae-league] wrote data/uae-league-live.json

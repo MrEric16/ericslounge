@@ -1,18 +1,18 @@
 {
-  "generatedAt": "2026-08-22T12:58:28.147975+00:00",
+  "generatedAt": "2026-08-22T14:35:53.718377+00:00",
   "teams": [
     "Al Wasl",
-    "Al Nasr SC",
     "Shabab Al Ahli Club",
+    "Ajman Club",
+    "Al Nasr SC",
     "Al Ain FC",
     "Sharjah FC",
     "Al Jazira Club",
-    "Ajman Club",
+    "Hatta Club",
+    "Al Dhafra",
     "Ittihad Kalba FC",
     "Al Wahda",
     "Baniyas SC",
-    "Al Dhafra",
-    "Hatta Club",
     "Khor Fakkan Club",
     "United FC"
   ],
@@ -29,6 +29,28 @@
       "points": 6
     },
     {
+      "team": "Shabab Al Ahli Club",
+      "played": 2,
+      "won": 1,
+      "drawn": 1,
+      "lost": 0,
+      "gf": 5,
+      "ga": 1,
+      "gd": 4,
+      "points": 4
+    },
+    {
+      "team": "Ajman Club",
+      "played": 2,
+      "won": 1,
+      "drawn": 1,
+      "lost": 0,
+      "gf": 5,
+      "ga": 4,
+      "gd": 1,
+      "points": 4
+    },
+    {
       "team": "Al Nasr SC",
       "played": 2,
       "won": 1,
@@ -38,17 +60,6 @@
       "ga": 2,
       "gd": 1,
       "points": 4
-    },
-    {
-      "team": "Shabab Al Ahli Club",
-      "played": 1,
-      "won": 1,
-      "drawn": 0,
-      "lost": 0,
-      "gf": 5,
-      "ga": 1,
-      "gd": 4,
-      "points": 3
     },
     {
       "team": "Al Ain FC",
@@ -84,15 +95,26 @@
       "points": 3
     },
     {
-      "team": "Ajman Club",
-      "played": 1,
-      "won": 1,
-      "drawn": 0,
-      "lost": 0,
-      "gf": 3,
-      "ga": 2,
-      "gd": 1,
-      "points": 3
+      "team": "Hatta Club",
+      "played": 2,
+      "won": 0,
+      "drawn": 1,
+      "lost": 1,
+      "gf": 2,
+      "ga": 4,
+      "gd": -2,
+      "points": 1
+    },
+    {
+      "team": "Al Dhafra",
+      "played": 2,
+      "won": 0,
+      "drawn": 1,
+      "lost": 1,
+      "gf": 1,
+      "ga": 3,
+      "gd": -2,
+      "points": 1
     },
     {
       "team": "Ittihad Kalba FC",
@@ -128,28 +150,6 @@
       "points": 0
     },
     {
-      "team": "Al Dhafra",
-      "played": 1,
-      "won": 0,
-      "drawn": 0,
-      "lost": 1,
-      "gf": 1,
-      "ga": 3,
-      "gd": -2,
-      "points": 0
-    },
-    {
-      "team": "Hatta Club",
-      "played": 1,
-      "won": 0,
-      "drawn": 0,
-      "lost": 1,
-      "gf": 0,
-      "ga": 2,
-      "gd": -2,
-      "points": 0
-    },
-    {
       "team": "Khor Fakkan Club",
       "played": 1,
       "won": 0,
@@ -173,16 +173,6 @@
     }
   ],
   "fixtures": [
-    {
-      "home": "Ajman Club",
-      "away": "Hatta Club",
-      "start": "2026-08-22T19:00:00+05:00"
-    },
-    {
-      "home": "Shabab Al Ahli Club",
-      "away": "Al Dhafra",
-      "start": "2026-08-22T19:00:00+05:00"
-    },
     {
       "home": "Al Ain FC",
       "away": "Khor Fakkan Club",
@@ -339,6 +329,22 @@
       "away": "Al Wahda",
       "start": "2026-08-21T21:35:00+05:00",
       "homeScore": 1,
+      "awayScore": 0,
+      "finished": true
+    },
+    {
+      "home": "Ajman Club",
+      "away": "Hatta Club",
+      "start": "2026-08-22T19:00:00+05:00",
+      "homeScore": 2,
+      "awayScore": 2,
+      "finished": true
+    },
+    {
+      "home": "Shabab Al Ahli Club",
+      "away": "Al Dhafra",
+      "start": "2026-08-22T19:00:00+05:00",
+      "homeScore": 0,
       "awayScore": 0,
       "finished": true
     }
