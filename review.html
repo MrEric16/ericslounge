@@ -222,6 +222,45 @@
     width:100%;
   }
   .btn-mark-read:disabled{ opacity:.5; }
+  .answer-textarea{
+    width:100%;
+    box-sizing:border-box;
+    font-family:'Nunito', sans-serif;
+    font-size:14px;
+    color:var(--ink);
+    background:#fff;
+    border:1px solid var(--line);
+    border-radius:10px;
+    padding:10px 12px;
+    min-height:80px;
+    resize:vertical;
+    margin-top:10px;
+  }
+  .btn-save-answer{
+    background:var(--coral);
+    color:#fff;
+    width:100%;
+    margin-top:8px;
+  }
+  .btn-save-answer:disabled{ opacity:.5; }
+  .answer-block{
+    margin-top:10px;
+    padding-top:10px;
+    border-top:1px dashed var(--line);
+  }
+  .answer-label{
+    font-family:'Baloo 2', sans-serif;
+    font-weight:700;
+    font-size:13px;
+    color:var(--teal);
+    margin-bottom:4px;
+  }
+  .answer-text{
+    font-size:14px;
+    line-height:1.5;
+    white-space:pre-wrap;
+    word-break:break-word;
+  }
   .pevent-item{
     background:var(--card);
     border-radius:14px;
@@ -532,22 +571,61 @@ async function loadQuestions(){
     questionsContainer.innerHTML = `<div class="empty-card">${activeQuestionsSubtab === 'unread' ? 'No new questions right now.' : 'No archived questions yet.'}</div>`;
     return;
   }
+  // Every question gets a pre-filled answer box (empty if never answered, filled if it
+  // was) with one Save/Update button -- publishing an answer sets is_read=true too, so
+  // answering a question from the Unread tab is itself how it moves to Archive. There's
+  // no separate "edit" toggle: the textarea IS the current answer, always editable.
   questionsContainer.innerHTML = rows.map(q => `
     <div class="question-item" data-id="${escapeHtml(q.id)}">
       <div class="question-name">${q.name ? escapeHtml(q.name) : 'Anonymous'}</div>
       <div class="question-body">${escapeHtml(q.body)}</div>
       <div class="question-meta">${q.created_at ? new Date(q.created_at).toLocaleString() : ''}</div>
-      ${activeQuestionsSubtab === 'unread' ? `
+      <textarea class="answer-textarea" data-role="answer-input" placeholder="Type your answer…">${q.answer ? escapeHtml(q.answer) : ''}</textarea>
+      <button class="btn-save-answer" data-action="save-answer">${q.answer ? 'Update answer' : 'Save answer & publish'}</button>
+      ${(activeQuestionsSubtab === 'unread' && !q.answer) ? `
         <div class="question-actions">
-          <button class="btn-mark-read" data-action="mark-read">Mark as read</button>
+          <button class="btn-mark-read" data-action="mark-read">Mark as read (no answer)</button>
         </div>
       ` : ''}
     </div>
   `).join('');
   questionsContainer.querySelectorAll('.question-item').forEach(el=>{
-    const btn = el.querySelector('[data-action="mark-read"]');
-    if(btn) btn.addEventListener('click', ()=> handleMarkRead(el.dataset.id, el, btn));
+    const markBtn = el.querySelector('[data-action="mark-read"]');
+    if(markBtn) markBtn.addEventListener('click', ()=> handleMarkRead(el.dataset.id, el, markBtn));
+    const saveBtn = el.querySelector('[data-action="save-answer"]');
+    if(saveBtn) saveBtn.addEventListener('click', ()=> handleSaveAnswer(el.dataset.id, saveBtn));
   });
+}
+
+async function handleSaveAnswer(id, btn){
+  const el = btn.closest('.question-item');
+  const textarea = el.querySelector('[data-role="answer-input"]');
+  const answer = textarea.value.trim();
+  if(!answer){
+    alert('Type an answer first.');
+    return;
+  }
+  const originalLabel = btn.textContent;
+  btn.disabled = true;
+  btn.textContent = 'Saving…';
+  try{
+    const { error } = await sb.from('questions')
+      .update({ answer, answered_at: new Date().toISOString(), is_read: true })
+      .eq('id', id);
+    if(error) throw error;
+    // Publishing an answer always sets is_read=true, so if we were on the Unread tab
+    // this question just moved to Archive -- reload so the list reflects that.
+    if(activeQuestionsSubtab === 'unread'){
+      await loadQuestions();
+    } else {
+      btn.disabled = false;
+      btn.textContent = 'Update answer';
+    }
+  }catch(e){
+    btn.disabled = false;
+    btn.textContent = originalLabel;
+    alert('Something went wrong — try again.');
+  }
 }
 
 async function handleMarkRead(id, el, btn){
@@ -564,7 +642,7 @@ async function handleMarkRead(id, el, btn){
     }
   }catch(e){
     btn.disabled = false;
-    btn.textContent = 'Mark as read';
+    btn.textContent = 'Mark as read (no answer)';
     alert('Something went wrong — try again.');
   }
 }

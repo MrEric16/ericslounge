@@ -19366,9 +19366,53 @@ function viewHome(){
     </div>
 
     <div style="text-align:center; padding:0 0 32px;">
-      <button data-action="open-ask-question" style="background:none; border:none; font-family:'Nunito',sans-serif; font-size:13px; color:var(--ink-soft); text-decoration:underline; cursor:pointer; opacity:.75;">Have a question for Mr Eric?</button>
+      <a href="#ask-mr-eric" style="background:none; border:none; font-family:'Nunito',sans-serif; font-size:13px; color:var(--ink-soft); text-decoration:underline; cursor:pointer; opacity:.75;">Have a question for Mr Eric?</a>
     </div>
   `;
+}
+
+function viewAskMrEric(){
+  return `
+    <a class="back-link" href="#">← Back to Mr Eric's Lounge</a>
+    <section style="padding-top:14px;">
+      <div class="section-head"><span class="emoji">${icon('star')}</span><h2>Ask Mr Eric</h2></div>
+      <p class="mt-intro" style="margin-bottom:16px;">Ask anything — anonymous by default. Answered questions show up below for everyone to see.</p>
+      <button data-action="open-ask-question" style="width:100%; border:none; background:var(--coral); color:#fff; border-radius:999px; padding:14px; font-family:'Nunito',sans-serif; font-weight:800; font-size:15px; cursor:pointer; margin-bottom:24px;">Ask a question</button>
+      <div class="section-head" style="margin-top:8px;"><h2 style="font-size:16px;">Answered questions</h2></div>
+      <div id="answeredQuestionsList"><div class="empty-card">Loading…</div></div>
+    </section>
+  `;
+}
+
+async function loadAnsweredQuestions(){
+  const container = document.getElementById('answeredQuestionsList');
+  if(!container) return;
+  if(!supabaseClient){
+    container.innerHTML = '<div class="empty-card">Can\'t load right now — try again later.</div>';
+    return;
+  }
+  try{
+    const { data: rows, error } = await supabaseClient.from('questions')
+      .select('id,name,body,answer,answered_at')
+      .not('answer', 'is', null)
+      .order('answered_at', { ascending: false })
+      .limit(100);
+    if(error) throw error;
+    if(!rows || rows.length === 0){
+      container.innerHTML = '<div class="empty-card">No answered questions yet — be the first to ask.</div>';
+      return;
+    }
+    container.innerHTML = rows.map(q => `
+      <div class="question-item" style="background:var(--card); border:1px solid var(--line); border-radius:14px; padding:14px 16px; margin-bottom:12px;">
+        <div style="font-weight:700; font-size:13px; color:var(--ink-soft); margin-bottom:4px;">${q.name ? escapeHtml(q.name) : 'Anonymous'} asked:</div>
+        <div style="font-size:15px; margin-bottom:10px;">${escapeHtml(q.body)}</div>
+        <div style="font-weight:700; font-size:13px; color:var(--coral); margin-bottom:4px;">Mr Eric:</div>
+        <div style="font-size:15px;">${escapeHtml(q.answer)}</div>
+      </div>
+    `).join('');
+  }catch(e){
+    container.innerHTML = '<div class="empty-card">Couldn\'t load answered questions — check your connection and reload.</div>';
+  }
 }
 
 function viewFaculty(key){
@@ -20149,6 +20193,8 @@ function renderRoute(opts){
     html = viewExplore();
   } else if(parts[0] === 'invite'){
     html = viewInvite();
+  } else if(parts[0] === 'ask-mr-eric'){
+    html = viewAskMrEric();
   } else if(parts[0] === 'install'){
     html = viewInstall();
   } else if(parts[0] === 'stats'){
@@ -20219,6 +20265,7 @@ function renderRoute(opts){
   if(parts[0] === 'events-tashkent'){ loadTashkentEvents(); wireEventsDaystrip(); }
   if(parts[0] === 'ufc'){ loadUFCEvents(); }
   if(parts[0] === 'invite'){ wireNativeShareButton(); }
+  if(parts[0] === 'ask-mr-eric'){ loadAnsweredQuestions(); showAskQuestionOverlay(); }
   if(parts[0] === 'my-stats'){ submitStatsSnapshot(); renderComparisonBox(); }
   if(parts[0] === 'events-virtual'){ loadVirtualEvents(); }
   if(parts.length === 0){ loadOnThisDay(); loadWeather(); loadVoxPopuli(); loadLiveSportsData(); wireRandomButton(app); wireRandomVideoButton(app); wireRandomExploreButton(app); wireExtrasCarousel(app); checkAchievements(); renderStreakBadge(); checkNewBadges(); updateStoryRings(); }
