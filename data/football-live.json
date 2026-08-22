@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-22T17:17:13.140607Z",
+  "generatedAt": "2026-08-22T17:44:46.787314Z",
   "standings": {
     "PL": [
       {
@@ -18,7 +18,7 @@
         "w": 1,
         "d": 0,
         "l": 0,
-        "gf": 2,
+        "gf": 3,
         "ga": 0,
         "pts": 3
       },
@@ -183,17 +183,17 @@
         "pts": 0
       },
       {
-        "name": "Tottenham",
+        "name": "Coventry City",
         "pld": 1,
         "w": 0,
         "d": 0,
         "l": 1,
         "gf": 0,
-        "ga": 2,
+        "ga": 3,
         "pts": 0
       },
       {
-        "name": "Coventry City",
+        "name": "Tottenham",
         "pld": 1,
         "w": 0,
         "d": 0,
@@ -295,6 +295,26 @@
         "pts": 1
       },
       {
+        "name": "Celta",
+        "pld": 1,
+        "w": 0,
+        "d": 1,
+        "l": 0,
+        "gf": 0,
+        "ga": 0,
+        "pts": 1
+      },
+      {
+        "name": "Valencia",
+        "pld": 1,
+        "w": 0,
+        "d": 1,
+        "l": 0,
+        "gf": 0,
+        "ga": 0,
+        "pts": 1
+      },
+      {
         "name": "Rayo Vallecano",
         "pld": 2,
         "w": 0,
@@ -325,27 +345,7 @@
         "pts": 0
       },
       {
-        "name": "Celta",
-        "pld": 0,
-        "w": 0,
-        "d": 0,
-        "l": 0,
-        "gf": 0,
-        "ga": 0,
-        "pts": 0
-      },
-      {
         "name": "Real Madrid",
-        "pld": 0,
-        "w": 0,
-        "d": 0,
-        "l": 0,
-        "gf": 0,
-        "ga": 0,
-        "pts": 0
-      },
-      {
-        "name": "Valencia",
         "pld": 0,
         "w": 0,
         "d": 0,
@@ -694,37 +694,6 @@
     },
     "PD": {
       "fixtures": [
-        {
-          "utcDate": "2026-08-22T17:30:00Z",
-          "status": "TIMED",
-          "matchday": 2,
-          "homeTeam": {
-            "id": 95,
-            "name": "Valencia CF",
-            "shortName": "Valencia"
-          },
-          "awayTeam": {
-            "id": 558,
-            "name": "RC Celta de Vigo",
-            "shortName": "Celta"
-          },
-          "score": {
-            "winner": null,
-            "duration": "REGULAR",
-            "fullTime": {
-              "home": null,
-              "away": null
-            },
-            "halfTime": {
-              "home": null,
-              "away": null
-            }
-          },
-          "competition": {
-            "name": "Primera Division"
-          },
-          "venue": null
-        },
         {
           "utcDate": "2026-08-22T19:30:00Z",
           "status": "TIMED",
@@ -1952,6 +1921,37 @@
         }
       ],
       "results": [
+        {
+          "utcDate": "2026-08-22T15:15:00Z",
+          "status": "FINISHED",
+          "matchday": 1,
+          "homeTeam": {
+            "id": 546,
+            "name": "Racing Club de Lens",
+            "shortName": "RC Lens"
+          },
+          "awayTeam": {
+            "id": 519,
+            "name": "AJ Auxerre",
+            "shortName": "Auxerre"
+          },
+          "score": {
+            "winner": "HOME_TEAM",
+            "duration": "REGULAR",
+            "fullTime": {
+              "home": 5,
+              "away": 2
+            },
+            "halfTime": {
+              "home": 1,
+              "away": 0
+            }
+          },
+          "competition": {
+            "name": "Ligue 1"
+          },
+          "venue": null
+        },
         {
           "utcDate": "2026-08-21T18:45:00Z",
           "status": "FINISHED",
