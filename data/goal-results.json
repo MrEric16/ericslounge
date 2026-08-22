@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-22T14:13:50.230133Z",
+  "generatedAt": "2026-08-22T14:45:12.347345Z",
   "results": [
     {
       "url": "https://www.goal.com/en/match/girona-vs-arsenal/__LS8d9Oc6I1wXn9g8956",
@@ -356,9 +356,25 @@
       "homeGoals": [],
       "awayGoals": [],
       "competition": "PD"
+    },
+    {
+      "url": "https://www.goal.com/en/match/hull-city-vs-manchester-united/NPsPawvTqUTcEGw6AH1ig",
+      "date": "2026-08-22",
+      "home": "Hull City",
+      "away": "Manchester United",
+      "htHome": 2,
+      "htAway": 0,
+      "ftHome": 2,
+      "ftAway": 0,
+      "homeGoals": [],
+      "awayGoals": [
+        {
+          "scorer": "S. Ajayi",
+          "minute": 17
+        }
+      ],
+      "competition": "PL"
     }
   ],
-  "scorerParseRetryCounts": {
-    "https://www.goal.com/en/match/hull-city-vs-manchester-united/NPsPawvTqUTcEGw6AH1ig": 2
-  }
+  "scorerParseRetryCounts": {}
 }
