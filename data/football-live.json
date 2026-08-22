@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-22T15:45:23.869278Z",
+  "generatedAt": "2026-08-22T16:18:55.810618Z",
   "standings": {
     "PL": [
       {
@@ -35,42 +35,22 @@
       {
         "name": "Ipswich Town",
         "pld": 1,
-        "w": 0,
-        "d": 1,
+        "w": 1,
+        "d": 0,
         "l": 0,
-        "gf": 1,
+        "gf": 2,
         "ga": 1,
-        "pts": 1
-      },
-      {
-        "name": "Sunderland",
-        "pld": 1,
-        "w": 0,
-        "d": 1,
-        "l": 0,
-        "gf": 1,
-        "ga": 1,
-        "pts": 1
+        "pts": 3
       },
       {
         "name": "Leeds United",
         "pld": 1,
-        "w": 0,
-        "d": 1,
+        "w": 1,
+        "d": 0,
         "l": 0,
-        "gf": 0,
+        "gf": 1,
         "ga": 0,
-        "pts": 1
-      },
-      {
-        "name": "Nottingham",
-        "pld": 1,
-        "w": 0,
-        "d": 1,
-        "l": 0,
-        "gf": 0,
-        "ga": 0,
-        "pts": 1
+        "pts": 3
       },
       {
         "name": "Bournemouth",
@@ -170,6 +150,26 @@
         "l": 0,
         "gf": 0,
         "ga": 0,
+        "pts": 0
+      },
+      {
+        "name": "Sunderland",
+        "pld": 1,
+        "w": 0,
+        "d": 0,
+        "l": 1,
+        "gf": 1,
+        "ga": 2,
+        "pts": 0
+      },
+      {
+        "name": "Nottingham",
+        "pld": 1,
+        "w": 0,
+        "d": 0,
+        "l": 1,
+        "gf": 0,
+        "ga": 1,
         "pts": 0
       },
       {
@@ -566,6 +566,99 @@
         }
       ],
       "results": [
+        {
+          "utcDate": "2026-08-22T14:00:00Z",
+          "status": "FINISHED",
+          "matchday": 1,
+          "homeTeam": {
+            "id": 349,
+            "name": "Ipswich Town FC",
+            "shortName": "Ipswich Town"
+          },
+          "awayTeam": {
+            "id": 71,
+            "name": "Sunderland AFC",
+            "shortName": "Sunderland"
+          },
+          "score": {
+            "winner": "HOME_TEAM",
+            "duration": "REGULAR",
+            "fullTime": {
+              "home": 2,
+              "away": 1
+            },
+            "halfTime": {
+              "home": 1,
+              "away": 1
+            }
+          },
+          "competition": {
+            "name": "Premier League"
+          },
+          "venue": null
+        },
+        {
+          "utcDate": "2026-08-22T14:00:00Z",
+          "status": "FINISHED",
+          "matchday": 1,
+          "homeTeam": {
+            "id": 351,
+            "name": "Nottingham Forest FC",
+            "shortName": "Nottingham"
+          },
+          "awayTeam": {
+            "id": 341,
+            "name": "Leeds United FC",
+            "shortName": "Leeds United"
+          },
+          "score": {
+            "winner": "AWAY_TEAM",
+            "duration": "REGULAR",
+            "fullTime": {
+              "home": 0,
+              "away": 1
+            },
+            "halfTime": {
+              "home": 0,
+              "away": 0
+            }
+          },
+          "competition": {
+            "name": "Premier League"
+          },
+          "venue": null
+        },
+        {
+          "utcDate": "2026-08-22T14:00:00Z",
+          "status": "FINISHED",
+          "matchday": 1,
+          "homeTeam": {
+            "id": 62,
+            "name": "Everton FC",
+            "shortName": "Everton"
+          },
+          "awayTeam": {
+            "id": 354,
+            "name": "Crystal Palace FC",
+            "shortName": "Crystal Palace"
+          },
+          "score": {
+            "winner": "HOME_TEAM",
+            "duration": "REGULAR",
+            "fullTime": {
+              "home": 2,
+              "away": 0
+            },
+            "halfTime": {
+              "home": 1,
+              "away": 0
+            }
+          },
+          "competition": {
+            "name": "Premier League"
+          },
+          "venue": null
+        },
         {
           "utcDate": "2026-08-22T11:30:00Z",
           "status": "FINISHED",
