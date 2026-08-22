@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-22T19:18:33.021351Z",
+  "generatedAt": "2026-08-22T19:43:43.591237Z",
   "results": [
     {
       "url": "https://www.goal.com/en/match/girona-vs-arsenal/__LS8d9Oc6I1wXn9g8956",
@@ -565,6 +565,19 @@
         }
       ],
       "competition": "SA"
+    },
+    {
+      "url": "https://www.goal.com/en/match/valencia-vs-celta-vigo/oEKoRc9-uM2QQUGfnCWHn",
+      "date": "2026-08-22",
+      "home": "Valencia",
+      "away": "Celta Vigo",
+      "htHome": 0,
+      "htAway": 0,
+      "ftHome": 0,
+      "ftAway": 0,
+      "homeGoals": [],
+      "awayGoals": [],
+      "competition": "PD"
     }
   ],
   "scorerParseRetryCounts": {}
