@@ -1,16 +1,13 @@
 [goal-scraper] Run started.
 [goal-scraper] [arsenal-friendlies] Found 1 finished-match links
 [goal-scraper] [PL] Found 5 finished-match links
-[goal-scraper] WARNING: could not assign scorer 'T. Barry' to home or away for https://www.goal.com/en/match/everton-vs-crystal-palace/sxBEkH-I5ST5zU94ot6Pr
-[goal-scraper] WARNING: Everton scored 2 but only 1 scorer(s) were parsed for https://www.goal.com/en/match/everton-vs-crystal-palace/sxBEkH-I5ST5zU94ot6Pr
-[goal-scraper] [PL] Added: Everton 2-0 Crystal Palace
 [goal-scraper] WARNING: Leeds United scored 1 but 0 scorers were parsed for https://www.goal.com/en/match/nottingham-forest-vs-leeds-united/yAWkKuVpJISNPG9tbpaYA
 [goal-scraper] WARNING: Nottingham Forest scored 0 but only 1 scorer(s) were parsed for https://www.goal.com/en/match/nottingham-forest-vs-leeds-united/yAWkKuVpJISNPG9tbpaYA
-[goal-scraper] [PL] SCORER PARSE FAILED (attempt 1/3) for Nottingham Forest 0-1 Leeds United -- NOT committing, will retry next run: https://www.goal.com/en/match/nottingham-forest-vs-leeds-united/yAWkKuVpJISNPG9tbpaYA
+[goal-scraper] [PL] SCORER PARSE FAILED (attempt 2/3) for Nottingham Forest 0-1 Leeds United -- NOT committing, will retry next run: https://www.goal.com/en/match/nottingham-forest-vs-leeds-united/yAWkKuVpJISNPG9tbpaYA
 [goal-scraper] WARNING: could not assign scorer 'J. Clarke' to home or away for https://www.goal.com/en/match/ipswich-town-vs-sunderland/yX9Iwq2uLGCTLbU24c3sT
 [goal-scraper] WARNING: Sunderland scored 1 but 0 scorers were parsed for https://www.goal.com/en/match/ipswich-town-vs-sunderland/yX9Iwq2uLGCTLbU24c3sT
 [goal-scraper] WARNING: Ipswich Town scored 2 but only 1 scorer(s) were parsed for https://www.goal.com/en/match/ipswich-town-vs-sunderland/yX9Iwq2uLGCTLbU24c3sT
-[goal-scraper] [PL] SCORER PARSE FAILED (attempt 1/3) for Ipswich Town 2-1 Sunderland -- NOT committing, will retry next run: https://www.goal.com/en/match/ipswich-town-vs-sunderland/yX9Iwq2uLGCTLbU24c3sT
+[goal-scraper] [PL] SCORER PARSE FAILED (attempt 2/3) for Ipswich Town 2-1 Sunderland -- NOT committing, will retry next run: https://www.goal.com/en/match/ipswich-town-vs-sunderland/yX9Iwq2uLGCTLbU24c3sT
 [goal-scraper] [PD] Found 2 finished-match links
 [goal-scraper] [BL1] Found 0 finished-match links
 [goal-scraper] [SA] Found 0 finished-match links
@@ -21,6 +18,6 @@
 [goal-scraper] WARNING: Paris Saint Germain scored 1 but 0 scorers were parsed for https://www.goal.com/en/match/paris-saint-germain-vs-arsenal/ugWugY2_bPeXkOmUCLC9s
 [goal-scraper] WARNING: Arsenal scored 1 but 0 scorers were parsed for https://www.goal.com/en/match/paris-saint-germain-vs-arsenal/ugWugY2_bPeXkOmUCLC9s
 [goal-scraper] [CL] Skipping stale match (older than 45 days): Paris Saint Germain vs Arsenal on 2026-05-30
-[goal-scraper] TOTAL new results added this run: 1
+[goal-scraper] TOTAL new results added this run: 0
 [goal-scraper] Matches still awaiting a clean scorer parse (not yet committed): ['https://www.goal.com/en/match/nottingham-forest-vs-leeds-united/yAWkKuVpJISNPG9tbpaYA', 'https://www.goal.com/en/match/ipswich-town-vs-sunderland/yX9Iwq2uLGCTLbU24c3sT']
 [goal-scraper] Wrote data/goal-results.json
