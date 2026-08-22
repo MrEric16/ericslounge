@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-22T17:13:31.763496Z",
+  "generatedAt": "2026-08-22T17:43:18.964066Z",
   "results": [
     {
       "url": "https://www.goal.com/en/match/girona-vs-arsenal/__LS8d9Oc6I1wXn9g8956",
@@ -451,6 +451,33 @@
         }
       ],
       "competition": "PD"
+    },
+    {
+      "url": "https://www.goal.com/en/match/lens-vs-auxerre/tJCSNcO_6dfDEW8XPOk5H",
+      "date": "2026-08-22",
+      "home": "Lens",
+      "away": "Auxerre",
+      "htHome": 1,
+      "htAway": 0,
+      "ftHome": 5,
+      "ftAway": 2,
+      "homeGoals": [
+        {
+          "scorer": "D. Namaso",
+          "minute": 61
+        },
+        {
+          "scorer": "L. Sy",
+          "minute": 69
+        }
+      ],
+      "awayGoals": [
+        {
+          "scorer": "F. Thauvin",
+          "minute": 12
+        }
+      ],
+      "competition": "FL1"
     }
   ],
   "scorerParseRetryCounts": {}
