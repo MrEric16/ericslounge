@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-22T13:53:42.746856Z",
+  "generatedAt": "2026-08-22T14:17:20.608436Z",
   "standings": {
     "PL": [
       {
@@ -21,6 +21,66 @@
         "gf": 2,
         "ga": 0,
         "pts": 3
+      },
+      {
+        "name": "Crystal Palace",
+        "pld": 1,
+        "w": 0,
+        "d": 1,
+        "l": 0,
+        "gf": 0,
+        "ga": 0,
+        "pts": 1
+      },
+      {
+        "name": "Everton",
+        "pld": 1,
+        "w": 0,
+        "d": 1,
+        "l": 0,
+        "gf": 0,
+        "ga": 0,
+        "pts": 1
+      },
+      {
+        "name": "Ipswich Town",
+        "pld": 1,
+        "w": 0,
+        "d": 1,
+        "l": 0,
+        "gf": 0,
+        "ga": 0,
+        "pts": 1
+      },
+      {
+        "name": "Leeds United",
+        "pld": 1,
+        "w": 0,
+        "d": 1,
+        "l": 0,
+        "gf": 0,
+        "ga": 0,
+        "pts": 1
+      },
+      {
+        "name": "Nottingham",
+        "pld": 1,
+        "w": 0,
+        "d": 1,
+        "l": 0,
+        "gf": 0,
+        "ga": 0,
+        "pts": 1
+      },
+      {
+        "name": "Sunderland",
+        "pld": 1,
+        "w": 0,
+        "d": 1,
+        "l": 0,
+        "gf": 0,
+        "ga": 0,
+        "pts": 1
       },
       {
         "name": "Bournemouth",
@@ -73,47 +133,7 @@
         "pts": 0
       },
       {
-        "name": "Crystal Palace",
-        "pld": 0,
-        "w": 0,
-        "d": 0,
-        "l": 0,
-        "gf": 0,
-        "ga": 0,
-        "pts": 0
-      },
-      {
-        "name": "Everton",
-        "pld": 0,
-        "w": 0,
-        "d": 0,
-        "l": 0,
-        "gf": 0,
-        "ga": 0,
-        "pts": 0
-      },
-      {
         "name": "Fulham",
-        "pld": 0,
-        "w": 0,
-        "d": 0,
-        "l": 0,
-        "gf": 0,
-        "ga": 0,
-        "pts": 0
-      },
-      {
-        "name": "Ipswich Town",
-        "pld": 0,
-        "w": 0,
-        "d": 0,
-        "l": 0,
-        "gf": 0,
-        "ga": 0,
-        "pts": 0
-      },
-      {
-        "name": "Leeds United",
         "pld": 0,
         "w": 0,
         "d": 0,
@@ -144,26 +164,6 @@
       },
       {
         "name": "Newcastle",
-        "pld": 0,
-        "w": 0,
-        "d": 0,
-        "l": 0,
-        "gf": 0,
-        "ga": 0,
-        "pts": 0
-      },
-      {
-        "name": "Nottingham",
-        "pld": 0,
-        "w": 0,
-        "d": 0,
-        "l": 0,
-        "gf": 0,
-        "ga": 0,
-        "pts": 0
-      },
-      {
-        "name": "Sunderland",
         "pld": 0,
         "w": 0,
         "d": 0,
@@ -409,99 +409,6 @@
   "matches": {
     "PL": {
       "fixtures": [
-        {
-          "utcDate": "2026-08-22T14:00:00Z",
-          "status": "TIMED",
-          "matchday": 1,
-          "homeTeam": {
-            "id": 349,
-            "name": "Ipswich Town FC",
-            "shortName": "Ipswich Town"
-          },
-          "awayTeam": {
-            "id": 71,
-            "name": "Sunderland AFC",
-            "shortName": "Sunderland"
-          },
-          "score": {
-            "winner": null,
-            "duration": "REGULAR",
-            "fullTime": {
-              "home": null,
-              "away": null
-            },
-            "halfTime": {
-              "home": null,
-              "away": null
-            }
-          },
-          "competition": {
-            "name": "Premier League"
-          },
-          "venue": null
-        },
-        {
-          "utcDate": "2026-08-22T14:00:00Z",
-          "status": "TIMED",
-          "matchday": 1,
-          "homeTeam": {
-            "id": 351,
-            "name": "Nottingham Forest FC",
-            "shortName": "Nottingham"
-          },
-          "awayTeam": {
-            "id": 341,
-            "name": "Leeds United FC",
-            "shortName": "Leeds United"
-          },
-          "score": {
-            "winner": null,
-            "duration": "REGULAR",
-            "fullTime": {
-              "home": null,
-              "away": null
-            },
-            "halfTime": {
-              "home": null,
-              "away": null
-            }
-          },
-          "competition": {
-            "name": "Premier League"
-          },
-          "venue": null
-        },
-        {
-          "utcDate": "2026-08-22T14:00:00Z",
-          "status": "TIMED",
-          "matchday": 1,
-          "homeTeam": {
-            "id": 62,
-            "name": "Everton FC",
-            "shortName": "Everton"
-          },
-          "awayTeam": {
-            "id": 354,
-            "name": "Crystal Palace FC",
-            "shortName": "Crystal Palace"
-          },
-          "score": {
-            "winner": null,
-            "duration": "REGULAR",
-            "fullTime": {
-              "home": null,
-              "away": null
-            },
-            "halfTime": {
-              "home": null,
-              "away": null
-            }
-          },
-          "competition": {
-            "name": "Premier League"
-          },
-          "venue": null
-        },
         {
           "utcDate": "2026-08-22T16:30:00Z",
           "status": "TIMED",
