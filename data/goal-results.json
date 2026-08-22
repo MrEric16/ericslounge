@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-22T15:43:34.695460Z",
+  "generatedAt": "2026-08-22T16:14:20.649314Z",
   "results": [
     {
       "url": "https://www.goal.com/en/match/girona-vs-arsenal/__LS8d9Oc6I1wXn9g8956",
@@ -374,7 +374,28 @@
         }
       ],
       "competition": "PL"
+    },
+    {
+      "url": "https://www.goal.com/en/match/everton-vs-crystal-palace/sxBEkH-I5ST5zU94ot6Pr",
+      "date": "2026-08-22",
+      "home": "Everton",
+      "away": "Crystal Palace",
+      "htHome": 1,
+      "htAway": 0,
+      "ftHome": 2,
+      "ftAway": 0,
+      "homeGoals": [
+        {
+          "scorer": "K. Dewsbury-Hall",
+          "minute": 42
+        }
+      ],
+      "awayGoals": [],
+      "competition": "PL"
     }
   ],
-  "scorerParseRetryCounts": {}
+  "scorerParseRetryCounts": {
+    "https://www.goal.com/en/match/nottingham-forest-vs-leeds-united/yAWkKuVpJISNPG9tbpaYA": 1,
+    "https://www.goal.com/en/match/ipswich-town-vs-sunderland/yX9Iwq2uLGCTLbU24c3sT": 1
+  }
 }
