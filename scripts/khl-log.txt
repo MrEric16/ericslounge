@@ -1,4 +1,7 @@
-[khl] standings page: captured 98552 chars
+[khl] standings page: captured 302064 chars
 [khl] parsed 0 standings row(s)
-[khl] WARNING: 0 standings rows. Found 0 <tbody> element(s) total
+[khl] WARNING: 0 standings rows. Found 7 <tbody> element(s) total
+[khl] first tbody has 24 <tr> row(s)
+[khl] club link found in first row: False
+[khl] first row raw HTML: '<tr class="table__row"><td class="table__cell table__cell--number" data-type="number"><span><span>1</span></span></td><td class="table__cell table__cell--team-image"><div class="table__cell-content-wrapper"><img alt="table__cell" class="table__team-image" src="//img.khl.ru/teams/en/1436/34/200.png"/></div></td><td class="table__cell table__cell--team-name"><div class="table__cell-content-wrapper"><span><a href="/clubs/avangard/">Avangard</a></span></div></td><td class="table__cell"><div class="table__cell-content-wrapper"><span>0</span></div></td><td class="table__cell"><div class="table__cell-content-wrapper"><span>0</span></div></td><td class="table__cell"><div class="table__cell-content-wrapper"><span>0</span></div></td><td class="table__cell"><div class="table__cell-content-wrapper"><span>0</span></div></td><td class="table__cell"><div class="table__cell-content-wrapper"><span>0</span></div></td><td class="table__cell"><div class="table__cell-content-wrapper"><span>0</span></div></td><td class="table__cell"><div class="table__cell-content-wrapper"><span>0</span></div></td><td class="table__cell"><div class="table__cell-content-wrapper"><span>0</span></div></td><td class="table_'
 [khl] wrote data/khl-live.json -- standings only for now, fixtures/results not yet built
