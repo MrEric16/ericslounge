@@ -4986,31 +4986,47 @@ function silhouetteGetOptions(correct, allCountries, optionCount, poolSize, used
   return pool.slice(0, optionCount).map(x => x.c);
 }
 
-function silhouetteRoundDifficulty(roundIndex, totalRounds){
-  const progress = roundIndex / (totalRounds - 1);
+function silhouetteRoundDifficulty(roundIndex, totalRounds, difficulty){
+  const progress = totalRounds > 1 ? roundIndex / (totalRounds - 1) : 0;
+  if(difficulty === 'easy'){
+    const maxTier = 1 + Math.floor(progress * 2); // 1 -> 3, sticks to well-known shapes
+    const poolSize = Math.round(20 - progress * 5); // 20 -> 15, generous/low-confusability distractors
+    return { minTier: 1, maxTier, poolSize };
+  }
+  if(difficulty === 'hard'){
+    const maxTier = 3 + Math.floor(progress * 2); // 3 -> 5, skips the easy/obvious countries entirely
+    const poolSize = Math.round(8 - progress * 4); // 8 -> 4, tight/high-confusability distractors
+    return { minTier: 3, maxTier, poolSize };
+  }
+  // medium -- original behaviour, unchanged
   const maxTier = 1 + Math.floor(progress * 4);
   const poolSize = Math.round(15 - progress * 9);
-  return { maxTier, poolSize };
+  return { minTier: 1, maxTier, poolSize };
 }
 
-function silhouettePickForRound(allCountries, maxTier, usedNames){
-  const eligible = allCountries.filter(c => c.tier <= maxTier && !usedNames.has(c.name));
+function silhouettePickForRound(allCountries, minTier, maxTier, usedNames){
+  const eligible = allCountries.filter(c => c.tier >= minTier && c.tier <= maxTier && !usedNames.has(c.name));
   const atCeiling = eligible.filter(c => c.tier === maxTier);
   const pickFrom = atCeiling.length > 0 ? atCeiling : eligible;
   if(pickFrom.length === 0) return null;
   return pickFrom[Math.floor(Math.random() * pickFrom.length)];
 }
 
-function silhouetteBuildRounds(allCountries, totalRounds){
+function silhouetteBuildRounds(allCountries, totalRounds, difficulty){
   const usedNames = new Set();
   const rounds = [];
   for(let i = 0; i < totalRounds; i++){
-    const { maxTier, poolSize } = silhouetteRoundDifficulty(i, totalRounds);
-    const correct = silhouettePickForRound(allCountries, maxTier, usedNames);
+    const { minTier, maxTier, poolSize } = silhouetteRoundDifficulty(i, totalRounds, difficulty);
+    const correct = silhouettePickForRound(allCountries, minTier, maxTier, usedNames);
     if(!correct) break;
     usedNames.add(correct.name);
+    // Only the correct-answer pool is tracked as "used" (so a country is never the right
+    // answer twice, and a past right answer never resurfaces as a distractor). Distractors
+    // themselves are allowed to repeat across rounds -- marking them used too was draining
+    // the tier-limited Easy/Hard pools well before 30 rounds (measured as low as 11/30 in
+    // simulation), since similarity scoring keeps pulling distractors from the same narrow
+    // tier band as the correct answers.
     const distractors = silhouetteGetOptions(correct, allCountries, 5, poolSize, usedNames);
-    distractors.forEach(d => usedNames.add(d.name));
     const options = [correct, ...distractors];
     for(let j = options.length - 1; j > 0; j--){
       const k = Math.floor(Math.random() * (j + 1));
@@ -5023,9 +5039,11 @@ function silhouetteBuildRounds(allCountries, totalRounds){
 
 let silhouetteState = null;
 
-function silhouetteStart(){
+function silhouetteStart(difficulty){
+  const chosenDifficulty = difficulty || 'medium';
   silhouetteState = {
-    rounds: silhouetteBuildRounds(SILHOUETTE_COUNTRIES, SILHOUETTE_ROUNDS_PER_GAME),
+    difficulty: chosenDifficulty,
+    rounds: silhouetteBuildRounds(SILHOUETTE_COUNTRIES, SILHOUETTE_ROUNDS_PER_GAME, chosenDifficulty),
     current: 0,
     correctCount: 0,
     mistakes: [],
@@ -12610,7 +12628,11 @@ function silhouetteIntroHtml(){
           <div class="fg-intro-stat"><div class="num">${best}/${SILHOUETTE_ROUNDS_PER_GAME}</div><div class="label">Best Score</div></div>
           <div class="fg-intro-stat"><div class="num">${streak}</div><div class="label">Day Streak</div></div>
         </div>
-        <button class="fg-start-btn" data-action="silhouette-start">Start</button>
+        <div style="display:flex; flex-direction:column; gap:10px;">
+          <button class="fg-start-btn" data-action="silhouette-start" data-mode="easy">Easy</button>
+          <button class="fg-start-btn" data-action="silhouette-start" data-mode="medium">Medium</button>
+          <button class="fg-start-btn" data-action="silhouette-start" data-mode="hard">Hard</button>
+        </div>
         <div class="silhouette-credit">Map outlines by <a href="https://github.com/djaiss/mapsicon" target="_blank" rel="noopener">djaiss/mapsicon</a></div>
       </div>
     </section>
@@ -12665,7 +12687,7 @@ function silhouetteEndHtml(){
         <div class="section-head"><span class="emoji">${icon('trophy')}</span><h2>Round Complete</h2></div>
         <div class="fg-end-score">${score}/${silhouetteState.rounds.length}</div>
         <div class="fg-end-label">${isNewBest ? 'New best score!' : `Best: ${best}/${silhouetteState.rounds.length}`}</div>
-        <button class="fg-start-btn" data-action="silhouette-start">Play Again</button>
+        <button class="fg-start-btn" data-action="silhouette-start" data-mode="${silhouetteState.difficulty}">Play Again</button>
         <h3 style="margin:22px 0 4px; font-family:'Baloo 2', sans-serif; font-size:15px;">Missed ones</h3>
         ${reviewHtml}
       </div>
@@ -19853,7 +19875,7 @@ document.addEventListener('click', (e) => {
   const silhouetteStartBtn = e.target.closest('[data-action="silhouette-start"]');
   if(silhouetteStartBtn){
     e.preventDefault();
-    silhouetteStart();
+    silhouetteStart(silhouetteStartBtn.dataset.mode);
     return;
   }
   const silhouetteAnswerBtn = e.target.closest('[data-action="silhouette-answer"]');
