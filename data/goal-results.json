@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-22T18:17:41.435650Z",
+  "generatedAt": "2026-08-22T18:56:11.497924Z",
   "results": [
     {
       "url": "https://www.goal.com/en/match/girona-vs-arsenal/__LS8d9Oc6I1wXn9g8956",
@@ -481,6 +481,90 @@
         }
       ],
       "competition": "FL1"
+    },
+    {
+      "url": "https://www.goal.com/en/match/brentford-vs-tottenham-hotspur/mivMswaiaDnAarjBKlm67",
+      "date": "2026-08-22",
+      "home": "Brentford",
+      "away": "Tottenham Hotspur",
+      "htHome": 2,
+      "htAway": 0,
+      "ftHome": 3,
+      "ftAway": 0,
+      "homeGoals": [
+        {
+          "scorer": "K. Lewis-Potter",
+          "minute": 12
+        },
+        {
+          "scorer": "V. Janelt",
+          "minute": 33
+        },
+        {
+          "scorer": "M. Kayode",
+          "minute": 49
+        }
+      ],
+      "awayGoals": [],
+      "competition": "PL"
+    },
+    {
+      "url": "https://www.goal.com/en/match/inter-vs-monza/AirscAJQ9p6WiN_-XUL-0",
+      "date": "2026-08-22",
+      "home": "Inter",
+      "away": "Monza",
+      "htHome": 1,
+      "htAway": 1,
+      "ftHome": 4,
+      "ftAway": 1,
+      "homeGoals": [
+        {
+          "scorer": "H. Calhanoglu",
+          "minute": 6
+        },
+        {
+          "scorer": "P. Zielinski",
+          "minute": 48
+        },
+        {
+          "scorer": "F. Esposito",
+          "minute": 55
+        },
+        {
+          "scorer": "Y. Bisseck",
+          "minute": 63
+        }
+      ],
+      "awayGoals": [
+        {
+          "scorer": "G. Varela",
+          "minute": 29
+        }
+      ],
+      "competition": "SA"
+    },
+    {
+      "url": "https://www.goal.com/en/match/udinese-vs-como/X0aQsOjS9ECOqwZAAJ7gy",
+      "date": "2026-08-22",
+      "home": "Udinese",
+      "away": "Como",
+      "htHome": 1,
+      "htAway": 0,
+      "ftHome": 1,
+      "ftAway": 1,
+      "homeGoals": [
+        {
+          "scorer": "H. Kamara",
+          "minute": 29
+        }
+      ],
+      "awayGoals": [
+        {
+          "scorer": "A. Douvikas",
+          "minute": 54
+        }
+      ],
+      "competition": "SA"
     }
   ],
   "scorerParseRetryCounts": {}
