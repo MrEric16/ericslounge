@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-22T19:23:43.002280Z",
+  "generatedAt": "2026-08-22T19:44:58.718348Z",
   "standings": {
     "PL": [
       {
@@ -226,13 +226,13 @@
       },
       {
         "name": "Espanyol",
-        "pld": 1,
+        "pld": 2,
         "w": 1,
-        "d": 0,
+        "d": 1,
         "l": 0,
         "gf": 3,
         "ga": 0,
-        "pts": 3
+        "pts": 4
       },
       {
         "name": "Atleti",
@@ -305,6 +305,16 @@
         "pts": 1
       },
       {
+        "name": "Real Madrid",
+        "pld": 1,
+        "w": 0,
+        "d": 1,
+        "l": 0,
+        "gf": 0,
+        "ga": 0,
+        "pts": 1
+      },
+      {
         "name": "Valencia",
         "pld": 1,
         "w": 0,
@@ -336,16 +346,6 @@
       },
       {
         "name": "Barça",
-        "pld": 0,
-        "w": 0,
-        "d": 0,
-        "l": 0,
-        "gf": 0,
-        "ga": 0,
-        "pts": 0
-      },
-      {
-        "name": "Real Madrid",
         "pld": 0,
         "w": 0,
         "d": 0,
@@ -726,37 +726,6 @@
     "PD": {
       "fixtures": [
         {
-          "utcDate": "2026-08-22T19:30:00Z",
-          "status": "TIMED",
-          "matchday": 2,
-          "homeTeam": {
-            "id": 80,
-            "name": "RCD Espanyol de Barcelona",
-            "shortName": "Espanyol"
-          },
-          "awayTeam": {
-            "id": 86,
-            "name": "Real Madrid CF",
-            "shortName": "Real Madrid"
-          },
-          "score": {
-            "winner": null,
-            "duration": "REGULAR",
-            "fullTime": {
-              "home": null,
-              "away": null
-            },
-            "halfTime": {
-              "home": null,
-              "away": null
-            }
-          },
-          "competition": {
-            "name": "Primera Division"
-          },
-          "venue": null
-        },
-        {
           "utcDate": "2026-08-23T15:00:00Z",
           "status": "TIMED",
           "matchday": 2,
@@ -913,6 +882,37 @@
         }
       ],
       "results": [
+        {
+          "utcDate": "2026-08-22T17:30:00Z",
+          "status": "FINISHED",
+          "matchday": 2,
+          "homeTeam": {
+            "id": 95,
+            "name": "Valencia CF",
+            "shortName": "Valencia"
+          },
+          "awayTeam": {
+            "id": 558,
+            "name": "RC Celta de Vigo",
+            "shortName": "Celta"
+          },
+          "score": {
+            "winner": "DRAW",
+            "duration": "REGULAR",
+            "fullTime": {
+              "home": 0,
+              "away": 0
+            },
+            "halfTime": {
+              "home": 0,
+              "away": 0
+            }
+          },
+          "competition": {
+            "name": "Primera Division"
+          },
+          "venue": null
+        },
         {
           "utcDate": "2026-08-22T15:00:00Z",
           "status": "FINISHED",
