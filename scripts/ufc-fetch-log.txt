@@ -3,6 +3,7 @@
 [ufc-fetch]   table preceded by/captioned: 'scheduled events'
 [ufc-fetch]   table preceded by/captioned: 'past events'
 [ufc-fetch]   table preceded by/captioned: 'number of events by year'
+[ufc-fetch]   preserved 15 previously-recorded result(s) across this run
 [ufc-fetch] fetching ufc.com/events for Main Card start times (upcoming events only)...
 [ufc-fetch] ufc.com: captured 1974 chars of body text
 [ufc-fetch] ufc.com: text around first 'Main Card' match: 'us\nNext\nHERNANDEZ VS RODRIGUES\nSun, Aug 23 / 12:00 AM UTC / Main Card\nGolden 1 C'
