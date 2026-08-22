@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-22T11:17:10.589555Z",
+  "generatedAt": "2026-08-22T11:44:18.875642Z",
   "standings": {
     "PL": [
       {
@@ -11,6 +11,26 @@
         "gf": 3,
         "ga": 0,
         "pts": 3
+      },
+      {
+        "name": "Hull City",
+        "pld": 1,
+        "w": 0,
+        "d": 1,
+        "l": 0,
+        "gf": 0,
+        "ga": 0,
+        "pts": 1
+      },
+      {
+        "name": "Man United",
+        "pld": 1,
+        "w": 0,
+        "d": 1,
+        "l": 0,
+        "gf": 0,
+        "ga": 0,
+        "pts": 1
       },
       {
         "name": "Bournemouth",
@@ -93,16 +113,6 @@
         "pts": 0
       },
       {
-        "name": "Hull City",
-        "pld": 0,
-        "w": 0,
-        "d": 0,
-        "l": 0,
-        "gf": 0,
-        "ga": 0,
-        "pts": 0
-      },
-      {
         "name": "Ipswich Town",
         "pld": 0,
         "w": 0,
@@ -134,16 +144,6 @@
       },
       {
         "name": "Man City",
-        "pld": 0,
-        "w": 0,
-        "d": 0,
-        "l": 0,
-        "gf": 0,
-        "ga": 0,
-        "pts": 0
-      },
-      {
-        "name": "Man United",
         "pld": 0,
         "w": 0,
         "d": 0,
@@ -409,37 +409,6 @@
   "matches": {
     "PL": {
       "fixtures": [
-        {
-          "utcDate": "2026-08-22T11:30:00Z",
-          "status": "TIMED",
-          "matchday": 1,
-          "homeTeam": {
-            "id": 322,
-            "name": "Hull City AFC",
-            "shortName": "Hull City"
-          },
-          "awayTeam": {
-            "id": 66,
-            "name": "Manchester United FC",
-            "shortName": "Man United"
-          },
-          "score": {
-            "winner": null,
-            "duration": "REGULAR",
-            "fullTime": {
-              "home": null,
-              "away": null
-            },
-            "halfTime": {
-              "home": null,
-              "away": null
-            }
-          },
-          "competition": {
-            "name": "Premier League"
-          },
-          "venue": null
-        },
         {
           "utcDate": "2026-08-22T14:00:00Z",
           "status": "TIMED",
