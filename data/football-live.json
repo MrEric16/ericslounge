@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-22T14:17:20.608436Z",
+  "generatedAt": "2026-08-22T14:46:39.065372Z",
   "standings": {
     "PL": [
       {
@@ -23,6 +23,26 @@
         "pts": 3
       },
       {
+        "name": "Ipswich Town",
+        "pld": 1,
+        "w": 0,
+        "d": 1,
+        "l": 0,
+        "gf": 1,
+        "ga": 1,
+        "pts": 1
+      },
+      {
+        "name": "Sunderland",
+        "pld": 1,
+        "w": 0,
+        "d": 1,
+        "l": 0,
+        "gf": 1,
+        "ga": 1,
+        "pts": 1
+      },
+      {
         "name": "Crystal Palace",
         "pld": 1,
         "w": 0,
@@ -43,16 +63,6 @@
         "pts": 1
       },
       {
-        "name": "Ipswich Town",
-        "pld": 1,
-        "w": 0,
-        "d": 1,
-        "l": 0,
-        "gf": 0,
-        "ga": 0,
-        "pts": 1
-      },
-      {
         "name": "Leeds United",
         "pld": 1,
         "w": 0,
@@ -64,16 +74,6 @@
       },
       {
         "name": "Nottingham",
-        "pld": 1,
-        "w": 0,
-        "d": 1,
-        "l": 0,
-        "gf": 0,
-        "ga": 0,
-        "pts": 1
-      },
-      {
-        "name": "Sunderland",
         "pld": 1,
         "w": 0,
         "d": 1,
