@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-22T15:16:41.055274Z",
+  "generatedAt": "2026-08-22T15:45:23.869278Z",
   "standings": {
     "PL": [
       {
@@ -13,7 +13,7 @@
         "pts": 3
       },
       {
-        "name": "Hull City",
+        "name": "Everton",
         "pld": 1,
         "w": 1,
         "d": 0,
@@ -23,12 +23,12 @@
         "pts": 3
       },
       {
-        "name": "Everton",
+        "name": "Hull City",
         "pld": 1,
         "w": 1,
         "d": 0,
         "l": 0,
-        "gf": 1,
+        "gf": 2,
         "ga": 0,
         "pts": 3
       },
@@ -179,7 +179,7 @@
         "d": 0,
         "l": 1,
         "gf": 0,
-        "ga": 1,
+        "ga": 2,
         "pts": 0
       },
       {
@@ -205,22 +205,22 @@
     ],
     "PD": [
       {
+        "name": "Sevilla FC",
+        "pld": 2,
+        "w": 2,
+        "d": 0,
+        "l": 0,
+        "gf": 3,
+        "ga": 1,
+        "pts": 6
+      },
+      {
         "name": "Alavés",
         "pld": 2,
         "w": 1,
         "d": 1,
         "l": 0,
         "gf": 4,
-        "ga": 1,
-        "pts": 4
-      },
-      {
-        "name": "Sevilla FC",
-        "pld": 2,
-        "w": 1,
-        "d": 1,
-        "l": 0,
-        "gf": 2,
         "ga": 1,
         "pts": 4
       },
@@ -295,16 +295,6 @@
         "pts": 1
       },
       {
-        "name": "Athletic",
-        "pld": 1,
-        "w": 0,
-        "d": 1,
-        "l": 0,
-        "gf": 0,
-        "ga": 0,
-        "pts": 1
-      },
-      {
         "name": "Rayo Vallecano",
         "pld": 2,
         "w": 0,
@@ -362,6 +352,16 @@
         "l": 0,
         "gf": 0,
         "ga": 0,
+        "pts": 0
+      },
+      {
+        "name": "Athletic",
+        "pld": 1,
+        "w": 0,
+        "d": 0,
+        "l": 1,
+        "gf": 0,
+        "ga": 1,
         "pts": 0
       },
       {
@@ -1702,37 +1702,6 @@
     },
     "FL1": {
       "fixtures": [
-        {
-          "utcDate": "2026-08-22T15:15:00Z",
-          "status": "TIMED",
-          "matchday": 1,
-          "homeTeam": {
-            "id": 546,
-            "name": "Racing Club de Lens",
-            "shortName": "RC Lens"
-          },
-          "awayTeam": {
-            "id": 519,
-            "name": "AJ Auxerre",
-            "shortName": "Auxerre"
-          },
-          "score": {
-            "winner": null,
-            "duration": "REGULAR",
-            "fullTime": {
-              "home": null,
-              "away": null
-            },
-            "halfTime": {
-              "home": null,
-              "away": null
-            }
-          },
-          "competition": {
-            "name": "Ligue 1"
-          },
-          "venue": null
-        },
         {
           "utcDate": "2026-08-22T18:45:00Z",
           "status": "TIMED",
