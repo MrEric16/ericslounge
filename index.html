@@ -15647,16 +15647,33 @@ function chDrawKing(ctx, cx, cy, u){
 const CH_PIECE_DRAWERS = { p:chDrawPawn, n:chDrawKnight, b:chDrawBishop, r:chDrawRook, q:chDrawQueen, k:chDrawKing };
 function chDrawPiece(ctx, type, color, cx, cy, s){
   const u = s*0.44;
-  // Pure solid fills -- #FFFFFF and #000000 exactly, no off-white/off-black tinting and
-  // no matching-the-board-background trick. Neither board square color is ever pure white
-  // or pure black, so there is no way for either piece color to blend into the board or
-  // into each other at any square, on any screen.
-  ctx.fillStyle = color === 'white' ? '#FFFFFF' : '#000000';
-  ctx.strokeStyle = color === 'white' ? '#000000' : '#FFFFFF';
+  // FULLY single-color pieces -- no mixing, at all. White pieces are #FFFFFF fill AND
+  // #FFFFFF stroke; black pieces are #000000 fill AND #000000 stroke. The previous
+  // version used the OPPOSITE color for the outline (black outline on white pieces,
+  // white outline on black pieces) which is exactly the "mixing" that made pieces read
+  // as similar/muddy at a glance -- confirmed from an actual screenshot, not assumed.
+  // Stroke color now always equals fill color, so ctx.stroke() has zero visual effect
+  // (kept only so the call sites in each piece-drawer function don't need touching) and
+  // every piece renders as one flat, solid color with no second color anywhere in it.
+  const solid = color === 'white' ? '#FFFFFF' : '#000000';
+  ctx.fillStyle = solid;
+  ctx.strokeStyle = solid;
   ctx.lineWidth = Math.max(1.6, s*0.05);
   ctx.lineJoin = 'round';
+  // A pure single-color piece has almost no visible edge against a same-toned square
+  // (a white piece on the cream square, mainly) -- rendered and confirmed this myself
+  // before adding the fix below. A drop shadow restores the edge WITHOUT putting a
+  // second color into the piece's fill/stroke -- the piece geometry itself is still
+  // exactly one flat color, the shadow just sits behind it on the board.
+  ctx.shadowColor = 'rgba(0,0,0,0.45)';
+  ctx.shadowBlur = Math.max(2, s*0.06);
+  ctx.shadowOffsetX = 0;
+  ctx.shadowOffsetY = Math.max(1, s*0.02);
   const drawer = CH_PIECE_DRAWERS[type];
   if(drawer) drawer(ctx, cx, cy, u);
+  ctx.shadowColor = 'transparent';
+  ctx.shadowBlur = 0;
+  ctx.shadowOffsetY = 0;
 }
 
 
