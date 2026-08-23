@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-23T16:49:02.121888Z",
+  "generatedAt": "2026-08-23T17:13:55.596592Z",
   "results": [
     {
       "url": "https://www.goal.com/en/match/girona-vs-arsenal/__LS8d9Oc6I1wXn9g8956",
@@ -829,6 +829,55 @@
         {
           "scorer": "Tiago Santos",
           "minute": 31
+        }
+      ],
+      "competition": "FL1"
+    },
+    {
+      "url": "https://www.goal.com/en/match/atletico-madrid-vs-villarreal/sF-8gsu5DC8U1ysMPZ2Oq",
+      "date": "2026-08-23",
+      "home": "Atletico Madrid",
+      "away": "Villarreal",
+      "htHome": 0,
+      "htAway": 0,
+      "ftHome": 2,
+      "ftAway": 2,
+      "homeGoals": [
+        {
+          "scorer": "M. Pubill",
+          "minute": 59
+        },
+        {
+          "scorer": "G. Simeone",
+          "minute": 85
+        }
+      ],
+      "awayGoals": [
+        {
+          "scorer": "G. Moreno",
+          "minute": 66
+        },
+        {
+          "scorer": "G. Mikautadze",
+          "minute": 78
+        }
+      ],
+      "competition": "PD"
+    },
+    {
+      "url": "https://www.goal.com/en/match/le-havre-vs-monaco/RF6maAA9WPBAcsoFrZfIj",
+      "date": "2026-08-23",
+      "home": "Le Havre",
+      "away": "Monaco",
+      "htHome": 0,
+      "htAway": 1,
+      "ftHome": 0,
+      "ftAway": 1,
+      "homeGoals": [],
+      "awayGoals": [
+        {
+          "scorer": "E. Dier",
+          "minute": 14
         }
       ],
       "competition": "FL1"
