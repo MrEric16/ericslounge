@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-23T13:00:28.720198+00:00",
+  "generatedAt": "2026-08-23T14:36:51.546419+00:00",
   "teams": [
     "Al Wasl",
     "Shabab Al Ahli Club",
@@ -8,12 +8,12 @@
     "Al Nasr SC",
     "Sharjah FC",
     "Al Jazira Club",
+    "United FC",
     "Ittihad Kalba FC",
     "Al Wahda",
-    "Baniyas SC",
     "Hatta Club",
+    "Baniyas SC",
     "Al Dhafra",
-    "United FC",
     "Khor Fakkan Club"
   ],
   "standings": [
@@ -95,6 +95,17 @@
       "points": 3
     },
     {
+      "team": "United FC",
+      "played": 2,
+      "won": 1,
+      "drawn": 0,
+      "lost": 1,
+      "gf": 2,
+      "ga": 5,
+      "gd": -3,
+      "points": 3
+    },
+    {
       "team": "Ittihad Kalba FC",
       "played": 2,
       "won": 0,
@@ -117,17 +128,6 @@
       "points": 0
     },
     {
-      "team": "Baniyas SC",
-      "played": 1,
-      "won": 0,
-      "drawn": 0,
-      "lost": 1,
-      "gf": 2,
-      "ga": 4,
-      "gd": -2,
-      "points": 0
-    },
-    {
       "team": "Hatta Club",
       "played": 2,
       "won": 0,
@@ -139,22 +139,22 @@
       "points": 0
     },
     {
+      "team": "Baniyas SC",
+      "played": 2,
+      "won": 0,
+      "drawn": 0,
+      "lost": 2,
+      "gf": 2,
+      "ga": 5,
+      "gd": -3,
+      "points": 0
+    },
+    {
       "team": "Al Dhafra",
       "played": 2,
       "won": 0,
       "drawn": 0,
       "lost": 2,
-      "gf": 1,
-      "ga": 5,
-      "gd": -4,
-      "points": 0
-    },
-    {
-      "team": "United FC",
-      "played": 1,
-      "won": 0,
-      "drawn": 0,
-      "lost": 1,
       "gf": 1,
       "ga": 5,
       "gd": -4,
@@ -173,11 +173,6 @@
     }
   ],
   "fixtures": [
-    {
-      "home": "Baniyas SC",
-      "away": "United FC",
-      "start": "2026-08-23T19:00:00+05:00"
-    },
     {
       "home": "Sharjah FC",
       "away": "Al Jazira Club",
@@ -349,6 +344,14 @@
       "start": "2026-08-22T21:35:00+05:00",
       "homeScore": 2,
       "awayScore": 0,
+      "finished": true
+    },
+    {
+      "home": "Baniyas SC",
+      "away": "United FC",
+      "start": "2026-08-23T19:00:00+05:00",
+      "homeScore": 0,
+      "awayScore": 1,
       "finished": true
     }
   ]
