@@ -2,10 +2,12 @@
 [goal-scraper] [PL] Found 9 finished-match links
 [goal-scraper] [PD] Found 6 finished-match links
 [goal-scraper] [BL1] Found 0 finished-match links
-[goal-scraper] [SA] Found 4 finished-match links
+[goal-scraper] [SA] Found 6 finished-match links
+[goal-scraper] [SA] Added: Frosinone 0-1 Juventus
+[goal-scraper] [SA] Added: Venezia 0-2 Lecce
 [goal-scraper] [FL1] Found 8 finished-match links
 [goal-scraper] [CL] Found 1 finished-match links
 [goal-scraper] [CL] Skipping stale match (older than 45 days): Paris Saint Germain vs Arsenal on 2026-05-30
 [goal-scraper] [arsenal-friendlies] Found 1 finished-match links
-[goal-scraper] TOTAL new results added this run: 0
+[goal-scraper] TOTAL new results added this run: 2
 [goal-scraper] Wrote data/goal-results.json

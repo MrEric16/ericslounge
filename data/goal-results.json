@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-23T18:17:41.225815Z",
+  "generatedAt": "2026-08-23T18:55:06.305008Z",
   "results": [
     {
       "url": "https://www.goal.com/en/match/girona-vs-arsenal/__LS8d9Oc6I1wXn9g8956",
@@ -912,6 +912,46 @@
         }
       ],
       "competition": "PL"
+    },
+    {
+      "url": "https://www.goal.com/en/match/frosinone-vs-juventus/DDlnHDOZAgBrdCMDhaTyk",
+      "date": "2026-08-23",
+      "home": "Frosinone",
+      "away": "Juventus",
+      "htHome": 0,
+      "htAway": 1,
+      "ftHome": 0,
+      "ftAway": 1,
+      "homeGoals": [],
+      "awayGoals": [
+        {
+          "scorer": "G. Bremer",
+          "minute": 22
+        }
+      ],
+      "competition": "SA"
+    },
+    {
+      "url": "https://www.goal.com/en/match/venezia-vs-lecce/KQfZ6MjaAaE93gzB2jmg8",
+      "date": "2026-08-23",
+      "home": "Venezia",
+      "away": "Lecce",
+      "htHome": 0,
+      "htAway": 0,
+      "ftHome": 0,
+      "ftAway": 2,
+      "homeGoals": [],
+      "awayGoals": [
+        {
+          "scorer": "O. Gorter",
+          "minute": 46
+        },
+        {
+          "scorer": "Gabriel",
+          "minute": 80
+        }
+      ],
+      "competition": "SA"
     }
   ],
   "scorerParseRetryCounts": {}
