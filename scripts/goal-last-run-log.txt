@@ -1,15 +1,11 @@
 [goal-scraper] Run started.
 [goal-scraper] [PL] Found 8 finished-match links
-[goal-scraper] [PL] Added: Manchester City 2-1 Afc Bournemouth
-[goal-scraper] WARNING: Brighton And Hove Albion scored 4 but only 3 scorer(s) were parsed for https://www.goal.com/en/match/brighton-and-hove-albion-vs-aston-villa/isAVhW8PZmc8TGy-HtQvG
-[goal-scraper] [PL] Added: Brighton And Hove Albion 4-0 Aston Villa
 [goal-scraper] [PD] Found 5 finished-match links
 [goal-scraper] [BL1] Found 0 finished-match links
 [goal-scraper] [SA] Found 4 finished-match links
 [goal-scraper] [FL1] Found 7 finished-match links
-[goal-scraper] [FL1] Added: Angers 0-2 Lille
 [goal-scraper] [CL] Found 1 finished-match links
 [goal-scraper] [CL] Skipping stale match (older than 45 days): Paris Saint Germain vs Arsenal on 2026-05-30
 [goal-scraper] [arsenal-friendlies] Found 1 finished-match links
-[goal-scraper] TOTAL new results added this run: 3
+[goal-scraper] TOTAL new results added this run: 0
 [goal-scraper] Wrote data/goal-results.json
