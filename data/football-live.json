@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-23T17:44:25.881425Z",
+  "generatedAt": "2026-08-23T18:23:23.297686Z",
   "standings": {
     "PL": [
       {
@@ -427,6 +427,16 @@
         "pts": 3
       },
       {
+        "name": "Lecce",
+        "pld": 1,
+        "w": 1,
+        "d": 0,
+        "l": 0,
+        "gf": 2,
+        "ga": 0,
+        "pts": 3
+      },
+      {
         "name": "Cagliari",
         "pld": 1,
         "w": 1,
@@ -438,16 +448,6 @@
       },
       {
         "name": "Juventus",
-        "pld": 1,
-        "w": 1,
-        "d": 0,
-        "l": 0,
-        "gf": 1,
-        "ga": 0,
-        "pts": 3
-      },
-      {
-        "name": "Lecce",
         "pld": 1,
         "w": 1,
         "d": 0,
@@ -577,17 +577,17 @@
         "pts": 0
       },
       {
-        "name": "Venezia FC",
+        "name": "Genoa",
         "pld": 1,
         "w": 0,
         "d": 0,
         "l": 1,
         "gf": 0,
-        "ga": 1,
+        "ga": 2,
         "pts": 0
       },
       {
-        "name": "Genoa",
+        "name": "Venezia FC",
         "pld": 1,
         "w": 0,
         "d": 0,
@@ -2019,7 +2019,7 @@
             "duration": "REGULAR",
             "fullTime": {
               "home": 0,
-              "away": 3
+              "away": 2
             },
             "halfTime": {
               "home": 0,
