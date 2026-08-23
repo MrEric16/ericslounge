@@ -12729,7 +12729,7 @@ function oooIntroHtml(){
     <a class="back-link" href="#geography-hub">← Back to Train Your Brain</a>
     <section style="padding-top:14px;">
       <div class="fg-wrap">
-        <div class="section-head"><span class="emoji">${icon('scales')}</span><h2>Odd One Out</h2></div>
+        <div class="section-head"><span class="emoji">${icon('oddOneOut')}</span><h2>Odd One Out</h2></div>
         <p style="font-size:14px; color:var(--ink-soft); line-height:1.6; margin-bottom:6px;">One of these doesn't belong. Find it.</p>
         <div class="fg-intro-stats">
           <div class="fg-intro-stat"><div class="num">${best}/${OOO_ROUNDS_PER_GAME}</div><div class="label">Best Score</div></div>
@@ -12819,7 +12819,7 @@ function idiomMatchIntroHtml(){
     <a class="back-link" href="#geography-hub">← Back to Train Your Brain</a>
     <section style="padding-top:14px;">
       <div class="fg-wrap">
-        <div class="section-head"><span class="emoji">${icon('newspaper')}</span><h2>Idiom Match</h2></div>
+        <div class="section-head"><span class="emoji">${icon('chatBubble')}</span><h2>Idiom Match</h2></div>
         <p style="font-size:14px; color:var(--ink-soft); line-height:1.6; margin-bottom:6px;">What does it actually mean? Not literally.</p>
         <div class="fg-intro-stats">
           <div class="fg-intro-stat"><div class="num">${best}/${IDIOM_MATCH_ROUNDS_PER_GAME}</div><div class="label">Best Score</div></div>
@@ -12910,7 +12910,7 @@ function nerdleIntroHtml(){
     <a class="back-link" href="#geography-hub">← Back to Train Your Brain</a>
     <section style="padding-top:14px;">
       <div class="fg-wrap">
-        <div class="section-head"><span class="emoji">${icon('chip')}</span><h2>Nerdle</h2></div>
+        <div class="section-head"><span class="emoji">${icon('mathSymbols')}</span><h2>Nerdle</h2></div>
         <p style="font-size:14px; color:var(--ink-soft); line-height:1.6; margin-bottom:6px;">Wordle, but it's maths. Five goes to balance the equation.</p>
         <div class="fg-intro-stats">
           <div class="fg-intro-stat"><div class="num">${best}</div><div class="label">Best Streak</div></div>
@@ -13001,7 +13001,7 @@ function nerdleEndHtml(){
     <a class="back-link" href="#geography-hub">← Back to Train Your Brain</a>
     <section style="padding-top:14px;">
       <div class="fg-wrap">
-        <div class="section-head"><span class="emoji">${icon('chip')}</span><h2>${won ? 'Balanced it' : 'Out of guesses'}</h2></div>
+        <div class="section-head"><span class="emoji">${icon('mathSymbols')}</span><h2>${won ? 'Balanced it' : 'Out of guesses'}</h2></div>
         <div class="fg-end-score" style="font-family:'Space Mono', monospace; font-size:34px;">${nerdleState.answer}</div>
         <div class="fg-end-label">${won ? `Solved in ${nerdleState.guesses.length}/5` : 'Better luck next time'}</div>
         <div class="wordle-stats-row" style="margin-top:14px;">
@@ -13035,7 +13035,7 @@ function memoryIntroHtml(){
     <a class="back-link" href="#geography-hub">← Back to Train Your Brain</a>
     <section style="padding-top:14px;">
       <div class="fg-wrap">
-        <div class="section-head"><span class="emoji">${icon('coin')}</span><h2>Memory Match</h2></div>
+        <div class="section-head"><span class="emoji">${icon('cardFlip')}</span><h2>Memory Match</h2></div>
         <p style="font-size:14px; color:var(--ink-soft); line-height:1.6; margin-bottom:6px;">Flip two. Flag meets its country. Fewest moves wins.</p>
         <div class="fg-intro-stats">
           <div class="fg-intro-stat"><div class="num">${best > 0 ? best : '—'}</div><div class="label">Best Moves</div></div>
@@ -13157,7 +13157,7 @@ function silhouetteIntroHtml(){
     <a class="back-link" href="#geography-hub">← Back to Train Your Brain</a>
     <section style="padding-top:14px;">
       <div class="fg-wrap">
-        <div class="section-head"><span class="emoji">${icon('moon')}</span><h2>Country Silhouette</h2></div>
+        <div class="section-head"><span class="emoji">${icon('landmass')}</span><h2>Country Silhouette</h2></div>
         <p style="font-size:14px; color:var(--ink-soft); line-height:1.6; margin-bottom:6px;">Just the outline. No flag, no colours, no mercy.</p>
         <div class="fg-intro-stats">
           <div class="fg-intro-stat"><div class="num">${best}/${SILHOUETTE_ROUNDS_PER_GAME}</div><div class="label">Best Score</div></div>
@@ -13251,7 +13251,7 @@ function hangmanIntroHtml(){
     <a class="back-link" href="#geography-hub">← Back to Train Your Brain</a>
     <section style="padding-top:14px;">
       <div class="fg-wrap">
-        <div class="section-head"><span class="emoji">${icon('brain')}</span><h2>Hangman</h2></div>
+        <div class="section-head"><span class="emoji">${icon('gallows')}</span><h2>Hangman</h2></div>
         <p style="font-size:14px; color:var(--ink-soft); line-height:1.6; margin-bottom:6px;">Guess the word, one letter at a time. Six wrong guesses and it's over.</p>
         <div class="fg-intro-stats">
           <div class="fg-intro-stat"><div class="num">${best}</div><div class="label">Best Streak</div></div>
@@ -13322,7 +13322,7 @@ function hangmanEndHtml(){
     <a class="back-link" href="#geography-hub">← Back to Train Your Brain</a>
     <section style="padding-top:14px;">
       <div class="fg-wrap">
-        <div class="section-head"><span class="emoji">${icon('brain')}</span><h2>${won ? 'Solved it' : 'Out of lives'}</h2></div>
+        <div class="section-head"><span class="emoji">${icon('gallows')}</span><h2>${won ? 'Solved it' : 'Out of lives'}</h2></div>
         <div class="fg-end-score" style="font-family:'Space Mono', monospace; font-size:30px;">${hangmanState.word}</div>
         <div class="fg-end-label">${won ? 'Nicely guessed' : 'Better luck next time'}</div>
         <div class="wordle-stats-row" style="margin-top:14px;">
@@ -13348,7 +13348,7 @@ function sudokuIntroHtml(){
     <a class="back-link" href="#geography-hub">← Back to Train Your Brain</a>
     <section style="padding-top:14px;">
       <div class="fg-wrap">
-        <div class="section-head"><span class="emoji">${icon('gear')}</span><h2>Sudoku</h2></div>
+        <div class="section-head"><span class="emoji">${icon('numberGrid')}</span><h2>Sudoku</h2></div>
         <p style="font-size:14px; color:var(--ink-soft); line-height:1.6; margin-bottom:16px;">Fill the 9x9 grid so every row, column, and 3x3 box contains 1 through 9 with no repeats. Every puzzle has exactly one solution.</p>
         <div style="display:flex; flex-direction:column; gap:10px;">
           <button class="fg-start-btn" data-action="sudoku-start" data-mode="easy">Easy</button>
@@ -13364,7 +13364,7 @@ function sudokuLoadingHtml(){
   return `
     <section style="padding-top:14px;">
       <div class="fg-wrap" style="text-align:center; padding:60px 0;">
-        <div class="section-head" style="justify-content:center;"><span class="emoji">${icon('gear')}</span><h2>Building your puzzle…</h2></div>
+        <div class="section-head" style="justify-content:center;"><span class="emoji">${icon('numberGrid')}</span><h2>Building your puzzle…</h2></div>
         <p style="font-size:13px; color:var(--ink-soft);">Every board is checked to make sure it has exactly one solution -- this can take a moment on Hard.</p>
       </div>
     </section>
@@ -13407,7 +13407,7 @@ function sudokuCompleteHtml(){
     <a class="back-link" href="#geography-hub">← Back to Train Your Brain</a>
     <section style="padding-top:14px;">
       <div class="fg-wrap">
-        <div class="section-head"><span class="emoji">${icon('gear')}</span><h2>Solved!</h2></div>
+        <div class="section-head"><span class="emoji">${icon('numberGrid')}</span><h2>Solved!</h2></div>
         <div class="fg-end-score" style="font-family:'Space Mono', monospace; font-size:36px;">${mm}:${ss}</div>
         <p style="text-align:center; font-size:14px; color:var(--ink-soft); margin-top:4px;">${s.difficulty[0].toUpperCase() + s.difficulty.slice(1)} · ${s.mistakes} mistake${s.mistakes === 1 ? '' : 's'}</p>
         <button class="fg-start-btn" data-action="sudoku-start" data-mode="${s.difficulty}" style="margin-top:16px;">Play Again</button>
@@ -13426,7 +13426,7 @@ function g2048IntroHtml(){
     <a class="back-link" href="#geography-hub">← Back to Train Your Brain</a>
     <section style="padding-top:14px;">
       <div class="fg-wrap">
-        <div class="section-head"><span class="emoji">${icon('dice')}</span><h2>2048</h2></div>
+        <div class="section-head"><span class="emoji">${icon('grid4')}</span><h2>2048</h2></div>
         <p style="font-size:14px; color:var(--ink-soft); line-height:1.6; margin-bottom:16px;">Swipe or use the arrows to slide every tile. Two tiles with the same number merge into one when they touch. Reach 2048 to win -- or keep going for a higher score.</p>
         <button class="fg-start-btn" data-action="g2048-start">Start</button>
       </div>
@@ -13498,7 +13498,7 @@ function mastermindIntroHtml(){
     <a class="back-link" href="#geography-hub">← Back to Train Your Brain</a>
     <section style="padding-top:14px;">
       <div class="fg-wrap">
-        <div class="section-head"><span class="emoji">${icon('coin')}</span><h2>Mastermind</h2></div>
+        <div class="section-head"><span class="emoji">${icon('target')}</span><h2>Mastermind</h2></div>
         <p style="font-size:14px; color:var(--ink-soft); line-height:1.6; margin-bottom:16px;">Guess the secret 4-colour code. After each guess: a black peg means a colour is right AND in the right spot; a white peg means the colour is right but in the wrong spot. Colours can repeat. ${MASTERMIND_MAX_GUESSES} guesses to crack it.</p>
         <button class="fg-start-btn" data-action="mastermind-start">Start</button>
       </div>
@@ -13565,7 +13565,7 @@ function mastermindCompleteHtml(){
     <a class="back-link" href="#geography-hub">← Back to Train Your Brain</a>
     <section style="padding-top:14px;">
       <div class="fg-wrap">
-        <div class="section-head"><span class="emoji">${icon('coin')}</span><h2>${s.won ? 'Cracked it!' : 'Out of guesses'}</h2></div>
+        <div class="section-head"><span class="emoji">${icon('target')}</span><h2>${s.won ? 'Cracked it!' : 'Out of guesses'}</h2></div>
         <p style="text-align:center; font-size:14px; color:var(--ink-soft); margin-bottom:8px;">${s.won ? `Solved in ${s.guesses.length} guess${s.guesses.length === 1 ? '' : 'es'}.` : 'The code was:'}</p>
         <div class="mm-pegs" style="justify-content:center; margin-bottom:16px;">${s.secret.map(mastermindPegHtml).join('')}</div>
         <button class="fg-start-btn" data-action="mastermind-start">Play Again</button>
@@ -13585,7 +13585,7 @@ function lightsOutIntroHtml(){
     <a class="back-link" href="#geography-hub">← Back to Train Your Brain</a>
     <section style="padding-top:14px;">
       <div class="fg-wrap">
-        <div class="section-head"><span class="emoji">${icon('sun')}</span><h2>Lights Out</h2></div>
+        <div class="section-head"><span class="emoji">${icon('bulb')}</span><h2>Lights Out</h2></div>
         <p style="font-size:14px; color:var(--ink-soft); line-height:1.6; margin-bottom:16px;">Tap a light to toggle it and the lights directly above, below, left, and right of it. Turn every light off to win.</p>
         <button class="fg-start-btn" data-action="lightsout-start">Start</button>
       </div>
@@ -13621,7 +13621,7 @@ function lightsOutCompleteHtml(){
     <a class="back-link" href="#geography-hub">← Back to Train Your Brain</a>
     <section style="padding-top:14px;">
       <div class="fg-wrap">
-        <div class="section-head"><span class="emoji">${icon('sun')}</span><h2>Lights out!</h2></div>
+        <div class="section-head"><span class="emoji">${icon('bulb')}</span><h2>Lights out!</h2></div>
         <div class="fg-end-score" style="font-family:'Space Mono', monospace; font-size:36px;">${s.moves} moves</div>
         <p style="text-align:center; font-size:14px; color:var(--ink-soft); margin-top:4px;">${mm}:${ss}</p>
         <button class="fg-start-btn" data-action="lightsout-start" style="margin-top:16px;">Play Again</button>
@@ -13641,7 +13641,7 @@ function hanoiIntroHtml(){
     <a class="back-link" href="#geography-hub">← Back to Train Your Brain</a>
     <section style="padding-top:14px;">
       <div class="fg-wrap">
-        <div class="section-head"><span class="emoji">${icon('hourglass')}</span><h2>Tower of Hanoi</h2></div>
+        <div class="section-head"><span class="emoji">${icon('tower')}</span><h2>Tower of Hanoi</h2></div>
         <p style="font-size:14px; color:var(--ink-soft); line-height:1.6; margin-bottom:16px;">Move the whole stack to the last peg. Only one disc at a time, and a disc can never sit on top of a smaller one.</p>
         <div style="display:flex; flex-direction:column; gap:10px;">
           <button class="fg-start-btn" data-action="hanoi-start" data-discs="3">3 Discs</button>
@@ -13683,7 +13683,7 @@ function hanoiCompleteHtml(){
     <a class="back-link" href="#geography-hub">← Back to Train Your Brain</a>
     <section style="padding-top:14px;">
       <div class="fg-wrap">
-        <div class="section-head"><span class="emoji">${icon('hourglass')}</span><h2>Solved!</h2></div>
+        <div class="section-head"><span class="emoji">${icon('tower')}</span><h2>Solved!</h2></div>
         <div class="fg-end-score" style="font-family:'Space Mono', monospace; font-size:36px;">${s.moves} moves</div>
         <p style="text-align:center; font-size:14px; color:var(--ink-soft); margin-top:4px;">${mm}:${ss} · Minimum possible was ${s.minMoves}${optimal ? ' — perfect!' : ''}</p>
         <button class="fg-start-btn" data-action="hanoi-start" data-discs="${s.discCount}" style="margin-top:16px;">Play Again</button>
@@ -13702,7 +13702,7 @@ function minesweeperIntroHtml(){
     <a class="back-link" href="#geography-hub">← Back to Train Your Brain</a>
     <section style="padding-top:14px;">
       <div class="fg-wrap">
-        <div class="section-head"><span class="emoji">${icon('flask')}</span><h2>Minesweeper</h2></div>
+        <div class="section-head"><span class="emoji">${icon('bomb')}</span><h2>Minesweeper</h2></div>
         <p style="font-size:14px; color:var(--ink-soft); line-height:1.6; margin-bottom:16px;">Reveal every safe cell. A number tells you how many mines are touching it. Flag any cell you suspect is a mine -- your first tap is always safe.</p>
         <div style="display:flex; flex-direction:column; gap:10px;">
           <button class="fg-start-btn" data-action="minesweeper-start" data-mode="easy">Easy · 8x8, 10 mines</button>
