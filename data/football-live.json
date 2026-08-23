@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-23T16:20:22.429203Z",
+  "generatedAt": "2026-08-23T16:50:14.654032Z",
   "standings": {
     "PL": [
       {
@@ -73,17 +73,17 @@
         "pts": 3
       },
       {
-        "name": "Leeds United",
+        "name": "Newcastle",
         "pld": 1,
         "w": 1,
         "d": 0,
         "l": 0,
-        "gf": 1,
-        "ga": 0,
+        "gf": 2,
+        "ga": 1,
         "pts": 3
       },
       {
-        "name": "Newcastle",
+        "name": "Leeds United",
         "pld": 1,
         "w": 1,
         "d": 0,
@@ -123,7 +123,7 @@
         "pts": 0
       },
       {
-        "name": "Sunderland",
+        "name": "Liverpool",
         "pld": 1,
         "w": 0,
         "d": 0,
@@ -133,13 +133,13 @@
         "pts": 0
       },
       {
-        "name": "Liverpool",
+        "name": "Sunderland",
         "pld": 1,
         "w": 0,
         "d": 0,
         "l": 1,
-        "gf": 0,
-        "ga": 1,
+        "gf": 1,
+        "ga": 2,
         "pts": 0
       },
       {
@@ -225,13 +225,13 @@
         "pts": 4
       },
       {
-        "name": "Atleti",
+        "name": "Villarreal",
         "pld": 2,
         "w": 1,
         "d": 1,
         "l": 0,
-        "gf": 2,
-        "ga": 0,
+        "gf": 4,
+        "ga": 3,
         "pts": 4
       },
       {
@@ -241,6 +241,16 @@
         "d": 0,
         "l": 1,
         "gf": 4,
+        "ga": 2,
+        "pts": 3
+      },
+      {
+        "name": "Atleti",
+        "pld": 2,
+        "w": 1,
+        "d": 0,
+        "l": 1,
+        "gf": 3,
         "ga": 2,
         "pts": 3
       },
@@ -263,16 +273,6 @@
         "gf": 1,
         "ga": 0,
         "pts": 3
-      },
-      {
-        "name": "Villarreal",
-        "pld": 2,
-        "w": 0,
-        "d": 2,
-        "l": 0,
-        "gf": 2,
-        "ga": 2,
-        "pts": 2
       },
       {
         "name": "Santander",
@@ -437,6 +437,16 @@
         "pts": 3
       },
       {
+        "name": "Venezia FC",
+        "pld": 1,
+        "w": 1,
+        "d": 0,
+        "l": 0,
+        "gf": 1,
+        "ga": 0,
+        "pts": 3
+      },
+      {
         "name": "Como 1907",
         "pld": 1,
         "w": 0,
@@ -454,6 +464,26 @@
         "l": 0,
         "gf": 1,
         "ga": 1,
+        "pts": 1
+      },
+      {
+        "name": "Frosinone",
+        "pld": 1,
+        "w": 0,
+        "d": 1,
+        "l": 0,
+        "gf": 0,
+        "ga": 0,
+        "pts": 1
+      },
+      {
+        "name": "Juventus",
+        "pld": 1,
+        "w": 0,
+        "d": 1,
+        "l": 0,
+        "gf": 0,
+        "ga": 0,
         "pts": 1
       },
       {
@@ -507,26 +537,6 @@
         "pts": 0
       },
       {
-        "name": "Frosinone",
-        "pld": 0,
-        "w": 0,
-        "d": 0,
-        "l": 0,
-        "gf": 0,
-        "ga": 0,
-        "pts": 0
-      },
-      {
-        "name": "Juventus",
-        "pld": 0,
-        "w": 0,
-        "d": 0,
-        "l": 0,
-        "gf": 0,
-        "ga": 0,
-        "pts": 0
-      },
-      {
         "name": "Lazio",
         "pld": 0,
         "w": 0,
@@ -557,27 +567,17 @@
         "pts": 0
       },
       {
-        "name": "Lecce",
-        "pld": 0,
-        "w": 0,
-        "d": 0,
-        "l": 0,
-        "gf": 0,
-        "ga": 0,
-        "pts": 0
-      },
-      {
-        "name": "Venezia FC",
-        "pld": 0,
-        "w": 0,
-        "d": 0,
-        "l": 0,
-        "gf": 0,
-        "ga": 0,
-        "pts": 0
-      },
-      {
         "name": "Parma",
+        "pld": 1,
+        "w": 0,
+        "d": 0,
+        "l": 1,
+        "gf": 0,
+        "ga": 1,
+        "pts": 0
+      },
+      {
+        "name": "Lecce",
         "pld": 1,
         "w": 0,
         "d": 0,
@@ -1651,68 +1651,6 @@
     },
     "SA": {
       "fixtures": [
-        {
-          "utcDate": "2026-08-23T16:30:00Z",
-          "status": "TIMED",
-          "matchday": 1,
-          "homeTeam": {
-            "id": 470,
-            "name": "Frosinone Calcio",
-            "shortName": "Frosinone"
-          },
-          "awayTeam": {
-            "id": 109,
-            "name": "Juventus FC",
-            "shortName": "Juventus"
-          },
-          "score": {
-            "winner": null,
-            "duration": "REGULAR",
-            "fullTime": {
-              "home": null,
-              "away": null
-            },
-            "halfTime": {
-              "home": null,
-              "away": null
-            }
-          },
-          "competition": {
-            "name": "Serie A"
-          },
-          "venue": null
-        },
-        {
-          "utcDate": "2026-08-23T16:30:00Z",
-          "status": "TIMED",
-          "matchday": 1,
-          "homeTeam": {
-            "id": 454,
-            "name": "Venezia FC",
-            "shortName": "Venezia FC"
-          },
-          "awayTeam": {
-            "id": 5890,
-            "name": "US Lecce",
-            "shortName": "Lecce"
-          },
-          "score": {
-            "winner": null,
-            "duration": "REGULAR",
-            "fullTime": {
-              "home": null,
-              "away": null
-            },
-            "halfTime": {
-              "home": null,
-              "away": null
-            }
-          },
-          "competition": {
-            "name": "Serie A"
-          },
-          "venue": null
-        },
         {
           "utcDate": "2026-08-23T18:45:00Z",
           "status": "TIMED",
