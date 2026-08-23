@@ -1,16 +1,22 @@
 {
-  "generatedAt": "2026-08-22T04:02:36.406025+00:00",
+  "generatedAt": "2026-08-23T04:07:36.274824+00:00",
   "scheduled": [
     {
-      "name": "UFC Fight Night 293",
-      "date_text": "Nov 7, 2026",
-      "venue": "Meta Apex",
+      "name": "UFC 335",
+      "date_text": "Dec 12, 2026",
+      "venue": "T-Mobile Arena",
       "location": "Las Vegas,Nevada, U.S."
+    },
+    {
+      "name": "UFC 334",
+      "date_text": "Nov 14, 2026",
+      "venue": "Madison Square Garden",
+      "location": "New York City,New York, U.S."
     },
     {
       "name": "UFC Fight Night 292",
       "date_text": "Oct 31, 2026",
-      "venue": "[14]",
+      "venue": "[15]",
       "location": null
     },
     {
@@ -73,16 +79,15 @@
       "venue": "SPD Bank Oriental Sports Center",
       "location": "Shanghai, China",
       "start_tashkent": "2026-08-29T15:00:00+05:00"
-    },
+    }
+  ],
+  "past": [
     {
       "name": "UFC Fight Night: Hernandez vs. Rodrigues",
       "date_text": "Aug 22, 2026",
       "venue": "Golden 1 Center",
-      "location": "Sacramento,California, U.S.",
-      "start_tashkent": "2026-08-23T05:00:00+05:00"
-    }
-  ],
-  "past": [
+      "location": "Sacramento,California, U.S."
+    },
     {
       "name": "UFC 330: Makhachev vs. Machado Garry",
       "date_text": "Aug 15, 2026",
@@ -180,13 +185,6 @@
       "venue": "RAC Arena",
       "location": "Perth, Australia",
       "result": "Carlos Prates def. Jack Della Maddalena (TKO, R3 3:17)"
-    },
-    {
-      "name": "UFC Fight Night: Sterling vs. Zalal",
-      "date_text": "Apr 25, 2026",
-      "venue": "Meta Apex",
-      "location": "Las Vegas,Nevada, U.S.",
-      "result": "Aljamain Sterling def. Youssef Zalal (Unanimous Decision)"
     }
   ]
 }
