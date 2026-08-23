@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-23T20:17:50.909169Z",
+  "generatedAt": "2026-08-23T20:47:37.319102Z",
   "standings": {
     "PL": [
       {
@@ -245,6 +245,16 @@
         "pts": 3
       },
       {
+        "name": "Barça",
+        "pld": 1,
+        "w": 1,
+        "d": 0,
+        "l": 0,
+        "gf": 2,
+        "ga": 0,
+        "pts": 3
+      },
+      {
         "name": "Real Madrid",
         "pld": 1,
         "w": 1,
@@ -252,16 +262,6 @@
         "l": 0,
         "gf": 2,
         "ga": 1,
-        "pts": 3
-      },
-      {
-        "name": "Barça",
-        "pld": 1,
-        "w": 1,
-        "d": 0,
-        "l": 0,
-        "gf": 1,
-        "ga": 0,
         "pts": 3
       },
       {
@@ -351,7 +351,7 @@
         "d": 1,
         "l": 1,
         "gf": 1,
-        "ga": 2,
+        "ga": 3,
         "pts": 1
       },
       {
@@ -437,7 +437,7 @@
         "pts": 3
       },
       {
-        "name": "Atalanta",
+        "name": "Milan",
         "pld": 1,
         "w": 1,
         "d": 0,
@@ -447,13 +447,13 @@
         "pts": 3
       },
       {
-        "name": "Milan",
+        "name": "Atalanta",
         "pld": 1,
         "w": 1,
         "d": 0,
         "l": 0,
-        "gf": 1,
-        "ga": 0,
+        "gf": 2,
+        "ga": 1,
         "pts": 3
       },
       {
@@ -547,6 +547,16 @@
         "pts": 0
       },
       {
+        "name": "Torino",
+        "pld": 1,
+        "w": 0,
+        "d": 0,
+        "l": 1,
+        "gf": 1,
+        "ga": 2,
+        "pts": 0
+      },
+      {
         "name": "Frosinone",
         "pld": 1,
         "w": 0,
@@ -558,16 +568,6 @@
       },
       {
         "name": "Parma",
-        "pld": 1,
-        "w": 0,
-        "d": 0,
-        "l": 1,
-        "gf": 0,
-        "ga": 1,
-        "pts": 0
-      },
-      {
-        "name": "Torino",
         "pld": 1,
         "w": 0,
         "d": 0,
@@ -1747,6 +1747,68 @@
       ],
       "results": [
         {
+          "utcDate": "2026-08-23T18:45:00Z",
+          "status": "FINISHED",
+          "matchday": 1,
+          "homeTeam": {
+            "id": 102,
+            "name": "Atalanta BC",
+            "shortName": "Atalanta"
+          },
+          "awayTeam": {
+            "id": 471,
+            "name": "US Sassuolo Calcio",
+            "shortName": "Sassuolo"
+          },
+          "score": {
+            "winner": "HOME_TEAM",
+            "duration": "REGULAR",
+            "fullTime": {
+              "home": 2,
+              "away": 1
+            },
+            "halfTime": {
+              "home": 1,
+              "away": 0
+            }
+          },
+          "competition": {
+            "name": "Serie A"
+          },
+          "venue": null
+        },
+        {
+          "utcDate": "2026-08-23T18:45:00Z",
+          "status": "FINISHED",
+          "matchday": 1,
+          "homeTeam": {
+            "id": 586,
+            "name": "Torino FC",
+            "shortName": "Torino"
+          },
+          "awayTeam": {
+            "id": 98,
+            "name": "AC Milan",
+            "shortName": "Milan"
+          },
+          "score": {
+            "winner": "AWAY_TEAM",
+            "duration": "REGULAR",
+            "fullTime": {
+              "home": 1,
+              "away": 2
+            },
+            "halfTime": {
+              "home": 0,
+              "away": 0
+            }
+          },
+          "competition": {
+            "name": "Serie A"
+          },
+          "venue": null
+        },
+        {
           "utcDate": "2026-08-23T16:30:00Z",
           "status": "FINISHED",
           "matchday": 1,
@@ -2217,6 +2279,37 @@
         }
       ],
       "results": [
+        {
+          "utcDate": "2026-08-23T18:45:00Z",
+          "status": "FINISHED",
+          "matchday": 1,
+          "homeTeam": {
+            "id": 524,
+            "name": "Paris Saint-Germain FC",
+            "shortName": "PSG"
+          },
+          "awayTeam": {
+            "id": 529,
+            "name": "Stade Rennais FC 1901",
+            "shortName": "Stade Rennais"
+          },
+          "score": {
+            "winner": "DRAW",
+            "duration": "REGULAR",
+            "fullTime": {
+              "home": 2,
+              "away": 2
+            },
+            "halfTime": {
+              "home": 2,
+              "away": 0
+            }
+          },
+          "competition": {
+            "name": "Ligue 1"
+          },
+          "venue": null
+        },
         {
           "utcDate": "2026-08-23T15:15:00Z",
           "status": "FINISHED",
