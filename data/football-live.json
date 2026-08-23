@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-23T18:56:33.140153Z",
+  "generatedAt": "2026-08-23T19:21:40.240543Z",
   "standings": {
     "PL": [
       {
@@ -265,6 +265,16 @@
         "pts": 3
       },
       {
+        "name": "Getafe",
+        "pld": 2,
+        "w": 1,
+        "d": 0,
+        "l": 1,
+        "gf": 1,
+        "ga": 3,
+        "pts": 3
+      },
+      {
         "name": "Villarreal",
         "pld": 2,
         "w": 0,
@@ -272,16 +282,6 @@
         "l": 0,
         "gf": 4,
         "ga": 4,
-        "pts": 2
-      },
-      {
-        "name": "Santander",
-        "pld": 2,
-        "w": 0,
-        "d": 2,
-        "l": 0,
-        "gf": 2,
-        "ga": 2,
         "pts": 2
       },
       {
@@ -325,7 +325,7 @@
         "pts": 1
       },
       {
-        "name": "Rayo Vallecano",
+        "name": "Santander",
         "pld": 2,
         "w": 0,
         "d": 1,
@@ -335,12 +335,12 @@
         "pts": 1
       },
       {
-        "name": "Getafe",
+        "name": "Rayo Vallecano",
         "pld": 2,
         "w": 0,
         "d": 1,
         "l": 1,
-        "gf": 0,
+        "gf": 2,
         "ga": 3,
         "pts": 1
       },
@@ -437,6 +437,16 @@
         "pts": 3
       },
       {
+        "name": "Atalanta",
+        "pld": 1,
+        "w": 1,
+        "d": 0,
+        "l": 0,
+        "gf": 1,
+        "ga": 0,
+        "pts": 3
+      },
+      {
         "name": "Cagliari",
         "pld": 1,
         "w": 1,
@@ -478,26 +488,6 @@
       },
       {
         "name": "Milan",
-        "pld": 1,
-        "w": 0,
-        "d": 1,
-        "l": 0,
-        "gf": 0,
-        "ga": 0,
-        "pts": 1
-      },
-      {
-        "name": "Atalanta",
-        "pld": 1,
-        "w": 0,
-        "d": 1,
-        "l": 0,
-        "gf": 0,
-        "ga": 0,
-        "pts": 1
-      },
-      {
-        "name": "Sassuolo",
         "pld": 1,
         "w": 0,
         "d": 1,
@@ -568,6 +558,16 @@
       },
       {
         "name": "Parma",
+        "pld": 1,
+        "w": 0,
+        "d": 0,
+        "l": 1,
+        "gf": 0,
+        "ga": 1,
+        "pts": 0
+      },
+      {
+        "name": "Sassuolo",
         "pld": 1,
         "w": 0,
         "d": 0,
@@ -2267,7 +2267,7 @@
             "duration": "REGULAR",
             "fullTime": {
               "home": 0,
-              "away": 3
+              "away": 2
             },
             "halfTime": {
               "home": 0,
