@@ -1,15 +1,15 @@
 {
-  "generatedAt": "2026-08-23T11:35:33.459063Z",
+  "generatedAt": "2026-08-23T19:35:23.460143Z",
   "teams": [
     {
       "name": "Neftchi Fargona",
-      "pld": 18,
-      "w": 13,
+      "pld": 19,
+      "w": 14,
       "d": 3,
       "l": 2,
-      "gf": 42,
+      "gf": 45,
       "ga": 10,
-      "pts": 42
+      "pts": 45
     },
     {
       "name": "Pakhtakor",
@@ -93,12 +93,12 @@
     },
     {
       "name": "Sogdiana",
-      "pld": 18,
+      "pld": 19,
       "w": 7,
       "d": 3,
-      "l": 8,
+      "l": 9,
       "gf": 32,
-      "ga": 36,
+      "ga": 39,
       "pts": 24
     },
     {
@@ -163,6 +163,13 @@
     }
   ],
   "results": [
+    {
+      "home": "Neftchi Fargona",
+      "away": "Sogdiana",
+      "raw_time": "23.08. 14:00",
+      "homeScore": 3,
+      "awayScore": 0
+    },
     {
       "home": "Pakhtakor",
       "away": "Termez Surkhon",
@@ -295,21 +302,9 @@
       "raw_time": "08.08. 14:00",
       "homeScore": 5,
       "awayScore": 0
-    },
-    {
-      "home": "Xorazm Urganch",
-      "away": "Mashal Muborak",
-      "raw_time": "07.08. 15:00",
-      "homeScore": 2,
-      "awayScore": 0
     }
   ],
   "fixtures": [
-    {
-      "home": "Neftchi Fargona",
-      "away": "Sogdiana",
-      "raw_time": "23.08. 14:00"
-    },
     {
       "home": "Kokand 1912",
       "away": "Buxoro",
@@ -403,6 +398,11 @@
     {
       "home": "Andijan",
       "away": "Kokand 1912",
+      "raw_time": "10.09. 15:00"
+    },
+    {
+      "home": "Din. Samarkand",
+      "away": "Qizilqum",
       "raw_time": "10.09. 15:00"
     }
   ]
