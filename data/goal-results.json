@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-23T21:14:11.551466Z",
+  "generatedAt": "2026-08-23T21:43:03.083519Z",
   "results": [
     {
       "url": "https://www.goal.com/en/match/girona-vs-arsenal/__LS8d9Oc6I1wXn9g8956",
@@ -1051,6 +1051,32 @@
         }
       ],
       "competition": "FL1"
+    },
+    {
+      "url": "https://www.goal.com/en/match/elche-vs-barcelona/2FnxuiygSUUuJoTZpwnve",
+      "date": "2026-08-23",
+      "home": "Elche",
+      "away": "Barcelona",
+      "htHome": 0,
+      "htAway": 2,
+      "ftHome": 0,
+      "ftAway": 5,
+      "homeGoals": [],
+      "awayGoals": [
+        {
+          "scorer": "Raphinha",
+          "minute": 14
+        },
+        {
+          "scorer": "K. Adeyemi",
+          "minute": 45
+        },
+        {
+          "scorer": "F. Lopez",
+          "minute": 71
+        }
+      ],
+      "competition": "PD"
     }
   ],
   "scorerParseRetryCounts": {}
