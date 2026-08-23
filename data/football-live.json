@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-23T21:17:46.442703Z",
+  "generatedAt": "2026-08-23T21:44:22.590030Z",
   "standings": {
     "PL": [
       {
@@ -240,7 +240,7 @@
         "w": 1,
         "d": 0,
         "l": 0,
-        "gf": 4,
+        "gf": 5,
         "ga": 0,
         "pts": 3
       },
@@ -351,7 +351,7 @@
         "d": 1,
         "l": 1,
         "gf": 1,
-        "ga": 5,
+        "ga": 6,
         "pts": 1
       },
       {
@@ -991,6 +991,37 @@
         }
       ],
       "results": [
+        {
+          "utcDate": "2026-08-23T19:30:00Z",
+          "status": "FINISHED",
+          "matchday": 2,
+          "homeTeam": {
+            "id": 285,
+            "name": "Elche CF",
+            "shortName": "Elche"
+          },
+          "awayTeam": {
+            "id": 81,
+            "name": "FC Barcelona",
+            "shortName": "Barça"
+          },
+          "score": {
+            "winner": "AWAY_TEAM",
+            "duration": "REGULAR",
+            "fullTime": {
+              "home": 0,
+              "away": 5
+            },
+            "halfTime": {
+              "home": 0,
+              "away": 2
+            }
+          },
+          "competition": {
+            "name": "Primera Division"
+          },
+          "venue": null
+        },
         {
           "utcDate": "2026-08-23T17:30:00Z",
           "status": "FINISHED",
