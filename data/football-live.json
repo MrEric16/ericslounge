@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-22T23:44:02.941529Z",
+  "generatedAt": "2026-08-23T01:06:26.898943Z",
   "standings": {
     "PL": [
       {
@@ -402,6 +402,208 @@
         "l": 1,
         "gf": 0,
         "ga": 3,
+        "pts": 0
+      }
+    ],
+    "SA": [
+      {
+        "name": "Inter",
+        "pld": 1,
+        "w": 1,
+        "d": 0,
+        "l": 0,
+        "gf": 4,
+        "ga": 1,
+        "pts": 3
+      },
+      {
+        "name": "Napoli",
+        "pld": 1,
+        "w": 1,
+        "d": 0,
+        "l": 0,
+        "gf": 2,
+        "ga": 0,
+        "pts": 3
+      },
+      {
+        "name": "Cagliari",
+        "pld": 1,
+        "w": 1,
+        "d": 0,
+        "l": 0,
+        "gf": 1,
+        "ga": 0,
+        "pts": 3
+      },
+      {
+        "name": "Como 1907",
+        "pld": 1,
+        "w": 0,
+        "d": 1,
+        "l": 0,
+        "gf": 1,
+        "ga": 1,
+        "pts": 1
+      },
+      {
+        "name": "Udinese",
+        "pld": 1,
+        "w": 0,
+        "d": 1,
+        "l": 0,
+        "gf": 1,
+        "ga": 1,
+        "pts": 1
+      },
+      {
+        "name": "Milan",
+        "pld": 0,
+        "w": 0,
+        "d": 0,
+        "l": 0,
+        "gf": 0,
+        "ga": 0,
+        "pts": 0
+      },
+      {
+        "name": "Fiorentina",
+        "pld": 0,
+        "w": 0,
+        "d": 0,
+        "l": 0,
+        "gf": 0,
+        "ga": 0,
+        "pts": 0
+      },
+      {
+        "name": "Roma",
+        "pld": 0,
+        "w": 0,
+        "d": 0,
+        "l": 0,
+        "gf": 0,
+        "ga": 0,
+        "pts": 0
+      },
+      {
+        "name": "Atalanta",
+        "pld": 0,
+        "w": 0,
+        "d": 0,
+        "l": 0,
+        "gf": 0,
+        "ga": 0,
+        "pts": 0
+      },
+      {
+        "name": "Bologna",
+        "pld": 0,
+        "w": 0,
+        "d": 0,
+        "l": 0,
+        "gf": 0,
+        "ga": 0,
+        "pts": 0
+      },
+      {
+        "name": "Frosinone",
+        "pld": 0,
+        "w": 0,
+        "d": 0,
+        "l": 0,
+        "gf": 0,
+        "ga": 0,
+        "pts": 0
+      },
+      {
+        "name": "Juventus",
+        "pld": 0,
+        "w": 0,
+        "d": 0,
+        "l": 0,
+        "gf": 0,
+        "ga": 0,
+        "pts": 0
+      },
+      {
+        "name": "Lazio",
+        "pld": 0,
+        "w": 0,
+        "d": 0,
+        "l": 0,
+        "gf": 0,
+        "ga": 0,
+        "pts": 0
+      },
+      {
+        "name": "Sassuolo",
+        "pld": 0,
+        "w": 0,
+        "d": 0,
+        "l": 0,
+        "gf": 0,
+        "ga": 0,
+        "pts": 0
+      },
+      {
+        "name": "Torino",
+        "pld": 0,
+        "w": 0,
+        "d": 0,
+        "l": 0,
+        "gf": 0,
+        "ga": 0,
+        "pts": 0
+      },
+      {
+        "name": "Lecce",
+        "pld": 0,
+        "w": 0,
+        "d": 0,
+        "l": 0,
+        "gf": 0,
+        "ga": 0,
+        "pts": 0
+      },
+      {
+        "name": "Venezia FC",
+        "pld": 0,
+        "w": 0,
+        "d": 0,
+        "l": 0,
+        "gf": 0,
+        "ga": 0,
+        "pts": 0
+      },
+      {
+        "name": "Parma",
+        "pld": 1,
+        "w": 0,
+        "d": 0,
+        "l": 1,
+        "gf": 0,
+        "ga": 1,
+        "pts": 0
+      },
+      {
+        "name": "Genoa",
+        "pld": 1,
+        "w": 0,
+        "d": 0,
+        "l": 1,
+        "gf": 0,
+        "ga": 2,
+        "pts": 0
+      },
+      {
+        "name": "Monza",
+        "pld": 1,
+        "w": 0,
+        "d": 0,
+        "l": 1,
+        "gf": 1,
+        "ga": 4,
         "pts": 0
       }
     ]
