@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-23T19:17:26.265663Z",
+  "generatedAt": "2026-08-23T19:43:22.723106Z",
   "results": [
     {
       "url": "https://www.goal.com/en/match/girona-vs-arsenal/__LS8d9Oc6I1wXn9g8956",
@@ -952,6 +952,24 @@
         }
       ],
       "competition": "SA"
+    },
+    {
+      "url": "https://www.goal.com/en/match/getafe-vs-racing-santander/yTIFRiw4hL5yOUzD-VztJ",
+      "date": "2026-08-23",
+      "home": "Getafe",
+      "away": "Racing Santander",
+      "htHome": 0,
+      "htAway": 0,
+      "ftHome": 1,
+      "ftAway": 0,
+      "homeGoals": [
+        {
+          "scorer": "E. Unal",
+          "minute": 81
+        }
+      ],
+      "awayGoals": [],
+      "competition": "PD"
     }
   ],
   "scorerParseRetryCounts": {}
