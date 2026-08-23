@@ -1,13 +1,13 @@
 {
-  "generatedAt": "2026-08-23T16:40:36.979683+00:00",
+  "generatedAt": "2026-08-23T18:47:03.965052+00:00",
   "teams": [
     "Al Wasl",
     "Shabab Al Ahli Club",
     "Al Ain FC",
-    "Ajman Club",
-    "Sharjah FC",
     "Al Jazira Club",
+    "Ajman Club",
     "Al Nasr SC",
+    "Sharjah FC",
     "United FC",
     "Ittihad Kalba FC",
     "Al Wahda",
@@ -51,6 +51,17 @@
       "points": 6
     },
     {
+      "team": "Al Jazira Club",
+      "played": 2,
+      "won": 2,
+      "drawn": 0,
+      "lost": 0,
+      "gf": 4,
+      "ga": 0,
+      "gd": 4,
+      "points": 6
+    },
+    {
       "team": "Ajman Club",
       "played": 2,
       "won": 2,
@@ -62,28 +73,6 @@
       "points": 6
     },
     {
-      "team": "Sharjah FC",
-      "played": 2,
-      "won": 1,
-      "drawn": 1,
-      "lost": 0,
-      "gf": 3,
-      "ga": 1,
-      "gd": 2,
-      "points": 4
-    },
-    {
-      "team": "Al Jazira Club",
-      "played": 2,
-      "won": 1,
-      "drawn": 1,
-      "lost": 0,
-      "gf": 2,
-      "ga": 0,
-      "gd": 2,
-      "points": 4
-    },
-    {
       "team": "Al Nasr SC",
       "played": 2,
       "won": 1,
@@ -93,6 +82,17 @@
       "ga": 2,
       "gd": 1,
       "points": 4
+    },
+    {
+      "team": "Sharjah FC",
+      "played": 2,
+      "won": 1,
+      "drawn": 0,
+      "lost": 1,
+      "gf": 3,
+      "ga": 3,
+      "gd": 0,
+      "points": 3
     },
     {
       "team": "United FC",
@@ -354,7 +354,7 @@
       "away": "Al Jazira Club",
       "start": "2026-08-23T21:35:00+05:00",
       "homeScore": 0,
-      "awayScore": 0,
+      "awayScore": 2,
       "finished": true
     }
   ]
