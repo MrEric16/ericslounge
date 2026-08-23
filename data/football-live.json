@@ -1,7 +1,17 @@
 {
-  "generatedAt": "2026-08-23T13:28:46.343930Z",
+  "generatedAt": "2026-08-23T13:55:29.654388Z",
   "standings": {
     "PL": [
+      {
+        "name": "Brighton Hove",
+        "pld": 1,
+        "w": 1,
+        "d": 0,
+        "l": 0,
+        "gf": 4,
+        "ga": 0,
+        "pts": 3
+      },
       {
         "name": "Arsenal",
         "pld": 1,
@@ -19,16 +29,6 @@
         "d": 0,
         "l": 0,
         "gf": 3,
-        "ga": 0,
-        "pts": 3
-      },
-      {
-        "name": "Brighton Hove",
-        "pld": 1,
-        "w": 1,
-        "d": 0,
-        "l": 0,
-        "gf": 2,
         "ga": 0,
         "pts": 3
       },
@@ -63,7 +63,7 @@
         "pts": 3
       },
       {
-        "name": "Leeds United",
+        "name": "Bournemouth",
         "pld": 1,
         "w": 1,
         "d": 0,
@@ -73,24 +73,14 @@
         "pts": 3
       },
       {
-        "name": "Bournemouth",
+        "name": "Leeds United",
         "pld": 1,
-        "w": 0,
-        "d": 1,
+        "w": 1,
+        "d": 0,
         "l": 0,
-        "gf": 0,
+        "gf": 1,
         "ga": 0,
-        "pts": 1
-      },
-      {
-        "name": "Man City",
-        "pld": 1,
-        "w": 0,
-        "d": 1,
-        "l": 0,
-        "gf": 0,
-        "ga": 0,
-        "pts": 1
+        "pts": 3
       },
       {
         "name": "Chelsea",
@@ -143,7 +133,7 @@
         "pts": 0
       },
       {
-        "name": "Nottingham",
+        "name": "Man City",
         "pld": 1,
         "w": 0,
         "d": 0,
@@ -153,13 +143,13 @@
         "pts": 0
       },
       {
-        "name": "Aston Villa",
+        "name": "Nottingham",
         "pld": 1,
         "w": 0,
         "d": 0,
         "l": 1,
         "gf": 0,
-        "ga": 2,
+        "ga": 1,
         "pts": 0
       },
       {
@@ -200,6 +190,16 @@
         "l": 1,
         "gf": 0,
         "ga": 3,
+        "pts": 0
+      },
+      {
+        "name": "Aston Villa",
+        "pld": 1,
+        "w": 0,
+        "d": 0,
+        "l": 1,
+        "gf": 0,
+        "ga": 4,
         "pts": 0
       }
     ],
