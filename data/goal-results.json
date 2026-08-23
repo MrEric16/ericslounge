@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-23T20:13:11.360307Z",
+  "generatedAt": "2026-08-23T20:46:00.827125Z",
   "results": [
     {
       "url": "https://www.goal.com/en/match/girona-vs-arsenal/__LS8d9Oc6I1wXn9g8956",
@@ -970,6 +970,87 @@
       ],
       "awayGoals": [],
       "competition": "PD"
+    },
+    {
+      "url": "https://www.goal.com/en/match/atalanta-vs-sassuolo/Zl3Dr73UiKfrNOAzX2KmH",
+      "date": "2026-08-23",
+      "home": "Atalanta",
+      "away": "Sassuolo",
+      "htHome": 1,
+      "htAway": 0,
+      "ftHome": 2,
+      "ftAway": 1,
+      "homeGoals": [
+        {
+          "scorer": "G. Raspadori",
+          "minute": 6
+        },
+        {
+          "scorer": "N. Krstovic",
+          "minute": 65
+        }
+      ],
+      "awayGoals": [
+        {
+          "scorer": "C. Odenthal",
+          "minute": 55
+        }
+      ],
+      "competition": "SA"
+    },
+    {
+      "url": "https://www.goal.com/en/match/torino-vs-ac-milan/hQuA588PT9HeRPRYh6PqW",
+      "date": "2026-08-23",
+      "home": "Torino",
+      "away": "Ac Milan",
+      "htHome": 0,
+      "htAway": 0,
+      "ftHome": 1,
+      "ftAway": 2,
+      "homeGoals": [
+        {
+          "scorer": "C. Adams",
+          "minute": 90
+        }
+      ],
+      "awayGoals": [
+        {
+          "scorer": "A. Cisse",
+          "minute": 64
+        },
+        {
+          "scorer": "A. Rabiot",
+          "minute": 67
+        }
+      ],
+      "competition": "SA"
+    },
+    {
+      "url": "https://www.goal.com/en/match/rennes-vs-paris-saint-germain/n1px-CIQndBw5p3N1QVaq",
+      "date": "2026-08-23",
+      "home": "Rennes",
+      "away": "Paris Saint Germain",
+      "htHome": 2,
+      "htAway": 0,
+      "ftHome": 2,
+      "ftAway": 2,
+      "homeGoals": [
+        {
+          "scorer": "S. Szymanski",
+          "minute": 9
+        },
+        {
+          "scorer": "E. Lepaul",
+          "minute": 38
+        }
+      ],
+      "awayGoals": [
+        {
+          "scorer": "F. Torres",
+          "minute": 71
+        }
+      ],
+      "competition": "FL1"
     }
   ],
   "scorerParseRetryCounts": {}
