@@ -189,22 +189,22 @@
       "ftAway": 2,
       "homeGoals": [
         {
+          "scorer": "A. Martin",
+          "minute": 21
+        },
+        {
           "scorer": "S. Martinez",
           "minute": 34
         }
       ],
       "awayGoals": [
         {
-          "scorer": "A. Martin",
-          "minute": 21
-        },
-        {
           "scorer": "P. Gueye",
           "minute": 45
         },
         {
           "scorer": "N. Pepe",
-          "minute": 45
+          "minute": 46
         }
       ],
       "competition": "PD"
@@ -244,13 +244,21 @@
       "htAway": 0,
       "ftHome": 3,
       "ftAway": 0,
-      "homeGoals": [],
-      "awayGoals": [
+      "homeGoals": [
         {
           "scorer": "R. Fernandez",
           "minute": 5
+        },
+        {
+          "scorer": "R. Fernandez",
+          "minute": 40
+        },
+        {
+          "scorer": "T. Dolan",
+          "minute": 80
         }
       ],
+      "awayGoals": [],
       "competition": "PD"
     },
     {
@@ -264,11 +272,16 @@
       "ftAway": 1,
       "homeGoals": [
         {
+          "scorer": "Aubameyang",
+          "minute": 21
+        }
+      ],
+      "awayGoals": [
+        {
           "scorer": "M. Aguado",
           "minute": 76
         }
       ],
-      "awayGoals": [],
       "competition": "PD"
     },
     {
@@ -280,13 +293,17 @@
       "htAway": 0,
       "ftHome": 2,
       "ftAway": 0,
-      "homeGoals": [],
-      "awayGoals": [
+      "homeGoals": [
+        {
+          "scorer": "Lee Kang-In",
+          "minute": 70
+        },
         {
           "scorer": "A. Baena",
           "minute": 85
         }
       ],
+      "awayGoals": [],
       "competition": "PD"
     },
     {
@@ -300,11 +317,16 @@
       "ftAway": 1,
       "homeGoals": [
         {
-          "scorer": "M. Diaz",
+          "scorer": "S. Camello",
+          "minute": 48
+        }
+      ],
+      "awayGoals": [
+        {
+          "scorer": "Mariano",
           "minute": 84
         }
       ],
-      "awayGoals": [],
       "competition": "PD"
     },
     {
@@ -372,7 +394,12 @@
       "htAway": 0,
       "ftHome": 1,
       "ftAway": 0,
-      "homeGoals": [],
+      "homeGoals": [
+        {
+          "scorer": "R. Riquelme",
+          "minute": 63
+        }
+      ],
       "awayGoals": [],
       "competition": "PD"
     },
@@ -476,14 +503,22 @@
       "ftAway": 3,
       "homeGoals": [
         {
-          "scorer": "C. Ejuke",
-          "minute": 50
+          "scorer": "A. Paredes",
+          "minute": 70
         }
       ],
       "awayGoals": [
         {
+          "scorer": "Oso",
+          "minute": 14
+        },
+        {
+          "scorer": "C. Ejuke",
+          "minute": 46
+        },
+        {
           "scorer": "I. Romero",
-          "minute": 57
+          "minute": 48
         }
       ],
       "competition": "PD"
@@ -499,18 +534,34 @@
       "ftAway": 2,
       "homeGoals": [
         {
+          "scorer": "F. Thauvin",
+          "minute": 13
+        },
+        {
+          "scorer": "F. Ivanovic",
+          "minute": 49
+        },
+        {
+          "scorer": "S. Abdulhamid",
+          "minute": 57
+        },
+        {
+          "scorer": "I. Ganiou",
+          "minute": 66
+        },
+        {
+          "scorer": "F. Thauvin",
+          "minute": 89
+        }
+      ],
+      "awayGoals": [
+        {
           "scorer": "D. Namaso",
           "minute": 61
         },
         {
           "scorer": "L. Sy",
           "minute": 69
-        }
-      ],
-      "awayGoals": [
-        {
-          "scorer": "F. Thauvin",
-          "minute": 12
         }
       ],
       "competition": "FL1"
@@ -806,6 +857,10 @@
         {
           "scorer": "J. Hinshelwood",
           "minute": 30
+        },
+        {
+          "scorer": "J. Hinshelwood",
+          "minute": 31
         }
       ],
       "awayGoals": [],
@@ -1048,6 +1103,10 @@
         {
           "scorer": "F. Torres",
           "minute": 71
+        },
+        {
+          "scorer": "F. Torres",
+          "minute": 82
         }
       ],
       "competition": "FL1"
@@ -1072,8 +1131,16 @@
           "minute": 45
         },
         {
+          "scorer": "Raphinha",
+          "minute": 67
+        },
+        {
           "scorer": "F. Lopez",
           "minute": 71
+        },
+        {
+          "scorer": "F. Lopez",
+          "minute": 79
         }
       ],
       "competition": "PD"

@@ -223,8 +223,18 @@ def process_source(source_url, existing_urls, results_out, debug_tag, existing_o
             # runs (goal.com's scorer markup for a given match doesn't reliably change
             # between runs a few hours apart, so a few retries is the right amount of
             # patience -- not zero, and not forever hiding a permanently-broken page).
-            parse_failed = (parsed["ftHome"] > 0 and not parsed["homeGoals"]) or \
-                           (parsed["ftAway"] > 0 and not parsed["awayGoals"])
+            # STRENGTHENED 2026-08-23: previously only a *complete* miss (zero scorers
+            # parsed when goals > 0) blocked commit and triggered a retry -- a *partial*
+            # mismatch (some but not all scorers captured, or a scorer attached to the
+            # wrong side) only got a WARNING logged and was still written permanently.
+            # That gap is exactly what let 24 wrong scorer entries sit silently in the
+            # live dataset for over a week this session had to find and hand-fix one by
+            # one via manual web research. Any mismatch between the captured scorer count
+            # and the actual final score -- complete or partial, either side -- now gets
+            # the same retry-then-flag treatment as a total failure, so a bad parse can
+            # self-heal on a later run instead of shipping silently forever.
+            parse_failed = (len(home_goals := parsed["homeGoals"]) != parsed["ftHome"]) or \
+                           (len(away_goals := parsed["awayGoals"]) != parsed["ftAway"])
             if parse_failed:
                 attempts = retry_counts.get(url, 0) + 1
                 if attempts < 3:
