@@ -79,7 +79,7 @@
       "homeGoals": [
         {
           "scorer": "E. Nwaneri",
-          "minute": 55
+          "minute": 54
         },
         {
           "scorer": "V. Gyokeres",
@@ -97,7 +97,7 @@
         },
         {
           "scorer": "J. Gadou",
-          "minute": 59
+          "minute": 58
         }
       ],
       "competition": "arsenal-friendlies"
@@ -134,17 +134,21 @@
       "htAway": 0,
       "ftHome": 3,
       "ftAway": 0,
-      "homeGoals": [],
-      "awayGoals": [
+      "homeGoals": [
         {
-          "scorer": "N. Tenaglia",
+          "scorer": "F. Tenaglia",
           "minute": 73
         },
         {
-          "scorer": "M. Diaz",
+          "scorer": "Mariano",
           "minute": 90
+        },
+        {
+          "scorer": "M. Rodriguez",
+          "minute": 92
         }
       ],
+      "awayGoals": [],
       "competition": "PD"
     },
     {
@@ -156,7 +160,16 @@
       "htAway": 1,
       "ftHome": 2,
       "ftAway": 1,
-      "homeGoals": [],
+      "homeGoals": [
+        {
+          "scorer": "J. Guridi",
+          "minute": 52
+        },
+        {
+          "scorer": "Peque",
+          "minute": 97
+        }
+      ],
       "awayGoals": [
         {
           "scorer": "A. Garcia",
@@ -307,18 +320,21 @@
         {
           "scorer": "A. Gouiri",
           "minute": 46
-        }
-      ],
-      "awayGoals": [
-        {
-          "scorer": "K. Abdallah",
-          "minute": 89
         },
         {
-          "scorer": "P. Hoejbjerg",
+          "scorer": "A. Gouiri",
+          "minute": 68
+        },
+        {
+          "scorer": "K. Abdallah",
+          "minute": 83
+        },
+        {
+          "scorer": "P. Hojbjerg",
           "minute": 90
         }
       ],
+      "awayGoals": [],
       "competition": "FL1"
     },
     {
@@ -369,13 +385,17 @@
       "htAway": 0,
       "ftHome": 2,
       "ftAway": 0,
-      "homeGoals": [],
-      "awayGoals": [
+      "homeGoals": [
         {
           "scorer": "S. Ajayi",
           "minute": 17
+        },
+        {
+          "scorer": "N. Mendy",
+          "minute": 38
         }
       ],
+      "awayGoals": [],
       "competition": "PL"
     },
     {
@@ -391,6 +411,10 @@
         {
           "scorer": "K. Dewsbury-Hall",
           "minute": 42
+        },
+        {
+          "scorer": "T. Barry",
+          "minute": 53
         }
       ],
       "awayGoals": [],
@@ -405,13 +429,13 @@
       "htAway": 0,
       "ftHome": 0,
       "ftAway": 1,
-      "homeGoals": [
+      "homeGoals": [],
+      "awayGoals": [
         {
           "scorer": "A. Stach",
           "minute": 88
         }
       ],
-      "awayGoals": [],
       "competition": "PL"
     },
     {
@@ -425,11 +449,20 @@
       "ftAway": 1,
       "homeGoals": [
         {
+          "scorer": "Emersonn",
+          "minute": 24
+        },
+        {
+          "scorer": "J. Clarke",
+          "minute": 90
+        }
+      ],
+      "awayGoals": [
+        {
           "scorer": "N. Angulo",
           "minute": 39
         }
       ],
-      "awayGoals": [],
       "competition": "PL"
     },
     {
