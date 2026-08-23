@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-23T19:44:39.397484Z",
+  "generatedAt": "2026-08-23T20:17:50.909169Z",
   "standings": {
     "PL": [
       {
@@ -255,6 +255,16 @@
         "pts": 3
       },
       {
+        "name": "Barça",
+        "pld": 1,
+        "w": 1,
+        "d": 0,
+        "l": 0,
+        "gf": 1,
+        "ga": 0,
+        "pts": 3
+      },
+      {
         "name": "Real Betis",
         "pld": 1,
         "w": 1,
@@ -285,16 +295,6 @@
         "pts": 2
       },
       {
-        "name": "Elche",
-        "pld": 2,
-        "w": 0,
-        "d": 2,
-        "l": 0,
-        "gf": 1,
-        "ga": 1,
-        "pts": 2
-      },
-      {
         "name": "Deportivo",
         "pld": 1,
         "w": 0,
@@ -302,16 +302,6 @@
         "l": 0,
         "gf": 1,
         "ga": 1,
-        "pts": 1
-      },
-      {
-        "name": "Barça",
-        "pld": 1,
-        "w": 0,
-        "d": 1,
-        "l": 0,
-        "gf": 0,
-        "ga": 0,
         "pts": 1
       },
       {
@@ -352,6 +342,16 @@
         "l": 1,
         "gf": 2,
         "ga": 3,
+        "pts": 1
+      },
+      {
+        "name": "Elche",
+        "pld": 2,
+        "w": 0,
+        "d": 1,
+        "l": 1,
+        "gf": 1,
+        "ga": 2,
         "pts": 1
       },
       {
@@ -442,6 +442,16 @@
         "w": 1,
         "d": 0,
         "l": 0,
+        "gf": 2,
+        "ga": 1,
+        "pts": 3
+      },
+      {
+        "name": "Milan",
+        "pld": 1,
+        "w": 1,
+        "d": 0,
+        "l": 0,
         "gf": 1,
         "ga": 0,
         "pts": 3
@@ -487,26 +497,6 @@
         "pts": 1
       },
       {
-        "name": "Milan",
-        "pld": 1,
-        "w": 0,
-        "d": 1,
-        "l": 0,
-        "gf": 0,
-        "ga": 0,
-        "pts": 1
-      },
-      {
-        "name": "Torino",
-        "pld": 1,
-        "w": 0,
-        "d": 1,
-        "l": 0,
-        "gf": 0,
-        "ga": 0,
-        "pts": 1
-      },
-      {
         "name": "Fiorentina",
         "pld": 0,
         "w": 0,
@@ -547,6 +537,16 @@
         "pts": 0
       },
       {
+        "name": "Sassuolo",
+        "pld": 1,
+        "w": 0,
+        "d": 0,
+        "l": 1,
+        "gf": 1,
+        "ga": 2,
+        "pts": 0
+      },
+      {
         "name": "Frosinone",
         "pld": 1,
         "w": 0,
@@ -567,7 +567,7 @@
         "pts": 0
       },
       {
-        "name": "Sassuolo",
+        "name": "Torino",
         "pld": 1,
         "w": 0,
         "d": 0,
@@ -2267,7 +2267,7 @@
             "duration": "REGULAR",
             "fullTime": {
               "home": 0,
-              "away": 3
+              "away": 2
             },
             "halfTime": {
               "home": 0,
