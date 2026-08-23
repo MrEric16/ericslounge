@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-23T14:47:21.254485Z",
+  "generatedAt": "2026-08-23T15:14:42.106124Z",
   "results": [
     {
       "url": "https://www.goal.com/en/match/girona-vs-arsenal/__LS8d9Oc6I1wXn9g8956",
@@ -757,6 +757,81 @@
         }
       ],
       "competition": "PD"
+    },
+    {
+      "url": "https://www.goal.com/en/match/manchester-city-vs-afc-bournemouth/4rC4egs_prZjITrHSfEWD",
+      "date": "2026-08-23",
+      "home": "Manchester City",
+      "away": "Afc Bournemouth",
+      "htHome": 0,
+      "htAway": 1,
+      "ftHome": 2,
+      "ftAway": 1,
+      "homeGoals": [
+        {
+          "scorer": "M. Guehi",
+          "minute": 84
+        },
+        {
+          "scorer": "J. Gvardiol",
+          "minute": 90
+        }
+      ],
+      "awayGoals": [
+        {
+          "scorer": "M. Tavernier",
+          "minute": 26
+        }
+      ],
+      "competition": "PL"
+    },
+    {
+      "url": "https://www.goal.com/en/match/brighton-and-hove-albion-vs-aston-villa/isAVhW8PZmc8TGy-HtQvG",
+      "date": "2026-08-23",
+      "home": "Brighton And Hove Albion",
+      "away": "Aston Villa",
+      "htHome": 4,
+      "htAway": 0,
+      "ftHome": 4,
+      "ftAway": 0,
+      "homeGoals": [
+        {
+          "scorer": "V. Nilsson Lindeloef",
+          "minute": 8
+        },
+        {
+          "scorer": "M. De Cuyper",
+          "minute": 18
+        },
+        {
+          "scorer": "J. Hinshelwood",
+          "minute": 30
+        }
+      ],
+      "awayGoals": [],
+      "competition": "PL"
+    },
+    {
+      "url": "https://www.goal.com/en/match/angers-vs-lille/i83kvYewpyQukV4NqD7Mt",
+      "date": "2026-08-23",
+      "home": "Angers",
+      "away": "Lille",
+      "htHome": 0,
+      "htAway": 2,
+      "ftHome": 0,
+      "ftAway": 2,
+      "homeGoals": [],
+      "awayGoals": [
+        {
+          "scorer": "O. Giroud",
+          "minute": 11
+        },
+        {
+          "scorer": "Tiago Santos",
+          "minute": 31
+        }
+      ],
+      "competition": "FL1"
     }
   ],
   "scorerParseRetryCounts": {}
