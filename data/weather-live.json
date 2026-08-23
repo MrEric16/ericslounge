@@ -1,12 +1,12 @@
 {
-  "generatedAt": "2026-08-23T02:54:56.005202Z",
+  "generatedAt": "2026-08-23T04:28:46.953433Z",
   "locations": [
     {
       "city": "Tashkent",
       "country": "Uzbekistan",
       "lat": 41.2995,
       "lon": 69.2401,
-      "tempC": 26,
+      "tempC": 29,
       "windKn": 2,
       "iconKey": "clear-day",
       "label": "Clear sky"
@@ -16,8 +16,8 @@
       "country": "Afghanistan",
       "lat": 34.5553,
       "lon": 69.2075,
-      "tempC": 20,
-      "windKn": 1,
+      "tempC": 23,
+      "windKn": 4,
       "iconKey": "clear-day",
       "label": "Clear sky"
     },
@@ -29,7 +29,7 @@
       "tempC": 22,
       "windKn": 3,
       "iconKey": "partly-cloudy",
-      "label": "Partly cloudy"
+      "label": "Mostly clear"
     },
     {
       "city": "Algiers",
@@ -37,7 +37,7 @@
       "lat": 36.7538,
       "lon": 3.0588,
       "tempC": 27,
-      "windKn": 2,
+      "windKn": 3,
       "iconKey": "cloudy",
       "label": "Overcast"
     },
@@ -66,18 +66,18 @@
       "country": "Argentina",
       "lat": -34.6037,
       "lon": -58.3816,
-      "tempC": 9,
+      "tempC": 8,
       "windKn": 6,
-      "iconKey": "partly-cloudy",
-      "label": "Mostly clear"
+      "iconKey": "clear-day",
+      "label": "Clear sky"
     },
     {
       "city": "Yerevan",
       "country": "Armenia",
       "lat": 40.1792,
       "lon": 44.4991,
-      "tempC": 21,
-      "windKn": 4,
+      "tempC": 24,
+      "windKn": 2,
       "iconKey": "clear-day",
       "label": "Clear sky"
     },
@@ -86,8 +86,8 @@
       "country": "Australia",
       "lat": -35.2809,
       "lon": 149.13,
-      "tempC": 13,
-      "windKn": 3,
+      "tempC": 14,
+      "windKn": 4,
       "iconKey": "clear-day",
       "label": "Clear sky"
     },
@@ -106,8 +106,8 @@
       "country": "Azerbaijan",
       "lat": 40.4093,
       "lon": 49.8671,
-      "tempC": 24,
-      "windKn": 6,
+      "tempC": 26,
+      "windKn": 10,
       "iconKey": "partly-cloudy",
       "label": "Partly cloudy"
     },
@@ -116,8 +116,8 @@
       "country": "The Bahamas",
       "lat": 25.0343,
       "lon": -77.3963,
-      "tempC": 27,
-      "windKn": 3,
+      "tempC": 26,
+      "windKn": 4,
       "iconKey": "clear-day",
       "label": "Clear sky"
     },
@@ -126,17 +126,17 @@
       "country": "Bahrain",
       "lat": 26.2285,
       "lon": 50.586,
-      "tempC": 33,
-      "windKn": 4,
-      "iconKey": "clear-day",
-      "label": "Clear sky"
+      "tempC": 35,
+      "windKn": 2,
+      "iconKey": "cloudy",
+      "label": "Overcast"
     },
     {
       "city": "Dhaka",
       "country": "Bangladesh",
       "lat": 23.8103,
       "lon": 90.4125,
-      "tempC": 29,
+      "tempC": 30,
       "windKn": 8,
       "iconKey": "cloudy",
       "label": "Overcast"
@@ -146,10 +146,10 @@
       "country": "Belarus",
       "lat": 53.9006,
       "lon": 27.559,
-      "tempC": 15,
+      "tempC": 14,
       "windKn": 9,
-      "iconKey": "cloudy",
-      "label": "Overcast"
+      "iconKey": "clear-day",
+      "label": "Clear sky"
     },
     {
       "city": "Brussels",
@@ -157,9 +157,9 @@
       "lat": 50.8503,
       "lon": 4.3517,
       "tempC": 14,
-      "windKn": 2,
-      "iconKey": "cloudy",
-      "label": "Overcast"
+      "windKn": 3,
+      "iconKey": "partly-cloudy",
+      "label": "Mostly clear"
     },
     {
       "city": "Belmopan",
@@ -167,7 +167,7 @@
       "lat": 17.251,
       "lon": -88.759,
       "tempC": 26,
-      "windKn": 3,
+      "windKn": 2,
       "iconKey": "cloudy",
       "label": "Overcast"
     },
@@ -177,7 +177,7 @@
       "lat": 6.4969,
       "lon": 2.6289,
       "tempC": 24,
-      "windKn": 3,
+      "windKn": 2,
       "iconKey": "cloudy",
       "label": "Overcast"
     },
@@ -186,7 +186,7 @@
       "country": "Bhutan",
       "lat": 27.4728,
       "lon": 89.639,
-      "tempC": 19,
+      "tempC": 22,
       "windKn": 2,
       "iconKey": "drizzle",
       "label": "Light drizzle"
@@ -197,9 +197,9 @@
       "lat": -16.5,
       "lon": -68.15,
       "tempC": 3,
-      "windKn": 2,
+      "windKn": 1,
       "iconKey": "partly-cloudy",
-      "label": "Mostly clear"
+      "label": "Partly cloudy"
     },
     {
       "city": "Sarajevo",
@@ -217,26 +217,26 @@
       "lat": -24.6282,
       "lon": 25.9231,
       "tempC": 13,
-      "windKn": 2,
-      "iconKey": "cloudy",
-      "label": "Overcast"
+      "windKn": 4,
+      "iconKey": "partly-cloudy",
+      "label": "Partly cloudy"
     },
     {
       "city": "Brasilia",
       "country": "Brazil",
       "lat": -15.8267,
       "lon": -47.9218,
-      "tempC": 24,
-      "windKn": 5,
-      "iconKey": "partly-cloudy",
-      "label": "Mostly clear"
+      "tempC": 22,
+      "windKn": 6,
+      "iconKey": "clear-day",
+      "label": "Clear sky"
     },
     {
       "city": "Bandar Seri Begawan",
       "country": "Brunei",
       "lat": 4.9031,
       "lon": 114.9398,
-      "tempC": 31,
+      "tempC": 33,
       "windKn": 2,
       "iconKey": "partly-cloudy",
       "label": "Mostly clear"
@@ -256,8 +256,8 @@
       "country": "Burkina Faso",
       "lat": 12.3714,
       "lon": -1.5197,
-      "tempC": 24,
-      "windKn": 3,
+      "tempC": 23,
+      "windKn": 4,
       "iconKey": "cloudy",
       "label": "Overcast"
     },
@@ -276,7 +276,7 @@
       "country": "Cambodia",
       "lat": 11.5564,
       "lon": 104.9282,
-      "tempC": 31,
+      "tempC": 32,
       "windKn": 9,
       "iconKey": "cloudy",
       "label": "Overcast"
@@ -287,7 +287,7 @@
       "lat": 3.848,
       "lon": 11.5021,
       "tempC": 21,
-      "windKn": 3,
+      "windKn": 2,
       "iconKey": "cloudy",
       "label": "Overcast"
     },
@@ -296,10 +296,10 @@
       "country": "Canada",
       "lat": 45.4215,
       "lon": -75.6972,
-      "tempC": 19,
-      "windKn": 6,
-      "iconKey": "clear-day",
-      "label": "Clear sky"
+      "tempC": 20,
+      "windKn": 7,
+      "iconKey": "cloudy",
+      "label": "Overcast"
     },
     {
       "city": "Praia",
@@ -317,39 +317,39 @@
       "lat": 4.3947,
       "lon": 18.5582,
       "tempC": 23,
-      "windKn": 2,
+      "windKn": 1,
       "iconKey": "partly-cloudy",
-      "label": "Mostly clear"
+      "label": "Partly cloudy"
     },
     {
       "city": "N'Djamena",
       "country": "Chad",
       "lat": 12.1348,
       "lon": 15.0557,
-      "tempC": 27,
-      "windKn": 4,
-      "iconKey": "cloudy",
-      "label": "Overcast"
+      "tempC": 26,
+      "windKn": 5,
+      "iconKey": "clear-day",
+      "label": "Clear sky"
     },
     {
       "city": "Santiago",
       "country": "Chile",
       "lat": -33.4489,
       "lon": -70.6693,
-      "tempC": 18,
+      "tempC": 16,
       "windKn": 0,
-      "iconKey": "partly-cloudy",
-      "label": "Mostly clear"
+      "iconKey": "clear-day",
+      "label": "Clear sky"
     },
     {
       "city": "Beijing",
       "country": "China",
       "lat": 39.9042,
       "lon": 116.4074,
-      "tempC": 30,
-      "windKn": 3,
-      "iconKey": "partly-cloudy",
-      "label": "Partly cloudy"
+      "tempC": 31,
+      "windKn": 4,
+      "iconKey": "drizzle",
+      "label": "Light drizzle"
     },
     {
       "city": "Bogota",
@@ -366,20 +366,20 @@
       "country": "Comoros",
       "lat": -11.7172,
       "lon": 43.2473,
-      "tempC": 22,
-      "windKn": 0,
-      "iconKey": "drizzle",
-      "label": "Light drizzle"
+      "tempC": 23,
+      "windKn": 2,
+      "iconKey": "cloudy",
+      "label": "Overcast"
     },
     {
       "city": "Kinshasa",
       "country": "DR Congo",
       "lat": -4.4419,
       "lon": 15.2663,
-      "tempC": 23,
-      "windKn": 4,
+      "tempC": 22,
+      "windKn": 2,
       "iconKey": "partly-cloudy",
-      "label": "Mostly clear"
+      "label": "Partly cloudy"
     },
     {
       "city": "Brazzaville",
@@ -387,9 +387,9 @@
       "lat": -4.2634,
       "lon": 15.2429,
       "tempC": 23,
-      "windKn": 4,
-      "iconKey": "partly-cloudy",
-      "label": "Partly cloudy"
+      "windKn": 2,
+      "iconKey": "cloudy",
+      "label": "Overcast"
     },
     {
       "city": "San Jose",
@@ -397,7 +397,7 @@
       "lat": 9.9281,
       "lon": -84.0907,
       "tempC": 21,
-      "windKn": 5,
+      "windKn": 4,
       "iconKey": "cloudy",
       "label": "Overcast"
     },
@@ -408,16 +408,16 @@
       "lon": 15.9819,
       "tempC": 18,
       "windKn": 1,
-      "iconKey": "cloudy",
-      "label": "Overcast"
+      "iconKey": "partly-cloudy",
+      "label": "Partly cloudy"
     },
     {
       "city": "Havana",
       "country": "Cuba",
       "lat": 23.1136,
       "lon": -82.3666,
-      "tempC": 29,
-      "windKn": 4,
+      "tempC": 28,
+      "windKn": 5,
       "iconKey": "clear-day",
       "label": "Clear sky"
     },
@@ -426,7 +426,7 @@
       "country": "Cyprus",
       "lat": 35.1856,
       "lon": 33.3823,
-      "tempC": 23,
+      "tempC": 24,
       "windKn": 1,
       "iconKey": "clear-day",
       "label": "Clear sky"
@@ -436,18 +436,18 @@
       "country": "Czechia",
       "lat": 50.0755,
       "lon": 14.4378,
-      "tempC": 13,
+      "tempC": 12,
       "windKn": 2,
       "iconKey": "partly-cloudy",
-      "label": "Partly cloudy"
+      "label": "Mostly clear"
     },
     {
       "city": "Copenhagen",
       "country": "Denmark",
       "lat": 55.6761,
       "lon": 12.5683,
-      "tempC": 13,
-      "windKn": 7,
+      "tempC": 14,
+      "windKn": 9,
       "iconKey": "cloudy",
       "label": "Overcast"
     },
@@ -457,7 +457,7 @@
       "lat": 11.5721,
       "lon": 43.1456,
       "tempC": 33,
-      "windKn": 15,
+      "windKn": 13,
       "iconKey": "cloudy",
       "label": "Overcast"
     },
@@ -477,9 +477,9 @@
       "lat": 18.4861,
       "lon": -69.9312,
       "tempC": 26,
-      "windKn": 6,
-      "iconKey": "partly-cloudy",
-      "label": "Partly cloudy"
+      "windKn": 5,
+      "iconKey": "cloudy",
+      "label": "Overcast"
     },
     {
       "city": "Quito",
@@ -487,7 +487,7 @@
       "lat": -0.1807,
       "lon": -78.4678,
       "tempC": 12,
-      "windKn": 2,
+      "windKn": 1,
       "iconKey": "cloudy",
       "label": "Overcast"
     },
@@ -497,19 +497,19 @@
       "lat": 30.0444,
       "lon": 31.2357,
       "tempC": 22,
-      "windKn": 2,
+      "windKn": 1,
       "iconKey": "partly-cloudy",
-      "label": "Mostly clear"
+      "label": "Partly cloudy"
     },
     {
       "city": "San Salvador",
       "country": "El Salvador",
       "lat": 13.6929,
       "lon": -89.2182,
-      "tempC": 24,
-      "windKn": 4,
-      "iconKey": "partly-cloudy",
-      "label": "Partly cloudy"
+      "tempC": 23,
+      "windKn": 5,
+      "iconKey": "cloudy",
+      "label": "Overcast"
     },
     {
       "city": "Malabo",
@@ -517,7 +517,7 @@
       "lat": 3.7523,
       "lon": 8.7742,
       "tempC": 26,
-      "windKn": 5,
+      "windKn": 6,
       "iconKey": "cloudy",
       "label": "Overcast"
     },
@@ -526,10 +526,10 @@
       "country": "Eritrea",
       "lat": 15.3229,
       "lon": 38.9251,
-      "tempC": 13,
+      "tempC": 16,
       "windKn": 6,
-      "iconKey": "partly-cloudy",
-      "label": "Partly cloudy"
+      "iconKey": "clear-day",
+      "label": "Clear sky"
     },
     {
       "city": "Tallinn",
@@ -538,8 +538,8 @@
       "lon": 24.7536,
       "tempC": 16,
       "windKn": 18,
-      "iconKey": "drizzle",
-      "label": "Light drizzle"
+      "iconKey": "cloudy",
+      "label": "Overcast"
     },
     {
       "city": "Mbabane",
@@ -556,10 +556,10 @@
       "country": "Ethiopia",
       "lat": 9.0301,
       "lon": 38.7407,
-      "tempC": 10,
+      "tempC": 12,
       "windKn": 4,
-      "iconKey": "cloudy",
-      "label": "Overcast"
+      "iconKey": "partly-cloudy",
+      "label": "Partly cloudy"
     },
     {
       "city": "Suva",
@@ -577,9 +577,9 @@
       "lat": 60.1699,
       "lon": 24.9384,
       "tempC": 15,
-      "windKn": 18,
+      "windKn": 16,
       "iconKey": "drizzle",
-      "label": "Drizzle"
+      "label": "Light drizzle"
     },
     {
       "city": "Paris",
@@ -598,28 +598,28 @@
       "lon": 9.4673,
       "tempC": 24,
       "windKn": 5,
-      "iconKey": "cloudy",
-      "label": "Overcast"
+      "iconKey": "partly-cloudy",
+      "label": "Partly cloudy"
     },
     {
       "city": "Banjul",
       "country": "The Gambia",
       "lat": 13.4549,
       "lon": -16.579,
-      "tempC": 28,
+      "tempC": 26,
       "windKn": 6,
-      "iconKey": "partly-cloudy",
-      "label": "Partly cloudy"
+      "iconKey": "drizzle",
+      "label": "Light drizzle"
     },
     {
       "city": "Tbilisi",
       "country": "Georgia",
       "lat": 41.7151,
       "lon": 44.8271,
-      "tempC": 19,
-      "windKn": 4,
-      "iconKey": "partly-cloudy",
-      "label": "Mostly clear"
+      "tempC": 22,
+      "windKn": 2,
+      "iconKey": "clear-day",
+      "label": "Clear sky"
     },
     {
       "city": "Berlin",
@@ -629,7 +629,7 @@
       "tempC": 13,
       "windKn": 8,
       "iconKey": "partly-cloudy",
-      "label": "Mostly clear"
+      "label": "Partly cloudy"
     },
     {
       "city": "Accra",
@@ -638,8 +638,8 @@
       "lon": -0.187,
       "tempC": 24,
       "windKn": 5,
-      "iconKey": "drizzle",
-      "label": "Light drizzle"
+      "iconKey": "cloudy",
+      "label": "Overcast"
     },
     {
       "city": "Athens",
@@ -647,7 +647,7 @@
       "lat": 37.9838,
       "lon": 23.7275,
       "tempC": 25,
-      "windKn": 2,
+      "windKn": 3,
       "iconKey": "clear-day",
       "label": "Clear sky"
     },
@@ -657,9 +657,9 @@
       "lat": 12.0561,
       "lon": -61.7488,
       "tempC": 26,
-      "windKn": 10,
-      "iconKey": "drizzle",
-      "label": "Light drizzle"
+      "windKn": 9,
+      "iconKey": "cloudy",
+      "label": "Overcast"
     },
     {
       "city": "Guatemala City",
@@ -667,7 +667,7 @@
       "lat": 14.6349,
       "lon": -90.5069,
       "tempC": 18,
-      "windKn": 5,
+      "windKn": 4,
       "iconKey": "cloudy",
       "label": "Overcast"
     },
@@ -677,17 +677,17 @@
       "lat": 9.6412,
       "lon": -13.5784,
       "tempC": 24,
-      "windKn": 1,
-      "iconKey": "drizzle",
-      "label": "Heavy drizzle"
+      "windKn": 2,
+      "iconKey": "rain",
+      "label": "Rain showers"
     },
     {
       "city": "Bissau",
       "country": "Guinea-Bissau",
       "lat": 11.8636,
       "lon": -15.5977,
-      "tempC": 27,
-      "windKn": 6,
+      "tempC": 26,
+      "windKn": 7,
       "iconKey": "cloudy",
       "label": "Overcast"
     },
@@ -696,20 +696,20 @@
       "country": "Guyana",
       "lat": 6.8013,
       "lon": -58.1551,
-      "tempC": 28,
+      "tempC": 27,
       "windKn": 6,
-      "iconKey": "cloudy",
-      "label": "Overcast"
+      "iconKey": "partly-cloudy",
+      "label": "Partly cloudy"
     },
     {
       "city": "Port-au-Prince",
       "country": "Haiti",
       "lat": 18.5944,
       "lon": -72.3074,
-      "tempC": 30,
+      "tempC": 29,
       "windKn": 4,
-      "iconKey": "partly-cloudy",
-      "label": "Mostly clear"
+      "iconKey": "clear-day",
+      "label": "Clear sky"
     },
     {
       "city": "Tegucigalpa",
@@ -746,28 +746,28 @@
       "country": "India",
       "lat": 28.6139,
       "lon": 77.209,
-      "tempC": 27,
-      "windKn": 1,
-      "iconKey": "partly-cloudy",
-      "label": "Mostly clear"
+      "tempC": 30,
+      "windKn": 2,
+      "iconKey": "clear-day",
+      "label": "Clear sky"
     },
     {
       "city": "Jakarta",
       "country": "Indonesia",
       "lat": -6.2088,
       "lon": 106.8456,
-      "tempC": 31,
-      "windKn": 0,
-      "iconKey": "partly-cloudy",
-      "label": "Partly cloudy"
+      "tempC": 33,
+      "windKn": 1,
+      "iconKey": "cloudy",
+      "label": "Overcast"
     },
     {
       "city": "Tehran",
       "country": "Iran",
       "lat": 35.6892,
       "lon": 51.389,
-      "tempC": 24,
-      "windKn": 3,
+      "tempC": 28,
+      "windKn": 1,
       "iconKey": "clear-day",
       "label": "Clear sky"
     },
@@ -776,7 +776,7 @@
       "country": "Iraq",
       "lat": 33.3152,
       "lon": 44.3661,
-      "tempC": 28,
+      "tempC": 29,
       "windKn": 2,
       "iconKey": "clear-day",
       "label": "Clear sky"
@@ -788,8 +788,8 @@
       "lon": -6.2603,
       "tempC": 13,
       "windKn": 2,
-      "iconKey": "clear-day",
-      "label": "Clear sky"
+      "iconKey": "partly-cloudy",
+      "label": "Partly cloudy"
     },
     {
       "city": "Jerusalem",
@@ -797,7 +797,7 @@
       "lat": 31.7683,
       "lon": 35.2137,
       "tempC": 20,
-      "windKn": 4,
+      "windKn": 2,
       "iconKey": "clear-day",
       "label": "Clear sky"
     },
@@ -807,7 +807,7 @@
       "lat": 41.9028,
       "lon": 12.4964,
       "tempC": 22,
-      "windKn": 2,
+      "windKn": 1,
       "iconKey": "clear-day",
       "label": "Clear sky"
     },
@@ -816,18 +816,18 @@
       "country": "Jamaica",
       "lat": 17.9712,
       "lon": -76.7936,
-      "tempC": 26,
+      "tempC": 25,
       "windKn": 4,
-      "iconKey": "clear-day",
-      "label": "Clear sky"
+      "iconKey": "partly-cloudy",
+      "label": "Mostly clear"
     },
     {
       "city": "Tokyo",
       "country": "Japan",
       "lat": 35.6762,
       "lon": 139.6503,
-      "tempC": 28,
-      "windKn": 1,
+      "tempC": 29,
+      "windKn": 2,
       "iconKey": "partly-cloudy",
       "label": "Partly cloudy"
     },
@@ -846,10 +846,10 @@
       "country": "Kazakhstan",
       "lat": 51.1694,
       "lon": 71.4491,
-      "tempC": 15,
-      "windKn": 7,
-      "iconKey": "drizzle",
-      "label": "Heavy drizzle"
+      "tempC": 17,
+      "windKn": 9,
+      "iconKey": "rain",
+      "label": "Rain showers"
     },
     {
       "city": "Nairobi",
@@ -857,7 +857,7 @@
       "lat": -1.2921,
       "lon": 36.8219,
       "tempC": 16,
-      "windKn": 4,
+      "windKn": 2,
       "iconKey": "partly-cloudy",
       "label": "Partly cloudy"
     },
@@ -866,37 +866,37 @@
       "country": "Kiribati",
       "lat": 1.3382,
       "lon": 173.0176,
-      "tempC": 28,
-      "windKn": 16,
+      "tempC": 27,
+      "windKn": 14,
       "iconKey": "drizzle",
-      "label": "Light drizzle"
+      "label": "Drizzle"
     },
     {
       "city": "Pyongyang",
       "country": "North Korea",
       "lat": 39.0392,
       "lon": 125.7625,
-      "tempC": 25,
-      "windKn": 4,
-      "iconKey": "drizzle",
-      "label": "Heavy drizzle"
+      "tempC": 26,
+      "windKn": 3,
+      "iconKey": "partly-cloudy",
+      "label": "Partly cloudy"
     },
     {
       "city": "Seoul",
       "country": "South Korea",
       "lat": 37.5665,
       "lon": 126.978,
-      "tempC": 30,
-      "windKn": 1,
-      "iconKey": "clear-day",
-      "label": "Clear sky"
+      "tempC": 32,
+      "windKn": 2,
+      "iconKey": "partly-cloudy",
+      "label": "Mostly clear"
     },
     {
       "city": "Kuwait City",
       "country": "Kuwait",
       "lat": 29.3759,
       "lon": 47.9774,
-      "tempC": 35,
+      "tempC": 36,
       "windKn": 4,
       "iconKey": "clear-day",
       "label": "Clear sky"
@@ -906,8 +906,8 @@
       "country": "Kyrgyzstan",
       "lat": 42.8746,
       "lon": 74.5698,
-      "tempC": 24,
-      "windKn": 3,
+      "tempC": 28,
+      "windKn": 4,
       "iconKey": "clear-day",
       "label": "Clear sky"
     },
@@ -916,8 +916,8 @@
       "country": "Laos",
       "lat": 17.9757,
       "lon": 102.6331,
-      "tempC": 29,
-      "windKn": 8,
+      "tempC": 31,
+      "windKn": 9,
       "iconKey": "cloudy",
       "label": "Overcast"
     },
@@ -937,7 +937,7 @@
       "lat": 33.8938,
       "lon": 35.5018,
       "tempC": 27,
-      "windKn": 5,
+      "windKn": 6,
       "iconKey": "partly-cloudy",
       "label": "Mostly clear"
     },
@@ -946,8 +946,8 @@
       "country": "Lesotho",
       "lat": -29.3151,
       "lon": 27.4869,
-      "tempC": 3,
-      "windKn": 4,
+      "tempC": 2,
+      "windKn": 5,
       "iconKey": "clear-day",
       "label": "Clear sky"
     },
@@ -958,8 +958,8 @@
       "lon": -10.7605,
       "tempC": 24,
       "windKn": 3,
-      "iconKey": "rain",
-      "label": "Rain showers"
+      "iconKey": "drizzle",
+      "label": "Light drizzle"
     },
     {
       "city": "Tripoli",
@@ -967,7 +967,7 @@
       "lat": 32.8872,
       "lon": 13.1913,
       "tempC": 29,
-      "windKn": 4,
+      "windKn": 3,
       "iconKey": "clear-day",
       "label": "Clear sky"
     },
@@ -976,8 +976,8 @@
       "country": "Liechtenstein",
       "lat": 47.141,
       "lon": 9.5209,
-      "tempC": 12,
-      "windKn": 1,
+      "tempC": 11,
+      "windKn": 0,
       "iconKey": "clear-day",
       "label": "Clear sky"
     },
@@ -996,8 +996,8 @@
       "country": "Luxembourg",
       "lat": 49.6116,
       "lon": 6.1319,
-      "tempC": 12,
-      "windKn": 5,
+      "tempC": 10,
+      "windKn": 4,
       "iconKey": "clear-day",
       "label": "Clear sky"
     },
@@ -1006,8 +1006,8 @@
       "country": "Madagascar",
       "lat": -18.8792,
       "lon": 47.5079,
-      "tempC": 10,
-      "windKn": 3,
+      "tempC": 11,
+      "windKn": 2,
       "iconKey": "cloudy",
       "label": "Overcast"
     },
@@ -1016,8 +1016,8 @@
       "country": "Malawi",
       "lat": -13.9626,
       "lon": 33.7741,
-      "tempC": 15,
-      "windKn": 2,
+      "tempC": 16,
+      "windKn": 1,
       "iconKey": "clear-day",
       "label": "Clear sky"
     },
@@ -1026,10 +1026,10 @@
       "country": "Malaysia",
       "lat": 3.139,
       "lon": 101.6869,
-      "tempC": 33,
-      "windKn": 3,
-      "iconKey": "cloudy",
-      "label": "Overcast"
+      "tempC": 35,
+      "windKn": 5,
+      "iconKey": "partly-cloudy",
+      "label": "Partly cloudy"
     },
     {
       "city": "Male",
@@ -1038,16 +1038,16 @@
       "lon": 73.5093,
       "tempC": 28,
       "windKn": 8,
-      "iconKey": "partly-cloudy",
-      "label": "Partly cloudy"
+      "iconKey": "clear-day",
+      "label": "Clear sky"
     },
     {
       "city": "Bamako",
       "country": "Mali",
       "lat": 12.6392,
       "lon": -8.0029,
-      "tempC": 25,
-      "windKn": 3,
+      "tempC": 24,
+      "windKn": 4,
       "iconKey": "drizzle",
       "label": "Heavy drizzle"
     },
@@ -1066,10 +1066,10 @@
       "country": "Marshall Islands",
       "lat": 7.1164,
       "lon": 171.1858,
-      "tempC": 28,
-      "windKn": 16,
-      "iconKey": "drizzle",
-      "label": "Light drizzle"
+      "tempC": 29,
+      "windKn": 15,
+      "iconKey": "partly-cloudy",
+      "label": "Partly cloudy"
     },
     {
       "city": "Nouakchott",
@@ -1077,17 +1077,17 @@
       "lat": 18.0735,
       "lon": -15.9582,
       "tempC": 27,
-      "windKn": 6,
-      "iconKey": "clear-day",
-      "label": "Clear sky"
+      "windKn": 7,
+      "iconKey": "partly-cloudy",
+      "label": "Mostly clear"
     },
     {
       "city": "Port Louis",
       "country": "Mauritius",
       "lat": -20.1609,
       "lon": 57.5012,
-      "tempC": 17,
-      "windKn": 6,
+      "tempC": 23,
+      "windKn": 5,
       "iconKey": "clear-day",
       "label": "Clear sky"
     },
@@ -1096,10 +1096,10 @@
       "country": "Mexico",
       "lat": 19.4326,
       "lon": -99.1332,
-      "tempC": 15,
+      "tempC": 14,
       "windKn": 3,
       "iconKey": "drizzle",
-      "label": "Drizzle"
+      "label": "Light drizzle"
     },
     {
       "city": "Palikir",
@@ -1107,7 +1107,7 @@
       "lat": 6.9248,
       "lon": 158.1611,
       "tempC": 27,
-      "windKn": 10,
+      "windKn": 9,
       "iconKey": "rain",
       "label": "Rain showers"
     },
@@ -1116,8 +1116,8 @@
       "country": "Moldova",
       "lat": 47.0105,
       "lon": 28.8638,
-      "tempC": 23,
-      "windKn": 5,
+      "tempC": 22,
+      "windKn": 6,
       "iconKey": "partly-cloudy",
       "label": "Partly cloudy"
     },
@@ -1136,8 +1136,8 @@
       "country": "Mongolia",
       "lat": 47.8864,
       "lon": 106.9057,
-      "tempC": 17,
-      "windKn": 7,
+      "tempC": 18,
+      "windKn": 8,
       "iconKey": "clear-day",
       "label": "Clear sky"
     },
@@ -1147,7 +1147,7 @@
       "lat": 42.4304,
       "lon": 19.2594,
       "tempC": 23,
-      "windKn": 1,
+      "windKn": 2,
       "iconKey": "partly-cloudy",
       "label": "Partly cloudy"
     },
@@ -1168,16 +1168,16 @@
       "lon": 32.5732,
       "tempC": 20,
       "windKn": 8,
-      "iconKey": "clear-day",
-      "label": "Clear sky"
+      "iconKey": "partly-cloudy",
+      "label": "Mostly clear"
     },
     {
       "city": "Naypyidaw",
       "country": "Myanmar",
       "lat": 19.7633,
       "lon": 96.0785,
-      "tempC": 26,
-      "windKn": 8,
+      "tempC": 28,
+      "windKn": 9,
       "iconKey": "cloudy",
       "label": "Overcast"
     },
@@ -1186,27 +1186,27 @@
       "country": "Namibia",
       "lat": -22.5609,
       "lon": 17.0658,
-      "tempC": 16,
-      "windKn": 9,
+      "tempC": 14,
+      "windKn": 10,
       "iconKey": "partly-cloudy",
-      "label": "Partly cloudy"
+      "label": "Mostly clear"
     },
     {
       "city": "Kathmandu",
       "country": "Nepal",
       "lat": 27.7172,
       "lon": 85.324,
-      "tempC": 24,
-      "windKn": 1,
+      "tempC": 26,
+      "windKn": 2,
       "iconKey": "partly-cloudy",
-      "label": "Mostly clear"
+      "label": "Partly cloudy"
     },
     {
       "city": "Amsterdam",
       "country": "Netherlands",
       "lat": 52.3676,
       "lon": 4.9041,
-      "tempC": 17,
+      "tempC": 16,
       "windKn": 6,
       "iconKey": "cloudy",
       "label": "Overcast"
@@ -1216,8 +1216,8 @@
       "country": "New Zealand",
       "lat": -41.2865,
       "lon": 174.7762,
-      "tempC": 14,
-      "windKn": 20,
+      "tempC": 13,
+      "windKn": 18,
       "iconKey": "clear-day",
       "label": "Clear sky"
     },
@@ -1226,10 +1226,10 @@
       "country": "Nicaragua",
       "lat": 12.115,
       "lon": -86.2362,
-      "tempC": 27,
-      "windKn": 9,
-      "iconKey": "partly-cloudy",
-      "label": "Mostly clear"
+      "tempC": 26,
+      "windKn": 7,
+      "iconKey": "cloudy",
+      "label": "Overcast"
     },
     {
       "city": "Niamey",
@@ -1238,8 +1238,8 @@
       "lon": 2.1128,
       "tempC": 26,
       "windKn": 4,
-      "iconKey": "clear-day",
-      "label": "Clear sky"
+      "iconKey": "cloudy",
+      "label": "Overcast"
     },
     {
       "city": "Abuja",
@@ -1266,7 +1266,7 @@
       "country": "Norway",
       "lat": 59.9139,
       "lon": 10.7522,
-      "tempC": 15,
+      "tempC": 14,
       "windKn": 5,
       "iconKey": "cloudy",
       "label": "Overcast"
@@ -1276,8 +1276,8 @@
       "country": "Oman",
       "lat": 23.5859,
       "lon": 58.4059,
-      "tempC": 34,
-      "windKn": 1,
+      "tempC": 37,
+      "windKn": 4,
       "iconKey": "clear-day",
       "label": "Clear sky"
     },
@@ -1286,8 +1286,8 @@
       "country": "Pakistan",
       "lat": 33.6844,
       "lon": 73.0479,
-      "tempC": 26,
-      "windKn": 1,
+      "tempC": 28,
+      "windKn": 2,
       "iconKey": "partly-cloudy",
       "label": "Mostly clear"
     },
@@ -1296,10 +1296,10 @@
       "country": "Palau",
       "lat": 7.5006,
       "lon": 134.6242,
-      "tempC": 27,
-      "windKn": 8,
+      "tempC": 29,
+      "windKn": 15,
       "iconKey": "drizzle",
-      "label": "Heavy drizzle"
+      "label": "Light drizzle"
     },
     {
       "city": "Panama City",
@@ -1307,27 +1307,27 @@
       "lat": 8.9824,
       "lon": -79.5199,
       "tempC": 25,
-      "windKn": 7,
-      "iconKey": "cloudy",
-      "label": "Overcast"
+      "windKn": 5,
+      "iconKey": "partly-cloudy",
+      "label": "Partly cloudy"
     },
     {
       "city": "Port Moresby",
       "country": "Papua New Guinea",
       "lat": -9.4438,
       "lon": 147.1803,
-      "tempC": 26,
+      "tempC": 25,
       "windKn": 14,
-      "iconKey": "partly-cloudy",
-      "label": "Mostly clear"
+      "iconKey": "cloudy",
+      "label": "Overcast"
     },
     {
       "city": "Asuncion",
       "country": "Paraguay",
       "lat": -25.2637,
       "lon": -57.5759,
-      "tempC": 15,
-      "windKn": 7,
+      "tempC": 14,
+      "windKn": 6,
       "iconKey": "clear-day",
       "label": "Clear sky"
     },
@@ -1346,10 +1346,10 @@
       "country": "Philippines",
       "lat": 14.5995,
       "lon": 120.9842,
-      "tempC": 29,
-      "windKn": 11,
-      "iconKey": "partly-cloudy",
-      "label": "Partly cloudy"
+      "tempC": 30,
+      "windKn": 12,
+      "iconKey": "drizzle",
+      "label": "Light drizzle"
     },
     {
       "city": "Warsaw",
@@ -1358,8 +1358,8 @@
       "lon": 21.0122,
       "tempC": 14,
       "windKn": 10,
-      "iconKey": "partly-cloudy",
-      "label": "Partly cloudy"
+      "iconKey": "clear-day",
+      "label": "Clear sky"
     },
     {
       "city": "Lisbon",
@@ -1367,7 +1367,7 @@
       "lat": 38.7223,
       "lon": -9.1393,
       "tempC": 19,
-      "windKn": 2,
+      "windKn": 3,
       "iconKey": "cloudy",
       "label": "Overcast"
     },
@@ -1376,10 +1376,10 @@
       "country": "Qatar",
       "lat": 25.2854,
       "lon": 51.531,
-      "tempC": 33,
-      "windKn": 1,
-      "iconKey": "clear-day",
-      "label": "Clear sky"
+      "tempC": 36,
+      "windKn": 2,
+      "iconKey": "partly-cloudy",
+      "label": "Mostly clear"
     },
     {
       "city": "Bucharest",
@@ -1387,7 +1387,7 @@
       "lat": 44.4268,
       "lon": 26.1025,
       "tempC": 25,
-      "windKn": 3,
+      "windKn": 6,
       "iconKey": "partly-cloudy",
       "label": "Partly cloudy"
     },
@@ -1397,9 +1397,9 @@
       "lat": 55.7558,
       "lon": 37.6173,
       "tempC": 17,
-      "windKn": 3,
-      "iconKey": "cloudy",
-      "label": "Overcast"
+      "windKn": 4,
+      "iconKey": "rain",
+      "label": "Light rain"
     },
     {
       "city": "Kigali",
@@ -1416,20 +1416,20 @@
       "country": "Samoa",
       "lat": -13.8506,
       "lon": -171.7513,
-      "tempC": 26,
-      "windKn": 10,
-      "iconKey": "cloudy",
-      "label": "Overcast"
+      "tempC": 25,
+      "windKn": 9,
+      "iconKey": "partly-cloudy",
+      "label": "Partly cloudy"
     },
     {
       "city": "San Marino",
       "country": "San Marino",
       "lat": 43.9424,
       "lon": 12.4578,
-      "tempC": 21,
-      "windKn": 3,
-      "iconKey": "clear-day",
-      "label": "Clear sky"
+      "tempC": 20,
+      "windKn": 2,
+      "iconKey": "partly-cloudy",
+      "label": "Mostly clear"
     },
     {
       "city": "Sao Tome",
@@ -1446,20 +1446,20 @@
       "country": "Saudi Arabia",
       "lat": 24.7136,
       "lon": 46.6753,
-      "tempC": 30,
+      "tempC": 32,
       "windKn": 2,
-      "iconKey": "partly-cloudy",
-      "label": "Partly cloudy"
+      "iconKey": "clear-day",
+      "label": "Clear sky"
     },
     {
       "city": "Dakar",
       "country": "Senegal",
       "lat": 14.7167,
       "lon": -17.4677,
-      "tempC": 28,
+      "tempC": 27,
       "windKn": 5,
-      "iconKey": "cloudy",
-      "label": "Overcast"
+      "iconKey": "partly-cloudy",
+      "label": "Mostly clear"
     },
     {
       "city": "Belgrade",
@@ -1477,9 +1477,9 @@
       "lat": -4.6191,
       "lon": 55.4513,
       "tempC": 26,
-      "windKn": 11,
+      "windKn": 12,
       "iconKey": "partly-cloudy",
-      "label": "Partly cloudy"
+      "label": "Mostly clear"
     },
     {
       "city": "Freetown",
@@ -1487,7 +1487,7 @@
       "lat": 8.4657,
       "lon": -13.2317,
       "tempC": 24,
-      "windKn": 3,
+      "windKn": 2,
       "iconKey": "storm",
       "label": "Thunderstorm"
     },
@@ -1496,8 +1496,8 @@
       "country": "Singapore",
       "lat": 1.3521,
       "lon": 103.8198,
-      "tempC": 31,
-      "windKn": 6,
+      "tempC": 32,
+      "windKn": 7,
       "iconKey": "partly-cloudy",
       "label": "Partly cloudy"
     },
@@ -1507,19 +1507,19 @@
       "lat": 48.1486,
       "lon": 17.1077,
       "tempC": 15,
-      "windKn": 4,
-      "iconKey": "clear-day",
-      "label": "Clear sky"
+      "windKn": 3,
+      "iconKey": "partly-cloudy",
+      "label": "Partly cloudy"
     },
     {
       "city": "Ljubljana",
       "country": "Slovenia",
       "lat": 46.0569,
       "lon": 14.5058,
-      "tempC": 15,
+      "tempC": 16,
       "windKn": 1,
-      "iconKey": "fog",
-      "label": "Foggy"
+      "iconKey": "cloudy",
+      "label": "Overcast"
     },
     {
       "city": "Honiara",
@@ -1527,7 +1527,7 @@
       "lat": -9.428,
       "lon": 159.9498,
       "tempC": 27,
-      "windKn": 3,
+      "windKn": 2,
       "iconKey": "drizzle",
       "label": "Light drizzle"
     },
@@ -1536,38 +1536,38 @@
       "country": "Somalia",
       "lat": 2.0469,
       "lon": 45.3182,
-      "tempC": 24,
-      "windKn": 9,
-      "iconKey": "clear-day",
-      "label": "Clear sky"
+      "tempC": 25,
+      "windKn": 10,
+      "iconKey": "partly-cloudy",
+      "label": "Mostly clear"
     },
     {
       "city": "Pretoria",
       "country": "South Africa",
       "lat": -25.7479,
       "lon": 28.2293,
-      "tempC": 16,
+      "tempC": 15,
       "windKn": 6,
-      "iconKey": "partly-cloudy",
-      "label": "Partly cloudy"
+      "iconKey": "clear-day",
+      "label": "Clear sky"
     },
     {
       "city": "Juba",
       "country": "South Sudan",
       "lat": 4.8594,
       "lon": 31.5713,
-      "tempC": 24,
+      "tempC": 23,
       "windKn": 2,
-      "iconKey": "partly-cloudy",
-      "label": "Mostly clear"
+      "iconKey": "clear-day",
+      "label": "Clear sky"
     },
     {
       "city": "Madrid",
       "country": "Spain",
       "lat": 40.4168,
       "lon": -3.7038,
-      "tempC": 22,
-      "windKn": 3,
+      "tempC": 21,
+      "windKn": 2,
       "iconKey": "clear-day",
       "label": "Clear sky"
     },
@@ -1578,8 +1578,8 @@
       "lon": 79.8612,
       "tempC": 28,
       "windKn": 9,
-      "iconKey": "partly-cloudy",
-      "label": "Partly cloudy"
+      "iconKey": "drizzle",
+      "label": "Light drizzle"
     },
     {
       "city": "Khartoum",
@@ -1597,9 +1597,9 @@
       "lat": 5.852,
       "lon": -55.2038,
       "tempC": 26,
-      "windKn": 7,
-      "iconKey": "clear-day",
-      "label": "Clear sky"
+      "windKn": 6,
+      "iconKey": "partly-cloudy",
+      "label": "Mostly clear"
     },
     {
       "city": "Stockholm",
@@ -1616,17 +1616,17 @@
       "country": "Switzerland",
       "lat": 46.948,
       "lon": 7.4474,
-      "tempC": 12,
-      "windKn": 1,
-      "iconKey": "clear-day",
-      "label": "Clear sky"
+      "tempC": 9,
+      "windKn": 2,
+      "iconKey": "fog",
+      "label": "Foggy"
     },
     {
       "city": "Damascus",
       "country": "Syria",
       "lat": 33.5138,
       "lon": 36.2765,
-      "tempC": 21,
+      "tempC": 22,
       "windKn": 2,
       "iconKey": "clear-day",
       "label": "Clear sky"
@@ -1636,7 +1636,7 @@
       "country": "Tajikistan",
       "lat": 38.5598,
       "lon": 68.787,
-      "tempC": 23,
+      "tempC": 27,
       "windKn": 2,
       "iconKey": "clear-day",
       "label": "Clear sky"
@@ -1647,16 +1647,16 @@
       "lat": -6.163,
       "lon": 35.7516,
       "tempC": 17,
-      "windKn": 12,
-      "iconKey": "partly-cloudy",
-      "label": "Mostly clear"
+      "windKn": 11,
+      "iconKey": "clear-day",
+      "label": "Clear sky"
     },
     {
       "city": "Bangkok",
       "country": "Thailand",
       "lat": 13.7563,
       "lon": 100.5018,
-      "tempC": 29,
+      "tempC": 30,
       "windKn": 6,
       "iconKey": "cloudy",
       "label": "Overcast"
@@ -1686,10 +1686,10 @@
       "country": "Tonga",
       "lat": -21.1789,
       "lon": -175.1982,
-      "tempC": 22,
-      "windKn": 16,
-      "iconKey": "partly-cloudy",
-      "label": "Partly cloudy"
+      "tempC": 21,
+      "windKn": 15,
+      "iconKey": "clear-day",
+      "label": "Clear sky"
     },
     {
       "city": "Port of Spain",
@@ -1706,10 +1706,10 @@
       "country": "Tunisia",
       "lat": 36.8065,
       "lon": 10.1815,
-      "tempC": 28,
-      "windKn": 2,
+      "tempC": 27,
+      "windKn": 1,
       "iconKey": "partly-cloudy",
-      "label": "Mostly clear"
+      "label": "Partly cloudy"
     },
     {
       "city": "Ankara",
@@ -1717,17 +1717,17 @@
       "lat": 39.9334,
       "lon": 32.8597,
       "tempC": 21,
-      "windKn": 2,
+      "windKn": 1,
       "iconKey": "partly-cloudy",
-      "label": "Partly cloudy"
+      "label": "Mostly clear"
     },
     {
       "city": "Ashgabat",
       "country": "Turkmenistan",
       "lat": 37.9601,
       "lon": 58.3261,
-      "tempC": 28,
-      "windKn": 3,
+      "tempC": 31,
+      "windKn": 5,
       "iconKey": "clear-day",
       "label": "Clear sky"
     },
@@ -1737,9 +1737,9 @@
       "lat": -8.5211,
       "lon": 179.1983,
       "tempC": 28,
-      "windKn": 19,
-      "iconKey": "drizzle",
-      "label": "Light drizzle"
+      "windKn": 20,
+      "iconKey": "cloudy",
+      "label": "Overcast"
     },
     {
       "city": "Kampala",
@@ -1747,9 +1747,9 @@
       "lat": 0.3476,
       "lon": 32.5825,
       "tempC": 18,
-      "windKn": 2,
-      "iconKey": "clear-day",
-      "label": "Clear sky"
+      "windKn": 3,
+      "iconKey": "partly-cloudy",
+      "label": "Mostly clear"
     },
     {
       "city": "Kyiv",
@@ -1758,16 +1758,16 @@
       "lon": 30.5234,
       "tempC": 16,
       "windKn": 3,
-      "iconKey": "clear-day",
-      "label": "Clear sky"
+      "iconKey": "partly-cloudy",
+      "label": "Mostly clear"
     },
     {
       "city": "Abu Dhabi",
       "country": "UAE",
       "lat": 24.4539,
       "lon": 54.3773,
-      "tempC": 34,
-      "windKn": 5,
+      "tempC": 36,
+      "windKn": 6,
       "iconKey": "clear-day",
       "label": "Clear sky"
     },
@@ -1776,10 +1776,10 @@
       "country": "United Kingdom",
       "lat": 51.5074,
       "lon": -0.1278,
-      "tempC": 16,
-      "windKn": 3,
-      "iconKey": "clear-day",
-      "label": "Clear sky"
+      "tempC": 15,
+      "windKn": 2,
+      "iconKey": "partly-cloudy",
+      "label": "Mostly clear"
     },
     {
       "city": "Washington, D.C.",
@@ -1787,19 +1787,19 @@
       "lat": 38.9072,
       "lon": -77.0369,
       "tempC": 22,
-      "windKn": 1,
-      "iconKey": "cloudy",
-      "label": "Overcast"
+      "windKn": 8,
+      "iconKey": "rain",
+      "label": "Rain showers"
     },
     {
       "city": "Montevideo",
       "country": "Uruguay",
       "lat": -34.9011,
       "lon": -56.1645,
-      "tempC": 11,
-      "windKn": 16,
+      "tempC": 10,
+      "windKn": 14,
       "iconKey": "partly-cloudy",
-      "label": "Partly cloudy"
+      "label": "Mostly clear"
     },
     {
       "city": "Port Vila",
@@ -1837,7 +1837,7 @@
       "lat": 21.0278,
       "lon": 105.8342,
       "tempC": 26,
-      "windKn": 9,
+      "windKn": 8,
       "iconKey": "rain",
       "label": "Rain showers"
     },
@@ -1846,8 +1846,8 @@
       "country": "Yemen",
       "lat": 15.3694,
       "lon": 44.191,
-      "tempC": 17,
-      "windKn": 1,
+      "tempC": 21,
+      "windKn": 2,
       "iconKey": "clear-day",
       "label": "Clear sky"
     },
@@ -1867,7 +1867,7 @@
       "lat": -17.8252,
       "lon": 31.0335,
       "tempC": 14,
-      "windKn": 7,
+      "windKn": 6,
       "iconKey": "clear-day",
       "label": "Clear sky"
     }
