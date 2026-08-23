@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-23T15:18:13.497034Z",
+  "generatedAt": "2026-08-23T15:45:56.821320Z",
   "standings": {
     "PL": [
       {
@@ -83,6 +83,16 @@
         "pts": 3
       },
       {
+        "name": "Newcastle",
+        "pld": 1,
+        "w": 1,
+        "d": 0,
+        "l": 0,
+        "gf": 1,
+        "ga": 0,
+        "pts": 3
+      },
+      {
         "name": "Chelsea",
         "pld": 0,
         "w": 0,
@@ -94,26 +104,6 @@
       },
       {
         "name": "Fulham",
-        "pld": 0,
-        "w": 0,
-        "d": 0,
-        "l": 0,
-        "gf": 0,
-        "ga": 0,
-        "pts": 0
-      },
-      {
-        "name": "Liverpool",
-        "pld": 0,
-        "w": 0,
-        "d": 0,
-        "l": 0,
-        "gf": 0,
-        "ga": 0,
-        "pts": 0
-      },
-      {
-        "name": "Newcastle",
         "pld": 0,
         "w": 0,
         "d": 0,
@@ -140,6 +130,16 @@
         "l": 1,
         "gf": 1,
         "ga": 2,
+        "pts": 0
+      },
+      {
+        "name": "Liverpool",
+        "pld": 1,
+        "w": 0,
+        "d": 0,
+        "l": 1,
+        "gf": 0,
+        "ga": 1,
         "pts": 0
       },
       {
@@ -611,37 +611,6 @@
   "matches": {
     "PL": {
       "fixtures": [
-        {
-          "utcDate": "2026-08-23T15:30:00Z",
-          "status": "TIMED",
-          "matchday": 1,
-          "homeTeam": {
-            "id": 67,
-            "name": "Newcastle United FC",
-            "shortName": "Newcastle"
-          },
-          "awayTeam": {
-            "id": 64,
-            "name": "Liverpool FC",
-            "shortName": "Liverpool"
-          },
-          "score": {
-            "winner": null,
-            "duration": "REGULAR",
-            "fullTime": {
-              "home": null,
-              "away": null
-            },
-            "halfTime": {
-              "home": null,
-              "away": null
-            }
-          },
-          "competition": {
-            "name": "Premier League"
-          },
-          "venue": null
-        },
         {
           "utcDate": "2026-08-24T19:00:00Z",
           "status": "TIMED",
@@ -1998,37 +1967,6 @@
     },
     "FL1": {
       "fixtures": [
-        {
-          "utcDate": "2026-08-23T15:15:00Z",
-          "status": "TIMED",
-          "matchday": 1,
-          "homeTeam": {
-            "id": 533,
-            "name": "Le Havre AC",
-            "shortName": "Le Havre"
-          },
-          "awayTeam": {
-            "id": 548,
-            "name": "AS Monaco FC",
-            "shortName": "Monaco"
-          },
-          "score": {
-            "winner": null,
-            "duration": "REGULAR",
-            "fullTime": {
-              "home": null,
-              "away": null
-            },
-            "halfTime": {
-              "home": null,
-              "away": null
-            }
-          },
-          "competition": {
-            "name": "Ligue 1"
-          },
-          "venue": null
-        },
         {
           "utcDate": "2026-08-23T18:45:00Z",
           "status": "TIMED",
