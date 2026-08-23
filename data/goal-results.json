@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-23T17:13:55.596592Z",
+  "generatedAt": "2026-08-23T17:43:08.113301Z",
   "results": [
     {
       "url": "https://www.goal.com/en/match/girona-vs-arsenal/__LS8d9Oc6I1wXn9g8956",
@@ -881,6 +881,37 @@
         }
       ],
       "competition": "FL1"
+    },
+    {
+      "url": "https://www.goal.com/en/match/newcastle-united-vs-liverpool/owjbxqwe2fPoGjUZ32Lu6",
+      "date": "2026-08-23",
+      "home": "Newcastle United",
+      "away": "Liverpool",
+      "htHome": 1,
+      "htAway": 0,
+      "ftHome": 2,
+      "ftAway": 2,
+      "homeGoals": [
+        {
+          "scorer": "A. Elanga",
+          "minute": 5
+        },
+        {
+          "scorer": "J. Willock",
+          "minute": 57
+        }
+      ],
+      "awayGoals": [
+        {
+          "scorer": "C. Gakpo",
+          "minute": 55
+        },
+        {
+          "scorer": "D. Szoboszlai",
+          "minute": 90
+        }
+      ],
+      "competition": "PL"
     }
   ],
   "scorerParseRetryCounts": {}
