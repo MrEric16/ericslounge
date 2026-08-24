@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-24T15:35:42.472727Z",
+  "generatedAt": "2026-08-24T16:32:29.717429Z",
   "standings": {
     "PL": [
       {
@@ -497,6 +497,26 @@
         "pts": 1
       },
       {
+        "name": "Bologna",
+        "pld": 1,
+        "w": 0,
+        "d": 1,
+        "l": 0,
+        "gf": 0,
+        "ga": 0,
+        "pts": 1
+      },
+      {
+        "name": "Lazio",
+        "pld": 1,
+        "w": 0,
+        "d": 1,
+        "l": 0,
+        "gf": 0,
+        "ga": 0,
+        "pts": 1
+      },
+      {
         "name": "Fiorentina",
         "pld": 0,
         "w": 0,
@@ -508,26 +528,6 @@
       },
       {
         "name": "Roma",
-        "pld": 0,
-        "w": 0,
-        "d": 0,
-        "l": 0,
-        "gf": 0,
-        "ga": 0,
-        "pts": 0
-      },
-      {
-        "name": "Bologna",
-        "pld": 0,
-        "w": 0,
-        "d": 0,
-        "l": 0,
-        "gf": 0,
-        "ga": 0,
-        "pts": 0
-      },
-      {
-        "name": "Lazio",
         "pld": 0,
         "w": 0,
         "d": 0,
