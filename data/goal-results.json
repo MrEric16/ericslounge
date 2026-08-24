@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-24T21:24:07.357042Z",
+  "generatedAt": "2026-08-24T21:51:48.208875Z",
   "results": [
     {
       "url": "https://www.goal.com/en/match/girona-vs-arsenal/__LS8d9Oc6I1wXn9g8956",
@@ -1233,9 +1233,29 @@
         }
       ],
       "competition": "PD"
+    },
+    {
+      "url": "https://www.goal.com/en/match/roma-vs-fiorentina/2sJvO24_g2D6Mpsty7WoU",
+      "date": "2026-08-24",
+      "home": "Roma",
+      "away": "Fiorentina",
+      "htHome": 1,
+      "htAway": 0,
+      "ftHome": 4,
+      "ftAway": 0,
+      "homeGoals": [
+        {
+          "scorer": "D. Malen",
+          "minute": 27
+        },
+        {
+          "scorer": "N. Pisilli",
+          "minute": 86
+        }
+      ],
+      "awayGoals": [],
+      "competition": "SA"
     }
   ],
-  "scorerParseRetryCounts": {
-    "https://www.goal.com/en/match/roma-vs-fiorentina/2sJvO24_g2D6Mpsty7WoU": 2
-  }
+  "scorerParseRetryCounts": {}
 }
