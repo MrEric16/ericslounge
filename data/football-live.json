@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-24T20:25:37.288590Z",
+  "generatedAt": "2026-08-24T20:58:35.878669Z",
   "standings": {
     "PL": [
       {
@@ -407,6 +407,16 @@
     ],
     "SA": [
       {
+        "name": "Roma",
+        "pld": 1,
+        "w": 1,
+        "d": 0,
+        "l": 0,
+        "gf": 4,
+        "ga": 0,
+        "pts": 3
+      },
+      {
         "name": "Inter",
         "pld": 1,
         "w": 1,
@@ -414,16 +424,6 @@
         "l": 0,
         "gf": 4,
         "ga": 1,
-        "pts": 3
-      },
-      {
-        "name": "Roma",
-        "pld": 1,
-        "w": 1,
-        "d": 0,
-        "l": 0,
-        "gf": 3,
-        "ga": 0,
         "pts": 3
       },
       {
@@ -603,7 +603,7 @@
         "d": 0,
         "l": 1,
         "gf": 0,
-        "ga": 3,
+        "ga": 4,
         "pts": 0
       }
     ],
@@ -1536,8 +1536,8 @@
               "away": 0
             },
             "halfTime": {
-              "home": null,
-              "away": null
+              "home": 0,
+              "away": 0
             }
           },
           "competition": {
@@ -2579,6 +2579,37 @@
         }
       ],
       "results": [
+        {
+          "utcDate": "2026-08-24T18:45:00Z",
+          "status": "FINISHED",
+          "matchday": 1,
+          "homeTeam": {
+            "id": 100,
+            "name": "AS Roma",
+            "shortName": "Roma"
+          },
+          "awayTeam": {
+            "id": 99,
+            "name": "ACF Fiorentina",
+            "shortName": "Fiorentina"
+          },
+          "score": {
+            "winner": "HOME_TEAM",
+            "duration": "REGULAR",
+            "fullTime": {
+              "home": 4,
+              "away": 0
+            },
+            "halfTime": {
+              "home": 1,
+              "away": 0
+            }
+          },
+          "competition": {
+            "name": "Serie A"
+          },
+          "venue": null
+        },
         {
           "utcDate": "2026-08-24T16:30:00Z",
           "status": "FINISHED",
