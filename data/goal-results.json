@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-24T20:56:33.911849Z",
+  "generatedAt": "2026-08-24T21:24:07.357042Z",
   "results": [
     {
       "url": "https://www.goal.com/en/match/girona-vs-arsenal/__LS8d9Oc6I1wXn9g8956",
@@ -1210,9 +1210,32 @@
         }
       ],
       "competition": "PL"
+    },
+    {
+      "url": "https://www.goal.com/en/match/malaga-vs-deportivo-de-a-coruna/HNpNPYR4nROl51k1PQiZr",
+      "date": "2026-08-24",
+      "home": "Malaga",
+      "away": "Deportivo De A Coruna",
+      "htHome": 1,
+      "htAway": 1,
+      "ftHome": 1,
+      "ftAway": 1,
+      "homeGoals": [
+        {
+          "scorer": "Chupe",
+          "minute": 34
+        }
+      ],
+      "awayGoals": [
+        {
+          "scorer": "P. Aubameyang",
+          "minute": 21
+        }
+      ],
+      "competition": "PD"
     }
   ],
   "scorerParseRetryCounts": {
-    "https://www.goal.com/en/match/roma-vs-fiorentina/2sJvO24_g2D6Mpsty7WoU": 1
+    "https://www.goal.com/en/match/roma-vs-fiorentina/2sJvO24_g2D6Mpsty7WoU": 2
   }
 }
