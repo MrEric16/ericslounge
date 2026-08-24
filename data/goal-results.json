@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-24T20:21:00.214721Z",
+  "generatedAt": "2026-08-24T20:56:33.911849Z",
   "results": [
     {
       "url": "https://www.goal.com/en/match/girona-vs-arsenal/__LS8d9Oc6I1wXn9g8956",
@@ -1175,7 +1175,44 @@
       "homeGoals": [],
       "awayGoals": [],
       "competition": "PD"
+    },
+    {
+      "url": "https://www.goal.com/en/match/fulham-vs-chelsea/WiI-PnJ-ZQssDmbDWw7hR",
+      "date": "2026-08-24",
+      "home": "Fulham",
+      "away": "Chelsea",
+      "htHome": 1,
+      "htAway": 2,
+      "ftHome": 2,
+      "ftAway": 3,
+      "homeGoals": [
+        {
+          "scorer": "J. King",
+          "minute": 23
+        },
+        {
+          "scorer": "G. Garcia",
+          "minute": 54
+        }
+      ],
+      "awayGoals": [
+        {
+          "scorer": "J. Pedro",
+          "minute": 1
+        },
+        {
+          "scorer": "M. Rogers",
+          "minute": 41
+        },
+        {
+          "scorer": "C. Palmer",
+          "minute": 49
+        }
+      ],
+      "competition": "PL"
     }
   ],
-  "scorerParseRetryCounts": {}
+  "scorerParseRetryCounts": {
+    "https://www.goal.com/en/match/roma-vs-fiorentina/2sJvO24_g2D6Mpsty7WoU": 1
+  }
 }

@@ -1,11 +1,15 @@
 [goal-scraper] Run started.
-[goal-scraper] [PL] Found 9 finished-match links
+[goal-scraper] [PL] Found 10 finished-match links
+[goal-scraper] [PL] Added: Fulham 2-3 Chelsea
 [goal-scraper] [PD] Found 9 finished-match links
 [goal-scraper] [BL1] Found 0 finished-match links
-[goal-scraper] [SA] Found 9 finished-match links
+[goal-scraper] [SA] Found 10 finished-match links
+[goal-scraper] WARNING: Roma scored 4 but only 2 scorer(s) were parsed for https://www.goal.com/en/match/roma-vs-fiorentina/2sJvO24_g2D6Mpsty7WoU
+[goal-scraper] [SA] SCORER PARSE FAILED (attempt 1/3) for Roma 4-0 Fiorentina -- NOT committing, will retry next run: https://www.goal.com/en/match/roma-vs-fiorentina/2sJvO24_g2D6Mpsty7WoU
 [goal-scraper] [FL1] Found 0 finished-match links
 [goal-scraper] [CL] Found 1 finished-match links
 [goal-scraper] [CL] Skipping stale match (older than 45 days): Paris Saint Germain vs Arsenal on 2026-05-30
 [goal-scraper] [arsenal-friendlies] Found 1 finished-match links
-[goal-scraper] TOTAL new results added this run: 0
+[goal-scraper] TOTAL new results added this run: 1
+[goal-scraper] Matches still awaiting a clean scorer parse (not yet committed): ['https://www.goal.com/en/match/roma-vs-fiorentina/2sJvO24_g2D6Mpsty7WoU']
 [goal-scraper] Wrote data/goal-results.json
