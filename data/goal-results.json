@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-24T17:56:06.883016Z",
+  "generatedAt": "2026-08-24T18:31:50.649079Z",
   "results": [
     {
       "url": "https://www.goal.com/en/match/girona-vs-arsenal/__LS8d9Oc6I1wXn9g8956",
@@ -1144,6 +1144,24 @@
         }
       ],
       "competition": "PD"
+    },
+    {
+      "url": "https://www.goal.com/en/match/bologna-vs-lazio/S9n1DTL3dBMNBL_8zKQZq",
+      "date": "2026-08-24",
+      "home": "Bologna",
+      "away": "Lazio",
+      "htHome": 0,
+      "htAway": 0,
+      "ftHome": 0,
+      "ftAway": 1,
+      "homeGoals": [],
+      "awayGoals": [
+        {
+          "scorer": "D. Frattesi",
+          "minute": 59
+        }
+      ],
+      "competition": "SA"
     }
   ],
   "scorerParseRetryCounts": {}
