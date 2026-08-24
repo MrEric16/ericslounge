@@ -1,161 +1,7 @@
 {
-  "generatedAt": "2026-08-24T16:01:21.849845Z",
+  "generatedAt": "2026-08-24T19:06:14.449380Z",
   "events": [
     {
-      "title": "Folklore show “Legend of Love” in Samarkand",
-      "titleRu": "Фольклорное шоу «Легенда о любви» в Самарканде",
-      "category": "concert",
-      "venue": null,
-      "startDate": "2026-08-24",
-      "endDate": null,
-      "time": "18:00",
-      "url": "https://www.afisha.uz/ru/concerts/2026/08/18/legenda-o-lyubvi",
-      "source": "afisha.uz (calendar)"
-    },
-    {
-      "title": "Выставка детских рисунков Mehr nima?",
-      "titleRu": "Выставка детских рисунков Mehr nima?",
-      "category": "exhibition",
-      "venue": "Central ParkТашкент, ул. Мавераннахр, 21",
-      "startDate": "2026-08-24",
-      "endDate": null,
-      "time": null,
-      "url": "https://www.afisha.uz/ru/exhibitions/2026/08/20/mehr-nima",
-      "source": "afisha.uz (calendar)"
-    },
-    {
-      "title": "Выставка «Поколение Z»",
-      "titleRu": "Выставка «Поколение Z»",
-      "category": "exhibition",
-      "venue": "Andakulova galleryТашкент, ул. Батыра Закирова, 7, 1-й этаж",
-      "startDate": "2026-08-24",
-      "endDate": null,
-      "time": "10:00",
-      "url": "https://www.afisha.uz/ru/exhibitions/2026/08/13/pokolenie-z",
-      "source": "afisha.uz (calendar)"
-    },
-    {
-      "title": "Exhibition Qimmat",
-      "titleRu": "Выставка Qimmat",
-      "category": "exhibition",
-      "venue": "ZanmakonТашкент, ул. Заркайнар, 48",
-      "startDate": "2026-08-24",
-      "endDate": null,
-      "time": null,
-      "url": "https://www.afisha.uz/ru/exhibitions/2026/08/03/zanmakon",
-      "source": "afisha.uz (calendar)"
-    },
-    {
-      "title": "Выставка «Наше наследие»",
-      "titleRu": "Выставка «Наше наследие»",
-      "category": "exhibition",
-      "venue": "Центральный Выставочный зал Академии художеств УзбекистанаТашкент, ул. Шарафа Рашидова, 40",
-      "startDate": "2026-08-24",
-      "endDate": null,
-      "time": null,
-      "url": "https://www.afisha.uz/ru/exhibitions/2026/07/31/our-heritage",
-      "source": "afisha.uz (calendar)"
-    },
-    {
-      "title": "Soap bubble show at Jungle Family Club",
-      "titleRu": "Шоу мыльных пузырей в Jungle Family Club",
-      "category": "kids",
-      "venue": "Jungle Family ClubТашкент, Юнусабад-12, 20А",
-      "startDate": "2026-08-24",
-      "endDate": null,
-      "time": "19:30",
-      "url": "https://www.afisha.uz/ru/children/2026/08/10/shou-mylnyh-puzyrej-v-jungle-family-club-2026",
-      "source": "afisha.uz (calendar)"
-    },
-    {
-      "title": "Детский день в бассейне Sinbad",
-      "titleRu": "Детский день в бассейне Sinbad",
-      "category": "kids",
-      "venue": "SinbadТашкент, пересечение ул. Ширин и ул. Фазылтепа",
-      "startDate": "2026-08-24",
-      "endDate": null,
-      "time": null,
-      "url": "https://www.afisha.uz/ru/children/2026/07/16/detskiy-den-sinbad-2026",
-      "source": "afisha.uz (calendar)"
-    },
-    {
-      "title": "Хакатон в Республиканской детской библиотеке",
-      "titleRu": "Хакатон в Республиканской детской библиотеке",
-      "category": "kids",
-      "venue": "Республиканская детская библиотекаТашкент, ул. Яхъё Гулямова, 47",
-      "startDate": "2026-08-24",
-      "endDate": null,
-      "time": null,
-      "url": "https://www.afisha.uz/ru/children/2026/07/07/hackathon",
-      "source": "afisha.uz (calendar)"
-    },
-    {
-      "title": "Музыкальный фонтан в парке Magic City",
-      "titleRu": "Музыкальный фонтан в парке Magic City",
-      "category": "festival",
-      "venue": "Magic CityТашкент, ул. Бабура, 174",
-      "startDate": "2026-08-24",
-      "endDate": null,
-      "time": null,
-      "url": "https://www.afisha.uz/ru/gorod/2026/07/17/muzykalnyy-fontan-magic-city-2026",
-      "source": "afisha.uz (calendar)"
-    },
-    {
-      "title": "Музыкальный фонтан в парке Tashkent City",
-      "titleRu": "Музыкальный фонтан в парке Tashkent City",
-      "category": "festival",
-      "venue": "Tashkent CityТашкент, просп. Бунёдкор",
-      "startDate": "2026-08-24",
-      "endDate": null,
-      "time": null,
-      "url": "https://www.afisha.uz/ru/gorod/2026/07/16/muzykalnyy-fontan-tashkent-city-2026",
-      "source": "afisha.uz (calendar)"
-    },
-    {
-      "title": "Ярмарка Uzbegim Market в парке Tashkent City",
-      "titleRu": "Ярмарка Uzbegim Market в парке Tashkent City",
-      "category": "festival",
-      "venue": "Tashkent CityТашкент, просп. Бунёдкор",
-      "startDate": "2026-08-24",
-      "endDate": null,
-      "time": null,
-      "url": "https://www.afisha.uz/ru/gorod/2026/07/16/uzbegim-market-2026",
-      "source": "afisha.uz (calendar)"
-    },
-    {
-      "title": "Пляж Palma & Chilla в парке Milliy Bog’",
-      "titleRu": "Пляж Palma & Chilla в парке Milliy Bog’",
-      "category": "festival",
-      "venue": "Milliy bog‘Ташкент, ул. Сеул, 16",
-      "startDate": "2026-08-24",
-      "endDate": null,
-      "time": null,
-      "url": "https://www.afisha.uz/ru/gorod/2026/07/16/palma-chilla-milliy-bog-2026",
-      "source": "afisha.uz (calendar)"
-    },
-    {
-      "title": "Спектакль «Мадагаскар» в парке Tashkent City",
-      "titleRu": "Спектакль «Мадагаскар» в парке Tashkent City",
-      "category": "festival",
-      "venue": "Tashkent CityТашкент, просп. Бунёдкор",
-      "startDate": "2026-08-24",
-      "endDate": null,
-      "time": "20:30",
-      "url": "https://www.afisha.uz/ru/gorod/2026/07/16/madagaskar-tashkent-city-2026",
-      "source": "afisha.uz (calendar)"
-    },
-    {
-      "title": "Творческие мастер-классы в Potterville",
-      "titleRu": "Творческие мастер-классы в Potterville",
-      "category": "lecture",
-      "venue": "PottervilleТашкент, ул. Лабзак, 12/1",
-      "startDate": "2026-08-24",
-      "endDate": null,
-      "time": null,
-      "url": "https://www.afisha.uz/ru/znaniya/2026/07/29/potterville-avgust-2026",
-      "source": "afisha.uz (calendar)"
-    },
-    {
       "title": "Выставка детских рисунков Mehr nima?",
       "titleRu": "Выставка детских рисунков Mehr nima?",
       "category": "exhibition",
@@ -178,7 +24,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Exhibition Qimmat",
+      "title": "Выставка Qimmat",
       "titleRu": "Выставка Qimmat",
       "category": "exhibition",
       "venue": "ZanmakonТашкент, ул. Заркайнар, 48",
@@ -206,7 +52,7 @@
       "venue": "Tashkent CityТашкент, просп. Бунёдкор",
       "startDate": "2026-08-25",
       "endDate": null,
-      "time": null,
+      "time": "20:30",
       "url": "https://www.afisha.uz/ru/children/2026/07/28/nova-circus-tashkent-city",
       "source": "afisha.uz (calendar)"
     },
@@ -266,17 +112,6 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Творческие мастер-классы в Potterville",
-      "titleRu": "Творческие мастер-классы в Potterville",
-      "category": "lecture",
-      "venue": "PottervilleТашкент, ул. Лабзак, 12/1",
-      "startDate": "2026-08-25",
-      "endDate": null,
-      "time": null,
-      "url": "https://www.afisha.uz/ru/znaniya/2026/07/29/potterville-avgust-2026",
-      "source": "afisha.uz (calendar)"
-    },
-    {
       "title": "Встреча со Свами Шарадой",
       "titleRu": "Встреча со Свами Шарадой",
       "category": "lecture",
@@ -288,7 +123,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Книжный клуб «Читаем по-человечески»",
+      "title": "Book club “Reading Like Humans”",
       "titleRu": "Книжный клуб «Читаем по-человечески»",
       "category": "lecture",
       "venue": "Human HouseТашкент, ул. Ивлиева, 43",
@@ -296,6 +131,17 @@
       "endDate": null,
       "time": "16:00",
       "url": "https://www.afisha.uz/ru/znaniya/2026/08/24/knizhnyy-klub",
+      "source": "afisha.uz (calendar)"
+    },
+    {
+      "title": "Творческие мастер-классы в Potterville",
+      "titleRu": "Творческие мастер-классы в Potterville",
+      "category": "lecture",
+      "venue": "PottervilleТашкент, ул. Лабзак, 12/1",
+      "startDate": "2026-08-25",
+      "endDate": null,
+      "time": null,
+      "url": "https://www.afisha.uz/ru/znaniya/2026/07/29/potterville-avgust-2026",
       "source": "afisha.uz (calendar)"
     },
     {
@@ -416,17 +262,6 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Спектакль «Мадагаскар» в парке Tashkent City",
-      "titleRu": "Спектакль «Мадагаскар» в парке Tashkent City",
-      "category": "festival",
-      "venue": "Tashkent CityТашкент, просп. Бунёдкор",
-      "startDate": "2026-08-26",
-      "endDate": null,
-      "time": "20:30",
-      "url": "https://www.afisha.uz/ru/gorod/2026/07/16/madagaskar-tashkent-city-2026",
-      "source": "afisha.uz (calendar)"
-    },
-    {
       "title": "Творческие мастер-классы в Potterville",
       "titleRu": "Творческие мастер-классы в Potterville",
       "category": "lecture",
@@ -457,6 +292,17 @@
       "endDate": null,
       "time": "19:30",
       "url": "https://www.afisha.uz/ru/children/2026/08/06/picca-master-klass-jungle-family-club",
+      "source": "afisha.uz (calendar)"
+    },
+    {
+      "title": "Спектакль «Мадагаскар» в парке Tashkent City",
+      "titleRu": "Спектакль «Мадагаскар» в парке Tashkent City",
+      "category": "festival",
+      "venue": "Tashkent CityТашкент, просп. Бунёдкор",
+      "startDate": "2026-08-26",
+      "endDate": null,
+      "time": "20:30",
+      "url": "https://www.afisha.uz/ru/gorod/2026/07/16/madagaskar-tashkent-city-2026",
       "source": "afisha.uz (calendar)"
     },
     {
@@ -691,15 +537,14 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Спектакль «Ганс и Гретель»",
-      "titleRu": "Спектакль «Ганс и Гретель»",
+      "title": "Hans and Gretel",
+      "titleRu": null,
       "category": "theatre",
-      "venue": null,
+      "venue": "Theatre - Studio Silk Route Marionettes Ecopark",
       "startDate": "2026-08-28",
       "endDate": null,
-      "time": "18:00",
-      "url": "https://www.afisha.uz/ru/theatres/2026/08/07/gans-i-gretel-silk-route",
-      "source": "afisha.uz (calendar)"
+      "url": "https://iticket.uz/en/events/theaters-tashkent/hans-and-gretel8965",
+      "source": "iticket.uz"
     },
     {
       "title": "Шоу мороженого в Jungle Family Club",
@@ -711,16 +556,6 @@
       "time": "20:00",
       "url": "https://www.afisha.uz/ru/children/2026/08/07/shou-morozhenogo-jungle-family-club",
       "source": "afisha.uz (calendar)"
-    },
-    {
-      "title": "Hans and Gretel",
-      "titleRu": null,
-      "category": "theatre",
-      "venue": "Theatre - Studio Silk Route Marionettes Ecopark",
-      "startDate": "2026-08-28",
-      "endDate": null,
-      "url": "https://iticket.uz/en/events/theaters-tashkent/hans-and-gretel8965",
-      "source": "iticket.uz"
     },
     {
       "title": "Выставка детских рисунков Mehr nima?",
@@ -800,17 +635,6 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Спектакль «Мадагаскар» в парке Tashkent City",
-      "titleRu": "Спектакль «Мадагаскар» в парке Tashkent City",
-      "category": "festival",
-      "venue": "Tashkent CityТашкент, просп. Бунёдкор",
-      "startDate": "2026-08-29",
-      "endDate": null,
-      "time": "20:30",
-      "url": "https://www.afisha.uz/ru/gorod/2026/07/16/madagaskar-tashkent-city-2026",
-      "source": "afisha.uz (calendar)"
-    },
-    {
       "title": "Творческие мастер-классы в Potterville",
       "titleRu": "Творческие мастер-классы в Potterville",
       "category": "lecture",
@@ -822,7 +646,18 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Спектакль «Ганс и Гретель»",
+      "title": "Спектакль «Мадагаскар» в парке Tashkent City",
+      "titleRu": "Спектакль «Мадагаскар» в парке Tashkent City",
+      "category": "festival",
+      "venue": "Tashkent CityТашкент, просп. Бунёдкор",
+      "startDate": "2026-08-29",
+      "endDate": null,
+      "time": "20:30",
+      "url": "https://www.afisha.uz/ru/gorod/2026/07/16/madagaskar-tashkent-city-2026",
+      "source": "afisha.uz (calendar)"
+    },
+    {
+      "title": "Performance \"Hans and Gretel\"",
       "titleRu": "Спектакль «Ганс и Гретель»",
       "category": "theatre",
       "venue": null,
@@ -1096,7 +931,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Творческие занятия в Toshkent Gullari School",
+      "title": "Creative classes at Toshkent Gullari School",
       "titleRu": "Творческие занятия в Toshkent Gullari School",
       "category": "lecture",
       "venue": "Toshkent Gullari SchoolТашкент, ул. Мирабад, 21/3",
@@ -1128,17 +963,6 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Soap bubble show at Jungle Family Club",
-      "titleRu": "Шоу мыльных пузырей в Jungle Family Club",
-      "category": "kids",
-      "venue": "Jungle Family ClubТашкент, Юнусабад-12, 20А",
-      "startDate": "2026-08-31",
-      "endDate": null,
-      "time": "19:30",
-      "url": "https://www.afisha.uz/ru/children/2026/08/10/shou-mylnyh-puzyrej-v-jungle-family-club-2026",
-      "source": "afisha.uz (calendar)"
-    },
-    {
       "title": "Theater and circus show Nova Circus",
       "titleRu": "Театрально-цирковое шоу Nova Circus",
       "category": "kids",
@@ -1147,17 +971,6 @@
       "endDate": null,
       "time": null,
       "url": "https://www.afisha.uz/ru/children/2026/07/28/nova-circus-tashkent-city",
-      "source": "afisha.uz (calendar)"
-    },
-    {
-      "title": "Детский день в бассейне Sinbad",
-      "titleRu": "Детский день в бассейне Sinbad",
-      "category": "kids",
-      "venue": "SinbadТашкент, пересечение ул. Ширин и ул. Фазылтепа",
-      "startDate": "2026-08-31",
-      "endDate": null,
-      "time": null,
-      "url": "https://www.afisha.uz/ru/children/2026/07/16/detskiy-den-sinbad-2026",
       "source": "afisha.uz (calendar)"
     },
     {
@@ -1194,17 +1007,6 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Спектакль «Мадагаскар» в парке Tashkent City",
-      "titleRu": "Спектакль «Мадагаскар» в парке Tashkent City",
-      "category": "festival",
-      "venue": "Tashkent CityТашкент, просп. Бунёдкор",
-      "startDate": "2026-08-31",
-      "endDate": null,
-      "time": "20:30",
-      "url": "https://www.afisha.uz/ru/gorod/2026/07/16/madagaskar-tashkent-city-2026",
-      "source": "afisha.uz (calendar)"
-    },
-    {
       "title": "Творческие мастер-классы в Potterville",
       "titleRu": "Творческие мастер-классы в Potterville",
       "category": "lecture",
@@ -1216,6 +1018,17 @@
       "source": "afisha.uz (calendar)"
     },
     {
+      "title": "Спектакль «Мадагаскар» в парке Tashkent City",
+      "titleRu": "Спектакль «Мадагаскар» в парке Tashkent City",
+      "category": "festival",
+      "venue": "Tashkent CityТашкент, просп. Бунёдкор",
+      "startDate": "2026-08-31",
+      "endDate": null,
+      "time": "20:30",
+      "url": "https://www.afisha.uz/ru/gorod/2026/07/16/madagaskar-tashkent-city-2026",
+      "source": "afisha.uz (calendar)"
+    },
+    {
       "title": "Electronic music festival MUZONE Fest",
       "titleRu": "Фестиваль электронной музыки MUZONE Fest",
       "category": "concert",
@@ -1224,6 +1037,28 @@
       "endDate": null,
       "time": "19:00",
       "url": "https://www.afisha.uz/ru/concerts/2026/08/11/festival-elektronnoy-muzyki-muzone-fest",
+      "source": "afisha.uz (calendar)"
+    },
+    {
+      "title": "Шоу мыльных пузырей в Jungle Family Club",
+      "titleRu": "Шоу мыльных пузырей в Jungle Family Club",
+      "category": "kids",
+      "venue": "Jungle Family ClubТашкент, Юнусабад-12, 20А",
+      "startDate": "2026-08-31",
+      "endDate": null,
+      "time": "19:30",
+      "url": "https://www.afisha.uz/ru/children/2026/08/10/shou-mylnyh-puzyrej-v-jungle-family-club-2026",
+      "source": "afisha.uz (calendar)"
+    },
+    {
+      "title": "Детский день в бассейне Sinbad",
+      "titleRu": "Детский день в бассейне Sinbad",
+      "category": "kids",
+      "venue": "SinbadТашкент, пересечение ул. Ширин и ул. Фазылтепа",
+      "startDate": "2026-08-31",
+      "endDate": null,
+      "time": null,
+      "url": "https://www.afisha.uz/ru/children/2026/07/16/detskiy-den-sinbad-2026",
       "source": "afisha.uz (calendar)"
     },
     {
@@ -1281,7 +1116,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Concert for the 35th anniversary of Independence of Uzbekistan",
+      "title": "Концерт к 35-летию Независимости Узбекистана",
       "titleRu": "Концерт к 35-летию Независимости Узбекистана",
       "category": "concert",
       "venue": null,
@@ -1620,6 +1455,38 @@
       "time": null,
       "url": "https://www.afisha.uz/ru/gorod/2026/07/16/uzbegim-market-2026",
       "source": "afisha.uz (calendar)"
+    },
+    {
+      "title": "Ярмарка Uzbegim Market в парке Tashkent City",
+      "titleRu": "Ярмарка Uzbegim Market в парке Tashkent City",
+      "category": "festival",
+      "venue": "Tashkent CityТашкент, просп. Бунёдкор",
+      "startDate": "2026-09-08",
+      "endDate": null,
+      "time": null,
+      "url": "https://www.afisha.uz/ru/gorod/2026/07/16/uzbegim-market-2026",
+      "source": "afisha.uz (calendar)"
+    },
+    {
+      "title": "CAITME 2026",
+      "titleRu": "CAITME 2026",
+      "category": "exhibition",
+      "venue": "УзЭкспоцентрТашкент, просп. Амира Темура, 107",
+      "startDate": "2026-09-08",
+      "endDate": null,
+      "time": null,
+      "url": "https://www.afisha.uz/ru/exhibitions/2026/08/13/caitme-2026",
+      "source": "afisha.uz (calendar)"
+    },
+    {
+      "title": "Og'abek Sobirov",
+      "titleRu": null,
+      "category": "concert",
+      "venue": "Peoples' Friendship Palace",
+      "startDate": "2026-09-08",
+      "endDate": null,
+      "url": "https://iticket.uz/en/events/concerts/ogabek-sobirov26",
+      "source": "iticket.uz"
     }
   ]
 }
