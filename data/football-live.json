@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-24T19:25:52.162936Z",
+  "generatedAt": "2026-08-24T19:54:40.078222Z",
   "standings": {
     "PL": [
       {
@@ -53,6 +53,16 @@
         "pts": 3
       },
       {
+        "name": "Chelsea",
+        "pld": 1,
+        "w": 1,
+        "d": 0,
+        "l": 0,
+        "gf": 2,
+        "ga": 1,
+        "pts": 3
+      },
+      {
         "name": "Ipswich Town",
         "pld": 1,
         "w": 1,
@@ -70,16 +80,6 @@
         "l": 0,
         "gf": 2,
         "ga": 1,
-        "pts": 3
-      },
-      {
-        "name": "Chelsea",
-        "pld": 1,
-        "w": 1,
-        "d": 0,
-        "l": 0,
-        "gf": 1,
-        "ga": 0,
         "pts": 3
       },
       {
@@ -123,7 +123,7 @@
         "pts": 0
       },
       {
-        "name": "Sunderland",
+        "name": "Fulham",
         "pld": 1,
         "w": 0,
         "d": 0,
@@ -133,13 +133,13 @@
         "pts": 0
       },
       {
-        "name": "Fulham",
+        "name": "Sunderland",
         "pld": 1,
         "w": 0,
         "d": 0,
         "l": 1,
-        "gf": 0,
-        "ga": 1,
+        "gf": 1,
+        "ga": 2,
         "pts": 0
       },
       {
@@ -296,13 +296,13 @@
       },
       {
         "name": "Deportivo",
-        "pld": 1,
+        "pld": 2,
         "w": 0,
-        "d": 1,
+        "d": 2,
         "l": 0,
         "gf": 1,
         "ga": 1,
-        "pts": 1
+        "pts": 2
       },
       {
         "name": "Osasuna",
@@ -355,6 +355,16 @@
         "pts": 1
       },
       {
+        "name": "Málaga",
+        "pld": 2,
+        "w": 0,
+        "d": 1,
+        "l": 1,
+        "gf": 0,
+        "ga": 2,
+        "pts": 1
+      },
+      {
         "name": "Levante",
         "pld": 2,
         "w": 0,
@@ -392,16 +402,6 @@
         "l": 1,
         "gf": 1,
         "ga": 3,
-        "pts": 0
-      },
-      {
-        "name": "Málaga",
-        "pld": 1,
-        "w": 0,
-        "d": 0,
-        "l": 1,
-        "gf": 0,
-        "ga": 2,
         "pts": 0
       }
     ],
@@ -1389,18 +1389,111 @@
     "PD": {
       "fixtures": [
         {
-          "utcDate": "2026-08-24T19:30:00Z",
+          "utcDate": "2026-08-25T19:00:00Z",
           "status": "TIMED",
-          "matchday": 2,
+          "matchday": 1,
           "homeTeam": {
-            "id": 84,
-            "name": "Málaga CF",
-            "shortName": "Málaga"
+            "id": 95,
+            "name": "Valencia CF",
+            "shortName": "Valencia"
           },
           "awayTeam": {
-            "id": 560,
-            "name": "RC Deportivo La Coruña",
-            "shortName": "Deportivo"
+            "id": 90,
+            "name": "Real Betis Balompié",
+            "shortName": "Real Betis"
+          },
+          "score": {
+            "winner": null,
+            "duration": "REGULAR",
+            "fullTime": {
+              "home": null,
+              "away": null
+            },
+            "halfTime": {
+              "home": null,
+              "away": null
+            }
+          },
+          "competition": {
+            "name": "Primera Division"
+          },
+          "venue": null
+        },
+        {
+          "utcDate": "2026-08-26T19:00:00Z",
+          "status": "TIMED",
+          "matchday": 1,
+          "homeTeam": {
+            "id": 86,
+            "name": "Real Madrid CF",
+            "shortName": "Real Madrid"
+          },
+          "awayTeam": {
+            "id": 92,
+            "name": "Real Sociedad de Fútbol",
+            "shortName": "Real Sociedad"
+          },
+          "score": {
+            "winner": null,
+            "duration": "REGULAR",
+            "fullTime": {
+              "home": null,
+              "away": null
+            },
+            "halfTime": {
+              "home": null,
+              "away": null
+            }
+          },
+          "competition": {
+            "name": "Primera Division"
+          },
+          "venue": null
+        },
+        {
+          "utcDate": "2026-08-27T18:30:00Z",
+          "status": "TIMED",
+          "matchday": 1,
+          "homeTeam": {
+            "id": 558,
+            "name": "RC Celta de Vigo",
+            "shortName": "Celta"
+          },
+          "awayTeam": {
+            "id": 79,
+            "name": "CA Osasuna",
+            "shortName": "Osasuna"
+          },
+          "score": {
+            "winner": null,
+            "duration": "REGULAR",
+            "fullTime": {
+              "home": null,
+              "away": null
+            },
+            "halfTime": {
+              "home": null,
+              "away": null
+            }
+          },
+          "competition": {
+            "name": "Primera Division"
+          },
+          "venue": null
+        },
+        {
+          "utcDate": "2026-08-27T19:00:00Z",
+          "status": "TIMED",
+          "matchday": 1,
+          "homeTeam": {
+            "id": 81,
+            "name": "FC Barcelona",
+            "shortName": "Barça"
+          },
+          "awayTeam": {
+            "id": 77,
+            "name": "Athletic Club",
+            "shortName": "Athletic"
           },
           "score": {
             "winner": null,
@@ -1421,6 +1514,37 @@
         }
       ],
       "results": [
+        {
+          "utcDate": "2026-08-24T17:30:00Z",
+          "status": "FINISHED",
+          "matchday": 2,
+          "homeTeam": {
+            "id": 79,
+            "name": "CA Osasuna",
+            "shortName": "Osasuna"
+          },
+          "awayTeam": {
+            "id": 88,
+            "name": "Levante UD",
+            "shortName": "Levante"
+          },
+          "score": {
+            "winner": "DRAW",
+            "duration": "REGULAR",
+            "fullTime": {
+              "home": 0,
+              "away": 0
+            },
+            "halfTime": {
+              "home": 0,
+              "away": 0
+            }
+          },
+          "competition": {
+            "name": "Primera Division"
+          },
+          "venue": null
+        },
         {
           "utcDate": "2026-08-23T19:30:00Z",
           "status": "FINISHED",
