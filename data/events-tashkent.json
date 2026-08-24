@@ -1,16 +1,15 @@
 {
-  "generatedAt": "2026-08-24T02:02:46.267822Z",
+  "generatedAt": "2026-08-24T04:12:16.143674Z",
   "events": [
     {
-      "title": "Фольклорное шоу «Легенда о любви» в Самарканде",
-      "titleRu": "Фольклорное шоу «Легенда о любви» в Самарканде",
+      "title": "Love Legend",
+      "titleRu": null,
       "category": "concert",
-      "venue": null,
+      "venue": "Концертный Зал Мароканд",
       "startDate": "2026-08-24",
       "endDate": null,
-      "time": "18:00",
-      "url": "https://www.afisha.uz/ru/concerts/2026/08/18/legenda-o-lyubvi",
-      "source": "afisha.uz (calendar)"
+      "url": "https://iticket.uz/en/events/concerts/love-legend",
+      "source": "iticket.uz"
     },
     {
       "title": "Выставка детских рисунков Mehr nima?",
@@ -24,7 +23,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Выставка «Поколение Z»",
+      "title": "Exhibition “Generation Z”",
       "titleRu": "Выставка «Поколение Z»",
       "category": "exhibition",
       "venue": "Andakulova galleryТашкент, ул. Батыра Закирова, 7, 1-й этаж",
@@ -35,7 +34,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Выставка Qimmat",
+      "title": "Exhibition Qimmat",
       "titleRu": "Выставка Qimmat",
       "category": "exhibition",
       "venue": "ZanmakonТашкент, ул. Заркайнар, 48",
@@ -46,7 +45,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Выставка «Наше наследие»",
+      "title": "Exhibition \"Our Heritage\"",
       "titleRu": "Выставка «Наше наследие»",
       "category": "exhibition",
       "venue": "Центральный Выставочный зал Академии художеств УзбекистанаТашкент, ул. Шарафа Рашидова, 40",
@@ -57,7 +56,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Шоу мыльных пузырей в Jungle Family Club",
+      "title": "Soap bubble show at Jungle Family Club",
       "titleRu": "Шоу мыльных пузырей в Jungle Family Club",
       "category": "kids",
       "venue": "Jungle Family ClubТашкент, Юнусабад-12, 20А",
@@ -145,7 +144,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Творческие мастер-классы в Potterville",
+      "title": "Creative workshops in Potterville",
       "titleRu": "Творческие мастер-классы в Potterville",
       "category": "lecture",
       "venue": "PottervilleТашкент, ул. Лабзак, 12/1",
@@ -186,16 +185,6 @@
       "source": "iticket.uz"
     },
     {
-      "title": "Love Legend",
-      "titleRu": null,
-      "category": "concert",
-      "venue": "Концертный Зал Мароканд",
-      "startDate": "2026-08-24",
-      "endDate": null,
-      "url": "https://iticket.uz/en/events/concerts/love-legend",
-      "source": "iticket.uz"
-    },
-    {
       "title": "Выставка детских рисунков Mehr nima?",
       "titleRu": "Выставка детских рисунков Mehr nima?",
       "category": "exhibition",
@@ -207,7 +196,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Выставка «Поколение Z»",
+      "title": "Exhibition “Generation Z”",
       "titleRu": "Выставка «Поколение Z»",
       "category": "exhibition",
       "venue": "Andakulova galleryТашкент, ул. Батыра Закирова, 7, 1-й этаж",
@@ -218,7 +207,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Выставка Qimmat",
+      "title": "Exhibition Qimmat",
       "titleRu": "Выставка Qimmat",
       "category": "exhibition",
       "venue": "ZanmakonТашкент, ул. Заркайнар, 48",
@@ -229,7 +218,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Выставка «Наше наследие»",
+      "title": "Exhibition \"Our Heritage\"",
       "titleRu": "Выставка «Наше наследие»",
       "category": "exhibition",
       "venue": "Центральный Выставочный зал Академии художеств УзбекистанаТашкент, ул. Шарафа Рашидова, 40",
@@ -306,7 +295,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Творческие мастер-классы в Potterville",
+      "title": "Creative workshops in Potterville",
       "titleRu": "Творческие мастер-классы в Potterville",
       "category": "lecture",
       "venue": "PottervilleТашкент, ул. Лабзак, 12/1",
@@ -328,7 +317,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Выставка «Наше наследие»",
+      "title": "Exhibition \"Our Heritage\"",
       "titleRu": "Выставка «Наше наследие»",
       "category": "exhibition",
       "venue": "Центральный Выставочный зал Академии художеств УзбекистанаТашкент, ул. Шарафа Рашидова, 40",
@@ -405,7 +394,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Творческие мастер-классы в Potterville",
+      "title": "Creative workshops in Potterville",
       "titleRu": "Творческие мастер-классы в Potterville",
       "category": "lecture",
       "venue": "PottervilleТашкент, ул. Лабзак, 12/1",
@@ -438,7 +427,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Игра-тренинг по финансовой грамотности CashFlow",
+      "title": "Financial literacy training game CashFlow",
       "titleRu": "Игра-тренинг по финансовой грамотности CashFlow",
       "category": "lecture",
       "venue": null,
@@ -460,7 +449,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Выставка «Наше наследие»",
+      "title": "Exhibition \"Our Heritage\"",
       "titleRu": "Выставка «Наше наследие»",
       "category": "exhibition",
       "venue": "Центральный Выставочный зал Академии художеств УзбекистанаТашкент, ул. Шарафа Рашидова, 40",
@@ -526,7 +515,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Творческие мастер-классы в Potterville",
+      "title": "Creative workshops in Potterville",
       "titleRu": "Творческие мастер-классы в Potterville",
       "category": "lecture",
       "venue": "PottervilleТашкент, ул. Лабзак, 12/1",
@@ -559,7 +548,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Выставка «Наше наследие»",
+      "title": "Exhibition \"Our Heritage\"",
       "titleRu": "Выставка «Наше наследие»",
       "category": "exhibition",
       "venue": "Центральный Выставочный зал Академии художеств УзбекистанаТашкент, ул. Шарафа Рашидова, 40",
@@ -625,7 +614,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Творческие мастер-классы в Potterville",
+      "title": "Creative workshops in Potterville",
       "titleRu": "Творческие мастер-классы в Potterville",
       "category": "lecture",
       "venue": "PottervilleТашкент, ул. Лабзак, 12/1",
@@ -644,28 +633,6 @@
       "endDate": null,
       "time": "19:00",
       "url": "https://www.afisha.uz/ru/restaurants/2026/07/17/paul-music-evenings",
-      "source": "afisha.uz (calendar)"
-    },
-    {
-      "title": "Спектакль «Ганс и Гретель»",
-      "titleRu": "Спектакль «Ганс и Гретель»",
-      "category": "theatre",
-      "venue": null,
-      "startDate": "2026-08-28",
-      "endDate": null,
-      "time": "18:00",
-      "url": "https://www.afisha.uz/ru/theatres/2026/08/07/gans-i-gretel-silk-route",
-      "source": "afisha.uz (calendar)"
-    },
-    {
-      "title": "Шоу мороженого в Jungle Family Club",
-      "titleRu": "Шоу мороженого в Jungle Family Club",
-      "category": "kids",
-      "venue": "Jungle Family ClubТашкент, Юнусабад-12, 20А",
-      "startDate": "2026-08-28",
-      "endDate": null,
-      "time": "20:00",
-      "url": "https://www.afisha.uz/ru/children/2026/08/07/shou-morozhenogo-jungle-family-club",
       "source": "afisha.uz (calendar)"
     },
     {
@@ -679,6 +646,17 @@
       "source": "iticket.uz"
     },
     {
+      "title": "Ice cream show at Jungle Family Club",
+      "titleRu": "Шоу мороженого в Jungle Family Club",
+      "category": "kids",
+      "venue": "Jungle Family ClubТашкент, Юнусабад-12, 20А",
+      "startDate": "2026-08-28",
+      "endDate": null,
+      "time": "20:00",
+      "url": "https://www.afisha.uz/ru/children/2026/08/07/shou-morozhenogo-jungle-family-club",
+      "source": "afisha.uz (calendar)"
+    },
+    {
       "title": "Выставка детских рисунков Mehr nima?",
       "titleRu": "Выставка детских рисунков Mehr nima?",
       "category": "exhibition",
@@ -690,7 +668,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Выставка «Наше наследие»",
+      "title": "Exhibition \"Our Heritage\"",
       "titleRu": "Выставка «Наше наследие»",
       "category": "exhibition",
       "venue": "Центральный Выставочный зал Академии художеств УзбекистанаТашкент, ул. Шарафа Рашидова, 40",
@@ -767,7 +745,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Творческие мастер-классы в Potterville",
+      "title": "Creative workshops in Potterville",
       "titleRu": "Творческие мастер-классы в Potterville",
       "category": "lecture",
       "venue": "PottervilleТашкент, ул. Лабзак, 12/1",
@@ -778,7 +756,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Спектакль «Ганс и Гретель»",
+      "title": "Performance \"Hans and Gretel\"",
       "titleRu": "Спектакль «Ганс и Гретель»",
       "category": "theatre",
       "venue": null,
@@ -789,7 +767,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Armenian Night: армянская вечеринка",
+      "title": "Armenian Night: Armenian party",
       "titleRu": "Armenian Night: армянская вечеринка",
       "category": "concert",
       "venue": "РаспутинТашкент, ул. Таллимаржон, 135",
@@ -822,7 +800,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Спектакль «Как Колобок ума-разума набирался»",
+      "title": "Performance “How Kolobok gained wisdom”",
       "titleRu": "Спектакль «Как Колобок ума-разума набирался»",
       "category": "theatre",
       "venue": null,
@@ -833,7 +811,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Экологический фестиваль Yashil Uyim",
+      "title": "Ecological festival Yashil Uyim",
       "titleRu": "Экологический фестиваль Yashil Uyim",
       "category": "festival",
       "venue": "Alpine LandТашкент, ул. Темура Малика, 66",
@@ -844,7 +822,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Мастер-классы от Your time your life",
+      "title": "Master classes from Your time your life",
       "titleRu": "Мастер-классы от Your time your life",
       "category": "lecture",
       "venue": "Your time your lifeТашкент, пер. Пушкина, 7",
@@ -876,7 +854,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Выставка «Наше наследие»",
+      "title": "Exhibition \"Our Heritage\"",
       "titleRu": "Выставка «Наше наследие»",
       "category": "exhibition",
       "venue": "Центральный Выставочный зал Академии художеств УзбекистанаТашкент, ул. Шарафа Рашидова, 40",
@@ -942,7 +920,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Творческие мастер-классы в Potterville",
+      "title": "Creative workshops in Potterville",
       "titleRu": "Творческие мастер-классы в Potterville",
       "category": "lecture",
       "venue": "PottervilleТашкент, ул. Лабзак, 12/1",
@@ -953,7 +931,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Игра-тренинг по финансовой грамотности CashFlow",
+      "title": "Financial literacy training game CashFlow",
       "titleRu": "Игра-тренинг по финансовой грамотности CashFlow",
       "category": "lecture",
       "venue": null,
@@ -964,7 +942,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Спектакль «Как Колобок ума-разума набирался»",
+      "title": "Performance “How Kolobok gained wisdom”",
       "titleRu": "Спектакль «Как Колобок ума-разума набирался»",
       "category": "theatre",
       "venue": null,
@@ -975,7 +953,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Мастер-классы от Your time your life",
+      "title": "Master classes from Your time your life",
       "titleRu": "Мастер-классы от Your time your life",
       "category": "lecture",
       "venue": "Your time your lifeТашкент, пер. Пушкина, 7",
@@ -997,7 +975,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Детский мастер-класс по приготовлению роллов",
+      "title": "Children's master class on making rolls",
       "titleRu": "Детский мастер-класс по приготовлению роллов",
       "category": "kids",
       "venue": "YaponamamaТашкент, ул. Бодомзор, 78",
@@ -1008,7 +986,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Dino Party в Jungle Family Club",
+      "title": "Dino Party at Jungle Family Club",
       "titleRu": "Dino Party в Jungle Family Club",
       "category": "kids",
       "venue": "Jungle Family ClubТашкент, Юнусабад-12, 20А",
@@ -1019,7 +997,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Детские шоу и мастер-классы в ресторане Tanuki",
+      "title": "Children's shows and master classes at the Tanuki restaurant",
       "titleRu": "Детские шоу и мастер-классы в ресторане Tanuki",
       "category": "kids",
       "venue": "ТанукиТашкент, ул. Олмазор, 2А",
@@ -1030,7 +1008,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Игра-тренинг Flixa в Founders cafe",
+      "title": "Flixa training game in Founders cafe",
       "titleRu": "Игра-тренинг Flixa в Founders cafe",
       "category": "lecture",
       "venue": null,
@@ -1073,7 +1051,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Шоу мыльных пузырей в Jungle Family Club",
+      "title": "Soap bubble show at Jungle Family Club",
       "titleRu": "Шоу мыльных пузырей в Jungle Family Club",
       "category": "kids",
       "venue": "Jungle Family ClubТашкент, Юнусабад-12, 20А",
@@ -1150,7 +1128,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Творческие мастер-классы в Potterville",
+      "title": "Creative workshops in Potterville",
       "titleRu": "Творческие мастер-классы в Potterville",
       "category": "lecture",
       "venue": "PottervilleТашкент, ул. Лабзак, 12/1",
@@ -1161,7 +1139,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Фестиваль электронной музыки MUZONE Fest",
+      "title": "Electronic music festival MUZONE Fest",
       "titleRu": "Фестиваль электронной музыки MUZONE Fest",
       "category": "concert",
       "venue": null,
@@ -1204,7 +1182,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Фестиваль электронной музыки MUZONE Fest",
+      "title": "Electronic music festival MUZONE Fest",
       "titleRu": "Фестиваль электронной музыки MUZONE Fest",
       "category": "concert",
       "venue": null,
@@ -1237,7 +1215,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Костюмированный фестиваль сап-сёрфинга Anhor Sup Fest 2026",
+      "title": "Costume SUP festival Anhor Sup Fest 2026",
       "titleRu": "Костюмированный фестиваль сап-сёрфинга Anhor Sup Fest 2026",
       "category": "festival",
       "venue": "Гребная база «Анхор»Ташкент, ул. Зульфияханум, 17",
@@ -1290,7 +1268,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Фестиваль электронной музыки MUZONE Fest",
+      "title": "Electronic music festival MUZONE Fest",
       "titleRu": "Фестиваль электронной музыки MUZONE Fest",
       "category": "concert",
       "venue": null,
