@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-24T18:31:50.649079Z",
+  "generatedAt": "2026-08-24T19:22:54.695752Z",
   "results": [
     {
       "url": "https://www.goal.com/en/match/girona-vs-arsenal/__LS8d9Oc6I1wXn9g8956",
@@ -1162,6 +1162,19 @@
         }
       ],
       "competition": "SA"
+    },
+    {
+      "url": "https://www.goal.com/en/match/osasuna-vs-levante/CpYIEb11g1Wd2GLkqpUEp",
+      "date": "2026-08-24",
+      "home": "Osasuna",
+      "away": "Levante",
+      "htHome": 0,
+      "htAway": 0,
+      "ftHome": 0,
+      "ftAway": 0,
+      "homeGoals": [],
+      "awayGoals": [],
+      "competition": "PD"
     }
   ],
   "scorerParseRetryCounts": {}
