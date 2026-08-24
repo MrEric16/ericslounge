@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-24T20:58:35.878669Z",
+  "generatedAt": "2026-08-24T21:34:57.671197Z",
   "standings": {
     "PL": [
       {
@@ -1106,6 +1106,37 @@
       ],
       "results": [
         {
+          "utcDate": "2026-08-24T19:00:00Z",
+          "status": "FINISHED",
+          "matchday": 1,
+          "homeTeam": {
+            "id": 63,
+            "name": "Fulham FC",
+            "shortName": "Fulham"
+          },
+          "awayTeam": {
+            "id": 61,
+            "name": "Chelsea FC",
+            "shortName": "Chelsea"
+          },
+          "score": {
+            "winner": "AWAY_TEAM",
+            "duration": "REGULAR",
+            "fullTime": {
+              "home": 2,
+              "away": 3
+            },
+            "halfTime": {
+              "home": 1,
+              "away": 2
+            }
+          },
+          "competition": {
+            "name": "Premier League"
+          },
+          "venue": null
+        },
+        {
           "utcDate": "2026-08-23T15:30:00Z",
           "status": "FINISHED",
           "matchday": 1,
@@ -1514,6 +1545,37 @@
         }
       ],
       "results": [
+        {
+          "utcDate": "2026-08-24T19:30:00Z",
+          "status": "FINISHED",
+          "matchday": 2,
+          "homeTeam": {
+            "id": 84,
+            "name": "Málaga CF",
+            "shortName": "Málaga"
+          },
+          "awayTeam": {
+            "id": 560,
+            "name": "RC Deportivo La Coruña",
+            "shortName": "Deportivo"
+          },
+          "score": {
+            "winner": "DRAW",
+            "duration": "REGULAR",
+            "fullTime": {
+              "home": 1,
+              "away": 1
+            },
+            "halfTime": {
+              "home": 1,
+              "away": 1
+            }
+          },
+          "competition": {
+            "name": "Primera Division"
+          },
+          "venue": null
+        },
         {
           "utcDate": "2026-08-24T17:30:00Z",
           "status": "FINISHED",
@@ -1941,37 +2003,6 @@
             "halfTime": {
               "home": 0,
               "away": 1
-            }
-          },
-          "competition": {
-            "name": "Primera Division"
-          },
-          "venue": null
-        },
-        {
-          "utcDate": "2026-08-15T17:30:00Z",
-          "status": "FINISHED",
-          "matchday": 1,
-          "homeTeam": {
-            "id": 263,
-            "name": "Deportivo Alavés",
-            "shortName": "Alavés"
-          },
-          "awayTeam": {
-            "id": 82,
-            "name": "Getafe CF",
-            "shortName": "Getafe"
-          },
-          "score": {
-            "winner": "HOME_TEAM",
-            "duration": "REGULAR",
-            "fullTime": {
-              "home": 3,
-              "away": 0
-            },
-            "halfTime": {
-              "home": 0,
-              "away": 0
             }
           },
           "competition": {
