@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-24T17:58:33.674041Z",
+  "generatedAt": "2026-08-24T18:49:00.763254Z",
   "standings": {
     "PL": [
       {
@@ -477,6 +477,16 @@
         "pts": 3
       },
       {
+        "name": "Lazio",
+        "pld": 1,
+        "w": 1,
+        "d": 0,
+        "l": 0,
+        "gf": 1,
+        "ga": 0,
+        "pts": 3
+      },
+      {
         "name": "Como 1907",
         "pld": 1,
         "w": 0,
@@ -494,26 +504,6 @@
         "l": 0,
         "gf": 1,
         "ga": 1,
-        "pts": 1
-      },
-      {
-        "name": "Bologna",
-        "pld": 1,
-        "w": 0,
-        "d": 1,
-        "l": 0,
-        "gf": 0,
-        "ga": 0,
-        "pts": 1
-      },
-      {
-        "name": "Lazio",
-        "pld": 1,
-        "w": 0,
-        "d": 1,
-        "l": 0,
-        "gf": 0,
-        "ga": 0,
         "pts": 1
       },
       {
@@ -554,6 +544,16 @@
         "l": 1,
         "gf": 1,
         "ga": 2,
+        "pts": 0
+      },
+      {
+        "name": "Bologna",
+        "pld": 1,
+        "w": 0,
+        "d": 0,
+        "l": 1,
+        "gf": 0,
+        "ga": 1,
         "pts": 0
       },
       {
@@ -1898,6 +1898,37 @@
       ],
       "results": [
         {
+          "utcDate": "2026-08-24T16:30:00Z",
+          "status": "FINISHED",
+          "matchday": 1,
+          "homeTeam": {
+            "id": 103,
+            "name": "Bologna FC 1909",
+            "shortName": "Bologna"
+          },
+          "awayTeam": {
+            "id": 110,
+            "name": "SS Lazio",
+            "shortName": "Lazio"
+          },
+          "score": {
+            "winner": "AWAY_TEAM",
+            "duration": "REGULAR",
+            "fullTime": {
+              "home": 0,
+              "away": 1
+            },
+            "halfTime": {
+              "home": 0,
+              "away": 0
+            }
+          },
+          "competition": {
+            "name": "Serie A"
+          },
+          "venue": null
+        },
+        {
           "utcDate": "2026-08-23T18:45:00Z",
           "status": "FINISHED",
           "matchday": 1,
@@ -3194,7 +3225,37 @@
       ]
     }
   },
-  "arsenalNextFixture": null,
+  "arsenalNextFixture": {
+    "utcDate": "2026-08-31T19:00:00Z",
+    "status": "TIMED",
+    "matchday": 2,
+    "homeTeam": {
+      "id": 58,
+      "name": "Aston Villa FC",
+      "shortName": "Aston Villa"
+    },
+    "awayTeam": {
+      "id": 57,
+      "name": "Arsenal FC",
+      "shortName": "Arsenal"
+    },
+    "score": {
+      "winner": null,
+      "duration": "REGULAR",
+      "fullTime": {
+        "home": null,
+        "away": null
+      },
+      "halfTime": {
+        "home": null,
+        "away": null
+      }
+    },
+    "competition": {
+      "name": "Premier League"
+    },
+    "venue": null
+  },
   "arsenalFinishedMatches": [
     {
       "utcDate": "2026-08-21T19:00:00Z",
