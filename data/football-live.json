@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-24T16:32:29.717429Z",
+  "generatedAt": "2026-08-24T17:27:23.583190Z",
   "standings": {
     "PL": [
       {
@@ -1895,37 +1895,6 @@
     },
     "SA": {
       "fixtures": [
-        {
-          "utcDate": "2026-08-24T16:30:00Z",
-          "status": "TIMED",
-          "matchday": 1,
-          "homeTeam": {
-            "id": 103,
-            "name": "Bologna FC 1909",
-            "shortName": "Bologna"
-          },
-          "awayTeam": {
-            "id": 110,
-            "name": "SS Lazio",
-            "shortName": "Lazio"
-          },
-          "score": {
-            "winner": null,
-            "duration": "REGULAR",
-            "fullTime": {
-              "home": null,
-              "away": null
-            },
-            "halfTime": {
-              "home": null,
-              "away": null
-            }
-          },
-          "competition": {
-            "name": "Serie A"
-          },
-          "venue": null
-        },
         {
           "utcDate": "2026-08-24T18:45:00Z",
           "status": "TIMED",
