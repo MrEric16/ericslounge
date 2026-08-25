@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-25T05:58:44.149620Z",
+  "generatedAt": "2026-08-25T06:57:19.502734Z",
   "standings": {
     "PL": [
       {
@@ -1598,8 +1598,8 @@
               "away": 0
             },
             "halfTime": {
-              "home": null,
-              "away": null
+              "home": 0,
+              "away": 0
             }
           },
           "competition": {
@@ -3210,14 +3210,14 @@
           "status": "FINISHED",
           "matchday": 1,
           "homeTeam": {
-            "id": 524,
-            "name": "Paris Saint-Germain FC",
-            "shortName": "PSG"
-          },
-          "awayTeam": {
             "id": 529,
             "name": "Stade Rennais FC 1901",
             "shortName": "Stade Rennais"
+          },
+          "awayTeam": {
+            "id": 524,
+            "name": "Paris Saint-Germain FC",
+            "shortName": "PSG"
           },
           "score": {
             "winner": "DRAW",
