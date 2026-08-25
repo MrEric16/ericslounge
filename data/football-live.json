@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-25T18:41:46.762463Z",
+  "generatedAt": "2026-08-25T19:28:04.720316Z",
   "standings": {
     "PL": [
       {
@@ -235,6 +235,16 @@
         "pts": 4
       },
       {
+        "name": "Real Betis",
+        "pld": 2,
+        "w": 1,
+        "d": 1,
+        "l": 0,
+        "gf": 1,
+        "ga": 0,
+        "pts": 4
+      },
+      {
         "name": "Barça",
         "pld": 1,
         "w": 1,
@@ -262,16 +272,6 @@
         "l": 0,
         "gf": 2,
         "ga": 1,
-        "pts": 3
-      },
-      {
-        "name": "Real Betis",
-        "pld": 1,
-        "w": 1,
-        "d": 0,
-        "l": 0,
-        "gf": 1,
-        "ga": 0,
         "pts": 3
       },
       {
@@ -305,6 +305,16 @@
         "pts": 2
       },
       {
+        "name": "Valencia",
+        "pld": 2,
+        "w": 0,
+        "d": 2,
+        "l": 0,
+        "gf": 0,
+        "ga": 0,
+        "pts": 2
+      },
+      {
         "name": "Osasuna",
         "pld": 1,
         "w": 0,
@@ -316,16 +326,6 @@
       },
       {
         "name": "Celta",
-        "pld": 1,
-        "w": 0,
-        "d": 1,
-        "l": 0,
-        "gf": 0,
-        "ga": 0,
-        "pts": 1
-      },
-      {
-        "name": "Valencia",
         "pld": 1,
         "w": 0,
         "d": 1,
@@ -1419,37 +1419,6 @@
     },
     "PD": {
       "fixtures": [
-        {
-          "utcDate": "2026-08-25T19:00:00Z",
-          "status": "TIMED",
-          "matchday": 1,
-          "homeTeam": {
-            "id": 95,
-            "name": "Valencia CF",
-            "shortName": "Valencia"
-          },
-          "awayTeam": {
-            "id": 90,
-            "name": "Real Betis Balompié",
-            "shortName": "Real Betis"
-          },
-          "score": {
-            "winner": null,
-            "duration": "REGULAR",
-            "fullTime": {
-              "home": null,
-              "away": null
-            },
-            "halfTime": {
-              "home": null,
-              "away": null
-            }
-          },
-          "competition": {
-            "name": "Primera Division"
-          },
-          "venue": null
-        },
         {
           "utcDate": "2026-08-26T19:00:00Z",
           "status": "TIMED",
