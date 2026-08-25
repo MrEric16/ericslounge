@@ -5,7 +5,7 @@
 [ufc-fetch]   table preceded by/captioned: 'number of events by year'
 [ufc-fetch]   preserved 14 previously-recorded result(s) across this run
 [ufc-fetch] fetching ufc.com/events for Main Card start times (upcoming events only)...
-[ufc-fetch] ufc.com: captured 1977 chars of body text
+[ufc-fetch] ufc.com: captured 1985 chars of body text
 [ufc-fetch] ufc.com: text around first 'Main Card' match: 'ious\nNext\nNURMAGOMEDOV VS SONG\nSat, Aug 29 / 10:00 AM UTC / Main Card\nOriental S'
 [ufc-fetch] ufc.com: found 8 dated Main Card time(s): [('Aug', 29, 10, 0), ('Sep', 5, 19, 0), ('Sep', 12, 21, 0), ('Sep', 20, 1, 0), ('Sep', 26, 22, 0), ('Oct', 4, 1, 0), ('Oct', 18, 0, 0), ('Oct', 24, 18, 0)]
 [ufc-fetch] attached a confirmed start time to 8/13 upcoming events
