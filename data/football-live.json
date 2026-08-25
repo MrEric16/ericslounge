@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-25T05:28:08.485195Z",
+  "generatedAt": "2026-08-25T05:58:44.149620Z",
   "standings": {
     "PL": [
       {
@@ -1598,8 +1598,8 @@
               "away": 0
             },
             "halfTime": {
-              "home": 0,
-              "away": 0
+              "home": null,
+              "away": null
             }
           },
           "competition": {
