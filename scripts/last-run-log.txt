@@ -15,30 +15,64 @@
 [scrape]   TARGET CHECK 'our-heritage': FOUND in raw hrefs: ['/ru/exhibitions/2026/07/31/our-heritage']
 [scrape]   TARGET CHECK 'photo-chronicle-xx': NOT FOUND in any href on the rendered page
 [scrape] calendar discovery complete: 64 unique event URLs to check
+[scrape] Translation failed for 'Музыкальные вечера в PAUL': Музыкальные вечера в PAUL --> No translation was found using the current translator. Try another translator?
 [scrape] Translation failed for 'Выставка детских рисунков  «Мехир нма?»': Выставка детских рисунков  «Мехир нма?» --> No translation was found using the current translator. Try another translator?
-[scrape]   TARGET DETAIL CHECK https://www.afisha.uz/ru/exhibitions/2026/07/31/our-heritage: HTTP 200, 136981 chars received, h1 found=True, title='Выставка «Наше наследие»'
+[scrape]   TARGET DETAIL CHECK https://www.afisha.uz/ru/exhibitions/2026/07/31/our-heritage: HTTP 200, 136938 chars received, h1 found=True, title='Выставка «Наше наследие»'
 [scrape]   TARGET PASSED ALL CHECKS: https://www.afisha.uz/ru/exhibitions/2026/07/31/our-heritage title='Выставка «Наше наследие»' occurrences=[(datetime.datetime(2026, 7, 31, 0, 0), None), (datetime.datetime(2026, 8, 1, 0, 0), None), (datetime.datetime(2026, 8, 2, 0, 0), None), (datetime.datetime(2026, 8, 3, 0, 0), None), (datetime.datetime(2026, 8, 4, 0, 0), None), (datetime.datetime(2026, 8, 5, 0, 0), None), (datetime.datetime(2026, 8, 6, 0, 0), None), (datetime.datetime(2026, 8, 7, 0, 0), None), (datetime.datetime(2026, 8, 8, 0, 0), None), (datetime.datetime(2026, 8, 9, 0, 0), None), (datetime.datetime(2026, 8, 10, 0, 0), None), (datetime.datetime(2026, 8, 11, 0, 0), None), (datetime.datetime(2026, 8, 12, 0, 0), None), (datetime.datetime(2026, 8, 13, 0, 0), None), (datetime.datetime(2026, 8, 14, 0, 0), None), (datetime.datetime(2026, 8, 15, 0, 0), None), (datetime.datetime(2026, 8, 16, 0, 0), None), (datetime.datetime(2026, 8, 17, 0, 0), None), (datetime.datetime(2026, 8, 18, 0, 0), None), (datetime.datetime(2026, 8, 19, 0, 0), None), (datetime.datetime(2026, 8, 20, 0, 0), None), (datetime.datetime(2026, 8, 21, 0, 0), None), (datetime.datetime(2026, 8, 22, 0, 0), None), (datetime.datetime(2026, 8, 23, 0, 0), None), (datetime.datetime(2026, 8, 24, 0, 0), None), (datetime.datetime(2026, 8, 25, 0, 0), None), (datetime.datetime(2026, 8, 26, 0, 0), None), (datetime.datetime(2026, 8, 27, 0, 0), None), (datetime.datetime(2026, 8, 28, 0, 0), None), (datetime.datetime(2026, 8, 29, 0, 0), None), (datetime.datetime(2026, 8, 30, 0, 0), None)]
+[scrape] Translation failed for 'Выставка «Наше наследие»': Выставка «Наше наследие» --> No translation was found using the current translator. Try another translator?
 [scrape]   TARGET APPENDED 5 entries to events[] for https://www.afisha.uz/ru/exhibitions/2026/07/31/our-heritage, events[] length now 18
+[scrape] Translation failed for 'Мастер-класс по приготовлению пиццы в Ju': Мастер-класс по приготовлению пиццы в Jungle Family Club --> No translation was found using the current translator. Try another translator?
+[scrape] Translation failed for 'Театрально-цирковое шоу Nova Circus': Театрально-цирковое шоу Nova Circus --> No translation was found using the current translator. Try another translator?
+[scrape] Translation failed for 'Музыкальный фонтан в парке Magic City': Музыкальный фонтан в парке Magic City --> No translation was found using the current translator. Try another translator?
+[scrape] Translation failed for 'Музыкальный фонтан в парке Tashkent City': Музыкальный фонтан в парке Tashkent City --> No translation was found using the current translator. Try another translator?
+[scrape] Translation failed for 'Ярмарка Uzbegim Market в парке Tashkent ': Ярмарка Uzbegim Market в парке Tashkent City --> No translation was found using the current translator. Try another translator?
+[scrape] Translation failed for 'Пляж Palma & Chilla в парке Milliy Bog’': Пляж Palma & Chilla в парке Milliy Bog’ --> No translation was found using the current translator. Try another translator?
 [scrape]   DEBUG: dumped raw HTML for madagascar page, 180061 chars
+[scrape] Translation failed for 'Спектакль «Мадагаскар» в парке Tashkent ': Спектакль «Мадагаскар» в парке Tashkent City --> No translation was found using the current translator. Try another translator?
+[scrape] Translation failed for 'Игра-тренинг по финансовой грамотности C': Игра-тренинг по финансовой грамотности CashFlow --> No translation was found using the current translator. Try another translator?
+[scrape] Translation failed for 'Творческие мастер-классы в Potterville': Творческие мастер-классы в Potterville --> No translation was found using the current translator. Try another translator?
+[scrape] Translation failed for 'Лекция о Ходже Ахраре и экономике старог': Лекция о Ходже Ахраре и экономике старого Ташкента --> No translation was found using the current translator. Try another translator?
 [scrape] Translation failed for 'Итальянская ярмарка': Итальянская ярмарка --> No translation was found using the current translator. Try another translator?
+[scrape] Translation failed for 'Спектакль «Ганс и Гретель»': Спектакль «Ганс и Гретель» --> No translation was found using the current translator. Try another translator?
 [scrape] Translation failed for 'Шоу мороженого в Jungle Family Club': Шоу мороженого в Jungle Family Club --> No translation was found using the current translator. Try another translator?
 [scrape] Translation failed for 'Armenian Night: армянская вечеринка': Armenian Night: армянская вечеринка --> No translation was found using the current translator. Try another translator?
 [scrape] Translation failed for 'Концерт саундтреков Turkish Night': Концерт саундтреков Turkish Night --> No translation was found using the current translator. Try another translator?
 [scrape] Translation failed for 'Спектакль «Черновики и шедевры»': Спектакль «Черновики и шедевры» --> No translation was found using the current translator. Try another translator?
+[scrape] Translation failed for 'Спектакль «Как Колобок ума-разума набира': Спектакль «Как Колобок ума-разума набирался» --> No translation was found using the current translator. Try another translator?
+[scrape] Translation failed for 'Экологический фестиваль Yashil Uyim': Экологический фестиваль Yashil Uyim --> No translation was found using the current translator. Try another translator?
 [scrape] Translation failed for 'Женский арт-релакс «Лилии в японском сти': Женский арт-релакс «Лилии в японском стиле» в Human House --> No translation was found using the current translator. Try another translator?
+[scrape] Translation failed for 'Лекция «Женщина и война»': Лекция «Женщина и война» --> No translation was found using the current translator. Try another translator?
 [scrape] Translation failed for 'Мастер-классы от Your time your life': Мастер-классы от Your time your life --> No translation was found using the current translator. Try another translator?
+[scrape] Translation failed for 'Спектакль «Колыбельная для Белоснежки»': Спектакль «Колыбельная для Белоснежки» --> No translation was found using the current translator. Try another translator?
+[scrape] Translation failed for 'Детский мастер-класс по приготовлению ро': Детский мастер-класс по приготовлению роллов --> No translation was found using the current translator. Try another translator?
+[scrape] Translation failed for 'Dino Party в Jungle Family Club': Dino Party в Jungle Family Club --> No translation was found using the current translator. Try another translator?
+[scrape] Translation failed for 'Детские шоу и мастер-классы в ресторане ': Детские шоу и мастер-классы в ресторане Tanuki --> No translation was found using the current translator. Try another translator?
+[scrape] Translation failed for 'Лекция о концептуальном искусстве: Ай Вэ': Лекция о концептуальном искусстве: Ай Вэйвэй --> No translation was found using the current translator. Try another translator?
+[scrape] Translation failed for 'Игра-тренинг Flixa в Founders cafe': Игра-тренинг Flixa в Founders cafe --> No translation was found using the current translator. Try another translator?
+[scrape] Translation failed for 'Творческие занятия в Toshkent Gullari Sc': Творческие занятия в Toshkent Gullari School --> No translation was found using the current translator. Try another translator?
+[scrape] Translation failed for 'Фестиваль электронной музыки MUZONE Fest': Фестиваль электронной музыки MUZONE Fest --> No translation was found using the current translator. Try another translator?
+[scrape] Translation failed for 'Шоу мыльных пузырей в Jungle Family Club': Шоу мыльных пузырей в Jungle Family Club --> No translation was found using the current translator. Try another translator?
+[scrape] Translation failed for 'Детский день в бассейне Sinbad': Детский день в бассейне Sinbad --> No translation was found using the current translator. Try another translator?
+[scrape] Translation failed for 'Праздничное мероприятие к 35-летию Дня н': Праздничное мероприятие к 35-летию Дня независимости Узбекистана --> No translation was found using the current translator. Try another translator?
+[scrape] Translation failed for 'Концерт к 35-летию Независимости Узбекис': Концерт к 35-летию Независимости Узбекистана --> No translation was found using the current translator. Try another translator?
+[scrape] Translation failed for 'Премьера спектакля «Синий карлик, или Же': Премьера спектакля «Синий карлик, или Жемчужное сердце» --> No translation was found using the current translator. Try another translator?
 [scrape] Translation failed for 'Костюмированный фестиваль сап-сёрфинга A': Костюмированный фестиваль сап-сёрфинга Anhor Sup Fest 2026 --> No translation was found using the current translator. Try another translator?
+[scrape] Translation failed for 'Silk Road Expo HUAHE 2026': Silk Road Expo HUAHE 2026 --> No translation was found using the current translator. Try another translator?
+[scrape] Translation failed for 'Осенний фестиваль локальных брендов TEPL': Осенний фестиваль локальных брендов TEPLO AUTUMN FEST --> No translation was found using the current translator. Try another translator?
 [scrape] Translation failed for 'CAITME 2026': CAITME 2026 --> No translation was found using the current translator. Try another translator?
 [scrape] Translation failed for 'Выставка Мохамеда Беншалала': Выставка Мохамеда Беншалала --> No translation was found using the current translator. Try another translator?
 [scrape] Translation failed for 'Выставка Hikmah на открытии CCA Tashkent': Выставка Hikmah на открытии CCA Tashkent --> No translation was found using the current translator. Try another translator?
 [scrape]   'Выставка Hikmah на открытии CCA Tashkent': no dates found in window (no schedule/date-range parsed) -- kept 0 events
 [scrape] Translation failed for 'Art Bazaar': Art Bazaar --> No translation was found using the current translator. Try another translator?
 [scrape]   'Art Bazaar': no dates found in window (no schedule/date-range parsed) -- kept 0 events
+[scrape] Translation failed for 'Uzbekistan Concrete Show 2026': Uzbekistan Concrete Show 2026 --> No translation was found using the current translator. Try another translator?
 [scrape]   'Uzbekistan Concrete Show 2026': no dates found in window (no schedule/date-range parsed) -- kept 0 events
+[scrape] Translation failed for 'ICTWeek Uzbekistan 2026': ICTWeek Uzbekistan 2026 --> No translation was found using the current translator. Try another translator?
 [scrape]   'ICTWeek Uzbekistan 2026': no dates found in window (no schedule/date-range parsed) -- kept 0 events
 [scrape] Translation failed for 'Эстетика многослойности: в Ташкенте откр': Эстетика многослойности: в Ташкенте открылась выставка Бобура Алимходжаева Duality: X-Ray of Memory --> No translation was found using the current translator. Try another translator?
 [scrape]   'Эстетика многослойности: в Ташкенте открылась выставка Бобура Алимходжаева Duality: X-Ray of Memory': no dates found in window (no schedule/date-range parsed) -- kept 0 events
 [scrape]   'Pharma Eurasia & MedTech 2026: в Ташкенте пройдет выставка фармацевтической отрасли': no dates found in window (no schedule/date-range parsed) -- kept 0 events
+[scrape] Translation failed for 'В университете Кимё проходит выставка Ar': В университете Кимё проходит выставка Art Engineering 2026, посвященная экологическим решениям --> No translation was found using the current translator. Try another translator?
 [scrape]   'В университете Кимё проходит выставка Art Engineering 2026, посвященная экологическим решениям': no dates found in window (no schedule/date-range parsed) -- kept 0 events
 [scrape] calendar detail pass complete: 115 events kept from 64 pages checked
 [scrape] special-tracked: FAILED to fetch or failed content check for https://www.afisha.uz/ru/cinema/2026/07/16/kinoprazdnik-v-sredu
@@ -50,5 +84,5 @@
 [scrape] eventbrite.com: 0 events found (dates NOT yet parsed -- see note in script)
 [scrape]   DEDUP: 5 target entries survived Pass 1
 [scrape]   DEDUP: 5 target entries survived Pass 2 (final)
-[scrape] TOTAL before dedup: 135  |  after dedup: 130
+[scrape] TOTAL before dedup: 135  |  after dedup: 133
 [scrape] Wrote data/events-tashkent.json
