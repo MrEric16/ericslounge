@@ -1,5 +1,5 @@
 {
-  "curatedAt": "2026-08-23",
+  "curatedAt": "2026-08-25",
   "note": "Manually curated and vetted by Claude per Mr Eric's strict content rules (free, educational, non-controversial, teen-appropriate, zero tolerance for banned topics). Refreshed on request, not auto-scraped -- this content type requires human judgment per-item, unlike the Tashkent ticketing feed.",
   "dated": [
     {
@@ -206,6 +206,24 @@
       "description": "Artemis II Congressional Space Medal of Honor Ceremon y. Stream on X , Discovery+ , Amazon Prime , YouTube , NASA+",
       "startDate": "2026-08-28",
       "time": "11:00 AM ET",
+      "category": "science",
+      "url": "https://www.nasa.gov/live/"
+    },
+    {
+      "title": "Science briefing on NASA’s Roman Space Telescope. Stream on YouTube 10:30 a.m. | Prelaunch news conference on NASA’s Roman Space Telescope. Stream on YouTube",
+      "org": "NASA",
+      "description": "Science briefing on NASA’s Roman Space Telescope. Stream on YouTube 10:30 a.m. | Prelaunch news conference on NASA’s Roman Space Telescope. Stream on YouTube",
+      "startDate": "2026-08-29",
+      "time": "9:00 AM ET",
+      "category": "science",
+      "url": "https://www.nasa.gov/live/"
+    },
+    {
+      "title": "Launch coverage of NASA’s Roman Space Telescope. Stream on X , Discovery+ , Amazon Prime , YouTube , NASA+",
+      "org": "NASA",
+      "description": "Launch coverage of NASA’s Roman Space Telescope. Stream on X , Discovery+ , Amazon Prime , YouTube , NASA+",
+      "startDate": "2026-08-30",
+      "time": "6:20 AM ET",
       "category": "science",
       "url": "https://www.nasa.gov/live/"
     },
