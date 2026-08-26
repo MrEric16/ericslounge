@@ -134,21 +134,24 @@
 
   /* Uzbekistan National Day 2026 -- one-off, time-triggered (not the usual whole-day
      SEASONAL_THEMES mechanism -- see NATIONAL_DAY_WINDOW and applySeasonalTheme() in the
-     script), since this one needed an exact hour rather than a calendar date. "Card
-     Accents" variant, picked from 5 options shown for review (2026-08-26 revision --
-     exact flag hexes, header carries the actual flag as its background, page-wide azure
-     tint, every tile gets a flag-blue top accent). Runs 28 Aug 2026 18:00 Tashkent through
-     2 Sept 2026 18:00 Tashkent, then reverts on its own -- no manual step needed to turn
-     it back off. */
+     script), since this one needed an exact hour rather than a calendar date. 2026-08-26
+     second revision -- exact hexes confirmed against the official flag image (Blue
+     #0072CE, Red #DA291C, White #FFFFFF, Green #43B02A), header now renders the actual
+     flag (three equal blue/white/green bands with thin red fimbriations, plus the
+     crescent-and-12-stars emblem in the canton -- see .flag-emblem markup in <header>,
+     shown only while this theme is active), and tiles are grouped into four categories
+     each carrying one of the four flag colors as its top accent, rather than one color
+     for everything. Runs 28 Aug 2026 18:00 Tashkent through 2 Sept 2026 18:00 Tashkent,
+     then reverts on its own -- no manual step needed to turn it back off. */
   body.theme-nationalday:not(.dark-mode){
     --cream:#EAF2FE; --cream-2:#D6E6FD; --card:#FFFFFF;
-    --coral:#3081F7; --coral-dark:#1D5FC7; --gold:#EE162E; --teal:#1EB53A; --line:#C7DBFB;
+    --coral:#0072CE; --coral-dark:#005092; --gold:#DA291C; --teal:#43B02A; --line:#C7DBFB;
     --board-bg:rgba(0,0,0,.55);
   }
   body.theme-nationalday:not(.dark-mode) header{
     position:relative;
     background-image:
-      linear-gradient(180deg, #3081F7 0%, #3081F7 40%, #FFFFFF 40%, #FFFFFF 46%, #EE162E 46%, #EE162E 52%, #FFFFFF 52%, #FFFFFF 58%, #1EB53A 58%, #1EB53A 100%);
+      linear-gradient(180deg, #0072CE 0%, #0072CE 32%, #DA291C 32%, #DA291C 34%, #FFFFFF 34%, #FFFFFF 66%, #DA291C 66%, #DA291C 68%, #43B02A 68%, #43B02A 100%);
     background-size:100% 100%;
   }
   body.theme-nationalday:not(.dark-mode) header::before{
@@ -156,33 +159,55 @@
   }
   body.theme-nationalday:not(.dark-mode) header,
   body.theme-nationalday:not(.dark-mode) header *{
-    color:#FFFFFF;
-    text-shadow:0 1px 3px rgba(0,0,0,.35);
+    color:#0B2540;
+    text-shadow:0 1px 2px rgba(255,255,255,.55);
   }
   body.theme-nationalday:not(.dark-mode) .aurora-layer{
     opacity:0;
   }
+  .flag-emblem{ display:none; }
+  body.theme-nationalday:not(.dark-mode) .flag-emblem{
+    display:block; position:absolute; top:12px; left:22px; width:70px; height:34px; z-index:2;
+  }
+  .flag-crescent{
+    position:absolute; top:2px; left:0; width:26px; height:26px; border-radius:50%; background:#FFFFFF;
+  }
+  .flag-crescent::after{
+    content:''; position:absolute; top:-2px; left:7px; width:24px; height:24px; border-radius:50%; background:#0072CE;
+  }
+  .flag-stars{ position:absolute; top:0; left:32px; display:flex; flex-direction:column; gap:2px; }
+  .flag-stars .star-row{ display:flex; gap:4px; line-height:1; }
+  .flag-stars .star-row.r1{ padding-left:8px; }
+  .flag-stars .star-row.r2{ padding-left:4px; }
+  .flag-stars .star-row span{ color:#FFFFFF; font-size:7px; text-shadow:none; }
   body.theme-nationalday:not(.dark-mode) .fac-tile,
   body.theme-nationalday:not(.dark-mode) .sport-hub-tile,
+  body.theme-nationalday:not(.dark-mode) .sports-tile,
+  body.theme-nationalday:not(.dark-mode) .sports-card{
+    box-shadow:inset 0 3px 0 0 #0072CE;
+  }
   body.theme-nationalday:not(.dark-mode) .goodnews-tile,
+  body.theme-nationalday:not(.dark-mode) .watch-tile,
+  body.theme-nationalday:not(.dark-mode) .watch-card,
+  body.theme-nationalday:not(.dark-mode) .otd-card{
+    box-shadow:inset 0 3px 0 0 #DA291C;
+  }
   body.theme-nationalday:not(.dark-mode) .books-tile,
   body.theme-nationalday:not(.dark-mode) .mindtemple-tile,
   body.theme-nationalday:not(.dark-mode) .explore-tile,
   body.theme-nationalday:not(.dark-mode) .explore-card,
-  body.theme-nationalday:not(.dark-mode) .page-result,
-  body.theme-nationalday:not(.dark-mode) .watch-tile,
-  body.theme-nationalday:not(.dark-mode) .watch-card,
-  body.theme-nationalday:not(.dark-mode) .sports-tile,
-  body.theme-nationalday:not(.dark-mode) .sports-card,
-  body.theme-nationalday:not(.dark-mode) .otd-card,
-  body.theme-nationalday:not(.dark-mode) .sotw-card,
+  body.theme-nationalday:not(.dark-mode) .page-result{
+    box-shadow:inset 0 3px 0 0 #FFFFFF, inset 0 0 0 1px #C7DBFB;
+  }
   body.theme-nationalday:not(.dark-mode) .bday-tile-card,
   body.theme-nationalday:not(.dark-mode) .random-tile,
   body.theme-nationalday:not(.dark-mode) .rec-item,
   body.theme-nationalday:not(.dark-mode) .empty-card,
-  body.theme-nationalday:not(.dark-mode) .photo-tile{
-    box-shadow:inset 0 3px 0 0 #3081F7;
+  body.theme-nationalday:not(.dark-mode) .photo-tile,
+  body.theme-nationalday:not(.dark-mode) .sotw-card{
+    box-shadow:inset 0 3px 0 0 #43B02A;
   }
+
 
   /* ---------- User-chosen themes ----------
      Same pattern as seasonal themes above -- only CSS custom properties change, so every
@@ -2789,6 +2814,14 @@
 <header>
   <div class="aurora-layer" aria-hidden="true"></div>
   <div id="weatherOverlay" aria-hidden="true"></div>
+  <div class="flag-emblem" aria-hidden="true">
+    <div class="flag-crescent"></div>
+    <div class="flag-stars">
+      <div class="star-row r1"><span>&#9733;</span><span>&#9733;</span><span>&#9733;</span></div>
+      <div class="star-row r2"><span>&#9733;</span><span>&#9733;</span><span>&#9733;</span><span>&#9733;</span></div>
+      <div class="star-row r3"><span>&#9733;</span><span>&#9733;</span><span>&#9733;</span><span>&#9733;</span><span>&#9733;</span></div>
+    </div>
+  </div>
   <div class="wrap masthead">
     <div class="title-row" id="titleLink" title="Mr Eric's Lounge">
       <div class="tile-logo" id="siteLogoMark">
