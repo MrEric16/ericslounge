@@ -22,7 +22,6 @@
 [scrape] Translation failed for 'Выставка «Наше наследие»': Выставка «Наше наследие» --> No translation was found using the current translator. Try another translator?
 [scrape]   TARGET APPENDED 5 entries to events[] for https://www.afisha.uz/ru/exhibitions/2026/07/31/our-heritage, events[] length now 18
 [scrape] Translation failed for 'Мастер-класс по приготовлению пиццы в Ju': Мастер-класс по приготовлению пиццы в Jungle Family Club --> No translation was found using the current translator. Try another translator?
-[scrape] Translation failed for 'Театрально-цирковое шоу Nova Circus': Театрально-цирковое шоу Nova Circus --> No translation was found using the current translator. Try another translator?
 [scrape] Translation failed for 'Музыкальный фонтан в парке Magic City': Музыкальный фонтан в парке Magic City --> No translation was found using the current translator. Try another translator?
 [scrape] Translation failed for 'Музыкальный фонтан в парке Tashkent City': Музыкальный фонтан в парке Tashkent City --> No translation was found using the current translator. Try another translator?
 [scrape] Translation failed for 'Ярмарка Uzbegim Market в парке Tashkent ': Ярмарка Uzbegim Market в парке Tashkent City --> No translation was found using the current translator. Try another translator?
@@ -69,11 +68,8 @@
 [scrape]   'Uzbekistan Concrete Show 2026': no dates found in window (no schedule/date-range parsed) -- kept 0 events
 [scrape] Translation failed for 'ICTWeek Uzbekistan 2026': ICTWeek Uzbekistan 2026 --> No translation was found using the current translator. Try another translator?
 [scrape]   'ICTWeek Uzbekistan 2026': no dates found in window (no schedule/date-range parsed) -- kept 0 events
-[scrape] Translation failed for 'Эстетика многослойности: в Ташкенте откр': Эстетика многослойности: в Ташкенте открылась выставка Бобура Алимходжаева Duality: X-Ray of Memory --> No translation was found using the current translator. Try another translator?
 [scrape]   'Эстетика многослойности: в Ташкенте открылась выставка Бобура Алимходжаева Duality: X-Ray of Memory': no dates found in window (no schedule/date-range parsed) -- kept 0 events
-[scrape] Translation failed for 'Pharma Eurasia & MedTech 2026: в Ташкент': Pharma Eurasia & MedTech 2026: в Ташкенте пройдет выставка фармацевтической отрасли --> No translation was found using the current translator. Try another translator?
 [scrape]   'Pharma Eurasia & MedTech 2026: в Ташкенте пройдет выставка фармацевтической отрасли': no dates found in window (no schedule/date-range parsed) -- kept 0 events
-[scrape] Translation failed for 'В университете Кимё проходит выставка Ar': В университете Кимё проходит выставка Art Engineering 2026, посвященная экологическим решениям --> No translation was found using the current translator. Try another translator?
 [scrape]   'В университете Кимё проходит выставка Art Engineering 2026, посвященная экологическим решениям': no dates found in window (no schedule/date-range parsed) -- kept 0 events
 [scrape] calendar detail pass complete: 115 events kept from 64 pages checked
 [scrape] special-tracked: FAILED to fetch or failed content check for https://www.afisha.uz/ru/cinema/2026/07/16/kinoprazdnik-v-sredu
