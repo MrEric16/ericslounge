@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-26T18:13:26.729691Z",
+  "generatedAt": "2026-08-26T20:30:55.318033Z",
   "standings": {
     "PL": [
       {
@@ -215,6 +215,16 @@
         "pts": 6
       },
       {
+        "name": "Real Madrid",
+        "pld": 2,
+        "w": 2,
+        "d": 0,
+        "l": 0,
+        "gf": 4,
+        "ga": 2,
+        "pts": 6
+      },
+      {
         "name": "Real Betis",
         "pld": 2,
         "w": 2,
@@ -262,16 +272,6 @@
         "l": 1,
         "gf": 4,
         "ga": 2,
-        "pts": 3
-      },
-      {
-        "name": "Real Madrid",
-        "pld": 1,
-        "w": 1,
-        "d": 0,
-        "l": 0,
-        "gf": 2,
-        "ga": 1,
         "pts": 3
       },
       {
@@ -385,21 +385,21 @@
         "pts": 1
       },
       {
-        "name": "Real Sociedad",
-        "pld": 1,
-        "w": 0,
-        "d": 0,
-        "l": 1,
-        "gf": 0,
-        "ga": 1,
-        "pts": 0
-      },
-      {
         "name": "Athletic",
         "pld": 1,
         "w": 0,
         "d": 0,
         "l": 1,
+        "gf": 1,
+        "ga": 3,
+        "pts": 0
+      },
+      {
+        "name": "Real Sociedad",
+        "pld": 2,
+        "w": 0,
+        "d": 0,
+        "l": 2,
         "gf": 1,
         "ga": 3,
         "pts": 0
@@ -1419,37 +1419,6 @@
     },
     "PD": {
       "fixtures": [
-        {
-          "utcDate": "2026-08-26T19:00:00Z",
-          "status": "TIMED",
-          "matchday": 1,
-          "homeTeam": {
-            "id": 86,
-            "name": "Real Madrid CF",
-            "shortName": "Real Madrid"
-          },
-          "awayTeam": {
-            "id": 92,
-            "name": "Real Sociedad de Fútbol",
-            "shortName": "Real Sociedad"
-          },
-          "score": {
-            "winner": null,
-            "duration": "REGULAR",
-            "fullTime": {
-              "home": null,
-              "away": null
-            },
-            "halfTime": {
-              "home": null,
-              "away": null
-            }
-          },
-          "competition": {
-            "name": "Primera Division"
-          },
-          "venue": null
-        },
         {
           "utcDate": "2026-08-27T18:30:00Z",
           "status": "TIMED",
