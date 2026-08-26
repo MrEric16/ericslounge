@@ -149,7 +149,14 @@
      check against the reference image: stars are right-aligned (3/4/5 stepping on the
      LEFT only, rightmost star in each row lines up vertically -- not a centered pyramid),
      and the crescent is a thin vertical sliver (two tall narrow ellipses offset
-     horizontally), not a fat round crescent. */
+     horizontally), not a fat round crescent. 5th revision: crescent thinned further with
+     tapered top/bottom points (cutout ellipse taller than the base, not just offset
+     sideways) for a rounder look; title text ("Mr Eric's Lounge") is pinned to the exact
+     vertical AND horizontal center of the header via position:absolute top/left 50% --
+     this deliberately lands it in the white band's center because the white band (37%-
+     63%) is itself symmetric around the header's 50% mark, so both always coincide
+     regardless of the header's actual rendered height. Only h1.title is pulled out of
+     flow; the logo, subtitle, and stat row stay in normal flow untouched. */
   body.theme-nationalday:not(.dark-mode){
     --cream:#EAF2FE; --cream-2:#D6E6FD; --card:#FFFFFF;
     --coral:#0072CE; --coral-dark:#005092; --gold:#DA291C; --teal:#43B02A; --line:#C7DBFB;
@@ -172,15 +179,18 @@
   body.theme-nationalday:not(.dark-mode) .aurora-layer{
     opacity:0;
   }
-  .flag-emblem{ display:none; }
+  body.theme-nationalday:not(.dark-mode) h1.title{
+    position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
+    white-space:nowrap; z-index:3; margin:0;
+  }
   body.theme-nationalday:not(.dark-mode) .flag-emblem{
     display:block; position:absolute; top:8px; left:22px; width:66px; height:26px; z-index:2;
   }
   .flag-crescent{
-    position:absolute; top:0; left:0; width:13px; height:24px; border-radius:50%; background:#FFFFFF;
+    position:absolute; top:0; left:0; width:9px; height:24px; border-radius:50%; background:#FFFFFF;
   }
   .flag-crescent::after{
-    content:''; position:absolute; top:0; left:5px; width:13px; height:24px; border-radius:50%; background:#0072CE;
+    content:''; position:absolute; top:-3px; left:4px; width:9px; height:30px; border-radius:50%; background:#0072CE;
   }
   .flag-stars{ position:absolute; top:1px; left:26px; width:40px; display:flex; flex-direction:column; gap:1px; }
   .flag-stars .star-row{ display:flex; justify-content:flex-end; gap:2px; }
