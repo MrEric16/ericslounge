@@ -156,7 +156,16 @@
      this deliberately lands it in the white band's center because the white band (37%-
      63%) is itself symmetric around the header's 50% mark, so both always coincide
      regardless of the header's actual rendered height. Only h1.title is pulled out of
-     flow; the logo, subtitle, and stat row stay in normal flow untouched. */
+     flow; the logo, subtitle, and stat row stay in normal flow untouched. 6th revision
+     (2026-08-26): abandoned hand-tuned fixed-pixel divs for the crescent/stars entirely --
+     too fragile across header heights and kept needing manual re-tuning. Replaced with a
+     single inline SVG (viewBox 0 0 200 100) sized via CSS to height:35% of the header
+     (matching the blue band exactly, top-aligned to it), width:auto so the SVG's own
+     aspect ratio governs width and nothing gets stretched/distorted. Because the whole
+     emblem now scales as one unit to the blue band's real rendered height, the crescent
+     and all 3 rows of stars automatically span the full vertical extent of the blue band
+     on any screen size -- this was the actual fix for "stars/crescent must spread across
+     the whole blue band", not more pixel tuning. */
   body.theme-nationalday:not(.dark-mode){
     --cream:#EAF2FE; --cream-2:#D6E6FD; --card:#FFFFFF;
     --coral:#0072CE; --coral-dark:#005092; --gold:#DA291C; --teal:#43B02A; --line:#C7DBFB;
@@ -184,21 +193,9 @@
     white-space:nowrap; z-index:3; margin:0;
   }
   body.theme-nationalday:not(.dark-mode) .flag-emblem{
-    display:block; position:absolute; top:8px; left:22px; width:66px; height:26px; z-index:2;
+    display:block; position:absolute; top:0; left:16px; height:35%; width:auto; z-index:2;
   }
-  .flag-crescent{
-    position:absolute; top:0; left:0; width:9px; height:24px; border-radius:50%; background:#FFFFFF;
-  }
-  .flag-crescent::after{
-    content:''; position:absolute; top:-3px; left:4px; width:9px; height:30px; border-radius:50%; background:#0072CE;
-  }
-  .flag-stars{ position:absolute; top:1px; left:26px; width:40px; display:flex; flex-direction:column; gap:1px; }
-  .flag-stars .star-row{ display:flex; justify-content:flex-end; gap:2px; }
-  .flag-stars .star-row span{
-    display:inline-flex; align-items:center; justify-content:center;
-    width:7px; height:7px; font-size:6px; line-height:1; color:#FFFFFF; text-shadow:none;
-  }
-  .flag-stars .star-row span{ color:#FFFFFF; font-size:6px; text-shadow:none; }
+  .flag-emblem svg{ display:block; height:100%; width:auto; }
   body.theme-nationalday:not(.dark-mode) .fac-tile,
   body.theme-nationalday:not(.dark-mode) .sport-hub-tile,
   body.theme-nationalday:not(.dark-mode) .sports-tile,
@@ -2834,12 +2831,22 @@
   <div class="aurora-layer" aria-hidden="true"></div>
   <div id="weatherOverlay" aria-hidden="true"></div>
   <div class="flag-emblem" aria-hidden="true">
-    <div class="flag-crescent"></div>
-    <div class="flag-stars">
-      <div class="star-row r1"><span>&#9733;</span><span>&#9733;</span><span>&#9733;</span></div>
-      <div class="star-row r2"><span>&#9733;</span><span>&#9733;</span><span>&#9733;</span><span>&#9733;</span></div>
-      <div class="star-row r3"><span>&#9733;</span><span>&#9733;</span><span>&#9733;</span><span>&#9733;</span><span>&#9733;</span></div>
-    </div>
+    <svg viewBox="0 0 200 100" preserveAspectRatio="xMinYMid meet">
+      <circle cx="48" cy="50" r="38" fill="#FFFFFF"/>
+      <circle cx="64" cy="50" r="42" fill="#0072CE"/>
+      <text x="158" y="18" font-size="16" fill="#FFFFFF" text-anchor="middle" dominant-baseline="central">&#9733;</text>
+      <text x="174" y="18" font-size="16" fill="#FFFFFF" text-anchor="middle" dominant-baseline="central">&#9733;</text>
+      <text x="190" y="18" font-size="16" fill="#FFFFFF" text-anchor="middle" dominant-baseline="central">&#9733;</text>
+      <text x="142" y="50" font-size="16" fill="#FFFFFF" text-anchor="middle" dominant-baseline="central">&#9733;</text>
+      <text x="158" y="50" font-size="16" fill="#FFFFFF" text-anchor="middle" dominant-baseline="central">&#9733;</text>
+      <text x="174" y="50" font-size="16" fill="#FFFFFF" text-anchor="middle" dominant-baseline="central">&#9733;</text>
+      <text x="190" y="50" font-size="16" fill="#FFFFFF" text-anchor="middle" dominant-baseline="central">&#9733;</text>
+      <text x="126" y="82" font-size="16" fill="#FFFFFF" text-anchor="middle" dominant-baseline="central">&#9733;</text>
+      <text x="142" y="82" font-size="16" fill="#FFFFFF" text-anchor="middle" dominant-baseline="central">&#9733;</text>
+      <text x="158" y="82" font-size="16" fill="#FFFFFF" text-anchor="middle" dominant-baseline="central">&#9733;</text>
+      <text x="174" y="82" font-size="16" fill="#FFFFFF" text-anchor="middle" dominant-baseline="central">&#9733;</text>
+      <text x="190" y="82" font-size="16" fill="#FFFFFF" text-anchor="middle" dominant-baseline="central">&#9733;</text>
+    </svg>
   </div>
   <div class="wrap masthead">
     <div class="title-row" id="titleLink" title="Mr Eric's Lounge">
