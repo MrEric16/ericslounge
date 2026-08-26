@@ -165,7 +165,13 @@
      emblem now scales as one unit to the blue band's real rendered height, the crescent
      and all 3 rows of stars automatically span the full vertical extent of the blue band
      on any screen size -- this was the actual fix for "stars/crescent must spread across
-     the whole blue band", not more pixel tuning. */
+     the whole blue band", not more pixel tuning. Stars confirmed final -- do not move
+     again. 7th revision: subtitle was left in normal flow after h1.title was pulled out
+     of flow to center it, so it drifted out of position (no longer reliably below the
+     title). Fixed by anchoring .subtitle the same way as the title -- position:absolute
+     off the header's own 50% center point, offset down by 26px -- so it's now guaranteed
+     to sit directly below the title regardless of header height, the same way the title
+     itself is guaranteed to sit in the white band's center. */
   body.theme-nationalday:not(.dark-mode){
     --cream:#EAF2FE; --cream-2:#D6E6FD; --card:#FFFFFF;
     --coral:#0072CE; --coral-dark:#005092; --gold:#DA291C; --teal:#43B02A; --line:#C7DBFB;
@@ -191,6 +197,10 @@
   body.theme-nationalday:not(.dark-mode) h1.title{
     position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
     white-space:nowrap; z-index:3; margin:0;
+  }
+  body.theme-nationalday:not(.dark-mode) .subtitle{
+    position:absolute; top:calc(50% + 26px); left:50%; transform:translateX(-50%);
+    width:90%; max-width:360px; text-align:center; margin:0; z-index:3;
   }
   body.theme-nationalday:not(.dark-mode) .flag-emblem{
     display:block; position:absolute; top:0; left:16px; height:35%; width:auto; z-index:2;
