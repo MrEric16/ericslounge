@@ -103,10 +103,6 @@
     --cream:#EAF2F1; --cream-2:#D8E8E6; --card:#F7FBFA;
     --coral:#2E6F6B; --coral-dark:#1F4E4B; --gold:#D9A441; --teal:#3E7C6E; --line:#C7DEDA;
   }
-  body.theme-independence:not(.dark-mode){
-    --cream:#EAF6F8; --cream-2:#CDEAF0; --card:#F7FCFD;
-    --coral:#0099B5; --coral-dark:#00707F; --gold:#CE1126; --teal:#1EB53A; --line:#B7E0E8;
-  }
   body.theme-christmas:not(.dark-mode){
     --cream:#F5EDE3; --cream-2:#E9D9C5; --card:#FCF7EF;
     --coral:#8C2F39; --coral-dark:#6B1E27; --gold:#C9A227; --teal:#2F5D3A; --line:#E3CBAE;
@@ -132,111 +128,6 @@
     --coral:#B5562E; --coral-dark:#8A3F1F; --gold:#D9A441; --teal:#8C6B3D; --line:#E3C89A;
   }
 
-  /* Uzbekistan National Day 2026 -- one-off, time-triggered (not the usual whole-day
-     SEASONAL_THEMES mechanism -- see NATIONAL_DAY_WINDOW and applySeasonalTheme() in the
-     script), since this one needed an exact hour rather than a calendar date. 2026-08-26
-     third revision -- exact hexes confirmed against the official flag image (Blue
-     #0072CE, Red #DA291C, White #FFFFFF, Green #43B02A), header renders the actual flag
-     (blue/white/green bands with thin red fimbriations, plus the crescent-and-12-stars
-     emblem in the canton -- see .flag-emblem markup in <header>, shown only while this
-     theme is active), and tiles are grouped into four categories each carrying one of the
-     four flag colors as its top accent. Blue band widened to 35% (from an even 33%) and
-     the emblem tightened specifically so the bottom row of stars clears the red
-     fimbriation with margin, per explicit correction -- don't shrink the blue band back
-     down without re-checking that clearance. Runs 28 Aug 2026 18:00 Tashkent through
-     2 Sept 2026 18:00 Tashkent, then reverts on its own -- no manual step needed to turn
-     it back off. Emblem geometry corrected 2026-08-26 (4th revision) per explicit visual
-     check against the reference image: stars are right-aligned (3/4/5 stepping on the
-     LEFT only, rightmost star in each row lines up vertically -- not a centered pyramid),
-     and the crescent is a thin vertical sliver (two tall narrow ellipses offset
-     horizontally), not a fat round crescent. 5th revision: crescent thinned further with
-     tapered top/bottom points (cutout ellipse taller than the base, not just offset
-     sideways) for a rounder look; title text ("Mr Eric's Lounge") is pinned to the exact
-     vertical AND horizontal center of the header via position:absolute top/left 50% --
-     this deliberately lands it in the white band's center because the white band (37%-
-     63%) is itself symmetric around the header's 50% mark, so both always coincide
-     regardless of the header's actual rendered height. Only h1.title is pulled out of
-     flow; the logo, subtitle, and stat row stay in normal flow untouched. 6th revision
-     (2026-08-26): abandoned hand-tuned fixed-pixel divs for the crescent/stars entirely --
-     too fragile across header heights and kept needing manual re-tuning. Replaced with a
-     single inline SVG (viewBox 0 0 200 100) sized via CSS to height:35% of the header
-     (matching the blue band exactly, top-aligned to it), width:auto so the SVG's own
-     aspect ratio governs width and nothing gets stretched/distorted. Because the whole
-     emblem now scales as one unit to the blue band's real rendered height, the crescent
-     and all 3 rows of stars automatically span the full vertical extent of the blue band
-     on any screen size -- this was the actual fix for "stars/crescent must spread across
-     the whole blue band", not more pixel tuning. Stars confirmed final -- do not move
-     again. 7th revision: subtitle was left in normal flow after h1.title was pulled out
-     of flow to center it, so it drifted out of position (no longer reliably below the
-     title). Fixed by anchoring .subtitle the same way as the title -- position:absolute
-     off the header's own 50% center point. 8th revision: that fixed-pixel offset (+26px)
-     wasn't reliable across header heights -- on some it landed the subtitle across the
-     red/white boundary instead of cleanly in green. Switched to a percentage anchor
-     (top:80%, translate(-50%,-50%)) matching how the flag bands themselves are defined,
-     so the subtitle is now structurally locked inside the green band (65%-100%, so 80%
-     sits centered with margin both sides) regardless of the header's actual rendered
-     height -- same reasoning as why the title's 50% anchor works. */
-  body.theme-nationalday:not(.dark-mode){
-    --cream:#EAF2FE; --cream-2:#D6E6FD; --card:#FFFFFF;
-    --coral:#0072CE; --coral-dark:#005092; --gold:#DA291C; --teal:#43B02A; --line:#C7DBFB;
-    --board-bg:rgba(0,0,0,.55);
-  }
-  body.theme-nationalday:not(.dark-mode) header{
-    position:relative;
-    background-image:
-      linear-gradient(180deg, #0072CE 0%, #0072CE 35%, #DA291C 35%, #DA291C 37%, #FFFFFF 37%, #FFFFFF 63%, #DA291C 63%, #DA291C 65%, #43B02A 65%, #43B02A 100%);
-    background-size:100% 100%;
-  }
-  body.theme-nationalday:not(.dark-mode) header::before{
-    content:none;
-  }
-  body.theme-nationalday:not(.dark-mode) header,
-  body.theme-nationalday:not(.dark-mode) header *{
-    color:#0B2540;
-    text-shadow:0 1px 2px rgba(255,255,255,.55);
-  }
-  body.theme-nationalday:not(.dark-mode) .aurora-layer{
-    opacity:0;
-  }
-  body.theme-nationalday:not(.dark-mode) h1.title{
-    position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
-    white-space:nowrap; z-index:3; margin:0;
-  }
-  body.theme-nationalday:not(.dark-mode) .subtitle{
-    position:absolute; top:80%; left:50%; transform:translate(-50%,-50%);
-    width:90%; max-width:360px; text-align:center; margin:0; z-index:3;
-  }
-  body.theme-nationalday:not(.dark-mode) .flag-emblem{
-    display:block; position:absolute; top:0; left:16px; height:35%; width:auto; z-index:2;
-  }
-  .flag-emblem svg{ display:block; height:100%; width:auto; }
-  body.theme-nationalday:not(.dark-mode) .fac-tile,
-  body.theme-nationalday:not(.dark-mode) .sport-hub-tile,
-  body.theme-nationalday:not(.dark-mode) .sports-tile,
-  body.theme-nationalday:not(.dark-mode) .sports-card{
-    box-shadow:inset 0 3px 0 0 #0072CE;
-  }
-  body.theme-nationalday:not(.dark-mode) .goodnews-tile,
-  body.theme-nationalday:not(.dark-mode) .watch-tile,
-  body.theme-nationalday:not(.dark-mode) .watch-card,
-  body.theme-nationalday:not(.dark-mode) .otd-card{
-    box-shadow:inset 0 3px 0 0 #DA291C;
-  }
-  body.theme-nationalday:not(.dark-mode) .books-tile,
-  body.theme-nationalday:not(.dark-mode) .mindtemple-tile,
-  body.theme-nationalday:not(.dark-mode) .explore-tile,
-  body.theme-nationalday:not(.dark-mode) .explore-card,
-  body.theme-nationalday:not(.dark-mode) .page-result{
-    box-shadow:inset 0 3px 0 0 #FFFFFF, inset 0 0 0 1px #C7DBFB;
-  }
-  body.theme-nationalday:not(.dark-mode) .bday-tile-card,
-  body.theme-nationalday:not(.dark-mode) .random-tile,
-  body.theme-nationalday:not(.dark-mode) .rec-item,
-  body.theme-nationalday:not(.dark-mode) .empty-card,
-  body.theme-nationalday:not(.dark-mode) .photo-tile,
-  body.theme-nationalday:not(.dark-mode) .sotw-card{
-    box-shadow:inset 0 3px 0 0 #43B02A;
-  }
 
 
   /* ---------- User-chosen themes ----------
@@ -2844,24 +2735,6 @@
 <header>
   <div class="aurora-layer" aria-hidden="true"></div>
   <div id="weatherOverlay" aria-hidden="true"></div>
-  <div class="flag-emblem" aria-hidden="true">
-    <svg viewBox="0 0 200 100" preserveAspectRatio="xMinYMid meet">
-      <circle cx="48" cy="50" r="38" fill="#FFFFFF"/>
-      <circle cx="64" cy="50" r="42" fill="#0072CE"/>
-      <text x="110" y="18" font-size="16" fill="#FFFFFF" text-anchor="middle" dominant-baseline="central">&#9733;</text>
-      <text x="126" y="18" font-size="16" fill="#FFFFFF" text-anchor="middle" dominant-baseline="central">&#9733;</text>
-      <text x="142" y="18" font-size="16" fill="#FFFFFF" text-anchor="middle" dominant-baseline="central">&#9733;</text>
-      <text x="94" y="50" font-size="16" fill="#FFFFFF" text-anchor="middle" dominant-baseline="central">&#9733;</text>
-      <text x="110" y="50" font-size="16" fill="#FFFFFF" text-anchor="middle" dominant-baseline="central">&#9733;</text>
-      <text x="126" y="50" font-size="16" fill="#FFFFFF" text-anchor="middle" dominant-baseline="central">&#9733;</text>
-      <text x="142" y="50" font-size="16" fill="#FFFFFF" text-anchor="middle" dominant-baseline="central">&#9733;</text>
-      <text x="78" y="82" font-size="16" fill="#FFFFFF" text-anchor="middle" dominant-baseline="central">&#9733;</text>
-      <text x="94" y="82" font-size="16" fill="#FFFFFF" text-anchor="middle" dominant-baseline="central">&#9733;</text>
-      <text x="110" y="82" font-size="16" fill="#FFFFFF" text-anchor="middle" dominant-baseline="central">&#9733;</text>
-      <text x="126" y="82" font-size="16" fill="#FFFFFF" text-anchor="middle" dominant-baseline="central">&#9733;</text>
-      <text x="142" y="82" font-size="16" fill="#FFFFFF" text-anchor="middle" dominant-baseline="central">&#9733;</text>
-    </svg>
-  </div>
   <div class="wrap masthead">
     <div class="title-row" id="titleLink" title="Mr Eric's Lounge">
       <div class="tile-logo" id="siteLogoMark">
@@ -8224,17 +8097,11 @@ function utcToTashkentISOString(utcDateStr){
 // upcoming year; this array is intentionally append-only, same convention as DISPATCHES
 // and WATCH_VIDEOS elsewhere in this file.
 //
-// Note: Independence Day (Sept 1) and the traditional first day of the Uzbek school year
-// fall on the same date. To avoid the two themes fighting over one day, "first day of
-// school" is scoped to the few days immediately before term starts, and Independence Day
-// (using the Uzbekistan flag's colors, as specifically requested) owns Sept 1 itself.
-//
 // Ramadan/Eid al-Fitr/Eid al-Adha 2027 dates are astronomical projections (Umm al-Qura
 // calendar) and may shift by 1-2 days once confirmed by local moon sighting closer to
 // the date -- worth a quick check nearer the time rather than treating these as final.
 const SEASONAL_THEMES = [
   { key:'firstday',      start:'2026-08-29', end:'2026-08-31' },
-  { key:'independence',  start:'2026-09-01', end:'2026-09-01' },
   { key:'christmas',     start:'2026-12-24', end:'2026-12-26' },
   { key:'newyear',       start:'2026-12-31', end:'2027-01-02' },
   { key:'ramadan',       start:'2027-02-08', end:'2027-03-09' },
@@ -8242,41 +8109,15 @@ const SEASONAL_THEMES = [
   { key:'nowruz',        start:'2027-03-20', end:'2027-03-22' },
   { key:'eidadha',       start:'2027-05-15', end:'2027-05-17' },
 ];
-// One-off, time-triggered rather than date-only like every theme in SEASONAL_THEMES above --
-// this one needed an exact hour (28 Aug 2026, 18:00 Tashkent through 2 Sept 2026, 18:00
-// Tashkent) rather than a calendar date, before reverting on its own. Kept as a separate
-// mechanism rather than stretching SEASONAL_THEMES' day-only granularity to fit. Same
-// Intl.DateTimeFormat approach as tashkentEffectiveDay() for reliable Tashkent wall-clock
-// time regardless of the viewer's own device timezone, compared as a plain sortable number
-// (YYYYMMDDHHmm) rather than juggling Date objects across timezones.
-const NATIONAL_DAY_WINDOW = {
-  key: 'nationalday',
-  startNum: 202608281800,
-  endNum:   202609021800,
-};
-function tashkentMomentNum(){
-  const parts = new Intl.DateTimeFormat('en-CA', {
-    timeZone: 'Asia/Tashkent', year:'numeric', month:'2-digit', day:'2-digit', hour:'2-digit', minute:'2-digit', hour12:false
-  }).formatToParts(new Date());
-  const get = t => parts.find(p=>p.type===t).value;
-  return +(get('year') + get('month') + get('day') + get('hour') + get('minute'));
-}
 function applySeasonalTheme(){
   // An explicit pick from the theme-cycle button always wins -- someone who chose "Dark 3"
-  // shouldn't have Christmas colors (or the national day theme) silently override it.
-  // Presence of the key at all (even 'default', a conscious choice to opt out of every
-  // named theme) counts as an explicit preference; only a visitor who has never touched
-  // the picker gets any automatic reskin.
-  const allKeys = SEASONAL_THEMES.map(t => t.key).concat(NATIONAL_DAY_WINDOW.key);
+  // shouldn't have Christmas colors silently override it. Presence of the key at all (even
+  // 'default', a conscious choice to opt out of every named theme) counts as an explicit
+  // preference; only a visitor who has never touched the picker gets any automatic reskin.
+  const allKeys = SEASONAL_THEMES.map(t => t.key);
   const hasUserThemeChoice = (()=>{ try{ return localStorage.getItem('themeChoice') !== null; }catch(e){ return false; } })();
   if(hasUserThemeChoice){
     allKeys.forEach(k => document.body.classList.remove('theme-' + k));
-    return;
-  }
-  const nowNum = tashkentMomentNum();
-  if(nowNum >= NATIONAL_DAY_WINDOW.startNum && nowNum < NATIONAL_DAY_WINDOW.endNum){
-    allKeys.forEach(k => document.body.classList.remove('theme-' + k));
-    document.body.classList.add('theme-' + NATIONAL_DAY_WINDOW.key);
     return;
   }
   const today = tashkentEffectiveDay();
