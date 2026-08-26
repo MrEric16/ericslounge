@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-26T20:24:53.435410Z",
+  "generatedAt": "2026-08-26T23:53:52.285888Z",
   "results": [
     {
       "url": "https://www.goal.com/en/match/girona-vs-arsenal/__LS8d9Oc6I1wXn9g8956",
@@ -1275,5 +1275,7 @@
       "competition": "PD"
     }
   ],
-  "scorerParseRetryCounts": {}
+  "scorerParseRetryCounts": {
+    "https://www.goal.com/en/match/real-madrid-vs-real-sociedad/6CIWiSQDT6uECz-OQirsn": 1
+  }
 }
