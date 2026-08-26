@@ -1,6 +1,6 @@
-[uae-league] captured 342775 chars
+[uae-league] captured 353570 chars
 [uae-league] parsed 14 standings row(s)
-[uae-league] parsed 28 match row(s)
+[uae-league] parsed 35 match row(s)
 [uae-league]   match: {'home': 'Al Nasr SC', 'away': 'Ittihad Kalba FC', 'start': '2026-08-14T19:10:00+05:00', 'homeScore': 2, 'awayScore': 2, 'finished': True}
 [uae-league]   match: {'home': 'Al Wahda', 'away': 'Ajman Club', 'start': '2026-08-14T21:45:00+05:00', 'homeScore': 2, 'awayScore': 3, 'finished': True}
 [uae-league]   match: {'home': 'Al Dhafra', 'away': 'Sharjah FC', 'start': '2026-08-15T19:10:00+05:00', 'homeScore': 1, 'awayScore': 3, 'finished': True}
@@ -29,5 +29,12 @@
 [uae-league]   match: {'home': 'Shabab Al Ahli Club', 'away': 'Al Jazira Club', 'start': '2026-09-05T21:15:00+05:00'}
 [uae-league]   match: {'home': 'Al Nasr SC', 'away': 'Ajman Club', 'start': '2026-09-06T18:45:00+05:00'}
 [uae-league]   match: {'home': 'Al Dhafra', 'away': 'Al Wahda', 'start': '2026-09-06T21:15:00+05:00'}
-[uae-league] 14 fixture(s), 14 result(s)
+[uae-league]   match: {'home': 'Al Jazira Club', 'away': 'Al Nasr SC', 'start': '2026-09-10T18:40:00+05:00'}
+[uae-league]   match: {'home': 'United FC', 'away': 'Shabab Al Ahli Club', 'start': '2026-09-10T18:40:00+05:00'}
+[uae-league]   match: {'home': 'Al Ain FC', 'away': 'Al Wasl', 'start': '2026-09-10T21:15:00+05:00'}
+[uae-league]   match: {'home': 'Hatta Club', 'away': 'Al Dhafra', 'start': '2026-09-11T18:40:00+05:00'}
+[uae-league]   match: {'home': 'Khor Fakkan Club', 'away': 'Baniyas SC', 'start': '2026-09-11T18:40:00+05:00'}
+[uae-league]   match: {'home': 'Ajman Club', 'away': 'Ittihad Kalba FC', 'start': '2026-09-11T21:15:00+05:00'}
+[uae-league]   match: {'home': 'Al Wahda', 'away': 'Sharjah FC', 'start': '2026-09-11T21:15:00+05:00'}
+[uae-league] 21 fixture(s), 14 result(s)
 [uae-league] wrote data/uae-league-live.json
