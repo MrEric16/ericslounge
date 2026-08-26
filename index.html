@@ -169,9 +169,13 @@
      again. 7th revision: subtitle was left in normal flow after h1.title was pulled out
      of flow to center it, so it drifted out of position (no longer reliably below the
      title). Fixed by anchoring .subtitle the same way as the title -- position:absolute
-     off the header's own 50% center point, offset down by 26px -- so it's now guaranteed
-     to sit directly below the title regardless of header height, the same way the title
-     itself is guaranteed to sit in the white band's center. */
+     off the header's own 50% center point. 8th revision: that fixed-pixel offset (+26px)
+     wasn't reliable across header heights -- on some it landed the subtitle across the
+     red/white boundary instead of cleanly in green. Switched to a percentage anchor
+     (top:80%, translate(-50%,-50%)) matching how the flag bands themselves are defined,
+     so the subtitle is now structurally locked inside the green band (65%-100%, so 80%
+     sits centered with margin both sides) regardless of the header's actual rendered
+     height -- same reasoning as why the title's 50% anchor works. */
   body.theme-nationalday:not(.dark-mode){
     --cream:#EAF2FE; --cream-2:#D6E6FD; --card:#FFFFFF;
     --coral:#0072CE; --coral-dark:#005092; --gold:#DA291C; --teal:#43B02A; --line:#C7DBFB;
@@ -199,7 +203,7 @@
     white-space:nowrap; z-index:3; margin:0;
   }
   body.theme-nationalday:not(.dark-mode) .subtitle{
-    position:absolute; top:calc(50% + 26px); left:50%; transform:translateX(-50%);
+    position:absolute; top:80%; left:50%; transform:translate(-50%,-50%);
     width:90%; max-width:360px; text-align:center; margin:0; z-index:3;
   }
   body.theme-nationalday:not(.dark-mode) .flag-emblem{
