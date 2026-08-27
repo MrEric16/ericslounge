@@ -22772,6 +22772,7 @@ header, header *{
     <span><b style="color:#7ec8ff;">SANDBOX</b> — full app mirror, National Day theme loaded — edit CSS below, hit Apply</span>
     <button id="sbToggle" style="background:#333; color:#eee; border:none; padding:4px 10px; border-radius:4px; cursor:pointer;">hide</button>
   </div>
+  <div id="sbDebug" style="padding:4px 12px; background:#0d0d0d; color:#9fd89f; font-size:11px; border-bottom:1px solid #333;">measuring...</div>
   <div id="sbBody" style="padding:8px 12px; overflow:auto;">
     <textarea id="sbCssInput" style="width:100%; min-height:160px; font-family:'Space Mono',monospace; font-size:12px; background:#0d0d0d; color:#d0d0d0; border:1px solid #333; border-radius:6px; padding:8px;"></textarea>
     <div style="margin-top:6px;">
@@ -22812,6 +22813,7 @@ header, header *{
   function centerStatRow(){
     var header = document.querySelector('header');
     var statRow = document.querySelector('.stat-row');
+    var dbg = document.getElementById('sbDebug');
     if(!header || !statRow) return;
     statRow.style.transform = '';
     var headerRect = header.getBoundingClientRect();
@@ -22820,11 +22822,20 @@ header, header *{
     var targetCenterY = headerRect.height * 0.5;
     var delta = targetCenterY - currentCenterY;
     statRow.style.transform = 'translateY(' + delta.toFixed(1) + 'px)';
+    if(dbg){
+      dbg.textContent = 'header height: ' + headerRect.height.toFixed(0) + 'px | white band center (target): ' +
+        targetCenterY.toFixed(0) + 'px from header top | stat-row natural center: ' + currentCenterY.toFixed(0) +
+        'px | applied shift: ' + delta.toFixed(0) + 'px';
+    }
   }
   window.addEventListener('load', function(){ requestAnimationFrame(centerStatRow); });
   window.addEventListener('resize', centerStatRow);
+  if(document.fonts && document.fonts.ready){
+    document.fonts.ready.then(centerStatRow);
+  }
   setTimeout(centerStatRow, 300);
   setTimeout(centerStatRow, 1000);
+  setTimeout(centerStatRow, 2500);
 })();
 </script>
 </body>
