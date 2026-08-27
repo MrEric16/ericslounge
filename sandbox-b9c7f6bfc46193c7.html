@@ -115,17 +115,36 @@
     background:transparent; color:var(--ink); cursor:pointer; font-family:'Nunito',sans-serif;
   }
   #liveCss{}
+  .flag-emblem{ display:none; }
 </style>
 </head>
 <body>
 
 <div class="sandbox-bar">
-  <span><b>SANDBOX</b> — not linked from the real site, not indexed, header markup copied verbatim from production</span>
+  <span><b>SANDBOX</b> — National Day theme loaded (confirmed final version) — edit below and hit Apply</span>
   <span id="clockLabel"></span>
 </div>
 
 <header>
   <div class="wrap masthead">
+    <div class="flag-emblem" aria-hidden="true">
+      <svg viewBox="0 0 200 100" preserveAspectRatio="xMinYMid meet">
+        <circle cx="48" cy="50" r="38" fill="#FFFFFF"/>
+        <circle cx="64" cy="50" r="42" fill="#0072CE"/>
+        <text x="110" y="18" font-size="16" fill="#FFFFFF" text-anchor="middle" dominant-baseline="central">&#9733;</text>
+        <text x="126" y="18" font-size="16" fill="#FFFFFF" text-anchor="middle" dominant-baseline="central">&#9733;</text>
+        <text x="142" y="18" font-size="16" fill="#FFFFFF" text-anchor="middle" dominant-baseline="central">&#9733;</text>
+        <text x="94" y="50" font-size="16" fill="#FFFFFF" text-anchor="middle" dominant-baseline="central">&#9733;</text>
+        <text x="110" y="50" font-size="16" fill="#FFFFFF" text-anchor="middle" dominant-baseline="central">&#9733;</text>
+        <text x="126" y="50" font-size="16" fill="#FFFFFF" text-anchor="middle" dominant-baseline="central">&#9733;</text>
+        <text x="142" y="50" font-size="16" fill="#FFFFFF" text-anchor="middle" dominant-baseline="central">&#9733;</text>
+        <text x="78" y="82" font-size="16" fill="#FFFFFF" text-anchor="middle" dominant-baseline="central">&#9733;</text>
+        <text x="94" y="82" font-size="16" fill="#FFFFFF" text-anchor="middle" dominant-baseline="central">&#9733;</text>
+        <text x="110" y="82" font-size="16" fill="#FFFFFF" text-anchor="middle" dominant-baseline="central">&#9733;</text>
+        <text x="126" y="82" font-size="16" fill="#FFFFFF" text-anchor="middle" dominant-baseline="central">&#9733;</text>
+        <text x="142" y="82" font-size="16" fill="#FFFFFF" text-anchor="middle" dominant-baseline="central">&#9733;</text>
+      </svg>
+    </div>
     <div class="title-row">
       <div class="tile-logo">
         <span class="tl-1"></span><span class="tl-2"></span>
@@ -157,7 +176,31 @@
 
 <div class="editor-wrap">
   <h2>Paste theme CSS here (targets: header, .flag-emblem, h1.title, .subtitle, etc.) — applies live, above</h2>
-  <textarea id="cssInput" placeholder="/* paste a CSS block, e.g. header{ background: red; } */"></textarea><br>
+  <textarea id="cssInput" placeholder="/* paste a CSS block, e.g. header{ background: red; } */">/* Uzbekistan National Day -- confirmed final design from the live-site session */
+header{
+  position:relative;
+  background-image:
+    linear-gradient(180deg, #0072CE 0%, #0072CE 35%, #DA291C 35%, #DA291C 37%, #FFFFFF 37%, #FFFFFF 63%, #DA291C 63%, #DA291C 65%, #43B02A 65%, #43B02A 100%);
+  background-size:100% 100%;
+}
+header::before, header::after{ content:none; }
+header, header *{
+  color:#0B2540;
+  text-shadow:0 1px 2px rgba(255,255,255,.55);
+}
+h1.title{
+  position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
+  white-space:nowrap; z-index:3; margin:0;
+}
+.subtitle{
+  position:absolute; top:80%; left:50%; transform:translate(-50%,-50%);
+  width:90%; max-width:360px; text-align:center; margin:0; z-index:3;
+}
+.flag-emblem{
+  display:block; position:absolute; top:0; left:16px; height:35%; width:auto; z-index:2;
+}
+.flag-emblem svg{ display:block; height:100%; width:auto; }
+</textarea><br>
   <button id="applyBtn">Apply</button>
   <button id="resetBtn">Reset</button>
 </div>
@@ -179,6 +222,7 @@
     document.getElementById('clockLabel').textContent = 'loaded ' + d.toLocaleTimeString('en-GB');
   }
   tick(); setInterval(tick, 1000);
+  document.getElementById('liveCss').textContent = document.getElementById('cssInput').value;
 </script>
 
 </body>
