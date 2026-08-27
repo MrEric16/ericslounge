@@ -2,7 +2,7 @@
 [goal-scraper] [PL] Found 0 finished-match links
 [goal-scraper] [PD] Found 8 finished-match links
 [goal-scraper] WARNING: Real Madrid scored 4 but only 2 scorer(s) were parsed for https://www.goal.com/en/match/real-madrid-vs-real-sociedad/6CIWiSQDT6uECz-OQirsn
-[goal-scraper] [PD] SCORER PARSE FAILED (attempt 1/3) for Real Madrid 4-1 Real Sociedad -- NOT committing, will retry next run: https://www.goal.com/en/match/real-madrid-vs-real-sociedad/6CIWiSQDT6uECz-OQirsn
+[goal-scraper] [PD] SCORER PARSE FAILED (attempt 2/3) for Real Madrid 4-1 Real Sociedad -- NOT committing, will retry next run: https://www.goal.com/en/match/real-madrid-vs-real-sociedad/6CIWiSQDT6uECz-OQirsn
 [goal-scraper] [BL1] Found 0 finished-match links
 [goal-scraper] [SA] Found 0 finished-match links
 [goal-scraper] [FL1] Found 0 finished-match links
