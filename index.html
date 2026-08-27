@@ -8190,7 +8190,11 @@ function tashkentMomentNum(){
 // National Day theme is only cyclable within this window (28 Aug 2026 18:00 Tashkent
 // through 2 Sept 2026 18:00 Tashkent). Auto-added to THEME_ORDER while active, auto-
 // removed once expired -- see the theme-cycle controller below.
-const NATIONAL_DAY_WINDOW = { key: 'nationalday', startNum: 202608281800, endNum: 202609021800 };
+// TEMPORARY PREVIEW OVERRIDE (2026-08-27) -- startNum pulled forward to go live in the
+// rotation immediately at Mr Eric's request, for review before the real launch. Actual
+// scheduled start is 202608281800 (Fri 28 Aug, 18:00 Tashkent) -- restore that exact
+// value the moment he says "revert to original". Do not touch endNum.
+const NATIONAL_DAY_WINDOW = { key: 'nationalday', startNum: 202608270000, endNum: 202609021800 };
 function nationalDayThemeActive(){
   const n = tashkentMomentNum();
   return n >= NATIONAL_DAY_WINDOW.startNum && n < NATIONAL_DAY_WINDOW.endNum;
