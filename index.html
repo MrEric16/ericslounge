@@ -4,6 +4,39 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Mr Eric's Lounge</title>
+<meta name="app-build" content="20260827074656">
+<script>
+/* Self-healing freshness check. Runs on every single launch, including from an
+   installed home-screen icon (standalone mode) where the OS's own navigation cache for
+   the app shell can sit underneath the service worker and hold onto an old version far
+   longer than any of our own caching logic controls -- this is a known WebKit/Chromium
+   limitation for installed PWAs, not something a service worker alone can always
+   override. Fetching version.json is a plain fetch(), not a top-level navigation, so it
+   is NOT subject to that same standalone navigation-cache quirk -- it reliably gets a
+   fresh value even when the shell itself is stuck. If the build it reports doesn't match
+   what's embedded in THIS loaded page, force a real reload to break the cycle. Guarded
+   to at most once per 30 seconds so a genuinely unreachable network doesn't cause a
+   reload loop -- it just quietly gives up and shows whatever loaded. */
+(function(){
+  try {
+    var CURRENT_BUILD = document.querySelector('meta[name="app-build"]').content;
+    var GUARD_KEY = 'elForcedReloadAttempt';
+    fetch('./version.json', { cache: 'no-store' })
+      .then(function(r){ return r.json(); })
+      .then(function(data){
+        if (data && data.build && data.build !== CURRENT_BUILD) {
+          var last = sessionStorage.getItem(GUARD_KEY);
+          var now = Date.now();
+          if (!last || (now - parseInt(last, 10)) > 30000) {
+            sessionStorage.setItem(GUARD_KEY, String(now));
+            window.location.reload();
+          }
+        }
+      })
+      .catch(function(){});
+  } catch(e) {}
+})();
+</script>
 <link rel="manifest" href="manifest.json">
 <link rel="apple-touch-icon" href="icon-180.png">
 <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
