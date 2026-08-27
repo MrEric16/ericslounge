@@ -22799,6 +22799,33 @@ header, header *{
     else { body.style.display='none'; btn.textContent='show'; }
   });
 })();
+
+/* Dead-center the timer box (.stat-row) in the header's white band, WITHOUT removing it
+   from document flow (unlike position:absolute, which was the actual cause of the header
+   collapsing earlier -- taking things out of flow removes their contribution to the
+   parent's height). transform moves the rendered pixels only; the element still occupies
+   its original space for layout/height purposes, so the header's height stays exactly
+   what normal flow would produce regardless of this. The white band spans 37%-63% of the
+   header (see the gradient above), so its center is always exactly 50% of the header's
+   real height -- computed here from actual measurements, not a guessed pixel value. */
+(function(){
+  function centerStatRow(){
+    var header = document.querySelector('header');
+    var statRow = document.querySelector('.stat-row');
+    if(!header || !statRow) return;
+    statRow.style.transform = '';
+    var headerRect = header.getBoundingClientRect();
+    var rowRect = statRow.getBoundingClientRect();
+    var currentCenterY = (rowRect.top + rowRect.height/2) - headerRect.top;
+    var targetCenterY = headerRect.height * 0.5;
+    var delta = targetCenterY - currentCenterY;
+    statRow.style.transform = 'translateY(' + delta.toFixed(1) + 'px)';
+  }
+  window.addEventListener('load', function(){ requestAnimationFrame(centerStatRow); });
+  window.addEventListener('resize', centerStatRow);
+  setTimeout(centerStatRow, 300);
+  setTimeout(centerStatRow, 1000);
+})();
 </script>
 </body>
 </html>
