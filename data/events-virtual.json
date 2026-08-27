@@ -419,7 +419,7 @@
       "org": "Zooniverse",
       "description": "Classify real galaxy images to help astronomers understand the universe.",
       "category": "science",
-      "url": "https://www.zooniverse.org/organizations/zookeeper/galaxy-zoo"
+      "url": "https://www.zooniverse.org/projects/zookeeper/galaxy-zoo"
     },
     {
       "title": "Snapshot Safari",
@@ -581,6 +581,41 @@
       "description": "Help scientists examine mission data to understand how Earth's magnetic field shields us from solar storms.",
       "category": "science",
       "url": "https://science.nasa.gov/get-involved/citizen-science/map-the-earths-magnetic-shield-with-the-space-umbrella-project/"
+    },
+    {
+      "title": "Snapshot Wisconsin",
+      "org": "Wisconsin DNR / Zooniverse",
+      "description": "Classify trail-camera photos of wildlife to support Wisconsin's statewide conservation research.",
+      "category": "environment",
+      "url": "https://www.zooniverse.org/projects/zooniverse/snapshot-wisconsin"
+    },
+    {
+      "title": "SEASLUG.WORLD",
+      "org": "SEASLUG.WORLD",
+      "description": "Submit and help identify sea-slug photographs from divers around the world.",
+      "category": "environment",
+      "url": "https://www.seaslug.world/"
+    },
+    {
+      "title": "Penguin Watch",
+      "org": "Zooniverse / Oxford University",
+      "description": "Count penguins, chicks, and eggs in remote camera photos to track population changes.",
+      "category": "environment",
+      "url": "https://www.zooniverse.org/projects/penguintom79/penguin-watch"
+    },
+    {
+      "title": "Globe at Night",
+      "org": "Globe at Night / NOIRLab",
+      "description": "Measure night-sky brightness by comparing visible stars to star charts, contributing to light-pollution research.",
+      "category": "science",
+      "url": "https://globeatnight.org/"
+    },
+    {
+      "title": "Hydroscape — Biodiversity & Water Quality Monitor",
+      "org": "Hydroscape",
+      "description": "Submit biodiversity and water-quality observations that feed long-term ecological monitoring.",
+      "category": "environment",
+      "url": "https://www.hydroscape-group.co.uk/"
     }
   ]
 }
