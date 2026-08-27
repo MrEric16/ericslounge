@@ -21221,6 +21221,12 @@ const COMPLIMENTS = [
     initial = legacy === '1' ? 'd1' : 'default';
   }
   if(THEME_ORDER.indexOf(initial) === -1) initial = 'default';
+  // TEMPORARY PREVIEW OVERRIDE (2026-08-27) -- force nationalday as what loads immediately,
+  // no click through the cycle button needed, for review before the real launch. Remove
+  // this one line (along with the NATIONAL_DAY_WINDOW startNum override above) the moment
+  // Mr Eric says "revert to original" -- the theme itself stays live and cyclable either way,
+  // this line only controls what shows up first on THIS preview.
+  if(nationalDayThemeActive()) initial = 'nationalday';
   applyThemeState(initial, {persist:false});
 
   const prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
