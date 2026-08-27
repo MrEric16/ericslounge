@@ -22813,7 +22813,6 @@ header, header *{
   function centerStatRow(){
     var header = document.querySelector('header');
     var statRow = document.querySelector('.stat-row');
-    var dbg = document.getElementById('sbDebug');
     if(!header || !statRow) return;
     statRow.style.transform = '';
     var headerRect = header.getBoundingClientRect();
@@ -22822,11 +22821,35 @@ header, header *{
     var targetCenterY = headerRect.height * 0.5;
     var delta = targetCenterY - currentCenterY;
     statRow.style.transform = 'translateY(' + delta.toFixed(1) + 'px)';
+
+    var dbg = document.getElementById('sbDebug');
     if(dbg){
       dbg.textContent = 'header height: ' + headerRect.height.toFixed(0) + 'px | white band center (target): ' +
         targetCenterY.toFixed(0) + 'px from header top | stat-row natural center: ' + currentCenterY.toFixed(0) +
         'px | applied shift: ' + delta.toFixed(0) + 'px';
     }
+
+    /* in-header visible proof: a badge + a dashed guideline drawn exactly at the
+       computed target center, so a screenshot of the header alone shows both the
+       numbers AND a visual line the timer box should be straddling. No scrolling to a
+       separate panel needed to check this. */
+    var badge = document.getElementById('sbHeaderBadge');
+    if(!badge){
+      badge = document.createElement('div');
+      badge.id = 'sbHeaderBadge';
+      badge.style.cssText = 'position:absolute; top:6px; right:6px; z-index:9999; background:#000; color:#7ec8ff; font-family:monospace; font-size:11px; padding:4px 8px; border-radius:4px; line-height:1.4;';
+      header.appendChild(badge);
+    }
+    badge.textContent = 'header:' + headerRect.height.toFixed(0) + 'px target:' + targetCenterY.toFixed(0) + 'px natural:' + currentCenterY.toFixed(0) + 'px shift:' + delta.toFixed(0) + 'px';
+
+    var guide = document.getElementById('sbGuideline');
+    if(!guide){
+      guide = document.createElement('div');
+      guide.id = 'sbGuideline';
+      guide.style.cssText = 'position:absolute; left:0; right:0; height:0; border-top:3px dashed #FFFF00; z-index:9998; pointer-events:none;';
+      header.appendChild(guide);
+    }
+    guide.style.top = targetCenterY.toFixed(1) + 'px';
   }
   window.addEventListener('load', function(){ requestAnimationFrame(centerStatRow); });
   window.addEventListener('resize', centerStatRow);
