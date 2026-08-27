@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<title>header sandbox</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Nunito:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#F3EADD;
+    --cream-2:#E8D6BC;
+    --card:#FBF5EA;
+    --ink:#3D2A22;
+    --ink-solid:#3D2A22;
+    --ink-soft:#856F5C;
+    --coral:#7A2E35;
+    --coral-dark:#5C2530;
+    --gold:#D4AF37;
+    --teal:#6B7A3D;
+    --line:#E0CBA4;
+    --board-bg:rgba(74,31,40,.62);
+    --theme-fade:.25s;
+  }
+  *{ box-sizing:border-box; }
+  body{
+    margin:0; background:var(--cream); font-family:'Nunito',sans-serif; color:var(--ink);
+  }
+
+  /* ===== real header markup/CSS, copied verbatim from index.html ===== */
+  header{
+    position:relative;
+    padding:36px 0 26px 0;
+    border-bottom:4px solid var(--card);
+    z-index:0;
+  }
+  header::before, header::after{
+    content:''; position:absolute; inset:0; z-index:-1;
+  }
+  .wrap{ max-width:640px; margin:0 auto; padding:0 20px; }
+  .masthead{ text-align:center; }
+  .title-row{
+    display:flex; align-items:center; justify-content:center; gap:14px; cursor:pointer;
+  }
+  .tile-logo{
+    width:clamp(68px,10vw,92px); height:clamp(68px,10vw,92px);
+    display:grid; grid-template-columns:repeat(3,1fr); grid-template-rows:repeat(3,1fr);
+    gap:5px; flex-shrink:0;
+  }
+  .tile-logo span{ border-radius:6px; display:block; background:var(--coral); }
+  .tile-logo .tl-1{ grid-column:1/3; grid-row:1/3; }
+  .tile-logo .tl-2{ background:var(--gold); }
+  .tile-logo .tl-3{ background:var(--teal); }
+  .tile-logo .tl-4{ grid-column:1/3; background:var(--gold); }
+  .tile-logo .tl-5{ background:var(--teal); }
+  h1.title{
+    font-family:'Baloo 2',sans-serif; margin:0;
+    font-size:clamp(22px,6.5vw,62px); font-weight:800; color:var(--coral-dark);
+    letter-spacing:-0.01em; white-space:nowrap;
+  }
+  .sr-only{ position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; }
+  .subtitle{
+    font-size:16px; font-weight:600; color:var(--ink-soft); margin-top:8px; overflow-wrap:break-word;
+  }
+  .stat-row{
+    display:flex; flex-direction:column; align-items:center; justify-content:center; gap:14px; margin-top:24px;
+  }
+  .header-icon-row{ display:flex; align-items:center; justify-content:center; gap:12px; }
+  .board{
+    background:var(--board-bg); backdrop-filter:blur(8px) saturate(1.2); -webkit-backdrop-filter:blur(8px) saturate(1.2);
+    border-radius:16px; padding:12px 22px; display:inline-flex;
+    box-shadow:0 3px 0 rgba(58,42,30,.15), inset 0 0 0 1px rgba(255,255,255,.08);
+  }
+  .board-cell{ padding:0 18px; text-align:left; }
+  .board-cell + .board-cell{ border-left:1px dashed rgba(255,255,255,.18); }
+  .board-cell .label{
+    font-size:9px; font-weight:700; text-transform:uppercase; letter-spacing:.08em; color:var(--gold); opacity:.85; white-space:nowrap;
+  }
+  .board-cell .value{
+    font-family:'Space Mono',monospace; font-weight:700; font-size:19px; color:#FBF5EA; white-space:nowrap; display:block; margin-top:2px;
+  }
+  .board-cell .date{
+    font-family:'Space Mono',monospace; font-weight:600; font-size:10px; color:rgba(251,245,234,.6); white-space:nowrap; margin-top:2px;
+  }
+  .search-icon-btn{
+    width:34px; height:34px; border-radius:50%; display:flex; align-items:center; justify-content:center;
+    background:rgba(0,0,0,.12); color:var(--ink); border:none; cursor:pointer; text-decoration:none;
+  }
+  @media (max-width:639px){
+    .tile-logo{ width:clamp(54px,8vw,74px); height:clamp(54px,8vw,74px); }
+    h1.title{ font-size:clamp(24px,7.15vw,46px); }
+  }
+  /* ===== end real header CSS ===== */
+
+  /* ---- sandbox chrome (not part of the real site) ---- */
+  .sandbox-bar{
+    background:#1a1a1a; color:#eee; font-family:'Space Mono',monospace; font-size:12px;
+    padding:8px 16px; display:flex; justify-content:space-between; align-items:center; gap:12px;
+  }
+  .sandbox-bar b{ color:#7ec8ff; }
+  .editor-wrap{ max-width:900px; margin:20px auto; padding:0 16px; }
+  .editor-wrap h2{ font-family:'Space Mono',monospace; font-size:13px; color:var(--ink-soft); text-transform:uppercase; letter-spacing:.05em; }
+  #cssInput{
+    width:100%; min-height:220px; font-family:'Space Mono',monospace; font-size:13px;
+    padding:12px; border-radius:8px; border:1px solid var(--line); background:#fff; color:#222;
+    resize:vertical;
+  }
+  #applyBtn{
+    margin-top:10px; padding:10px 20px; border-radius:8px; border:none; background:var(--coral);
+    color:#fff; font-weight:700; cursor:pointer; font-family:'Nunito',sans-serif;
+  }
+  #resetBtn{
+    margin-top:10px; margin-left:8px; padding:10px 20px; border-radius:8px; border:1px solid var(--line);
+    background:transparent; color:var(--ink); cursor:pointer; font-family:'Nunito',sans-serif;
+  }
+  #liveCss{}
+</style>
+</head>
+<body>
+
+<div class="sandbox-bar">
+  <span><b>SANDBOX</b> — not linked from the real site, not indexed, header markup copied verbatim from production</span>
+  <span id="clockLabel"></span>
+</div>
+
+<header>
+  <div class="wrap masthead">
+    <div class="title-row">
+      <div class="tile-logo">
+        <span class="tl-1"></span><span class="tl-2"></span>
+        <span class="tl-3"></span>
+        <span class="tl-4"></span><span class="tl-5"></span>
+      </div>
+      <h1 class="title"><span aria-hidden="true">Mr Eric's Lounge</span><span class="sr-only">Mr Eric's Lounge</span></h1>
+    </div>
+    <div class="subtitle">Made by someone who should be grading papers right now</div>
+    <div class="stat-row">
+      <div class="board">
+        <div class="board-cell">
+          <span class="label">Local time</span>
+          <span class="value" id="clock">--:--:--</span>
+          <span class="date" id="clockDate">--/--/----</span>
+        </div>
+        <div class="board-cell">
+          <span class="label">Weekend in</span>
+          <span class="value" id="weekendCountdown">--:--:--:--</span>
+        </div>
+      </div>
+      <div class="header-icon-row">
+        <a class="search-icon-btn" href="#" title="Search"><svg width="18" height="18" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.8-3.8"/></svg></a>
+        <button class="search-icon-btn" title="dark toggle (visual only, not wired)"><svg width="18" height="18" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a7 7 0 0 0 10.5 10.5Z"/></svg></button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="editor-wrap">
+  <h2>Paste theme CSS here (targets: header, .flag-emblem, h1.title, .subtitle, etc.) — applies live, above</h2>
+  <textarea id="cssInput" placeholder="/* paste a CSS block, e.g. header{ background: red; } */"></textarea><br>
+  <button id="applyBtn">Apply</button>
+  <button id="resetBtn">Reset</button>
+</div>
+<style id="liveCss"></style>
+
+<script>
+  document.getElementById('applyBtn').addEventListener('click', function(){
+    document.getElementById('liveCss').textContent = document.getElementById('cssInput').value;
+  });
+  document.getElementById('resetBtn').addEventListener('click', function(){
+    document.getElementById('cssInput').value = '';
+    document.getElementById('liveCss').textContent = '';
+  });
+  function tick(){
+    const d = new Date();
+    const opts = { timeZone:'Asia/Tashkent', hour:'2-digit', minute:'2-digit', second:'2-digit', hour12:false };
+    document.getElementById('clock').textContent = d.toLocaleTimeString('en-GB', opts);
+    document.getElementById('clockDate').textContent = d.toLocaleDateString('en-GB', {timeZone:'Asia/Tashkent'});
+    document.getElementById('clockLabel').textContent = 'loaded ' + d.toLocaleTimeString('en-GB');
+  }
+  tick(); setInterval(tick, 1000);
+</script>
+
+</body>
+</html>
