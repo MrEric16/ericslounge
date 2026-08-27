@@ -22733,7 +22733,6 @@ function triggerWeekendEgg(){
 }
 header{
   position:relative;
-  min-height:260px;
   background-image:
     linear-gradient(180deg, #0072CE 0%, #0072CE 35%, #DA291C 35%, #DA291C 37%, #FFFFFF 37%, #FFFFFF 63%, #DA291C 63%, #DA291C 65%, #43B02A 65%, #43B02A 100%);
   background-size:100% 100%;
@@ -22749,14 +22748,10 @@ header, header *{
 }
 .flag-emblem svg{ display:block; height:100%; width:auto; }
 .title-row{
-  display:none;
+  visibility:hidden;
 }
 .subtitle{
-  display:none;
-}
-.stat-row{
-  position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
-  margin:0; z-index:3;
+  visibility:hidden;
 }
 .fac-tile, .sport-hub-tile, .sports-tile, .sports-card{
   box-shadow:inset 0 3px 0 0 #0072CE;
