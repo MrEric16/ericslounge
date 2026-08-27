@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-27T06:22:17.792987Z",
+  "generatedAt": "2026-08-27T17:43:51.944784Z",
   "results": [
     {
       "url": "https://www.goal.com/en/match/girona-vs-arsenal/__LS8d9Oc6I1wXn9g8956",
@@ -1273,9 +1273,34 @@
         }
       ],
       "competition": "PD"
+    },
+    {
+      "url": "https://www.goal.com/en/match/real-madrid-vs-real-sociedad/6CIWiSQDT6uECz-OQirsn",
+      "date": "2026-08-26",
+      "home": "Real Madrid",
+      "away": "Real Sociedad",
+      "htHome": 1,
+      "htAway": 1,
+      "ftHome": 4,
+      "ftAway": 1,
+      "homeGoals": [
+        {
+          "scorer": "K. Mbappe",
+          "minute": 40
+        },
+        {
+          "scorer": "Vinicius Junior",
+          "minute": 68
+        }
+      ],
+      "awayGoals": [
+        {
+          "scorer": "L. Sucic",
+          "minute": 44
+        }
+      ],
+      "competition": "PD"
     }
   ],
-  "scorerParseRetryCounts": {
-    "https://www.goal.com/en/match/real-madrid-vs-real-sociedad/6CIWiSQDT6uECz-OQirsn": 2
-  }
+  "scorerParseRetryCounts": {}
 }
