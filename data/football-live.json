@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-26T20:30:55.318033Z",
+  "generatedAt": "2026-08-27T00:24:55.231354Z",
   "standings": {
     "PL": [
       {
@@ -205,22 +205,22 @@
     ],
     "PD": [
       {
+        "name": "Real Madrid",
+        "pld": 2,
+        "w": 2,
+        "d": 0,
+        "l": 0,
+        "gf": 6,
+        "ga": 2,
+        "pts": 6
+      },
+      {
         "name": "Sevilla FC",
         "pld": 2,
         "w": 2,
         "d": 0,
         "l": 0,
         "gf": 5,
-        "ga": 2,
-        "pts": 6
-      },
-      {
-        "name": "Real Madrid",
-        "pld": 2,
-        "w": 2,
-        "d": 0,
-        "l": 0,
-        "gf": 4,
         "ga": 2,
         "pts": 6
       },
@@ -401,7 +401,7 @@
         "d": 0,
         "l": 2,
         "gf": 1,
-        "ga": 3,
+        "ga": 5,
         "pts": 0
       }
     ],
@@ -1484,6 +1484,37 @@
       ],
       "results": [
         {
+          "utcDate": "2026-08-26T19:00:00Z",
+          "status": "FINISHED",
+          "matchday": 1,
+          "homeTeam": {
+            "id": 86,
+            "name": "Real Madrid CF",
+            "shortName": "Real Madrid"
+          },
+          "awayTeam": {
+            "id": 92,
+            "name": "Real Sociedad de Fútbol",
+            "shortName": "Real Sociedad"
+          },
+          "score": {
+            "winner": "HOME_TEAM",
+            "duration": "REGULAR",
+            "fullTime": {
+              "home": 5,
+              "away": 1
+            },
+            "halfTime": {
+              "home": 1,
+              "away": 1
+            }
+          },
+          "competition": {
+            "name": "Primera Division"
+          },
+          "venue": null
+        },
+        {
           "utcDate": "2026-08-25T19:00:00Z",
           "status": "FINISHED",
           "matchday": 1,
@@ -1910,37 +1941,6 @@
             "halfTime": {
               "home": 2,
               "away": 0
-            }
-          },
-          "competition": {
-            "name": "Primera Division"
-          },
-          "venue": null
-        },
-        {
-          "utcDate": "2026-08-16T15:00:00Z",
-          "status": "FINISHED",
-          "matchday": 1,
-          "homeTeam": {
-            "id": 5335,
-            "name": "Real Racing Club de Santander",
-            "shortName": "Santander"
-          },
-          "awayTeam": {
-            "id": 94,
-            "name": "Villarreal CF",
-            "shortName": "Villarreal"
-          },
-          "score": {
-            "winner": "DRAW",
-            "duration": "REGULAR",
-            "fullTime": {
-              "home": 2,
-              "away": 2
-            },
-            "halfTime": {
-              "home": 2,
-              "away": 2
             }
           },
           "competition": {
