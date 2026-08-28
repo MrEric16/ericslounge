@@ -21491,7 +21491,7 @@ function centerNationalDayStatRow(){
   const headerRect = header.getBoundingClientRect();
   const rowRect = statRow.getBoundingClientRect();
   const currentCenterY = (rowRect.top + rowRect.height/2) - headerRect.top;
-  const targetCenterY = headerRect.height * 0.5 + 30;
+  const targetCenterY = headerRect.height * 0.5 + 25;
   const delta = targetCenterY - currentCenterY;
   statRow.style.transform = 'translateY(' + delta.toFixed(1) + 'px)';
 }
