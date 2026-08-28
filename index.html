@@ -2457,8 +2457,15 @@
     justify-content:space-between;
     align-items:center;
     box-shadow:0 2px 0 rgba(58,42,30,.06);
+    border-left:4px solid transparent;
   }
-  .bday-item.today{background:var(--gold);}
+  .bday-item.bday-cat-staff{border-left-color:var(--coral);}
+  .bday-item.bday-cat-myStudents{border-left-color:var(--teal);}
+  .bday-item.bday-cat-otherStudents{border-left-color:var(--gold);}
+  .bday-item.bday-cat-staff .bday-name{color:var(--coral);}
+  .bday-item.bday-cat-myStudents .bday-name{color:var(--teal);}
+  .bday-item.bday-cat-otherStudents .bday-name{color:var(--gold);}
+  .bday-item.today{background:var(--gold); border-left-color:var(--gold);}
   .bday-item.today .bday-name, .bday-item.today .bday-date{color:#fff;}
   .bday-name{font-weight:700; font-size:14.5px;}
   .bday-date{
@@ -2466,6 +2473,18 @@
     font-size:12px;
     color:var(--ink-soft);
   }
+  .bday-legend{
+    display:flex;
+    flex-wrap:wrap;
+    gap:14px;
+    margin-bottom:12px;
+    font-family:'Space Mono', monospace;
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:.04em;
+  }
+  .bday-legend-item{display:flex; align-items:center; gap:6px; color:var(--ink-soft);}
+  .bday-legend-dot{width:9px; height:9px; border-radius:50%; display:inline-block;}
 
   footer{
     text-align:center;
@@ -9584,28 +9603,40 @@ const POLL_QUESTIONS = [
   { options:["End every year with a huge celebration", "End every year completely quietly, just for yourself"] },
 ];
 const BIRTHDAYS = [
-  { name:"Mr Alisher Xasanovich", month:8, day:27 },
-  { name:"Ms Anna Vladimirovna", month:7, day:3 },
-  { name:"Ms Ekaterina Yevgenievna", month:8, day:5 },
-  { name:"Ms Farangiz", month:8, day:16 },
-  { name:"Ms Sophia", month:12, day:6 },
-  { name:"Ms Sadoqat", month:12, day:22 },
-  { name:"Madame Zulfiya Salaxovna", month:11, day:15 },
-  { name:"Ms Aigul Kalabaevna", month:4, day:29 },
-  { name:"Rebe Abdumalik Abrorovich", month:7, day:15 },
-  { name:"Mr Otabek Diyorovich", month:1, day:20 },
-  { name:"Mr Ilxom Baxromovich", month:7, day:26 },
-  { name:"Mr Ayk", month:3, day:1 },
-  { name:"Mr Davron Abitovich", month:6, day:20 },
-  { name:"Ms Nargiza Xekmatullaevna", month:5, day:2 },
-  { name:"Mr Xasan Rustamovich", month:3, day:23 },
-  { name:"Mr Dmitry Vladislavovich", month:6, day:17 },
-  { name:"Ms Irina Alekseevna", month:10, day:23 },
-  { name:"Ms Gulnara Xalimjanovna", month:11, day:6 },
-  { name:"Mr Rustam Akmalievich", month:5, day:3 },
-  { name:"Dr E'zoz Oybekovich", month:4, day:5 },
-  { name:"Mr Elyor Asatullaevich", month:1, day:10 },
-  { name:"Mr Shoxjahon", month:1, day:17 },
+  { name:"Mr Alisher Xasanovich", month:8, day:27, category:"staff" },
+  { name:"Ms Anna Vladimirovna", month:7, day:3, category:"staff" },
+  { name:"Ms Ekaterina Yevgenievna", month:8, day:5, category:"staff" },
+  { name:"Ms Farangiz", month:8, day:16, category:"staff" },
+  { name:"Ms Sophia", month:12, day:6, category:"staff" },
+  { name:"Ms Sadoqat", month:12, day:22, category:"staff" },
+  { name:"Madame Zulfiya Salaxovna", month:11, day:15, category:"staff" },
+  { name:"Ms Aigul Kalabaevna", month:4, day:29, category:"staff" },
+  { name:"Rebe Abdumalik Abrorovich", month:7, day:15, category:"staff" },
+  { name:"Mr Otabek Diyorovich", month:1, day:20, category:"staff" },
+  { name:"Mr Ilxom Baxromovich", month:7, day:26, category:"staff" },
+  { name:"Mr Ayk", month:3, day:1, category:"staff" },
+  { name:"Mr Davron Abitovich", month:6, day:20, category:"staff" },
+  { name:"Ms Nargiza Xekmatullaevna", month:5, day:2, category:"staff" },
+  { name:"Mr Xasan Rustamovich", month:3, day:23, category:"staff" },
+  { name:"Mr Dmitry Vladislavovich", month:6, day:17, category:"staff" },
+  { name:"Ms Irina Alekseevna", month:10, day:23, category:"staff" },
+  { name:"Ms Gulnara Xalimjanovna", month:11, day:6, category:"staff" },
+  { name:"Mr Rustam Akmalievich", month:5, day:3, category:"staff" },
+  { name:"Dr E'zoz Oybekovich", month:4, day:5, category:"staff" },
+  { name:"Mr Elyor Asatullaevich", month:1, day:10, category:"staff" },
+  { name:"Mr Shoxjahon", month:1, day:17, category:"staff" },
+  { name:"Kayumov Amir", month:12, day:20, category:"myStudents" },
+  { name:"Bakirov Zoxir", month:9, day:21, category:"myStudents" },
+  { name:"Rasulev Imran", month:7, day:23, category:"myStudents" },
+  { name:"Pulatov Shakhriyor", month:7, day:7, category:"myStudents" },
+  { name:"Rashidov Saidbosit", month:3, day:21, category:"myStudents" },
+  { name:"Mukhiddinov Asadbek", month:8, day:8, category:"myStudents" },
+  { name:"Askarov Sultan", month:10, day:23, category:"myStudents" },
+  { name:"Nasirova Mokhirakhon", month:10, day:22, category:"myStudents" },
+  { name:"Farmonov Shomuhammad", month:8, day:14, category:"myStudents" },
+  { name:"Akbarov Saidalo", month:10, day:4, category:"myStudents" },
+  { name:"Barlivaev Timur", month:3, day:8, category:"myStudents" },
+  { name:"Tillayeva Farzona", month:10, day:14, category:"myStudents" },
 ];
 
 // Rotating subtitle - a random one shows each visit.
@@ -19996,16 +20027,22 @@ function birthdaysHtml(){
   }).sort((a,b)=> a.next - b.next);
   const rows = withNext.map(b=>{
     const isToday = b.month===todayM && b.day===todayD;
+    const cat = b.category || 'staff';
     const nameHtml = isToday
       ? `<span class="bday-name bday-trigger" data-name="${escapeHtml(b.name)}">${escapeHtml(b.name)} 🎉</span>`
       : `<span class="bday-name">${escapeHtml(b.name)}</span>`;
-    return `<div class="bday-item ${isToday?'today':''}">
+    return `<div class="bday-item bday-cat-${cat} ${isToday?'today':''}">
       ${nameHtml}
       <span class="bday-date">${formatBdayDate(b.day, b.month)}</span>
     </div>`;
   }).join('');
   return `
     <div class="bday-today-banner">Today is ${formatBdayDate(todayD, todayM)}</div>
+    <div class="bday-legend">
+      <span class="bday-legend-item"><span class="bday-legend-dot" style="background:var(--teal)"></span>My students</span>
+      <span class="bday-legend-item"><span class="bday-legend-dot" style="background:var(--coral)"></span>Staff</span>
+      <span class="bday-legend-item"><span class="bday-legend-dot" style="background:var(--gold)"></span>Other students</span>
+    </div>
     <div class="bday-list">${rows}</div>
   `;
 }
