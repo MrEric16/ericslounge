@@ -1,14 +1,11 @@
 [goal-scraper] Run started.
 [goal-scraper] [PL] Found 0 finished-match links
-[goal-scraper] [PD] Found 8 finished-match links
-[goal-scraper] WARNING: Real Madrid scored 4 but only 2 scorer(s) were parsed for https://www.goal.com/en/match/real-madrid-vs-real-sociedad/6CIWiSQDT6uECz-OQirsn
-[goal-scraper] [PD] SCORER PARSE FAILED 3 times, giving up and committing WITH INCOMPLETE SCORER DATA (page structure likely changed) for Real Madrid 4-1 Real Sociedad: https://www.goal.com/en/match/real-madrid-vs-real-sociedad/6CIWiSQDT6uECz-OQirsn
-[goal-scraper] [PD] Added: Real Madrid 4-1 Real Sociedad
+[goal-scraper] [PD] Found 0 finished-match links
 [goal-scraper] [BL1] Found 0 finished-match links
 [goal-scraper] [SA] Found 0 finished-match links
 [goal-scraper] [FL1] Found 0 finished-match links
 [goal-scraper] [CL] Found 1 finished-match links
 [goal-scraper] [CL] Skipping stale match (older than 45 days): Paris Saint Germain vs Arsenal on 2026-05-30
 [goal-scraper] [arsenal-friendlies] Found 1 finished-match links
-[goal-scraper] TOTAL new results added this run: 1
+[goal-scraper] TOTAL new results added this run: 0
 [goal-scraper] Wrote data/goal-results.json
