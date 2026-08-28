@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-27T20:39:26.014265Z",
+  "generatedAt": "2026-08-28T05:04:40.027497Z",
   "standings": {
     "PL": [
       {
@@ -210,7 +210,7 @@
         "w": 2,
         "d": 0,
         "l": 0,
-        "gf": 6,
+        "gf": 7,
         "ga": 0,
         "pts": 6
       },
@@ -391,7 +391,7 @@
         "d": 0,
         "l": 2,
         "gf": 1,
-        "ga": 4,
+        "ga": 5,
         "pts": 0
       },
       {
@@ -1732,6 +1732,37 @@
       ],
       "results": [
         {
+          "utcDate": "2026-08-27T19:00:00Z",
+          "status": "FINISHED",
+          "matchday": 1,
+          "homeTeam": {
+            "id": 81,
+            "name": "FC Barcelona",
+            "shortName": "Barça"
+          },
+          "awayTeam": {
+            "id": 77,
+            "name": "Athletic Club",
+            "shortName": "Athletic"
+          },
+          "score": {
+            "winner": "HOME_TEAM",
+            "duration": "REGULAR",
+            "fullTime": {
+              "home": 2,
+              "away": 0
+            },
+            "halfTime": {
+              "home": 1,
+              "away": 0
+            }
+          },
+          "competition": {
+            "name": "Primera Division"
+          },
+          "venue": null
+        },
+        {
           "utcDate": "2026-08-27T18:30:00Z",
           "status": "FINISHED",
           "matchday": 1,
@@ -2157,37 +2188,6 @@
             },
             "halfTime": {
               "home": 0,
-              "away": 0
-            }
-          },
-          "competition": {
-            "name": "Primera Division"
-          },
-          "venue": null
-        },
-        {
-          "utcDate": "2026-08-17T19:00:00Z",
-          "status": "FINISHED",
-          "matchday": 1,
-          "homeTeam": {
-            "id": 560,
-            "name": "RC Deportivo La Coruña",
-            "shortName": "Deportivo"
-          },
-          "awayTeam": {
-            "id": 285,
-            "name": "Elche CF",
-            "shortName": "Elche"
-          },
-          "score": {
-            "winner": "DRAW",
-            "duration": "REGULAR",
-            "fullTime": {
-              "home": 1,
-              "away": 1
-            },
-            "halfTime": {
-              "home": 1,
               "away": 0
             }
           },
