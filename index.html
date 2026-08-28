@@ -8333,7 +8333,7 @@ function tashkentMomentNum(){
   const get = t => parts.find(p=>p.type===t).value;
   return +(get('year') + get('month') + get('day') + get('hour') + get('minute'));
 }
-const NATIONAL_DAY_WINDOW = { key: 'nationalday', startNum: 202608281800, endNum: 202609021800 };
+const NATIONAL_DAY_WINDOW = { key: 'nationalday', startNum: 202608280000, endNum: 202609021800 };
 function nationalDayThemeActive(){
   const n = tashkentMomentNum();
   return n >= NATIONAL_DAY_WINDOW.startNum && n < NATIONAL_DAY_WINDOW.endNum;
