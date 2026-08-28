@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-28T13:48:06.564872Z",
+  "generatedAt": "2026-08-28T23:20:24.707225Z",
   "results": [
     {
       "url": "https://www.goal.com/en/match/girona-vs-arsenal/__LS8d9Oc6I1wXn9g8956",
@@ -1300,7 +1300,120 @@
         }
       ],
       "competition": "PD"
+    },
+    {
+      "url": "https://www.goal.com/en/match/deportivo-alaves-vs-villarreal/vFhSY0hwaPwTCdAhZc-gS",
+      "date": "2026-08-28",
+      "home": "Deportivo Alaves",
+      "away": "Villarreal",
+      "htHome": 1,
+      "htAway": 0,
+      "ftHome": 1,
+      "ftAway": 0,
+      "homeGoals": [
+        {
+          "scorer": "L. Boye",
+          "minute": 31
+        }
+      ],
+      "awayGoals": [],
+      "competition": "PD"
+    },
+    {
+      "url": "https://www.goal.com/en/match/bayern-munich-vs-vfb-stuttgart/aiH82_BfqmnEErWTw6eqd",
+      "date": "2026-08-28",
+      "home": "Bayern Munich",
+      "away": "Vfb Stuttgart",
+      "htHome": 1,
+      "htAway": 0,
+      "ftHome": 5,
+      "ftAway": 1,
+      "homeGoals": [
+        {
+          "scorer": "D. Upamecano",
+          "minute": 21
+        },
+        {
+          "scorer": "M. Olise",
+          "minute": 55
+        },
+        {
+          "scorer": "J. Vagnoman",
+          "minute": 58
+        },
+        {
+          "scorer": "A. Pavlovic",
+          "minute": 82
+        },
+        {
+          "scorer": "L. Diaz",
+          "minute": 90
+        }
+      ],
+      "awayGoals": [
+        {
+          "scorer": "J. Vagnoman",
+          "minute": 52
+        }
+      ],
+      "competition": "BL1"
+    },
+    {
+      "url": "https://www.goal.com/en/match/ac-milan-vs-venezia/wp3-igTHQzS7fx7UcH28w",
+      "date": "2026-08-28",
+      "home": "Ac Milan",
+      "away": "Venezia",
+      "htHome": 0,
+      "htAway": 0,
+      "ftHome": 2,
+      "ftAway": 0,
+      "homeGoals": [
+        {
+          "scorer": "G. Ramos",
+          "minute": 69
+        },
+        {
+          "scorer": "R. Halhal",
+          "minute": 89
+        }
+      ],
+      "awayGoals": [],
+      "competition": "SA"
+    },
+    {
+      "url": "https://www.goal.com/en/match/lille-vs-paris-saint-germain/mDvRFib4yo0xdbhVO4XuL",
+      "date": "2026-08-28",
+      "home": "Lille",
+      "away": "Paris Saint Germain",
+      "htHome": 1,
+      "htAway": 0,
+      "ftHome": 2,
+      "ftAway": 2,
+      "homeGoals": [
+        {
+          "scorer": "H. Haraldsson",
+          "minute": 21
+        },
+        {
+          "scorer": "D. Bakwa",
+          "minute": 84
+        }
+      ],
+      "awayGoals": [
+        {
+          "scorer": "Vitinha",
+          "minute": 90
+        },
+        {
+          "scorer": "Marquinhos",
+          "minute": 90
+        }
+      ],
+      "competition": "FL1"
     }
   ],
-  "scorerParseRetryCounts": {}
+  "scorerParseRetryCounts": {
+    "https://www.goal.com/en/match/crystal-palace-vs-manchester-city/6-LKGToi0MqfUS5JdI1Ec": 1,
+    "https://www.goal.com/en/match/racing-santander-vs-elche/K9y5Gvave_g3kk5oWJdCA": 1
+  }
 }
