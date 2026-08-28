@@ -1,14 +1,14 @@
 {
-  "generatedAt": "2026-08-28T06:06:00.660923+00:00",
+  "generatedAt": "2026-08-28T18:37:49.858489+00:00",
   "teams": [
-    "Al Wasl",
     "Shabab Al Ahli Club",
+    "Al Wasl",
     "Al Ain FC",
     "Al Jazira Club",
     "Ajman Club",
+    "United FC",
     "Al Nasr SC",
     "Sharjah FC",
-    "United FC",
     "Ittihad Kalba FC",
     "Al Wahda",
     "Baniyas SC",
@@ -18,24 +18,24 @@
   ],
   "standings": [
     {
-      "team": "Al Wasl",
-      "played": 2,
-      "won": 2,
+      "team": "Shabab Al Ahli Club",
+      "played": 3,
+      "won": 3,
       "drawn": 0,
       "lost": 0,
       "gf": 8,
       "ga": 1,
       "gd": 7,
-      "points": 6
+      "points": 9
     },
     {
-      "team": "Shabab Al Ahli Club",
-      "played": 2,
+      "team": "Al Wasl",
+      "played": 3,
       "won": 2,
       "drawn": 0,
-      "lost": 0,
-      "gf": 7,
-      "ga": 1,
+      "lost": 1,
+      "gf": 8,
+      "ga": 2,
       "gd": 6,
       "points": 6
     },
@@ -73,6 +73,17 @@
       "points": 6
     },
     {
+      "team": "United FC",
+      "played": 3,
+      "won": 2,
+      "drawn": 0,
+      "lost": 1,
+      "gf": 8,
+      "ga": 8,
+      "gd": 0,
+      "points": 6
+    },
+    {
       "team": "Al Nasr SC",
       "played": 2,
       "won": 1,
@@ -95,25 +106,14 @@
       "points": 3
     },
     {
-      "team": "United FC",
-      "played": 2,
-      "won": 1,
-      "drawn": 0,
-      "lost": 1,
-      "gf": 4,
-      "ga": 7,
-      "gd": -3,
-      "points": 3
-    },
-    {
       "team": "Ittihad Kalba FC",
-      "played": 2,
+      "played": 3,
       "won": 0,
       "drawn": 1,
-      "lost": 1,
-      "gf": 2,
-      "ga": 5,
-      "gd": -3,
+      "lost": 2,
+      "gf": 3,
+      "ga": 9,
+      "gd": -6,
       "points": 1
     },
     {
