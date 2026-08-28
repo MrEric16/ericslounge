@@ -21502,6 +21502,10 @@ if(document.fonts && document.fonts.ready){
 }
 
 function fireNationalDayFireworksOnce(){
+  try{
+    if(sessionStorage.getItem('elNdFireworksFired') === '1') return;
+    sessionStorage.setItem('elNdFireworksFired', '1');
+  }catch(e){}
   if(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   const canvas = document.createElement('canvas');
   canvas.style.cssText = 'position:fixed; inset:0; z-index:100000; pointer-events:none;';
@@ -21512,31 +21516,38 @@ function fireNationalDayFireworksOnce(){
   const COLORS = ['#0072CE', '#DA291C', '#FFFFFF', '#43B02A'];
   const particles = [];
 
-  function burst(x, y){
-    const count = 46;
+  function burst(x, y, big){
+    const count = big ? 130 : 85;
     const color = COLORS[Math.floor(Math.random() * COLORS.length)];
     for(let i = 0; i < count; i++){
       const angle = (Math.PI * 2 * i) / count + Math.random() * 0.2;
-      const speed = 2 + Math.random() * 3.5;
+      const speed = (big ? 3.5 : 2.5) + Math.random() * (big ? 6 : 4.5);
       particles.push({
         x, y,
         vx: Math.cos(angle) * speed,
         vy: Math.sin(angle) * speed,
         color,
+        size: big ? 3.6 : 2.8,
         life: 1,
-        decay: 0.012 + Math.random() * 0.012,
+        decay: 0.008 + Math.random() * 0.01,
       });
     }
   }
 
   const bursts = [
-    { x: 0.25, y: 0.28, delay: 0 },
-    { x: 0.72, y: 0.22, delay: 260 },
-    { x: 0.5,  y: 0.38, delay: 520 },
-    { x: 0.15, y: 0.45, delay: 820 },
-    { x: 0.85, y: 0.42, delay: 1080 },
+    { x: 0.2,  y: 0.22, delay: 0,    big: true },
+    { x: 0.78, y: 0.18, delay: 180,  big: true },
+    { x: 0.5,  y: 0.3,  delay: 380,  big: true },
+    { x: 0.1,  y: 0.4,  delay: 620 },
+    { x: 0.9,  y: 0.38, delay: 700 },
+    { x: 0.35, y: 0.5,  delay: 950 },
+    { x: 0.65, y: 0.48, delay: 1050, big: true },
+    { x: 0.5,  y: 0.2,  delay: 1350, big: true },
+    { x: 0.2,  y: 0.35, delay: 1600 },
+    { x: 0.8,  y: 0.3,  delay: 1700 },
+    { x: 0.5,  y: 0.42, delay: 1950, big: true },
   ];
-  bursts.forEach(b => setTimeout(() => burst(b.x * canvas.width, b.y * canvas.height), b.delay));
+  bursts.forEach(b => setTimeout(() => burst(b.x * canvas.width, b.y * canvas.height, b.big), b.delay));
 
   let running = true;
   function tick(){
@@ -21554,11 +21565,11 @@ function fireNationalDayFireworksOnce(){
       ctx.globalAlpha = Math.max(p.life, 0);
       ctx.fillStyle = p.color;
       ctx.beginPath();
-      ctx.arc(p.x, p.y, 2.4, 0, Math.PI * 2);
+      ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
       ctx.fill();
     }
     ctx.globalAlpha = 1;
-    if(anyAlive || Date.now() < startTime + 2600){
+    if(anyAlive || Date.now() < startTime + 3200){
       requestAnimationFrame(tick);
     } else {
       running = false;
@@ -21567,7 +21578,7 @@ function fireNationalDayFireworksOnce(){
   }
   const startTime = Date.now();
   requestAnimationFrame(tick);
-  setTimeout(() => { running = false; canvas.remove(); }, 4000);
+  setTimeout(() => { running = false; canvas.remove(); }, 5500);
 }
 
 
