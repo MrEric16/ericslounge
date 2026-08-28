@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-28T05:04:40.027497Z",
+  "generatedAt": "2026-08-28T17:34:40.394373Z",
   "standings": {
     "PL": [
       {
@@ -265,6 +265,16 @@
         "pts": 4
       },
       {
+        "name": "Santander",
+        "pld": 3,
+        "w": 1,
+        "d": 1,
+        "l": 1,
+        "gf": 4,
+        "ga": 3,
+        "pts": 4
+      },
+      {
         "name": "Osasuna",
         "pld": 2,
         "w": 1,
@@ -313,16 +323,6 @@
         "gf": 2,
         "ga": 2,
         "pts": 2
-      },
-      {
-        "name": "Santander",
-        "pld": 2,
-        "w": 0,
-        "d": 1,
-        "l": 1,
-        "gf": 2,
-        "ga": 3,
-        "pts": 1
       },
       {
         "name": "Rayo Vallecano",
@@ -376,12 +376,12 @@
       },
       {
         "name": "Elche",
-        "pld": 2,
+        "pld": 3,
         "w": 0,
         "d": 1,
-        "l": 1,
+        "l": 2,
         "gf": 1,
-        "ga": 6,
+        "ga": 8,
         "pts": 1
       },
       {
@@ -1419,37 +1419,6 @@
     },
     "PD": {
       "fixtures": [
-        {
-          "utcDate": "2026-08-28T17:00:00Z",
-          "status": "TIMED",
-          "matchday": 3,
-          "homeTeam": {
-            "id": 5335,
-            "name": "Real Racing Club de Santander",
-            "shortName": "Santander"
-          },
-          "awayTeam": {
-            "id": 285,
-            "name": "Elche CF",
-            "shortName": "Elche"
-          },
-          "score": {
-            "winner": null,
-            "duration": "REGULAR",
-            "fullTime": {
-              "home": null,
-              "away": null
-            },
-            "halfTime": {
-              "home": null,
-              "away": null
-            }
-          },
-          "competition": {
-            "name": "Primera Division"
-          },
-          "venue": null
-        },
         {
           "utcDate": "2026-08-28T19:30:00Z",
           "status": "TIMED",
