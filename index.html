@@ -19635,6 +19635,12 @@ function wireBtGame(key){
 
 function viewPhotos(){
   const sorted = [...PHOTOS, ...SUBMITTED_PHOTOS].sort((a,b)=> b.date.localeCompare(a.date));
+  const superstarsSection = `
+    <section style="padding-top:14px;">
+      <div class="section-head"><span class="emoji">${icon('star')}</span><h2>Superstars of the Week</h2><a class="section-link" href="#superstars">See more →</a></div>
+      ${studentsHtml()}
+    </section>
+  `;
   const uploadWidget = `
     <input type="file" accept="image/*" id="photoUploadInput" style="display:none;">
     <button class="photo-upload-fab" id="photoUploadFab" aria-label="Add a photo" title="Add a photo">+</button>
@@ -19643,7 +19649,8 @@ function viewPhotos(){
   if(sorted.length === 0){
     return `
       <a class="back-link" href="#">← Back to Mr Eric's Lounge</a>
-      <section style="padding-top:14px;">
+      ${superstarsSection}
+      <section>
         <div class="section-head"><span class="emoji">${icon('camera')}</span><h2>Photo Library</h2></div>
         <div class="empty-card">No photos yet. Give it time.</div>
       </section>
@@ -19668,7 +19675,8 @@ function viewPhotos(){
   `).join('');
   return `
     <a class="back-link" href="#">← Back to Mr Eric's Lounge</a>
-    <section style="padding-top:14px;">
+    ${superstarsSection}
+    <section>
       <div class="section-head"><span class="emoji">${icon('camera')}</span><h2>Photo Library</h2></div>
       ${grid}
     </section>
@@ -20733,21 +20741,6 @@ function viewHome(){
           <div class="sub">140 million books and journals, right here, right now</div>
         </div>
       </a>
-    </section>
-
-    <section>
-      <a class="mindtemple-tile" href="#mind-temple">
-        <span class="icon">${icon('brain')}</span>
-        <div>
-          <div class="title">Mind Temple</div>
-          <div class="sub">A quiet place to think something through</div>
-        </div>
-      </a>
-    </section>
-
-    <section>
-      <div class="section-head"><span class="emoji">${icon('star')}</span><h2>Superstars of the Week</h2><a class="section-link" href="#superstars">See more →</a></div>
-      ${studentsHtml()}
     </section>
 
     <section>
