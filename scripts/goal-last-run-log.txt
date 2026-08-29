@@ -1,28 +1,30 @@
 [goal-scraper] Run started.
 [goal-scraper] [PL] Found 5 finished-match links
-[goal-scraper] [PL] Added: Coventry City 0-1 Hull City
-[goal-scraper] [PL] Added: Afc Bournemouth 1-1 Everton
-[goal-scraper] [PL] Added: Tottenham Hotspur 0-2 Newcastle United
-[goal-scraper] [PD] Found 4 finished-match links
+[goal-scraper] [PD] Found 5 finished-match links
 [goal-scraper] WARNING: Levante scored 5 but only 4 scorer(s) were parsed for https://www.goal.com/en/match/levante-vs-real-betis/upw1H4oVuYH7YTFH7xKcr
-[goal-scraper] [PD] SCORER PARSE FAILED (attempt 1/3) for Levante 5-2 Real Betis -- NOT committing, will retry next run: https://www.goal.com/en/match/levante-vs-real-betis/upw1H4oVuYH7YTFH7xKcr
-[goal-scraper] [PD] Added: Real Sociedad 2-1 Espanyol
+[goal-scraper] [PD] SCORER PARSE FAILED (attempt 2/3) for Levante 5-2 Real Betis -- NOT committing, will retry next run: https://www.goal.com/en/match/levante-vs-real-betis/upw1H4oVuYH7YTFH7xKcr
+[goal-scraper] WARNING: Atletico Madrid scored 3 but only 2 scorer(s) were parsed for https://www.goal.com/en/match/sevilla-vs-atletico-madrid/_seK0ylxMUwag4mPVn_nk
+[goal-scraper] [PD] SCORER PARSE FAILED (attempt 1/3) for Sevilla 1-3 Atletico Madrid -- NOT committing, will retry next run: https://www.goal.com/en/match/sevilla-vs-atletico-madrid/_seK0ylxMUwag4mPVn_nk
 [goal-scraper] [BL1] Found 7 finished-match links
 [goal-scraper] WARNING: Fc Koeln scored 3 but only 2 scorer(s) were parsed for https://www.goal.com/en/match/fc-koeln-vs-hoffenheim/FtIn9VP0kVKhlv_NEBHEc
-[goal-scraper] [BL1] SCORER PARSE FAILED (attempt 2/3) for Fc Koeln 3-2 Hoffenheim -- NOT committing, will retry next run: https://www.goal.com/en/match/fc-koeln-vs-hoffenheim/FtIn9VP0kVKhlv_NEBHEc
+[goal-scraper] [BL1] SCORER PARSE FAILED 3 times, giving up and committing WITH INCOMPLETE SCORER DATA (page structure likely changed) for Fc Koeln 3-2 Hoffenheim: https://www.goal.com/en/match/fc-koeln-vs-hoffenheim/FtIn9VP0kVKhlv_NEBHEc
+[goal-scraper] [BL1] Added: Fc Koeln 3-2 Hoffenheim
 [goal-scraper] WARNING: Eintracht Frankfurt scored 3 but only 1 scorer(s) were parsed for https://www.goal.com/en/match/union-berlin-vs-eintracht-frankfurt/id2qrGNmUt-aipCpwy9QL
-[goal-scraper] [BL1] SCORER PARSE FAILED (attempt 2/3) for Union Berlin 3-3 Eintracht Frankfurt -- NOT committing, will retry next run: https://www.goal.com/en/match/union-berlin-vs-eintracht-frankfurt/id2qrGNmUt-aipCpwy9QL
-[goal-scraper] [BL1] Added: Borussia Dortmund 2-0 Hamburger Sv
-[goal-scraper] [SA] Found 4 finished-match links
-[goal-scraper] [SA] Added: Monza 2-3 Udinese
-[goal-scraper] [SA] Added: Sassuolo 2-1 Torino
+[goal-scraper] [BL1] SCORER PARSE FAILED 3 times, giving up and committing WITH INCOMPLETE SCORER DATA (page structure likely changed) for Union Berlin 3-3 Eintracht Frankfurt: https://www.goal.com/en/match/union-berlin-vs-eintracht-frankfurt/id2qrGNmUt-aipCpwy9QL
+[goal-scraper] [BL1] Added: Union Berlin 3-3 Eintracht Frankfurt
+[goal-scraper] [SA] Found 5 finished-match links
 [goal-scraper] WARNING: Frosinone scored 3 but only 2 scorer(s) were parsed for https://www.goal.com/en/match/fiorentina-vs-frosinone/InwNWnjGv7u7jOSoR_EiJ
-[goal-scraper] [SA] SCORER PARSE FAILED (attempt 1/3) for Fiorentina 0-3 Frosinone -- NOT committing, will retry next run: https://www.goal.com/en/match/fiorentina-vs-frosinone/InwNWnjGv7u7jOSoR_EiJ
-[goal-scraper] [FL1] Found 2 finished-match links
+[goal-scraper] [SA] SCORER PARSE FAILED (attempt 2/3) for Fiorentina 0-3 Frosinone -- NOT committing, will retry next run: https://www.goal.com/en/match/fiorentina-vs-frosinone/InwNWnjGv7u7jOSoR_EiJ
+[goal-scraper] [SA] Added: Juventus 2-0 Parma Calcio 1913
+[goal-scraper] [FL1] Found 6 finished-match links
 [goal-scraper] WARNING: Strasbourg scored 2 but only 1 scorer(s) were parsed for https://www.goal.com/en/match/strasbourg-vs-lens/BDGxXL4DlfokFcnq0ETbr
-[goal-scraper] [FL1] SCORER PARSE FAILED (attempt 1/3) for Strasbourg 2-1 Lens -- NOT committing, will retry next run: https://www.goal.com/en/match/strasbourg-vs-lens/BDGxXL4DlfokFcnq0ETbr
+[goal-scraper] [FL1] SCORER PARSE FAILED (attempt 2/3) for Strasbourg 2-1 Lens -- NOT committing, will retry next run: https://www.goal.com/en/match/strasbourg-vs-lens/BDGxXL4DlfokFcnq0ETbr
+[goal-scraper] [FL1] Added: Brest 2-2 Toulouse
+[goal-scraper] [FL1] Added: Auxerre 1-3 Angers
+[goal-scraper] [FL1] Added: Lyon 1-1 Le Havre
+[goal-scraper] [FL1] Added: Lorient 1-2 Troyes
 [goal-scraper] [CL] Found 0 finished-match links
 [goal-scraper] [arsenal-friendlies] Found 1 finished-match links
 [goal-scraper] TOTAL new results added this run: 7
-[goal-scraper] Matches still awaiting a clean scorer parse (not yet committed): ['https://www.goal.com/en/match/fc-koeln-vs-hoffenheim/FtIn9VP0kVKhlv_NEBHEc', 'https://www.goal.com/en/match/union-berlin-vs-eintracht-frankfurt/id2qrGNmUt-aipCpwy9QL', 'https://www.goal.com/en/match/levante-vs-real-betis/upw1H4oVuYH7YTFH7xKcr', 'https://www.goal.com/en/match/fiorentina-vs-frosinone/InwNWnjGv7u7jOSoR_EiJ', 'https://www.goal.com/en/match/strasbourg-vs-lens/BDGxXL4DlfokFcnq0ETbr']
+[goal-scraper] Matches still awaiting a clean scorer parse (not yet committed): ['https://www.goal.com/en/match/levante-vs-real-betis/upw1H4oVuYH7YTFH7xKcr', 'https://www.goal.com/en/match/fiorentina-vs-frosinone/InwNWnjGv7u7jOSoR_EiJ', 'https://www.goal.com/en/match/strasbourg-vs-lens/BDGxXL4DlfokFcnq0ETbr', 'https://www.goal.com/en/match/sevilla-vs-atletico-madrid/_seK0ylxMUwag4mPVn_nk']
 [goal-scraper] Wrote data/goal-results.json
