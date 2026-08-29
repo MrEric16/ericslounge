@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-29T11:15:54.643101Z",
+  "generatedAt": "2026-08-29T15:42:45.355285Z",
   "results": [
     {
       "url": "https://www.goal.com/en/match/girona-vs-arsenal/__LS8d9Oc6I1wXn9g8956",
@@ -1464,7 +1464,115 @@
         }
       ],
       "competition": "PD"
+    },
+    {
+      "url": "https://www.goal.com/en/match/liverpool-vs-nottingham-forest/HNNxDy4m_518eAnWUGsx2",
+      "date": "2026-08-29",
+      "home": "Liverpool",
+      "away": "Nottingham Forest",
+      "htHome": 0,
+      "htAway": 1,
+      "ftHome": 2,
+      "ftAway": 2,
+      "homeGoals": [
+        {
+          "scorer": "A. Isak",
+          "minute": 60
+        },
+        {
+          "scorer": "V. Munoz",
+          "minute": 82
+        }
+      ],
+      "awayGoals": [
+        {
+          "scorer": "D. Ndoye",
+          "minute": 24
+        },
+        {
+          "scorer": "M. Gibbs-White",
+          "minute": 70
+        }
+      ],
+      "competition": "PL"
+    },
+    {
+      "url": "https://www.goal.com/en/match/mainz-05-vs-paderborn/2AyRzFcZasGBIkz1NlwPd",
+      "date": "2026-08-29",
+      "home": "Mainz 05",
+      "away": "Paderborn",
+      "htHome": 0,
+      "htAway": 0,
+      "ftHome": 0,
+      "ftAway": 0,
+      "homeGoals": [],
+      "awayGoals": [],
+      "competition": "BL1"
+    },
+    {
+      "url": "https://www.goal.com/en/match/rb-leipzig-vs-borussia-moenchengladbach/eiXQh9Ej_6ctKkh6SK8QG",
+      "date": "2026-08-29",
+      "home": "Rb Leipzig",
+      "away": "Borussia Moenchengladbach",
+      "htHome": 1,
+      "htAway": 0,
+      "ftHome": 3,
+      "ftAway": 0,
+      "homeGoals": [
+        {
+          "scorer": "R. Baku",
+          "minute": 26
+        },
+        {
+          "scorer": "A. Nusa",
+          "minute": 49
+        },
+        {
+          "scorer": "R. Reitz",
+          "minute": 66
+        }
+      ],
+      "awayGoals": [],
+      "competition": "BL1"
+    },
+    {
+      "url": "https://www.goal.com/en/match/elversberg-vs-bayer-leverkusen/P8zpedznKlKG9bjtOF1Bu",
+      "date": "2026-08-29",
+      "home": "Elversberg",
+      "away": "Bayer Leverkusen",
+      "htHome": 2,
+      "htAway": 0,
+      "ftHome": 3,
+      "ftAway": 2,
+      "homeGoals": [
+        {
+          "scorer": "L. Petkov",
+          "minute": 8
+        },
+        {
+          "scorer": "C. Campbell",
+          "minute": 9
+        },
+        {
+          "scorer": "D. Mokwa",
+          "minute": 46
+        }
+      ],
+      "awayGoals": [
+        {
+          "scorer": "P. Schick",
+          "minute": 77
+        },
+        {
+          "scorer": "C. Kofane",
+          "minute": 90
+        }
+      ],
+      "competition": "BL1"
     }
   ],
-  "scorerParseRetryCounts": {}
+  "scorerParseRetryCounts": {
+    "https://www.goal.com/en/match/fc-koeln-vs-hoffenheim/FtIn9VP0kVKhlv_NEBHEc": 1,
+    "https://www.goal.com/en/match/union-berlin-vs-eintracht-frankfurt/id2qrGNmUt-aipCpwy9QL": 1
+  }
 }
