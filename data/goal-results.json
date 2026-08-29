@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-29T21:51:01.483860Z",
+  "generatedAt": "2026-08-29T23:46:16.050578Z",
   "results": [
     {
       "url": "https://www.goal.com/en/match/girona-vs-arsenal/__LS8d9Oc6I1wXn9g8956",
@@ -1939,12 +1939,93 @@
         }
       ],
       "competition": "FL1"
+    },
+    {
+      "url": "https://www.goal.com/en/match/levante-vs-real-betis/upw1H4oVuYH7YTFH7xKcr",
+      "date": "2026-08-29",
+      "home": "Levante",
+      "away": "Real Betis",
+      "htHome": 2,
+      "htAway": 2,
+      "ftHome": 5,
+      "ftAway": 2,
+      "homeGoals": [
+        {
+          "scorer": "A. De La Fuente",
+          "minute": 24
+        },
+        {
+          "scorer": "E. Bardeli",
+          "minute": 45
+        },
+        {
+          "scorer": "R. Brugue",
+          "minute": 56
+        },
+        {
+          "scorer": "J. Olasagasti",
+          "minute": 90
+        }
+      ],
+      "awayGoals": [
+        {
+          "scorer": "M. Bartra",
+          "minute": 34
+        },
+        {
+          "scorer": "R. Riquelme",
+          "minute": 45
+        }
+      ],
+      "competition": "PD"
+    },
+    {
+      "url": "https://www.goal.com/en/match/fiorentina-vs-frosinone/InwNWnjGv7u7jOSoR_EiJ",
+      "date": "2026-08-29",
+      "home": "Fiorentina",
+      "away": "Frosinone",
+      "htHome": 0,
+      "htAway": 2,
+      "ftHome": 0,
+      "ftAway": 3,
+      "homeGoals": [],
+      "awayGoals": [
+        {
+          "scorer": "A. Raimondo",
+          "minute": 26
+        },
+        {
+          "scorer": "G. Bracaglia",
+          "minute": 38
+        }
+      ],
+      "competition": "SA"
+    },
+    {
+      "url": "https://www.goal.com/en/match/strasbourg-vs-lens/BDGxXL4DlfokFcnq0ETbr",
+      "date": "2026-08-29",
+      "home": "Strasbourg",
+      "away": "Lens",
+      "htHome": 0,
+      "htAway": 1,
+      "ftHome": 2,
+      "ftAway": 1,
+      "homeGoals": [
+        {
+          "scorer": "G. Yassine",
+          "minute": 48
+        }
+      ],
+      "awayGoals": [
+        {
+          "scorer": "F. Thauvin",
+          "minute": 38
+        }
+      ],
+      "competition": "FL1"
     }
   ],
   "scorerParseRetryCounts": {
-    "https://www.goal.com/en/match/levante-vs-real-betis/upw1H4oVuYH7YTFH7xKcr": 2,
-    "https://www.goal.com/en/match/fiorentina-vs-frosinone/InwNWnjGv7u7jOSoR_EiJ": 2,
-    "https://www.goal.com/en/match/strasbourg-vs-lens/BDGxXL4DlfokFcnq0ETbr": 2,
-    "https://www.goal.com/en/match/sevilla-vs-atletico-madrid/_seK0ylxMUwag4mPVn_nk": 1
+    "https://www.goal.com/en/match/sevilla-vs-atletico-madrid/_seK0ylxMUwag4mPVn_nk": 2
   }
 }
