@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-29T04:15:00.577655Z",
+  "generatedAt": "2026-08-29T11:15:54.643101Z",
   "results": [
     {
       "url": "https://www.goal.com/en/match/girona-vs-arsenal/__LS8d9Oc6I1wXn9g8956",
@@ -1410,10 +1410,61 @@
         }
       ],
       "competition": "FL1"
+    },
+    {
+      "url": "https://www.goal.com/en/match/crystal-palace-vs-manchester-city/6-LKGToi0MqfUS5JdI1Ec",
+      "date": "2026-08-28",
+      "home": "Crystal Palace",
+      "away": "Manchester City",
+      "htHome": 0,
+      "htAway": 1,
+      "ftHome": 1,
+      "ftAway": 4,
+      "homeGoals": [
+        {
+          "scorer": "G. Donnarumma",
+          "minute": 56
+        }
+      ],
+      "awayGoals": [
+        {
+          "scorer": "E. Haaland",
+          "minute": 17
+        },
+        {
+          "scorer": "R. Cherki",
+          "minute": 54
+        }
+      ],
+      "competition": "PL"
+    },
+    {
+      "url": "https://www.goal.com/en/match/racing-santander-vs-elche/K9y5Gvave_g3kk5oWJdCA",
+      "date": "2026-08-28",
+      "home": "Racing Santander",
+      "away": "Elche",
+      "htHome": 3,
+      "htAway": 0,
+      "ftHome": 3,
+      "ftAway": 2,
+      "homeGoals": [
+        {
+          "scorer": "Y. Zabiri",
+          "minute": 15
+        }
+      ],
+      "awayGoals": [
+        {
+          "scorer": "B. Sangare",
+          "minute": 78
+        },
+        {
+          "scorer": "F. Nino",
+          "minute": 79
+        }
+      ],
+      "competition": "PD"
     }
   ],
-  "scorerParseRetryCounts": {
-    "https://www.goal.com/en/match/crystal-palace-vs-manchester-city/6-LKGToi0MqfUS5JdI1Ec": 2,
-    "https://www.goal.com/en/match/racing-santander-vs-elche/K9y5Gvave_g3kk5oWJdCA": 2
-  }
+  "scorerParseRetryCounts": {}
 }

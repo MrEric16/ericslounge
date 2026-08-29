@@ -1,15 +1,16 @@
 [goal-scraper] Run started.
 [goal-scraper] [PL] Found 1 finished-match links
 [goal-scraper] WARNING: Manchester City scored 4 but only 2 scorer(s) were parsed for https://www.goal.com/en/match/crystal-palace-vs-manchester-city/6-LKGToi0MqfUS5JdI1Ec
-[goal-scraper] [PL] SCORER PARSE FAILED (attempt 2/3) for Crystal Palace 1-4 Manchester City -- NOT committing, will retry next run: https://www.goal.com/en/match/crystal-palace-vs-manchester-city/6-LKGToi0MqfUS5JdI1Ec
+[goal-scraper] [PL] SCORER PARSE FAILED 3 times, giving up and committing WITH INCOMPLETE SCORER DATA (page structure likely changed) for Crystal Palace 1-4 Manchester City: https://www.goal.com/en/match/crystal-palace-vs-manchester-city/6-LKGToi0MqfUS5JdI1Ec
+[goal-scraper] [PL] Added: Crystal Palace 1-4 Manchester City
 [goal-scraper] [PD] Found 2 finished-match links
 [goal-scraper] WARNING: Racing Santander scored 3 but only 1 scorer(s) were parsed for https://www.goal.com/en/match/racing-santander-vs-elche/K9y5Gvave_g3kk5oWJdCA
-[goal-scraper] [PD] SCORER PARSE FAILED (attempt 2/3) for Racing Santander 3-2 Elche -- NOT committing, will retry next run: https://www.goal.com/en/match/racing-santander-vs-elche/K9y5Gvave_g3kk5oWJdCA
+[goal-scraper] [PD] SCORER PARSE FAILED 3 times, giving up and committing WITH INCOMPLETE SCORER DATA (page structure likely changed) for Racing Santander 3-2 Elche: https://www.goal.com/en/match/racing-santander-vs-elche/K9y5Gvave_g3kk5oWJdCA
+[goal-scraper] [PD] Added: Racing Santander 3-2 Elche
 [goal-scraper] [BL1] Found 1 finished-match links
 [goal-scraper] [SA] Found 1 finished-match links
 [goal-scraper] [FL1] Found 1 finished-match links
 [goal-scraper] [CL] Found 0 finished-match links
 [goal-scraper] [arsenal-friendlies] Found 1 finished-match links
-[goal-scraper] TOTAL new results added this run: 0
-[goal-scraper] Matches still awaiting a clean scorer parse (not yet committed): ['https://www.goal.com/en/match/crystal-palace-vs-manchester-city/6-LKGToi0MqfUS5JdI1Ec', 'https://www.goal.com/en/match/racing-santander-vs-elche/K9y5Gvave_g3kk5oWJdCA']
+[goal-scraper] TOTAL new results added this run: 2
 [goal-scraper] Wrote data/goal-results.json
