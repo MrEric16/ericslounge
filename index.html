@@ -4882,6 +4882,122 @@ function idiomMatchExit(){
   renderRoute();
 }
 
+
+// ============ Guess the Currency: same engine pattern as Idiom Match. 30 rounds, no
+// difficulty tiers (uniform throughout, per explicit request), currency names deliberately
+// generic (no demonym adjective -- "Riyal" not "Omani Riyal" -- since the adjective gives
+// the country away). Only constraint enforced during round-building: "Euro" never appears
+// as the correct answer on two consecutive questions (curBuildRounds below), even though
+// ~20 of the 195 countries share it -- every other shared currency (Dollar, Franc, etc.) is
+// left to fall wherever the shuffle puts it, since only Euro was asked for. ============
+const CURRENCY_COUNTRIES = [{"name": "United States", "currency": "Dollar"}, {"name": "United Kingdom", "currency": "Pound"}, {"name": "France", "currency": "Euro"}, {"name": "Germany", "currency": "Euro"}, {"name": "Italy", "currency": "Euro"}, {"name": "Spain", "currency": "Euro"}, {"name": "Japan", "currency": "Yen"}, {"name": "China", "currency": "Yuan"}, {"name": "Canada", "currency": "Dollar"}, {"name": "Brazil", "currency": "Real"}, {"name": "Russia", "currency": "Ruble"}, {"name": "Australia", "currency": "Dollar"}, {"name": "India", "currency": "Rupee"}, {"name": "Mexico", "currency": "Peso"}, {"name": "South Korea", "currency": "Won"}, {"name": "Switzerland", "currency": "Franc"}, {"name": "Sweden", "currency": "Krona"}, {"name": "South Africa", "currency": "Rand"}, {"name": "Egypt", "currency": "Pound"}, {"name": "Turkey", "currency": "Lira"}, {"name": "Greece", "currency": "Euro"}, {"name": "Portugal", "currency": "Euro"}, {"name": "Argentina", "currency": "Peso"}, {"name": "Ireland", "currency": "Euro"}, {"name": "Netherlands", "currency": "Euro"}, {"name": "Norway", "currency": "Krone"}, {"name": "Poland", "currency": "Zloty"}, {"name": "Belgium", "currency": "Euro"}, {"name": "Austria", "currency": "Euro"}, {"name": "Denmark", "currency": "Krone"}, {"name": "Finland", "currency": "Euro"}, {"name": "Ukraine", "currency": "Hryvnia"}, {"name": "Israel", "currency": "Shekel"}, {"name": "Saudi Arabia", "currency": "Riyal"}, {"name": "United Arab Emirates", "currency": "Dirham"}, {"name": "Thailand", "currency": "Baht"}, {"name": "Vietnam", "currency": "Dong"}, {"name": "Indonesia", "currency": "Rupiah"}, {"name": "Philippines", "currency": "Peso"}, {"name": "Pakistan", "currency": "Rupee"}, {"name": "Nigeria", "currency": "Naira"}, {"name": "Kenya", "currency": "Shilling"}, {"name": "Morocco", "currency": "Dirham"}, {"name": "Colombia", "currency": "Peso"}, {"name": "Venezuela", "currency": "Bolívar"}, {"name": "Chile", "currency": "Peso"}, {"name": "Peru", "currency": "Sol"}, {"name": "Cuba", "currency": "Peso"}, {"name": "New Zealand", "currency": "Dollar"}, {"name": "Iceland", "currency": "Krona"}, {"name": "Czechia", "currency": "Koruna"}, {"name": "Hungary", "currency": "Forint"}, {"name": "Romania", "currency": "Leu"}, {"name": "Iran", "currency": "Rial"}, {"name": "Iraq", "currency": "Dinar"}, {"name": "Singapore", "currency": "Dollar"}, {"name": "Malaysia", "currency": "Ringgit"}, {"name": "Kazakhstan", "currency": "Tenge"}, {"name": "Uzbekistan", "currency": "Som"}, {"name": "Mongolia", "currency": "Tögrög"}, {"name": "Nepal", "currency": "Rupee"}, {"name": "Sri Lanka", "currency": "Rupee"}, {"name": "Bangladesh", "currency": "Taka"}, {"name": "Myanmar", "currency": "Kyat"}, {"name": "Cambodia", "currency": "Riel"}, {"name": "Laos", "currency": "Kip"}, {"name": "North Korea", "currency": "Won"}, {"name": "Taiwan", "currency": "Dollar"}, {"name": "Jordan", "currency": "Dinar"}, {"name": "Lebanon", "currency": "Pound"}, {"name": "Syria", "currency": "Pound"}, {"name": "Yemen", "currency": "Rial"}, {"name": "Kuwait", "currency": "Dinar"}, {"name": "Qatar", "currency": "Riyal"}, {"name": "Bahrain", "currency": "Dinar"}, {"name": "Oman", "currency": "Rial"}, {"name": "Afghanistan", "currency": "Afghani"}, {"name": "Azerbaijan", "currency": "Manat"}, {"name": "Armenia", "currency": "Dram"}, {"name": "Georgia", "currency": "Lari"}, {"name": "Turkmenistan", "currency": "Manat"}, {"name": "Tajikistan", "currency": "Somoni"}, {"name": "Kyrgyzstan", "currency": "Som"}, {"name": "Bhutan", "currency": "Ngultrum"}, {"name": "Maldives", "currency": "Rufiyaa"}, {"name": "Brunei", "currency": "Dollar"}, {"name": "Timor-Leste", "currency": "Dollar"}, {"name": "Ghana", "currency": "Cedi"}, {"name": "Ethiopia", "currency": "Birr"}, {"name": "Tanzania", "currency": "Shilling"}, {"name": "Uganda", "currency": "Shilling"}, {"name": "Algeria", "currency": "Dinar"}, {"name": "Tunisia", "currency": "Dinar"}, {"name": "Libya", "currency": "Dinar"}, {"name": "Sudan", "currency": "Pound"}, {"name": "Senegal", "currency": "Franc"}, {"name": "Mali", "currency": "Franc"}, {"name": "Guinea", "currency": "Franc"}, {"name": "Ivory Coast", "currency": "Franc"}, {"name": "Cameroon", "currency": "Franc"}, {"name": "Zambia", "currency": "Kwacha"}, {"name": "Zimbabwe", "currency": "ZiG"}, {"name": "Angola", "currency": "Kwanza"}, {"name": "Mozambique", "currency": "Metical"}, {"name": "Namibia", "currency": "Dollar"}, {"name": "Botswana", "currency": "Pula"}, {"name": "Rwanda", "currency": "Franc"}, {"name": "Somalia", "currency": "Shilling"}, {"name": "Democratic Republic of the Congo", "currency": "Franc"}, {"name": "Republic of the Congo", "currency": "Franc"}, {"name": "Panama", "currency": "Balboa"}, {"name": "Costa Rica", "currency": "Colón"}, {"name": "Nicaragua", "currency": "Córdoba"}, {"name": "Honduras", "currency": "Lempira"}, {"name": "El Salvador", "currency": "Dollar"}, {"name": "Guatemala", "currency": "Quetzal"}, {"name": "Ecuador", "currency": "Dollar"}, {"name": "Bolivia", "currency": "Boliviano"}, {"name": "Paraguay", "currency": "Guaraní"}, {"name": "Uruguay", "currency": "Peso"}, {"name": "Dominican Republic", "currency": "Peso"}, {"name": "Haiti", "currency": "Gourde"}, {"name": "Jamaica", "currency": "Dollar"}, {"name": "Slovakia", "currency": "Euro"}, {"name": "Slovenia", "currency": "Euro"}, {"name": "Croatia", "currency": "Euro"}, {"name": "Serbia", "currency": "Dinar"}, {"name": "Bosnia and Herzegovina", "currency": "Mark"}, {"name": "Bulgaria", "currency": "Lev"}, {"name": "North Macedonia", "currency": "Denar"}, {"name": "Albania", "currency": "Lek"}, {"name": "Montenegro", "currency": "Euro"}, {"name": "Kosovo", "currency": "Euro"}, {"name": "Moldova", "currency": "Leu"}, {"name": "Belarus", "currency": "Ruble"}, {"name": "Lithuania", "currency": "Euro"}, {"name": "Latvia", "currency": "Euro"}, {"name": "Estonia", "currency": "Euro"}, {"name": "Luxembourg", "currency": "Euro"}, {"name": "Malta", "currency": "Euro"}, {"name": "Cyprus", "currency": "Euro"}, {"name": "Liechtenstein", "currency": "Franc"}, {"name": "Monaco", "currency": "Euro"}, {"name": "San Marino", "currency": "Euro"}, {"name": "Andorra", "currency": "Euro"}, {"name": "Vatican City", "currency": "Euro"}, {"name": "Fiji", "currency": "Dollar"}, {"name": "Papua New Guinea", "currency": "Kina"}, {"name": "Samoa", "currency": "Tala"}, {"name": "Tonga", "currency": "Paʻanga"}, {"name": "Vanuatu", "currency": "Vatu"}, {"name": "Solomon Islands", "currency": "Dollar"}, {"name": "Kiribati", "currency": "Dollar"}, {"name": "Tuvalu", "currency": "Dollar"}, {"name": "Nauru", "currency": "Dollar"}, {"name": "Marshall Islands", "currency": "Dollar"}, {"name": "Palau", "currency": "Dollar"}, {"name": "Micronesia", "currency": "Dollar"}, {"name": "Trinidad and Tobago", "currency": "Dollar"}, {"name": "Bahamas", "currency": "Dollar"}, {"name": "Barbados", "currency": "Dollar"}, {"name": "Belize", "currency": "Dollar"}, {"name": "Guyana", "currency": "Dollar"}, {"name": "Suriname", "currency": "Dollar"}, {"name": "Grenada", "currency": "Dollar"}, {"name": "Saint Lucia", "currency": "Dollar"}, {"name": "Saint Vincent and the Grenadines", "currency": "Dollar"}, {"name": "Antigua and Barbuda", "currency": "Dollar"}, {"name": "Dominica", "currency": "Dollar"}, {"name": "Saint Kitts and Nevis", "currency": "Dollar"}, {"name": "South Sudan", "currency": "Pound"}, {"name": "Chad", "currency": "Franc"}, {"name": "Niger", "currency": "Franc"}, {"name": "Burkina Faso", "currency": "Franc"}, {"name": "Benin", "currency": "Franc"}, {"name": "Togo", "currency": "Franc"}, {"name": "Sierra Leone", "currency": "Leone"}, {"name": "Liberia", "currency": "Dollar"}, {"name": "Gambia", "currency": "Dalasi"}, {"name": "Guinea-Bissau", "currency": "Franc"}, {"name": "Equatorial Guinea", "currency": "Franc"}, {"name": "Gabon", "currency": "Franc"}, {"name": "Central African Republic", "currency": "Franc"}, {"name": "Djibouti", "currency": "Franc"}, {"name": "Eritrea", "currency": "Nakfa"}, {"name": "Burundi", "currency": "Franc"}, {"name": "Malawi", "currency": "Kwacha"}, {"name": "Madagascar", "currency": "Ariary"}, {"name": "Mauritius", "currency": "Rupee"}, {"name": "Seychelles", "currency": "Rupee"}, {"name": "Comoros", "currency": "Franc"}, {"name": "Cape Verde", "currency": "Escudo"}, {"name": "Sao Tome and Principe", "currency": "Dobra"}, {"name": "Lesotho", "currency": "Loti"}, {"name": "Eswatini", "currency": "Lilangeni"}];
+
+const CUR_ROUNDS_PER_GAME = 30;
+const CUR_BEST_SCORE_KEY = 'currencyGameBestScore';
+const CUR_STREAK_KEY = 'currencyGameStreak';
+
+function curShuffle(arr){
+  const a = [...arr];
+  for(let i = a.length - 1; i > 0; i--){
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+// Interleaves euro and non-euro countries so Euro never lands as the correct answer twice
+// in a row: whenever the previous pick was Euro, the next pick is forced to come from the
+// non-euro pool (always possible here -- ~175 non-euro countries vs ~20 euro ones, so the
+// non-euro pool never runs dry before 30 rounds are filled). Otherwise picks are weighted
+// by each pool's remaining size, so the natural ~1-in-10 Euro frequency is preserved rather
+// than pushed to the front or back of the round order.
+function curBuildRounds(totalRounds){
+  const euroPool = curShuffle(CURRENCY_COUNTRIES.filter(c => c.currency === 'Euro'));
+  const otherPool = curShuffle(CURRENCY_COUNTRIES.filter(c => c.currency !== 'Euro'));
+  const allCurrencies = [...new Set(CURRENCY_COUNTRIES.map(c => c.currency))];
+  const sequence = [];
+  let ei = 0, oi = 0, lastWasEuro = false;
+  while(sequence.length < totalRounds && (ei < euroPool.length || oi < otherPool.length)){
+    let pick = null;
+    if(lastWasEuro){
+      if(oi < otherPool.length) pick = otherPool[oi++];
+      else if(ei < euroPool.length) pick = euroPool[ei++];
+    } else {
+      const remainingEuro = euroPool.length - ei;
+      const remainingOther = otherPool.length - oi;
+      const r = Math.random() * (remainingEuro + remainingOther);
+      if(r < remainingEuro && ei < euroPool.length) pick = euroPool[ei++];
+      else if(oi < otherPool.length) pick = otherPool[oi++];
+      else if(ei < euroPool.length) pick = euroPool[ei++];
+    }
+    if(!pick) break;
+    sequence.push(pick);
+    lastWasEuro = pick.currency === 'Euro';
+  }
+  return sequence.map(correct => {
+    const distractorNames = curShuffle(allCurrencies.filter(n => n !== correct.currency)).slice(0, 3);
+    const options = curShuffle([correct.currency, ...distractorNames]);
+    return { correct, options };
+  });
+}
+
+let currencyState = null;
+
+function currencyStart(){
+  currencyState = {
+    rounds: curBuildRounds(CUR_ROUNDS_PER_GAME),
+    current: 0,
+    correctCount: 0,
+    mistakes: [],
+    answered: false,
+    lastPicked: null,
+  };
+  renderRoute();
+}
+
+function currencyAnswer(pickedCurrency){
+  if(!currencyState || currencyState.answered) return;
+  currencyState.answered = true;
+  currencyState.lastPicked = pickedCurrency;
+  const round = currencyState.rounds[currencyState.current];
+  const isCorrect = pickedCurrency === round.correct.currency;
+  if(isCorrect){ currencyState.correctCount++; }
+  else{ currencyState.mistakes.push({ round, picked: pickedCurrency }); }
+  renderRoute();
+  setTimeout(() => {
+    if(!currencyState) return;
+    currencyState.current++;
+    currencyState.answered = false;
+    currencyState.lastPicked = null;
+    if(currencyState.current >= currencyState.rounds.length){
+      currencyFinishGame();
+    }
+    renderRoute();
+  }, 1200);
+}
+
+function currencyFinishGame(){
+  const score = currencyState.correctCount;
+  let best = 0, streak = 0;
+  try{ best = parseInt(localStorage.getItem(CUR_BEST_SCORE_KEY) || '0', 10); }catch(e){}
+  if(score > best){
+    try{ localStorage.setItem(CUR_BEST_SCORE_KEY, String(score)); }catch(e){}
+  }
+  try{ streak = parseInt(localStorage.getItem(CUR_STREAK_KEY) || '0', 10); }catch(e){}
+  const todayKey = getTodayKeyLocal();
+  let lastPlayed = null;
+  try{ lastPlayed = localStorage.getItem('currencyGameLastPlayedDate'); }catch(e){}
+  if(lastPlayed !== todayKey){
+    const yesterday = new Date(Date.now() - 86400000);
+    const yKey = `${yesterday.getFullYear()}-${String(yesterday.getMonth()+1).padStart(2,'0')}-${String(yesterday.getDate()).padStart(2,'0')}`;
+    streak = (lastPlayed === yKey) ? streak + 1 : 1;
+    try{
+      localStorage.setItem(CUR_STREAK_KEY, String(streak));
+      localStorage.setItem('currencyGameLastPlayedDate', todayKey);
+    }catch(e){}
+  }
+}
+
 // ============ Nerdle: Wordle but with maths equations ============
 const NERDLE_ANSWER_POOL = ["8+7+9=24","2+2+9=13","13+61=74","23+53=76","18+75=93","15+13=28","18+56=74","11+23=34","17+56=73","27+68=95","30+36=66","47+45=92","43+12=55","11+44=55","40+57=97","68+13=81","26+15=41","9+7+6=22","48+12=60","61+12=73","27+19=46","53+26=79","60+11=71","6+3+9=18","22+47=69","20+17=37","13+84=97","18+12=30","11+47=58","41+29=70","4+6+7=17","63+25=88","72+21=93","13+18=31","23+65=88","15+36=51","7+7+2=16","55+39=94","51+38=89","20+45=65","20+63=83","63+30=93","3+4+6=13","25+52=77","15+22=37","78+18=96","24+27=51","17+58=75","61+34=95","12+17=29","66+31=97","31+11=42","5+5+7=17","40+13=53","5+6+2=13","65+17=82","46+32=78","8+4+2=14","18+80=98","17+69=86","5+6+1=12","1+9+8=18","61+16=77","11+83=94","88+11=99","33+20=53","51+10=61","52+47=99","27+35=62","43+40=83","44+44=88","46+14=60","50+42=92","22+65=87","6+7+6=19","27+49=76","73+25=98","69+29=98","46+25=71","25+27=52","24+65=89","23+66=89","41+30=71","27+28=55","28+70=98","26+47=73","34+46=80","19+79=98","18+29=47","21+73=94","8+1+6=15","6+2+7=15","3+3+7=13","25+68=93","9+5+6=20","60+39=99","79+11=90","6+9+3=18","13+25=38","13+41=54","94-23=71","92-34=58","83-45=38","88-17=71","83-23=60","84-49=35","60-23=37","65-39=26","87-76=11","94-38=56","93-66=27","96-15=81","97-75=22","80-28=52","81-26=55","53-28=25","60-10=50","94-48=46","28-17=11","66-13=53","65-35=30","81-21=60","52-38=14","90-22=68","81-18=63","74-12=62","79-21=58","65-43=22","69-59=10","95-65=30","92-20=72","78-61=17","68-47=21","46-28=18","85-41=44","82-18=64","62-40=22","79-12=67","72-23=49","82-66=16","46-30=16","83-57=26","93-38=55","92-46=46","81-60=21","94-46=48","83-18=65","97-23=74","62-22=40","63-23=40","80-33=47","80-18=62","71-51=20","77-51=26","33-11=22","83-67=16","55-35=20","68-36=32","77-37=40","41-26=15","95-41=54","74-45=29","99-25=74","92-32=60","98-75=23","84-22=62","88-64=24","86-15=71","74-36=38","55-42=13","72-24=48","66-36=30","70-45=25","78-45=33","78-13=65","78-21=57","78-32=46","85-47=38","58-10=48","99-84=15","9*81=729","5*20=100","6*54=324","4*45=180","7*31=217","4*51=204","5*54=270","4*95=380","5*47=235","7*87=609","2*54=108","4*71=284","4*64=256","5*27=135","9*86=774","5*62=310","3*48=144","3*36=108","9*53=477","4*46=184","3*34=102","4*80=320","9*17=153","8*14=112","5*52=260","6*93=558","9*90=810","6*26=156","4*99=396","8*72=576","3*80=240","2*89=178","7*72=504","9*46=414","9*91=819","7*15=105","3*73=219","5*53=265","6*56=336","7*22=154","8*24=192","6*37=222","6*24=144","8*16=128","8*52=416","6*50=300","3*51=153","7*48=336","9*41=369","4*86=344","7*52=364","6*51=306","4*28=112","5*77=385","6*92=552","6*79=474","2*67=134","4*96=384","7*55=385","2*76=152","664/8=83","330/5=66","178/2=89","156/2=78","483/7=69","774/9=86","440/8=55","413/7=59","291/3=97","390/6=65","272/8=34","116/2=58","360/6=60","576/9=64","640/8=80","129/3=43","435/5=87","336/4=84","414/9=46","234/3=78","510/6=85","495/5=99","128/4=32","402/6=67","161/7=23","138/2=69","234/6=39","156/6=26","546/7=78","140/5=28","570/6=95","792/9=88","304/8=38","144/6=24","420/7=60","406/7=58","222/3=74","122/2=61","300/4=75","549/9=61","504/9=56","246/6=41","176/8=22","236/4=59","192/4=48","123/3=41","445/5=89","195/3=65","324/9=36","480/8=60","630/7=90","486/9=54","192/2=96","498/6=83","504/7=72","300/5=60","265/5=53","132/6=22","180/6=30","469/7=67"];
 const NERDLE_LENGTH = 8;
@@ -8036,6 +8152,7 @@ const GEOGRAPHY_HUB_TILES = [
   { name: "Word Scramble", emoji: icon('dice'), url: "#anagram-game", internal: true },
   { name: "Odd One Out", emoji: icon('oddOneOut'), url: "#odd-one-out-game", internal: true },
   { name: "Idiom Match", emoji: icon('chatBubble'), url: "#idiom-match-game", internal: true },
+  { name: "Guess the Currency", emoji: icon('coin'), url: "#currency-game", internal: true },
   { name: "Nerdle", emoji: icon('mathSymbols'), url: "#nerdle-game", internal: true },
   { name: "Memory Match", emoji: icon('cardFlip'), url: "#memory-game", internal: true },
   { name: "Country Silhouette", emoji: icon('landmass'), url: "#silhouette-game", internal: true },
@@ -13237,6 +13354,93 @@ function viewIdiomMatchGame(){
     return idiomMatchEndHtml();
   }
   return idiomMatchPlayingHtml();
+}
+
+// ============ Guess the Currency: views. Mirrors Idiom Match's screen layout exactly. ============
+function currencyIntroHtml(){
+  let best = 0, streak = 0;
+  try{ best = parseInt(localStorage.getItem(CUR_BEST_SCORE_KEY) || '0', 10); }catch(e){}
+  try{ streak = parseInt(localStorage.getItem(CUR_STREAK_KEY) || '0', 10); }catch(e){}
+  return `
+    <a class="back-link" href="#geography-hub">← Back to Train Your Brain</a>
+    <section style="padding-top:14px;">
+      <div class="fg-wrap">
+        <div class="section-head"><span class="emoji">${icon('coin')}</span><h2>Guess the Currency</h2></div>
+        <p style="font-size:14px; color:var(--ink-soft); line-height:1.6; margin-bottom:6px;">Every country, one currency each. No adjective to give it away.</p>
+        <div class="fg-intro-stats">
+          <div class="fg-intro-stat"><div class="num">${best}/${CUR_ROUNDS_PER_GAME}</div><div class="label">Best Score</div></div>
+          <div class="fg-intro-stat"><div class="num">${streak}</div><div class="label">Day Streak</div></div>
+        </div>
+        <button class="fg-start-btn" data-action="currency-start">Start</button>
+      </div>
+    </section>
+  `;
+}
+
+function currencyPlayingHtml(){
+  const round = currencyState.rounds[currencyState.current];
+  const pct = Math.round((currencyState.current / currencyState.rounds.length) * 100);
+  const optionsHtml = round.options.map(o => {
+    let cls = 'fg-option-btn';
+    if(currencyState.answered){
+      if(o === round.correct.currency) cls += ' fg-correct';
+      else if(o === currencyState.lastPicked) cls += ' fg-wrong';
+    }
+    return `<button class="${cls}" data-action="currency-answer" data-currency="${escapeHtml(o)}" ${currencyState.answered ? 'disabled' : ''}>${escapeHtml(o)}</button>`;
+  }).join('');
+  return `
+    <section style="padding-top:14px;">
+      <div class="fg-wrap">
+        <div class="fg-progress-row">
+          <span>Country ${currencyState.current + 1} of ${currencyState.rounds.length}</span>
+          <span>Score: ${currencyState.correctCount}</span>
+        </div>
+        <div class="fg-progress-bar"><div class="fg-progress-fill" style="width:${pct}%"></div></div>
+        <div style="text-align:center; padding:36px 20px; font-family:'Baloo 2', sans-serif; font-weight:800; font-size:26px; color:var(--ink);">${escapeHtml(round.correct.name)}</div>
+        <div class="fg-question">What's the currency?</div>
+        <div class="fg-options">${optionsHtml}</div>
+      </div>
+    </section>
+  `;
+}
+
+function currencyEndHtml(){
+  const score = currencyState.correctCount;
+  let best = 0;
+  try{ best = parseInt(localStorage.getItem(CUR_BEST_SCORE_KEY) || '0', 10); }catch(e){}
+  const isNewBest = score >= best && score > 0;
+  const reviewHtml = currencyState.mistakes.length === 0 ? `<p style="text-align:center; font-size:14px; color:var(--ink-soft);">Perfect round -- no mistakes.</p>` : `
+    <div style="margin-top:8px;">
+      ${currencyState.mistakes.map(m => `
+        <div class="fg-review-item fg-review-wrong">
+          <div><strong>${escapeHtml(m.round.correct.name)}</strong>: ${escapeHtml(m.round.correct.currency)} - you picked ${escapeHtml(m.picked)}</div>
+        </div>
+      `).join('')}
+    </div>
+  `;
+  return `
+    <a class="back-link" href="#geography-hub">← Back to Train Your Brain</a>
+    <section style="padding-top:14px;">
+      <div class="fg-wrap">
+        <div class="section-head"><span class="emoji">${icon('trophy')}</span><h2>Round Complete</h2></div>
+        <div class="fg-end-score">${score}/${currencyState.rounds.length}</div>
+        <div class="fg-end-label">${isNewBest ? 'New best score!' : `Best: ${best}/${currencyState.rounds.length}`}</div>
+        <button class="fg-start-btn" data-action="currency-start">Play Again</button>
+        <h3 style="margin:22px 0 4px; font-family:'Baloo 2', sans-serif; font-size:15px;">Missed currencies</h3>
+        ${reviewHtml}
+      </div>
+    </section>
+  `;
+}
+
+function viewCurrencyGame(){
+  if(!currencyState){
+    return currencyIntroHtml();
+  }
+  if(currencyState.current >= currencyState.rounds.length){
+    return currencyEndHtml();
+  }
+  return currencyPlayingHtml();
 }
 
 function nerdleIntroHtml(){
@@ -20796,6 +21000,18 @@ document.addEventListener('click', (e) => {
     idiomMatchAnswer(idiomAnswerBtn.dataset.meaning);
     return;
   }
+  const currencyStartBtn = e.target.closest('[data-action="currency-start"]');
+  if(currencyStartBtn){
+    e.preventDefault();
+    currencyStart();
+    return;
+  }
+  const currencyAnswerBtn = e.target.closest('[data-action="currency-answer"]');
+  if(currencyAnswerBtn){
+    e.preventDefault();
+    currencyAnswer(currencyAnswerBtn.dataset.currency);
+    return;
+  }
   const nerdleStartBtn = e.target.closest('[data-action="nerdle-start"]');
   if(nerdleStartBtn){
     e.preventDefault();
@@ -21134,6 +21350,8 @@ function renderRoute(opts){
     html = viewOddOneOutGame();
   } else if(parts[0] === 'idiom-match-game'){
     html = viewIdiomMatchGame();
+  } else if(parts[0] === 'currency-game'){
+    html = viewCurrencyGame();
   } else if(parts[0] === 'nerdle-game'){
     html = viewNerdleGame();
   } else if(parts[0] === 'memory-game'){
@@ -21239,6 +21457,7 @@ function renderRoute(opts){
   if(parts[0] !== 'anagram-game' && anagramState){ anagramState = null; }
   if(parts[0] !== 'odd-one-out-game' && oooState){ oooState = null; }
   if(parts[0] !== 'idiom-match-game' && idiomMatchState){ idiomMatchState = null; }
+  if(parts[0] !== 'currency-game' && currencyState){ currencyState = null; }
   if(parts[0] !== 'nerdle-game' && nerdleState){ nerdleState = null; }
   if(parts[0] !== 'memory-game' && memoryState){ memoryState = null; }
   if(parts[0] !== 'silhouette-game' && silhouetteState){ silhouetteState = null; }
