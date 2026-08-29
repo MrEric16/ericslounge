@@ -5141,6 +5141,99 @@ function languageFinishGame(){
   }
 }
 
+
+// ============ Say Hello: same 30-round, no-difficulty-tiers engine pattern as the other
+// Train Your Brain quiz games. Shows a real greeting phrase, asks which language it's in.
+// Dataset below is a starting set of 109 languages -- each phrase came from a machine-
+// translation test suite that had already verified them against live Google Translate
+// output, not generated fresh here, since a wrong greeting shown to students is worse than
+// a wrong currency name. Mr Eric asked for this to grow in later batches over time rather
+// than padding to a larger number now with anything unverified -- new entries just get
+// appended to PHRASE_LANGUAGES below, nothing else needs to change. ============
+const PHRASE_LANGUAGES = [{"language": "Afrikaans", "phrase": "Hello Wêreld."}, {"language": "Albanian", "phrase": "Përshendetje Botë."}, {"language": "Amharic", "phrase": "ሰላም ልዑል."}, {"language": "Arabic", "phrase": "مرحبا بالعالم."}, {"language": "Armenian", "phrase": "Բարեւ աշխարհ."}, {"language": "Azerbaijani", "phrase": "Salam dünya."}, {"language": "Basque", "phrase": "Kaixo Mundua."}, {"language": "Belarusian", "phrase": "Прывітанне Сусвет."}, {"language": "Bengali", "phrase": "ওহে বিশ্ব."}, {"language": "Bosnian", "phrase": "Zdravo svijete."}, {"language": "Bulgarian", "phrase": "Здравей свят."}, {"language": "Catalan", "phrase": "Hola món."}, {"language": "Cebuano", "phrase": "Kumusta kalibutan."}, {"language": "Chichewa", "phrase": "Moni Dziko Lapansi."}, {"language": "Chinese (Simplified)", "phrase": "你好，世界。"}, {"language": "Chinese (Traditional)", "phrase": "你好，世界。"}, {"language": "Corsican", "phrase": "Bonghjornu mondu."}, {"language": "Croatian", "phrase": "Pozdrav svijete."}, {"language": "Czech", "phrase": "Ahoj světe."}, {"language": "Danish", "phrase": "Hej Verden."}, {"language": "Dutch", "phrase": "Hallo Wereld."}, {"language": "English", "phrase": "Hello, World."}, {"language": "Esperanto", "phrase": "Saluton mondo."}, {"language": "Estonian", "phrase": "Tere, Maailm."}, {"language": "Filipino", "phrase": "Kamusta mundo"}, {"language": "Finnish", "phrase": "Hei maailma."}, {"language": "French", "phrase": "Bonjour le monde."}, {"language": "Frisian", "phrase": "Hallo wrâld."}, {"language": "Galician", "phrase": "Ola mundo."}, {"language": "Georgian", "phrase": "Გამარჯობა მსოფლიო."}, {"language": "German", "phrase": "Hallo Welt."}, {"language": "Greek", "phrase": "Γειά σου Κόσμε."}, {"language": "Gujarati", "phrase": "હેલો વર્લ્ડ."}, {"language": "Haitian Creole", "phrase": "Bonjou mond."}, {"language": "Hausa", "phrase": "Sannu Duniya."}, {"language": "Hawaiian", "phrase": "Aloha honua."}, {"language": "Hebrew", "phrase": "שלום עולם."}, {"language": "Hindi", "phrase": "नमस्ते दुनिया।"}, {"language": "Hmong", "phrase": "Nyob zoo ntiaj teb."}, {"language": "Hungarian", "phrase": "Helló Világ."}, {"language": "Icelandic", "phrase": "Halló heimur."}, {"language": "Igbo", "phrase": "Ndewo Ụwa."}, {"language": "Indonesian", "phrase": "Halo Dunia."}, {"language": "Irish", "phrase": "Dia duit ar domhan."}, {"language": "Italian", "phrase": "Ciao mondo."}, {"language": "Japanese", "phrase": "こんにちは世界。"}, {"language": "Javanese", "phrase": "Halo jagad."}, {"language": "Kannada", "phrase": "ಹಲೋ ವಿಶ್ವ."}, {"language": "Kazakh", "phrase": "Сәлем Әлем."}, {"language": "Khmer", "phrase": "សួស្តី​ពិភពលោក។"}, {"language": "Kinyarwanda", "phrase": "Mwaramutse isi."}, {"language": "Korean", "phrase": "안녕하세요 세계입니다."}, {"language": "Kurdish", "phrase": "Hello cîhanê."}, {"language": "Kyrgyz", "phrase": "Салам дүйнө."}, {"language": "Lao", "phrase": "ສະ​ບາຍ​ດີ​ຊາວ​ໂລກ."}, {"language": "Latin", "phrase": "Salve mundi."}, {"language": "Latvian", "phrase": "Sveika pasaule."}, {"language": "Lithuanian", "phrase": "Labas pasauli."}, {"language": "Luxembourgish", "phrase": "Moien Welt."}, {"language": "Macedonian", "phrase": "Здраво свету."}, {"language": "Malagasy", "phrase": "Hello World."}, {"language": "Malay", "phrase": "Hai dunia."}, {"language": "Malayalam", "phrase": "ഹലോ വേൾഡ്."}, {"language": "Maltese", "phrase": "Hello dinja."}, {"language": "Maori", "phrase": "Kia ora te ao."}, {"language": "Marathi", "phrase": "नमस्कार जग."}, {"language": "Mongolian", "phrase": "Сайн уу ертөнц."}, {"language": "Myanmar", "phrase": "မင်္ဂလာပါကမ္ဘာလောက။"}, {"language": "Nepali", "phrase": "नमस्कार संसार।"}, {"language": "Norwegian", "phrase": "Hei Verden."}, {"language": "Odia", "phrase": "ନମସ୍କାର ବିଶ୍ୱବାସି।"}, {"language": "Pashto", "phrase": "سلام نړی."}, {"language": "Persian", "phrase": "سلام دنیا."}, {"language": "Polish", "phrase": "Witaj świecie."}, {"language": "Portuguese", "phrase": "Olá Mundo."}, {"language": "Punjabi", "phrase": "ਸਤਿ ਸ੍ਰੀ ਅਕਾਲ ਦੁਨਿਆ."}, {"language": "Romanian", "phrase": "Salut Lume."}, {"language": "Russian", "phrase": "Привет, мир."}, {"language": "Samoan", "phrase": "Talofa lalolagi."}, {"language": "Scots Gaelic", "phrase": "Hàlo a Shaoghail."}, {"language": "Serbian", "phrase": "Здраво Свете."}, {"language": "Sesotho", "phrase": "Lefatše Lumela."}, {"language": "Shona", "phrase": "Mhoro nyika."}, {"language": "Sindhi", "phrase": "هيلو دنيا."}, {"language": "Sinhala", "phrase": "හෙලෝ වර්ල්ඩ්."}, {"language": "Slovak", "phrase": "Ahoj svet."}, {"language": "Slovenian", "phrase": "Pozdravljen, svet."}, {"language": "Somali", "phrase": "Salaamu calaykum."}, {"language": "Spanish", "phrase": "Hola Mundo."}, {"language": "Sundanese", "phrase": "Halo Dunya."}, {"language": "Swahili", "phrase": "Salamu, Dunia."}, {"language": "Swedish", "phrase": "Hej världen."}, {"language": "Tajik", "phrase": "Салом Ҷаҳон."}, {"language": "Tamil", "phrase": "வணக்கம் உலகம்."}, {"language": "Tatar", "phrase": "Сәлам, Дөнья."}, {"language": "Telugu", "phrase": "హలో వరల్డ్."}, {"language": "Thai", "phrase": "สวัสดีชาวโลก."}, {"language": "Turkish", "phrase": "Selam Dünya."}, {"language": "Turkmen", "phrase": "Salam dünýä."}, {"language": "Ukrainian", "phrase": "Привіт Світ."}, {"language": "Urdu", "phrase": "سلام دنیا۔"}, {"language": "Uyghur", "phrase": "ياخشىمۇسىز دۇنيا."}, {"language": "Uzbek", "phrase": "Salom Dunyo."}, {"language": "Vietnamese", "phrase": "Chào thế giới."}, {"language": "Welsh", "phrase": "Helo Byd."}, {"language": "Xhosa", "phrase": "Molo Lizwe."}, {"language": "Yiddish", "phrase": "העלא וועלט."}, {"language": "Yoruba", "phrase": "Mo ki O Ile Aiye."}, {"language": "Zulu", "phrase": "Sawubona Mhlaba."}];
+
+const PHRASE_LANG_ROUNDS_PER_GAME = 30;
+const PHRASE_LANG_BEST_SCORE_KEY = 'phraseLangBestScore';
+const PHRASE_LANG_STREAK_KEY = 'phraseLangStreak';
+
+function phraseLangShuffle(arr){
+  const a = [...arr];
+  for(let i = a.length - 1; i > 0; i--){
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+function phraseLangBuildRounds(totalRounds){
+  const pool = phraseLangShuffle(PHRASE_LANGUAGES);
+  const chosen = pool.slice(0, Math.min(totalRounds, pool.length));
+  return chosen.map(correct => {
+    const distractorNames = phraseLangShuffle(
+      PHRASE_LANGUAGES.filter(l => l.language !== correct.language).map(l => l.language)
+    ).slice(0, 3);
+    const options = phraseLangShuffle([correct.language, ...distractorNames]);
+    return { correct, options };
+  });
+}
+
+let phraseLangState = null;
+
+function phraseLangStart(){
+  phraseLangState = {
+    rounds: phraseLangBuildRounds(PHRASE_LANG_ROUNDS_PER_GAME),
+    current: 0,
+    correctCount: 0,
+    mistakes: [],
+    answered: false,
+    lastPicked: null,
+  };
+  renderRoute();
+}
+
+function phraseLangAnswer(pickedLanguage){
+  if(!phraseLangState || phraseLangState.answered) return;
+  phraseLangState.answered = true;
+  phraseLangState.lastPicked = pickedLanguage;
+  const round = phraseLangState.rounds[phraseLangState.current];
+  const isCorrect = pickedLanguage === round.correct.language;
+  if(isCorrect){ phraseLangState.correctCount++; }
+  else{ phraseLangState.mistakes.push({ round, picked: pickedLanguage }); }
+  renderRoute();
+  setTimeout(() => {
+    if(!phraseLangState) return;
+    phraseLangState.current++;
+    phraseLangState.answered = false;
+    phraseLangState.lastPicked = null;
+    if(phraseLangState.current >= phraseLangState.rounds.length){
+      phraseLangFinishGame();
+    }
+    renderRoute();
+  }, 1200);
+}
+
+function phraseLangFinishGame(){
+  const score = phraseLangState.correctCount;
+  let best = 0, streak = 0;
+  try{ best = parseInt(localStorage.getItem(PHRASE_LANG_BEST_SCORE_KEY) || '0', 10); }catch(e){}
+  if(score > best){
+    try{ localStorage.setItem(PHRASE_LANG_BEST_SCORE_KEY, String(score)); }catch(e){}
+  }
+  try{ streak = parseInt(localStorage.getItem(PHRASE_LANG_STREAK_KEY) || '0', 10); }catch(e){}
+  const todayKey = getTodayKeyLocal();
+  let lastPlayed = null;
+  try{ lastPlayed = localStorage.getItem('phraseLangLastPlayedDate'); }catch(e){}
+  if(lastPlayed !== todayKey){
+    const yesterday = new Date(Date.now() - 86400000);
+    const yKey = `${yesterday.getFullYear()}-${String(yesterday.getMonth()+1).padStart(2,'0')}-${String(yesterday.getDate()).padStart(2,'0')}`;
+    streak = (lastPlayed === yKey) ? streak + 1 : 1;
+    try{
+      localStorage.setItem(PHRASE_LANG_STREAK_KEY, String(streak));
+      localStorage.setItem('phraseLangLastPlayedDate', todayKey);
+    }catch(e){}
+  }
+}
+
 // ============ Nerdle: Wordle but with maths equations ============
 const NERDLE_ANSWER_POOL = ["8+7+9=24","2+2+9=13","13+61=74","23+53=76","18+75=93","15+13=28","18+56=74","11+23=34","17+56=73","27+68=95","30+36=66","47+45=92","43+12=55","11+44=55","40+57=97","68+13=81","26+15=41","9+7+6=22","48+12=60","61+12=73","27+19=46","53+26=79","60+11=71","6+3+9=18","22+47=69","20+17=37","13+84=97","18+12=30","11+47=58","41+29=70","4+6+7=17","63+25=88","72+21=93","13+18=31","23+65=88","15+36=51","7+7+2=16","55+39=94","51+38=89","20+45=65","20+63=83","63+30=93","3+4+6=13","25+52=77","15+22=37","78+18=96","24+27=51","17+58=75","61+34=95","12+17=29","66+31=97","31+11=42","5+5+7=17","40+13=53","5+6+2=13","65+17=82","46+32=78","8+4+2=14","18+80=98","17+69=86","5+6+1=12","1+9+8=18","61+16=77","11+83=94","88+11=99","33+20=53","51+10=61","52+47=99","27+35=62","43+40=83","44+44=88","46+14=60","50+42=92","22+65=87","6+7+6=19","27+49=76","73+25=98","69+29=98","46+25=71","25+27=52","24+65=89","23+66=89","41+30=71","27+28=55","28+70=98","26+47=73","34+46=80","19+79=98","18+29=47","21+73=94","8+1+6=15","6+2+7=15","3+3+7=13","25+68=93","9+5+6=20","60+39=99","79+11=90","6+9+3=18","13+25=38","13+41=54","94-23=71","92-34=58","83-45=38","88-17=71","83-23=60","84-49=35","60-23=37","65-39=26","87-76=11","94-38=56","93-66=27","96-15=81","97-75=22","80-28=52","81-26=55","53-28=25","60-10=50","94-48=46","28-17=11","66-13=53","65-35=30","81-21=60","52-38=14","90-22=68","81-18=63","74-12=62","79-21=58","65-43=22","69-59=10","95-65=30","92-20=72","78-61=17","68-47=21","46-28=18","85-41=44","82-18=64","62-40=22","79-12=67","72-23=49","82-66=16","46-30=16","83-57=26","93-38=55","92-46=46","81-60=21","94-46=48","83-18=65","97-23=74","62-22=40","63-23=40","80-33=47","80-18=62","71-51=20","77-51=26","33-11=22","83-67=16","55-35=20","68-36=32","77-37=40","41-26=15","95-41=54","74-45=29","99-25=74","92-32=60","98-75=23","84-22=62","88-64=24","86-15=71","74-36=38","55-42=13","72-24=48","66-36=30","70-45=25","78-45=33","78-13=65","78-21=57","78-32=46","85-47=38","58-10=48","99-84=15","9*81=729","5*20=100","6*54=324","4*45=180","7*31=217","4*51=204","5*54=270","4*95=380","5*47=235","7*87=609","2*54=108","4*71=284","4*64=256","5*27=135","9*86=774","5*62=310","3*48=144","3*36=108","9*53=477","4*46=184","3*34=102","4*80=320","9*17=153","8*14=112","5*52=260","6*93=558","9*90=810","6*26=156","4*99=396","8*72=576","3*80=240","2*89=178","7*72=504","9*46=414","9*91=819","7*15=105","3*73=219","5*53=265","6*56=336","7*22=154","8*24=192","6*37=222","6*24=144","8*16=128","8*52=416","6*50=300","3*51=153","7*48=336","9*41=369","4*86=344","7*52=364","6*51=306","4*28=112","5*77=385","6*92=552","6*79=474","2*67=134","4*96=384","7*55=385","2*76=152","664/8=83","330/5=66","178/2=89","156/2=78","483/7=69","774/9=86","440/8=55","413/7=59","291/3=97","390/6=65","272/8=34","116/2=58","360/6=60","576/9=64","640/8=80","129/3=43","435/5=87","336/4=84","414/9=46","234/3=78","510/6=85","495/5=99","128/4=32","402/6=67","161/7=23","138/2=69","234/6=39","156/6=26","546/7=78","140/5=28","570/6=95","792/9=88","304/8=38","144/6=24","420/7=60","406/7=58","222/3=74","122/2=61","300/4=75","549/9=61","504/9=56","246/6=41","176/8=22","236/4=59","192/4=48","123/3=41","445/5=89","195/3=65","324/9=36","480/8=60","630/7=90","486/9=54","192/2=96","498/6=83","504/7=72","300/5=60","265/5=53","132/6=22","180/6=30","469/7=67"];
 const NERDLE_LENGTH = 8;
@@ -8297,6 +8390,7 @@ const GEOGRAPHY_HUB_TILES = [
   { name: "Idiom Match", emoji: icon('chatBubble'), url: "#idiom-match-game", internal: true },
   { name: "Guess the Currency", emoji: icon('coin'), url: "#currency-game", internal: true },
   { name: "Guess the Language", emoji: icon('chatBubble'), url: "#language-game", internal: true },
+  { name: "Say Hello", emoji: icon('chatBubble'), url: "#phrase-lang-game", internal: true },
   { name: "Nerdle", emoji: icon('mathSymbols'), url: "#nerdle-game", internal: true },
   { name: "Memory Match", emoji: icon('cardFlip'), url: "#memory-game", internal: true },
   { name: "Country Silhouette", emoji: icon('landmass'), url: "#silhouette-game", internal: true },
@@ -13672,6 +13766,93 @@ function viewLanguageGame(){
     return languageEndHtml();
   }
   return languagePlayingHtml();
+}
+
+// ============ Say Hello: views. Mirrors Guess the Language's screen layout. ============
+function phraseLangIntroHtml(){
+  let best = 0, streak = 0;
+  try{ best = parseInt(localStorage.getItem(PHRASE_LANG_BEST_SCORE_KEY) || '0', 10); }catch(e){}
+  try{ streak = parseInt(localStorage.getItem(PHRASE_LANG_STREAK_KEY) || '0', 10); }catch(e){}
+  return `
+    <a class="back-link" href="#geography-hub">← Back to Train Your Brain</a>
+    <section style="padding-top:14px;">
+      <div class="fg-wrap">
+        <div class="section-head"><span class="emoji">${icon('chatBubble')}</span><h2>Say Hello</h2></div>
+        <p style="font-size:14px; color:var(--ink-soft); line-height:1.6; margin-bottom:6px;">A real greeting, in its real script. Which language is it?</p>
+        <div class="fg-intro-stats">
+          <div class="fg-intro-stat"><div class="num">${best}/${Math.min(PHRASE_LANG_ROUNDS_PER_GAME, PHRASE_LANGUAGES.length)}</div><div class="label">Best Score</div></div>
+          <div class="fg-intro-stat"><div class="num">${streak}</div><div class="label">Day Streak</div></div>
+        </div>
+        <button class="fg-start-btn" data-action="phrase-lang-start">Start</button>
+      </div>
+    </section>
+  `;
+}
+
+function phraseLangPlayingHtml(){
+  const round = phraseLangState.rounds[phraseLangState.current];
+  const pct = Math.round((phraseLangState.current / phraseLangState.rounds.length) * 100);
+  const optionsHtml = round.options.map(o => {
+    let cls = 'fg-option-btn';
+    if(phraseLangState.answered){
+      if(o === round.correct.language) cls += ' fg-correct';
+      else if(o === phraseLangState.lastPicked) cls += ' fg-wrong';
+    }
+    return `<button class="${cls}" data-action="phrase-lang-answer" data-language="${escapeHtml(o)}" ${phraseLangState.answered ? 'disabled' : ''}>${escapeHtml(o)}</button>`;
+  }).join('');
+  return `
+    <section style="padding-top:14px;">
+      <div class="fg-wrap">
+        <div class="fg-progress-row">
+          <span>Phrase ${phraseLangState.current + 1} of ${phraseLangState.rounds.length}</span>
+          <span>Score: ${phraseLangState.correctCount}</span>
+        </div>
+        <div class="fg-progress-bar"><div class="fg-progress-fill" style="width:${pct}%"></div></div>
+        <div style="text-align:center; padding:36px 20px; font-family:'Baloo 2', sans-serif; font-weight:800; font-size:24px; color:var(--ink);">${escapeHtml(round.correct.phrase)}</div>
+        <div class="fg-question">Which language is this?</div>
+        <div class="fg-options">${optionsHtml}</div>
+      </div>
+    </section>
+  `;
+}
+
+function phraseLangEndHtml(){
+  const score = phraseLangState.correctCount;
+  let best = 0;
+  try{ best = parseInt(localStorage.getItem(PHRASE_LANG_BEST_SCORE_KEY) || '0', 10); }catch(e){}
+  const isNewBest = score >= best && score > 0;
+  const reviewHtml = phraseLangState.mistakes.length === 0 ? `<p style="text-align:center; font-size:14px; color:var(--ink-soft);">Perfect round -- no mistakes.</p>` : `
+    <div style="margin-top:8px;">
+      ${phraseLangState.mistakes.map(m => `
+        <div class="fg-review-item fg-review-wrong">
+          <div><strong>${escapeHtml(m.round.correct.phrase)}</strong> is ${escapeHtml(m.round.correct.language)} - you picked ${escapeHtml(m.picked)}</div>
+        </div>
+      `).join('')}
+    </div>
+  `;
+  return `
+    <a class="back-link" href="#geography-hub">← Back to Train Your Brain</a>
+    <section style="padding-top:14px;">
+      <div class="fg-wrap">
+        <div class="section-head"><span class="emoji">${icon('trophy')}</span><h2>Round Complete</h2></div>
+        <div class="fg-end-score">${score}/${phraseLangState.rounds.length}</div>
+        <div class="fg-end-label">${isNewBest ? 'New best score!' : `Best: ${best}/${phraseLangState.rounds.length}`}</div>
+        <button class="fg-start-btn" data-action="phrase-lang-start">Play Again</button>
+        <h3 style="margin:22px 0 4px; font-family:'Baloo 2', sans-serif; font-size:15px;">Missed phrases</h3>
+        ${reviewHtml}
+      </div>
+    </section>
+  `;
+}
+
+function viewPhraseLangGame(){
+  if(!phraseLangState){
+    return phraseLangIntroHtml();
+  }
+  if(phraseLangState.current >= phraseLangState.rounds.length){
+    return phraseLangEndHtml();
+  }
+  return phraseLangPlayingHtml();
 }
 
 function nerdleIntroHtml(){
@@ -21259,6 +21440,18 @@ document.addEventListener('click', (e) => {
     languageAnswer(languageAnswerBtn.dataset.language);
     return;
   }
+  const phraseLangStartBtn = e.target.closest('[data-action="phrase-lang-start"]');
+  if(phraseLangStartBtn){
+    e.preventDefault();
+    phraseLangStart();
+    return;
+  }
+  const phraseLangAnswerBtn = e.target.closest('[data-action="phrase-lang-answer"]');
+  if(phraseLangAnswerBtn){
+    e.preventDefault();
+    phraseLangAnswer(phraseLangAnswerBtn.dataset.language);
+    return;
+  }
   const nerdleStartBtn = e.target.closest('[data-action="nerdle-start"]');
   if(nerdleStartBtn){
     e.preventDefault();
@@ -21603,6 +21796,8 @@ function renderRoute(opts){
     html = viewCurrencyGame();
   } else if(parts[0] === 'language-game'){
     html = viewLanguageGame();
+  } else if(parts[0] === 'phrase-lang-game'){
+    html = viewPhraseLangGame();
   } else if(parts[0] === 'nerdle-game'){
     html = viewNerdleGame();
   } else if(parts[0] === 'memory-game'){
@@ -21710,6 +21905,7 @@ function renderRoute(opts){
   if(parts[0] !== 'idiom-match-game' && idiomMatchState){ idiomMatchState = null; }
   if(parts[0] !== 'currency-game' && currencyState){ currencyState = null; }
   if(parts[0] !== 'language-game' && languageState){ languageState = null; }
+  if(parts[0] !== 'phrase-lang-game' && phraseLangState){ phraseLangState = null; }
   if(parts[0] !== 'nerdle-game' && nerdleState){ nerdleState = null; }
   if(parts[0] !== 'memory-game' && memoryState){ memoryState = null; }
   if(parts[0] !== 'silhouette-game' && silhouetteState){ silhouetteState = null; }
