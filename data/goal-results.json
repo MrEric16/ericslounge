@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-29T15:42:45.355285Z",
+  "generatedAt": "2026-08-29T19:02:37.938906Z",
   "results": [
     {
       "url": "https://www.goal.com/en/match/girona-vs-arsenal/__LS8d9Oc6I1wXn9g8956",
@@ -1569,10 +1569,187 @@
         }
       ],
       "competition": "BL1"
+    },
+    {
+      "url": "https://www.goal.com/en/match/coventry-city-vs-hull-city/K-9PrWmSTqyMQlgpgR5fR",
+      "date": "2026-08-29",
+      "home": "Coventry City",
+      "away": "Hull City",
+      "htHome": 0,
+      "htAway": 0,
+      "ftHome": 0,
+      "ftAway": 1,
+      "homeGoals": [],
+      "awayGoals": [
+        {
+          "scorer": "L. Millar",
+          "minute": 82
+        }
+      ],
+      "competition": "PL"
+    },
+    {
+      "url": "https://www.goal.com/en/match/afc-bournemouth-vs-everton/c1f2VNiNlhuXMgxz3BJ6f",
+      "date": "2026-08-29",
+      "home": "Afc Bournemouth",
+      "away": "Everton",
+      "htHome": 1,
+      "htAway": 0,
+      "ftHome": 1,
+      "ftAway": 1,
+      "homeGoals": [
+        {
+          "scorer": "A. Scott",
+          "minute": 41
+        }
+      ],
+      "awayGoals": [
+        {
+          "scorer": "J. Tarkowski",
+          "minute": 90
+        }
+      ],
+      "competition": "PL"
+    },
+    {
+      "url": "https://www.goal.com/en/match/tottenham-hotspur-vs-newcastle-united/dIH_OG1d7K2JWLNiaGxsh",
+      "date": "2026-08-29",
+      "home": "Tottenham Hotspur",
+      "away": "Newcastle United",
+      "htHome": 0,
+      "htAway": 0,
+      "ftHome": 0,
+      "ftAway": 2,
+      "homeGoals": [],
+      "awayGoals": [
+        {
+          "scorer": "A. Elanga",
+          "minute": 62
+        },
+        {
+          "scorer": "Y. Wissa",
+          "minute": 72
+        }
+      ],
+      "competition": "PL"
+    },
+    {
+      "url": "https://www.goal.com/en/match/real-sociedad-vs-espanyol/dVmkAUryFuO9Rxb74vPEF",
+      "date": "2026-08-29",
+      "home": "Real Sociedad",
+      "away": "Espanyol",
+      "htHome": 1,
+      "htAway": 1,
+      "ftHome": 2,
+      "ftAway": 1,
+      "homeGoals": [
+        {
+          "scorer": "A. Barrenetxea",
+          "minute": 4
+        },
+        {
+          "scorer": "O. Oskarsson",
+          "minute": 61
+        }
+      ],
+      "awayGoals": [
+        {
+          "scorer": "R. Fernandez",
+          "minute": 45
+        }
+      ],
+      "competition": "PD"
+    },
+    {
+      "url": "https://www.goal.com/en/match/borussia-dortmund-vs-hamburger-sv/cFx0KFq3-sLf4uqLCWtFg",
+      "date": "2026-08-29",
+      "home": "Borussia Dortmund",
+      "away": "Hamburger Sv",
+      "htHome": 2,
+      "htAway": 0,
+      "ftHome": 2,
+      "ftAway": 0,
+      "homeGoals": [
+        {
+          "scorer": "S. Guirassy",
+          "minute": 9
+        },
+        {
+          "scorer": "G. Konstantelias",
+          "minute": 45
+        }
+      ],
+      "awayGoals": [],
+      "competition": "BL1"
+    },
+    {
+      "url": "https://www.goal.com/en/match/monza-vs-udinese/arnNb5dyqrBttkoS7DChU",
+      "date": "2026-08-29",
+      "home": "Monza",
+      "away": "Udinese",
+      "htHome": 1,
+      "htAway": 3,
+      "ftHome": 2,
+      "ftAway": 3,
+      "homeGoals": [
+        {
+          "scorer": "A. Colpani",
+          "minute": 37
+        },
+        {
+          "scorer": "G. Varela",
+          "minute": 63
+        }
+      ],
+      "awayGoals": [
+        {
+          "scorer": "J. Piotrowski",
+          "minute": 32
+        },
+        {
+          "scorer": "H. Kamara",
+          "minute": 45
+        },
+        {
+          "scorer": "J. Ekkelenkamp",
+          "minute": 45
+        }
+      ],
+      "competition": "SA"
+    },
+    {
+      "url": "https://www.goal.com/en/match/sassuolo-vs-torino/ronYuZ6d7ipx6b-QYVgMe",
+      "date": "2026-08-29",
+      "home": "Sassuolo",
+      "away": "Torino",
+      "htHome": 1,
+      "htAway": 1,
+      "ftHome": 2,
+      "ftAway": 1,
+      "homeGoals": [
+        {
+          "scorer": "C. Volpato",
+          "minute": 32
+        },
+        {
+          "scorer": "D. Berardi",
+          "minute": 78
+        }
+      ],
+      "awayGoals": [
+        {
+          "scorer": "P. Comuzzo",
+          "minute": 45
+        }
+      ],
+      "competition": "SA"
     }
   ],
   "scorerParseRetryCounts": {
-    "https://www.goal.com/en/match/fc-koeln-vs-hoffenheim/FtIn9VP0kVKhlv_NEBHEc": 1,
-    "https://www.goal.com/en/match/union-berlin-vs-eintracht-frankfurt/id2qrGNmUt-aipCpwy9QL": 1
+    "https://www.goal.com/en/match/fc-koeln-vs-hoffenheim/FtIn9VP0kVKhlv_NEBHEc": 2,
+    "https://www.goal.com/en/match/union-berlin-vs-eintracht-frankfurt/id2qrGNmUt-aipCpwy9QL": 2,
+    "https://www.goal.com/en/match/levante-vs-real-betis/upw1H4oVuYH7YTFH7xKcr": 1,
+    "https://www.goal.com/en/match/fiorentina-vs-frosinone/InwNWnjGv7u7jOSoR_EiJ": 1,
+    "https://www.goal.com/en/match/strasbourg-vs-lens/BDGxXL4DlfokFcnq0ETbr": 1
   }
 }
