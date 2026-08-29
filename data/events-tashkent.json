@@ -1,316 +1,8 @@
 {
-  "generatedAt": "2026-08-29T16:49:42.072974Z",
+  "generatedAt": "2026-08-29T21:01:56.833877Z",
   "events": [
     {
-      "title": "Yusupov Tomato Festival at Myasnoye",
-      "titleRu": "Фестиваль юсуповского помидора в «Мясном»",
-      "category": "concert",
-      "venue": "Мясной Steak HouseТашкент, ул. Шота Руставели, 13А",
-      "startDate": "2026-08-29",
-      "endDate": null,
-      "time": null,
-      "url": "https://www.afisha.uz/ru/restaurants/2026/08/28/yusupovskiy-pomidor",
-      "source": "afisha.uz (calendar)"
-    },
-    {
-      "title": "Armenian Night: Armenian party",
-      "titleRu": "Armenian Night: армянская вечеринка",
-      "category": "concert",
-      "venue": "РаспутинТашкент, ул. Таллимаржон, 135",
-      "startDate": "2026-08-29",
-      "endDate": null,
-      "time": null,
-      "url": "https://www.afisha.uz/ru/restaurants/2026/08/17/armenian-night",
-      "source": "afisha.uz (calendar)"
-    },
-    {
-      "title": "Concert for Michael Jackson's birthday",
-      "titleRu": "Концерт ко дню рождения Майкла Джексона",
-      "category": "concert",
-      "venue": "Central ParkТашкент, ул. Мавераннахр, 21",
-      "startDate": "2026-08-29",
-      "endDate": null,
-      "time": "19:00",
-      "url": "https://www.afisha.uz/ru/concerts/2026/08/26/maykl-dzhekson-ru",
-      "source": "afisha.uz (calendar)"
-    },
-    {
-      "title": "Rayhon concert in Magic City",
-      "titleRu": "Концерт Райхон в Magic City",
-      "category": "concert",
-      "venue": "Magic CityТашкент, ул. Бабура, 174",
-      "startDate": "2026-08-29",
-      "endDate": null,
-      "time": null,
-      "url": "https://www.afisha.uz/ru/concerts/2026/08/26/rayhon-magic-city",
-      "source": "afisha.uz (calendar)"
-    },
-    {
-      "title": "Turkish Night Soundtrack Concert",
-      "titleRu": "Концерт саундтреков Turkish Night",
-      "category": "concert",
-      "venue": null,
-      "startDate": "2026-08-29",
-      "endDate": null,
-      "time": "20:00",
-      "url": "https://www.afisha.uz/ru/concerts/2026/07/31/turkish-night",
-      "source": "afisha.uz (calendar)"
-    },
-    {
-      "title": "Exhibition of children's drawings \"Mehir nma?\"",
-      "titleRu": "Выставка детских рисунков  «Мехир нма?»",
-      "category": "exhibition",
-      "venue": "Central ParkТашкент, ул. Мавераннахр, 21",
-      "startDate": "2026-08-29",
-      "endDate": null,
-      "time": null,
-      "url": "https://www.afisha.uz/ru/exhibitions/2026/08/20/mehr-nima",
-      "source": "afisha.uz (calendar)"
-    },
-    {
-      "title": "Выставка «Наше наследие»",
-      "titleRu": "Выставка «Наше наследие»",
-      "category": "exhibition",
-      "venue": "Центральный Выставочный зал Академии художеств УзбекистанаТашкент, ул. Шарафа Рашидова, 40",
-      "startDate": "2026-08-29",
-      "endDate": null,
-      "time": null,
-      "url": "https://www.afisha.uz/ru/exhibitions/2026/07/31/our-heritage",
-      "source": "afisha.uz (calendar)"
-    },
-    {
-      "title": "Спектакль «Черновики и шедевры»",
-      "titleRu": "Спектакль «Черновики и шедевры»",
-      "category": "theatre",
-      "venue": null,
-      "startDate": "2026-08-29",
-      "endDate": null,
-      "time": "19:00",
-      "url": "https://www.afisha.uz/ru/theatres/2026/08/17/chernoviki-shedevry",
-      "source": "afisha.uz (calendar)"
-    },
-    {
-      "title": "Спектакль «Как Колобок ума-разума набирался»",
-      "titleRu": "Спектакль «Как Колобок ума-разума набирался»",
-      "category": "theatre",
-      "venue": null,
-      "startDate": "2026-08-29",
-      "endDate": null,
-      "time": "17:00",
-      "url": "https://www.afisha.uz/ru/theatres/2026/08/07/kak-kolobok-uma-razuma-nabiralsya-silk-route",
-      "source": "afisha.uz (calendar)"
-    },
-    {
-      "title": "Спектакль «Ганс и Гретель»",
-      "titleRu": "Спектакль «Ганс и Гретель»",
-      "category": "theatre",
-      "venue": null,
-      "startDate": "2026-08-29",
-      "endDate": null,
-      "time": "12:30",
-      "url": "https://www.afisha.uz/ru/theatres/2026/08/07/gans-i-gretel-silk-route",
-      "source": "afisha.uz (calendar)"
-    },
-    {
-      "title": "Дружеская эстафета в кафе «Рассвет»",
-      "titleRu": "Дружеская эстафета в кафе «Рассвет»",
-      "category": "sport",
-      "venue": "РассветТашкент, ул. Чимкент, 17",
-      "startDate": "2026-08-29",
-      "endDate": null,
-      "time": "17:30",
-      "url": "https://www.afisha.uz/ru/sport/2026/08/27/estafeta-rassvet",
-      "source": "afisha.uz (calendar)"
-    },
-    {
-      "title": "Праздничная программа в Anhor Park",
-      "titleRu": "Праздничная программа в Anhor Park",
-      "category": "kids",
-      "venue": "Anhor parkТашкент, улица Лабзак",
-      "startDate": "2026-08-29",
-      "endDate": null,
-      "time": null,
-      "url": "https://www.afisha.uz/ru/children/2026/08/29/anhor-bayram-4-kun",
-      "source": "afisha.uz (calendar)"
-    },
-    {
-      "title": "Праздничные шоу в Luna Park",
-      "titleRu": "Праздничные шоу в Luna Park",
-      "category": "kids",
-      "venue": "Luna ParkТашкент, ул. Лутфи, 57А",
-      "startDate": "2026-08-29",
-      "endDate": null,
-      "time": "16:00",
-      "url": "https://www.afisha.uz/ru/children/2026/08/27/luna-park-shou",
-      "source": "afisha.uz (calendar)"
-    },
-    {
-      "title": "«Красавица и Чудовище» в Gōsht Kids",
-      "titleRu": "«Красавица и Чудовище» в Gōsht Kids",
-      "category": "kids",
-      "venue": "Gosht KidsТашкент, ул. Мирабад, 21/1",
-      "startDate": "2026-08-29",
-      "endDate": null,
-      "time": "18:00",
-      "url": "https://www.afisha.uz/ru/children/2026/08/27/gosht-kids",
-      "source": "afisha.uz (calendar)"
-    },
-    {
-      "title": "Цирковые представления по выходным",
-      "titleRu": "Цирковые представления по выходным",
-      "category": "kids",
-      "venue": "ЦиркТашкент, пл. Хадра, 1",
-      "startDate": "2026-08-29",
-      "endDate": null,
-      "time": "15:00",
-      "url": "https://www.afisha.uz/ru/children/2026/08/26/cirk-vyhodnye",
-      "source": "afisha.uz (calendar)"
-    },
-    {
-      "title": "Нетворкинг-завтраки Art&Card в TUT Workspace",
-      "titleRu": "Нетворкинг-завтраки Art&Card в TUT Workspace",
-      "category": "festival",
-      "venue": null,
-      "startDate": "2026-08-29",
-      "endDate": null,
-      "time": "11:30",
-      "url": "https://www.afisha.uz/ru/gorod/2026/08/28/art-card-zavtrak",
-      "source": "afisha.uz (calendar)"
-    },
-    {
-      "title": "День независимости в парке Milliy Bogʻ",
-      "titleRu": "День независимости в парке Milliy Bogʻ",
-      "category": "festival",
-      "venue": "Milliy bog‘Ташкент, ул. Сеул, 16",
-      "startDate": "2026-08-29",
-      "endDate": null,
-      "time": "18:00",
-      "url": "https://www.afisha.uz/ru/gorod/2026/08/28/milliy-bog-bayram",
-      "source": "afisha.uz (calendar)"
-    },
-    {
-      "title": "Праздничные шоу в парке Yangi Oʻzbekiston",
-      "titleRu": "Праздничные шоу в парке Yangi Oʻzbekiston",
-      "category": "festival",
-      "venue": "Парк «Янги Узбекистон»Ташкент, парк Янги Узбекистон",
-      "startDate": "2026-08-29",
-      "endDate": null,
-      "time": "20:00",
-      "url": "https://www.afisha.uz/ru/gorod/2026/08/28/yangi-uzbekiston-bayram",
-      "source": "afisha.uz (calendar)"
-    },
-    {
-      "title": "Экологический фестиваль Yashil Uyim",
-      "titleRu": "Экологический фестиваль Yashil Uyim",
-      "category": "festival",
-      "venue": "Alpine LandТашкент, ул. Темура Малика, 66",
-      "startDate": "2026-08-29",
-      "endDate": null,
-      "time": "12:00",
-      "url": "https://www.afisha.uz/ru/gorod/2026/08/19/yashil-uyim",
-      "source": "afisha.uz (calendar)"
-    },
-    {
-      "title": "Музыкальный фонтан в парке Magic City",
-      "titleRu": "Музыкальный фонтан в парке Magic City",
-      "category": "festival",
-      "venue": "Magic CityТашкент, ул. Бабура, 174",
-      "startDate": "2026-08-29",
-      "endDate": null,
-      "time": null,
-      "url": "https://www.afisha.uz/ru/gorod/2026/07/17/muzykalnyy-fontan-magic-city-2026",
-      "source": "afisha.uz (calendar)"
-    },
-    {
-      "title": "Музыкальный фонтан в парке Tashkent City",
-      "titleRu": "Музыкальный фонтан в парке Tashkent City",
-      "category": "festival",
-      "venue": "Tashkent CityТашкент, просп. Бунёдкор",
-      "startDate": "2026-08-29",
-      "endDate": null,
-      "time": null,
-      "url": "https://www.afisha.uz/ru/gorod/2026/07/16/muzykalnyy-fontan-tashkent-city-2026",
-      "source": "afisha.uz (calendar)"
-    },
-    {
-      "title": "Ярмарка Uzbegim Market в парке Tashkent City",
-      "titleRu": "Ярмарка Uzbegim Market в парке Tashkent City",
-      "category": "festival",
-      "venue": "Tashkent CityТашкент, просп. Бунёдкор",
-      "startDate": "2026-08-29",
-      "endDate": null,
-      "time": null,
-      "url": "https://www.afisha.uz/ru/gorod/2026/07/16/uzbegim-market-2026",
-      "source": "afisha.uz (calendar)"
-    },
-    {
-      "title": "Пляж Palma & Chilla в парке Milliy Bog’",
-      "titleRu": "Пляж Palma & Chilla в парке Milliy Bog’",
-      "category": "festival",
-      "venue": "Milliy bog‘Ташкент, ул. Сеул, 16",
-      "startDate": "2026-08-29",
-      "endDate": null,
-      "time": null,
-      "url": "https://www.afisha.uz/ru/gorod/2026/07/16/palma-chilla-milliy-bog-2026",
-      "source": "afisha.uz (calendar)"
-    },
-    {
-      "title": "Женский арт-релакс «Лилии в японском стиле» в Human House",
-      "titleRu": "Женский арт-релакс «Лилии в японском стиле» в Human House",
-      "category": "lecture",
-      "venue": null,
-      "startDate": "2026-08-29",
-      "endDate": null,
-      "time": "18:00",
-      "url": "https://www.afisha.uz/ru/znaniya/2026/08/25/art-relaks-lilii",
-      "source": "afisha.uz (calendar)"
-    },
-    {
-      "title": "Лекция «Женщина и война»",
-      "titleRu": "Лекция «Женщина и война»",
-      "category": "lecture",
-      "venue": null,
-      "startDate": "2026-08-29",
-      "endDate": null,
-      "time": "18:00",
-      "url": "https://www.afisha.uz/ru/znaniya/2026/08/24/zhenshina-voyna",
-      "source": "afisha.uz (calendar)"
-    },
-    {
-      "title": "Мастер-классы от Your time your life",
-      "titleRu": "Мастер-классы от Your time your life",
-      "category": "lecture",
-      "venue": "Your time your lifeТашкент, пер. Пушкина, 7",
-      "startDate": "2026-08-29",
-      "endDate": null,
-      "time": "13:00",
-      "url": "https://www.afisha.uz/ru/znaniya/2026/08/05/your-time-your-life-avgust-2026",
-      "source": "afisha.uz (calendar)"
-    },
-    {
-      "title": "Творческие мастер-классы в Potterville",
-      "titleRu": "Творческие мастер-классы в Potterville",
-      "category": "lecture",
-      "venue": "PottervilleТашкент, ул. Лабзак, 12/1",
-      "startDate": "2026-08-29",
-      "endDate": null,
-      "time": null,
-      "url": "https://www.afisha.uz/ru/znaniya/2026/07/29/potterville-avgust-2026",
-      "source": "afisha.uz (calendar)"
-    },
-    {
-      "title": "Performance “Madagascar” in Tashkent City Park",
-      "titleRu": "Спектакль «Мадагаскар» в парке Tashkent City",
-      "category": "festival",
-      "venue": "Tashkent CityТашкент, просп. Бунёдкор",
-      "startDate": "2026-08-29",
-      "endDate": null,
-      "time": "20:30",
-      "url": "https://www.afisha.uz/ru/gorod/2026/07/16/madagaskar-tashkent-city-2026",
-      "source": "afisha.uz (calendar)"
-    },
-    {
-      "title": "Yusupov Tomato Festival at Myasnoye",
+      "title": "Фестиваль юсуповского помидора в «Мясном»",
       "titleRu": "Фестиваль юсуповского помидора в «Мясном»",
       "category": "concert",
       "venue": "Мясной Steak HouseТашкент, ул. Шота Руставели, 13А",
@@ -321,7 +13,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Concert for Michael Jackson's birthday",
+      "title": "Концерт ко дню рождения Майкла Джексона",
       "titleRu": "Концерт ко дню рождения Майкла Джексона",
       "category": "concert",
       "venue": "Central ParkТашкент, ул. Мавераннахр, 21",
@@ -329,182 +21,6 @@
       "endDate": null,
       "time": "19:00",
       "url": "https://www.afisha.uz/ru/concerts/2026/08/26/maykl-dzhekson-ru",
-      "source": "afisha.uz (calendar)"
-    },
-    {
-      "title": "Exhibition of children's drawings \"Mehir nma?\"",
-      "titleRu": "Выставка детских рисунков  «Мехир нма?»",
-      "category": "exhibition",
-      "venue": "Central ParkТашкент, ул. Мавераннахр, 21",
-      "startDate": "2026-08-30",
-      "endDate": null,
-      "time": null,
-      "url": "https://www.afisha.uz/ru/exhibitions/2026/08/20/mehr-nima",
-      "source": "afisha.uz (calendar)"
-    },
-    {
-      "title": "Выставка «Наше наследие»",
-      "titleRu": "Выставка «Наше наследие»",
-      "category": "exhibition",
-      "venue": "Центральный Выставочный зал Академии художеств УзбекистанаТашкент, ул. Шарафа Рашидова, 40",
-      "startDate": "2026-08-30",
-      "endDate": null,
-      "time": null,
-      "url": "https://www.afisha.uz/ru/exhibitions/2026/07/31/our-heritage",
-      "source": "afisha.uz (calendar)"
-    },
-    {
-      "title": "Спектакль «Как Колобок ума-разума набирался»",
-      "titleRu": "Спектакль «Как Колобок ума-разума набирался»",
-      "category": "theatre",
-      "venue": null,
-      "startDate": "2026-08-30",
-      "endDate": null,
-      "time": "12:30",
-      "url": "https://www.afisha.uz/ru/theatres/2026/08/07/kak-kolobok-uma-razuma-nabiralsya-silk-route",
-      "source": "afisha.uz (calendar)"
-    },
-    {
-      "title": "Праздничная программа в Anhor Park",
-      "titleRu": "Праздничная программа в Anhor Park",
-      "category": "kids",
-      "venue": "Anhor parkТашкент, улица Лабзак",
-      "startDate": "2026-08-30",
-      "endDate": null,
-      "time": null,
-      "url": "https://www.afisha.uz/ru/children/2026/08/29/anhor-bayram-4-kun",
-      "source": "afisha.uz (calendar)"
-    },
-    {
-      "title": "Праздничные шоу в Luna Park",
-      "titleRu": "Праздничные шоу в Luna Park",
-      "category": "kids",
-      "venue": "Luna ParkТашкент, ул. Лутфи, 57А",
-      "startDate": "2026-08-30",
-      "endDate": null,
-      "time": "16:00",
-      "url": "https://www.afisha.uz/ru/children/2026/08/27/luna-park-shou",
-      "source": "afisha.uz (calendar)"
-    },
-    {
-      "title": "Цирковые представления по выходным",
-      "titleRu": "Цирковые представления по выходным",
-      "category": "kids",
-      "venue": "ЦиркТашкент, пл. Хадра, 1",
-      "startDate": "2026-08-30",
-      "endDate": null,
-      "time": "15:00",
-      "url": "https://www.afisha.uz/ru/children/2026/08/26/cirk-vyhodnye",
-      "source": "afisha.uz (calendar)"
-    },
-    {
-      "title": "Театрально-цирковое шоу Nova Circus",
-      "titleRu": "Театрально-цирковое шоу Nova Circus",
-      "category": "kids",
-      "venue": "Tashkent CityТашкент, просп. Бунёдкор",
-      "startDate": "2026-08-30",
-      "endDate": null,
-      "time": null,
-      "url": "https://www.afisha.uz/ru/children/2026/07/28/nova-circus-tashkent-city",
-      "source": "afisha.uz (calendar)"
-    },
-    {
-      "title": "Нетворкинг-завтраки Art&Card в TUT Workspace",
-      "titleRu": "Нетворкинг-завтраки Art&Card в TUT Workspace",
-      "category": "festival",
-      "venue": null,
-      "startDate": "2026-08-30",
-      "endDate": null,
-      "time": "11:30",
-      "url": "https://www.afisha.uz/ru/gorod/2026/08/28/art-card-zavtrak",
-      "source": "afisha.uz (calendar)"
-    },
-    {
-      "title": "День независимости в парке Milliy Bogʻ",
-      "titleRu": "День независимости в парке Milliy Bogʻ",
-      "category": "festival",
-      "venue": "Milliy bog‘Ташкент, ул. Сеул, 16",
-      "startDate": "2026-08-30",
-      "endDate": null,
-      "time": "18:00",
-      "url": "https://www.afisha.uz/ru/gorod/2026/08/28/milliy-bog-bayram",
-      "source": "afisha.uz (calendar)"
-    },
-    {
-      "title": "Праздничные шоу в парке Yangi Oʻzbekiston",
-      "titleRu": "Праздничные шоу в парке Yangi Oʻzbekiston",
-      "category": "festival",
-      "venue": "Парк «Янги Узбекистон»Ташкент, парк Янги Узбекистон",
-      "startDate": "2026-08-30",
-      "endDate": null,
-      "time": "20:00",
-      "url": "https://www.afisha.uz/ru/gorod/2026/08/28/yangi-uzbekiston-bayram",
-      "source": "afisha.uz (calendar)"
-    },
-    {
-      "title": "Музыкальный фонтан в парке Magic City",
-      "titleRu": "Музыкальный фонтан в парке Magic City",
-      "category": "festival",
-      "venue": "Magic CityТашкент, ул. Бабура, 174",
-      "startDate": "2026-08-30",
-      "endDate": null,
-      "time": null,
-      "url": "https://www.afisha.uz/ru/gorod/2026/07/17/muzykalnyy-fontan-magic-city-2026",
-      "source": "afisha.uz (calendar)"
-    },
-    {
-      "title": "Музыкальный фонтан в парке Tashkent City",
-      "titleRu": "Музыкальный фонтан в парке Tashkent City",
-      "category": "festival",
-      "venue": "Tashkent CityТашкент, просп. Бунёдкор",
-      "startDate": "2026-08-30",
-      "endDate": null,
-      "time": null,
-      "url": "https://www.afisha.uz/ru/gorod/2026/07/16/muzykalnyy-fontan-tashkent-city-2026",
-      "source": "afisha.uz (calendar)"
-    },
-    {
-      "title": "Ярмарка Uzbegim Market в парке Tashkent City",
-      "titleRu": "Ярмарка Uzbegim Market в парке Tashkent City",
-      "category": "festival",
-      "venue": "Tashkent CityТашкент, просп. Бунёдкор",
-      "startDate": "2026-08-30",
-      "endDate": null,
-      "time": null,
-      "url": "https://www.afisha.uz/ru/gorod/2026/07/16/uzbegim-market-2026",
-      "source": "afisha.uz (calendar)"
-    },
-    {
-      "title": "Пляж Palma & Chilla в парке Milliy Bog’",
-      "titleRu": "Пляж Palma & Chilla в парке Milliy Bog’",
-      "category": "festival",
-      "venue": "Milliy bog‘Ташкент, ул. Сеул, 16",
-      "startDate": "2026-08-30",
-      "endDate": null,
-      "time": null,
-      "url": "https://www.afisha.uz/ru/gorod/2026/07/16/palma-chilla-milliy-bog-2026",
-      "source": "afisha.uz (calendar)"
-    },
-    {
-      "title": "Мастер-классы от Your time your life",
-      "titleRu": "Мастер-классы от Your time your life",
-      "category": "lecture",
-      "venue": "Your time your lifeТашкент, пер. Пушкина, 7",
-      "startDate": "2026-08-30",
-      "endDate": null,
-      "time": "16:00",
-      "url": "https://www.afisha.uz/ru/znaniya/2026/08/05/your-time-your-life-avgust-2026",
-      "source": "afisha.uz (calendar)"
-    },
-    {
-      "title": "Творческие мастер-классы в Potterville",
-      "titleRu": "Творческие мастер-классы в Potterville",
-      "category": "lecture",
-      "venue": "PottervilleТашкент, ул. Лабзак, 12/1",
-      "startDate": "2026-08-30",
-      "endDate": null,
-      "time": null,
-      "url": "https://www.afisha.uz/ru/znaniya/2026/07/29/potterville-avgust-2026",
       "source": "afisha.uz (calendar)"
     },
     {
@@ -519,6 +35,39 @@
       "source": "afisha.uz (calendar)"
     },
     {
+      "title": "Выставка детских рисунков  «Мехир нма?»",
+      "titleRu": "Выставка детских рисунков  «Мехир нма?»",
+      "category": "exhibition",
+      "venue": "Central ParkТашкент, ул. Мавераннахр, 21",
+      "startDate": "2026-08-30",
+      "endDate": null,
+      "time": null,
+      "url": "https://www.afisha.uz/ru/exhibitions/2026/08/20/mehr-nima",
+      "source": "afisha.uz (calendar)"
+    },
+    {
+      "title": "Выставка «Наше наследие»",
+      "titleRu": "Выставка «Наше наследие»",
+      "category": "exhibition",
+      "venue": "Центральный Выставочный зал Академии художеств УзбекистанаТашкент, ул. Шарафа Рашидова, 40",
+      "startDate": "2026-08-30",
+      "endDate": null,
+      "time": null,
+      "url": "https://www.afisha.uz/ru/exhibitions/2026/07/31/our-heritage",
+      "source": "afisha.uz (calendar)"
+    },
+    {
+      "title": "Спектакль «Как Колобок ума-разума набирался»",
+      "titleRu": "Спектакль «Как Колобок ума-разума набирался»",
+      "category": "theatre",
+      "venue": null,
+      "startDate": "2026-08-30",
+      "endDate": null,
+      "time": "12:30",
+      "url": "https://www.afisha.uz/ru/theatres/2026/08/07/kak-kolobok-uma-razuma-nabiralsya-silk-route",
+      "source": "afisha.uz (calendar)"
+    },
+    {
       "title": "Спектакль «Колыбельная для Белоснежки»",
       "titleRu": "Спектакль «Колыбельная для Белоснежки»",
       "category": "theatre",
@@ -530,7 +79,18 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Children's culinary school in Quadro",
+      "title": "Праздничная программа в Anhor Park",
+      "titleRu": "Праздничная программа в Anhor Park",
+      "category": "kids",
+      "venue": "Anhor parkТашкент, улица Лабзак",
+      "startDate": "2026-08-30",
+      "endDate": null,
+      "time": null,
+      "url": "https://www.afisha.uz/ru/children/2026/08/29/anhor-bayram-4-kun",
+      "source": "afisha.uz (calendar)"
+    },
+    {
+      "title": "Детская кулинарная школа в Quadro",
       "titleRu": "Детская кулинарная школа в Quadro",
       "category": "kids",
       "venue": "QuadroТашкент, ул. Зульфияханум, 24",
@@ -541,7 +101,29 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Детский мастер-класс по приготовлению роллов",
+      "title": "Holiday shows at Luna Park",
+      "titleRu": "Праздничные шоу в Luna Park",
+      "category": "kids",
+      "venue": "Luna ParkТашкент, ул. Лутфи, 57А",
+      "startDate": "2026-08-30",
+      "endDate": null,
+      "time": "16:00",
+      "url": "https://www.afisha.uz/ru/children/2026/08/27/luna-park-shou",
+      "source": "afisha.uz (calendar)"
+    },
+    {
+      "title": "Цирковые представления по выходным",
+      "titleRu": "Цирковые представления по выходным",
+      "category": "kids",
+      "venue": "ЦиркТашкент, пл. Хадра, 1",
+      "startDate": "2026-08-30",
+      "endDate": null,
+      "time": "15:00",
+      "url": "https://www.afisha.uz/ru/children/2026/08/26/cirk-vyhodnye",
+      "source": "afisha.uz (calendar)"
+    },
+    {
+      "title": "Children's master class on making rolls",
       "titleRu": "Детский мастер-класс по приготовлению роллов",
       "category": "kids",
       "venue": "YaponamamaТашкент, ул. Бодомзор, 78",
@@ -563,7 +145,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Детские шоу и мастер-классы в ресторане Tanuki",
+      "title": "Children's shows and master classes at the Tanuki restaurant",
       "titleRu": "Детские шоу и мастер-классы в ресторане Tanuki",
       "category": "kids",
       "venue": "ТанукиТашкент, ул. Олмазор, 2А",
@@ -574,7 +156,95 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Лекция о концептуальном искусстве: Ай Вэйвэй",
+      "title": "Theater and circus show Nova Circus",
+      "titleRu": "Театрально-цирковое шоу Nova Circus",
+      "category": "kids",
+      "venue": "Tashkent CityТашкент, просп. Бунёдкор",
+      "startDate": "2026-08-30",
+      "endDate": null,
+      "time": "20:30",
+      "url": "https://www.afisha.uz/ru/children/2026/07/28/nova-circus-tashkent-city",
+      "source": "afisha.uz (calendar)"
+    },
+    {
+      "title": "Art&Card networking breakfasts at TUT Workspace",
+      "titleRu": "Нетворкинг-завтраки Art&Card в TUT Workspace",
+      "category": "festival",
+      "venue": null,
+      "startDate": "2026-08-30",
+      "endDate": null,
+      "time": "11:30",
+      "url": "https://www.afisha.uz/ru/gorod/2026/08/28/art-card-zavtrak",
+      "source": "afisha.uz (calendar)"
+    },
+    {
+      "title": "Independence Day in Milliy Bogʻ Park",
+      "titleRu": "День независимости в парке Milliy Bogʻ",
+      "category": "festival",
+      "venue": "Milliy bog‘Ташкент, ул. Сеул, 16",
+      "startDate": "2026-08-30",
+      "endDate": null,
+      "time": "18:00",
+      "url": "https://www.afisha.uz/ru/gorod/2026/08/28/milliy-bog-bayram",
+      "source": "afisha.uz (calendar)"
+    },
+    {
+      "title": "Festive shows in Yangi Oʻzbekiston park",
+      "titleRu": "Праздничные шоу в парке Yangi Oʻzbekiston",
+      "category": "festival",
+      "venue": "Парк «Янги Узбекистон»Ташкент, парк Янги Узбекистон",
+      "startDate": "2026-08-30",
+      "endDate": null,
+      "time": "20:00",
+      "url": "https://www.afisha.uz/ru/gorod/2026/08/28/yangi-uzbekiston-bayram",
+      "source": "afisha.uz (calendar)"
+    },
+    {
+      "title": "Musical fountain in Magic City Park",
+      "titleRu": "Музыкальный фонтан в парке Magic City",
+      "category": "festival",
+      "venue": "Magic CityТашкент, ул. Бабура, 174",
+      "startDate": "2026-08-30",
+      "endDate": null,
+      "time": null,
+      "url": "https://www.afisha.uz/ru/gorod/2026/07/17/muzykalnyy-fontan-magic-city-2026",
+      "source": "afisha.uz (calendar)"
+    },
+    {
+      "title": "Musical fountain in Tashkent City park",
+      "titleRu": "Музыкальный фонтан в парке Tashkent City",
+      "category": "festival",
+      "venue": "Tashkent CityТашкент, просп. Бунёдкор",
+      "startDate": "2026-08-30",
+      "endDate": null,
+      "time": null,
+      "url": "https://www.afisha.uz/ru/gorod/2026/07/16/muzykalnyy-fontan-tashkent-city-2026",
+      "source": "afisha.uz (calendar)"
+    },
+    {
+      "title": "Uzbegim Market fair in Tashkent City Park",
+      "titleRu": "Ярмарка Uzbegim Market в парке Tashkent City",
+      "category": "festival",
+      "venue": "Tashkent CityТашкент, просп. Бунёдкор",
+      "startDate": "2026-08-30",
+      "endDate": null,
+      "time": null,
+      "url": "https://www.afisha.uz/ru/gorod/2026/07/16/uzbegim-market-2026",
+      "source": "afisha.uz (calendar)"
+    },
+    {
+      "title": "Palma & Chilla beach in Milliy Bog’ park",
+      "titleRu": "Пляж Palma & Chilla в парке Milliy Bog’",
+      "category": "festival",
+      "venue": "Milliy bog‘Ташкент, ул. Сеул, 16",
+      "startDate": "2026-08-30",
+      "endDate": null,
+      "time": null,
+      "url": "https://www.afisha.uz/ru/gorod/2026/07/16/palma-chilla-milliy-bog-2026",
+      "source": "afisha.uz (calendar)"
+    },
+    {
+      "title": "Lecture on Conceptual Art: Ai Weiwei",
       "titleRu": "Лекция о концептуальном искусстве: Ай Вэйвэй",
       "category": "lecture",
       "venue": null,
@@ -585,7 +255,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Игра-тренинг по финансовой грамотности CashFlow",
+      "title": "Financial literacy training game CashFlow",
       "titleRu": "Игра-тренинг по финансовой грамотности CashFlow",
       "category": "lecture",
       "venue": null,
@@ -596,7 +266,18 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Игра-тренинг Flixa в Founders cafe",
+      "title": "Master classes from Your time your life",
+      "titleRu": "Мастер-классы от Your time your life",
+      "category": "lecture",
+      "venue": "Your time your lifeТашкент, пер. Пушкина, 7",
+      "startDate": "2026-08-30",
+      "endDate": null,
+      "time": "16:00",
+      "url": "https://www.afisha.uz/ru/znaniya/2026/08/05/your-time-your-life-avgust-2026",
+      "source": "afisha.uz (calendar)"
+    },
+    {
+      "title": "Flixa training game in Founders cafe",
       "titleRu": "Игра-тренинг Flixa в Founders cafe",
       "category": "lecture",
       "venue": null,
@@ -607,7 +288,18 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Творческие занятия в Toshkent Gullari School",
+      "title": "Creative workshops in Potterville",
+      "titleRu": "Творческие мастер-классы в Potterville",
+      "category": "lecture",
+      "venue": "PottervilleТашкент, ул. Лабзак, 12/1",
+      "startDate": "2026-08-30",
+      "endDate": null,
+      "time": null,
+      "url": "https://www.afisha.uz/ru/znaniya/2026/07/29/potterville-avgust-2026",
+      "source": "afisha.uz (calendar)"
+    },
+    {
+      "title": "Creative classes at Toshkent Gullari School",
       "titleRu": "Творческие занятия в Toshkent Gullari School",
       "category": "lecture",
       "venue": "Toshkent Gullari SchoolТашкент, ул. Мирабад, 21/3",
@@ -678,7 +370,7 @@
       "source": "iticket.uz"
     },
     {
-      "title": "Yusupov Tomato Festival at Myasnoye",
+      "title": "Фестиваль юсуповского помидора в «Мясном»",
       "titleRu": "Фестиваль юсуповского помидора в «Мясном»",
       "category": "concert",
       "venue": "Мясной Steak HouseТашкент, ул. Шота Руставели, 13А",
@@ -689,7 +381,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Exhibition of children's drawings \"Mehir nma?\"",
+      "title": "Выставка детских рисунков  «Мехир нма?»",
       "titleRu": "Выставка детских рисунков  «Мехир нма?»",
       "category": "exhibition",
       "venue": "Central ParkТашкент, ул. Мавераннахр, 21",
@@ -711,7 +403,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Праздничные шоу в Luna Park",
+      "title": "Holiday shows at Luna Park",
       "titleRu": "Праздничные шоу в Luna Park",
       "category": "kids",
       "venue": "Luna ParkТашкент, ул. Лутфи, 57А",
@@ -722,7 +414,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Театрально-цирковое шоу Nova Circus",
+      "title": "Theater and circus show Nova Circus",
       "titleRu": "Театрально-цирковое шоу Nova Circus",
       "category": "kids",
       "venue": "Tashkent CityТашкент, просп. Бунёдкор",
@@ -733,7 +425,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "День независимости в парке Milliy Bogʻ",
+      "title": "Independence Day in Milliy Bogʻ Park",
       "titleRu": "День независимости в парке Milliy Bogʻ",
       "category": "festival",
       "venue": "Milliy bog‘Ташкент, ул. Сеул, 16",
@@ -744,7 +436,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Праздничные шоу в парке Yangi Oʻzbekiston",
+      "title": "Festive shows in Yangi Oʻzbekiston park",
       "titleRu": "Праздничные шоу в парке Yangi Oʻzbekiston",
       "category": "festival",
       "venue": "Парк «Янги Узбекистон»Ташкент, парк Янги Узбекистон",
@@ -755,7 +447,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Музыкальный фонтан в парке Magic City",
+      "title": "Musical fountain in Magic City Park",
       "titleRu": "Музыкальный фонтан в парке Magic City",
       "category": "festival",
       "venue": "Magic CityТашкент, ул. Бабура, 174",
@@ -766,7 +458,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Ярмарка Uzbegim Market в парке Tashkent City",
+      "title": "Uzbegim Market fair in Tashkent City Park",
       "titleRu": "Ярмарка Uzbegim Market в парке Tashkent City",
       "category": "festival",
       "venue": "Tashkent CityТашкент, просп. Бунёдкор",
@@ -777,7 +469,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Пляж Palma & Chilla в парке Milliy Bog’",
+      "title": "Palma & Chilla beach in Milliy Bog’ park",
       "titleRu": "Пляж Palma & Chilla в парке Milliy Bog’",
       "category": "festival",
       "venue": "Milliy bog‘Ташкент, ул. Сеул, 16",
@@ -788,7 +480,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Творческие мастер-классы в Potterville",
+      "title": "Creative workshops in Potterville",
       "titleRu": "Творческие мастер-классы в Potterville",
       "category": "lecture",
       "venue": "PottervilleТашкент, ул. Лабзак, 12/1",
@@ -810,7 +502,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Фестиваль электронной музыки MUZONE Fest",
+      "title": "Electronic music festival MUZONE Fest",
       "titleRu": "Фестиваль электронной музыки MUZONE Fest",
       "category": "concert",
       "venue": null,
@@ -821,7 +513,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Шоу мыльных пузырей в Jungle Family Club",
+      "title": "Soap bubble show at Jungle Family Club",
       "titleRu": "Шоу мыльных пузырей в Jungle Family Club",
       "category": "kids",
       "venue": "Jungle Family ClubТашкент, Юнусабад-12, 20А",
@@ -832,7 +524,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Детский день в бассейне Sinbad",
+      "title": "Children's day at the Sinbad pool",
       "titleRu": "Детский день в бассейне Sinbad",
       "category": "kids",
       "venue": "SinbadТашкент, пересечение ул. Ширин и ул. Фазылтепа",
@@ -843,7 +535,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Праздничное мероприятие к 35-летию Дня независимости Узбекистана",
+      "title": "Festive event for the 35th anniversary of Independence Day of Uzbekistan",
       "titleRu": "Праздничное мероприятие к 35-летию Дня независимости Узбекистана",
       "category": "festival",
       "venue": "Central ParkТашкент, ул. Мавераннахр, 21",
@@ -875,7 +567,7 @@
       "source": "iticket.uz"
     },
     {
-      "title": "Yusupov Tomato Festival at Myasnoye",
+      "title": "Фестиваль юсуповского помидора в «Мясном»",
       "titleRu": "Фестиваль юсуповского помидора в «Мясном»",
       "category": "concert",
       "venue": "Мясной Steak HouseТашкент, ул. Шота Руставели, 13А",
@@ -886,7 +578,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Exhibition of children's drawings \"Mehir nma?\"",
+      "title": "Выставка детских рисунков  «Мехир нма?»",
       "titleRu": "Выставка детских рисунков  «Мехир нма?»",
       "category": "exhibition",
       "venue": "Central ParkТашкент, ул. Мавераннахр, 21",
@@ -908,7 +600,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Праздничные шоу в Luna Park",
+      "title": "Holiday shows at Luna Park",
       "titleRu": "Праздничные шоу в Luna Park",
       "category": "kids",
       "venue": "Luna ParkТашкент, ул. Лутфи, 57А",
@@ -919,7 +611,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "День независимости в парке Milliy Bogʻ",
+      "title": "Independence Day in Milliy Bogʻ Park",
       "titleRu": "День независимости в парке Milliy Bogʻ",
       "category": "festival",
       "venue": "Milliy bog‘Ташкент, ул. Сеул, 16",
@@ -930,7 +622,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Праздничные шоу в парке Yangi Oʻzbekiston",
+      "title": "Festive shows in Yangi Oʻzbekiston park",
       "titleRu": "Праздничные шоу в парке Yangi Oʻzbekiston",
       "category": "festival",
       "venue": "Парк «Янги Узбекистон»Ташкент, парк Янги Узбекистон",
@@ -941,7 +633,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Ярмарка Uzbegim Market в парке Tashkent City",
+      "title": "Uzbegim Market fair in Tashkent City Park",
       "titleRu": "Ярмарка Uzbegim Market в парке Tashkent City",
       "category": "festival",
       "venue": "Tashkent CityТашкент, просп. Бунёдкор",
@@ -952,7 +644,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Фестиваль электронной музыки MUZONE Fest",
+      "title": "Electronic music festival MUZONE Fest",
       "titleRu": "Фестиваль электронной музыки MUZONE Fest",
       "category": "concert",
       "venue": null,
@@ -974,7 +666,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Concert for the 35th anniversary of Independence of Uzbekistan",
+      "title": "Концерт к 35-летию Независимости Узбекистана",
       "titleRu": "Концерт к 35-летию Независимости Узбекистана",
       "category": "concert",
       "venue": null,
@@ -985,7 +677,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Family holiday in the NEXT shopping center",
+      "title": "Семейный праздник в ТРЦ NEXT",
       "titleRu": "Семейный праздник в ТРЦ NEXT",
       "category": "kids",
       "venue": "Next - торгово-развлекательный комплексТашкент, ул. Бабура, 6",
@@ -993,6 +685,28 @@
       "endDate": null,
       "time": "16:00",
       "url": "https://www.afisha.uz/ru/children/2026/08/27/next-den-znaniy",
+      "source": "afisha.uz (calendar)"
+    },
+    {
+      "title": "Премьера спектакля «Синий карлик, или Жемчужное сердце»",
+      "titleRu": "Премьера спектакля «Синий карлик, или Жемчужное сердце»",
+      "category": "kids",
+      "venue": null,
+      "startDate": "2026-09-01",
+      "endDate": null,
+      "time": null,
+      "url": "https://www.afisha.uz/ru/children/2026/08/06/children-s-play",
+      "source": "afisha.uz (calendar)"
+    },
+    {
+      "title": "Костюмированный фестиваль сап-сёрфинга Anhor Sup Fest 2026",
+      "titleRu": "Костюмированный фестиваль сап-сёрфинга Anhor Sup Fest 2026",
+      "category": "festival",
+      "venue": "Гребная база «Анхор»Ташкент, ул. Зульфияханум, 17",
+      "startDate": "2026-09-01",
+      "endDate": null,
+      "time": "08:00",
+      "url": "https://www.afisha.uz/ru/gorod/2026/08/17/anhor-sup-fest",
       "source": "afisha.uz (calendar)"
     },
     {
@@ -1004,17 +718,6 @@
       "endDate": null,
       "url": "https://iticket.uz/en/events/theaters-tashkent/blue-dwarf-or-the-pearl-heart",
       "source": "iticket.uz"
-    },
-    {
-      "title": "Costume SUP festival Anhor Sup Fest 2026",
-      "titleRu": "Костюмированный фестиваль сап-сёрфинга Anhor Sup Fest 2026",
-      "category": "festival",
-      "venue": "Гребная база «Анхор»Ташкент, ул. Зульфияханум, 17",
-      "startDate": "2026-09-01",
-      "endDate": null,
-      "time": "08:00",
-      "url": "https://www.afisha.uz/ru/gorod/2026/08/17/anhor-sup-fest",
-      "source": "afisha.uz (calendar)"
     },
     {
       "title": "Sold out \"Yer baribir aylanaveradi\"",
@@ -1037,7 +740,7 @@
       "source": "iticket.uz"
     },
     {
-      "title": "Yusupov Tomato Festival at Myasnoye",
+      "title": "Фестиваль юсуповского помидора в «Мясном»",
       "titleRu": "Фестиваль юсуповского помидора в «Мясном»",
       "category": "concert",
       "venue": "Мясной Steak HouseТашкент, ул. Шота Руставели, 13А",
@@ -1048,7 +751,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Exhibition of children's drawings \"Mehir nma?\"",
+      "title": "Выставка детских рисунков  «Мехир нма?»",
       "titleRu": "Выставка детских рисунков  «Мехир нма?»",
       "category": "exhibition",
       "venue": "Central ParkТашкент, ул. Мавераннахр, 21",
@@ -1059,7 +762,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Ярмарка Uzbegim Market в парке Tashkent City",
+      "title": "Uzbegim Market fair in Tashkent City Park",
       "titleRu": "Ярмарка Uzbegim Market в парке Tashkent City",
       "category": "festival",
       "venue": "Tashkent CityТашкент, просп. Бунёдкор",
@@ -1070,7 +773,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Фестиваль электронной музыки MUZONE Fest",
+      "title": "Electronic music festival MUZONE Fest",
       "titleRu": "Фестиваль электронной музыки MUZONE Fest",
       "category": "concert",
       "venue": null,
@@ -1102,7 +805,7 @@
       "source": "iticket.uz"
     },
     {
-      "title": "Yusupov Tomato Festival at Myasnoye",
+      "title": "Фестиваль юсуповского помидора в «Мясном»",
       "titleRu": "Фестиваль юсуповского помидора в «Мясном»",
       "category": "concert",
       "venue": "Мясной Steak HouseТашкент, ул. Шота Руставели, 13А",
@@ -1113,7 +816,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Exhibition of children's drawings \"Mehir nma?\"",
+      "title": "Выставка детских рисунков  «Мехир нма?»",
       "titleRu": "Выставка детских рисунков  «Мехир нма?»",
       "category": "exhibition",
       "venue": "Central ParkТашкент, ул. Мавераннахр, 21",
@@ -1124,7 +827,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Ярмарка Uzbegim Market в парке Tashkent City",
+      "title": "Uzbegim Market fair in Tashkent City Park",
       "titleRu": "Ярмарка Uzbegim Market в парке Tashkent City",
       "category": "festival",
       "venue": "Tashkent CityТашкент, просп. Бунёдкор",
@@ -1156,7 +859,7 @@
       "source": "iticket.uz"
     },
     {
-      "title": "Yusupov Tomato Festival at Myasnoye",
+      "title": "Фестиваль юсуповского помидора в «Мясном»",
       "titleRu": "Фестиваль юсуповского помидора в «Мясном»",
       "category": "concert",
       "venue": "Мясной Steak HouseТашкент, ул. Шота Руставели, 13А",
@@ -1167,7 +870,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Exhibition of children's drawings \"Mehir nma?\"",
+      "title": "Выставка детских рисунков  «Мехир нма?»",
       "titleRu": "Выставка детских рисунков  «Мехир нма?»",
       "category": "exhibition",
       "venue": "Central ParkТашкент, ул. Мавераннахр, 21",
@@ -1178,7 +881,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Ярмарка Uzbegim Market в парке Tashkent City",
+      "title": "Uzbegim Market fair in Tashkent City Park",
       "titleRu": "Ярмарка Uzbegim Market в парке Tashkent City",
       "category": "festival",
       "venue": "Tashkent CityТашкент, просп. Бунёдкор",
@@ -1200,7 +903,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Autumn festival of local brands TEPLO AUTUMN FEST",
+      "title": "Осенний фестиваль локальных брендов TEPLO AUTUMN FEST",
       "titleRu": "Осенний фестиваль локальных брендов TEPLO AUTUMN FEST",
       "category": "exhibition",
       "venue": null,
@@ -1211,7 +914,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Football match \"Pakhtakor\" - \"Andijan\"",
+      "title": "Футбольный матч «Пахтакор» — «Андижан»",
       "titleRu": "Футбольный матч «Пахтакор» — «Андижан»",
       "category": "sport",
       "venue": null,
@@ -1242,7 +945,7 @@
       "source": "iticket.uz"
     },
     {
-      "title": "Yusupov Tomato Festival at Myasnoye",
+      "title": "Фестиваль юсуповского помидора в «Мясном»",
       "titleRu": "Фестиваль юсуповского помидора в «Мясном»",
       "category": "concert",
       "venue": "Мясной Steak HouseТашкент, ул. Шота Руставели, 13А",
@@ -1264,7 +967,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Ярмарка Uzbegim Market в парке Tashkent City",
+      "title": "Uzbegim Market fair in Tashkent City Park",
       "titleRu": "Ярмарка Uzbegim Market в парке Tashkent City",
       "category": "festival",
       "venue": "Tashkent CityТашкент, просп. Бунёдкор",
@@ -1275,7 +978,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Premiere of the play “Blue Dwarf, or Heart of Pearl”",
+      "title": "Премьера спектакля «Синий карлик, или Жемчужное сердце»",
       "titleRu": "Премьера спектакля «Синий карлик, или Жемчужное сердце»",
       "category": "kids",
       "venue": null,
@@ -1286,7 +989,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Autumn festival of local brands TEPLO AUTUMN FEST",
+      "title": "Осенний фестиваль локальных брендов TEPLO AUTUMN FEST",
       "titleRu": "Осенний фестиваль локальных брендов TEPLO AUTUMN FEST",
       "category": "exhibition",
       "venue": null,
@@ -1297,7 +1000,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Exhibition by Mohamed Benshalal",
+      "title": "Выставка Мохамеда Беншалала",
       "titleRu": "Выставка Мохамеда Беншалала",
       "category": "exhibition",
       "venue": "Государственный музей истории УзбекистанаТашкент, просп. Рашидова, 3",
@@ -1308,7 +1011,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Performance \"Birinchi Kaldirgoch\"",
+      "title": "Спектакль «Биринчи калдиргоч»",
       "titleRu": "Спектакль «Биринчи калдиргоч»",
       "category": "theatre",
       "venue": null,
@@ -1424,7 +1127,7 @@
       "source": "iticket.uz"
     },
     {
-      "title": "Yusupov Tomato Festival at Myasnoye",
+      "title": "Фестиваль юсуповского помидора в «Мясном»",
       "titleRu": "Фестиваль юсуповского помидора в «Мясном»",
       "category": "concert",
       "venue": "Мясной Steak HouseТашкент, ул. Шота Руставели, 13А",
@@ -1446,7 +1149,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Ярмарка Uzbegim Market в парке Tashkent City",
+      "title": "Uzbegim Market fair in Tashkent City Park",
       "titleRu": "Ярмарка Uzbegim Market в парке Tashkent City",
       "category": "festival",
       "venue": "Tashkent CityТашкент, просп. Бунёдкор",
@@ -1457,7 +1160,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Premiere of the play “Blue Dwarf, or Heart of Pearl”",
+      "title": "Премьера спектакля «Синий карлик, или Жемчужное сердце»",
       "titleRu": "Премьера спектакля «Синий карлик, или Жемчужное сердце»",
       "category": "kids",
       "venue": null,
@@ -1468,7 +1171,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Autumn festival of local brands TEPLO AUTUMN FEST",
+      "title": "Осенний фестиваль локальных брендов TEPLO AUTUMN FEST",
       "titleRu": "Осенний фестиваль локальных брендов TEPLO AUTUMN FEST",
       "category": "exhibition",
       "venue": null,
@@ -1479,7 +1182,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Exhibition by Mohamed Benshalal",
+      "title": "Выставка Мохамеда Беншалала",
       "titleRu": "Выставка Мохамеда Беншалала",
       "category": "exhibition",
       "venue": "Государственный музей истории УзбекистанаТашкент, просп. Рашидова, 3",
@@ -1630,7 +1333,7 @@
       "source": "iticket.uz"
     },
     {
-      "title": "Yusupov Tomato Festival at Myasnoye",
+      "title": "Фестиваль юсуповского помидора в «Мясном»",
       "titleRu": "Фестиваль юсуповского помидора в «Мясном»",
       "category": "concert",
       "venue": "Мясной Steak HouseТашкент, ул. Шота Руставели, 13А",
@@ -1641,7 +1344,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Ярмарка Uzbegim Market в парке Tashkent City",
+      "title": "Uzbegim Market fair in Tashkent City Park",
       "titleRu": "Ярмарка Uzbegim Market в парке Tashkent City",
       "category": "festival",
       "venue": "Tashkent CityТашкент, просп. Бунёдкор",
@@ -1652,7 +1355,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Exhibition by Mohamed Benshalal",
+      "title": "Выставка Мохамеда Беншалала",
       "titleRu": "Выставка Мохамеда Беншалала",
       "category": "exhibition",
       "venue": "Государственный музей истории УзбекистанаТашкент, просп. Рашидова, 3",
@@ -1674,7 +1377,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Yusupov Tomato Festival at Myasnoye",
+      "title": "Фестиваль юсуповского помидора в «Мясном»",
       "titleRu": "Фестиваль юсуповского помидора в «Мясном»",
       "category": "concert",
       "venue": "Мясной Steak HouseТашкент, ул. Шота Руставели, 13А",
@@ -1685,7 +1388,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Ярмарка Uzbegim Market в парке Tashkent City",
+      "title": "Uzbegim Market fair in Tashkent City Park",
       "titleRu": "Ярмарка Uzbegim Market в парке Tashkent City",
       "category": "festival",
       "venue": "Tashkent CityТашкент, просп. Бунёдкор",
@@ -1696,7 +1399,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Exhibition by Mohamed Benshalal",
+      "title": "Выставка Мохамеда Беншалала",
       "titleRu": "Выставка Мохамеда Беншалала",
       "category": "exhibition",
       "venue": "Государственный музей истории УзбекистанаТашкент, просп. Рашидова, 3",
@@ -1704,6 +1407,28 @@
       "endDate": null,
       "time": null,
       "url": "https://www.afisha.uz/ru/exhibitions/2026/08/25/benchellal-vystavka",
+      "source": "afisha.uz (calendar)"
+    },
+    {
+      "title": "Концерт Огабека Собирова",
+      "titleRu": "Концерт Огабека Собирова",
+      "category": "concert",
+      "venue": "Дворец «Дружба народов»Ташкент, ул. Фурката, 3",
+      "startDate": "2026-09-08",
+      "endDate": null,
+      "time": "19:30",
+      "url": "https://www.afisha.uz/ru/concerts/2026/07/14/ogabek-sobirov-sentyabr",
+      "source": "afisha.uz (calendar)"
+    },
+    {
+      "title": "Юлдуз Усманова в Самарканде",
+      "titleRu": "Юлдуз Усманова в Самарканде",
+      "category": "concert",
+      "venue": null,
+      "startDate": "2026-09-08",
+      "endDate": null,
+      "time": "18:00",
+      "url": "https://www.afisha.uz/ru/concerts/2026/06/26/yulduz-usmanova",
       "source": "afisha.uz (calendar)"
     },
     {
@@ -1718,7 +1443,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Yusupov Tomato Festival at Myasnoye",
+      "title": "Фестиваль юсуповского помидора в «Мясном»",
       "titleRu": "Фестиваль юсуповского помидора в «Мясном»",
       "category": "concert",
       "venue": "Мясной Steak HouseТашкент, ул. Шота Руставели, 13А",
@@ -1729,7 +1454,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Ярмарка Uzbegim Market в парке Tashkent City",
+      "title": "Uzbegim Market fair in Tashkent City Park",
       "titleRu": "Ярмарка Uzbegim Market в парке Tashkent City",
       "category": "festival",
       "venue": "Tashkent CityТашкент, просп. Бунёдкор",
@@ -1740,7 +1465,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Exhibition by Mohamed Benshalal",
+      "title": "Выставка Мохамеда Беншалала",
       "titleRu": "Выставка Мохамеда Беншалала",
       "category": "exhibition",
       "venue": "Государственный музей истории УзбекистанаТашкент, просп. Рашидова, 3",
@@ -1748,6 +1473,17 @@
       "endDate": null,
       "time": null,
       "url": "https://www.afisha.uz/ru/exhibitions/2026/08/25/benchellal-vystavka",
+      "source": "afisha.uz (calendar)"
+    },
+    {
+      "title": "Концерт Огабека Собирова",
+      "titleRu": "Концерт Огабека Собирова",
+      "category": "concert",
+      "venue": "Дворец «Дружба народов»Ташкент, ул. Фурката, 3",
+      "startDate": "2026-09-09",
+      "endDate": null,
+      "time": "19:30",
+      "url": "https://www.afisha.uz/ru/concerts/2026/07/14/ogabek-sobirov-sentyabr",
       "source": "afisha.uz (calendar)"
     },
     {
@@ -1762,7 +1498,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Ярмарка Uzbegim Market в парке Tashkent City",
+      "title": "Uzbegim Market fair in Tashkent City Park",
       "titleRu": "Ярмарка Uzbegim Market в парке Tashkent City",
       "category": "festival",
       "venue": "Tashkent CityТашкент, просп. Бунёдкор",
@@ -1773,7 +1509,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Exhibition by Mohamed Benshalal",
+      "title": "Выставка Мохамеда Беншалала",
       "titleRu": "Выставка Мохамеда Беншалала",
       "category": "exhibition",
       "venue": "Государственный музей истории УзбекистанаТашкент, просп. Рашидова, 3",
@@ -1805,7 +1541,7 @@
       "source": "iticket.uz"
     },
     {
-      "title": "Ярмарка Uzbegim Market в парке Tashkent City",
+      "title": "Uzbegim Market fair in Tashkent City Park",
       "titleRu": "Ярмарка Uzbegim Market в парке Tashkent City",
       "category": "festival",
       "venue": "Tashkent CityТашкент, просп. Бунёдкор",
@@ -1816,7 +1552,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Exhibition by Mohamed Benshalal",
+      "title": "Выставка Мохамеда Беншалала",
       "titleRu": "Выставка Мохамеда Беншалала",
       "category": "exhibition",
       "venue": "Государственный музей истории УзбекистанаТашкент, просп. Рашидова, 3",
@@ -1838,7 +1574,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Ярмарка Uzbegim Market в парке Tashkent City",
+      "title": "Uzbegim Market fair in Tashkent City Park",
       "titleRu": "Ярмарка Uzbegim Market в парке Tashkent City",
       "category": "festival",
       "venue": "Tashkent CityТашкент, просп. Бунёдкор",
@@ -1849,7 +1585,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Premiere of the play “Blue Dwarf, or Heart of Pearl”",
+      "title": "Премьера спектакля «Синий карлик, или Жемчужное сердце»",
       "titleRu": "Премьера спектакля «Синий карлик, или Жемчужное сердце»",
       "category": "kids",
       "venue": null,
@@ -1860,7 +1596,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Exhibition by Mohamed Benshalal",
+      "title": "Выставка Мохамеда Беншалала",
       "titleRu": "Выставка Мохамеда Беншалала",
       "category": "exhibition",
       "venue": "Государственный музей истории УзбекистанаТашкент, просп. Рашидова, 3",
@@ -1889,6 +1625,61 @@
       "endDate": null,
       "url": "https://iticket.uz/en/events/theaters-tashkent/dunyoning-ishlari256",
       "source": "iticket.uz"
+    },
+    {
+      "title": "Цирковые представления по выходным",
+      "titleRu": "Цирковые представления по выходным",
+      "category": "kids",
+      "venue": "ЦиркТашкент, пл. Хадра, 1",
+      "startDate": "2026-09-13",
+      "endDate": null,
+      "time": "15:00",
+      "url": "https://www.afisha.uz/ru/children/2026/08/26/cirk-vyhodnye",
+      "source": "afisha.uz (calendar)"
+    },
+    {
+      "title": "Uzbegim Market fair in Tashkent City Park",
+      "titleRu": "Ярмарка Uzbegim Market в парке Tashkent City",
+      "category": "festival",
+      "venue": "Tashkent CityТашкент, просп. Бунёдкор",
+      "startDate": "2026-09-13",
+      "endDate": null,
+      "time": null,
+      "url": "https://www.afisha.uz/ru/gorod/2026/07/16/uzbegim-market-2026",
+      "source": "afisha.uz (calendar)"
+    },
+    {
+      "title": "Премьера спектакля «Синий карлик, или Жемчужное сердце»",
+      "titleRu": "Премьера спектакля «Синий карлик, или Жемчужное сердце»",
+      "category": "kids",
+      "venue": null,
+      "startDate": "2026-09-13",
+      "endDate": null,
+      "time": null,
+      "url": "https://www.afisha.uz/ru/children/2026/08/06/children-s-play",
+      "source": "afisha.uz (calendar)"
+    },
+    {
+      "title": "Выставка Мохамеда Беншалала",
+      "titleRu": "Выставка Мохамеда Беншалала",
+      "category": "exhibition",
+      "venue": "Государственный музей истории УзбекистанаТашкент, просп. Рашидова, 3",
+      "startDate": "2026-09-13",
+      "endDate": null,
+      "time": null,
+      "url": "https://www.afisha.uz/ru/exhibitions/2026/08/25/benchellal-vystavka",
+      "source": "afisha.uz (calendar)"
+    },
+    {
+      "title": "Art Bazaar",
+      "titleRu": "Art Bazaar",
+      "category": "exhibition",
+      "venue": "AZIMUT Grand Hotel TashkentТашкент, просп. Амира Темура, 107А",
+      "startDate": "2026-09-13",
+      "endDate": null,
+      "time": "10:00",
+      "url": "https://www.afisha.uz/ru/exhibitions/2026/08/18/art-bazaar",
+      "source": "afisha.uz (calendar)"
     }
   ]
 }
