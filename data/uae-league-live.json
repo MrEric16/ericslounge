@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-29T16:41:42.040808+00:00",
+  "generatedAt": "2026-08-29T20:53:20.978727+00:00",
   "teams": [
     "Shabab Al Ahli Club",
     "Al Jazira Club",
@@ -42,13 +42,13 @@
     {
       "team": "Al Ain FC",
       "played": 3,
-      "won": 2,
-      "drawn": 1,
+      "won": 3,
+      "drawn": 0,
       "lost": 0,
-      "gf": 6,
-      "ga": 2,
-      "gd": 4,
-      "points": 7
+      "gf": 8,
+      "ga": 3,
+      "gd": 5,
+      "points": 9
     },
     {
       "team": "Al Wasl",
@@ -87,12 +87,12 @@
       "team": "Al Nasr SC",
       "played": 3,
       "won": 1,
-      "drawn": 2,
-      "lost": 0,
-      "gf": 3,
-      "ga": 2,
-      "gd": 1,
-      "points": 5
+      "drawn": 1,
+      "lost": 1,
+      "gf": 4,
+      "ga": 4,
+      "gd": 0,
+      "points": 4
     },
     {
       "team": "Sharjah FC",
