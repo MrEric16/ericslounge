@@ -3616,7 +3616,7 @@ const ARSENAL_FIXTURES = [
   { title:"Arsenal v Como 1907", venue:"(Home)", competition:"Pre-season Friendly", stadium:"Emirates Stadium", start:"2026-08-12T23:30:00+05:00" },
   { title:"Arsenal v Manchester City", venue:"(Neutral)", competition:"Pre-season Friendly", stadium:"Principality Stadium", start:"2026-08-16T19:00:00+05:00" },
   { title:"Arsenal v Coventry City", venue:"(Home)", competition:"Premier League", stadium:"Emirates Stadium", start:"2026-08-22T00:00:00+05:00" },
-  { title:"Aston Villa v Arsenal", venue:"(Away)", competition:"Premier League", stadium:"Villa Park", start:"2026-08-29T19:00:00+05:00" },
+  { title:"Aston Villa v Arsenal", venue:"(Away)", competition:"Premier League", stadium:"Villa Park", start:"2026-09-01T00:00:00+05:00" },
   { title:"Arsenal v Chelsea", venue:"(Home)", competition:"Premier League", stadium:"Emirates Stadium", start:"2026-09-05T19:00:00+05:00" },
   { title:"Sunderland v Arsenal", venue:"(Away)", competition:"Premier League", stadium:"Stadium of Light", start:"2026-09-12T19:00:00+05:00" },
   { title:"Brighton and Hove Albion v Arsenal", venue:"(Away)", competition:"Premier League", stadium:"American Express Stadium", start:"2026-09-19T19:00:00+05:00" },
@@ -3657,10 +3657,16 @@ const ARSENAL_FIXTURES = [
 // Set by loadLiveSportsData() once a real fetched fixture is available; takes priority over the
 // static list above (which stays as a fallback for when the API is unreachable or not yet loaded).
 let LIVE_ARSENAL_FIXTURE = null;
+// Extracts the non-Arsenal side of a "X v Y" title, normalized, so we can identify
+// duplicate/stale entries for the SAME match even when their stored dates disagree
+// (e.g. a hardcoded fallback date vs. the live-fetched real kickoff time).
+function arsenalFixtureOpponent(title){
+  return title.replace(/Arsenal/i, '').replace(/\bv\b/i, '').trim().toLowerCase();
+}
 function getNextArsenalFixture(){
   const now = new Date();
   const pool = LIVE_ARSENAL_FIXTURE
-    ? [LIVE_ARSENAL_FIXTURE, ...ARSENAL_FIXTURES.filter(f => f.start.slice(0,10) !== LIVE_ARSENAL_FIXTURE.start.slice(0,10))]
+    ? [LIVE_ARSENAL_FIXTURE, ...ARSENAL_FIXTURES.filter(f => arsenalFixtureOpponent(f.title) !== arsenalFixtureOpponent(LIVE_ARSENAL_FIXTURE.title))]
     : ARSENAL_FIXTURES;
   const upcoming = pool
     .map(f => ({ ...f, dateObj: new Date(f.start) }))
@@ -19465,7 +19471,7 @@ function sportsTileHtml(t){
 }
 function arsenalFixtureRows(){
   const pool = LIVE_ARSENAL_FIXTURE
-    ? [LIVE_ARSENAL_FIXTURE, ...ARSENAL_FIXTURES.filter(f => f.start.slice(0,10) !== LIVE_ARSENAL_FIXTURE.start.slice(0,10))]
+    ? [LIVE_ARSENAL_FIXTURE, ...ARSENAL_FIXTURES.filter(f => arsenalFixtureOpponent(f.title) !== arsenalFixtureOpponent(LIVE_ARSENAL_FIXTURE.title))]
     : ARSENAL_FIXTURES;
   const now = new Date();
   return pool
