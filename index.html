@@ -3674,6 +3674,28 @@ function getNextArsenalFixture(){
     .sort((a,b) => a.dateObj - b.dateObj);
   return upcoming[0] || null;
 }
+// Safety net for the exact bug class that caused the Aug 2026 wrong-countdown incident:
+// a hardcoded fallback date silently disagreeing with the live-fetched real date. Once
+// LIVE_ARSENAL_FIXTURE loads, compare it against the ARSENAL_FIXTURES fallback entry for
+// the SAME opponent (matched by name, not date -- that's the whole point). If they're more
+// than an hour apart, the fallback data is stale and needs a manual edit to ARSENAL_FIXTURES.
+// This can't silently corrupt what's displayed (the merge above always prefers live data by
+// opponent identity), but a console-only warning is invisible on a phone, so also surface it
+// visibly on the tile/hub via ARSENAL_FIXTURE_DRIFT so it actually gets seen and fixed.
+let ARSENAL_FIXTURE_DRIFT = null;
+function checkArsenalFixtureDrift(){
+  if(!LIVE_ARSENAL_FIXTURE) return;
+  const liveOpp = arsenalFixtureOpponent(LIVE_ARSENAL_FIXTURE.title);
+  const stale = ARSENAL_FIXTURES.find(f => arsenalFixtureOpponent(f.title) === liveOpp);
+  if(!stale) { ARSENAL_FIXTURE_DRIFT = null; return; }
+  const diffMs = Math.abs(new Date(stale.start) - new Date(LIVE_ARSENAL_FIXTURE.start));
+  if(diffMs > 60 * 60 * 1000){
+    ARSENAL_FIXTURE_DRIFT = { opponent: liveOpp, staleStart: stale.start, liveStart: LIVE_ARSENAL_FIXTURE.start };
+    console.error(`[Arsenal fixture drift] Fallback ARSENAL_FIXTURES entry for "${liveOpp}" says ${stale.start}, live data says ${LIVE_ARSENAL_FIXTURE.start}. Update the hardcoded fallback in ARSENAL_FIXTURES.`);
+  } else {
+    ARSENAL_FIXTURE_DRIFT = null;
+  }
+}
 function arsenalFixtureShortText(){
   const f = getNextArsenalFixture();
   if(!f) return "No fixtures currently loaded - ask Mr Eric to re-sync from the calendar.";
@@ -8607,6 +8629,7 @@ async function loadLiveSportsData(){
       }
       if(cache && cache.arsenalFixture){
         LIVE_ARSENAL_FIXTURE = cache.arsenalFixture;
+        checkArsenalFixtureDrift();
       }
       window._sportsCache = cache;
     })();
@@ -8618,6 +8641,8 @@ async function loadLiveSportsData(){
   if(tablesEl) tablesEl.innerHTML = SPORTS_LEAGUES.map(leagueTableHtml).join('');
   const fixtureEl = document.getElementById('nextFixtureText');
   if(fixtureEl) fixtureEl.innerHTML = arsenalFixtureShortText();
+  const driftEl = document.getElementById('arsenalDriftWarning');
+  if(driftEl) driftEl.innerHTML = arsenalDriftWarningHtml();
   const leagueDetailEl = document.getElementById('leagueDetailContainer');
   if(leagueDetailEl && leagueDetailEl.dataset.code){
     leagueDetailEl.innerHTML = leagueDetailBodyHtml(leagueDetailEl.dataset.code);
@@ -19545,6 +19570,9 @@ function viewSports(){
 
 /* ---- Sports, Students, Recommendations, Birthdays (home page only) ---- */
 
+function arsenalDriftWarningHtml(){
+  return ARSENAL_FIXTURE_DRIFT ? `<div style="background:#B00020; color:#fff; font-size:11px; font-weight:700; padding:5px 10px; border-radius:8px; margin:0 0 8px;">⚠ Fixture data mismatch detected — fallback date disagrees with live data. Told Mr Eric to check ARSENAL_FIXTURES.</div>` : '';
+}
 function sportsHtml(){
   return `
     <a class="sports-card" href="#arsenal" style="display:block; text-decoration:none; color:inherit;">
@@ -19554,6 +19582,7 @@ function sportsHtml(){
           <div class="name">${teamNameHtml('Arsenal', false, true)}</div>
         </div>
       </div>
+      <div id="arsenalDriftWarning">${arsenalDriftWarningHtml()}</div>
       <div class="next-fixture next-fixture-combined">
         <div class="next-fixture-row"><span class="label">Next up</span><span id="nextFixtureText">${arsenalFixtureShortText()}</span></div>
         <div class="next-fixture-row"><span class="label">Starts in</span><span id="arsenalCountdown">--:--:--:--</span></div>
