@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-28T15:32:12.174495+00:00",
+  "generatedAt": "2026-08-29T10:16:30.910759+00:00",
   "scheduled": [
     {
       "name": "UFC 335",
@@ -79,16 +79,15 @@
       "venue": "Accor Arena",
       "location": "Paris, France",
       "start_tashkent": "2026-09-06T00:00:00+05:00"
-    },
+    }
+  ],
+  "past": [
     {
       "name": "UFC Fight Night: Nurmagomedov vs. Song",
       "date_text": "Aug 29, 2026",
       "venue": "SPD Bank Oriental Sports Center",
-      "location": "Shanghai, China",
-      "start_tashkent": "2026-08-29T15:00:00+05:00"
-    }
-  ],
-  "past": [
+      "location": "Shanghai, China"
+    },
     {
       "name": "UFC Fight Night: Hernandez vs. Rodrigues",
       "date_text": "Aug 22, 2026",
@@ -185,13 +184,6 @@
       "venue": "Prudential Center",
       "location": "Newark, New Jersey, U.S.",
       "result": "Sean Strickland def. Khamzat Chimaev (Split Decision)"
-    },
-    {
-      "name": "UFC Fight Night: Della Maddalena vs. Prates",
-      "date_text": "May 2, 2026",
-      "venue": "RAC Arena",
-      "location": "Perth, Australia",
-      "result": "Carlos Prates def. Jack Della Maddalena (TKO, R3 3:17)"
     }
   ]
 }
