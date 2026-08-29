@@ -4998,6 +4998,149 @@ function currencyFinishGame(){
   }
 }
 
+
+// ============ Guess the Language: same engine as Guess the Currency, with two differences
+// Mr Eric asked for specifically. (1) The non-consecutive constraint targets "English"
+// instead of "Euro" -- same interleaving trick, just parameterized. (2) Distractor options
+// are deliberately confusing rather than random: for genuinely multilingual countries
+// (otherOfficial below) the wrong options are pulled from that country's OTHER real
+// official/widely-spoken languages first -- e.g. Belgium correctly answers "Dutch" but
+// offers "French" and "German" as traps, since both are also real Belgian languages.
+// Remaining option slots (and all options for monolingual countries) are filled from
+// same-region languages rather than the global pool, so a wrong answer is still at least
+// plausible (a European country never gets offered Khmer as a distractor). ============
+const LANGUAGE_COUNTRIES = [{"name": "United States", "language": "English", "region": "americas"}, {"name": "United Kingdom", "language": "English", "region": "europe"}, {"name": "France", "language": "French", "region": "europe"}, {"name": "Germany", "language": "German", "region": "europe"}, {"name": "Italy", "language": "Italian", "region": "europe"}, {"name": "Spain", "language": "Spanish", "region": "europe"}, {"name": "Japan", "language": "Japanese", "region": "asia"}, {"name": "China", "language": "Mandarin", "region": "asia"}, {"name": "Canada", "language": "English", "otherOfficial": ["French"], "region": "americas"}, {"name": "Brazil", "language": "Portuguese", "region": "americas"}, {"name": "Russia", "language": "Russian", "region": "europe"}, {"name": "Australia", "language": "English", "region": "oceania"}, {"name": "India", "language": "Hindi", "otherOfficial": ["English", "Bengali", "Tamil", "Urdu"], "region": "asia"}, {"name": "Mexico", "language": "Spanish", "region": "americas"}, {"name": "South Korea", "language": "Korean", "region": "asia"}, {"name": "Switzerland", "language": "German", "otherOfficial": ["French", "Italian", "Romansh"], "region": "europe"}, {"name": "Sweden", "language": "Swedish", "region": "europe"}, {"name": "South Africa", "language": "Zulu", "otherOfficial": ["English", "Afrikaans", "Xhosa"], "region": "africa"}, {"name": "Egypt", "language": "Arabic", "region": "africa"}, {"name": "Turkey", "language": "Turkish", "region": "asia"}, {"name": "Greece", "language": "Greek", "region": "europe"}, {"name": "Portugal", "language": "Portuguese", "region": "europe"}, {"name": "Argentina", "language": "Spanish", "region": "americas"}, {"name": "Ireland", "language": "English", "otherOfficial": ["Irish"], "region": "europe"}, {"name": "Netherlands", "language": "Dutch", "region": "europe"}, {"name": "Norway", "language": "Norwegian", "region": "europe"}, {"name": "Poland", "language": "Polish", "region": "europe"}, {"name": "Belgium", "language": "Dutch", "otherOfficial": ["French", "German"], "region": "europe"}, {"name": "Austria", "language": "German", "region": "europe"}, {"name": "Denmark", "language": "Danish", "region": "europe"}, {"name": "Finland", "language": "Finnish", "otherOfficial": ["Swedish"], "region": "europe"}, {"name": "Ukraine", "language": "Ukrainian", "otherOfficial": ["Russian"], "region": "europe"}, {"name": "Israel", "language": "Hebrew", "otherOfficial": ["Arabic"], "region": "asia"}, {"name": "Saudi Arabia", "language": "Arabic", "region": "asia"}, {"name": "United Arab Emirates", "language": "Arabic", "region": "asia"}, {"name": "Thailand", "language": "Thai", "region": "asia"}, {"name": "Vietnam", "language": "Vietnamese", "region": "asia"}, {"name": "Indonesia", "language": "Indonesian", "region": "asia"}, {"name": "Philippines", "language": "Filipino", "otherOfficial": ["English"], "region": "asia"}, {"name": "Pakistan", "language": "Urdu", "otherOfficial": ["English", "Punjabi"], "region": "asia"}, {"name": "Nigeria", "language": "English", "otherOfficial": ["Hausa", "Yoruba", "Igbo"], "region": "africa"}, {"name": "Kenya", "language": "Swahili", "otherOfficial": ["English"], "region": "africa"}, {"name": "Morocco", "language": "Arabic", "region": "africa"}, {"name": "Colombia", "language": "Spanish", "region": "americas"}, {"name": "Venezuela", "language": "Spanish", "region": "americas"}, {"name": "Chile", "language": "Spanish", "region": "americas"}, {"name": "Peru", "language": "Spanish", "otherOfficial": ["Quechua"], "region": "americas"}, {"name": "Cuba", "language": "Spanish", "region": "americas"}, {"name": "New Zealand", "language": "English", "region": "oceania"}, {"name": "Iceland", "language": "Icelandic", "region": "europe"}, {"name": "Czechia", "language": "Czech", "region": "europe"}, {"name": "Hungary", "language": "Hungarian", "region": "europe"}, {"name": "Romania", "language": "Romanian", "region": "europe"}, {"name": "Iran", "language": "Persian", "region": "asia"}, {"name": "Iraq", "language": "Arabic", "otherOfficial": ["Kurdish"], "region": "asia"}, {"name": "Singapore", "language": "English", "otherOfficial": ["Malay", "Mandarin", "Tamil"], "region": "asia"}, {"name": "Malaysia", "language": "Malay", "otherOfficial": ["English", "Mandarin", "Tamil"], "region": "asia"}, {"name": "Kazakhstan", "language": "Kazakh", "otherOfficial": ["Russian"], "region": "asia"}, {"name": "Uzbekistan", "language": "Uzbek", "otherOfficial": ["Russian"], "region": "asia"}, {"name": "Mongolia", "language": "Mongolian", "region": "asia"}, {"name": "Nepal", "language": "Nepali", "otherOfficial": ["English"], "region": "asia"}, {"name": "Sri Lanka", "language": "Sinhala", "otherOfficial": ["Tamil"], "region": "asia"}, {"name": "Bangladesh", "language": "Bengali", "otherOfficial": ["English"], "region": "asia"}, {"name": "Myanmar", "language": "Burmese", "otherOfficial": ["English"], "region": "asia"}, {"name": "Cambodia", "language": "Khmer", "region": "asia"}, {"name": "Laos", "language": "Lao", "region": "asia"}, {"name": "North Korea", "language": "Korean", "region": "asia"}, {"name": "Taiwan", "language": "Mandarin", "region": "asia"}, {"name": "Jordan", "language": "Arabic", "region": "asia"}, {"name": "Lebanon", "language": "Arabic", "region": "asia"}, {"name": "Syria", "language": "Arabic", "region": "asia"}, {"name": "Yemen", "language": "Arabic", "region": "asia"}, {"name": "Kuwait", "language": "Arabic", "region": "asia"}, {"name": "Qatar", "language": "Arabic", "region": "asia"}, {"name": "Bahrain", "language": "Arabic", "region": "asia"}, {"name": "Oman", "language": "Arabic", "region": "asia"}, {"name": "Afghanistan", "language": "Pashto", "otherOfficial": ["Dari"], "region": "asia"}, {"name": "Azerbaijan", "language": "Azerbaijani", "otherOfficial": ["Russian"], "region": "asia"}, {"name": "Armenia", "language": "Armenian", "otherOfficial": ["Russian"], "region": "asia"}, {"name": "Georgia", "language": "Georgian", "otherOfficial": ["Russian"], "region": "asia"}, {"name": "Turkmenistan", "language": "Turkmen", "otherOfficial": ["Russian"], "region": "asia"}, {"name": "Tajikistan", "language": "Tajik", "otherOfficial": ["Russian"], "region": "asia"}, {"name": "Kyrgyzstan", "language": "Kyrgyz", "otherOfficial": ["Russian"], "region": "asia"}, {"name": "Bhutan", "language": "Dzongkha", "otherOfficial": ["Nepali"], "region": "asia"}, {"name": "Maldives", "language": "Dhivehi", "otherOfficial": ["English"], "region": "asia"}, {"name": "Brunei", "language": "Malay", "otherOfficial": ["English"], "region": "asia"}, {"name": "Timor-Leste", "language": "Tetum", "otherOfficial": ["Portuguese", "Indonesian"], "region": "asia"}, {"name": "Ghana", "language": "English", "region": "africa"}, {"name": "Ethiopia", "language": "Amharic", "region": "africa"}, {"name": "Tanzania", "language": "Swahili", "otherOfficial": ["English"], "region": "africa"}, {"name": "Uganda", "language": "English", "otherOfficial": ["Swahili"], "region": "africa"}, {"name": "Algeria", "language": "Arabic", "region": "africa"}, {"name": "Tunisia", "language": "Arabic", "region": "africa"}, {"name": "Libya", "language": "Arabic", "region": "africa"}, {"name": "Sudan", "language": "Arabic", "otherOfficial": ["English"], "region": "africa"}, {"name": "Senegal", "language": "French", "region": "africa"}, {"name": "Mali", "language": "French", "region": "africa"}, {"name": "Guinea", "language": "French", "region": "africa"}, {"name": "Ivory Coast", "language": "French", "region": "africa"}, {"name": "Cameroon", "language": "French", "otherOfficial": ["English"], "region": "africa"}, {"name": "Zambia", "language": "English", "region": "africa"}, {"name": "Zimbabwe", "language": "English", "otherOfficial": ["Shona", "Ndebele"], "region": "africa"}, {"name": "Angola", "language": "Portuguese", "region": "africa"}, {"name": "Mozambique", "language": "Portuguese", "otherOfficial": ["Swahili"], "region": "africa"}, {"name": "Namibia", "language": "English", "otherOfficial": ["Afrikaans"], "region": "africa"}, {"name": "Botswana", "language": "English", "otherOfficial": ["Setswana"], "region": "africa"}, {"name": "Rwanda", "language": "Kinyarwanda", "otherOfficial": ["French", "English"], "region": "africa"}, {"name": "Somalia", "language": "Somali", "otherOfficial": ["Arabic"], "region": "africa"}, {"name": "Democratic Republic of the Congo", "language": "French", "otherOfficial": ["Swahili", "Lingala"], "region": "africa"}, {"name": "Republic of the Congo", "language": "French", "region": "africa"}, {"name": "Panama", "language": "Spanish", "region": "americas"}, {"name": "Costa Rica", "language": "Spanish", "region": "americas"}, {"name": "Nicaragua", "language": "Spanish", "region": "americas"}, {"name": "Honduras", "language": "Spanish", "region": "americas"}, {"name": "El Salvador", "language": "Spanish", "region": "americas"}, {"name": "Guatemala", "language": "Spanish", "region": "americas"}, {"name": "Ecuador", "language": "Spanish", "region": "americas"}, {"name": "Bolivia", "language": "Spanish", "otherOfficial": ["Quechua", "Aymara"], "region": "americas"}, {"name": "Paraguay", "language": "Spanish", "otherOfficial": ["Guarani"], "region": "americas"}, {"name": "Uruguay", "language": "Spanish", "region": "americas"}, {"name": "Dominican Republic", "language": "Spanish", "region": "americas"}, {"name": "Haiti", "language": "French", "region": "americas"}, {"name": "Jamaica", "language": "English", "region": "americas"}, {"name": "Slovakia", "language": "Slovak", "region": "europe"}, {"name": "Slovenia", "language": "Slovenian", "region": "europe"}, {"name": "Croatia", "language": "Croatian", "region": "europe"}, {"name": "Serbia", "language": "Serbian", "region": "europe"}, {"name": "Bosnia and Herzegovina", "language": "Bosnian", "otherOfficial": ["Croatian", "Serbian"], "region": "europe"}, {"name": "Bulgaria", "language": "Bulgarian", "region": "europe"}, {"name": "North Macedonia", "language": "Macedonian", "region": "europe"}, {"name": "Albania", "language": "Albanian", "region": "europe"}, {"name": "Montenegro", "language": "Montenegrin", "otherOfficial": ["Serbian"], "region": "europe"}, {"name": "Kosovo", "language": "Albanian", "region": "europe"}, {"name": "Moldova", "language": "Romanian", "otherOfficial": ["Russian"], "region": "europe"}, {"name": "Belarus", "language": "Belarusian", "otherOfficial": ["Russian"], "region": "europe"}, {"name": "Lithuania", "language": "Lithuanian", "region": "europe"}, {"name": "Latvia", "language": "Latvian", "region": "europe"}, {"name": "Estonia", "language": "Estonian", "region": "europe"}, {"name": "Luxembourg", "language": "Luxembourgish", "otherOfficial": ["French", "German"], "region": "europe"}, {"name": "Malta", "language": "Maltese", "otherOfficial": ["English"], "region": "europe"}, {"name": "Cyprus", "language": "Greek", "otherOfficial": ["Turkish"], "region": "europe"}, {"name": "Liechtenstein", "language": "German", "region": "europe"}, {"name": "Monaco", "language": "French", "otherOfficial": ["Italian"], "region": "europe"}, {"name": "San Marino", "language": "Italian", "otherOfficial": ["Italian"], "region": "europe"}, {"name": "Andorra", "language": "Catalan", "otherOfficial": ["French", "Spanish"], "region": "europe"}, {"name": "Vatican City", "language": "Italian", "otherOfficial": ["Latin"], "region": "europe"}, {"name": "Fiji", "language": "English", "region": "oceania"}, {"name": "Papua New Guinea", "language": "English", "region": "oceania"}, {"name": "Samoa", "language": "Samoan", "region": "oceania"}, {"name": "Tonga", "language": "Tongan", "region": "oceania"}, {"name": "Vanuatu", "language": "Bislama", "otherOfficial": ["English", "French"], "region": "oceania"}, {"name": "Solomon Islands", "language": "English", "region": "oceania"}, {"name": "Kiribati", "language": "Gilbertese", "region": "oceania"}, {"name": "Tuvalu", "language": "Tuvaluan", "region": "oceania"}, {"name": "Nauru", "language": "Nauruan", "region": "oceania"}, {"name": "Marshall Islands", "language": "Marshallese", "region": "oceania"}, {"name": "Palau", "language": "Palauan", "region": "oceania"}, {"name": "Micronesia", "language": "English", "region": "oceania"}, {"name": "Trinidad and Tobago", "language": "English", "region": "americas"}, {"name": "Bahamas", "language": "English", "region": "americas"}, {"name": "Barbados", "language": "English", "region": "americas"}, {"name": "Belize", "language": "English", "region": "americas"}, {"name": "Guyana", "language": "English", "region": "americas"}, {"name": "Suriname", "language": "Dutch", "region": "americas"}, {"name": "Grenada", "language": "English", "region": "americas"}, {"name": "Saint Lucia", "language": "English", "region": "americas"}, {"name": "Saint Vincent and the Grenadines", "language": "English", "region": "americas"}, {"name": "Antigua and Barbuda", "language": "English", "region": "americas"}, {"name": "Dominica", "language": "English", "region": "americas"}, {"name": "Saint Kitts and Nevis", "language": "English", "region": "americas"}, {"name": "South Sudan", "language": "English", "otherOfficial": ["Arabic"], "region": "africa"}, {"name": "Chad", "language": "French", "otherOfficial": ["Arabic"], "region": "africa"}, {"name": "Niger", "language": "French", "region": "africa"}, {"name": "Burkina Faso", "language": "French", "region": "africa"}, {"name": "Benin", "language": "French", "region": "africa"}, {"name": "Togo", "language": "French", "region": "africa"}, {"name": "Sierra Leone", "language": "English", "region": "africa"}, {"name": "Liberia", "language": "English", "region": "africa"}, {"name": "Gambia", "language": "English", "region": "africa"}, {"name": "Guinea-Bissau", "language": "Portuguese", "region": "africa"}, {"name": "Equatorial Guinea", "language": "Spanish", "region": "africa"}, {"name": "Gabon", "language": "French", "region": "africa"}, {"name": "Central African Republic", "language": "French", "region": "africa"}, {"name": "Djibouti", "language": "French", "otherOfficial": ["Arabic"], "region": "africa"}, {"name": "Eritrea", "language": "Tigrinya", "otherOfficial": ["Arabic"], "region": "africa"}, {"name": "Burundi", "language": "Kirundi", "otherOfficial": ["French"], "region": "africa"}, {"name": "Malawi", "language": "Chichewa", "otherOfficial": ["English"], "region": "africa"}, {"name": "Madagascar", "language": "Malagasy", "region": "africa"}, {"name": "Mauritius", "language": "English", "region": "africa"}, {"name": "Seychelles", "language": "French", "region": "africa"}, {"name": "Comoros", "language": "Comorian", "otherOfficial": ["Arabic", "French"], "region": "africa"}, {"name": "Cape Verde", "language": "Portuguese", "region": "africa"}, {"name": "Sao Tome and Principe", "language": "Portuguese", "region": "africa"}, {"name": "Lesotho", "language": "Sesotho", "otherOfficial": ["English"], "region": "africa"}, {"name": "Eswatini", "language": "Swazi", "otherOfficial": ["English"], "region": "africa"}];
+
+const LANG_ROUNDS_PER_GAME = 30;
+const LANG_BEST_SCORE_KEY = 'languageGameBestScore';
+const LANG_STREAK_KEY = 'languageGameStreak';
+
+function langShuffle(arr){
+  const a = [...arr];
+  for(let i = a.length - 1; i > 0; i--){
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+// Same interleaving approach as curBuildRounds, generalized to any target string so
+// "English" (here) and "Euro" (currency game) share the identical anti-repeat logic.
+function langBuildRounds(totalRounds){
+  const targetPool = langShuffle(LANGUAGE_COUNTRIES.filter(c => c.language === 'English'));
+  const otherPool = langShuffle(LANGUAGE_COUNTRIES.filter(c => c.language !== 'English'));
+  const sequence = [];
+  let ti = 0, oi = 0, lastWasTarget = false;
+  while(sequence.length < totalRounds && (ti < targetPool.length || oi < otherPool.length)){
+    let pick = null;
+    if(lastWasTarget){
+      if(oi < otherPool.length) pick = otherPool[oi++];
+      else if(ti < targetPool.length) pick = targetPool[ti++];
+    } else {
+      const remainingTarget = targetPool.length - ti;
+      const remainingOther = otherPool.length - oi;
+      const r = Math.random() * (remainingTarget + remainingOther);
+      if(r < remainingTarget && ti < targetPool.length) pick = targetPool[ti++];
+      else if(oi < otherPool.length) pick = otherPool[oi++];
+      else if(ti < targetPool.length) pick = targetPool[ti++];
+    }
+    if(!pick) break;
+    sequence.push(pick);
+    lastWasTarget = pick.language === 'English';
+  }
+  return sequence.map(correct => {
+    const confusables = [];
+    // Real other-official-language traps first, when this country actually has any.
+    if(correct.otherOfficial){
+      for(const l of langShuffle(correct.otherOfficial)){
+        if(confusables.length >= 3) break;
+        if(l !== correct.language && !confusables.includes(l)) confusables.push(l);
+      }
+    }
+    // Fill any remaining slots from same-region languages (never the raw global pool),
+    // so even a "weak" distractor is at least regionally plausible.
+    if(confusables.length < 3){
+      const regionPool = langShuffle(LANGUAGE_COUNTRIES.filter(c =>
+        c.region === correct.region && c.language !== correct.language && !confusables.includes(c.language)
+      ));
+      for(const c of regionPool){
+        if(confusables.length >= 3) break;
+        if(!confusables.includes(c.language)) confusables.push(c.language);
+      }
+    }
+    // Last-resort fallback: if a region is too small/homogeneous to supply 3 distinct
+    // languages (rare -- e.g. a region dominated by one language), widen to the full pool.
+    if(confusables.length < 3){
+      const globalPool = langShuffle(LANGUAGE_COUNTRIES.filter(c =>
+        c.language !== correct.language && !confusables.includes(c.language)
+      ));
+      for(const c of globalPool){
+        if(confusables.length >= 3) break;
+        if(!confusables.includes(c.language)) confusables.push(c.language);
+      }
+    }
+    const options = langShuffle([correct.language, ...confusables]);
+    return { correct, options };
+  });
+}
+
+let languageState = null;
+
+function languageStart(){
+  languageState = {
+    rounds: langBuildRounds(LANG_ROUNDS_PER_GAME),
+    current: 0,
+    correctCount: 0,
+    mistakes: [],
+    answered: false,
+    lastPicked: null,
+  };
+  renderRoute();
+}
+
+function languageAnswer(pickedLanguage){
+  if(!languageState || languageState.answered) return;
+  languageState.answered = true;
+  languageState.lastPicked = pickedLanguage;
+  const round = languageState.rounds[languageState.current];
+  const isCorrect = pickedLanguage === round.correct.language;
+  if(isCorrect){ languageState.correctCount++; }
+  else{ languageState.mistakes.push({ round, picked: pickedLanguage }); }
+  renderRoute();
+  setTimeout(() => {
+    if(!languageState) return;
+    languageState.current++;
+    languageState.answered = false;
+    languageState.lastPicked = null;
+    if(languageState.current >= languageState.rounds.length){
+      languageFinishGame();
+    }
+    renderRoute();
+  }, 1200);
+}
+
+function languageFinishGame(){
+  const score = languageState.correctCount;
+  let best = 0, streak = 0;
+  try{ best = parseInt(localStorage.getItem(LANG_BEST_SCORE_KEY) || '0', 10); }catch(e){}
+  if(score > best){
+    try{ localStorage.setItem(LANG_BEST_SCORE_KEY, String(score)); }catch(e){}
+  }
+  try{ streak = parseInt(localStorage.getItem(LANG_STREAK_KEY) || '0', 10); }catch(e){}
+  const todayKey = getTodayKeyLocal();
+  let lastPlayed = null;
+  try{ lastPlayed = localStorage.getItem('languageGameLastPlayedDate'); }catch(e){}
+  if(lastPlayed !== todayKey){
+    const yesterday = new Date(Date.now() - 86400000);
+    const yKey = `${yesterday.getFullYear()}-${String(yesterday.getMonth()+1).padStart(2,'0')}-${String(yesterday.getDate()).padStart(2,'0')}`;
+    streak = (lastPlayed === yKey) ? streak + 1 : 1;
+    try{
+      localStorage.setItem(LANG_STREAK_KEY, String(streak));
+      localStorage.setItem('languageGameLastPlayedDate', todayKey);
+    }catch(e){}
+  }
+}
+
 // ============ Nerdle: Wordle but with maths equations ============
 const NERDLE_ANSWER_POOL = ["8+7+9=24","2+2+9=13","13+61=74","23+53=76","18+75=93","15+13=28","18+56=74","11+23=34","17+56=73","27+68=95","30+36=66","47+45=92","43+12=55","11+44=55","40+57=97","68+13=81","26+15=41","9+7+6=22","48+12=60","61+12=73","27+19=46","53+26=79","60+11=71","6+3+9=18","22+47=69","20+17=37","13+84=97","18+12=30","11+47=58","41+29=70","4+6+7=17","63+25=88","72+21=93","13+18=31","23+65=88","15+36=51","7+7+2=16","55+39=94","51+38=89","20+45=65","20+63=83","63+30=93","3+4+6=13","25+52=77","15+22=37","78+18=96","24+27=51","17+58=75","61+34=95","12+17=29","66+31=97","31+11=42","5+5+7=17","40+13=53","5+6+2=13","65+17=82","46+32=78","8+4+2=14","18+80=98","17+69=86","5+6+1=12","1+9+8=18","61+16=77","11+83=94","88+11=99","33+20=53","51+10=61","52+47=99","27+35=62","43+40=83","44+44=88","46+14=60","50+42=92","22+65=87","6+7+6=19","27+49=76","73+25=98","69+29=98","46+25=71","25+27=52","24+65=89","23+66=89","41+30=71","27+28=55","28+70=98","26+47=73","34+46=80","19+79=98","18+29=47","21+73=94","8+1+6=15","6+2+7=15","3+3+7=13","25+68=93","9+5+6=20","60+39=99","79+11=90","6+9+3=18","13+25=38","13+41=54","94-23=71","92-34=58","83-45=38","88-17=71","83-23=60","84-49=35","60-23=37","65-39=26","87-76=11","94-38=56","93-66=27","96-15=81","97-75=22","80-28=52","81-26=55","53-28=25","60-10=50","94-48=46","28-17=11","66-13=53","65-35=30","81-21=60","52-38=14","90-22=68","81-18=63","74-12=62","79-21=58","65-43=22","69-59=10","95-65=30","92-20=72","78-61=17","68-47=21","46-28=18","85-41=44","82-18=64","62-40=22","79-12=67","72-23=49","82-66=16","46-30=16","83-57=26","93-38=55","92-46=46","81-60=21","94-46=48","83-18=65","97-23=74","62-22=40","63-23=40","80-33=47","80-18=62","71-51=20","77-51=26","33-11=22","83-67=16","55-35=20","68-36=32","77-37=40","41-26=15","95-41=54","74-45=29","99-25=74","92-32=60","98-75=23","84-22=62","88-64=24","86-15=71","74-36=38","55-42=13","72-24=48","66-36=30","70-45=25","78-45=33","78-13=65","78-21=57","78-32=46","85-47=38","58-10=48","99-84=15","9*81=729","5*20=100","6*54=324","4*45=180","7*31=217","4*51=204","5*54=270","4*95=380","5*47=235","7*87=609","2*54=108","4*71=284","4*64=256","5*27=135","9*86=774","5*62=310","3*48=144","3*36=108","9*53=477","4*46=184","3*34=102","4*80=320","9*17=153","8*14=112","5*52=260","6*93=558","9*90=810","6*26=156","4*99=396","8*72=576","3*80=240","2*89=178","7*72=504","9*46=414","9*91=819","7*15=105","3*73=219","5*53=265","6*56=336","7*22=154","8*24=192","6*37=222","6*24=144","8*16=128","8*52=416","6*50=300","3*51=153","7*48=336","9*41=369","4*86=344","7*52=364","6*51=306","4*28=112","5*77=385","6*92=552","6*79=474","2*67=134","4*96=384","7*55=385","2*76=152","664/8=83","330/5=66","178/2=89","156/2=78","483/7=69","774/9=86","440/8=55","413/7=59","291/3=97","390/6=65","272/8=34","116/2=58","360/6=60","576/9=64","640/8=80","129/3=43","435/5=87","336/4=84","414/9=46","234/3=78","510/6=85","495/5=99","128/4=32","402/6=67","161/7=23","138/2=69","234/6=39","156/6=26","546/7=78","140/5=28","570/6=95","792/9=88","304/8=38","144/6=24","420/7=60","406/7=58","222/3=74","122/2=61","300/4=75","549/9=61","504/9=56","246/6=41","176/8=22","236/4=59","192/4=48","123/3=41","445/5=89","195/3=65","324/9=36","480/8=60","630/7=90","486/9=54","192/2=96","498/6=83","504/7=72","300/5=60","265/5=53","132/6=22","180/6=30","469/7=67"];
 const NERDLE_LENGTH = 8;
@@ -8153,6 +8296,7 @@ const GEOGRAPHY_HUB_TILES = [
   { name: "Odd One Out", emoji: icon('oddOneOut'), url: "#odd-one-out-game", internal: true },
   { name: "Idiom Match", emoji: icon('chatBubble'), url: "#idiom-match-game", internal: true },
   { name: "Guess the Currency", emoji: icon('coin'), url: "#currency-game", internal: true },
+  { name: "Guess the Language", emoji: icon('chatBubble'), url: "#language-game", internal: true },
   { name: "Nerdle", emoji: icon('mathSymbols'), url: "#nerdle-game", internal: true },
   { name: "Memory Match", emoji: icon('cardFlip'), url: "#memory-game", internal: true },
   { name: "Country Silhouette", emoji: icon('landmass'), url: "#silhouette-game", internal: true },
@@ -13441,6 +13585,93 @@ function viewCurrencyGame(){
     return currencyEndHtml();
   }
   return currencyPlayingHtml();
+}
+
+// ============ Guess the Language: views. Mirrors Guess the Currency's screen layout. ============
+function languageIntroHtml(){
+  let best = 0, streak = 0;
+  try{ best = parseInt(localStorage.getItem(LANG_BEST_SCORE_KEY) || '0', 10); }catch(e){}
+  try{ streak = parseInt(localStorage.getItem(LANG_STREAK_KEY) || '0', 10); }catch(e){}
+  return `
+    <a class="back-link" href="#geography-hub">← Back to Train Your Brain</a>
+    <section style="padding-top:14px;">
+      <div class="fg-wrap">
+        <div class="section-head"><span class="emoji">${icon('chatBubble')}</span><h2>Guess the Language</h2></div>
+        <p style="font-size:14px; color:var(--ink-soft); line-height:1.6; margin-bottom:6px;">Every country, one main language. The wrong answers are the ones that could actually trick you.</p>
+        <div class="fg-intro-stats">
+          <div class="fg-intro-stat"><div class="num">${best}/${LANG_ROUNDS_PER_GAME}</div><div class="label">Best Score</div></div>
+          <div class="fg-intro-stat"><div class="num">${streak}</div><div class="label">Day Streak</div></div>
+        </div>
+        <button class="fg-start-btn" data-action="language-start">Start</button>
+      </div>
+    </section>
+  `;
+}
+
+function languagePlayingHtml(){
+  const round = languageState.rounds[languageState.current];
+  const pct = Math.round((languageState.current / languageState.rounds.length) * 100);
+  const optionsHtml = round.options.map(o => {
+    let cls = 'fg-option-btn';
+    if(languageState.answered){
+      if(o === round.correct.language) cls += ' fg-correct';
+      else if(o === languageState.lastPicked) cls += ' fg-wrong';
+    }
+    return `<button class="${cls}" data-action="language-answer" data-language="${escapeHtml(o)}" ${languageState.answered ? 'disabled' : ''}>${escapeHtml(o)}</button>`;
+  }).join('');
+  return `
+    <section style="padding-top:14px;">
+      <div class="fg-wrap">
+        <div class="fg-progress-row">
+          <span>Country ${languageState.current + 1} of ${languageState.rounds.length}</span>
+          <span>Score: ${languageState.correctCount}</span>
+        </div>
+        <div class="fg-progress-bar"><div class="fg-progress-fill" style="width:${pct}%"></div></div>
+        <div style="text-align:center; padding:36px 20px; font-family:'Baloo 2', sans-serif; font-weight:800; font-size:26px; color:var(--ink);">${escapeHtml(round.correct.name)}</div>
+        <div class="fg-question">What's the main language?</div>
+        <div class="fg-options">${optionsHtml}</div>
+      </div>
+    </section>
+  `;
+}
+
+function languageEndHtml(){
+  const score = languageState.correctCount;
+  let best = 0;
+  try{ best = parseInt(localStorage.getItem(LANG_BEST_SCORE_KEY) || '0', 10); }catch(e){}
+  const isNewBest = score >= best && score > 0;
+  const reviewHtml = languageState.mistakes.length === 0 ? `<p style="text-align:center; font-size:14px; color:var(--ink-soft);">Perfect round -- no mistakes.</p>` : `
+    <div style="margin-top:8px;">
+      ${languageState.mistakes.map(m => `
+        <div class="fg-review-item fg-review-wrong">
+          <div><strong>${escapeHtml(m.round.correct.name)}</strong>: ${escapeHtml(m.round.correct.language)} - you picked ${escapeHtml(m.picked)}</div>
+        </div>
+      `).join('')}
+    </div>
+  `;
+  return `
+    <a class="back-link" href="#geography-hub">← Back to Train Your Brain</a>
+    <section style="padding-top:14px;">
+      <div class="fg-wrap">
+        <div class="section-head"><span class="emoji">${icon('trophy')}</span><h2>Round Complete</h2></div>
+        <div class="fg-end-score">${score}/${languageState.rounds.length}</div>
+        <div class="fg-end-label">${isNewBest ? 'New best score!' : `Best: ${best}/${languageState.rounds.length}`}</div>
+        <button class="fg-start-btn" data-action="language-start">Play Again</button>
+        <h3 style="margin:22px 0 4px; font-family:'Baloo 2', sans-serif; font-size:15px;">Missed languages</h3>
+        ${reviewHtml}
+      </div>
+    </section>
+  `;
+}
+
+function viewLanguageGame(){
+  if(!languageState){
+    return languageIntroHtml();
+  }
+  if(languageState.current >= languageState.rounds.length){
+    return languageEndHtml();
+  }
+  return languagePlayingHtml();
 }
 
 function nerdleIntroHtml(){
@@ -21012,6 +21243,18 @@ document.addEventListener('click', (e) => {
     currencyAnswer(currencyAnswerBtn.dataset.currency);
     return;
   }
+  const languageStartBtn = e.target.closest('[data-action="language-start"]');
+  if(languageStartBtn){
+    e.preventDefault();
+    languageStart();
+    return;
+  }
+  const languageAnswerBtn = e.target.closest('[data-action="language-answer"]');
+  if(languageAnswerBtn){
+    e.preventDefault();
+    languageAnswer(languageAnswerBtn.dataset.language);
+    return;
+  }
   const nerdleStartBtn = e.target.closest('[data-action="nerdle-start"]');
   if(nerdleStartBtn){
     e.preventDefault();
@@ -21352,6 +21595,8 @@ function renderRoute(opts){
     html = viewIdiomMatchGame();
   } else if(parts[0] === 'currency-game'){
     html = viewCurrencyGame();
+  } else if(parts[0] === 'language-game'){
+    html = viewLanguageGame();
   } else if(parts[0] === 'nerdle-game'){
     html = viewNerdleGame();
   } else if(parts[0] === 'memory-game'){
@@ -21458,6 +21703,7 @@ function renderRoute(opts){
   if(parts[0] !== 'odd-one-out-game' && oooState){ oooState = null; }
   if(parts[0] !== 'idiom-match-game' && idiomMatchState){ idiomMatchState = null; }
   if(parts[0] !== 'currency-game' && currencyState){ currencyState = null; }
+  if(parts[0] !== 'language-game' && languageState){ languageState = null; }
   if(parts[0] !== 'nerdle-game' && nerdleState){ nerdleState = null; }
   if(parts[0] !== 'memory-game' && memoryState){ memoryState = null; }
   if(parts[0] !== 'silhouette-game' && silhouetteState){ silhouetteState = null; }
