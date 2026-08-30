@@ -1,13 +1,10 @@
 [goal-scraper] Run started.
 [goal-scraper] [PL] Found 5 finished-match links
 [goal-scraper] [PD] Found 5 finished-match links
-[goal-scraper] WARNING: Atletico Madrid scored 3 but only 2 scorer(s) were parsed for https://www.goal.com/en/match/sevilla-vs-atletico-madrid/_seK0ylxMUwag4mPVn_nk
-[goal-scraper] [PD] SCORER PARSE FAILED 3 times, giving up and committing WITH INCOMPLETE SCORER DATA (page structure likely changed) for Sevilla 1-3 Atletico Madrid: https://www.goal.com/en/match/sevilla-vs-atletico-madrid/_seK0ylxMUwag4mPVn_nk
-[goal-scraper] [PD] Added: Sevilla 1-3 Atletico Madrid
 [goal-scraper] [BL1] Found 7 finished-match links
 [goal-scraper] [SA] Found 5 finished-match links
 [goal-scraper] [FL1] Found 6 finished-match links
 [goal-scraper] [CL] Found 0 finished-match links
 [goal-scraper] [arsenal-friendlies] Found 1 finished-match links
-[goal-scraper] TOTAL new results added this run: 1
+[goal-scraper] TOTAL new results added this run: 0
 [goal-scraper] Wrote data/goal-results.json
