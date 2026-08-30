@@ -16,6 +16,16 @@ Replaces the hardcoded SPORTS_LEAGUES entry for UAE Pro League in index.html, wh
 fixtures array with no results array at all -- meaning nothing ever moved from fixtures to
 results once matches were played, no matter how much time passed.
 
+UPDATE 2026-08-31: parse_matches was rewritten. It had been finding 0 matches (standings
+still parsed fine, since that function walks every <tr> generically) -- the div[data-match_id]
++ .team-name-home/-away + data-datetime attributes it depended on evidently no longer matched
+the live page, confirmed by directly re-fetching the page. Rewritten to anchor on
+/match-report/co1183/.../maNNNNNNN/home-slug_away-slug/ links and adjacent team-badge
+<img alt="Team Name"> elements instead -- both are semantic/URL-level details far less likely
+to break with a CSS/markup refresh than specific class and data-attribute names. Date is
+tracked from the visible DD.MM.YYYY header text instead of a data-datetime attribute, since
+that attribute'''s continued existence could not be confirmed either.
+
 Output: data/uae-league-live.json, matching the same {teams, fixtures, results} shape the
 client already knows how to render (see uzMatchToRow's row shape in index.html).
 """
@@ -83,49 +93,105 @@ def parse_standings(soup):
 
 
 MONTHS_NUM = re.compile(r"(\d{2})\.(\d{2})\.(\d{4})")
+TIME_RE = re.compile(r"^([01]\d|2[0-3]):([0-5]\d)$")
+SCORE_RE = re.compile(r"^(-|\d+):(-|\d+)$")
+MATCH_LINK_RE = re.compile(r"/match-report/co1183/[^/]+/ma(\d+)/([a-z0-9-]+)_([a-z0-9-]+)/")
 
 
 def parse_matches(soup):
-    """Confirmed real structure (2026-08-16): each match is a
-    <div data-match_id="..." data-datetime="2026-08-14T14:10:00Z" data-liveticker-status="result" ...>
-    containing team names in .team-name-home / .team-name-away and the score as the link
-    text inside .match-result (e.g. "2:2", or "-:-" for a match not yet played).
-    data-datetime is a real UTC ISO timestamp, which is a much more reliable time source
-    than parsing the separately-displayed "16:10" local-time text would be."""
+    """Anchored on /match-report/.../maNNNNNNN/home-slug_away-slug/ links and the team
+    badge <img alt="Team Name"> elements next to them -- both are semantic/URL-level
+    details unlikely to change with a CSS redesign, unlike the specific div attribute and
+    class names (data-match_id, .team-name-home/-away) this scraper originally relied on,
+    which returned 0 matches as of 2026-08-30 despite standings parsing fine from the same
+    page -- meaning that markup had changed or was never correctly identified. Confirmed
+    directly against the live all-matches page on 2026-08-31 before rewriting: match-report
+    links and adjacent team-badge alt text are present and consistent across every match
+    card, played and unplayed alike.
+
+    Date is tracked by walking the page in document order and remembering the most recent
+    standalone DD.MM.YYYY text seen (matches are grouped under date headers), since that
+    doesn't depend on a data-datetime attribute that may or may not still exist.
+    """
     matches = []
-    for div in soup.find_all("div", attrs={"data-match_id": True}):
-        home_el = div.select_one(".team-name-home a")
-        away_el = div.select_one(".team-name-away a")
-        if not home_el or not away_el:
+    seen_ids = set()
+    current_date = None
+
+    for el in soup.find_all(True):
+        text = el.get_text(strip=True) if el.name not in ("script", "style") else ""
+        if el.name not in ("div", "td", "th", "span", "p") :
+            pass
+        # track date headers: standalone DD.MM.YYYY text with no other content in this tag
+        if text and MONTHS_NUM.fullmatch(text):
+            current_date = text
+
+        if el.name != "a":
             continue
-        home_name = home_el.get_text(strip=True)
-        away_name = away_el.get_text(strip=True)
+        href = el.get("href", "")
+        m = MATCH_LINK_RE.search(href)
+        if not m:
+            continue
+        match_id, home_slug, away_slug = m.groups()
+        if match_id in seen_ids:
+            continue
+
+        # walk up to find the smallest ancestor containing both team badge images
+        container = el
+        home_name = away_name = None
+        for _ in range(8):
+            if container is None:
+                break
+            imgs = container.find_all("img", alt=True)
+            names = [i["alt"].strip() for i in imgs if i.get("alt", "").strip()]
+            # dedupe consecutive identical alts (badge + link both carrying the same name)
+            uniq = []
+            for n in names:
+                if not uniq or uniq[-1] != n:
+                    uniq.append(n)
+            if len(uniq) >= 2:
+                home_name, away_name = uniq[0], uniq[1]
+                break
+            container = container.parent
+
         if not home_name or not away_name:
             continue
 
-        dt_utc = div.get("data-datetime", "")
-        m = re.match(r"(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2})", dt_utc)
-        if not m:
+        # score: this link's own text, or a sibling link's text matching the score pattern
+        score_text = el.get_text(strip=True)
+        if not SCORE_RE.match(score_text):
+            score_link = container.find("a", string=SCORE_RE) if container else None
+            score_text = score_link.get_text(strip=True) if score_link else ""
+
+        # kick-off time: any HH:MM text within the same container
+        time_text = None
+        if container:
+            for cand in container.find_all(string=True):
+                s = cand.strip()
+                if TIME_RE.match(s):
+                    time_text = s
+                    break
+
+        if not current_date or not time_text:
             continue
-        year, month, day, hour, minute = m.groups()
-        utc_dt = datetime(int(year), int(month), int(day), int(hour), int(minute), tzinfo=timezone.utc)
-        tashkent_dt = utc_dt + timedelta(hours=5)
+
+        day, month, year = MONTHS_NUM.match(current_date).groups()
+        hour, minute = time_text.split(":")
+        # site displays UAE local time (UTC+4); convert to Tashkent (UTC+5) = +1 hour
+        uae_dt = datetime(int(year), int(month), int(day), int(hour), int(minute), tzinfo=timezone(timedelta(hours=4)))
+        tashkent_dt = uae_dt.astimezone(timezone(timedelta(hours=5)))
         start = tashkent_dt.strftime("%Y-%m-%dT%H:%M:00+05:00")
 
         entry = {"home": home_name, "away": away_name, "start": start}
-
-        status = div.get("data-liveticker-status", "")
-        score_el = div.select_one(".match-result a")
-        score_text = score_el.get_text(strip=True) if score_el else ""
-        if status == "result" and re.match(r"^-?\d+:-?\d+$", score_text):
+        if score_text and SCORE_RE.match(score_text) and "-" not in score_text:
             h, a = score_text.split(":")
             entry["homeScore"] = int(h)
             entry["awayScore"] = int(a)
             entry["finished"] = True
 
         matches.append(entry)
-    return matches
+        seen_ids.add(match_id)
 
+    return matches
 
 def main():
     try:
