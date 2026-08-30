@@ -1,14 +1,14 @@
 {
-  "generatedAt": "2026-08-30T08:16:51.834654+00:00",
+  "generatedAt": "2026-08-30T14:52:05.665484+00:00",
   "teams": [
     "Shabab Al Ahli Club",
     "Al Jazira Club",
     "Al Ain FC",
     "Al Wasl",
+    "Sharjah FC",
     "United FC",
     "Ajman Club",
     "Al Nasr SC",
-    "Sharjah FC",
     "Khor Fakkan Club",
     "Ittihad Kalba FC",
     "Al Wahda",
@@ -62,6 +62,17 @@
       "points": 6
     },
     {
+      "team": "Sharjah FC",
+      "played": 3,
+      "won": 2,
+      "drawn": 0,
+      "lost": 1,
+      "gf": 5,
+      "ga": 3,
+      "gd": 2,
+      "points": 6
+    },
+    {
       "team": "United FC",
       "played": 3,
       "won": 2,
@@ -93,17 +104,6 @@
       "ga": 4,
       "gd": 0,
       "points": 4
-    },
-    {
-      "team": "Sharjah FC",
-      "played": 2,
-      "won": 1,
-      "drawn": 0,
-      "lost": 1,
-      "gf": 3,
-      "ga": 3,
-      "gd": 0,
-      "points": 3
     },
     {
       "team": "Khor Fakkan Club",
@@ -151,13 +151,13 @@
     },
     {
       "team": "Hatta Club",
-      "played": 2,
+      "played": 3,
       "won": 0,
       "drawn": 0,
-      "lost": 2,
+      "lost": 3,
       "gf": 3,
-      "ga": 6,
-      "gd": -3,
+      "ga": 8,
+      "gd": -5,
       "points": 0
     },
     {
