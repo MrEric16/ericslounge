@@ -1016,6 +1016,57 @@
     box-shadow:0 3px 0 rgba(58,42,30,.08);
   }
 
+  /* ---------- Theme picker popup: replaces the old cycle-on-every-click behavior.
+     Clicking the sun/moon button now opens this instead of stepping to the next theme --
+     every palette is shown as a same-size (40px, matching .search-icon-btn) tappable
+     circle, so picking a theme is one direct tap instead of cycling through up to 12.
+     The rapid-4-click "Now it's broken" easter egg is untouched -- it still fires on a
+     genuine 4-tap-in-under-600ms burst on the button itself, before the popup logic. ---------- */
+  .theme-picker-backdrop{
+    position:fixed; inset:0; z-index:99000;
+    background:rgba(20,14,10,.45);
+    display:flex; align-items:flex-end; justify-content:center;
+    opacity:0; pointer-events:none;
+    transition:opacity .2s ease;
+  }
+  .theme-picker-backdrop.open{ opacity:1; pointer-events:auto; }
+  .theme-picker-sheet{
+    background:var(--card);
+    border-radius:22px 22px 0 0;
+    width:100%; max-width:480px;
+    padding:20px 20px calc(20px + env(safe-area-inset-bottom, 0px));
+    box-shadow:0 -4px 0 rgba(58,42,30,.1);
+    transform:translateY(16px);
+    transition:transform .2s ease;
+    max-height:70vh;
+    overflow-y:auto;
+  }
+  .theme-picker-backdrop.open .theme-picker-sheet{ transform:translateY(0); }
+  .theme-picker-title{
+    font-family:'Baloo 2', sans-serif; font-weight:800; font-size:17px; color:var(--ink);
+    margin:0 0 14px;
+  }
+  .theme-picker-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill, minmax(64px, 1fr));
+    gap:14px 8px;
+  }
+  .theme-swatch-item{
+    display:flex; flex-direction:column; align-items:center; gap:6px;
+    background:none; border:none; cursor:pointer; padding:0;
+    font-family:'Space Mono', monospace; font-size:10.5px; color:var(--ink-soft);
+    text-align:center;
+  }
+  .theme-swatch-circle{
+    width:40px; height:40px; border-radius:999px;
+    box-shadow:0 3px 0 rgba(58,42,30,.15);
+    border:2px solid transparent;
+  }
+  .theme-swatch-item.active .theme-swatch-circle{
+    border-color:var(--ink);
+  }
+  .theme-swatch-item.active{ color:var(--ink); font-weight:700; }
+
   /* ---------- On this day ---------- */
   .otd-card{
     background:var(--ink-solid);
@@ -22207,6 +22258,89 @@ const COMPLIMENTS = [
   const RAPID_CLICK_MS = 600; // max gap between consecutive taps to still count as "rapid"
   const root = document.documentElement;
 
+  // Same fade-transition trick the old cycle-click used, pulled out so the popup's swatch
+  // taps get the same smooth cross-fade instead of an instant jump.
+  function applyThemeWithFade(key){
+    if(animating) return;
+    if(prefersReducedMotion){
+      applyThemeState(key);
+      return;
+    }
+    animating = true;
+    root.style.setProperty('--theme-fade', '2.5s');
+    void root.offsetWidth;
+    requestAnimationFrame(()=>{
+      applyThemeState(key);
+    });
+    setTimeout(()=>{
+      root.style.setProperty('--theme-fade', '.25s');
+      animating = false;
+    }, 2600);
+  }
+
+  // Two representative colors per theme (its --coral and --gold), used to paint each
+  // swatch circle without needing to actually switch CSS classes to preview it.
+  const THEME_SWATCHES = [
+    { key:'default', label:'Classic', c1:'#7A2E35', c2:'#D4AF37' },
+    { key:'nationalday', label:'Uzbekistan', c1:'#0072CE', c2:'#DA291C' },
+    { key:'l1', label:'Light 1', c1:'#B5562E', c2:'#D6A441' },
+    { key:'l2', label:'Light 2', c1:'#4E7098', c2:'#8FA84C' },
+    { key:'l3', label:'Light 3', c1:'#B5647A', c2:'#D6885E' },
+    { key:'l4', label:'Light 4', c1:'#6B8A4A', c2:'#4E9CA8' },
+    { key:'l5', label:'Light 5', c1:'#E08A3E', c2:'#9C6BA8' },
+    { key:'d1', label:'Dark 1', c1:'#CC9142', c2:'#D6C171' },
+    { key:'d2', label:'Dark 2', c1:'#8F6BB5', c2:'#6FB8A0' },
+    { key:'d3', label:'Dark 3', c1:'#C06B3E', c2:'#9FD671' },
+    { key:'d4', label:'Dark 4', c1:'#5C82AC', c2:'#8FB871' },
+    { key:'d5', label:'Dark 5', c1:'#B0586C', c2:'#D67C71' },
+  ];
+
+  let themePickerBackdrop = null;
+  function buildThemePicker(){
+    const backdrop = document.createElement('div');
+    backdrop.className = 'theme-picker-backdrop';
+    const available = THEME_SWATCHES.filter(t => t.key !== 'nationalday' || nationalDayThemeActive());
+    backdrop.innerHTML = `
+      <div class="theme-picker-sheet" role="dialog" aria-label="Choose a theme">
+        <p class="theme-picker-title">Choose a theme</p>
+        <div class="theme-picker-grid">
+          ${available.map(t => `
+            <button class="theme-swatch-item" data-theme-key="${t.key}" title="${t.label}">
+              <span class="theme-swatch-circle" style="background:linear-gradient(135deg, ${t.c1} 50%, ${t.c2} 50%);"></span>
+              <span>${t.label}</span>
+            </button>
+          `).join('')}
+        </div>
+      </div>
+    `;
+    backdrop.addEventListener('click', (e)=>{
+      if(e.target === backdrop) closeThemePicker();
+    });
+    backdrop.querySelectorAll('[data-theme-key]').forEach(btn => {
+      btn.addEventListener('click', ()=>{
+        applyThemeWithFade(btn.dataset.themeKey);
+        closeThemePicker();
+      });
+    });
+    document.body.appendChild(backdrop);
+    return backdrop;
+  }
+  function refreshThemePickerActiveState(){
+    if(!themePickerBackdrop) return;
+    const currentKey = (()=>{ try{ return localStorage.getItem('themeChoice'); }catch(e){ return null; } })() || 'default';
+    themePickerBackdrop.querySelectorAll('[data-theme-key]').forEach(btn => {
+      btn.classList.toggle('active', btn.dataset.themeKey === currentKey);
+    });
+  }
+  function openThemePicker(){
+    if(!themePickerBackdrop) themePickerBackdrop = buildThemePicker();
+    refreshThemePickerActiveState();
+    requestAnimationFrame(()=> themePickerBackdrop.classList.add('open'));
+  }
+  function closeThemePicker(){
+    if(themePickerBackdrop) themePickerBackdrop.classList.remove('open');
+  }
+
   toggle.addEventListener('click', ()=>{
     const now = Date.now();
     if(now - lastClickTime > RAPID_CLICK_MS){
@@ -22220,33 +22354,7 @@ const COMPLIMENTS = [
                             // can trigger it again, rather than a one-shot-per-session gag
       return;
     }
-    if(animating) return;
-
-    const currentKey = (()=>{ try{ return localStorage.getItem('themeChoice'); }catch(e){ return null; } })() || 'default';
-    THEME_ORDER = buildThemeOrder();
-    const nextIdx = (THEME_ORDER.indexOf(currentKey) + 1) % THEME_ORDER.length;
-    const nextKey = THEME_ORDER[nextIdx];
-
-    if(prefersReducedMotion){
-      applyThemeState(nextKey);
-      return;
-    }
-
-    // Every element with a background/text/border color that depends on the theme is
-    // already wired to transition over --theme-fade (see the CSS). Bump that to 5s
-    // FIRST, force the browser to register it, THEN flip the classes one frame later -
-    // otherwise both changes land in the same tick and the transition never engages.
-    animating = true;
-    root.style.setProperty('--theme-fade', '2.5s');
-    void root.offsetWidth; // force reflow so the new duration is committed
-    requestAnimationFrame(()=>{
-      applyThemeState(nextKey);
-    });
-
-    setTimeout(()=>{
-      root.style.setProperty('--theme-fade', '.25s');
-      animating = false;
-    }, 2600);
+    openThemePicker();
   });
 })();
 
