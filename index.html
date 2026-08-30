@@ -4960,14 +4960,45 @@ const ANTONYM_MATCH_POOL = [{"word":"PEACE","answer":"war","distractors":["fight
 
 const ANT_MATCH_ROUNDS_PER_GAME = 20;
 
-function antMatchBuildRounds(pool, totalRounds){
-  const shuffled = [...pool];
-  for(let i = shuffled.length - 1; i > 0; i--){
-    const j = Math.floor(Math.random() * (i + 1));
-    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+const ANT_MATCH_PREFIXES = ['un','dis','mis','in','im','ir','il','ig','non','anti','de'];
+function antMatchIsAffixPair(a, b){
+  a = a.toLowerCase(); b = b.toLowerCase();
+  for(const p of ANT_MATCH_PREFIXES){
+    if(a === p + b || b === p + a) return true;
   }
-  const chosen = shuffled.slice(0, Math.min(totalRounds, shuffled.length));
-  return chosen.map(item => {
+  return false;
+}
+function antMatchShuffle(arr){
+  const a = [...arr];
+  for(let i = a.length - 1; i > 0; i--){
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+function antMatchBuildRounds(pool, totalRounds){
+  const MAX_AFFIX = 4;   // hard cap: prefix/root pairs (e.g. unconscious/conscious) can't
+                         // exceed this per game, and are never placed back-to-back --
+                         // guaranteed every game, not just probable.
+  const affixPool = antMatchShuffle(pool.filter(item => antMatchIsAffixPair(item.word, item.answer)));
+  const genuinePool = antMatchShuffle(pool.filter(item => !antMatchIsAffixPair(item.word, item.answer)));
+  const affixCount = Math.min(MAX_AFFIX, affixPool.length, totalRounds);
+  const genuineCount = Math.min(totalRounds - affixCount, genuinePool.length);
+  const affixPicks = affixPool.slice(0, affixCount);
+  const genuinePicks = antMatchShuffle(genuinePool.slice(0, genuineCount));
+
+  // insert each affix pick into a distinct gap between genuine picks -- distinct gaps
+  // between array elements always have at least one genuine word separating any two
+  // inserted items, so two affix pairs can never land adjacent to each other.
+  const gapCount = genuinePicks.length + 1;
+  const gapIndices = antMatchShuffle(Array.from({length: gapCount}, (_, i) => i)).slice(0, affixPicks.length);
+  gapIndices.sort((a, b) => b - a);  // insert highest index first so earlier indices stay valid
+  const finalOrder = [...genuinePicks];
+  gapIndices.forEach((gapIdx, i) => {
+    finalOrder.splice(gapIdx, 0, affixPicks[i]);
+  });
+
+  return finalOrder.map(item => {
     const options = [item.answer, ...item.distractors];
     for(let i = options.length - 1; i > 0; i--){
       const j = Math.floor(Math.random() * (i + 1));
