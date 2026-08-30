@@ -2432,6 +2432,10 @@
     cursor:pointer;
   }
   .bday-tile-card.today{background:var(--gold);}
+  .bday-tile-header{display:flex; align-items:center; gap:9px; margin-bottom:2px;}
+  .bday-tile-header .icon{display:inline-flex; align-items:center; color:#fff;}
+  .bday-tile-header .icon svg{width:20px; height:20px;}
+  .bday-tile-title{font-family:'Baloo 2', sans-serif; font-weight:800; font-size:14px; color:#fff; text-transform:uppercase; letter-spacing:.04em; opacity:.85;}
   .bday-tile-label{font-family:'Space Mono', monospace; font-size:11px; text-transform:uppercase; letter-spacing:.06em; color:rgba(255,255,255,.7);}
   .bday-tile-name{color:#fff; font-weight:800; font-size:17px; font-family:'Baloo 2', sans-serif;}
   .bday-trigger{cursor:pointer;}
@@ -20656,13 +20660,17 @@ function formatBdayDate(day, month){
 
 function upcomingBirthdayTileHtml(){
   if(BIRTHDAYS.length===0){
-    return '<a class="bday-tile-card" href="#birthdays"><div class="empty-card" style="margin:0;">No birthdays yet. Nobody\'s been born apparently.</div></a>';
+    return `<a class="bday-tile-card" href="#birthdays">
+      <span class="bday-tile-header"><span class="icon">${icon('cake')}</span><span class="bday-tile-title">Birthdays</span></span>
+      <div class="empty-card" style="margin:0;">No birthdays yet. Nobody's been born apparently.</div>
+    </a>`;
   }
   const today = new Date();
   const todayM = today.getMonth()+1, todayD = today.getDate();
   const todays = BIRTHDAYS.filter(b => b.month===todayM && b.day===todayD);
   if(todays.length > 0){
     return `<a class="bday-tile-card today" href="#birthdays">
+      <span class="bday-tile-header"><span class="icon">${icon('cake')}</span><span class="bday-tile-title">Birthdays</span></span>
       ${todays.map(b => `<span class="bday-tile-name bday-trigger" data-name="${escapeHtml(b.name)}">🎉 It's ${escapeHtml(b.name)}'s birthday today!</span>`).join('')}
     </a>`;
   }
@@ -20686,6 +20694,7 @@ function upcomingBirthdayTileHtml(){
     return `<span class="bday-tile-name">${escapeHtml(b.name)}, ${formatBdayDate(b.day, b.month)}</span>`;
   }).join('');
   return `<a class="bday-tile-card" href="#birthdays">
+    <span class="bday-tile-header"><span class="icon">${icon('cake')}</span><span class="bday-tile-title">Birthdays</span></span>
     <span class="bday-tile-label">Upcoming</span>
     ${rows}
   </a>`;
@@ -20916,13 +20925,13 @@ function viewHome(){
     </section>
 
     <section>
-      <div class="section-head"><span class="emoji">${icon('trophy')}</span><h2>Home of the Premier League Champions</h2></div>
+      <div class="section-head"><span class="emoji">${icon('trophy')}</span><h2>Arsenal — Home of the Premier League Champions</h2></div>
       ${sportsHtml()}
     </section>
 
     <section>
       <a class="goodnews-tile" href="https://www.goodgoodgood.co/goodnews" target="_blank" rel="noopener">
-        <span class="icon">${icon('sun')}</span>
+        <span class="icon">${icon('checkDouble')}</span>
         <div>
           <div class="title">Good News Only</div>
           <div class="sub">A break from the doom and gloom</div>
@@ -20945,13 +20954,12 @@ function viewHome(){
         <span class="icon">${icon('camera')}</span>
         <div>
           <div class="title">Photos</div>
-          <div class="sub">Memories from the lounge</div>
+          <div class="sub">Not our best angles, but here we are</div>
         </div>
       </a>
     </section>
 
     <section>
-      <div class="section-head"><span class="emoji">${icon('cake')}</span><h2>Birthdays</h2></div>
       ${upcomingBirthdayTileHtml()}
     </section>
 
@@ -22696,10 +22704,10 @@ window.addEventListener('hashchange', () => { mtOverlayParts = null; renderRoute
 // Bottom tab bar - visible everywhere, built once from the existing icon set.
 document.getElementById('bottomTabs').innerHTML = `
   <a href="#" data-tab="home">${icon('home')}<span>Home</span></a>
-  <a href="#sports">${icon('ball')}<span>Sports</span></a>
+  <a href="#sports">${icon('trophy')}<span>Sports</span></a>
   <a href="#mind-temple">${icon('brain')}<span>Temple</span></a>
   <a href="#events-hub">${icon('calendar')}<span>Events</span></a>
-  <a href="#geography-hub">${icon('globe')}<span>Train</span></a>
+  <a href="#geography-hub">${icon('bulb')}<span>Train</span></a>
   <a href="#saved">${icon('bookmark')}<span>Saved</span></a>
 `;
 // Tapping Home while already on the home page: hash doesn't change, so
