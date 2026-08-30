@@ -22181,6 +22181,22 @@ const COMPLIMENTS = [
     const legacy = (()=>{ try{ return localStorage.getItem('darkMode'); }catch(e){ return null; } })();
     initial = legacy === '1' ? 'd1' : 'default';
   }
+  // On a genuine fresh launch (new tab/session -- sessionStorage is empty) during the
+  // National Day window, force the theme to nationalday and persist that as the active
+  // choice, so it's what greets the person on open. A page REFRESH within the same
+  // session must NOT re-force this -- sessionStorage survives refreshes but not new
+  // sessions, so this block only ever runs once per session, and any theme the person
+  // switches to afterward (including switching away from nationalday) sticks across
+  // refreshes for the rest of that session, exactly like it already did before this.
+  try{
+    if(!sessionStorage.getItem('elNdLaunchThemeApplied')){
+      sessionStorage.setItem('elNdLaunchThemeApplied', '1');
+      if(nationalDayThemeActive()){
+        initial = 'nationalday';
+        try{ localStorage.setItem('themeChoice', 'nationalday'); }catch(e){}
+      }
+    }
+  }catch(e){}
   if(THEME_ORDER.indexOf(initial) === -1) initial = 'default';
   applyThemeState(initial, {persist:false});
 
