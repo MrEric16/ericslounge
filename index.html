@@ -9086,11 +9086,19 @@ async function loadLiveSportsData(){
         // client-side calls to football-data.org that used to ship the API key in
         // plain text in this file's source, and also meant every visitor's browser
         // shared the same rate limit against football-data.org directly.
-        const fresh = { day: today, fetchedAt: Date.now(), leagues: {}, matches: {}, arsenalFixture: null, arsenalResults: [] };
+        const fresh = { day: today, fetchedAt: Date.now(), leagues: {}, matches: {}, dataAges: {}, arsenalFixture: null, arsenalResults: [] };
         try{
           const res = await fetch('./data/football-live.json', { cache: 'no-store' });
           if(!res.ok) throw new Error('bad response '+res.status);
           const live = await res.json();
+
+          // Track how old this source's data is per league code, so the UI can warn
+          // visibly instead of silently showing whatever happened to be fetched last -
+          // this is what actually surfaces a silently-broken scraper to a person looking
+          // at the page, rather than only to whoever happens to check the data file by hand.
+          for(const code of ['PL','PD','BL1','SA','FL1','CL']){
+            if(live.generatedAt) fresh.dataAges[code] = live.generatedAt;
+          }
 
           // Server-side script now pre-filters this (soonest matchday only, last 15
           // results, trimmed standings fields) before writing the JSON, so no
@@ -9136,6 +9144,7 @@ async function loadLiveSportsData(){
           const uzRes = await fetch('./data/uz-league-live.json', { cache: 'no-store' });
           if(uzRes.ok){
             const uzLive = await uzRes.json();
+            if(uzLive.generatedAt) fresh.dataAges['UZ'] = uzLive.generatedAt;
             if(uzLive.teams && uzLive.teams.length){
               fresh.leagues['UZ'] = uzLive.teams;
             }
@@ -9154,6 +9163,7 @@ async function loadLiveSportsData(){
           const uaeRes = await fetch('./data/uae-league-live.json', { cache: 'no-store' });
           if(uaeRes.ok){
             const uaeLive = await uaeRes.json();
+            if(uaeLive.generatedAt) fresh.dataAges['UAE'] = uaeLive.generatedAt;
             if(uaeLive.standings && uaeLive.standings.length){
               fresh.leagues['UAE'] = uaeLive.standings.map(s => ({
                 name: s.team, pld: s.played, w: s.won, d: s.drawn, l: s.lost, gf: s.gf, ga: s.ga, pts: s.points,
@@ -9436,6 +9446,15 @@ function matchListHtml(rows, showScore, centered, noTrophy){
   if(!rows || rows.length === 0){
     return '<div class="empty-card">Nothing here yet - check back once the season\'s under way.</div>';
   }
+  // Defensive invariant, not just a data-pipeline convention: results must always render
+  // most-recent-first regardless of whatever order the underlying source (live API fetch,
+  // a scraper's JSON, or a static fallback) happens to hand over. showScore=true means this
+  // is a results list (fixtures pass showScore=false and stay in soonest-first order, which
+  // is already correct for upcoming matches). Sorting here means a future scraper regression
+  // in ordering can't silently flip results backwards again.
+  if(showScore){
+    rows = [...rows].sort((a, b) => new Date(b.start) - new Date(a.start));
+  }
   const items = rows.map(m => `
     <div class="match-row${centered ? ' centered' : ''}">
       <div class="match-teams">${teamNameHtml(m.home, false, false)}${showScore && m.homeScore !== null ? ` <span class="match-score">${m.homeScore} - ${m.awayScore}</span> ` : ' v '}${teamNameHtml(m.away, false, false)}</div>
@@ -9444,11 +9463,26 @@ function matchListHtml(rows, showScore, centered, noTrophy){
   `).join('');
   return `<div class="match-list">${items}</div>`;
 }
+function staleDataBannerHtml(code){
+  const cache = window._sportsCache;
+  const generatedAt = cache && cache.dataAges && cache.dataAges[code];
+  if(!generatedAt) return '';
+  const ageHours = (Date.now() - new Date(generatedAt).getTime()) / 3600000;
+  const THRESHOLD_HOURS = 30; // football-data.org leagues refresh every 30min, UZ/UAE
+  // scrapers are watchdog-protected at 20h - 30h gives buffer before flagging anything as
+  // stale, so this only fires on a genuine failure, not routine schedule jitter.
+  if(ageHours <= THRESHOLD_HOURS) return '';
+  const hrsRounded = Math.round(ageHours);
+  return `<div class="stale-data-banner" style="background:#7A2E35; color:#fff; padding:10px 14px; border-radius:10px; font-size:13px; font-weight:600; margin-bottom:12px;">
+    ${icon('gear')} Data last updated ${hrsRounded}h ago - may be out of date. The update scraper might be stuck.
+  </div>`;
+}
 function leagueDetailBodyHtml(code){
   const meta = LEAGUE_DETAIL_META[code];
   const cache = window._sportsCache;
   const liveTeams = (cache && cache.leagues && cache.leagues[code]) || [];
   const staticLeague = SPORTS_LEAGUES.find(l => l.name === meta.name);
+  const staleBanner = staleDataBannerHtml(code);
   const tableHtml = liveTeams.length > 0
     ? oneTableHtml(liveTeams)
     : (staticLeague && staticLeague.divisions)
@@ -9478,6 +9512,7 @@ function leagueDetailBodyHtml(code){
     });
   }
   return `
+    ${staleBanner}
     <details class="domain-group">
       <summary class="section-head domain-summary">
         <span class="emoji">${icon('trophy')}</span>

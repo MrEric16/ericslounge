@@ -91,3 +91,53 @@ jobs:
           else:
               print("[watchdog] fresh, no action needed")
           PYEOF
+
+      # Same watchdog pattern, same reasoning, for UAE Pro League: its scraper was found
+      # completely broken on 2026-08-31 (parse_matches matched 0 fixtures/results every run
+      # for an unknown but likely long stretch, with nothing anywhere surfacing that failure
+      # to anyone) and was fixed in that same session -- but a code fix alone doesn't prevent
+      # a *future* breakage (e.g. worldfootball.net changing its markup again) from going
+      # silent again the same way. This closes that gap the same way the UZ watchdog already
+      # does for its scraper.
+      - name: Watchdog -- force a UAE league refresh if it's gone stale
+        if: always()
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          python3 - <<'PYEOF'
+          import json, os, urllib.request
+          from datetime import datetime, timezone
+
+          THRESHOLD_HOURS = 20
+
+          try:
+              with open('data/uae-league-live.json', encoding='utf-8') as f:
+                  data = json.load(f)
+              generated_at = datetime.fromisoformat(data['generatedAt'].replace('Z', '+00:00'))
+              age_hours = (datetime.now(timezone.utc) - generated_at).total_seconds() / 3600
+              print(f"[watchdog] uae-league-live.json is {age_hours:.1f}h old (threshold {THRESHOLD_HOURS}h)")
+          except Exception as e:
+              print(f"[watchdog] could not read uae-league-live.json ({e}) -- triggering a refresh to be safe")
+              age_hours = THRESHOLD_HOURS + 1
+
+          if age_hours > THRESHOLD_HOURS:
+              print("[watchdog] STALE -- dispatching uae-league-fetch.yml")
+              token = os.environ['GH_TOKEN']
+              req = urllib.request.Request(
+                  "https://api.github.com/repos/MrEric16/ericslounge/actions/workflows/uae-league-fetch.yml/dispatches",
+                  data=json.dumps({"ref": "main"}).encode('utf-8'),
+                  method="POST",
+                  headers={
+                      "Authorization": f"token {token}",
+                      "Accept": "application/vnd.github+json",
+                      "User-Agent": "uae-league-watchdog",
+                  },
+              )
+              try:
+                  urllib.request.urlopen(req)
+                  print("[watchdog] dispatch sent successfully")
+              except Exception as e:
+                  print(f"[watchdog] dispatch FAILED: {e}")
+          else:
+              print("[watchdog] fresh, no action needed")
+          PYEOF
