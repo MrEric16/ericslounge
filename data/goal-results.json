@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-30T21:18:41.708559Z",
+  "generatedAt": "2026-08-30T23:39:28.326904Z",
   "results": [
     {
       "url": "https://www.goal.com/en/match/girona-vs-arsenal/__LS8d9Oc6I1wXn9g8956",
@@ -2310,12 +2310,120 @@
       ],
       "awayGoals": [],
       "competition": "SA"
+    },
+    {
+      "url": "https://www.goal.com/en/match/manchester-united-vs-ipswich-town/pu1IzTVfAH228nWDQidIU",
+      "date": "2026-08-30",
+      "home": "Manchester United",
+      "away": "Ipswich Town",
+      "htHome": 1,
+      "htAway": 1,
+      "ftHome": 5,
+      "ftAway": 2,
+      "homeGoals": [
+        {
+          "scorer": "B. Fernandes",
+          "minute": 40
+        },
+        {
+          "scorer": "J. Greaves",
+          "minute": 56
+        },
+        {
+          "scorer": "B. Mbeumo",
+          "minute": 82
+        }
+      ],
+      "awayGoals": [
+        {
+          "scorer": "L. Davis",
+          "minute": 29
+        },
+        {
+          "scorer": "C. Akpom",
+          "minute": 90
+        }
+      ],
+      "competition": "PL"
+    },
+    {
+      "url": "https://www.goal.com/en/match/celta-vigo-vs-athletic-bilbao/pRlCMVZKMm5CB-gbB11E1",
+      "date": "2026-08-30",
+      "home": "Celta Vigo",
+      "away": "Athletic Bilbao",
+      "htHome": 0,
+      "htAway": 2,
+      "ftHome": 0,
+      "ftAway": 2,
+      "homeGoals": [],
+      "awayGoals": [
+        {
+          "scorer": "A. Berenguer",
+          "minute": 20
+        },
+        {
+          "scorer": "R. Navarro",
+          "minute": 22
+        }
+      ],
+      "competition": "PD"
+    },
+    {
+      "url": "https://www.goal.com/en/match/freiburg-vs-werder-bremen/JTUp7FmFUWQM7yO-SMtLt",
+      "date": "2026-08-30",
+      "home": "Freiburg",
+      "away": "Werder Bremen",
+      "htHome": 2,
+      "htAway": 0,
+      "ftHome": 4,
+      "ftAway": 1,
+      "homeGoals": [
+        {
+          "scorer": "Y. Suzuki",
+          "minute": 29
+        },
+        {
+          "scorer": "I. Matanovic",
+          "minute": 45
+        }
+      ],
+      "awayGoals": [
+        {
+          "scorer": "D. Stalmach",
+          "minute": 76
+        }
+      ],
+      "competition": "BL1"
+    },
+    {
+      "url": "https://www.goal.com/en/match/rennes-vs-le-mans/mW5i5N3qwUVpjiLsGTCDy",
+      "date": "2026-08-30",
+      "home": "Rennes",
+      "away": "Le Mans",
+      "htHome": 2,
+      "htAway": 1,
+      "ftHome": 3,
+      "ftAway": 2,
+      "homeGoals": [
+        {
+          "scorer": "E. Lepaul",
+          "minute": 5
+        },
+        {
+          "scorer": "V. Rongier",
+          "minute": 26
+        }
+      ],
+      "awayGoals": [
+        {
+          "scorer": "L. Mafouta",
+          "minute": 30
+        }
+      ],
+      "competition": "FL1"
     }
   ],
   "scorerParseRetryCounts": {
-    "https://www.goal.com/en/match/manchester-united-vs-ipswich-town/pu1IzTVfAH228nWDQidIU": 2,
-    "https://www.goal.com/en/match/freiburg-vs-werder-bremen/JTUp7FmFUWQM7yO-SMtLt": 2,
-    "https://www.goal.com/en/match/rennes-vs-le-mans/mW5i5N3qwUVpjiLsGTCDy": 2,
-    "https://www.goal.com/en/match/monaco-vs-marseille/o_QlMszaNoxjSs5L9TLym": 1
+    "https://www.goal.com/en/match/monaco-vs-marseille/o_QlMszaNoxjSs5L9TLym": 2
   }
 }
