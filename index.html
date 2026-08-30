@@ -20912,6 +20912,58 @@ function viewHome(){
       <div class="section-head"><span class="emoji">${icon('gradcap')}</span><h2>Domains</h2></div>
       <div class="faculties">
         ${facTiles}
+      </div>
+    </section>
+
+    <section>
+      <details class="domain-group">
+        <summary class="section-head domain-summary">
+          <span class="emoji">${icon('newspaper')}</span>
+          <h2>Latest:</h2>
+          <span class="domain-chevron" style="margin-left:auto;">${icon('chevronDown')}</span>
+        </summary>
+        <div class="domain-group-content">
+          <details class="domain-group">
+            <summary class="section-head domain-summary">
+              <span class="emoji">${icon('newspaper')}</span>
+              <h2>Articles</h2>
+              <span class="domain-chevron" style="margin-left:auto;">${icon('chevronDown')}</span>
+            </summary>
+            <div class="domain-group-content">
+              ${dispatchListHtml(recent)}
+              <a class="section-link" href="#faculty/all" style="display:block; text-align:right; margin-top:14px;">See full archive →</a>
+            </div>
+          </details>
+
+          <details class="domain-group">
+            <summary class="section-head domain-summary">
+              <span class="emoji">${icon('clapper')}</span>
+              <h2>Videos</h2>
+              <span class="domain-chevron" style="margin-left:auto;">${icon('chevronDown')}</span>
+            </summary>
+            <div class="domain-group-content">
+              <div class="watch-grid">${watchGridHtml(recentVideos, 'latest-videos')}</div>
+              <a class="section-link" href="#watch/all" style="display:block; text-align:right; margin-top:14px;">See full archive →</a>
+            </div>
+          </details>
+
+          <details class="domain-group">
+            <summary class="section-head domain-summary">
+              <span class="emoji">${icon('compass2')}</span>
+              <h2>Instruments</h2>
+              <span class="domain-chevron" style="margin-left:auto;">${icon('chevronDown')}</span>
+            </summary>
+            <div class="domain-group-content">
+              ${exploreResultsHtml(recentInstruments)}
+              <a class="section-link" href="#explore" style="display:block; text-align:right; margin-top:14px;">See full archive →</a>
+            </div>
+          </details>
+        </div>
+      </details>
+    </section>
+
+    <section>
+      <div class="faculties">
         <a class="fac-tile all" href="#full-archive-hub">
           <span class="name">Full Archive — Articles, Videos, Instruments</span>
           <span class="count">${DISPATCHES.length + WATCH_VIDEOS.length + EXPLORE_SITES.length} total</span>
@@ -21003,53 +21055,6 @@ function viewHome(){
           <div class="sub">Jump straight to a random powerful website</div>
         </div>
       </button>
-    </section>
-
-    <section>
-      <details class="domain-group">
-        <summary class="section-head domain-summary">
-          <span class="emoji">${icon('newspaper')}</span>
-          <h2>Latest:</h2>
-          <span class="domain-chevron" style="margin-left:auto;">${icon('chevronDown')}</span>
-        </summary>
-        <div class="domain-group-content">
-          <details class="domain-group">
-            <summary class="section-head domain-summary">
-              <span class="emoji">${icon('newspaper')}</span>
-              <h2>Articles</h2>
-              <span class="domain-chevron" style="margin-left:auto;">${icon('chevronDown')}</span>
-            </summary>
-            <div class="domain-group-content">
-              ${dispatchListHtml(recent)}
-              <a class="section-link" href="#faculty/all" style="display:block; text-align:right; margin-top:14px;">See full archive →</a>
-            </div>
-          </details>
-
-          <details class="domain-group">
-            <summary class="section-head domain-summary">
-              <span class="emoji">${icon('clapper')}</span>
-              <h2>Videos</h2>
-              <span class="domain-chevron" style="margin-left:auto;">${icon('chevronDown')}</span>
-            </summary>
-            <div class="domain-group-content">
-              <div class="watch-grid">${watchGridHtml(recentVideos, 'latest-videos')}</div>
-              <a class="section-link" href="#watch/all" style="display:block; text-align:right; margin-top:14px;">See full archive →</a>
-            </div>
-          </details>
-
-          <details class="domain-group">
-            <summary class="section-head domain-summary">
-              <span class="emoji">${icon('compass2')}</span>
-              <h2>Instruments</h2>
-              <span class="domain-chevron" style="margin-left:auto;">${icon('chevronDown')}</span>
-            </summary>
-            <div class="domain-group-content">
-              ${exploreResultsHtml(recentInstruments)}
-              <a class="section-link" href="#explore" style="display:block; text-align:right; margin-top:14px;">See full archive →</a>
-            </div>
-          </details>
-        </div>
-      </details>
     </section>
 
     <section>
