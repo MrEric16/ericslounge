@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-30T18:07:13.360734Z",
+  "generatedAt": "2026-08-30T21:18:41.708559Z",
   "results": [
     {
       "url": "https://www.goal.com/en/match/girona-vs-arsenal/__LS8d9Oc6I1wXn9g8956",
@@ -2216,11 +2216,106 @@
       ],
       "awayGoals": [],
       "competition": "FL1"
+    },
+    {
+      "url": "https://www.goal.com/en/match/deportivo-de-a-coruna-vs-valencia/BA6R9vziB462tTeW7MQs-",
+      "date": "2026-08-30",
+      "home": "Deportivo De A Coruna",
+      "away": "Valencia",
+      "htHome": 2,
+      "htAway": 1,
+      "ftHome": 3,
+      "ftAway": 1,
+      "homeGoals": [
+        {
+          "scorer": "C. Tarrega",
+          "minute": 13
+        },
+        {
+          "scorer": "P. Aubameyang",
+          "minute": 17
+        },
+        {
+          "scorer": "M. Diakhaby",
+          "minute": 59
+        }
+      ],
+      "awayGoals": [
+        {
+          "scorer": "U. Sadiq",
+          "minute": 26
+        }
+      ],
+      "competition": "PD"
+    },
+    {
+      "url": "https://www.goal.com/en/match/ssc-napoli-vs-como/PuF5eM_qdA71IKhSPm3pE",
+      "date": "2026-08-30",
+      "home": "Ssc Napoli",
+      "away": "Como",
+      "htHome": 1,
+      "htAway": 2,
+      "ftHome": 1,
+      "ftAway": 2,
+      "homeGoals": [
+        {
+          "scorer": "R. Hoejlund",
+          "minute": 30
+        }
+      ],
+      "awayGoals": [
+        {
+          "scorer": "M. Baturina",
+          "minute": 17
+        },
+        {
+          "scorer": "A. Douvikas",
+          "minute": 34
+        }
+      ],
+      "competition": "SA"
+    },
+    {
+      "url": "https://www.goal.com/en/match/cagliari-vs-inter/FEkFDND-o4rnlE3XoIjGn",
+      "date": "2026-08-30",
+      "home": "Cagliari",
+      "away": "Inter",
+      "htHome": 0,
+      "htAway": 1,
+      "ftHome": 0,
+      "ftAway": 1,
+      "homeGoals": [],
+      "awayGoals": [
+        {
+          "scorer": "H. Calhanoglu",
+          "minute": 9
+        }
+      ],
+      "competition": "SA"
+    },
+    {
+      "url": "https://www.goal.com/en/match/lazio-vs-genoa/aV40gME1odze2Rpif7O1m",
+      "date": "2026-08-30",
+      "home": "Lazio",
+      "away": "Genoa",
+      "htHome": 1,
+      "htAway": 0,
+      "ftHome": 1,
+      "ftAway": 0,
+      "homeGoals": [
+        {
+          "scorer": "D. Frattesi",
+          "minute": 25
+        }
+      ],
+      "awayGoals": [],
+      "competition": "SA"
     }
   ],
   "scorerParseRetryCounts": {
-    "https://www.goal.com/en/match/manchester-united-vs-ipswich-town/pu1IzTVfAH228nWDQidIU": 1,
-    "https://www.goal.com/en/match/freiburg-vs-werder-bremen/JTUp7FmFUWQM7yO-SMtLt": 1,
-    "https://www.goal.com/en/match/rennes-vs-le-mans/mW5i5N3qwUVpjiLsGTCDy": 1
+    "https://www.goal.com/en/match/manchester-united-vs-ipswich-town/pu1IzTVfAH228nWDQidIU": 2,
+    "https://www.goal.com/en/match/freiburg-vs-werder-bremen/JTUp7FmFUWQM7yO-SMtLt": 2,
+    "https://www.goal.com/en/match/rennes-vs-le-mans/mW5i5N3qwUVpjiLsGTCDy": 2,
+    "https://www.goal.com/en/match/monaco-vs-marseille/o_QlMszaNoxjSs5L9TLym": 1
   }
 }
