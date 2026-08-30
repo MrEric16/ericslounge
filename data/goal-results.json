@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-30T14:10:14.422104Z",
+  "generatedAt": "2026-08-30T18:07:13.360734Z",
   "results": [
     {
       "url": "https://www.goal.com/en/match/girona-vs-arsenal/__LS8d9Oc6I1wXn9g8956",
@@ -2050,7 +2050,177 @@
         }
       ],
       "competition": "PD"
+    },
+    {
+      "url": "https://www.goal.com/en/match/sunderland-vs-fulham/_qwFz-yMxo7RJo1DeAaVp",
+      "date": "2026-08-30",
+      "home": "Sunderland",
+      "away": "Fulham",
+      "htHome": 0,
+      "htAway": 0,
+      "ftHome": 1,
+      "ftAway": 0,
+      "homeGoals": [
+        {
+          "scorer": "W. Isidor",
+          "minute": 75
+        }
+      ],
+      "awayGoals": [],
+      "competition": "PL"
+    },
+    {
+      "url": "https://www.goal.com/en/match/leeds-united-vs-brentford/sPgTQHHhXxw87XeDMO3UF",
+      "date": "2026-08-30",
+      "home": "Leeds United",
+      "away": "Brentford",
+      "htHome": 0,
+      "htAway": 1,
+      "ftHome": 1,
+      "ftAway": 1,
+      "homeGoals": [
+        {
+          "scorer": "D. Calvert-Lewin",
+          "minute": 79
+        }
+      ],
+      "awayGoals": [
+        {
+          "scorer": "K. Schade",
+          "minute": 41
+        }
+      ],
+      "competition": "PL"
+    },
+    {
+      "url": "https://www.goal.com/en/match/chelsea-vs-brighton-and-hove-albion/KmnxUMTh30bqzp9LEGdDS",
+      "date": "2026-08-30",
+      "home": "Chelsea",
+      "away": "Brighton And Hove Albion",
+      "htHome": 3,
+      "htAway": 1,
+      "ftHome": 4,
+      "ftAway": 3,
+      "homeGoals": [
+        {
+          "scorer": "R. Lavia",
+          "minute": 4
+        },
+        {
+          "scorer": "P. Neto",
+          "minute": 14
+        },
+        {
+          "scorer": "J. Pedro",
+          "minute": 32
+        },
+        {
+          "scorer": "C. Palmer",
+          "minute": 74
+        }
+      ],
+      "awayGoals": [
+        {
+          "scorer": "M. Yalcouye",
+          "minute": 35
+        },
+        {
+          "scorer": "J. Pedro",
+          "minute": 63
+        },
+        {
+          "scorer": "P. Gross",
+          "minute": 90
+        }
+      ],
+      "competition": "PL"
+    },
+    {
+      "url": "https://www.goal.com/en/match/real-madrid-vs-malaga/6ct_gz3ArG9CkR1vtkRjE",
+      "date": "2026-08-30",
+      "home": "Real Madrid",
+      "away": "Malaga",
+      "htHome": 3,
+      "htAway": 0,
+      "ftHome": 4,
+      "ftAway": 0,
+      "homeGoals": [
+        {
+          "scorer": "J. Bellingham",
+          "minute": 19
+        },
+        {
+          "scorer": "A. Herrero",
+          "minute": 26
+        },
+        {
+          "scorer": "K. Mbappe",
+          "minute": 30
+        },
+        {
+          "scorer": "A. Guler",
+          "minute": 90
+        }
+      ],
+      "awayGoals": [],
+      "competition": "PD"
+    },
+    {
+      "url": "https://www.goal.com/en/match/augsburg-vs-schalke-04/6UgkUd_QC9Zaeyo60Bj9W",
+      "date": "2026-08-30",
+      "home": "Augsburg",
+      "away": "Schalke 04",
+      "htHome": 1,
+      "htAway": 0,
+      "ftHome": 3,
+      "ftAway": 0,
+      "homeGoals": [
+        {
+          "scorer": "M. Gregoritsch",
+          "minute": 18
+        },
+        {
+          "scorer": "A. Kade",
+          "minute": 79
+        },
+        {
+          "scorer": "R. Ribeiro",
+          "minute": 90
+        }
+      ],
+      "awayGoals": [],
+      "competition": "BL1"
+    },
+    {
+      "url": "https://www.goal.com/en/match/paris-fc-vs-nice/wvF_TpdD-uXpwOZH6IULv",
+      "date": "2026-08-30",
+      "home": "Paris Fc",
+      "away": "Nice",
+      "htHome": 1,
+      "htAway": 0,
+      "ftHome": 3,
+      "ftAway": 0,
+      "homeGoals": [
+        {
+          "scorer": "L. Sinayoko",
+          "minute": 21
+        },
+        {
+          "scorer": "S. Chergui",
+          "minute": 51
+        },
+        {
+          "scorer": "V. Marchetti",
+          "minute": 89
+        }
+      ],
+      "awayGoals": [],
+      "competition": "FL1"
     }
   ],
-  "scorerParseRetryCounts": {}
+  "scorerParseRetryCounts": {
+    "https://www.goal.com/en/match/manchester-united-vs-ipswich-town/pu1IzTVfAH228nWDQidIU": 1,
+    "https://www.goal.com/en/match/freiburg-vs-werder-bremen/JTUp7FmFUWQM7yO-SMtLt": 1,
+    "https://www.goal.com/en/match/rennes-vs-le-mans/mW5i5N3qwUVpjiLsGTCDy": 1
+  }
 }
