@@ -1,22 +1,13 @@
 [goal-scraper] Run started.
 [goal-scraper] [PL] Found 5 finished-match links
 [goal-scraper] [PD] Found 5 finished-match links
-[goal-scraper] WARNING: Levante scored 5 but only 4 scorer(s) were parsed for https://www.goal.com/en/match/levante-vs-real-betis/upw1H4oVuYH7YTFH7xKcr
-[goal-scraper] [PD] SCORER PARSE FAILED 3 times, giving up and committing WITH INCOMPLETE SCORER DATA (page structure likely changed) for Levante 5-2 Real Betis: https://www.goal.com/en/match/levante-vs-real-betis/upw1H4oVuYH7YTFH7xKcr
-[goal-scraper] [PD] Added: Levante 5-2 Real Betis
 [goal-scraper] WARNING: Atletico Madrid scored 3 but only 2 scorer(s) were parsed for https://www.goal.com/en/match/sevilla-vs-atletico-madrid/_seK0ylxMUwag4mPVn_nk
-[goal-scraper] [PD] SCORER PARSE FAILED (attempt 2/3) for Sevilla 1-3 Atletico Madrid -- NOT committing, will retry next run: https://www.goal.com/en/match/sevilla-vs-atletico-madrid/_seK0ylxMUwag4mPVn_nk
+[goal-scraper] [PD] SCORER PARSE FAILED 3 times, giving up and committing WITH INCOMPLETE SCORER DATA (page structure likely changed) for Sevilla 1-3 Atletico Madrid: https://www.goal.com/en/match/sevilla-vs-atletico-madrid/_seK0ylxMUwag4mPVn_nk
+[goal-scraper] [PD] Added: Sevilla 1-3 Atletico Madrid
 [goal-scraper] [BL1] Found 7 finished-match links
 [goal-scraper] [SA] Found 5 finished-match links
-[goal-scraper] WARNING: Frosinone scored 3 but only 2 scorer(s) were parsed for https://www.goal.com/en/match/fiorentina-vs-frosinone/InwNWnjGv7u7jOSoR_EiJ
-[goal-scraper] [SA] SCORER PARSE FAILED 3 times, giving up and committing WITH INCOMPLETE SCORER DATA (page structure likely changed) for Fiorentina 0-3 Frosinone: https://www.goal.com/en/match/fiorentina-vs-frosinone/InwNWnjGv7u7jOSoR_EiJ
-[goal-scraper] [SA] Added: Fiorentina 0-3 Frosinone
 [goal-scraper] [FL1] Found 6 finished-match links
-[goal-scraper] WARNING: Strasbourg scored 2 but only 1 scorer(s) were parsed for https://www.goal.com/en/match/strasbourg-vs-lens/BDGxXL4DlfokFcnq0ETbr
-[goal-scraper] [FL1] SCORER PARSE FAILED 3 times, giving up and committing WITH INCOMPLETE SCORER DATA (page structure likely changed) for Strasbourg 2-1 Lens: https://www.goal.com/en/match/strasbourg-vs-lens/BDGxXL4DlfokFcnq0ETbr
-[goal-scraper] [FL1] Added: Strasbourg 2-1 Lens
 [goal-scraper] [CL] Found 0 finished-match links
 [goal-scraper] [arsenal-friendlies] Found 1 finished-match links
-[goal-scraper] TOTAL new results added this run: 3
-[goal-scraper] Matches still awaiting a clean scorer parse (not yet committed): ['https://www.goal.com/en/match/sevilla-vs-atletico-madrid/_seK0ylxMUwag4mPVn_nk']
+[goal-scraper] TOTAL new results added this run: 1
 [goal-scraper] Wrote data/goal-results.json

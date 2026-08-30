@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-29T23:46:16.050578Z",
+  "generatedAt": "2026-08-30T02:46:28.366868Z",
   "results": [
     {
       "url": "https://www.goal.com/en/match/girona-vs-arsenal/__LS8d9Oc6I1wXn9g8956",
@@ -2023,9 +2023,34 @@
         }
       ],
       "competition": "FL1"
+    },
+    {
+      "url": "https://www.goal.com/en/match/sevilla-vs-atletico-madrid/_seK0ylxMUwag4mPVn_nk",
+      "date": "2026-08-29",
+      "home": "Sevilla",
+      "away": "Atletico Madrid",
+      "htHome": 0,
+      "htAway": 3,
+      "ftHome": 1,
+      "ftAway": 3,
+      "homeGoals": [
+        {
+          "scorer": "M. Sierra",
+          "minute": 66
+        }
+      ],
+      "awayGoals": [
+        {
+          "scorer": "A. Baena",
+          "minute": 4
+        },
+        {
+          "scorer": "A. Lookman",
+          "minute": 26
+        }
+      ],
+      "competition": "PD"
     }
   ],
-  "scorerParseRetryCounts": {
-    "https://www.goal.com/en/match/sevilla-vs-atletico-madrid/_seK0ylxMUwag4mPVn_nk": 2
-  }
+  "scorerParseRetryCounts": {}
 }
