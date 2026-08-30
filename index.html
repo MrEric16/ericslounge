@@ -13864,14 +13864,14 @@ function phraseLangIntroHtml(){
         <div class="section-head"><span class="emoji">${icon('chatBubble')}</span><h2>Say Hello</h2></div>
         <p style="font-size:14px; color:var(--ink-soft); line-height:1.6; margin-bottom:6px;">A real greeting, in its real script. ${PHRASE_LANG_MAIN_ROUNDS} rounds, plus ${PHRASE_LANG_BONUS_ROUNDS} niche bonus rounds at the end -- Morse, hex, Elvish, and the like.</p>
         <div class="fg-intro-stats">
-          <div class="fg-intro-stat"><div class="num">${bestEasy}/${PHRASE_LANG_ROUNDS_PER_GAME}</div><div class="label">Best (Easy)</div></div>
+          <div class="fg-intro-stat"><div class="num">${bestEasy}/${PHRASE_LANG_ROUNDS_PER_GAME}</div><div class="label">Best (Medium)</div></div>
           <div class="fg-intro-stat"><div class="num">${bestHard}/${PHRASE_LANG_ROUNDS_PER_GAME}</div><div class="label">Best (Hard)</div></div>
           <div class="fg-intro-stat"><div class="num">${streak}</div><div class="label">Day Streak</div></div>
         </div>
         <div class="fg-mode-grid">
           <button class="fg-mode-btn" data-action="phrase-lang-start" data-difficulty="easy">
             <div class="fg-mode-title">🌍</div>
-            <div class="fg-mode-sub">Easy</div>
+            <div class="fg-mode-sub">Medium</div>
           </button>
           <button class="fg-mode-btn" data-action="phrase-lang-start" data-difficulty="hard">
             <div class="fg-mode-title">🔥</div>
@@ -13932,7 +13932,7 @@ function phraseLangEndHtml(){
       <div class="fg-wrap">
         <div class="section-head"><span class="emoji">${icon('trophy')}</span><h2>Round Complete</h2></div>
         <div class="fg-end-score">${score}/${phraseLangState.rounds.length}</div>
-        <div class="fg-end-label">${isNewBest ? 'New best score!' : `Best: ${best}/${phraseLangState.rounds.length}`} (${phraseLangState.difficulty === 'hard' ? 'Hard' : 'Easy'})</div>
+        <div class="fg-end-label">${isNewBest ? 'New best score!' : `Best: ${best}/${phraseLangState.rounds.length}`} (${phraseLangState.difficulty === 'hard' ? 'Hard' : 'Medium'})</div>
         <button class="fg-mode-btn" data-action="phrase-lang-start" data-difficulty="${phraseLangState.difficulty}">Play Again</button>
         <h3 style="margin:22px 0 4px; font-family:'Baloo 2', sans-serif; font-size:15px;">Missed phrases</h3>
         ${reviewHtml}
