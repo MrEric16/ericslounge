@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-30T19:37:23.824587Z",
+  "generatedAt": "2026-08-30T22:21:35.993767Z",
   "standings": {
     "PL": [
       {
@@ -315,6 +315,16 @@
         "pts": 3
       },
       {
+        "name": "Athletic",
+        "pld": 3,
+        "w": 1,
+        "d": 0,
+        "l": 2,
+        "gf": 3,
+        "ga": 5,
+        "pts": 3
+      },
+      {
         "name": "Getafe",
         "pld": 2,
         "w": 1,
@@ -345,16 +355,6 @@
         "pts": 2
       },
       {
-        "name": "Celta",
-        "pld": 3,
-        "w": 0,
-        "d": 2,
-        "l": 1,
-        "gf": 1,
-        "ga": 2,
-        "pts": 2
-      },
-      {
         "name": "Rayo Vallecano",
         "pld": 2,
         "w": 0,
@@ -365,7 +365,7 @@
         "pts": 1
       },
       {
-        "name": "Valencia",
+        "name": "Celta",
         "pld": 3,
         "w": 0,
         "d": 1,
@@ -375,13 +375,13 @@
         "pts": 1
       },
       {
-        "name": "Athletic",
+        "name": "Valencia",
         "pld": 3,
         "w": 0,
         "d": 1,
         "l": 2,
         "gf": 1,
-        "ga": 5,
+        "ga": 4,
         "pts": 1
       },
       {
@@ -796,7 +796,7 @@
         "w": 2,
         "d": 0,
         "l": 0,
-        "gf": 2,
+        "gf": 3,
         "ga": 0,
         "pts": 6
       },
@@ -851,16 +851,6 @@
         "pts": 4
       },
       {
-        "name": "Marseille",
-        "pld": 2,
-        "w": 1,
-        "d": 0,
-        "l": 1,
-        "gf": 4,
-        "ga": 1,
-        "pts": 3
-      },
-      {
         "name": "RC Lens",
         "pld": 2,
         "w": 1,
@@ -868,6 +858,16 @@
         "l": 1,
         "gf": 6,
         "ga": 4,
+        "pts": 3
+      },
+      {
+        "name": "Marseille",
+        "pld": 2,
+        "w": 1,
+        "d": 0,
+        "l": 1,
+        "gf": 4,
+        "ga": 2,
         "pts": 3
       },
       {
@@ -1478,37 +1478,6 @@
     "PD": {
       "fixtures": [
         {
-          "utcDate": "2026-08-30T19:30:00Z",
-          "status": "TIMED",
-          "matchday": 3,
-          "homeTeam": {
-            "id": 558,
-            "name": "RC Celta de Vigo",
-            "shortName": "Celta"
-          },
-          "awayTeam": {
-            "id": 77,
-            "name": "Athletic Club",
-            "shortName": "Athletic"
-          },
-          "score": {
-            "winner": null,
-            "duration": "REGULAR",
-            "fullTime": {
-              "home": null,
-              "away": null
-            },
-            "halfTime": {
-              "home": null,
-              "away": null
-            }
-          },
-          "competition": {
-            "name": "Primera Division"
-          },
-          "venue": null
-        },
-        {
           "utcDate": "2026-08-31T17:30:00Z",
           "status": "TIMED",
           "matchday": 3,
@@ -1572,6 +1541,37 @@
         }
       ],
       "results": [
+        {
+          "utcDate": "2026-08-30T19:30:00Z",
+          "status": "FINISHED",
+          "matchday": 3,
+          "homeTeam": {
+            "id": 558,
+            "name": "RC Celta de Vigo",
+            "shortName": "Celta"
+          },
+          "awayTeam": {
+            "id": 77,
+            "name": "Athletic Club",
+            "shortName": "Athletic"
+          },
+          "score": {
+            "winner": "AWAY_TEAM",
+            "duration": "REGULAR",
+            "fullTime": {
+              "home": 0,
+              "away": 2
+            },
+            "halfTime": {
+              "home": 0,
+              "away": 2
+            }
+          },
+          "competition": {
+            "name": "Primera Division"
+          },
+          "venue": null
+        },
         {
           "utcDate": "2026-08-30T15:00:00Z",
           "status": "FINISHED",
@@ -1995,37 +1995,6 @@
             "fullTime": {
               "home": 1,
               "away": 0
-            },
-            "halfTime": {
-              "home": 0,
-              "away": 0
-            }
-          },
-          "competition": {
-            "name": "Primera Division"
-          },
-          "venue": null
-        },
-        {
-          "utcDate": "2026-08-23T15:00:00Z",
-          "status": "FINISHED",
-          "matchday": 2,
-          "homeTeam": {
-            "id": 78,
-            "name": "Club Atlético de Madrid",
-            "shortName": "Atleti"
-          },
-          "awayTeam": {
-            "id": 94,
-            "name": "Villarreal CF",
-            "shortName": "Villarreal"
-          },
-          "score": {
-            "winner": "DRAW",
-            "duration": "REGULAR",
-            "fullTime": {
-              "home": 2,
-              "away": 2
             },
             "halfTime": {
               "home": 0,
@@ -2670,6 +2639,68 @@
       ],
       "results": [
         {
+          "utcDate": "2026-08-30T18:45:00Z",
+          "status": "FINISHED",
+          "matchday": 2,
+          "homeTeam": {
+            "id": 110,
+            "name": "SS Lazio",
+            "shortName": "Lazio"
+          },
+          "awayTeam": {
+            "id": 107,
+            "name": "Genoa CFC",
+            "shortName": "Genoa"
+          },
+          "score": {
+            "winner": "HOME_TEAM",
+            "duration": "REGULAR",
+            "fullTime": {
+              "home": 1,
+              "away": 0
+            },
+            "halfTime": {
+              "home": 1,
+              "away": 0
+            }
+          },
+          "competition": {
+            "name": "Serie A"
+          },
+          "venue": null
+        },
+        {
+          "utcDate": "2026-08-30T18:45:00Z",
+          "status": "FINISHED",
+          "matchday": 2,
+          "homeTeam": {
+            "id": 104,
+            "name": "Cagliari Calcio",
+            "shortName": "Cagliari"
+          },
+          "awayTeam": {
+            "id": 108,
+            "name": "FC Internazionale Milano",
+            "shortName": "Inter"
+          },
+          "score": {
+            "winner": "AWAY_TEAM",
+            "duration": "REGULAR",
+            "fullTime": {
+              "home": 0,
+              "away": 1
+            },
+            "halfTime": {
+              "home": 0,
+              "away": 1
+            }
+          },
+          "competition": {
+            "name": "Serie A"
+          },
+          "venue": null
+        },
+        {
           "utcDate": "2026-08-30T16:30:00Z",
           "status": "FINISHED",
           "matchday": 2,
@@ -3071,68 +3102,6 @@
             "name": "Serie A"
           },
           "venue": null
-        },
-        {
-          "utcDate": "2026-08-22T18:45:00Z",
-          "status": "FINISHED",
-          "matchday": 1,
-          "homeTeam": {
-            "id": 112,
-            "name": "Parma Calcio 1913",
-            "shortName": "Parma"
-          },
-          "awayTeam": {
-            "id": 104,
-            "name": "Cagliari Calcio",
-            "shortName": "Cagliari"
-          },
-          "score": {
-            "winner": "AWAY_TEAM",
-            "duration": "REGULAR",
-            "fullTime": {
-              "home": 0,
-              "away": 1
-            },
-            "halfTime": {
-              "home": 0,
-              "away": 0
-            }
-          },
-          "competition": {
-            "name": "Serie A"
-          },
-          "venue": null
-        },
-        {
-          "utcDate": "2026-08-22T16:30:00Z",
-          "status": "FINISHED",
-          "matchday": 1,
-          "homeTeam": {
-            "id": 115,
-            "name": "Udinese Calcio",
-            "shortName": "Udinese"
-          },
-          "awayTeam": {
-            "id": 7397,
-            "name": "Como 1907",
-            "shortName": "Como 1907"
-          },
-          "score": {
-            "winner": "DRAW",
-            "duration": "REGULAR",
-            "fullTime": {
-              "home": 1,
-              "away": 1
-            },
-            "halfTime": {
-              "home": 1,
-              "away": 0
-            }
-          },
-          "competition": {
-            "name": "Serie A"
-          },
-          "venue": null
         }
       ]
     },
@@ -3419,6 +3388,37 @@
         }
       ],
       "results": [
+        {
+          "utcDate": "2026-08-30T18:45:00Z",
+          "status": "FINISHED",
+          "matchday": 2,
+          "homeTeam": {
+            "id": 548,
+            "name": "AS Monaco FC",
+            "shortName": "Monaco"
+          },
+          "awayTeam": {
+            "id": 516,
+            "name": "Olympique de Marseille",
+            "shortName": "Marseille"
+          },
+          "score": {
+            "winner": "HOME_TEAM",
+            "duration": "REGULAR",
+            "fullTime": {
+              "home": 2,
+              "away": 0
+            },
+            "halfTime": {
+              "home": 1,
+              "away": 0
+            }
+          },
+          "competition": {
+            "name": "Ligue 1"
+          },
+          "venue": null
+        },
         {
           "utcDate": "2026-08-30T15:15:00Z",
           "status": "FINISHED",
@@ -3842,37 +3842,6 @@
             "fullTime": {
               "home": 0,
               "away": 0
-            },
-            "halfTime": {
-              "home": 0,
-              "away": 0
-            }
-          },
-          "competition": {
-            "name": "Ligue 1"
-          },
-          "venue": null
-        },
-        {
-          "utcDate": "2026-08-22T18:45:00Z",
-          "status": "FINISHED",
-          "matchday": 1,
-          "homeTeam": {
-            "id": 511,
-            "name": "Toulouse FC",
-            "shortName": "Toulouse"
-          },
-          "awayTeam": {
-            "id": 523,
-            "name": "Olympique Lyonnais",
-            "shortName": "Olympique Lyon"
-          },
-          "score": {
-            "winner": "AWAY_TEAM",
-            "duration": "REGULAR",
-            "fullTime": {
-              "home": 0,
-              "away": 2
             },
             "halfTime": {
               "home": 0,
