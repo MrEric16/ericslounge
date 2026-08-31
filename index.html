@@ -9639,7 +9639,10 @@ async function loadLiveSportsData(){
         return !alreadyHaveResult;
       });
 
-      const CACHE_MAX_AGE_MS = 60 * 60 * 1000; // 1 hour
+      const CACHE_MAX_AGE_MS = 10 * 60 * 1000; // 10 minutes - matches GitHub Pages' own
+      // Fastly CDN cache window exactly, so the client-side cache never adds extra delay
+      // on top of a delay that's already unavoidable. Was 1 hour, which compounded the
+      // "why isn't my fix showing yet" problem when testing right after a push.
       const cacheStale = !cache || typeof cache.fetchedAt !== 'number' || (Date.now() - cache.fetchedAt) > CACHE_MAX_AGE_MS;
       if(cacheStale || pendingFixtureOverdue){
         // Server-side fetched data (scripts/fetch_football_data.py, key stored as a
