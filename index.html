@@ -256,7 +256,8 @@
   /* All 16 domain tiles get an orange top-edge outline, same inset-stripe technique as
      the Uzbekistan theme's blue one - explicit ask, uniform orange (not a color cycle
      like Arsenal's domain tiles). */
-  body.usertheme-ihl:not(.dark-mode) .fac-tile{
+  body.usertheme-ihl:not(.dark-mode) .fac-tile,
+  body.usertheme-ihl:not(.dark-mode) .sport-hub-tile{
     box-shadow:inset 0 3px 0 0 #FF9E2C;
   }
   /* Site title in the exact palette orange, plus two named tiles Mr Eric called out
@@ -439,7 +440,8 @@
     text-shadow:none;
   }
   /* Same orange top-edge outline on all 16 domain tiles as light IHL. */
-  body.dark-mode.usertheme-dihl .fac-tile{
+  body.dark-mode.usertheme-dihl .fac-tile,
+  body.dark-mode.usertheme-dihl .sport-hub-tile{
     box-shadow:inset 0 3px 0 0 #FF9E2C;
   }
   body.dark-mode.usertheme-dihl .title{
@@ -4009,7 +4011,7 @@ const ARSENAL_FRIENDLY_RESULTS = [
 ];
 
 const ARSENAL_FIXTURES = [
-  { title:"Arsenal v Chelsea", venue:"(Home)", competition:"Premier League", stadium:"Emirates Stadium", start:"2026-09-06T16:30:00+05:00" },
+  { title:"Arsenal v Chelsea", venue:"(Home)", competition:"Premier League", stadium:"Emirates Stadium", start:"2026-09-06T20:30:00+05:00" },
   { title:"Sunderland v Arsenal", venue:"(Away)", competition:"Premier League", stadium:"Stadium of Light", start:"2026-09-13T19:00:00+05:00" },
   { title:"Brighton and Hove Albion v Arsenal", venue:"(Away)", competition:"Premier League", stadium:"American Express Stadium", start:"2026-09-19T19:00:00+05:00" },
   { title:"Arsenal v Leeds United", venue:"(Home)", competition:"Premier League", stadium:"Emirates Stadium", start:"2026-10-10T19:00:00+05:00" },
@@ -23272,6 +23274,21 @@ const COMPLIMENTS = [
       if(sr) sr.style.transform = '';
     }
     toggle.innerHTML = isDark ? SUN_SVG : MOON_SVG;
+    // Belt-and-suspenders for the site title color specifically: the CSS rule
+    // (body.usertheme-ihl/dihl .title{color:#FF9E2C !important}) is correct and verified
+    // multiple times, but it was consistently not rendering for Mr Eric despite the
+    // outline fix using the identical selector prefix working fine - never found the
+    // actual cause despite exhaustive checking. Setting it directly via the DOM API with
+    // explicit 'important' priority sidesteps whatever cascade/rendering issue that CSS
+    // rule was hitting, since this bypasses the stylesheet cascade entirely.
+    const titleEl = document.querySelector('h1.title');
+    if(titleEl){
+      if(key === 'ihl' || key === 'dihl'){
+        titleEl.style.setProperty('color', '#FF9E2C', 'important');
+      } else {
+        titleEl.style.removeProperty('color');
+      }
+    }
     if(persist){
       try{ localStorage.setItem('themeChoice', key); }catch(e){}
     }
