@@ -245,6 +245,22 @@
     color:#FEFEFE;
     text-shadow:none;
   }
+  /* Site title in the exact palette orange, plus two named tiles Mr Eric called out
+     specifically (Full Archive, Read/listen/download books) - deliberate scoped
+     exceptions to the "no painted tiles" rule, not a general tile-painting pass. */
+  body.usertheme-ihl:not(.dark-mode) .title{
+    color:#FF9E2C !important;
+  }
+  body.usertheme-ihl:not(.dark-mode) .fac-tile.all,
+  body.usertheme-ihl:not(.dark-mode) .books-tile{
+    background:#FF9E2C !important;
+  }
+  body.usertheme-ihl:not(.dark-mode) .fac-tile.all,
+  body.usertheme-ihl:not(.dark-mode) .fac-tile.all *,
+  body.usertheme-ihl:not(.dark-mode) .books-tile,
+  body.usertheme-ihl:not(.dark-mode) .books-tile *{
+    color:#304EA0 !important;
+  }
   /* Arsenal - Mr Eric's own pick, real crest colors he supplied (red #ec0024, crimson
      #ce0041, navy #113476, gold #99824c, off-white #fefefe). First pass was too subtle -
      just threaded the four accents through the normal --coral/--gold/--teal slots, which
@@ -407,6 +423,19 @@
   body.dark-mode.usertheme-dihl header *{
     color:#E4E8F2;
     text-shadow:none;
+  }
+  body.dark-mode.usertheme-dihl .title{
+    color:#FF9E2C !important;
+  }
+  body.dark-mode.usertheme-dihl .fac-tile.all,
+  body.dark-mode.usertheme-dihl .books-tile{
+    background:#FF9E2C !important;
+  }
+  body.dark-mode.usertheme-dihl .fac-tile.all,
+  body.dark-mode.usertheme-dihl .fac-tile.all *,
+  body.dark-mode.usertheme-dihl .books-tile,
+  body.dark-mode.usertheme-dihl .books-tile *{
+    color:#304EA0 !important;
   }
   /* Arsenal (Dark) - same principle as light Arsenal, same five exact colors, dark
      version. Key is "darsenal" (not "arsenal-dark") purely so it falls through the
