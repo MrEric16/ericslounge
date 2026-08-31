@@ -2861,6 +2861,20 @@
     display:flex; align-items:center; justify-content:center;
     font-weight:800; font-size:13px;
   }
+  .bs-grid{ display:flex; flex-direction:column; gap:3px; margin:8px 0 4px; }
+  .bs-row{ display:flex; gap:3px; }
+  .bs-cell{ flex:1; aspect-ratio:1; background:var(--f-jur, #2C6E8F); border-radius:4px; position:relative; }
+  .bs-cell[data-action]{ cursor:pointer; }
+  .bs-cell.bs-ship{ background:#5A6B7A; }
+  .bs-cell.bs-hit{ background:#B23A2E; }
+  .bs-cell.bs-hit::after{ content:'✕'; position:absolute; inset:0; display:flex; align-items:center; justify-content:center; color:#fff; font-weight:800; font-size:11px; }
+  .bs-cell.bs-miss{ background:#1D4A60; }
+  .bs-cell.bs-miss::after{ content:''; position:absolute; top:50%; left:50%; width:22%; height:22%; transform:translate(-50%,-50%); border-radius:50%; background:rgba(255,255,255,0.55); }
+  .bs-grid-label{ font-family:'Baloo 2', sans-serif; font-size:14px; margin:6px 0 4px; }
+  .bs-message{ text-align:center; font-size:13.5px; font-weight:600; color:var(--ink); padding:8px 10px; background:var(--card); border-radius:8px; margin-bottom:6px; }
+  .bs-fleet-status{ display:flex; flex-wrap:wrap; gap:6px; margin:6px 0 4px; }
+  .bs-fleet-chip{ font-size:11px; font-weight:700; padding:3px 8px; border-radius:20px; background:var(--card); color:var(--ink-soft); }
+  .bs-fleet-chip.bs-fleet-sunk{ background:#B23A2E; color:#fff; text-decoration:line-through; }
 </style>
 </head>
 <body>
@@ -2991,6 +3005,7 @@ const ICONS = {
   // Checkers = briefcase). These 15 are new, purpose-built, drawn in the exact same
   // viewBox/stroke-width/style as everything above - no icon is now shared by two games.
   bomb: `<svg width="18" height="18" viewBox="0 0 24 24" ${ICON_STYLE}><circle cx="11" cy="14" r="7"/><path d="M11 7 13 4l2 1"/><path d="M15 3.2c.9-.7 2.1-.5 2.6.4"/></svg>`,
+  ship: `<svg width="18" height="18" viewBox="0 0 24 24" ${ICON_STYLE}><path d="M3 15h18l-2.5 5h-13L3 15Z"/><path d="M6 15V9h12v6"/><path d="M12 9V4"/><path d="M12 4l5 2-5 2"/></svg>`,
   tower: `<svg width="18" height="18" viewBox="0 0 24 24" ${ICON_STYLE}><path d="M12 3v18"/><rect x="7" y="16" width="10" height="3.5" rx="1"/><rect x="8.5" y="11.5" width="7" height="3.5" rx="1"/><rect x="10" y="7" width="4" height="3.5" rx="1"/></svg>`,
   bulb: `<svg width="18" height="18" viewBox="0 0 24 24" ${ICON_STYLE}><path d="M9.5 18h5"/><path d="M10.3 21h3.4"/><path d="M12 3a6 6 0 0 0-3.3 11c.6.5 1 1.2 1 2h4.6c0-.8.4-1.5 1-2A6 6 0 0 0 12 3Z"/></svg>`,
   target: `<svg width="18" height="18" viewBox="0 0 24 24" ${ICON_STYLE}><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="4.8"/><circle cx="12" cy="12" r="1.1" fill="currentColor" stroke="none"/></svg>`,
@@ -5069,6 +5084,228 @@ function antMatchFinishGame(){
 
 function antMatchExit(){
   antMatchState = null;
+  renderRoute();
+}
+
+
+// ============ Battleship ============
+// 8x8 grid (fits mobile without cramming), 4-ship fleet (Carrier 4, Battleship 3,
+// Cruiser 3, Submarine 2 = 12 of 64 cells, standard density). Ships placed randomly for
+// both sides (no manual-placement UI -- keeps this a fast, complete build rather than a
+// half-finished drag-and-drop placement flow). Strict turn alternation: one shot each,
+// no bonus turn on a hit, so the AI is a genuinely fair opponent rather than a pushover
+// or a wall. AI uses real hunt-target logic (fires randomly until it lands a hit, then
+// systematically tries the four orthogonal neighbors of every unresolved hit before going
+// back to random) -- not just random fire, which would make it trivially weak.
+const BS_GRID_SIZE = 8;
+const BS_SHIPS_DEF = [
+  { name: 'Carrier', size: 4 },
+  { name: 'Battleship', size: 3 },
+  { name: 'Cruiser', size: 3 },
+  { name: 'Submarine', size: 2 },
+];
+
+function bsCellKey(r, c){ return r + ',' + c; }
+
+function bsCreateEmptyGrid(size){
+  const grid = [];
+  for(let r = 0; r < size; r++){
+    const row = [];
+    for(let c = 0; c < size; c++){
+      row.push({ shipIndex: -1, hit: false });
+    }
+    grid.push(row);
+  }
+  return grid;
+}
+
+function bsPlaceShipsRandomly(size, shipsDef){
+  const grid = bsCreateEmptyGrid(size);
+  const ships = shipsDef.map(s => ({ name: s.name, size: s.size, cells: [], hits: 0 }));
+  for(let i = 0; i < ships.length; i++){
+    const ship = ships[i];
+    let placed = false;
+    let attempts = 0;
+    while(!placed && attempts < 500){
+      attempts++;
+      const horizontal = Math.random() < 0.5;
+      const r = Math.floor(Math.random() * size);
+      const c = Math.floor(Math.random() * size);
+      const cells = [];
+      let fits = true;
+      for(let k = 0; k < ship.size; k++){
+        const rr = horizontal ? r : r + k;
+        const cc = horizontal ? c + k : c;
+        if(rr < 0 || rr >= size || cc < 0 || cc >= size || grid[rr][cc].shipIndex !== -1){
+          fits = false;
+          break;
+        }
+        cells.push([rr, cc]);
+      }
+      if(fits){
+        cells.forEach(([rr, cc]) => { grid[rr][cc].shipIndex = i; });
+        ship.cells = cells;
+        placed = true;
+      }
+    }
+  }
+  return { grid, ships };
+}
+
+function bsAllSunk(ships){
+  return ships.every(s => s.hits >= s.size);
+}
+
+function bsFireAt(grid, ships, r, c){
+  const cell = grid[r][c];
+  if(cell.hit) return null; // already fired here
+  cell.hit = true;
+  if(cell.shipIndex === -1){
+    return { hit: false, sunk: null };
+  }
+  const ship = ships[cell.shipIndex];
+  ship.hits++;
+  const sunk = ship.hits >= ship.size ? ship : null;
+  return { hit: true, sunk };
+}
+
+function bsAiChooseMove(state){
+  const size = BS_GRID_SIZE;
+  const fired = state.aiFired;
+  // target mode: try queued cells adjacent to unresolved hits first
+  while(state.aiTargetQueue.length > 0){
+    const [r, c] = state.aiTargetQueue.shift();
+    if(r >= 0 && r < size && c >= 0 && c < size && !fired.has(bsCellKey(r, c))){
+      return [r, c];
+    }
+  }
+  // hunt mode: random unfired cell
+  const candidates = [];
+  for(let r = 0; r < size; r++){
+    for(let c = 0; c < size; c++){
+      if(!fired.has(bsCellKey(r, c))) candidates.push([r, c]);
+    }
+  }
+  return candidates[Math.floor(Math.random() * candidates.length)];
+}
+
+function bsAiRegisterResult(state, r, c, result){
+  state.aiFired.add(bsCellKey(r, c));
+  if(result.hit && !result.sunk){
+    // queue orthogonal neighbors to home in on the rest of the ship
+    const neighbors = [[r-1,c],[r+1,c],[r,c-1],[r,c+1]];
+    neighbors.forEach(([nr, nc]) => {
+      if(nr >= 0 && nr < BS_GRID_SIZE && nc >= 0 && nc < BS_GRID_SIZE && !state.aiFired.has(bsCellKey(nr, nc))){
+        state.aiTargetQueue.push([nr, nc]);
+      }
+    });
+  }
+  // No extra cleanup needed when a ship sinks: bsAiChooseMove already skips any queued
+  // cell that's already been fired at, so stale queue entries from a now-sunk ship are
+  // simply skipped over next time they're popped, at negligible cost given the queue
+  // never holds more than a handful of cells.
+}
+
+const BS_WINS_KEY = 'battleshipWins';
+const BS_STREAK_KEY = 'battleshipStreak';
+let bsState = null;
+
+function bsStart(){
+  const player = bsPlaceShipsRandomly(BS_GRID_SIZE, BS_SHIPS_DEF);
+  const enemy = bsPlaceShipsRandomly(BS_GRID_SIZE, BS_SHIPS_DEF);
+  bsState = {
+    playerGrid: player.grid,
+    playerShips: player.ships,
+    enemyGrid: enemy.grid,
+    enemyShips: enemy.ships,
+    playerFired: new Set(),
+    aiFired: new Set(),
+    aiTargetQueue: [],
+    turn: 'player',
+    gameOver: false,
+    winner: null,
+    message: 'Your turn - fire at the enemy grid.',
+    shotsFired: 0,
+    hits: 0,
+  };
+  renderRoute();
+}
+
+function bsPlayerFire(r, c){
+  if(!bsState || bsState.gameOver || bsState.turn !== 'player') return;
+  const key = bsCellKey(r, c);
+  if(bsState.playerFired.has(key)) return;
+  bsState.playerFired.add(key);
+  bsState.shotsFired++;
+  const result = bsFireAt(bsState.enemyGrid, bsState.enemyShips, r, c);
+  if(result.hit) bsState.hits++;
+  if(result.sunk){
+    bsState.message = `Direct hit - you sank their ${result.sunk.name}!`;
+  }else if(result.hit){
+    bsState.message = 'Hit!';
+  }else{
+    bsState.message = 'Miss.';
+  }
+  if(bsAllSunk(bsState.enemyShips)){
+    bsState.gameOver = true;
+    bsState.winner = 'player';
+    bsState.message = 'You sank the entire enemy fleet. Victory!';
+    bsFinishGame(true);
+    renderRoute();
+    return;
+  }
+  bsState.turn = 'ai';
+  renderRoute();
+  setTimeout(bsAiTurn, 900);
+}
+
+function bsAiTurn(){
+  if(!bsState || bsState.gameOver) return;
+  const [r, c] = bsAiChooseMove(bsState);
+  const result = bsFireAt(bsState.playerGrid, bsState.playerShips, r, c);
+  bsAiRegisterResult(bsState, r, c, result);
+  if(result.sunk){
+    bsState.message = `The enemy sank your ${result.sunk.name}!`;
+  }else if(result.hit){
+    bsState.message = 'The enemy hit one of your ships.';
+  }else{
+    bsState.message = 'The enemy missed.';
+  }
+  if(bsAllSunk(bsState.playerShips)){
+    bsState.gameOver = true;
+    bsState.winner = 'ai';
+    bsState.message = 'Your fleet has been sunk. Defeat.';
+    bsFinishGame(false);
+    renderRoute();
+    return;
+  }
+  bsState.turn = 'player';
+  renderRoute();
+}
+
+function bsFinishGame(won){
+  let wins = 0, streak = 0;
+  try{ wins = parseInt(localStorage.getItem(BS_WINS_KEY) || '0', 10); }catch(e){}
+  if(won){
+    try{ localStorage.setItem(BS_WINS_KEY, String(wins + 1)); }catch(e){}
+  }
+  try{ streak = parseInt(localStorage.getItem(BS_STREAK_KEY) || '0', 10); }catch(e){}
+  const todayKey = getTodayKeyLocal();
+  let lastPlayed = null;
+  try{ lastPlayed = localStorage.getItem('battleshipLastPlayedDate'); }catch(e){}
+  if(lastPlayed !== todayKey){
+    const yesterday = new Date(Date.now() - 86400000);
+    const yKey = `${yesterday.getFullYear()}-${String(yesterday.getMonth()+1).padStart(2,'0')}-${String(yesterday.getDate()).padStart(2,'0')}`;
+    streak = (lastPlayed === yKey) ? streak + 1 : 1;
+    try{
+      localStorage.setItem(BS_STREAK_KEY, String(streak));
+      localStorage.setItem('battleshipLastPlayedDate', todayKey);
+    }catch(e){}
+  }
+}
+
+function bsExit(){
+  bsState = null;
   renderRoute();
 }
 
@@ -8619,6 +8856,7 @@ const GEOGRAPHY_HUB_TILES = [
   { name: "Chess", emoji: icon('kingPiece'), url: "#arcade/chess", internal: true },
   { name: "Checkers", emoji: icon('checkerboard'), url: "#bt-checkers", internal: true },
   { name: "Connect 4", emoji: icon('fourInRow'), url: "#bt-connect4", internal: true },
+  { name: "Battleship", emoji: icon('ship'), url: "#battleship-game", internal: true },
   geoHubExternalTile("GeoGuessr"),
   geoHubExternalTile("OpenGuessr"),
 ].filter(Boolean);
@@ -13933,6 +14171,116 @@ function viewAntMatchGame(){
     return antMatchEndHtml();
   }
   return antMatchPlayingHtml();
+}
+
+function bsGridHtml(grid, ships, opts){
+  // opts: { interactive: bool, revealShips: bool, firedSet: Set, onFireAction: string }
+  let rows = '';
+  for(let r = 0; r < BS_GRID_SIZE; r++){
+    let cells = '';
+    for(let c = 0; c < BS_GRID_SIZE; c++){
+      const cell = grid[r][c];
+      let cls = 'bs-cell';
+      const hasShip = cell.shipIndex !== -1;
+      if(cell.hit){
+        cls += hasShip ? ' bs-hit' : ' bs-miss';
+      }else if(opts.revealShips && hasShip){
+        cls += ' bs-ship';
+      }
+      const clickable = opts.interactive && !cell.hit;
+      const action = clickable ? `data-action="${opts.onFireAction}" data-r="${r}" data-c="${c}"` : '';
+      cells += `<div class="${cls}" ${action}></div>`;
+    }
+    rows += `<div class="bs-row">${cells}</div>`;
+  }
+  return `<div class="bs-grid">${rows}</div>`;
+}
+
+function bsFleetStatusHtml(ships){
+  return `<div class="bs-fleet-status">${ships.map(s => {
+    const sunk = s.hits >= s.size;
+    return `<span class="bs-fleet-chip${sunk ? ' bs-fleet-sunk' : ''}">${escapeHtml(s.name)} ${sunk ? '(sunk)' : `(${s.hits}/${s.size})`}</span>`;
+  }).join('')}</div>`;
+}
+
+function bsIntroHtml(){
+  let wins = 0, streak = 0;
+  try{
+    wins = parseInt(localStorage.getItem(BS_WINS_KEY) || '0', 10);
+    streak = parseInt(localStorage.getItem(BS_STREAK_KEY) || '0', 10);
+  }catch(e){}
+  return `
+    <a class="back-link" href="#geography-hub">← Back to Train Your Brain</a>
+    <section style="padding-top:14px;">
+      <div class="fg-wrap">
+        <div class="section-head"><span class="emoji">${icon('ship')}</span><h2>Battleship</h2></div>
+        <p style="font-size:14px; color:var(--ink-soft); line-height:1.6; margin-bottom:6px;">Sink the enemy fleet before they sink yours. Take turns firing - one shot each.</p>
+        <div class="fg-intro-stats">
+          <div class="fg-intro-stat"><div class="num">${wins}</div><div class="label">Wins</div></div>
+          <div class="fg-intro-stat"><div class="num">${streak}</div><div class="label">Day Streak</div></div>
+        </div>
+        <button class="fg-start-btn" data-action="bs-start">Start</button>
+      </div>
+    </section>
+  `;
+}
+
+function bsPlayingHtml(){
+  const s = bsState;
+  const enemyGridHtml = bsGridHtml(s.enemyGrid, s.enemyShips, {
+    interactive: s.turn === 'player' && !s.gameOver,
+    revealShips: false,
+    onFireAction: 'bs-fire',
+  });
+  const playerGridHtml = bsGridHtml(s.playerGrid, s.playerShips, {
+    interactive: false,
+    revealShips: true,
+    onFireAction: '',
+  });
+  return `
+    <section style="padding-top:14px;">
+      <div class="fg-wrap">
+        <div class="fg-progress-row">
+          <span>Shots: ${s.shotsFired}</span>
+          <span>Hits: ${s.hits}</span>
+        </div>
+        <div class="bs-message">${escapeHtml(s.message)}</div>
+        <h3 class="bs-grid-label">Enemy Waters ${s.turn === 'player' && !s.gameOver ? '- tap to fire' : ''}</h3>
+        ${enemyGridHtml}
+        ${bsFleetStatusHtml(s.enemyShips)}
+        <h3 class="bs-grid-label" style="margin-top:18px;">Your Fleet</h3>
+        ${playerGridHtml}
+        ${bsFleetStatusHtml(s.playerShips)}
+      </div>
+    </section>
+  `;
+}
+
+function bsEndHtml(){
+  const s = bsState;
+  const won = s.winner === 'player';
+  return `
+    <a class="back-link" href="#geography-hub">← Back to Train Your Brain</a>
+    <section style="padding-top:14px;">
+      <div class="fg-wrap">
+        <div class="section-head"><span class="emoji">${icon(won ? 'trophy' : 'ship')}</span><h2>${won ? 'Victory!' : 'Defeat'}</h2></div>
+        <p style="text-align:center; font-size:14px; color:var(--ink-soft); margin-bottom:10px;">${escapeHtml(s.message)}</p>
+        <div class="fg-end-score">${s.hits}/${s.shotsFired}</div>
+        <div class="fg-end-label">Shots landed</div>
+        <button class="fg-start-btn" data-action="bs-start">Play Again</button>
+      </div>
+    </section>
+  `;
+}
+
+function viewBattleshipGame(){
+  if(!bsState){
+    return bsIntroHtml();
+  }
+  if(bsState.gameOver){
+    return bsEndHtml();
+  }
+  return bsPlayingHtml();
 }
 
 
@@ -21828,6 +22176,18 @@ document.addEventListener('click', (e) => {
     antMatchAnswer(antMatchAnswerBtn.dataset.picked);
     return;
   }
+  const bsStartBtn = e.target.closest('[data-action="bs-start"]');
+  if(bsStartBtn){
+    e.preventDefault();
+    bsStart();
+    return;
+  }
+  const bsFireBtn = e.target.closest('[data-action="bs-fire"]');
+  if(bsFireBtn){
+    e.preventDefault();
+    bsPlayerFire(parseInt(bsFireBtn.dataset.r, 10), parseInt(bsFireBtn.dataset.c, 10));
+    return;
+  }
   const currencyStartBtn = e.target.closest('[data-action="currency-start"]');
   if(currencyStartBtn){
     e.preventDefault();
@@ -22208,6 +22568,8 @@ function renderRoute(opts){
     html = viewIdiomMatchGame();
   } else if(parts[0] === 'antonym-match-game'){
     html = viewAntMatchGame();
+  } else if(parts[0] === 'battleship-game'){
+    html = viewBattleshipGame();
   } else if(parts[0] === 'currency-game'){
     html = viewCurrencyGame();
   } else if(parts[0] === 'language-game'){
@@ -22320,6 +22682,7 @@ function renderRoute(opts){
   if(parts[0] !== 'odd-one-out-game' && oooState){ oooState = null; }
   if(parts[0] !== 'idiom-match-game' && idiomMatchState){ idiomMatchState = null; }
   if(parts[0] !== 'antonym-match-game' && antMatchState){ antMatchState = null; }
+  if(parts[0] !== 'battleship-game' && bsState){ bsState = null; }
   if(parts[0] !== 'currency-game' && currencyState){ currencyState = null; }
   if(parts[0] !== 'language-game' && languageState){ languageState = null; }
   if(parts[0] !== 'phrase-lang-game' && phraseLangState){ phraseLangState = null; }
