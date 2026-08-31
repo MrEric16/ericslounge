@@ -245,6 +245,15 @@
     color:#FEFEFE;
     text-shadow:none;
   }
+  /* Fix: .search-icon-btn's own background is var(--card), which is white (fefefe) in
+     light Arsenal - the header-wide white-text rule above was making these icons white
+     too, so white icon on a white circle button = invisible. Dark Arsenal doesn't have
+     this problem since --card is crimson there, not white, hence Mr Eric's own note
+     this was light-only. Navy gives strong contrast against the white circle. */
+  body.usertheme-arsenal:not(.dark-mode) header .search-icon-btn,
+  body.usertheme-arsenal:not(.dark-mode) header .search-icon-btn *{
+    color:#113476 !important;
+  }
   /* Domain tiles get their own 4-color cycle rather than one flat color - "domains,
      differently colored mini tiles" was the explicit ask after the first pass painted
      every single one red. nth-child cycles red/crimson/navy/gold down the .faculties
@@ -23257,12 +23266,12 @@ const COMPLIMENTS = [
     { key:'l3', label:'Light 3', c1:'#B5647A', c2:'#D6885E' },
     { key:'l4', label:'Light 4', c1:'#6B8A4A', c2:'#4E9CA8' },
     { key:'l5', label:'Light 5', c1:'#E08A3E', c2:'#9C6BA8' },
-    { key:'arsenal', label:'Arsenal', c1:'#EC0024', c2:'#99824C' },
     { key:'d1', label:'Dark 1', c1:'#CC9142', c2:'#D6C171' },
     { key:'d2', label:'Dark 2', c1:'#8F6BB5', c2:'#6FB8A0' },
     { key:'d3', label:'Dark 3', c1:'#C06B3E', c2:'#9FD671' },
     { key:'d4', label:'Dark 4', c1:'#5C82AC', c2:'#8FB871' },
     { key:'d5', label:'Dark 5', c1:'#B0586C', c2:'#D67C71' },
+    { key:'arsenal', label:'Arsenal', c1:'#EC0024', c2:'#99824C' },
     { key:'darsenal', label:'Arsenal (Dark)', c1:'#EC0024', c2:'#99824C' },
   ];
 
