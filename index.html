@@ -4,6 +4,33 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Mr Eric's Lounge</title>
+<meta name="app-build" content="20260831234920">
+<script>
+  // PWA update-detection: an installed home-screen app's standalone-mode navigation
+  // cache can hold an old shell far longer than the CDN's 10-minute cache -
+  // indefinitely, in practice, until something forces it. This runs before anything
+  // else on the page, plain-fetches version.json (no-store, bypasses every cache
+  // layer), and compares it against the build id baked into THIS loaded copy of the
+  // page. A mismatch means a newer version exists on the server but this device is
+  // still showing an old cached shell - force one reload to fetch it fresh. The
+  // sessionStorage flag prevents a reload loop if the fetch or the file is ever
+  // unavailable for some reason.
+  (function(){
+    try{
+      if(sessionStorage.getItem('elReloadedForUpdate')) return;
+      var current = document.querySelector('meta[name="app-build"]').content;
+      fetch('./version.json', {cache: 'no-store'})
+        .then(function(r){ return r.json(); })
+        .then(function(data){
+          if(data.build && data.build !== current){
+            sessionStorage.setItem('elReloadedForUpdate', '1');
+            location.reload();
+          }
+        })
+        .catch(function(){});
+    }catch(e){}
+  })();
+</script>
 <link rel="manifest" href="manifest.json">
 <link rel="apple-touch-icon" href="icon-180.png">
 <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
