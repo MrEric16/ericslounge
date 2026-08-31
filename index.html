@@ -220,6 +220,31 @@
     --coral:#E08A3E; --coral-dark:#B0621F; --gold:#9C6BA8; --teal:#4E7C6E; --line:#EDD8AC;
     --board-bg:rgba(80,55,20,.62);
   }
+  /* IHL - Interhouse Lyceum's real brand colors, pixel-extracted from a live screenshot
+     of interhouselyceum.uz (blue #304EA0 confirmed from a solid stat-box region - 51,783
+     of ~54,000 sampled pixels there were this exact value; orange #FF9E2C confirmed the
+     same way from the "Get advice" button - 28,329 of ~31,000 sampled pixels; lighter
+     blend blue #4D65A8 taken from where the brand blue overlays the hero photo, used
+     here for a genuine, non-invented "fade" tone). Subtle tint style like l1-l5 on
+     purpose, not the Arsenal solid-tile treatment - explicit instruction. The one
+     deliberate exception is the header, which gets an actual gradient (the "gradual
+     shade... fade thing" Mr Eric asked for), fading between the two real brand blues. */
+  body.usertheme-ihl:not(.dark-mode){
+    --cream:#EEF1F7; --cream-2:#E0E4F1; --card:#FBFBFD;
+    --coral:#304EA0; --coral-dark:#233873; --gold:#FF9E2C; --teal:#4D65A8; --line:#D1D8EA;
+    --board-bg:rgba(48,78,160,.55);
+  }
+  body.usertheme-ihl:not(.dark-mode) header{
+    background:linear-gradient(135deg, #304EA0 0%, #4D65A8 100%);
+    border-bottom:3px solid #FF9E2C;
+  }
+  body.usertheme-ihl:not(.dark-mode) header::before,
+  body.usertheme-ihl:not(.dark-mode) header::after{ content:none; }
+  body.usertheme-ihl:not(.dark-mode) header,
+  body.usertheme-ihl:not(.dark-mode) header *{
+    color:#FEFEFE;
+    text-shadow:none;
+  }
   /* Arsenal - Mr Eric's own pick, real crest colors he supplied (red #ec0024, crimson
      #ce0041, navy #113476, gold #99824c, off-white #fefefe). First pass was too subtle -
      just threaded the four accents through the normal --coral/--gold/--teal slots, which
@@ -362,6 +387,26 @@
   body.dark-mode.usertheme-d5{
     --cream:#1C1113; --cream-2:#28181B; --card:#3A2327; --ink:#F2E2DE; --ink-soft:#C7A8A2;
     --coral:#B0586C; --coral-dark:#C4798C; --gold:#D67C71; --teal:#71B8A0; --line:#523036;
+  }
+  /* IHL (Dark) - same two verified brand colors as light IHL, key is "dihl" (not
+     "ihl-dark") so it falls through the existing key.charAt(0)==='d' dark-theme
+     detection automatically, same trick as Arsenal's "darsenal". "Just go darker" per
+     explicit instruction - same subtle-tint principle as light IHL, no painted tiles,
+     header keeps the same real-color gradient just deepened. */
+  body.dark-mode.usertheme-dihl{
+    --cream:#0D162D; --cream-2:#111C3A; --card:#16244A; --ink:#E4E8F2; --ink-soft:#B8C1DC;
+    --coral:#687CB5; --coral-dark:#304EA0; --gold:#FF9E2C; --teal:#4D65A8; --line:#1A2B58;
+  }
+  body.dark-mode.usertheme-dihl header{
+    background:linear-gradient(135deg, #0D162D 0%, #304EA0 100%);
+    border-bottom:3px solid #FF9E2C;
+  }
+  body.dark-mode.usertheme-dihl header::before,
+  body.dark-mode.usertheme-dihl header::after{ content:none; }
+  body.dark-mode.usertheme-dihl header,
+  body.dark-mode.usertheme-dihl header *{
+    color:#E4E8F2;
+    text-shadow:none;
   }
   /* Arsenal (Dark) - same principle as light Arsenal, same five exact colors, dark
      version. Key is "darsenal" (not "arsenal-dark") purely so it falls through the
@@ -23158,7 +23203,7 @@ const COMPLIMENTS = [
     // window) per Mr Eric - it's a real palette option forever, cyclable/pickable any
     // time. The window end (2 Sept 18:00 Tashkent) only controls the one-time default
     // reset below, not availability.
-    const base = ['default','nationalday','l1','l2','l3','l4','l5','arsenal','d1','d2','d3','d4','d5','darsenal'];
+    const base = ['default','nationalday','l1','l2','l3','l4','l5','ihl','arsenal','d1','d2','d3','d4','d5','dihl','darsenal'];
     return base;
   }
   let THEME_ORDER = buildThemeOrder();
@@ -23167,7 +23212,7 @@ const COMPLIMENTS = [
     const persist = !opts || opts.persist !== false;
     const isDark = key !== 'default' && key !== 'nationalday' && key.charAt(0) === 'd';
     document.body.classList.toggle('dark-mode', isDark);
-    ['l1','l2','l3','l4','l5','arsenal','d1','d2','d3','d4','d5','darsenal'].forEach(k => document.body.classList.remove('usertheme-' + k));
+    ['l1','l2','l3','l4','l5','ihl','arsenal','d1','d2','d3','d4','d5','dihl','darsenal'].forEach(k => document.body.classList.remove('usertheme-' + k));
     document.body.classList.remove('theme-nationalday');
     if(key === 'nationalday'){
       document.body.classList.add('theme-nationalday');
@@ -23271,6 +23316,8 @@ const COMPLIMENTS = [
     { key:'d3', label:'Dark 3', c1:'#C06B3E', c2:'#9FD671' },
     { key:'d4', label:'Dark 4', c1:'#5C82AC', c2:'#8FB871' },
     { key:'d5', label:'Dark 5', c1:'#B0586C', c2:'#D67C71' },
+    { key:'ihl', label:'IHL', c1:'#304EA0', c2:'#FF9E2C' },
+    { key:'dihl', label:'IHL (Dark)', c1:'#304EA0', c2:'#FF9E2C' },
     { key:'arsenal', label:'Arsenal', c1:'#EC0024', c2:'#99824C' },
     { key:'darsenal', label:'Arsenal (Dark)', c1:'#EC0024', c2:'#99824C' },
   ];
