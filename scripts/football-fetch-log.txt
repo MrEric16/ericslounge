@@ -16,5 +16,5 @@
 [football-fetch] standings[CL]: FAILED (404 Client Error:  for url: https://api.football-data.org/v4/competitions/CL/standings)
 [football-fetch] matches[CL]: OK (trimmed from 144 to 18 fixtures + 0 results)
 [football-fetch] arsenalNextFixture: OK
-[football-fetch] arsenalFinishedMatches: OK (1 matches)
-[football-fetch] Wrote data/football-live.json (112.2 KB)
+[football-fetch] arsenalFinishedMatches: OK (2 matches)
+[football-fetch] Wrote data/football-live.json (112.8 KB)
