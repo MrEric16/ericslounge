@@ -245,10 +245,28 @@
     color:#FEFEFE;
     text-shadow:none;
   }
+  /* Domain tiles get their own 4-color cycle rather than one flat color - "domains,
+     differently colored mini tiles" was the explicit ask after the first pass painted
+     every single one red. nth-child cycles red/crimson/navy/gold down the .faculties
+     grid regardless of how many domains exist. */
+  body.usertheme-arsenal:not(.dark-mode) .faculties .fac-tile:not(.all):nth-child(4n+1){
+    background:#EC0024 !important;
+  }
+  body.usertheme-arsenal:not(.dark-mode) .faculties .fac-tile:not(.all):nth-child(4n+2){
+    background:#CE0041 !important;
+  }
+  body.usertheme-arsenal:not(.dark-mode) .faculties .fac-tile:not(.all):nth-child(4n+3){
+    background:#113476 !important;
+  }
+  body.usertheme-arsenal:not(.dark-mode) .faculties .fac-tile:not(.all):nth-child(4n+4){
+    background:#99824C !important;
+  }
+  body.usertheme-arsenal:not(.dark-mode) .fac-tile.all{
+    background:#EC0024 !important;
+  }
   /* Four tile groups, one solid color each - same grouping shape as National Day's four
      groups, but painted as real backgrounds instead of a thin inset stripe, per explicit
      request: "the tiles should be each of these colours". */
-  body.usertheme-arsenal:not(.dark-mode) .fac-tile,
   body.usertheme-arsenal:not(.dark-mode) .sport-hub-tile,
   body.usertheme-arsenal:not(.dark-mode) .sports-tile,
   body.usertheme-arsenal:not(.dark-mode) .sports-card{
