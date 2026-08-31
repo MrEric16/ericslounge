@@ -25112,6 +25112,22 @@ function triggerWeekendEgg(){
     if(window.visualViewport.scale > 1.02){ forceResetZoom(); }
   });
 })();
+
+/* - Final-word title color enforcement for IHL/IHL(Dark) -
+   Genuinely could not pin down why the color set inside applyThemeState wasn't sticking
+   for Mr Eric despite it being correct (verified the logic, the selector, the specificity,
+   and confirmed it fires with the right value in a direct runtime test) - something later
+   in the page's own init sequence must be touching it. Rather than keep hunting for that
+   with no visible reproduction on my end, this runs after every other IIFE in the file, so
+   whatever it is, this has the literal last word. Reads the theme straight from the body
+   class actually present at this point, not from anything that could itself be stale. */
+(function(){
+  const isIhl = document.body.classList.contains('usertheme-ihl') || document.body.classList.contains('usertheme-dihl');
+  const title = document.querySelector('h1.title');
+  if(title && isIhl){
+    title.style.setProperty('color', '#FF9E2C', 'important');
+  }
+})();
 </script>
 
 </body>
