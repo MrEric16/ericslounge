@@ -20204,7 +20204,7 @@ function mtStepHtml(){
       return `
         <div class="mt-closing-box">
           <div class="mt-closing-msg">Thank you for writing that down. Please find Mr Eric in person today, as soon as you can. If he's not around, tell another adult you trust - right now, not later.</div>
-          <button class="mt-resolve-btn" data-action="exit">Done</button>
+          <button class="mt-resolve-btn" data-action="mt-restart">Done</button>
         </div>
       `;
     }
@@ -20216,7 +20216,7 @@ function mtStepHtml(){
       return `
         <div class="mt-closing-box">
           <div class="mt-closing-msg">Thank you for writing that down. It's good to notice what's going well, too.</div>
-          <button class="mt-resolve-btn" data-action="exit">Done</button>
+          <button class="mt-resolve-btn" data-action="mt-restart">Done</button>
         </div>
       `;
     }
@@ -20238,7 +20238,7 @@ function mtStepHtml(){
     return `
       <div class="mt-closing-box">
         <div class="mt-closing-msg">Feel free to come back whenever you want.</div>
-        <button class="mt-resolve-btn" data-action="exit">Done</button>
+        <button class="mt-resolve-btn" data-action="mt-restart">Done</button>
       </div>
     `;
   }
@@ -20391,6 +20391,14 @@ function mtWireStep(container){
 
   container.querySelectorAll('[data-action="exit"]').forEach(btn => {
     btn.addEventListener('click', mtExit);
+  });
+  // "Done" (completing a full questionnaire) is deliberately different from "Exit
+  // without finishing": it resets Mind Temple's own state back to the picker step via
+  // mtInit() and stays inside the overlay, instead of closing it via mtExit(). That's
+  // so someone can log more than one emotion in a row without getting ejected back to
+  // whatever page was open underneath each time - explicit ask, not the general exit path.
+  container.querySelectorAll('[data-action="mt-restart"]').forEach(btn => {
+    btn.addEventListener('click', mtInit);
   });
 }
 
