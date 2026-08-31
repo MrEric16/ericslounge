@@ -1,7 +1,16 @@
 {
-  "curatedAt": "2026-08-29",
+  "curatedAt": "2026-08-31",
   "note": "Manually curated and vetted by Claude per Mr Eric's strict content rules (free, educational, non-controversial, teen-appropriate, zero tolerance for banned topics). Refreshed on request, not auto-scraped -- this content type requires human judgment per-item, unlike the Tashkent ticketing feed.",
   "dated": [
+    {
+      "title": "U.S. Spacewalk 99: Live NASA Coverage",
+      "org": "NASA",
+      "description": "Live coverage of a spacewalk at the International Space Station, streamed free on NASA+ and other platforms.",
+      "startDate": "2026-09-01",
+      "time": "7:00 AM ET",
+      "category": "Space",
+      "url": "https://www.nasa.gov/live/"
+    },
     {
       "title": "Future-Proof Your Chemistry Career for 2030",
       "org": "American Chemical Society",
@@ -30,6 +39,15 @@
       "url": "https://iwaa.org.au/event/free-online-tutoring-program/2026-09-03/"
     },
     {
+      "title": "Improving Fisheries Projections Under Recruitment Non-Stationarity",
+      "org": "NOAA Library",
+      "description": "Free live seminar on an information hierarchy for environmental forecasts and changing productivity in fisheries science, part of NOAA's National Stock Assessment Science Seminar Series.",
+      "startDate": "2026-09-03",
+      "time": "3:00 PM ET",
+      "category": "science",
+      "url": "https://vimeo.com/event/6125301"
+    },
+    {
       "title": "Online Beginner’s Astronomy Class — September Session",
       "org": "Orange County Astronomers",
       "description": null,
@@ -48,6 +66,51 @@
       "url": "https://www.sea.museum/en/learn/virtual-excursions/a-voyage-of-discovery-matthew-flinders-and-bungaree"
     },
     {
+      "title": "Why Do We Need Empathy?",
+      "org": "Gresham College",
+      "description": "Free lecture exploring empathy through theatre, visual art, literature and music, and the philosophy of Adam Smith, Iris Murdoch and Martha Nussbaum.",
+      "startDate": "2026-09-07",
+      "time": "22:00 Tashkent",
+      "category": "culture",
+      "url": "https://www.gresham.ac.uk/whats-on/why-empathy"
+    },
+    {
+      "title": "Systems Engineering: The Evolution of Engineering",
+      "org": null,
+      "description": null,
+      "startDate": "2026-09-07",
+      "time": null,
+      "category": "Engineering",
+      "url": "https://www.ect.ac.uk/event/systems-engineering-evolution-of-engineering/"
+    },
+    {
+      "title": "An Introduction to Quantum Theory 2026",
+      "org": null,
+      "description": null,
+      "startDate": "2026-09-07",
+      "time": null,
+      "category": "Physics",
+      "url": "https://www.eventbrite.com/cc/ri-autumn-2026-events-4856169"
+    },
+    {
+      "title": "The Ecosystem of Life Underground",
+      "org": null,
+      "description": null,
+      "startDate": "2026-09-07",
+      "time": null,
+      "category": "Science",
+      "url": "https://www.eventbrite.com/cc/ri-autumn-2026-events-4856169"
+    },
+    {
+      "title": "The IPG Toolkit: Reusable Tools Born from Rapid Development",
+      "org": "NOAA Library",
+      "description": "Free live NOAA Library seminar on reusable software tools for rapid development.",
+      "startDate": "2026-09-08",
+      "time": "3:00 PM ET",
+      "category": "science",
+      "url": "https://vimeo.com/event/6118275"
+    },
+    {
       "title": "Teen Environmental Council — Online Information Session",
       "org": "Vizcaya Museum and Gardens",
       "description": null,
@@ -55,6 +118,24 @@
       "time": null,
       "category": "Environment",
       "url": "https://vizcaya.org/es/events-tag/miami-business-networking-event-ages-21-40/"
+    },
+    {
+      "title": "Cello — In Search of a Voice",
+      "org": "Gresham College",
+      "description": "Free lecture tracing the stories of cellos and their players across history, from silencing to survival.",
+      "startDate": "2026-09-09",
+      "time": "22:00 Tashkent",
+      "category": "culture",
+      "url": "https://www.gresham.ac.uk/whats-on/cello-voice"
+    },
+    {
+      "title": "Webinar: RNLI Geospatial Tools for Risk Assessment",
+      "org": "Royal Geographical Society",
+      "description": "Free online webinar hearing from the RNLI geospatial team on tools developed to support risk assessment and decision-making.",
+      "startDate": "2026-09-09",
+      "time": null,
+      "category": "Science",
+      "url": "https://www.rgs.org/events/upcoming-events"
     },
     {
       "title": "Learning that Lasts: Meaningful STEM Experiences That Build Durable Skills",
@@ -75,6 +156,24 @@
       "url": "https://historycouncilnsw.wildapricot.org/widget/events?EventListViewMode=1&EventViewMode=1"
     },
     {
+      "title": "Age Well: Navigating Family Dynamics in Aging & Caregiving",
+      "org": "Road Scholar",
+      "description": "Free one-hour lecture and live Q&A about maintaining communication and support through aging and caregiving.",
+      "startDate": "2026-09-10",
+      "time": "2:00 PM ET",
+      "category": "health",
+      "url": "https://www.roadscholar.org/find-an-adventure/25277/Age-Well-Navigating-Family-Dynamics-in-Aging-Caregiving"
+    },
+    {
+      "title": "How to Become a Mentor for a Hollings Scholar",
+      "org": "NOAA Library",
+      "description": "Free live NOAA Library seminar on the benefits of mentoring and how to get started as a mentor for a NOAA Hollings scholar.",
+      "startDate": "2026-09-10",
+      "time": "3:00 PM ET",
+      "category": "science",
+      "url": "https://vimeo.com/event/6123535"
+    },
+    {
       "title": "General Meeting — September 2026",
       "org": "Orange County Astronomers",
       "description": null,
@@ -91,6 +190,15 @@
       "time": null,
       "category": "History / Archaeology",
       "url": "https://events.umich.edu/event/150450"
+    },
+    {
+      "title": "NOAA Drought Seminar Series",
+      "org": "NOAA Physical Sciences Laboratory",
+      "description": "Free live monthly seminar on drought monitoring, prediction, and predictability.",
+      "startDate": "2026-09-11",
+      "time": "1:00 PM ET",
+      "category": "science",
+      "url": "https://psl.noaa.gov/drought/seminarseries/"
     },
     {
       "title": "The Science of Star Trek — Online",
@@ -120,49 +228,76 @@
       "url": "https://www.iastate.edu/event/big-data-big-heat-big-decisions-designing-future-ai-infrastructure"
     },
     {
-      "title": "EIT Virtual Open Week 2026 (through 16 October 2026)",
-      "org": null,
-      "description": null,
-      "startDate": "2026-10-12",
-      "time": null,
-      "category": "Engineering",
-      "url": "https://www.eit.edu.au/event/eit-virtual-open-week-2026/"
+      "title": "The Sky at Night, Tonight: A New View of the Changing Sky",
+      "org": "Gresham College",
+      "description": "Free astronomy lecture on the Vera Rubin Observatory's deepest-ever survey of the sky, covering the latest discoveries.",
+      "startDate": "2026-09-14",
+      "time": "23:00 Tashkent",
+      "category": "science",
+      "url": "https://www.gresham.ac.uk/whats-on/sky-night"
     },
     {
-      "title": "Medical Physics and Biomedical Engineering Virtual Open Day (through 16 October 2026)",
-      "org": null,
-      "description": null,
-      "startDate": "2026-10-12",
-      "time": null,
-      "category": "Engineering",
-      "url": "https://www.ucl.ac.uk/engineering/events/2026/oct/engineering-undergraduate-open-series-medical-physics-and-biomedical-engineering-qa"
+      "title": "Online Lecture: Cosmovision of the Andean Civilization",
+      "org": "Road Scholar",
+      "description": "Free one-hour lecture and live Q&A exploring the ancient Andean cosmovision.",
+      "startDate": "2026-09-14",
+      "time": "3:00 PM ET",
+      "category": "history",
+      "url": "https://www.roadscholar.org/find-an-adventure/24262/Online-Lecture-Cosmovision-of-the-Andean-Civilization"
     },
     {
-      "title": "Biochemical Engineering Virtual Open Day",
-      "org": null,
-      "description": null,
-      "startDate": "2026-10-14",
-      "time": null,
-      "category": "Biochemistry",
-      "url": "https://www.ucl.ac.uk/engineering/events/2026/oct/engineering-undergraduate-open-series-biochemical-engineering-qa"
+      "title": "Ancient Andean Cosmovision",
+      "org": "Road Scholar",
+      "description": "Free one-hour lecture and live Q&A exploring Andean culture and cosmology.",
+      "startDate": "2026-09-15",
+      "time": "00:00 Tashkent",
+      "category": "culture",
+      "url": "https://www.roadscholar.org/collections/online-lectures/free/"
     },
     {
-      "title": "Discover Engineering: Engineer Your Future",
-      "org": null,
-      "description": null,
-      "startDate": "2026-10-15",
+      "title": "NIAC Symposium 2026 (through 17 September 2026)",
+      "org": "NASA",
+      "description": "Free public livestream of NASA's Innovative Advanced Concepts symposium, covering advanced propulsion, deep space exploration tech, and more.",
+      "startDate": "2026-09-15",
       "time": null,
-      "category": "Engineering",
-      "url": "https://www.monash.edu/news/events/discover-engineering-engineer-your-future"
+      "category": "Space",
+      "url": "https://www.nasa.gov/niac-symposium/"
     },
     {
-      "title": "Virtual Astro Live",
-      "org": null,
-      "description": null,
-      "startDate": "2026-10-18",
+      "title": "PACE Cloud Observation Challenge (through 15 October 2026)",
+      "org": "NASA",
+      "description": "Citizen-science challenge: help NASA scientists collect real cloud observations from your location to support the PACE satellite mission.",
+      "startDate": "2026-09-15",
       "time": null,
-      "category": "Space / Astronomy",
-      "url": "https://intrepidmuseum.org/astro-live-astronomy-night-events"
+      "category": "Science",
+      "url": "https://www.nasa.gov/learning-resources/for-students-grades-9-12/"
+    },
+    {
+      "title": "Webinar: Introducing the New Open Geography Portal",
+      "org": "Royal Geographical Society",
+      "description": "Free online webinar previewing the new Open Geography Portal from the ONS Geography team, with demos of key features and available datasets.",
+      "startDate": "2026-09-16",
+      "time": null,
+      "category": "Technology",
+      "url": "https://www.rgs.org/events/upcoming-events"
+    },
+    {
+      "title": "Age Well: The Missing Link — Nutrition, Hydration & Preventing Falls",
+      "org": "Road Scholar",
+      "description": "Free one-hour lecture and live Q&A about how proper nutrition connects to fall prevention.",
+      "startDate": "2026-09-17",
+      "time": "12:00 PM ET",
+      "category": "health",
+      "url": "https://www.roadscholar.org/find-an-adventure/31150/Age-Well-The-Missing-Link-Nutrition-Hydration-Preventing-Falls"
+    },
+    {
+      "title": "Explorer Classroom Wildlife Series 2026",
+      "org": "National Geographic Society",
+      "description": "Live 45-minute virtual classes connecting students with National Geographic Explorers studying wildlife around the world, hosted by shark scientist Gibbs Kuguru.",
+      "startDate": "2026-09-17",
+      "time": null,
+      "category": "Science",
+      "url": "https://education.nationalgeographic.org/event/Celebrate-Wildlife-26/"
     },
     {
       "title": "Virtual Equine College Fair",
@@ -210,114 +345,6 @@
       "url": "https://pages.algoed.co/uiuc-ewb/science-engineering-competition"
     },
     {
-      "title": "Civil, Environmental and Geomatic Engineering Virtual Open Day",
-      "org": null,
-      "description": null,
-      "startDate": "2026-10-20",
-      "time": null,
-      "category": "Engineering",
-      "url": "https://www.ucl.ac.uk/engineering/events/2026/oct/engineering-undergraduate-open-series-civil-environmental-and-geomatic-engineering-qa"
-    },
-    {
-      "title": "Improving Fisheries Projections Under Recruitment Non-Stationarity",
-      "org": "NOAA Library",
-      "description": "Free live seminar on an information hierarchy for environmental forecasts and changing productivity in fisheries science, part of NOAA's National Stock Assessment Science Seminar Series.",
-      "startDate": "2026-09-03",
-      "time": "3:00 PM ET",
-      "category": "science",
-      "url": "https://vimeo.com/event/6125301"
-    },
-    {
-      "title": "Why Do We Need Empathy?",
-      "org": "Gresham College",
-      "description": "Free lecture exploring empathy through theatre, visual art, literature and music, and the philosophy of Adam Smith, Iris Murdoch and Martha Nussbaum.",
-      "startDate": "2026-09-07",
-      "time": "22:00 Tashkent",
-      "category": "culture",
-      "url": "https://www.gresham.ac.uk/whats-on/why-empathy"
-    },
-    {
-      "title": "The IPG Toolkit: Reusable Tools Born from Rapid Development",
-      "org": "NOAA Library",
-      "description": "Free live NOAA Library seminar on reusable software tools for rapid development.",
-      "startDate": "2026-09-08",
-      "time": "3:00 PM ET",
-      "category": "science",
-      "url": "https://vimeo.com/event/6118275"
-    },
-    {
-      "title": "Cello — In Search of a Voice",
-      "org": "Gresham College",
-      "description": "Free lecture tracing the stories of cellos and their players across history, from silencing to survival.",
-      "startDate": "2026-09-09",
-      "time": "22:00 Tashkent",
-      "category": "culture",
-      "url": "https://www.gresham.ac.uk/whats-on/cello-voice"
-    },
-    {
-      "title": "Age Well: Navigating Family Dynamics in Aging & Caregiving",
-      "org": "Road Scholar",
-      "description": "Free one-hour lecture and live Q&A about maintaining communication and support through aging and caregiving.",
-      "startDate": "2026-09-10",
-      "time": "2:00 PM ET",
-      "category": "health",
-      "url": "https://www.roadscholar.org/find-an-adventure/25277/Age-Well-Navigating-Family-Dynamics-in-Aging-Caregiving"
-    },
-    {
-      "title": "How to Become a Mentor for a Hollings Scholar",
-      "org": "NOAA Library",
-      "description": "Free live NOAA Library seminar on the benefits of mentoring and how to get started as a mentor for a NOAA Hollings scholar.",
-      "startDate": "2026-09-10",
-      "time": "3:00 PM ET",
-      "category": "science",
-      "url": "https://vimeo.com/event/6123535"
-    },
-    {
-      "title": "NOAA Drought Seminar Series",
-      "org": "NOAA Physical Sciences Laboratory",
-      "description": "Free live monthly seminar on drought monitoring, prediction, and predictability.",
-      "startDate": "2026-09-11",
-      "time": "1:00 PM ET",
-      "category": "science",
-      "url": "https://psl.noaa.gov/drought/seminarseries/"
-    },
-    {
-      "title": "The Sky at Night, Tonight: A New View of the Changing Sky",
-      "org": "Gresham College",
-      "description": "Free astronomy lecture on the Vera Rubin Observatory's deepest-ever survey of the sky, covering the latest discoveries.",
-      "startDate": "2026-09-14",
-      "time": "23:00 Tashkent",
-      "category": "science",
-      "url": "https://www.gresham.ac.uk/whats-on/sky-night"
-    },
-    {
-      "title": "Online Lecture: Cosmovision of the Andean Civilization",
-      "org": "Road Scholar",
-      "description": "Free one-hour lecture and live Q&A exploring the ancient Andean cosmovision.",
-      "startDate": "2026-09-14",
-      "time": "3:00 PM ET",
-      "category": "history",
-      "url": "https://www.roadscholar.org/find-an-adventure/24262/Online-Lecture-Cosmovision-of-the-Andean-Civilization"
-    },
-    {
-      "title": "Ancient Andean Cosmovision",
-      "org": "Road Scholar",
-      "description": "Free one-hour lecture and live Q&A exploring Andean culture and cosmology.",
-      "startDate": "2026-09-15",
-      "time": "00:00 Tashkent",
-      "category": "culture",
-      "url": "https://www.roadscholar.org/collections/online-lectures/free/"
-    },
-    {
-      "title": "Age Well: The Missing Link — Nutrition, Hydration & Preventing Falls",
-      "org": "Road Scholar",
-      "description": "Free one-hour lecture and live Q&A about how proper nutrition connects to fall prevention.",
-      "startDate": "2026-09-17",
-      "time": "12:00 PM ET",
-      "category": "health",
-      "url": "https://www.roadscholar.org/find-an-adventure/31150/Age-Well-The-Missing-Link-Nutrition-Hydration-Preventing-Falls"
-    },
-    {
       "title": "International Observe the Moon Night",
       "org": "NASA",
       "description": "Global participatory event -- join observers worldwide learning about lunar science and making celestial observations.",
@@ -325,6 +352,15 @@
       "time": "Check event page for local times",
       "category": "science",
       "url": "https://science.nasa.gov/moon/observe-the-moon-night/"
+    },
+    {
+      "title": "Pathways to Science: Good Science, Good Decisions — Research Ethics in the Real World",
+      "org": "BC Children’s Hospital Research Institute",
+      "description": null,
+      "startDate": "2026-09-21",
+      "time": null,
+      "category": "Science / Medicine",
+      "url": "https://www.bcchr.ca/news-events/pathways-to-science/"
     },
     {
       "title": "The Future of Creativity",
@@ -354,69 +390,6 @@
       "url": "https://www.gresham.ac.uk/whats-on/carbon"
     },
     {
-      "title": "The Science of Brain Health",
-      "org": "Road Scholar",
-      "description": "Free one-hour lecture and live Q&A on proven ways to protect cognitive health.",
-      "startDate": "2026-10-15",
-      "time": "23:00 Tashkent",
-      "category": "science",
-      "url": "https://www.roadscholar.org/find-an-adventure/31152/Age-Well-The-Science-of-Brain-Health-Proven-Ways-to-Protect-Your-Mind"
-    },
-    {
-      "title": "Santa Muerte & The Day of the Dead",
-      "org": "Road Scholar",
-      "description": "Free one-hour lecture and live Q&A exploring the traditions of Santa Muerte and Dia de los Muertos in Mexican culture.",
-      "startDate": "2026-10-26",
-      "time": "23:00 Tashkent",
-      "category": "culture",
-      "url": "https://www.roadscholar.org/find-an-adventure/24526/Online-Lecture-Santa-Muerte-The-Day-of-the-Dead"
-    },
-    {
-      "title": "Florida's Gentle Giants: Protecting Manatees",
-      "org": "Road Scholar",
-      "description": "Free one-hour lecture and live Q&A on manatee conservation data and research.",
-      "startDate": "2026-11-09",
-      "time": "23:00 Tashkent",
-      "category": "environment",
-      "url": "https://www.roadscholar.org/find-an-adventure/31146/Online-Lecture-Florida-s-Gentle-Giants-Protecting-Manatees-Above-Below"
-    },
-    {
-      "title": "Polar Bears: King of the Arctic",
-      "org": "Road Scholar",
-      "description": "Free one-hour lecture and live Q&A on the polar bears of the Arctic region.",
-      "startDate": "2026-12-02",
-      "time": "23:00 Tashkent",
-      "category": "environment",
-      "url": "https://www.roadscholar.org/find-an-adventure/25076/Online-Lecture-Polar-Bears-King-of-the-Arctic"
-    },
-    {
-      "title": "Pathways to Science: Good Science, Good Decisions — Research Ethics in the Real World",
-      "org": "BC Children’s Hospital Research Institute",
-      "description": null,
-      "startDate": "2026-09-21",
-      "time": null,
-      "category": "Science / Medicine",
-      "url": "https://www.bcchr.ca/news-events/pathways-to-science/"
-    },
-    {
-      "title": "Computer Science Virtual Open Day",
-      "org": null,
-      "description": null,
-      "startDate": "2026-10-22",
-      "time": null,
-      "category": "Technology",
-      "url": "https://www.ucl.ac.uk/engineering/events/2026/oct/engineering-undergraduate-open-series-computer-science-qa"
-    },
-    {
-      "title": "IEEE STEM Summit (through 23 October 2026)",
-      "org": null,
-      "description": null,
-      "startDate": "2026-10-22",
-      "time": null,
-      "category": "Engineering",
-      "url": "https://stem-summit.tryengineering.org/"
-    },
-    {
       "title": "Autumn Chemistry Conference 2026 — Online",
       "org": null,
       "description": null,
@@ -442,6 +415,24 @@
       "time": null,
       "category": "Physics / Astronomy",
       "url": "https://engage.aps.org/fip/resources/activities/physics-matters"
+    },
+    {
+      "title": "The Hudson River School: America's Wilderness on Canvas",
+      "org": "Smithsonian Associates",
+      "description": "Online lecture on the Hudson River School painters (Thomas Cole, Frederic Church, and others) who celebrated America's wilderness as a source of beauty and national identity.",
+      "startDate": "2026-09-24",
+      "time": "6:30 PM ET",
+      "category": "Design",
+      "url": "https://smithsonianassociates.org/ticketing/online/"
+    },
+    {
+      "title": "Hollywood's 1950s \"Teen-ager\" Film Cycle",
+      "org": "Smithsonian Associates",
+      "description": "Online multimedia lecture by film historian Max Alvarez examining 1950s Hollywood films about disaffected postwar American youth.",
+      "startDate": "2026-09-24",
+      "time": "6:30 PM ET",
+      "category": "Media",
+      "url": "https://smithsonianassociates.org/ticketing/online/"
     },
     {
       "title": "Adventures in Astronomy: Approaching Infinity",
@@ -471,31 +462,112 @@
       "url": "https://icrgu.navitas.com/study/stem-academy/virtual-hackathon/"
     },
     {
-      "title": "Systems Engineering: The Evolution of Engineering",
+      "title": "EIT Virtual Open Week 2026 (through 16 October 2026)",
       "org": null,
       "description": null,
-      "startDate": "2026-09-07",
+      "startDate": "2026-10-12",
       "time": null,
       "category": "Engineering",
-      "url": "https://www.ect.ac.uk/event/systems-engineering-evolution-of-engineering/"
+      "url": "https://www.eit.edu.au/event/eit-virtual-open-week-2026/"
     },
     {
-      "title": "An Introduction to Quantum Theory 2026",
+      "title": "Medical Physics and Biomedical Engineering Virtual Open Day (through 16 October 2026)",
       "org": null,
       "description": null,
-      "startDate": "2026-09-07",
+      "startDate": "2026-10-12",
       "time": null,
-      "category": "Physics",
-      "url": "https://www.eventbrite.com/cc/ri-autumn-2026-events-4856169"
+      "category": "Engineering",
+      "url": "https://www.ucl.ac.uk/engineering/events/2026/oct/engineering-undergraduate-open-series-medical-physics-and-biomedical-engineering-qa"
     },
     {
-      "title": "The Ecosystem of Life Underground",
+      "title": "Biochemical Engineering Virtual Open Day",
       "org": null,
       "description": null,
-      "startDate": "2026-09-07",
+      "startDate": "2026-10-14",
       "time": null,
-      "category": "Science",
-      "url": "https://www.eventbrite.com/cc/ri-autumn-2026-events-4856169"
+      "category": "Biochemistry",
+      "url": "https://www.ucl.ac.uk/engineering/events/2026/oct/engineering-undergraduate-open-series-biochemical-engineering-qa"
+    },
+    {
+      "title": "Discover Engineering: Engineer Your Future",
+      "org": null,
+      "description": null,
+      "startDate": "2026-10-15",
+      "time": null,
+      "category": "Engineering",
+      "url": "https://www.monash.edu/news/events/discover-engineering-engineer-your-future"
+    },
+    {
+      "title": "The Science of Brain Health",
+      "org": "Road Scholar",
+      "description": "Free one-hour lecture and live Q&A on proven ways to protect cognitive health.",
+      "startDate": "2026-10-15",
+      "time": "23:00 Tashkent",
+      "category": "science",
+      "url": "https://www.roadscholar.org/find-an-adventure/31152/Age-Well-The-Science-of-Brain-Health-Proven-Ways-to-Protect-Your-Mind"
+    },
+    {
+      "title": "Virtual Astro Live",
+      "org": null,
+      "description": null,
+      "startDate": "2026-10-18",
+      "time": null,
+      "category": "Space / Astronomy",
+      "url": "https://intrepidmuseum.org/astro-live-astronomy-night-events"
+    },
+    {
+      "title": "Civil, Environmental and Geomatic Engineering Virtual Open Day",
+      "org": null,
+      "description": null,
+      "startDate": "2026-10-20",
+      "time": null,
+      "category": "Engineering",
+      "url": "https://www.ucl.ac.uk/engineering/events/2026/oct/engineering-undergraduate-open-series-civil-environmental-and-geomatic-engineering-qa"
+    },
+    {
+      "title": "Computer Science Virtual Open Day",
+      "org": null,
+      "description": null,
+      "startDate": "2026-10-22",
+      "time": null,
+      "category": "Technology",
+      "url": "https://www.ucl.ac.uk/engineering/events/2026/oct/engineering-undergraduate-open-series-computer-science-qa"
+    },
+    {
+      "title": "IEEE STEM Summit (through 23 October 2026)",
+      "org": null,
+      "description": null,
+      "startDate": "2026-10-22",
+      "time": null,
+      "category": "Engineering",
+      "url": "https://stem-summit.tryengineering.org/"
+    },
+    {
+      "title": "Santa Muerte & The Day of the Dead",
+      "org": "Road Scholar",
+      "description": "Free one-hour lecture and live Q&A exploring the traditions of Santa Muerte and Dia de los Muertos in Mexican culture.",
+      "startDate": "2026-10-26",
+      "time": "23:00 Tashkent",
+      "category": "culture",
+      "url": "https://www.roadscholar.org/find-an-adventure/24526/Online-Lecture-Santa-Muerte-The-Day-of-the-Dead"
+    },
+    {
+      "title": "Florida's Gentle Giants: Protecting Manatees",
+      "org": "Road Scholar",
+      "description": "Free one-hour lecture and live Q&A on manatee conservation data and research.",
+      "startDate": "2026-11-09",
+      "time": "23:00 Tashkent",
+      "category": "environment",
+      "url": "https://www.roadscholar.org/find-an-adventure/31146/Online-Lecture-Florida-s-Gentle-Giants-Protecting-Manatees-Above-Below"
+    },
+    {
+      "title": "Polar Bears: King of the Arctic",
+      "org": "Road Scholar",
+      "description": "Free one-hour lecture and live Q&A on the polar bears of the Arctic region.",
+      "startDate": "2026-12-02",
+      "time": "23:00 Tashkent",
+      "category": "environment",
+      "url": "https://www.roadscholar.org/find-an-adventure/25076/Online-Lecture-Polar-Bears-King-of-the-Arctic"
     }
   ],
   "perpetual": [
