@@ -245,6 +245,20 @@
     color:#FEFEFE;
     text-shadow:none;
   }
+  /* Fix: same white-icon-on-white-circle bug as Arsenal had, same root cause -
+     .search-icon-btn's own background is var(--card), which is near-white (#FBFBFD) in
+     light IHL too, and the header-wide white-text rule was making the icons white as
+     well. Never applied the Arsenal fix here the first time - doing it now. */
+  body.usertheme-ihl:not(.dark-mode) header .search-icon-btn,
+  body.usertheme-ihl:not(.dark-mode) header .search-icon-btn *{
+    color:#304EA0 !important;
+  }
+  /* All 16 domain tiles get an orange top-edge outline, same inset-stripe technique as
+     the Uzbekistan theme's blue one - explicit ask, uniform orange (not a color cycle
+     like Arsenal's domain tiles). */
+  body.usertheme-ihl:not(.dark-mode) .fac-tile{
+    box-shadow:inset 0 3px 0 0 #FF9E2C;
+  }
   /* Site title in the exact palette orange, plus two named tiles Mr Eric called out
      specifically (Full Archive, Read/listen/download books) - deliberate scoped
      exceptions to the "no painted tiles" rule, not a general tile-painting pass. */
@@ -423,6 +437,10 @@
   body.dark-mode.usertheme-dihl header *{
     color:#E4E8F2;
     text-shadow:none;
+  }
+  /* Same orange top-edge outline on all 16 domain tiles as light IHL. */
+  body.dark-mode.usertheme-dihl .fac-tile{
+    box-shadow:inset 0 3px 0 0 #FF9E2C;
   }
   body.dark-mode.usertheme-dihl .title{
     color:#FF9E2C !important;
@@ -3991,15 +4009,8 @@ const ARSENAL_FRIENDLY_RESULTS = [
 ];
 
 const ARSENAL_FIXTURES = [
-  { title:"Girona v Arsenal", venue:"(Away)", competition:"Pre-season Friendly", stadium:"Estadi Municipal de Montilivi", start:"2026-08-01T23:00:00+05:00" },
-  { title:"Arsenal v Real Betis", venue:"(Neutral)", competition:"Pre-season Friendly", stadium:"Aviva Stadium", start:"2026-08-05T23:30:00+05:00" },
-  { title:"Arsenal v Borussia Dortmund", venue:"(Home)", competition:"Pre-season Friendly", stadium:"Emirates Stadium", start:"2026-08-09T18:00:00+05:00" },
-  { title:"Arsenal v Como 1907", venue:"(Home)", competition:"Pre-season Friendly", stadium:"Emirates Stadium", start:"2026-08-12T23:30:00+05:00" },
-  { title:"Arsenal v Manchester City", venue:"(Neutral)", competition:"Pre-season Friendly", stadium:"Principality Stadium", start:"2026-08-16T19:00:00+05:00" },
-  { title:"Arsenal v Coventry City", venue:"(Home)", competition:"Premier League", stadium:"Emirates Stadium", start:"2026-08-22T00:00:00+05:00" },
-  { title:"Aston Villa v Arsenal", venue:"(Away)", competition:"Premier League", stadium:"Villa Park", start:"2026-09-01T00:00:00+05:00" },
-  { title:"Arsenal v Chelsea", venue:"(Home)", competition:"Premier League", stadium:"Emirates Stadium", start:"2026-09-05T19:00:00+05:00" },
-  { title:"Sunderland v Arsenal", venue:"(Away)", competition:"Premier League", stadium:"Stadium of Light", start:"2026-09-12T19:00:00+05:00" },
+  { title:"Arsenal v Chelsea", venue:"(Home)", competition:"Premier League", stadium:"Emirates Stadium", start:"2026-09-06T16:30:00+05:00" },
+  { title:"Sunderland v Arsenal", venue:"(Away)", competition:"Premier League", stadium:"Stadium of Light", start:"2026-09-13T19:00:00+05:00" },
   { title:"Brighton and Hove Albion v Arsenal", venue:"(Away)", competition:"Premier League", stadium:"American Express Stadium", start:"2026-09-19T19:00:00+05:00" },
   { title:"Arsenal v Leeds United", venue:"(Home)", competition:"Premier League", stadium:"Emirates Stadium", start:"2026-10-10T19:00:00+05:00" },
   { title:"Nottingham Forest v Arsenal", venue:"(Away)", competition:"Premier League", stadium:"The City Ground", start:"2026-10-17T19:00:00+05:00" },
@@ -4030,10 +4041,15 @@ const ARSENAL_FIXTURES = [
   { title:"Arsenal v Aston Villa", venue:"(Home)", competition:"Premier League", stadium:"Emirates Stadium", start:"2027-04-17T19:00:00+05:00" },
   { title:"Bournemouth v Arsenal", venue:"(Away)", competition:"Premier League", stadium:"Vitality Stadium", start:"2027-04-24T19:00:00+05:00" },
   { title:"Arsenal v Tottenham Hotspur", venue:"(Home)", competition:"Premier League", stadium:"Emirates Stadium", start:"2027-05-01T19:00:00+05:00" },
-  { title:"Leeds United v Arsenal", venue:"(Away)", competition:"Premier League", stadium:"Elland Road", start:"2027-05-08T19:00:00+05:00" },
-  { title:"Arsenal v Nottingham Forest", venue:"(Home)", competition:"Premier League", stadium:"Emirates Stadium", start:"2027-05-15T19:00:00+05:00" },
-  { title:"Everton v Arsenal", venue:"(Away)", competition:"Premier League", stadium:"Hill Dickinson Stadium", start:"2027-05-23T19:00:00+05:00" },
-  { title:"Arsenal v Brighton and Hove Albion", venue:"(Home)", competition:"Premier League", stadium:"Emirates Stadium", start:"2027-05-30T20:00:00+05:00" },
+  { title:"SSC Napoli v Arsenal", venue:"(Away)", competition:"UEFA Champions League", stadium:"Stadio Diego Armando Maradona", start:"2026-09-10T00:00:00+05:00" },
+  { title:"Arsenal v LOSC Lille", venue:"(Home)", competition:"UEFA Champions League", stadium:"Emirates Stadium", start:"2026-10-14T00:00:00+05:00" },
+  { title:"FC Bayern München v Arsenal", venue:"(Away)", competition:"UEFA Champions League", stadium:"Allianz Arena", start:"2026-10-22T01:00:00+05:00" },
+  { title:"Slavia Praha v Arsenal", venue:"(Away)", competition:"UEFA Champions League", stadium:"Sinobo Stadium", start:"2026-11-05T01:00:00+05:00" },
+  { title:"Arsenal v Borussia Dortmund", venue:"(Home)", competition:"UEFA Champions League", stadium:"Emirates Stadium", start:"2026-11-25T01:00:00+05:00" },
+  { title:"Arsenal v Real Madrid", venue:"(Home)", competition:"UEFA Champions League", stadium:"Emirates Stadium", start:"2026-12-10T01:00:00+05:00" },
+  { title:"Real Betis v Arsenal", venue:"(Away)", competition:"UEFA Champions League", stadium:"Estadio Benito Villamarín", start:"2027-01-20T01:00:00+05:00" },
+  { title:"Arsenal v Sabah FC", venue:"(Home)", competition:"UEFA Champions League", stadium:"Emirates Stadium", start:"2027-01-28T01:00:00+05:00" },
+  { title:"Ipswich Town v Arsenal", venue:"(Away)", competition:"Carabao Cup", stadium:"Portman Road", start:"2026-09-09T00:00:00+05:00" },
 ];
 // Set by loadLiveSportsData() once a real fetched fixture is available; takes priority over the
 // static list above (which stays as a fallback for when the API is unreachable or not yet loaded).
