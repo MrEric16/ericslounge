@@ -1,24 +1,11 @@
 [goal-scraper] Run started.
 [goal-scraper] [PL] Found 9 finished-match links
-[goal-scraper] WARNING: Manchester United scored 5 but only 3 scorer(s) were parsed for https://www.goal.com/en/match/manchester-united-vs-ipswich-town/pu1IzTVfAH228nWDQidIU
-[goal-scraper] [PL] SCORER PARSE FAILED 3 times, giving up and committing WITH INCOMPLETE SCORER DATA (page structure likely changed) for Manchester United 5-2 Ipswich Town: https://www.goal.com/en/match/manchester-united-vs-ipswich-town/pu1IzTVfAH228nWDQidIU
-[goal-scraper] [PL] Added: Manchester United 5-2 Ipswich Town
 [goal-scraper] [PD] Found 8 finished-match links
-[goal-scraper] [PD] Added: Celta Vigo 0-2 Athletic Bilbao
-[goal-scraper] [BL1] Found 9 finished-match links
-[goal-scraper] WARNING: Freiburg scored 4 but only 2 scorer(s) were parsed for https://www.goal.com/en/match/freiburg-vs-werder-bremen/JTUp7FmFUWQM7yO-SMtLt
-[goal-scraper] [BL1] SCORER PARSE FAILED 3 times, giving up and committing WITH INCOMPLETE SCORER DATA (page structure likely changed) for Freiburg 4-1 Werder Bremen: https://www.goal.com/en/match/freiburg-vs-werder-bremen/JTUp7FmFUWQM7yO-SMtLt
-[goal-scraper] [BL1] Added: Freiburg 4-1 Werder Bremen
+[goal-scraper] [BL1] Found 0 finished-match links
 [goal-scraper] [SA] Found 8 finished-match links
-[goal-scraper] [FL1] Found 9 finished-match links
-[goal-scraper] WARNING: Rennes scored 3 but only 2 scorer(s) were parsed for https://www.goal.com/en/match/rennes-vs-le-mans/mW5i5N3qwUVpjiLsGTCDy
-[goal-scraper] WARNING: Le Mans scored 2 but only 1 scorer(s) were parsed for https://www.goal.com/en/match/rennes-vs-le-mans/mW5i5N3qwUVpjiLsGTCDy
-[goal-scraper] [FL1] SCORER PARSE FAILED 3 times, giving up and committing WITH INCOMPLETE SCORER DATA (page structure likely changed) for Rennes 3-2 Le Mans: https://www.goal.com/en/match/rennes-vs-le-mans/mW5i5N3qwUVpjiLsGTCDy
-[goal-scraper] [FL1] Added: Rennes 3-2 Le Mans
-[goal-scraper] WARNING: Monaco scored 2 but only 1 scorer(s) were parsed for https://www.goal.com/en/match/monaco-vs-marseille/o_QlMszaNoxjSs5L9TLym
-[goal-scraper] [FL1] SCORER PARSE FAILED (attempt 2/3) for Monaco 2-0 Marseille -- NOT committing, will retry next run: https://www.goal.com/en/match/monaco-vs-marseille/o_QlMszaNoxjSs5L9TLym
+[goal-scraper] [FL1] Found 0 finished-match links
 [goal-scraper] [CL] Found 0 finished-match links
 [goal-scraper] [arsenal-friendlies] Found 1 finished-match links
-[goal-scraper] TOTAL new results added this run: 4
+[goal-scraper] TOTAL new results added this run: 0
 [goal-scraper] Matches still awaiting a clean scorer parse (not yet committed): ['https://www.goal.com/en/match/monaco-vs-marseille/o_QlMszaNoxjSs5L9TLym']
 [goal-scraper] Wrote data/goal-results.json
