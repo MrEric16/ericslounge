@@ -220,6 +220,15 @@
     --coral:#E08A3E; --coral-dark:#B0621F; --gold:#9C6BA8; --teal:#4E7C6E; --line:#EDD8AC;
     --board-bg:rgba(80,55,20,.62);
   }
+  /* Arsenal - Mr Eric's own pick, real crest colors he supplied (red #ec0024, crimson
+     #ce0041, navy #113476, gold #99824c, off-white #fefefe), same light-theme pattern as
+     l1-l5 above: an ordinary selectable swatch, no forcing, not the default, nothing
+     National-Day-style special-cased about it. */
+  body.usertheme-arsenal:not(.dark-mode){
+    --cream:#F5F3EF; --cream-2:#EDE7DC; --card:#FEFEFE;
+    --coral:#EC0024; --coral-dark:#CE0041; --gold:#99824C; --teal:#113476; --line:#E4DED0;
+    --board-bg:rgba(17,52,118,.62);
+  }
 
   body.dark-mode.usertheme-d1{
     --cream:#1B1512; --cream-2:#271E18; --card:#3A2C22; --ink:#F0E3D2; --ink-soft:#C2A98C;
@@ -22927,7 +22936,7 @@ const COMPLIMENTS = [
     // window) per Mr Eric - it's a real palette option forever, cyclable/pickable any
     // time. The window end (2 Sept 18:00 Tashkent) only controls the one-time default
     // reset below, not availability.
-    const base = ['default','nationalday','l1','l2','l3','l4','l5','d1','d2','d3','d4','d5'];
+    const base = ['default','nationalday','l1','l2','l3','l4','l5','arsenal','d1','d2','d3','d4','d5'];
     return base;
   }
   let THEME_ORDER = buildThemeOrder();
@@ -22936,7 +22945,7 @@ const COMPLIMENTS = [
     const persist = !opts || opts.persist !== false;
     const isDark = key !== 'default' && key !== 'nationalday' && key.charAt(0) === 'd';
     document.body.classList.toggle('dark-mode', isDark);
-    ['l1','l2','l3','l4','l5','d1','d2','d3','d4','d5'].forEach(k => document.body.classList.remove('usertheme-' + k));
+    ['l1','l2','l3','l4','l5','arsenal','d1','d2','d3','d4','d5'].forEach(k => document.body.classList.remove('usertheme-' + k));
     document.body.classList.remove('theme-nationalday');
     if(key === 'nationalday'){
       document.body.classList.add('theme-nationalday');
@@ -23035,6 +23044,7 @@ const COMPLIMENTS = [
     { key:'l3', label:'Light 3', c1:'#B5647A', c2:'#D6885E' },
     { key:'l4', label:'Light 4', c1:'#6B8A4A', c2:'#4E9CA8' },
     { key:'l5', label:'Light 5', c1:'#E08A3E', c2:'#9C6BA8' },
+    { key:'arsenal', label:'Arsenal', c1:'#EC0024', c2:'#99824C' },
     { key:'d1', label:'Dark 1', c1:'#CC9142', c2:'#D6C171' },
     { key:'d2', label:'Dark 2', c1:'#8F6BB5', c2:'#6FB8A0' },
     { key:'d3', label:'Dark 3', c1:'#C06B3E', c2:'#9FD671' },
