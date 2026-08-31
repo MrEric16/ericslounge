@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-31T17:09:14.348896Z",
+  "generatedAt": "2026-08-31T21:57:48.468820Z",
   "results": [
     {
       "url": "https://www.goal.com/en/match/girona-vs-arsenal/__LS8d9Oc6I1wXn9g8956",
@@ -2421,9 +2421,65 @@
         }
       ],
       "competition": "FL1"
+    },
+    {
+      "url": "https://www.goal.com/en/match/aston-villa-vs-arsenal/NpwExG9dqIXsQwKqmwGTu",
+      "date": "2026-08-31",
+      "home": "Aston Villa",
+      "away": "Arsenal",
+      "htHome": 0,
+      "htAway": 0,
+      "ftHome": 0,
+      "ftAway": 1,
+      "homeGoals": [],
+      "awayGoals": [
+        {
+          "scorer": "B. Saka",
+          "minute": 59
+        }
+      ],
+      "competition": "PL"
+    },
+    {
+      "url": "https://www.goal.com/en/match/osasuna-vs-getafe/wBIPXrEuxFfIwfQNkHeHO",
+      "date": "2026-08-31",
+      "home": "Osasuna",
+      "away": "Getafe",
+      "htHome": 1,
+      "htAway": 0,
+      "ftHome": 1,
+      "ftAway": 0,
+      "homeGoals": [
+        {
+          "scorer": "A. Budimir",
+          "minute": 45
+        }
+      ],
+      "awayGoals": [],
+      "competition": "PD"
+    },
+    {
+      "url": "https://www.goal.com/en/match/atalanta-vs-bologna/nWUt4qi5F_PIoMGkcTclR",
+      "date": "2026-08-31",
+      "home": "Atalanta",
+      "away": "Bologna",
+      "htHome": 0,
+      "htAway": 0,
+      "ftHome": 1,
+      "ftAway": 0,
+      "homeGoals": [
+        {
+          "scorer": "L. Samardzic",
+          "minute": 90
+        }
+      ],
+      "awayGoals": [],
+      "competition": "SA"
     }
   ],
   "scorerParseRetryCounts": {
-    "https://www.goal.com/en/match/monaco-vs-marseille/o_QlMszaNoxjSs5L9TLym": 2
+    "https://www.goal.com/en/match/monaco-vs-marseille/o_QlMszaNoxjSs5L9TLym": 2,
+    "https://www.goal.com/en/match/barcelona-vs-rayo-vallecano/WYyZot_4M5sWl5vpAePKz": 1,
+    "https://www.goal.com/en/match/lecce-vs-roma/tW1qvyr9_Qo8wjo8JeDaG": 1
   }
 }
