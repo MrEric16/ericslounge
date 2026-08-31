@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-31T14:48:20.317309Z",
+  "generatedAt": "2026-08-31T20:37:44.614043Z",
   "standings": {
     "PL": [
       {
@@ -10,6 +10,16 @@
         "l": 0,
         "gf": 6,
         "ga": 2,
+        "pts": 6
+      },
+      {
+        "name": "Arsenal",
+        "pld": 2,
+        "w": 2,
+        "d": 0,
+        "l": 0,
+        "gf": 4,
+        "ga": 0,
         "pts": 6
       },
       {
@@ -83,16 +93,6 @@
         "pts": 3
       },
       {
-        "name": "Arsenal",
-        "pld": 1,
-        "w": 1,
-        "d": 0,
-        "l": 0,
-        "gf": 3,
-        "ga": 0,
-        "pts": 3
-      },
-      {
         "name": "Man United",
         "pld": 2,
         "w": 1,
@@ -163,16 +163,6 @@
         "pts": 0
       },
       {
-        "name": "Aston Villa",
-        "pld": 1,
-        "w": 0,
-        "d": 0,
-        "l": 1,
-        "gf": 0,
-        "ga": 4,
-        "pts": 0
-      },
-      {
         "name": "Coventry City",
         "pld": 2,
         "w": 0,
@@ -190,6 +180,16 @@
         "l": 2,
         "gf": 1,
         "ga": 6,
+        "pts": 0
+      },
+      {
+        "name": "Aston Villa",
+        "pld": 2,
+        "w": 0,
+        "d": 0,
+        "l": 2,
+        "gf": 0,
+        "ga": 5,
         "pts": 0
       },
       {
@@ -215,6 +215,16 @@
         "pts": 9
       },
       {
+        "name": "Barça",
+        "pld": 3,
+        "w": 3,
+        "d": 0,
+        "l": 0,
+        "gf": 9,
+        "ga": 1,
+        "pts": 9
+      },
+      {
         "name": "Atleti",
         "pld": 3,
         "w": 2,
@@ -235,14 +245,14 @@
         "pts": 7
       },
       {
-        "name": "Barça",
-        "pld": 2,
+        "name": "Osasuna",
+        "pld": 3,
         "w": 2,
-        "d": 0,
+        "d": 1,
         "l": 0,
-        "gf": 7,
-        "ga": 0,
-        "pts": 6
+        "gf": 3,
+        "ga": 1,
+        "pts": 7
       },
       {
         "name": "Sevilla FC",
@@ -273,16 +283,6 @@
         "gf": 5,
         "ga": 3,
         "pts": 5
-      },
-      {
-        "name": "Osasuna",
-        "pld": 2,
-        "w": 1,
-        "d": 1,
-        "l": 0,
-        "gf": 2,
-        "ga": 1,
-        "pts": 4
       },
       {
         "name": "Levante",
@@ -325,16 +325,6 @@
         "pts": 3
       },
       {
-        "name": "Getafe",
-        "pld": 2,
-        "w": 1,
-        "d": 0,
-        "l": 1,
-        "gf": 1,
-        "ga": 3,
-        "pts": 3
-      },
-      {
         "name": "Real Sociedad",
         "pld": 3,
         "w": 1,
@@ -342,6 +332,16 @@
         "l": 2,
         "gf": 3,
         "ga": 6,
+        "pts": 3
+      },
+      {
+        "name": "Getafe",
+        "pld": 3,
+        "w": 1,
+        "d": 0,
+        "l": 2,
+        "gf": 1,
+        "ga": 4,
         "pts": 3
       },
       {
@@ -356,12 +356,12 @@
       },
       {
         "name": "Rayo Vallecano",
-        "pld": 2,
+        "pld": 3,
         "w": 0,
         "d": 1,
-        "l": 1,
-        "gf": 2,
-        "ga": 3,
+        "l": 2,
+        "gf": 3,
+        "ga": 5,
         "pts": 1
       },
       {
@@ -589,6 +589,16 @@
     ],
     "SA": [
       {
+        "name": "Roma",
+        "pld": 2,
+        "w": 2,
+        "d": 0,
+        "l": 0,
+        "gf": 8,
+        "ga": 0,
+        "pts": 6
+      },
+      {
         "name": "Inter",
         "pld": 2,
         "w": 2,
@@ -649,14 +659,14 @@
         "pts": 4
       },
       {
-        "name": "Roma",
-        "pld": 1,
+        "name": "Atalanta",
+        "pld": 2,
         "w": 1,
-        "d": 0,
+        "d": 1,
         "l": 0,
-        "gf": 4,
-        "ga": 0,
-        "pts": 3
+        "gf": 2,
+        "ga": 1,
+        "pts": 4
       },
       {
         "name": "Frosinone",
@@ -669,16 +679,6 @@
         "pts": 3
       },
       {
-        "name": "Lecce",
-        "pld": 1,
-        "w": 1,
-        "d": 0,
-        "l": 0,
-        "gf": 2,
-        "ga": 0,
-        "pts": 3
-      },
-      {
         "name": "Napoli",
         "pld": 2,
         "w": 1,
@@ -686,16 +686,6 @@
         "l": 1,
         "gf": 3,
         "ga": 2,
-        "pts": 3
-      },
-      {
-        "name": "Atalanta",
-        "pld": 1,
-        "w": 1,
-        "d": 0,
-        "l": 0,
-        "gf": 2,
-        "ga": 1,
         "pts": 3
       },
       {
@@ -719,14 +709,24 @@
         "pts": 3
       },
       {
-        "name": "Bologna",
-        "pld": 1,
-        "w": 0,
+        "name": "Lecce",
+        "pld": 2,
+        "w": 1,
         "d": 0,
+        "l": 1,
+        "gf": 2,
+        "ga": 4,
+        "pts": 3
+      },
+      {
+        "name": "Bologna",
+        "pld": 2,
+        "w": 0,
+        "d": 1,
         "l": 1,
         "gf": 0,
         "ga": 1,
-        "pts": 0
+        "pts": 1
       },
       {
         "name": "Torino",
@@ -976,18 +976,297 @@
     "PL": {
       "fixtures": [
         {
-          "utcDate": "2026-08-31T19:00:00Z",
+          "utcDate": "2026-09-04T19:00:00Z",
           "status": "TIMED",
-          "matchday": 2,
+          "matchday": 3,
           "homeTeam": {
+            "id": 349,
+            "name": "Ipswich Town FC",
+            "shortName": "Ipswich Town"
+          },
+          "awayTeam": {
+            "id": 64,
+            "name": "Liverpool FC",
+            "shortName": "Liverpool"
+          },
+          "score": {
+            "winner": null,
+            "duration": "REGULAR",
+            "fullTime": {
+              "home": null,
+              "away": null
+            },
+            "halfTime": {
+              "home": null,
+              "away": null
+            }
+          },
+          "competition": {
+            "name": "Premier League"
+          },
+          "venue": null
+        },
+        {
+          "utcDate": "2026-09-05T11:30:00Z",
+          "status": "TIMED",
+          "matchday": 3,
+          "homeTeam": {
+            "id": 67,
+            "name": "Newcastle United FC",
+            "shortName": "Newcastle"
+          },
+          "awayTeam": {
+            "id": 1044,
+            "name": "AFC Bournemouth",
+            "shortName": "Bournemouth"
+          },
+          "score": {
+            "winner": null,
+            "duration": "REGULAR",
+            "fullTime": {
+              "home": null,
+              "away": null
+            },
+            "halfTime": {
+              "home": null,
+              "away": null
+            }
+          },
+          "competition": {
+            "name": "Premier League"
+          },
+          "venue": null
+        },
+        {
+          "utcDate": "2026-09-05T14:00:00Z",
+          "status": "TIMED",
+          "matchday": 3,
+          "homeTeam": {
+            "id": 351,
+            "name": "Nottingham Forest FC",
+            "shortName": "Nottingham"
+          },
+          "awayTeam": {
+            "id": 73,
+            "name": "Tottenham Hotspur FC",
+            "shortName": "Tottenham"
+          },
+          "score": {
+            "winner": null,
+            "duration": "REGULAR",
+            "fullTime": {
+              "home": null,
+              "away": null
+            },
+            "halfTime": {
+              "home": null,
+              "away": null
+            }
+          },
+          "competition": {
+            "name": "Premier League"
+          },
+          "venue": null
+        },
+        {
+          "utcDate": "2026-09-05T14:00:00Z",
+          "status": "TIMED",
+          "matchday": 3,
+          "homeTeam": {
+            "id": 65,
+            "name": "Manchester City FC",
+            "shortName": "Man City"
+          },
+          "awayTeam": {
+            "id": 1076,
+            "name": "Coventry City FC",
+            "shortName": "Coventry City"
+          },
+          "score": {
+            "winner": null,
+            "duration": "REGULAR",
+            "fullTime": {
+              "home": null,
+              "away": null
+            },
+            "halfTime": {
+              "home": null,
+              "away": null
+            }
+          },
+          "competition": {
+            "name": "Premier League"
+          },
+          "venue": null
+        },
+        {
+          "utcDate": "2026-09-05T14:00:00Z",
+          "status": "TIMED",
+          "matchday": 3,
+          "homeTeam": {
+            "id": 397,
+            "name": "Brighton & Hove Albion FC",
+            "shortName": "Brighton Hove"
+          },
+          "awayTeam": {
+            "id": 341,
+            "name": "Leeds United FC",
+            "shortName": "Leeds United"
+          },
+          "score": {
+            "winner": null,
+            "duration": "REGULAR",
+            "fullTime": {
+              "home": null,
+              "away": null
+            },
+            "halfTime": {
+              "home": null,
+              "away": null
+            }
+          },
+          "competition": {
+            "name": "Premier League"
+          },
+          "venue": null
+        },
+        {
+          "utcDate": "2026-09-05T14:00:00Z",
+          "status": "TIMED",
+          "matchday": 3,
+          "homeTeam": {
+            "id": 402,
+            "name": "Brentford FC",
+            "shortName": "Brentford"
+          },
+          "awayTeam": {
+            "id": 71,
+            "name": "Sunderland AFC",
+            "shortName": "Sunderland"
+          },
+          "score": {
+            "winner": null,
+            "duration": "REGULAR",
+            "fullTime": {
+              "home": null,
+              "away": null
+            },
+            "halfTime": {
+              "home": null,
+              "away": null
+            }
+          },
+          "competition": {
+            "name": "Premier League"
+          },
+          "venue": null
+        },
+        {
+          "utcDate": "2026-09-05T14:00:00Z",
+          "status": "TIMED",
+          "matchday": 3,
+          "homeTeam": {
+            "id": 63,
+            "name": "Fulham FC",
+            "shortName": "Fulham"
+          },
+          "awayTeam": {
+            "id": 354,
+            "name": "Crystal Palace FC",
+            "shortName": "Crystal Palace"
+          },
+          "score": {
+            "winner": null,
+            "duration": "REGULAR",
+            "fullTime": {
+              "home": null,
+              "away": null
+            },
+            "halfTime": {
+              "home": null,
+              "away": null
+            }
+          },
+          "competition": {
+            "name": "Premier League"
+          },
+          "venue": null
+        },
+        {
+          "utcDate": "2026-09-05T16:30:00Z",
+          "status": "TIMED",
+          "matchday": 3,
+          "homeTeam": {
+            "id": 322,
+            "name": "Hull City AFC",
+            "shortName": "Hull City"
+          },
+          "awayTeam": {
             "id": 58,
             "name": "Aston Villa FC",
             "shortName": "Aston Villa"
           },
+          "score": {
+            "winner": null,
+            "duration": "REGULAR",
+            "fullTime": {
+              "home": null,
+              "away": null
+            },
+            "halfTime": {
+              "home": null,
+              "away": null
+            }
+          },
+          "competition": {
+            "name": "Premier League"
+          },
+          "venue": null
+        },
+        {
+          "utcDate": "2026-09-06T13:00:00Z",
+          "status": "TIMED",
+          "matchday": 3,
+          "homeTeam": {
+            "id": 62,
+            "name": "Everton FC",
+            "shortName": "Everton"
+          },
           "awayTeam": {
+            "id": 66,
+            "name": "Manchester United FC",
+            "shortName": "Man United"
+          },
+          "score": {
+            "winner": null,
+            "duration": "REGULAR",
+            "fullTime": {
+              "home": null,
+              "away": null
+            },
+            "halfTime": {
+              "home": null,
+              "away": null
+            }
+          },
+          "competition": {
+            "name": "Premier League"
+          },
+          "venue": null
+        },
+        {
+          "utcDate": "2026-09-06T15:30:00Z",
+          "status": "TIMED",
+          "matchday": 3,
+          "homeTeam": {
             "id": 57,
             "name": "Arsenal FC",
             "shortName": "Arsenal"
+          },
+          "awayTeam": {
+            "id": 61,
+            "name": "Chelsea FC",
+            "shortName": "Chelsea"
           },
           "score": {
             "winner": null,
@@ -1507,10 +1786,12 @@
             "name": "Primera Division"
           },
           "venue": null
-        },
+        }
+      ],
+      "results": [
         {
           "utcDate": "2026-08-31T17:30:00Z",
-          "status": "TIMED",
+          "status": "FINISHED",
           "matchday": 3,
           "homeTeam": {
             "id": 79,
@@ -1523,15 +1804,15 @@
             "shortName": "Getafe"
           },
           "score": {
-            "winner": null,
+            "winner": "HOME_TEAM",
             "duration": "REGULAR",
             "fullTime": {
-              "home": null,
-              "away": null
+              "home": 1,
+              "away": 0
             },
             "halfTime": {
-              "home": null,
-              "away": null
+              "home": 1,
+              "away": 0
             }
           },
           "competition": {
@@ -1539,39 +1820,6 @@
           },
           "venue": null
         },
-        {
-          "utcDate": "2026-08-31T19:30:00Z",
-          "status": "TIMED",
-          "matchday": 3,
-          "homeTeam": {
-            "id": 81,
-            "name": "FC Barcelona",
-            "shortName": "Barça"
-          },
-          "awayTeam": {
-            "id": 87,
-            "name": "Rayo Vallecano de Madrid",
-            "shortName": "Rayo Vallecano"
-          },
-          "score": {
-            "winner": null,
-            "duration": "REGULAR",
-            "fullTime": {
-              "home": null,
-              "away": null
-            },
-            "halfTime": {
-              "home": null,
-              "away": null
-            }
-          },
-          "competition": {
-            "name": "Primera Division"
-          },
-          "venue": null
-        }
-      ],
-      "results": [
         {
           "utcDate": "2026-08-30T15:00:00Z",
           "status": "FINISHED",
@@ -1995,37 +2243,6 @@
             "fullTime": {
               "home": 1,
               "away": 0
-            },
-            "halfTime": {
-              "home": 0,
-              "away": 0
-            }
-          },
-          "competition": {
-            "name": "Primera Division"
-          },
-          "venue": null
-        },
-        {
-          "utcDate": "2026-08-23T15:00:00Z",
-          "status": "FINISHED",
-          "matchday": 2,
-          "homeTeam": {
-            "id": 78,
-            "name": "Club Atlético de Madrid",
-            "shortName": "Atleti"
-          },
-          "awayTeam": {
-            "id": 94,
-            "name": "Villarreal CF",
-            "shortName": "Villarreal"
-          },
-          "score": {
-            "winner": "DRAW",
-            "duration": "REGULAR",
-            "fullTime": {
-              "home": 2,
-              "away": 2
             },
             "halfTime": {
               "home": 0,
@@ -2606,18 +2823,18 @@
     "SA": {
       "fixtures": [
         {
-          "utcDate": "2026-08-31T16:30:00Z",
+          "utcDate": "2026-09-04T18:45:00Z",
           "status": "TIMED",
-          "matchday": 2,
+          "matchday": 3,
           "homeTeam": {
-            "id": 5890,
-            "name": "US Lecce",
-            "shortName": "Lecce"
+            "id": 107,
+            "name": "Genoa CFC",
+            "shortName": "Genoa"
           },
           "awayTeam": {
-            "id": 100,
-            "name": "AS Roma",
-            "shortName": "Roma"
+            "id": 7397,
+            "name": "Como 1907",
+            "shortName": "Como 1907"
           },
           "score": {
             "winner": null,
@@ -2637,18 +2854,266 @@
           "venue": null
         },
         {
-          "utcDate": "2026-08-31T18:45:00Z",
+          "utcDate": "2026-09-05T13:00:00Z",
           "status": "TIMED",
-          "matchday": 2,
+          "matchday": 3,
           "homeTeam": {
+            "id": 99,
+            "name": "ACF Fiorentina",
+            "shortName": "Fiorentina"
+          },
+          "awayTeam": {
+            "id": 586,
+            "name": "Torino FC",
+            "shortName": "Torino"
+          },
+          "score": {
+            "winner": null,
+            "duration": "REGULAR",
+            "fullTime": {
+              "home": null,
+              "away": null
+            },
+            "halfTime": {
+              "home": null,
+              "away": null
+            }
+          },
+          "competition": {
+            "name": "Serie A"
+          },
+          "venue": null
+        },
+        {
+          "utcDate": "2026-09-05T16:00:00Z",
+          "status": "TIMED",
+          "matchday": 3,
+          "homeTeam": {
+            "id": 108,
+            "name": "FC Internazionale Milano",
+            "shortName": "Inter"
+          },
+          "awayTeam": {
+            "id": 113,
+            "name": "SSC Napoli",
+            "shortName": "Napoli"
+          },
+          "score": {
+            "winner": null,
+            "duration": "REGULAR",
+            "fullTime": {
+              "home": null,
+              "away": null
+            },
+            "halfTime": {
+              "home": null,
+              "away": null
+            }
+          },
+          "competition": {
+            "name": "Serie A"
+          },
+          "venue": null
+        },
+        {
+          "utcDate": "2026-09-05T18:45:00Z",
+          "status": "TIMED",
+          "matchday": 3,
+          "homeTeam": {
+            "id": 100,
+            "name": "AS Roma",
+            "shortName": "Roma"
+          },
+          "awayTeam": {
             "id": 102,
             "name": "Atalanta BC",
             "shortName": "Atalanta"
           },
+          "score": {
+            "winner": null,
+            "duration": "REGULAR",
+            "fullTime": {
+              "home": null,
+              "away": null
+            },
+            "halfTime": {
+              "home": null,
+              "away": null
+            }
+          },
+          "competition": {
+            "name": "Serie A"
+          },
+          "venue": null
+        },
+        {
+          "utcDate": "2026-09-06T13:00:00Z",
+          "status": "TIMED",
+          "matchday": 3,
+          "homeTeam": {
+            "id": 112,
+            "name": "Parma Calcio 1913",
+            "shortName": "Parma"
+          },
           "awayTeam": {
+            "id": 5911,
+            "name": "AC Monza",
+            "shortName": "Monza"
+          },
+          "score": {
+            "winner": null,
+            "duration": "REGULAR",
+            "fullTime": {
+              "home": null,
+              "away": null
+            },
+            "halfTime": {
+              "home": null,
+              "away": null
+            }
+          },
+          "competition": {
+            "name": "Serie A"
+          },
+          "venue": null
+        },
+        {
+          "utcDate": "2026-09-06T13:00:00Z",
+          "status": "TIMED",
+          "matchday": 3,
+          "homeTeam": {
+            "id": 470,
+            "name": "Frosinone Calcio",
+            "shortName": "Frosinone"
+          },
+          "awayTeam": {
+            "id": 454,
+            "name": "Venezia FC",
+            "shortName": "Venezia FC"
+          },
+          "score": {
+            "winner": null,
+            "duration": "REGULAR",
+            "fullTime": {
+              "home": null,
+              "away": null
+            },
+            "halfTime": {
+              "home": null,
+              "away": null
+            }
+          },
+          "competition": {
+            "name": "Serie A"
+          },
+          "venue": null
+        },
+        {
+          "utcDate": "2026-09-06T16:00:00Z",
+          "status": "TIMED",
+          "matchday": 3,
+          "homeTeam": {
             "id": 103,
             "name": "Bologna FC 1909",
             "shortName": "Bologna"
+          },
+          "awayTeam": {
+            "id": 471,
+            "name": "US Sassuolo Calcio",
+            "shortName": "Sassuolo"
+          },
+          "score": {
+            "winner": null,
+            "duration": "REGULAR",
+            "fullTime": {
+              "home": null,
+              "away": null
+            },
+            "halfTime": {
+              "home": null,
+              "away": null
+            }
+          },
+          "competition": {
+            "name": "Serie A"
+          },
+          "venue": null
+        },
+        {
+          "utcDate": "2026-09-06T18:45:00Z",
+          "status": "TIMED",
+          "matchday": 3,
+          "homeTeam": {
+            "id": 109,
+            "name": "Juventus FC",
+            "shortName": "Juventus"
+          },
+          "awayTeam": {
+            "id": 98,
+            "name": "AC Milan",
+            "shortName": "Milan"
+          },
+          "score": {
+            "winner": null,
+            "duration": "REGULAR",
+            "fullTime": {
+              "home": null,
+              "away": null
+            },
+            "halfTime": {
+              "home": null,
+              "away": null
+            }
+          },
+          "competition": {
+            "name": "Serie A"
+          },
+          "venue": null
+        },
+        {
+          "utcDate": "2026-09-07T16:30:00Z",
+          "status": "TIMED",
+          "matchday": 3,
+          "homeTeam": {
+            "id": 104,
+            "name": "Cagliari Calcio",
+            "shortName": "Cagliari"
+          },
+          "awayTeam": {
+            "id": 5890,
+            "name": "US Lecce",
+            "shortName": "Lecce"
+          },
+          "score": {
+            "winner": null,
+            "duration": "REGULAR",
+            "fullTime": {
+              "home": null,
+              "away": null
+            },
+            "halfTime": {
+              "home": null,
+              "away": null
+            }
+          },
+          "competition": {
+            "name": "Serie A"
+          },
+          "venue": null
+        },
+        {
+          "utcDate": "2026-09-07T18:45:00Z",
+          "status": "TIMED",
+          "matchday": 3,
+          "homeTeam": {
+            "id": 115,
+            "name": "Udinese Calcio",
+            "shortName": "Udinese"
+          },
+          "awayTeam": {
+            "id": 110,
+            "name": "SS Lazio",
+            "shortName": "Lazio"
           },
           "score": {
             "winner": null,
@@ -2669,6 +3134,37 @@
         }
       ],
       "results": [
+        {
+          "utcDate": "2026-08-31T16:30:00Z",
+          "status": "FINISHED",
+          "matchday": 2,
+          "homeTeam": {
+            "id": 5890,
+            "name": "US Lecce",
+            "shortName": "Lecce"
+          },
+          "awayTeam": {
+            "id": 100,
+            "name": "AS Roma",
+            "shortName": "Roma"
+          },
+          "score": {
+            "winner": "AWAY_TEAM",
+            "duration": "REGULAR",
+            "fullTime": {
+              "home": 0,
+              "away": 4
+            },
+            "halfTime": {
+              "home": 0,
+              "away": 3
+            }
+          },
+          "competition": {
+            "name": "Serie A"
+          },
+          "venue": null
+        },
         {
           "utcDate": "2026-08-30T16:30:00Z",
           "status": "FINISHED",
@@ -3095,37 +3591,6 @@
             },
             "halfTime": {
               "home": 0,
-              "away": 0
-            }
-          },
-          "competition": {
-            "name": "Serie A"
-          },
-          "venue": null
-        },
-        {
-          "utcDate": "2026-08-22T16:30:00Z",
-          "status": "FINISHED",
-          "matchday": 1,
-          "homeTeam": {
-            "id": 115,
-            "name": "Udinese Calcio",
-            "shortName": "Udinese"
-          },
-          "awayTeam": {
-            "id": 7397,
-            "name": "Como 1907",
-            "shortName": "Como 1907"
-          },
-          "score": {
-            "winner": "DRAW",
-            "duration": "REGULAR",
-            "fullTime": {
-              "home": 1,
-              "away": 1
-            },
-            "halfTime": {
-              "home": 1,
               "away": 0
             }
           },
@@ -4451,18 +4916,18 @@
     }
   },
   "arsenalNextFixture": {
-    "utcDate": "2026-08-31T19:00:00Z",
+    "utcDate": "2026-09-06T15:30:00Z",
     "status": "TIMED",
-    "matchday": 2,
+    "matchday": 3,
     "homeTeam": {
-      "id": 58,
-      "name": "Aston Villa FC",
-      "shortName": "Aston Villa"
-    },
-    "awayTeam": {
       "id": 57,
       "name": "Arsenal FC",
       "shortName": "Arsenal"
+    },
+    "awayTeam": {
+      "id": 61,
+      "name": "Chelsea FC",
+      "shortName": "Chelsea"
     },
     "score": {
       "winner": null,
