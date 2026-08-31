@@ -15,9 +15,14 @@
 [scrape]   TARGET CHECK 'our-heritage': NOT FOUND in any href on the rendered page
 [scrape]   TARGET CHECK 'photo-chronicle-xx': NOT FOUND in any href on the rendered page
 [scrape] calendar discovery complete: 63 unique event URLs to check
-[scrape]   DEBUG: dumped raw HTML for madagascar page, 178806 chars
+[scrape]   DEBUG: dumped raw HTML for madagascar page, 178849 chars
+[scrape] Translation failed for 'Stand-up\xa0концерт Сергея Орлова': Stand-up концерт Сергея Орлова --> No translation was found using the current translator. Try another translator?
+[scrape] Translation failed for 'Концерт пианиста Lang Lang в Самарканде': Концерт пианиста Lang Lang в Самарканде --> No translation was found using the current translator. Try another translator?
+[scrape] Translation failed for 'Выставка Hikmah на открытии CCA Tashkent': Выставка Hikmah на открытии CCA Tashkent --> No translation was found using the current translator. Try another translator?
 [scrape]   'Выставка Hikmah на открытии CCA Tashkent': no dates found in window (no schedule/date-range parsed) -- kept 0 events
+[scrape] Translation failed for 'Премьера спектакля «Насриддин Афанди»': Премьера спектакля «Насриддин Афанди» --> No translation was found using the current translator. Try another translator?
 [scrape] Translation failed for 'Спектакль «Бехаловат кошона»': Спектакль «Бехаловат кошона» --> No translation was found using the current translator. Try another translator?
+[scrape] Translation failed for 'Спектакль «Человек из Подольска»': Спектакль «Человек из Подольска» --> No translation was found using the current translator. Try another translator?
 [scrape] Translation failed for 'Tashkent International Half Marathon': Tashkent International Half Marathon --> No translation was found using the current translator. Try another translator?
 [scrape] Translation failed for 'Сказка «Светофор»': Сказка «Светофор» --> No translation was found using the current translator. Try another translator?
 [scrape] Translation failed for '21-летие Zlotnikov Dance Centre': 21-летие Zlotnikov Dance Centre --> No translation was found using the current translator. Try another translator?
@@ -26,10 +31,11 @@
 [scrape] Translation failed for 'Юлдуз Усманова в Самарканде': Юлдуз Усманова в Самарканде --> No translation was found using the current translator. Try another translator?
 [scrape] Translation failed for 'CAITME 2026': CAITME 2026 --> No translation was found using the current translator. Try another translator?
 [scrape] Translation failed for 'Art Bazaar': Art Bazaar --> No translation was found using the current translator. Try another translator?
+[scrape] Translation failed for 'Uzbekistan Concrete Show 2026': Uzbekistan Concrete Show 2026 --> No translation was found using the current translator. Try another translator?
 [scrape]   'Uzbekistan Concrete Show 2026': no dates found in window (no schedule/date-range parsed) -- kept 0 events
 [scrape]   'ICTWeek Uzbekistan 2026': no dates found in window (no schedule/date-range parsed) -- kept 0 events
+[scrape] Translation failed for 'Plastex Uzbekistan 2026': Plastex Uzbekistan 2026 --> No translation was found using the current translator. Try another translator?
 [scrape]   'Plastex Uzbekistan 2026': no dates found in window (no schedule/date-range parsed) -- kept 0 events
-[scrape] Translation failed for 'Эстетика многослойности: в Ташкенте откр': Эстетика многослойности: в Ташкенте открылась выставка Бобура Алимходжаева Duality: X-Ray of Memory --> No translation was found using the current translator. Try another translator?
 [scrape]   'Эстетика многослойности: в Ташкенте открылась выставка Бобура Алимходжаева Duality: X-Ray of Memory': no dates found in window (no schedule/date-range parsed) -- kept 0 events
 [scrape] Translation failed for 'Pharma Eurasia & MedTech 2026: в Ташкент': Pharma Eurasia & MedTech 2026: в Ташкенте пройдет выставка фармацевтической отрасли --> No translation was found using the current translator. Try another translator?
 [scrape]   'Pharma Eurasia & MedTech 2026: в Ташкенте пройдет выставка фармацевтической отрасли': no dates found in window (no schedule/date-range parsed) -- kept 0 events
