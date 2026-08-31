@@ -354,6 +354,115 @@
     --cream:#1C1113; --cream-2:#28181B; --card:#3A2327; --ink:#F2E2DE; --ink-soft:#C7A8A2;
     --coral:#B0586C; --coral-dark:#C4798C; --gold:#D67C71; --teal:#71B8A0; --line:#523036;
   }
+  /* Arsenal (Dark) - same principle as light Arsenal, same five exact colors, dark
+     version. Key is "darsenal" (not "arsenal-dark") purely so it falls through the
+     existing key.charAt(0)==='d' dark-theme detection with zero new special-casing.
+     Navy (113476) is the only genuinely dark color in the palette, so it becomes the
+     page background here instead of a tile-fill color - filling a tile navy would make
+     it blend invisibly into a navy page. White (fefefe) takes navy's old tile-fill slot
+     instead, which also means that one tile group needs dark (navy) text instead of
+     white, since white text on a white tile fill would be invisible. */
+  body.dark-mode.usertheme-darsenal{
+    --cream:#113476; --cream-2:#113476; --card:#CE0041;
+    --ink:#FEFEFE; --ink-soft:#99824C;
+    --coral:#EC0024; --coral-dark:#CE0041; --gold:#99824C; --teal:#EC0024;
+    --line:rgba(153,130,76,.35);
+  }
+  body.dark-mode.usertheme-darsenal header{
+    background:#EC0024 !important;
+    border-bottom:4px solid #99824C;
+  }
+  body.dark-mode.usertheme-darsenal header::before,
+  body.dark-mode.usertheme-darsenal header::after{ content:none; }
+  body.dark-mode.usertheme-darsenal header,
+  body.dark-mode.usertheme-darsenal header *{
+    color:#FEFEFE !important;
+    text-shadow:none;
+  }
+  body.dark-mode.usertheme-darsenal .faculties .fac-tile:not(.all):nth-child(4n+1),
+  body.dark-mode.usertheme-darsenal .sport-hub-tile,
+  body.dark-mode.usertheme-darsenal .sports-tile,
+  body.dark-mode.usertheme-darsenal .sports-card{
+    background:#EC0024 !important;
+  }
+  body.dark-mode.usertheme-darsenal .faculties .fac-tile:not(.all):nth-child(4n+2),
+  body.dark-mode.usertheme-darsenal .goodnews-tile,
+  body.dark-mode.usertheme-darsenal .watch-tile,
+  body.dark-mode.usertheme-darsenal .watch-card,
+  body.dark-mode.usertheme-darsenal .otd-card{
+    background:#FEFEFE !important;
+  }
+  body.dark-mode.usertheme-darsenal .faculties .fac-tile:not(.all):nth-child(4n+3),
+  body.dark-mode.usertheme-darsenal .books-tile,
+  body.dark-mode.usertheme-darsenal .mindtemple-tile,
+  body.dark-mode.usertheme-darsenal .explore-tile,
+  body.dark-mode.usertheme-darsenal .explore-card,
+  body.dark-mode.usertheme-darsenal .page-result{
+    background:#CE0041 !important;
+  }
+  body.dark-mode.usertheme-darsenal .faculties .fac-tile:not(.all):nth-child(4n+4),
+  body.dark-mode.usertheme-darsenal .bday-tile-card,
+  body.dark-mode.usertheme-darsenal .random-tile,
+  body.dark-mode.usertheme-darsenal .rec-item,
+  body.dark-mode.usertheme-darsenal .empty-card,
+  body.dark-mode.usertheme-darsenal .photo-tile,
+  body.dark-mode.usertheme-darsenal .sotw-card{
+    background:#99824C !important;
+  }
+  body.dark-mode.usertheme-darsenal .fac-tile.all{
+    background:#EC0024 !important;
+  }
+  /* white-fill group needs navy text for contrast, not the white text everything else gets */
+  body.dark-mode.usertheme-darsenal .faculties .fac-tile:not(.all):nth-child(4n+2),
+  body.dark-mode.usertheme-darsenal .faculties .fac-tile:not(.all):nth-child(4n+2) *,
+  body.dark-mode.usertheme-darsenal .goodnews-tile,
+  body.dark-mode.usertheme-darsenal .goodnews-tile *,
+  body.dark-mode.usertheme-darsenal .watch-tile,
+  body.dark-mode.usertheme-darsenal .watch-tile *,
+  body.dark-mode.usertheme-darsenal .watch-card,
+  body.dark-mode.usertheme-darsenal .watch-card *,
+  body.dark-mode.usertheme-darsenal .otd-card,
+  body.dark-mode.usertheme-darsenal .otd-card *{
+    color:#113476 !important;
+  }
+  body.dark-mode.usertheme-darsenal .faculties .fac-tile:not(.all):nth-child(4n+1),
+  body.dark-mode.usertheme-darsenal .faculties .fac-tile:not(.all):nth-child(4n+1) *,
+  body.dark-mode.usertheme-darsenal .faculties .fac-tile:not(.all):nth-child(4n+3),
+  body.dark-mode.usertheme-darsenal .faculties .fac-tile:not(.all):nth-child(4n+3) *,
+  body.dark-mode.usertheme-darsenal .faculties .fac-tile:not(.all):nth-child(4n+4),
+  body.dark-mode.usertheme-darsenal .faculties .fac-tile:not(.all):nth-child(4n+4) *,
+  body.dark-mode.usertheme-darsenal .fac-tile.all,
+  body.dark-mode.usertheme-darsenal .fac-tile.all *,
+  body.dark-mode.usertheme-darsenal .sport-hub-tile,
+  body.dark-mode.usertheme-darsenal .sport-hub-tile *,
+  body.dark-mode.usertheme-darsenal .sports-tile,
+  body.dark-mode.usertheme-darsenal .sports-tile *,
+  body.dark-mode.usertheme-darsenal .sports-card,
+  body.dark-mode.usertheme-darsenal .sports-card *,
+  body.dark-mode.usertheme-darsenal .books-tile,
+  body.dark-mode.usertheme-darsenal .books-tile *,
+  body.dark-mode.usertheme-darsenal .mindtemple-tile,
+  body.dark-mode.usertheme-darsenal .mindtemple-tile *,
+  body.dark-mode.usertheme-darsenal .explore-tile,
+  body.dark-mode.usertheme-darsenal .explore-tile *,
+  body.dark-mode.usertheme-darsenal .explore-card,
+  body.dark-mode.usertheme-darsenal .explore-card *,
+  body.dark-mode.usertheme-darsenal .page-result,
+  body.dark-mode.usertheme-darsenal .page-result *,
+  body.dark-mode.usertheme-darsenal .bday-tile-card,
+  body.dark-mode.usertheme-darsenal .bday-tile-card *,
+  body.dark-mode.usertheme-darsenal .random-tile,
+  body.dark-mode.usertheme-darsenal .random-tile *,
+  body.dark-mode.usertheme-darsenal .rec-item,
+  body.dark-mode.usertheme-darsenal .rec-item *,
+  body.dark-mode.usertheme-darsenal .empty-card,
+  body.dark-mode.usertheme-darsenal .empty-card *,
+  body.dark-mode.usertheme-darsenal .photo-tile,
+  body.dark-mode.usertheme-darsenal .photo-tile *,
+  body.dark-mode.usertheme-darsenal .sotw-card,
+  body.dark-mode.usertheme-darsenal .sotw-card *{
+    color:#FEFEFE !important;
+  }
 
   body.dark-mode header{
     border-bottom-color:#54402F;
@@ -23040,7 +23149,7 @@ const COMPLIMENTS = [
     // window) per Mr Eric - it's a real palette option forever, cyclable/pickable any
     // time. The window end (2 Sept 18:00 Tashkent) only controls the one-time default
     // reset below, not availability.
-    const base = ['default','nationalday','l1','l2','l3','l4','l5','arsenal','d1','d2','d3','d4','d5'];
+    const base = ['default','nationalday','l1','l2','l3','l4','l5','arsenal','d1','d2','d3','d4','d5','darsenal'];
     return base;
   }
   let THEME_ORDER = buildThemeOrder();
@@ -23049,7 +23158,7 @@ const COMPLIMENTS = [
     const persist = !opts || opts.persist !== false;
     const isDark = key !== 'default' && key !== 'nationalday' && key.charAt(0) === 'd';
     document.body.classList.toggle('dark-mode', isDark);
-    ['l1','l2','l3','l4','l5','arsenal','d1','d2','d3','d4','d5'].forEach(k => document.body.classList.remove('usertheme-' + k));
+    ['l1','l2','l3','l4','l5','arsenal','d1','d2','d3','d4','d5','darsenal'].forEach(k => document.body.classList.remove('usertheme-' + k));
     document.body.classList.remove('theme-nationalday');
     if(key === 'nationalday'){
       document.body.classList.add('theme-nationalday');
@@ -23154,6 +23263,7 @@ const COMPLIMENTS = [
     { key:'d3', label:'Dark 3', c1:'#C06B3E', c2:'#9FD671' },
     { key:'d4', label:'Dark 4', c1:'#5C82AC', c2:'#8FB871' },
     { key:'d5', label:'Dark 5', c1:'#B0586C', c2:'#D67C71' },
+    { key:'darsenal', label:'Arsenal (Dark)', c1:'#EC0024', c2:'#99824C' },
   ];
 
   let themePickerBackdrop = null;
