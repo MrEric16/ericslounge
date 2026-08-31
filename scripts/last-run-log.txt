@@ -15,7 +15,24 @@
 [scrape]   TARGET CHECK 'our-heritage': NOT FOUND in any href on the rendered page
 [scrape]   TARGET CHECK 'photo-chronicle-xx': NOT FOUND in any href on the rendered page
 [scrape] calendar discovery complete: 63 unique event URLs to check
+[scrape] Translation failed for 'Фестиваль юсуповского помидора в «Мясном': Фестиваль юсуповского помидора в «Мясном» --> No translation was found using the current translator. Try another translator?
+[scrape] Translation failed for 'Концерт группы Benom в Magic City': Концерт группы Benom в Magic City --> No translation was found using the current translator. Try another translator?
+[scrape] Translation failed for 'Фестиваль электронной музыки MUZONE Fest': Фестиваль электронной музыки MUZONE Fest --> No translation was found using the current translator. Try another translator?
+[scrape] Translation failed for 'Выставка детских рисунков  «Мехир нма?»': Выставка детских рисунков  «Мехир нма?» --> No translation was found using the current translator. Try another translator?
+[scrape] Translation failed for 'Праздничная программа в Anhor Park': Праздничная программа в Anhor Park --> No translation was found using the current translator. Try another translator?
+[scrape] Translation failed for 'Праздничные шоу в Luna Park': Праздничные шоу в Luna Park --> No translation was found using the current translator. Try another translator?
+[scrape] Translation failed for 'Шоу мыльных пузырей в Jungle Family Club': Шоу мыльных пузырей в Jungle Family Club --> No translation was found using the current translator. Try another translator?
+[scrape] Translation failed for 'Театрально-цирковое шоу Nova Circus': Театрально-цирковое шоу Nova Circus --> No translation was found using the current translator. Try another translator?
+[scrape] Translation failed for 'Детский день в бассейне Sinbad': Детский день в бассейне Sinbad --> No translation was found using the current translator. Try another translator?
+[scrape] Translation failed for 'Музыкальный фонтан в парке Magic City': Музыкальный фонтан в парке Magic City --> No translation was found using the current translator. Try another translator?
+[scrape] Translation failed for 'Пляж Palma & Chilla в парке Milliy Bog’': Пляж Palma & Chilla в парке Milliy Bog’ --> No translation was found using the current translator. Try another translator?
 [scrape]   DEBUG: dumped raw HTML for madagascar page, 178849 chars
+[scrape] Translation failed for 'Спектакль «Мадагаскар» в парке Tashkent ': Спектакль «Мадагаскар» в парке Tashkent City --> No translation was found using the current translator. Try another translator?
+[scrape] Translation failed for 'Творческие мастер-классы в Potterville': Творческие мастер-классы в Potterville --> No translation was found using the current translator. Try another translator?
+[scrape] Translation failed for 'Костюмированный фестиваль сап-сёрфинга A': Костюмированный фестиваль сап-сёрфинга Anhor Sup Fest 2026 --> No translation was found using the current translator. Try another translator?
+[scrape] Translation failed for 'Детские кулинарные мастер-классы в PRO.Х': Детские кулинарные мастер-классы в PRO.Хинкали --> No translation was found using the current translator. Try another translator?
+[scrape] Translation failed for 'Мюзикл-сказка «Питер Пэн»': Мюзикл-сказка «Питер Пэн» --> No translation was found using the current translator. Try another translator?
+[scrape] Translation failed for 'Фестиваль мороженого Muzz Fest 2.0': Фестиваль мороженого Muzz Fest 2.0 --> No translation was found using the current translator. Try another translator?
 [scrape] Translation failed for 'Stand-up\xa0концерт Сергея Орлова': Stand-up концерт Сергея Орлова --> No translation was found using the current translator. Try another translator?
 [scrape] Translation failed for 'Концерт пианиста Lang Lang в Самарканде': Концерт пианиста Lang Lang в Самарканде --> No translation was found using the current translator. Try another translator?
 [scrape] Translation failed for 'Выставка Hikmah на открытии CCA Tashkent': Выставка Hikmah на открытии CCA Tashkent --> No translation was found using the current translator. Try another translator?
@@ -33,23 +50,23 @@
 [scrape] Translation failed for 'Art Bazaar': Art Bazaar --> No translation was found using the current translator. Try another translator?
 [scrape] Translation failed for 'Uzbekistan Concrete Show 2026': Uzbekistan Concrete Show 2026 --> No translation was found using the current translator. Try another translator?
 [scrape]   'Uzbekistan Concrete Show 2026': no dates found in window (no schedule/date-range parsed) -- kept 0 events
+[scrape] Translation failed for 'ICTWeek Uzbekistan 2026': ICTWeek Uzbekistan 2026 --> No translation was found using the current translator. Try another translator?
 [scrape]   'ICTWeek Uzbekistan 2026': no dates found in window (no schedule/date-range parsed) -- kept 0 events
 [scrape] Translation failed for 'Plastex Uzbekistan 2026': Plastex Uzbekistan 2026 --> No translation was found using the current translator. Try another translator?
 [scrape]   'Plastex Uzbekistan 2026': no dates found in window (no schedule/date-range parsed) -- kept 0 events
+[scrape] Translation failed for 'Узбекистан представит современное ремесл': Узбекистан представит современное ремесло на Homo Faber 2026 в Венеции --> No translation was found using the current translator. Try another translator?
 [scrape]   'Эстетика многослойности: в Ташкенте открылась выставка Бобура Алимходжаева Duality: X-Ray of Memory': no dates found in window (no schedule/date-range parsed) -- kept 0 events
-[scrape] Translation failed for 'Pharma Eurasia & MedTech 2026: в Ташкент': Pharma Eurasia & MedTech 2026: в Ташкенте пройдет выставка фармацевтической отрасли --> No translation was found using the current translator. Try another translator?
 [scrape]   'Pharma Eurasia & MedTech 2026: в Ташкенте пройдет выставка фармацевтической отрасли': no dates found in window (no schedule/date-range parsed) -- kept 0 events
-[scrape] Translation failed for 'В университете Кимё проходит выставка Ar': В университете Кимё проходит выставка Art Engineering 2026, посвященная экологическим решениям --> No translation was found using the current translator. Try another translator?
 [scrape]   'В университете Кимё проходит выставка Art Engineering 2026, посвященная экологическим решениям': no dates found in window (no schedule/date-range parsed) -- kept 0 events
-[scrape] calendar detail pass complete: 108 events kept from 63 pages checked
+[scrape] calendar detail pass complete: 122 events kept from 63 pages checked
 [scrape] special-tracked: FAILED to fetch or failed content check for https://www.afisha.uz/ru/cinema/2026/07/16/kinoprazdnik-v-sredu
-[scrape] iticket.uz cat=concert: 16 events kept
-[scrape] iticket.uz cat=theatre: 20 events kept
+[scrape] iticket.uz cat=concert: 10 events kept
+[scrape] iticket.uz cat=theatre: 15 events kept
 [scrape] iticket.uz cat=exhibition: 0 events kept
 [scrape] ticketon.uz: CONFIRMED BLOCKED (Cloudflare challenge, page title='Just a moment...'). 0 events -- this is expected, not a bug to fix.
 [scrape] eventbrite.com: CONFIRMED BLOCKED (AWS WAF CAPTCHA, page title='Human Verification'). 0 events -- this is expected, not a bug to fix. Same category of block as ticketon.uz.
 [scrape] eventbrite.com: 0 events found (dates NOT yet parsed -- see note in script)
 [scrape]   DEDUP: 0 target entries survived Pass 1
 [scrape]   DEDUP: 0 target entries survived Pass 2 (final)
-[scrape] TOTAL before dedup: 144  |  after dedup: 139
+[scrape] TOTAL before dedup: 147  |  after dedup: 142
 [scrape] Wrote data/events-tashkent.json
