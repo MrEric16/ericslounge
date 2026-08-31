@@ -221,13 +221,99 @@
     --board-bg:rgba(80,55,20,.62);
   }
   /* Arsenal - Mr Eric's own pick, real crest colors he supplied (red #ec0024, crimson
-     #ce0041, navy #113476, gold #99824c, off-white #fefefe), same light-theme pattern as
-     l1-l5 above: an ordinary selectable swatch, no forcing, not the default, nothing
-     National-Day-style special-cased about it. */
+     #ce0041, navy #113476, gold #99824c, off-white #fefefe). First pass was too subtle -
+     just threaded the four accents through the normal --coral/--gold/--teal slots, which
+     barely shows on most tiles. This is the real "fully blown" version: solid-painted
+     tiles in all four colors plus a solid red header, not a light-theme tint. Still an
+     ordinary selectable swatch though - no forcing, not the default, nothing
+     National-Day-style time-windowed about it, just louder. */
   body.usertheme-arsenal:not(.dark-mode){
-    --cream:#F5F3EF; --cream-2:#EDE7DC; --card:#FEFEFE;
-    --coral:#EC0024; --coral-dark:#CE0041; --gold:#99824C; --teal:#113476; --line:#E4DED0;
+    --cream:#FEFEFE; --cream-2:#FEFEFE; --card:#FEFEFE;
+    --coral:#EC0024; --coral-dark:#CE0041; --gold:#99824C; --teal:#113476;
+    --line:rgba(153,130,76,.35);
     --board-bg:rgba(17,52,118,.62);
+  }
+  body.usertheme-arsenal:not(.dark-mode) .aurora-layer{ opacity:0; }
+  body.usertheme-arsenal:not(.dark-mode) header{
+    background:#EC0024;
+    border-bottom:4px solid #99824C;
+  }
+  body.usertheme-arsenal:not(.dark-mode) header::before,
+  body.usertheme-arsenal:not(.dark-mode) header::after{ content:none; }
+  body.usertheme-arsenal:not(.dark-mode) header,
+  body.usertheme-arsenal:not(.dark-mode) header *{
+    color:#FEFEFE;
+    text-shadow:none;
+  }
+  /* Four tile groups, one solid color each - same grouping shape as National Day's four
+     groups, but painted as real backgrounds instead of a thin inset stripe, per explicit
+     request: "the tiles should be each of these colours". */
+  body.usertheme-arsenal:not(.dark-mode) .fac-tile,
+  body.usertheme-arsenal:not(.dark-mode) .sport-hub-tile,
+  body.usertheme-arsenal:not(.dark-mode) .sports-tile,
+  body.usertheme-arsenal:not(.dark-mode) .sports-card{
+    background:#EC0024 !important;
+  }
+  body.usertheme-arsenal:not(.dark-mode) .goodnews-tile,
+  body.usertheme-arsenal:not(.dark-mode) .watch-tile,
+  body.usertheme-arsenal:not(.dark-mode) .watch-card,
+  body.usertheme-arsenal:not(.dark-mode) .otd-card{
+    background:#113476 !important;
+  }
+  body.usertheme-arsenal:not(.dark-mode) .books-tile,
+  body.usertheme-arsenal:not(.dark-mode) .mindtemple-tile,
+  body.usertheme-arsenal:not(.dark-mode) .explore-tile,
+  body.usertheme-arsenal:not(.dark-mode) .explore-card,
+  body.usertheme-arsenal:not(.dark-mode) .page-result{
+    background:#CE0041 !important;
+  }
+  body.usertheme-arsenal:not(.dark-mode) .bday-tile-card,
+  body.usertheme-arsenal:not(.dark-mode) .random-tile,
+  body.usertheme-arsenal:not(.dark-mode) .rec-item,
+  body.usertheme-arsenal:not(.dark-mode) .empty-card,
+  body.usertheme-arsenal:not(.dark-mode) .photo-tile,
+  body.usertheme-arsenal:not(.dark-mode) .sotw-card{
+    background:#99824C !important;
+  }
+  body.usertheme-arsenal:not(.dark-mode) .fac-tile,
+  body.usertheme-arsenal:not(.dark-mode) .fac-tile *,
+  body.usertheme-arsenal:not(.dark-mode) .sport-hub-tile,
+  body.usertheme-arsenal:not(.dark-mode) .sport-hub-tile *,
+  body.usertheme-arsenal:not(.dark-mode) .sports-tile,
+  body.usertheme-arsenal:not(.dark-mode) .sports-tile *,
+  body.usertheme-arsenal:not(.dark-mode) .sports-card,
+  body.usertheme-arsenal:not(.dark-mode) .sports-card *,
+  body.usertheme-arsenal:not(.dark-mode) .goodnews-tile,
+  body.usertheme-arsenal:not(.dark-mode) .goodnews-tile *,
+  body.usertheme-arsenal:not(.dark-mode) .watch-tile,
+  body.usertheme-arsenal:not(.dark-mode) .watch-tile *,
+  body.usertheme-arsenal:not(.dark-mode) .watch-card,
+  body.usertheme-arsenal:not(.dark-mode) .watch-card *,
+  body.usertheme-arsenal:not(.dark-mode) .otd-card,
+  body.usertheme-arsenal:not(.dark-mode) .otd-card *,
+  body.usertheme-arsenal:not(.dark-mode) .books-tile,
+  body.usertheme-arsenal:not(.dark-mode) .books-tile *,
+  body.usertheme-arsenal:not(.dark-mode) .mindtemple-tile,
+  body.usertheme-arsenal:not(.dark-mode) .mindtemple-tile *,
+  body.usertheme-arsenal:not(.dark-mode) .explore-tile,
+  body.usertheme-arsenal:not(.dark-mode) .explore-tile *,
+  body.usertheme-arsenal:not(.dark-mode) .explore-card,
+  body.usertheme-arsenal:not(.dark-mode) .explore-card *,
+  body.usertheme-arsenal:not(.dark-mode) .page-result,
+  body.usertheme-arsenal:not(.dark-mode) .page-result *,
+  body.usertheme-arsenal:not(.dark-mode) .bday-tile-card,
+  body.usertheme-arsenal:not(.dark-mode) .bday-tile-card *,
+  body.usertheme-arsenal:not(.dark-mode) .random-tile,
+  body.usertheme-arsenal:not(.dark-mode) .random-tile *,
+  body.usertheme-arsenal:not(.dark-mode) .rec-item,
+  body.usertheme-arsenal:not(.dark-mode) .rec-item *,
+  body.usertheme-arsenal:not(.dark-mode) .empty-card,
+  body.usertheme-arsenal:not(.dark-mode) .empty-card *,
+  body.usertheme-arsenal:not(.dark-mode) .photo-tile,
+  body.usertheme-arsenal:not(.dark-mode) .photo-tile *,
+  body.usertheme-arsenal:not(.dark-mode) .sotw-card,
+  body.usertheme-arsenal:not(.dark-mode) .sotw-card *{
+    color:#FEFEFE !important;
   }
 
   body.dark-mode.usertheme-d1{
