@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Mr Eric's Lounge</title>
-<meta name="app-build" content="20260901050954">
+<meta name="app-build" content="20260901051907">
 <script>
   // PWA update-detection: an installed home-screen app's standalone-mode navigation
   // cache can hold an old shell far longer than the CDN's 10-minute cache -
@@ -10917,7 +10917,7 @@ const BIRTHDAYS = [
   { name:"Rebe Abdumalik Abrorovich", month:7, day:15, category:"staff" },
   { name:"Mr Otabek Diyorovich", month:1, day:20, category:"staff" },
   { name:"Mr Ilxom Baxromovich", month:7, day:26, category:"staff" },
-  { name:"Mr Ayk", month:3, day:1, category:"staff" },
+  { name:"Mr Hayk", month:3, day:1, category:"staff" },
   { name:"Mr Davron Abitovich", month:6, day:20, category:"staff" },
   { name:"Ms Nargiza Xekmatullaevna", month:5, day:2, category:"staff" },
   { name:"Mr Xasan Rustamovich", month:3, day:23, category:"staff" },
@@ -21008,11 +21008,11 @@ function viewPhotos(){
     </section>
   `;
 }
-function viewMathsMrAyk(){
+function viewMathsMrHayk(){
   return `
     <a class="back-link" href="#">← Back to Mr Eric's Lounge</a>
     <section style="padding-top:14px;">
-      <div class="section-head"><span class="emoji">${icon('mathSymbols')}</span><h2>Maths with Mr Ayk</h2></div>
+      <div class="section-head"><span class="emoji">${icon('mathSymbols')}</span><h2>Maths with Mr Hayk</h2></div>
       <div style="display:flex; flex-direction:column; gap:14px;">
         <a class="events-tile" href="https://chaosxedu.com/" target="_blank" rel="noopener" style="background:#3D5A80;">
           <span class="icon">${icon('mathSymbols')}</span>
@@ -22151,10 +22151,10 @@ function viewHome(){
     </section>
 
     <section>
-      <a class="events-tile" href="#maths-mr-ayk" style="background:#3D5A80;">
+      <a class="events-tile" href="#maths-mr-hayk" style="background:#3D5A80;">
         <span class="icon">${icon('mathSymbols')}</span>
         <div>
-          <div class="title">Maths with Mr Ayk</div>
+          <div class="title">Maths with Mr Hayk</div>
           <div class="sub">General maths and SAT maths practice</div>
         </div>
       </a>
@@ -23019,8 +23019,8 @@ function renderRoute(opts){
     html = viewSearch();
   } else if(parts[0] === 'photos'){
     html = viewPhotos();
-  } else if(parts[0] === 'maths-mr-ayk'){
-    html = viewMathsMrAyk();
+  } else if(parts[0] === 'maths-mr-hayk'){
+    html = viewMathsMrHayk();
   } else if(parts[0] === 'photo-library'){
     html = viewPhotoLibrary();
   } else if(parts[0] === 'full-archive-hub'){
