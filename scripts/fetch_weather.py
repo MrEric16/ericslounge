@@ -348,6 +348,21 @@ def main():
 
     log(f"Done: {len(output['locations'])} succeeded, {failures} failed, out of {len(WORLD_CITIES) + 1} total")
 
+    # Confirmed real incident (2026-09-01): a transient failure (upstream API or runner
+    # network hiccup, self-resolved on the very next re-run with no code change at all)
+    # made every single fetch fail, and the script happily wrote a "successful" 0-KB-of-
+    # actual-data file over the last good one -- the site showed no weather at all until
+    # someone noticed and manually re-triggered. If this run got zero real locations,
+    # leaving whatever's already on disk in place (stale but real data) is strictly
+    # better than replacing it with nothing -- the weather card can display slightly-old
+    # data gracefully, it cannot display an empty array gracefully. Only ever skip the
+    # write, never treat this as a hard failure that stops the whole workflow.
+    if len(output["locations"]) == 0:
+        log("REFUSING TO WRITE: 0 locations succeeded (every single fetch failed). "
+            "Leaving the existing data/weather-live.json in place rather than "
+            "overwriting good data with an empty file.")
+        return
+
     os.makedirs("data", exist_ok=True)
     with open(OUTPUT_PATH, "w", encoding="utf-8") as f:
         json.dump(output, f, ensure_ascii=False, indent=2)
