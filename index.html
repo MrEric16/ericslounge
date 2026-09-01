@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Mr Eric's Lounge</title>
-<meta name="app-build" content="20260901205705">
+<meta name="app-build" content="20260901210028">
 <script>
   // PWA update-detection: an installed home-screen app's standalone-mode navigation
   // cache can hold an old shell far longer than the CDN's 10-minute cache -
@@ -23450,6 +23450,23 @@ const COMPLIMENTS = [
     // resolves from that saved value and this null-branch never runs for them again.
     initial = legacy === '1' ? 'd1' : 'dihl';
   }
+  // Separate from the null-branch above: this covers EVERY user, including people who
+  // already have a saved theme choice (explicit follow-up ask - "any user, not just
+  // new, including me, including all users that currently have the app"). One-time
+  // migration, gated by its own permanent flag so it can only ever fire once per
+  // device/browser regardless of what initial already resolved to above - switches
+  // everyone to IHL Dark on their next load after this ships, then never touches their
+  // choice again. Whatever they pick afterward (staying on dihl or switching to
+  // anything else, including back to their old theme) persists normally from then on,
+  // exactly like every other theme pick always has. Deliberately placed AFTER all three
+  // National Day blocks below (not here) so it has final say today specifically - the
+  // National Day window is still active as this ships (through 2 Sept 18:00 Tashkent),
+  // and National Day's own launch-force runs after this point in the file; if this
+  // migration ran here instead, National Day would silently override it back to
+  // nationalday on today's load and the person would never actually see the new
+  // default take effect. Placing it last means it wins today without changing anything
+  // about how National Day behaves in any future year - the migration flag will already
+  // be permanently set after this one run, so it simply won't fire again.
   // On a genuine fresh launch (new tab/session - sessionStorage is empty) during the
   // National Day window, force the theme to nationalday and persist that as the active
   // choice, so it's what greets the person on open. A page REFRESH within the same
@@ -23479,6 +23496,13 @@ const COMPLIMENTS = [
       localStorage.setItem('elNdPostWindowResetDone', '1');
       initial = 'default';
       localStorage.setItem('themeChoice', 'default');
+    }
+  }catch(e){}
+  try{
+    if(!localStorage.getItem('elDihlDefaultMigrationDone')){
+      localStorage.setItem('elDihlDefaultMigrationDone', '1');
+      initial = 'dihl';
+      localStorage.setItem('themeChoice', 'dihl');
     }
   }catch(e){}
   if(THEME_ORDER.indexOf(initial) === -1) initial = 'default';
