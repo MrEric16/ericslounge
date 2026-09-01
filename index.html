@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Mr Eric's Lounge</title>
-<meta name="app-build" content="20260901040338">
+<meta name="app-build" content="20260901041409">
 <script>
   // PWA update-detection: an installed home-screen app's standalone-mode navigation
   // cache can hold an old shell far longer than the CDN's 10-minute cache -
@@ -247,6 +247,34 @@
     --coral:#E08A3E; --coral-dark:#B0621F; --gold:#9C6BA8; --teal:#4E7C6E; --line:#EDD8AC;
     --board-bg:rgba(80,55,20,.62);
   }
+  /* Vintage - fully monochrome, no color anywhere, old-newspaper feel. Given the sheer
+     number of places color shows up across this codebase (Arsenal's tile, IHL's orange,
+     National Day's flag colors, category emoji, the animated tile-logo mark) manually
+     hunting each one down is exactly the kind of thing that's guaranteed to miss
+     something. Instead: filter:grayscale(100%) on <body> itself, which desaturates
+     everything rendered inside it - images, SVGs, emoji, gradients, every special-cased
+     tile color - with one rule that can't leave a gap. The variable block underneath is
+     already grayscale on its own terms so nothing looks "wrong" before the filter even
+     applies, the filter is just the guarantee. */
+  body.usertheme-vintage:not(.dark-mode){
+    --cream:#F0F0F0; --cream-2:#E0E0E0; --card:#FFFFFF;
+    --coral:#333333; --coral-dark:#000000; --gold:#666666; --teal:#999999; --line:#CCCCCC;
+    --board-bg:rgba(0,0,0,.55);
+  }
+  body.usertheme-vintage:not(.dark-mode){
+    filter:grayscale(100%);
+  }
+  body.usertheme-vintage:not(.dark-mode) header{
+    background:#2A2A2A;
+    border-bottom:3px solid #000000;
+  }
+  body.usertheme-vintage:not(.dark-mode) header::before,
+  body.usertheme-vintage:not(.dark-mode) header::after{ content:none; }
+  body.usertheme-vintage:not(.dark-mode) header,
+  body.usertheme-vintage:not(.dark-mode) header *{
+    color:#F0F0F0;
+    text-shadow:none;
+  }
   /* IHL - Interhouse Lyceum's real brand colors, pixel-extracted from a live screenshot
      of interhouselyceum.uz (blue #304EA0 confirmed from a solid stat-box region - 51,783
      of ~54,000 sampled pixels there were this exact value; orange #FF9E2C confirmed the
@@ -448,6 +476,27 @@
   body.dark-mode.usertheme-d5{
     --cream:#1C1113; --cream-2:#28181B; --card:#3A2327; --ink:#F2E2DE; --ink-soft:#C7A8A2;
     --coral:#B0586C; --coral-dark:#C4798C; --gold:#D67C71; --teal:#71B8A0; --line:#523036;
+  }
+  /* Vintage (Dark) - same principle as light Vintage, same grayscale-filter guarantee.
+     Key is "dvintage" (not "vintage-dark") so it falls through the existing
+     key.charAt(0)==='d' dark-theme detection automatically, same trick as darsenal/dihl. */
+  body.dark-mode.usertheme-dvintage{
+    --cream:#141414; --cream-2:#1E1E1E; --card:#262626; --ink:#EDEDED; --ink-soft:#B0B0B0;
+    --coral:#CCCCCC; --coral-dark:#999999; --gold:#888888; --teal:#666666; --line:#3A3A3A;
+  }
+  body.dark-mode.usertheme-dvintage{
+    filter:grayscale(100%);
+  }
+  body.dark-mode.usertheme-dvintage header{
+    background:#000000;
+    border-bottom:3px solid #444444;
+  }
+  body.dark-mode.usertheme-dvintage header::before,
+  body.dark-mode.usertheme-dvintage header::after{ content:none; }
+  body.dark-mode.usertheme-dvintage header,
+  body.dark-mode.usertheme-dvintage header *{
+    color:#EDEDED;
+    text-shadow:none;
   }
   /* IHL (Dark) - same two verified brand colors as light IHL, key is "dihl" (not
      "ihl-dark") so it falls through the existing key.charAt(0)==='d' dark-theme
@@ -23286,7 +23335,7 @@ const COMPLIMENTS = [
     // window) per Mr Eric - it's a real palette option forever, cyclable/pickable any
     // time. The window end (2 Sept 18:00 Tashkent) only controls the one-time default
     // reset below, not availability.
-    const base = ['default','nationalday','l1','l2','l3','l4','l5','ihl','arsenal','d1','d2','d3','d4','d5','dihl','darsenal'];
+    const base = ['default','nationalday','l1','l2','l3','l4','l5','ihl','arsenal','vintage','d1','d2','d3','d4','d5','dihl','darsenal','dvintage'];
     return base;
   }
   let THEME_ORDER = buildThemeOrder();
@@ -23295,7 +23344,7 @@ const COMPLIMENTS = [
     const persist = !opts || opts.persist !== false;
     const isDark = key !== 'default' && key !== 'nationalday' && key.charAt(0) === 'd';
     document.body.classList.toggle('dark-mode', isDark);
-    ['l1','l2','l3','l4','l5','ihl','arsenal','d1','d2','d3','d4','d5','dihl','darsenal'].forEach(k => document.body.classList.remove('usertheme-' + k));
+    ['l1','l2','l3','l4','l5','ihl','arsenal','vintage','d1','d2','d3','d4','d5','dihl','darsenal','dvintage'].forEach(k => document.body.classList.remove('usertheme-' + k));
     document.body.classList.remove('theme-nationalday');
     if(key === 'nationalday'){
       document.body.classList.add('theme-nationalday');
@@ -23418,6 +23467,8 @@ const COMPLIMENTS = [
     { key:'dihl', label:'IHL (Dark)', c1:'#304EA0', c2:'#FF9E2C' },
     { key:'arsenal', label:'Arsenal', c1:'#EC0024', c2:'#99824C' },
     { key:'darsenal', label:'Arsenal (Dark)', c1:'#EC0024', c2:'#99824C' },
+    { key:'vintage', label:'Vintage', c1:'#333333', c2:'#999999' },
+    { key:'dvintage', label:'Vintage (Dark)', c1:'#CCCCCC', c2:'#666666' },
   ];
 
   let themePickerBackdrop = null;
