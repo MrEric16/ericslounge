@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Mr Eric's Lounge</title>
-<meta name="app-build" content="20260831235633">
+<meta name="app-build" content="20260901000046">
 <script>
   // PWA update-detection: an installed home-screen app's standalone-mode navigation
   // cache can hold an old shell far longer than the CDN's 10-minute cache -
@@ -25140,26 +25140,35 @@ function triggerWeekendEgg(){
   });
 })();
 
-/* - TEMPORARY diagnostic for the title-color issue -
-   Five theories, five failures - stopping the guessing. This writes a visible line
-   directly under the site title showing exactly what the code sees at the moment it
-   runs: which theme classes are actually on <body>, whether the title element was
-   found, and what its color ends up being read back as after the fix attempts to set
-   it. One clean screenshot with this in place will show the real cause instead of
-   another hypothesis. Remove this block once the actual bug is found and fixed. */
+/* - Kitchen-sink title color fix -
+   Debug output proved the CSS pipeline is correct: computed `color` on <h1 class="title">
+   really is rgb(255,158,44), the exact orange. Yet the visible glyphs render white
+   anyway. That specific combination - correct computed `color`, wrong visible pixels -
+   only happens when something OTHER than `color` controls the rendered glyph color:
+   -webkit-text-fill-color (a separate Safari/WebKit property that silently overrides
+   color for rendering), a text-stroke wide enough to dominate the fill, or - the
+   obscure one - a color-capable web font (COLR/CPAL) rendering from its own embedded
+   palette regardless of CSS. Also fixing the actual bug this time: the visible glyphs
+   live in a child <span aria-hidden="true"> inside h1.title, not the h1 itself - the
+   previous fix only ever set color on the wrapper and relied on inheritance, so if
+   anything on that inner span was overriding it, nothing here would have touched it.
+   This targets the actual text-containing span directly, every property that can
+   determine visible glyph color, all at once. */
 (function(){
   const title = document.querySelector('h1.title');
-  const bodyClasses = document.body.className;
   const isIhl = document.body.classList.contains('usertheme-ihl') || document.body.classList.contains('usertheme-dihl');
   if(title && isIhl){
-    title.style.setProperty('color', '#FF9E2C', 'important');
+    const targets = [title, ...title.querySelectorAll('span')];
+    targets.forEach(el => {
+      el.style.setProperty('color', '#FF9E2C', 'important');
+      el.style.setProperty('-webkit-text-fill-color', '#FF9E2C', 'important');
+      el.style.setProperty('-webkit-text-stroke', '0px transparent', 'important');
+      el.style.setProperty('font-palette', 'normal', 'important');
+      el.style.setProperty('background', 'none', 'important');
+      el.style.setProperty('-webkit-background-clip', 'initial', 'important');
+      el.style.setProperty('background-clip', 'initial', 'important');
+    });
   }
-  const computedColor = title ? getComputedStyle(title).color : 'NO TITLE ELEMENT FOUND';
-  const inlineColor = title ? title.style.color : 'n/a';
-  const debugEl = document.createElement('div');
-  debugEl.style.cssText = 'position:fixed; bottom:60px; left:8px; right:8px; z-index:99999; background:#000; color:#0f0; font-family:monospace; font-size:10px; padding:8px; border-radius:6px; word-break:break-all; line-height:1.5;';
-  debugEl.textContent = `DEBUG body.class="${bodyClasses}" | isIhl=${isIhl} | computedColor=${computedColor} | inlineColor="${inlineColor}"`;
-  document.body.appendChild(debugEl);
 })();
 </script>
 
