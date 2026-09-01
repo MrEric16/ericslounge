@@ -1,9 +1,6 @@
 [goal-scraper] Run started.
-[goal-scraper] [PL] Found 10 finished-match links
-[goal-scraper] [PD] Found 10 finished-match links
-[goal-scraper] WARNING: Barcelona scored 5 but only 3 scorer(s) were parsed for https://www.goal.com/en/match/barcelona-vs-rayo-vallecano/WYyZot_4M5sWl5vpAePKz
-[goal-scraper] WARNING: Rayo Vallecano scored 2 but only 1 scorer(s) were parsed for https://www.goal.com/en/match/barcelona-vs-rayo-vallecano/WYyZot_4M5sWl5vpAePKz
-[goal-scraper] [PD] SCORER PARSE FAILED (attempt 2/3) for Barcelona 5-2 Rayo Vallecano -- NOT committing, will retry next run: https://www.goal.com/en/match/barcelona-vs-rayo-vallecano/WYyZot_4M5sWl5vpAePKz
+[goal-scraper] [PL] Found 0 finished-match links
+[goal-scraper] [PD] Found 0 finished-match links
 [goal-scraper] [BL1] Found 0 finished-match links
 [goal-scraper] [SA] Found 0 finished-match links
 [goal-scraper] [FL1] Found 0 finished-match links
