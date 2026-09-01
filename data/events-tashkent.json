@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-08-31T20:55:10.141200Z",
+  "generatedAt": "2026-09-01T00:42:43.221315Z",
   "events": [
     {
-      "title": "Yusupov Tomato Festival at Myasnoye",
+      "title": "Фестиваль юсуповского помидора в «Мясном»",
       "titleRu": "Фестиваль юсуповского помидора в «Мясном»",
       "category": "concert",
       "venue": "Мясной Steak HouseТашкент, ул. Шота Руставели, 13А",
@@ -13,7 +13,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Ziyoda concert in Magic City",
+      "title": "Концерт Зиёды в Magic City",
       "titleRu": "Концерт Зиёды в Magic City",
       "category": "concert",
       "venue": "Magic CityТашкент, ул. Бабура, 174",
@@ -24,7 +24,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Concert for the 35th anniversary of Independence of Uzbekistan",
+      "title": "Концерт к 35-летию Независимости Узбекистана",
       "titleRu": "Концерт к 35-летию Независимости Узбекистана",
       "category": "concert",
       "venue": null,
@@ -90,14 +90,15 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Blue Dwarf, or The Pearl Heart",
-      "titleRu": null,
-      "category": "theatre",
-      "venue": "Uzbek National Puppet theater",
+      "title": "Премьера спектакля «Синий карлик, или Жемчужное сердце»",
+      "titleRu": "Премьера спектакля «Синий карлик, или Жемчужное сердце»",
+      "category": "kids",
+      "venue": null,
       "startDate": "2026-09-01",
       "endDate": null,
-      "url": "https://iticket.uz/en/events/theaters-tashkent/blue-dwarf-or-the-pearl-heart",
-      "source": "iticket.uz"
+      "time": null,
+      "url": "https://www.afisha.uz/ru/children/2026/08/06/children-s-play",
+      "source": "afisha.uz (calendar)"
     },
     {
       "title": "Independence Day in Milliy Bogʻ Park",
@@ -111,7 +112,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Festive shows in Yangi Oʻzbekiston park",
+      "title": "Праздничные шоу в парке Yangi Oʻzbekiston",
       "titleRu": "Праздничные шоу в парке Yangi Oʻzbekiston",
       "category": "festival",
       "venue": "Парк «Янги Узбекистон»Ташкент, парк Янги Узбекистон",
@@ -144,7 +145,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Uzbekistan will present contemporary craft at Homo Faber 2026 in Venice",
+      "title": "Узбекистан представит современное ремесло на Homo Faber 2026 в Венеции",
       "titleRu": "Узбекистан представит современное ремесло на Homo Faber 2026 в Венеции",
       "category": "exhibition",
       "venue": null,
@@ -185,6 +186,16 @@
       "source": "iticket.uz"
     },
     {
+      "title": "Blue Dwarf, or The Pearl Heart",
+      "titleRu": null,
+      "category": "theatre",
+      "venue": "Uzbek National Puppet theater",
+      "startDate": "2026-09-01",
+      "endDate": null,
+      "url": "https://iticket.uz/en/events/theaters-tashkent/blue-dwarf-or-the-pearl-heart",
+      "source": "iticket.uz"
+    },
+    {
       "title": "Sold out \"Yer baribir aylanaveradi\"",
       "titleRu": null,
       "category": "theatre",
@@ -215,7 +226,7 @@
       "source": "iticket.uz"
     },
     {
-      "title": "Yusupov Tomato Festival at Myasnoye",
+      "title": "Фестиваль юсуповского помидора в «Мясном»",
       "titleRu": "Фестиваль юсуповского помидора в «Мясном»",
       "category": "concert",
       "venue": "Мясной Steak HouseТашкент, ул. Шота Руставели, 13А",
@@ -270,7 +281,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Uzbekistan will present contemporary craft at Homo Faber 2026 in Venice",
+      "title": "Узбекистан представит современное ремесло на Homo Faber 2026 в Венеции",
       "titleRu": "Узбекистан представит современное ремесло на Homo Faber 2026 в Венеции",
       "category": "exhibition",
       "venue": null,
@@ -291,7 +302,7 @@
       "source": "iticket.uz"
     },
     {
-      "title": "Yusupov Tomato Festival at Myasnoye",
+      "title": "Фестиваль юсуповского помидора в «Мясном»",
       "titleRu": "Фестиваль юсуповского помидора в «Мясном»",
       "category": "concert",
       "venue": "Мясной Steak HouseТашкент, ул. Шота Руставели, 13А",
@@ -335,7 +346,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Uzbekistan will present contemporary craft at Homo Faber 2026 in Venice",
+      "title": "Узбекистан представит современное ремесло на Homo Faber 2026 в Венеции",
       "titleRu": "Узбекистан представит современное ремесло на Homo Faber 2026 в Венеции",
       "category": "exhibition",
       "venue": null,
@@ -356,7 +367,7 @@
       "source": "iticket.uz"
     },
     {
-      "title": "Yusupov Tomato Festival at Myasnoye",
+      "title": "Фестиваль юсуповского помидора в «Мясном»",
       "titleRu": "Фестиваль юсуповского помидора в «Мясном»",
       "category": "concert",
       "venue": "Мясной Steak HouseТашкент, ул. Шота Руставели, 13А",
@@ -422,7 +433,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Uzbekistan will present contemporary craft at Homo Faber 2026 in Venice",
+      "title": "Узбекистан представит современное ремесло на Homo Faber 2026 в Венеции",
       "titleRu": "Узбекистан представит современное ремесло на Homo Faber 2026 в Венеции",
       "category": "exhibition",
       "venue": null,
@@ -453,7 +464,7 @@
       "source": "iticket.uz"
     },
     {
-      "title": "Yusupov Tomato Festival at Myasnoye",
+      "title": "Фестиваль юсуповского помидора в «Мясном»",
       "titleRu": "Фестиваль юсуповского помидора в «Мясном»",
       "category": "concert",
       "venue": "Мясной Steak HouseТашкент, ул. Шота Руставели, 13А",
@@ -464,7 +475,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Premiere of the play “Blue Dwarf, or Heart of Pearl”",
+      "title": "Премьера спектакля «Синий карлик, или Жемчужное сердце»",
       "titleRu": "Премьера спектакля «Синий карлик, или Жемчужное сердце»",
       "category": "kids",
       "venue": null,
@@ -585,7 +596,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Uzbekistan will present contemporary craft at Homo Faber 2026 in Venice",
+      "title": "Узбекистан представит современное ремесло на Homo Faber 2026 в Венеции",
       "titleRu": "Узбекистан представит современное ремесло на Homo Faber 2026 в Венеции",
       "category": "exhibition",
       "venue": null,
@@ -646,7 +657,7 @@
       "source": "iticket.uz"
     },
     {
-      "title": "Yusupov Tomato Festival at Myasnoye",
+      "title": "Фестиваль юсуповского помидора в «Мясном»",
       "titleRu": "Фестиваль юсуповского помидора в «Мясном»",
       "category": "concert",
       "venue": "Мясной Steak HouseТашкент, ул. Шота Руставели, 13А",
@@ -657,7 +668,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Premiere of the play “Blue Dwarf, or Heart of Pearl”",
+      "title": "Премьера спектакля «Синий карлик, или Жемчужное сердце»",
       "titleRu": "Премьера спектакля «Синий карлик, или Жемчужное сердце»",
       "category": "kids",
       "venue": null,
@@ -822,7 +833,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Uzbekistan will present contemporary craft at Homo Faber 2026 in Venice",
+      "title": "Узбекистан представит современное ремесло на Homo Faber 2026 в Венеции",
       "titleRu": "Узбекистан представит современное ремесло на Homo Faber 2026 в Венеции",
       "category": "exhibition",
       "venue": null,
@@ -873,7 +884,7 @@
       "source": "iticket.uz"
     },
     {
-      "title": "Yusupov Tomato Festival at Myasnoye",
+      "title": "Фестиваль юсуповского помидора в «Мясном»",
       "titleRu": "Фестиваль юсуповского помидора в «Мясном»",
       "category": "concert",
       "venue": "Мясной Steak HouseТашкент, ул. Шота Руставели, 13А",
@@ -917,7 +928,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Uzbekistan will present contemporary craft at Homo Faber 2026 in Venice",
+      "title": "Узбекистан представит современное ремесло на Homo Faber 2026 в Венеции",
       "titleRu": "Узбекистан представит современное ремесло на Homo Faber 2026 в Венеции",
       "category": "exhibition",
       "venue": null,
@@ -928,7 +939,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Yusupov Tomato Festival at Myasnoye",
+      "title": "Фестиваль юсуповского помидора в «Мясном»",
       "titleRu": "Фестиваль юсуповского помидора в «Мясном»",
       "category": "concert",
       "venue": "Мясной Steak HouseТашкент, ул. Шота Руставели, 13А",
@@ -994,7 +1005,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Uzbekistan will present contemporary craft at Homo Faber 2026 in Venice",
+      "title": "Узбекистан представит современное ремесло на Homo Faber 2026 в Венеции",
       "titleRu": "Узбекистан представит современное ремесло на Homo Faber 2026 в Венеции",
       "category": "exhibition",
       "venue": null,
@@ -1005,17 +1016,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Og'abek Sobirov",
-      "titleRu": null,
-      "category": "concert",
-      "venue": "Peoples' Friendship Palace",
-      "startDate": "2026-09-08",
-      "endDate": null,
-      "url": "https://iticket.uz/en/events/concerts/ogabek-sobirov26",
-      "source": "iticket.uz"
-    },
-    {
-      "title": "Yusupov Tomato Festival at Myasnoye",
+      "title": "Фестиваль юсуповского помидора в «Мясном»",
       "titleRu": "Фестиваль юсуповского помидора в «Мясном»",
       "category": "concert",
       "venue": "Мясной Steak HouseТашкент, ул. Шота Руставели, 13А",
@@ -1070,7 +1071,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Uzbekistan will present contemporary craft at Homo Faber 2026 in Venice",
+      "title": "Узбекистан представит современное ремесло на Homo Faber 2026 в Венеции",
       "titleRu": "Узбекистан представит современное ремесло на Homo Faber 2026 в Венеции",
       "category": "exhibition",
       "venue": null,
@@ -1157,7 +1158,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Uzbekistan will present contemporary craft at Homo Faber 2026 in Venice",
+      "title": "Узбекистан представит современное ремесло на Homo Faber 2026 в Венеции",
       "titleRu": "Узбекистан представит современное ремесло на Homo Faber 2026 в Венеции",
       "category": "exhibition",
       "venue": null,
@@ -1166,16 +1167,6 @@
       "time": null,
       "url": "https://www.afisha.uz/ru/exhibitions/2026/08/31/homo-faber",
       "source": "afisha.uz (calendar)"
-    },
-    {
-      "title": "Команда АСТАНА",
-      "titleRu": null,
-      "category": "concert",
-      "venue": "Peoples' Friendship Palace",
-      "startDate": "2026-09-10",
-      "endDate": null,
-      "url": "https://iticket.uz/en/events/concerts/komanda-astana",
-      "source": "iticket.uz"
     },
     {
       "title": "Uzbegim Market fair in Tashkent City Park",
@@ -1200,7 +1191,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Uzbekistan will present contemporary craft at Homo Faber 2026 in Venice",
+      "title": "Узбекистан представит современное ремесло на Homo Faber 2026 в Венеции",
       "titleRu": "Узбекистан представит современное ремесло на Homo Faber 2026 в Венеции",
       "category": "exhibition",
       "venue": null,
@@ -1211,17 +1202,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "QUEST PISTOLS",
-      "titleRu": null,
-      "category": "concert",
-      "venue": "Salama restaurant",
-      "startDate": "2026-09-11",
-      "endDate": null,
-      "url": "https://iticket.uz/en/events/concerts/quest-pistols",
-      "source": "iticket.uz"
-    },
-    {
-      "title": "Premiere of the play “Blue Dwarf, or Heart of Pearl”",
+      "title": "Премьера спектакля «Синий карлик, или Жемчужное сердце»",
       "titleRu": "Премьера спектакля «Синий карлик, или Жемчужное сердце»",
       "category": "kids",
       "venue": null,
@@ -1265,7 +1246,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Uzbekistan will present contemporary craft at Homo Faber 2026 in Venice",
+      "title": "Узбекистан представит современное ремесло на Homo Faber 2026 в Венеции",
       "titleRu": "Узбекистан представит современное ремесло на Homo Faber 2026 в Венеции",
       "category": "exhibition",
       "venue": null,
@@ -1274,16 +1255,6 @@
       "time": null,
       "url": "https://www.afisha.uz/ru/exhibitions/2026/08/31/homo-faber",
       "source": "afisha.uz (calendar)"
-    },
-    {
-      "title": "Otamurod Nurmatov",
-      "titleRu": null,
-      "category": "concert",
-      "venue": "Peoples' Friendship Palace",
-      "startDate": "2026-09-12",
-      "endDate": null,
-      "url": "https://iticket.uz/en/events/concerts/otamurod-nurmatov26",
-      "source": "iticket.uz"
     },
     {
       "title": "Маленький Мук",
@@ -1316,17 +1287,7 @@
       "source": "iticket.uz"
     },
     {
-      "title": "Тысяча и одна ночь. OPEN AIR",
-      "titleRu": null,
-      "category": "theatre",
-      "venue": "Bolshoi Theater named after A. Navoi",
-      "startDate": "2026-09-12",
-      "endDate": null,
-      "url": "https://iticket.uz/en/events/theaters-tashkent/tysyacha-i-odna-noch-open-air",
-      "source": "iticket.uz"
-    },
-    {
-      "title": "Premiere of the play “Blue Dwarf, or Heart of Pearl”",
+      "title": "Премьера спектакля «Синий карлик, или Жемчужное сердце»",
       "titleRu": "Премьера спектакля «Синий карлик, или Жемчужное сердце»",
       "category": "kids",
       "venue": null,
@@ -1381,7 +1342,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Uzbekistan will present contemporary craft at Homo Faber 2026 in Venice",
+      "title": "Узбекистан представит современное ремесло на Homo Faber 2026 в Венеции",
       "titleRu": "Узбекистан представит современное ремесло на Homo Faber 2026 в Венеции",
       "category": "exhibition",
       "venue": null,
@@ -1390,46 +1351,6 @@
       "time": null,
       "url": "https://www.afisha.uz/ru/exhibitions/2026/08/31/homo-faber",
       "source": "afisha.uz (calendar)"
-    },
-    {
-      "title": "Аладдин",
-      "titleRu": null,
-      "category": "theatre",
-      "venue": "The State Theater of Musical Comedy (Operetta) of Uzbekistan",
-      "startDate": "2026-09-13",
-      "endDate": null,
-      "url": "https://iticket.uz/en/events/theaters-tashkent/aladdin2424",
-      "source": "iticket.uz"
-    },
-    {
-      "title": "Ojiza demang bizni",
-      "titleRu": null,
-      "category": "theatre",
-      "venue": "State Drama Theater of Uzbekistan",
-      "startDate": "2026-09-13",
-      "endDate": null,
-      "url": "https://iticket.uz/en/events/theaters-tashkent/ojiza-demang-bizni-26",
-      "source": "iticket.uz"
-    },
-    {
-      "title": "Не может быть",
-      "titleRu": null,
-      "category": "theatre",
-      "venue": "The State Theater of Musical Comedy (Operetta) of Uzbekistan",
-      "startDate": "2026-09-13",
-      "endDate": null,
-      "url": "https://iticket.uz/en/events/theaters-tashkent/ne-mozhet-byt",
-      "source": "iticket.uz"
-    },
-    {
-      "title": "Жорж Бизе \"Кармен\" Опера",
-      "titleRu": null,
-      "category": "theatre",
-      "venue": "Bolshoi Theater named after A. Navoi",
-      "startDate": "2026-09-13",
-      "endDate": null,
-      "url": "https://iticket.uz/en/events/theaters-tashkent/zhorzh-bize-karmen-opera",
-      "source": "iticket.uz"
     },
     {
       "title": "Uzbegim Market fair in Tashkent City Park",
@@ -1454,7 +1375,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Uzbekistan will present contemporary craft at Homo Faber 2026 in Venice",
+      "title": "Узбекистан представит современное ремесло на Homo Faber 2026 в Венеции",
       "titleRu": "Узбекистан представит современное ремесло на Homo Faber 2026 в Венеции",
       "category": "exhibition",
       "venue": null,
@@ -1463,16 +1384,6 @@
       "time": null,
       "url": "https://www.afisha.uz/ru/exhibitions/2026/08/31/homo-faber",
       "source": "afisha.uz (calendar)"
-    },
-    {
-      "title": "Shum bolalar shou",
-      "titleRu": null,
-      "category": "concert",
-      "venue": "Peoples' Friendship Palace",
-      "startDate": "2026-09-14",
-      "endDate": null,
-      "url": "https://iticket.uz/en/events/concerts/shum-bolalar-shou2026",
-      "source": "iticket.uz"
     },
     {
       "title": "Uzbegim Market fair in Tashkent City Park",
@@ -1497,7 +1408,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Uzbekistan will present contemporary craft at Homo Faber 2026 in Venice",
+      "title": "Узбекистан представит современное ремесло на Homo Faber 2026 в Венеции",
       "titleRu": "Узбекистан представит современное ремесло на Homo Faber 2026 в Венеции",
       "category": "exhibition",
       "venue": null,

@@ -15,22 +15,33 @@
 [scrape]   TARGET CHECK 'our-heritage': NOT FOUND in any href on the rendered page
 [scrape]   TARGET CHECK 'photo-chronicle-xx': NOT FOUND in any href on the rendered page
 [scrape] calendar discovery complete: 58 unique event URLs to check
+[scrape] Translation failed for 'Фестиваль юсуповского помидора в «Мясном': Фестиваль юсуповского помидора в «Мясном» --> No translation was found using the current translator. Try another translator?
+[scrape] Translation failed for 'Концерт Зиёды в Magic City': Концерт Зиёды в Magic City --> No translation was found using the current translator. Try another translator?
+[scrape] Translation failed for 'Концерт к 35-летию Независимости Узбекис': Концерт к 35-летию Независимости Узбекистана --> No translation was found using the current translator. Try another translator?
+[scrape] Translation failed for 'Премьера спектакля «Синий карлик, или Же': Премьера спектакля «Синий карлик, или Жемчужное сердце» --> No translation was found using the current translator. Try another translator?
+[scrape] Translation failed for 'Праздничные шоу в парке Yangi Oʻzbekisto': Праздничные шоу в парке Yangi Oʻzbekiston --> No translation was found using the current translator. Try another translator?
 [scrape]   'Выставка Hikmah на открытии CCA Tashkent': no dates found in window (no schedule/date-range parsed) -- kept 0 events
+[scrape] Translation failed for 'Uzbekistan Concrete Show 2026': Uzbekistan Concrete Show 2026 --> No translation was found using the current translator. Try another translator?
 [scrape]   'Uzbekistan Concrete Show 2026': no dates found in window (no schedule/date-range parsed) -- kept 0 events
 [scrape]   'ICTWeek Uzbekistan 2026': no dates found in window (no schedule/date-range parsed) -- kept 0 events
+[scrape] Translation failed for 'Plastex Uzbekistan 2026': Plastex Uzbekistan 2026 --> No translation was found using the current translator. Try another translator?
 [scrape]   'Plastex Uzbekistan 2026': no dates found in window (no schedule/date-range parsed) -- kept 0 events
+[scrape] Translation failed for 'Узбекистан представит современное ремесл': Узбекистан представит современное ремесло на Homo Faber 2026 в Венеции --> No translation was found using the current translator. Try another translator?
+[scrape] Translation failed for 'Эстетика многослойности: в Ташкенте откр': Эстетика многослойности: в Ташкенте открылась выставка Бобура Алимходжаева Duality: X-Ray of Memory --> No translation was found using the current translator. Try another translator?
 [scrape]   'Эстетика многослойности: в Ташкенте открылась выставка Бобура Алимходжаева Duality: X-Ray of Memory': no dates found in window (no schedule/date-range parsed) -- kept 0 events
+[scrape] Translation failed for 'Pharma Eurasia & MedTech 2026: в Ташкент': Pharma Eurasia & MedTech 2026: в Ташкенте пройдет выставка фармацевтической отрасли --> No translation was found using the current translator. Try another translator?
 [scrape]   'Pharma Eurasia & MedTech 2026: в Ташкенте пройдет выставка фармацевтической отрасли': no dates found in window (no schedule/date-range parsed) -- kept 0 events
+[scrape] Translation failed for 'В университете Кимё проходит выставка Ar': В университете Кимё проходит выставка Art Engineering 2026, посвященная экологическим решениям --> No translation was found using the current translator. Try another translator?
 [scrape]   'В университете Кимё проходит выставка Art Engineering 2026, посвященная экологическим решениям': no dates found in window (no schedule/date-range parsed) -- kept 0 events
 [scrape] calendar detail pass complete: 112 events kept from 58 pages checked
 [scrape] special-tracked: FAILED to fetch or failed content check for https://www.afisha.uz/ru/cinema/2026/07/16/kinoprazdnik-v-sredu
-[scrape] iticket.uz cat=concert: 14 events kept
-[scrape] iticket.uz cat=theatre: 20 events kept
+[scrape] iticket.uz cat=concert: 9 events kept
+[scrape] iticket.uz cat=theatre: 15 events kept
 [scrape] iticket.uz cat=exhibition: 0 events kept
 [scrape] ticketon.uz: CONFIRMED BLOCKED (Cloudflare challenge, page title='Just a moment...'). 0 events -- this is expected, not a bug to fix.
 [scrape] eventbrite.com: CONFIRMED BLOCKED (AWS WAF CAPTCHA, page title='Human Verification'). 0 events -- this is expected, not a bug to fix. Same category of block as ticketon.uz.
 [scrape] eventbrite.com: 0 events found (dates NOT yet parsed -- see note in script)
 [scrape]   DEDUP: 0 target entries survived Pass 1
 [scrape]   DEDUP: 0 target entries survived Pass 2 (final)
-[scrape] TOTAL before dedup: 146  |  after dedup: 140
+[scrape] TOTAL before dedup: 136  |  after dedup: 131
 [scrape] Wrote data/events-tashkent.json
