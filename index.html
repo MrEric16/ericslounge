@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Mr Eric's Lounge</title>
-<meta name="app-build" content="20260901051907">
+<meta name="app-build" content="20260901205705">
 <script>
   // PWA update-detection: an installed home-screen app's standalone-mode navigation
   // cache can hold an old shell far longer than the CDN's 10-minute cache -
@@ -23442,7 +23442,13 @@ const COMPLIMENTS = [
   let initial = (()=>{ try{ return localStorage.getItem('themeChoice'); }catch(e){ return null; } })();
   if(initial === null){
     const legacy = (()=>{ try{ return localStorage.getItem('darkMode'); }catch(e){ return null; } })();
-    initial = legacy === '1' ? 'd1' : 'default';
+    // New default for anyone with no saved preference at all is IHL Dark, starting now
+    // (explicit ask). This is a one-time default, not a recurring per-session force like
+    // National Day's mechanism below - the instant someone actually picks a theme
+    // (including picking Classic/default explicitly), applyThemeState's normal persist
+    // behavior saves that choice to localStorage, so on every future load `initial`
+    // resolves from that saved value and this null-branch never runs for them again.
+    initial = legacy === '1' ? 'd1' : 'dihl';
   }
   // On a genuine fresh launch (new tab/session - sessionStorage is empty) during the
   // National Day window, force the theme to nationalday and persist that as the active
@@ -23477,6 +23483,7 @@ const COMPLIMENTS = [
   }catch(e){}
   if(THEME_ORDER.indexOf(initial) === -1) initial = 'default';
   applyThemeState(initial, {persist:false});
+  fireAppOpenCelebration();
 
   const prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   let animating = false;
@@ -23612,6 +23619,126 @@ if(document.fonts && document.fonts.ready){
   document.fonts.ready.then(centerNationalDayStatRow);
 }
 
+/* App-open celebration: fireworks + confetti, once per fresh session (tab/app open),
+   never on a plain refresh within that session - same sessionStorage-gate pattern
+   already proven by fireNationalDayFireworksOnce below (that flag survives a refresh,
+   only clears on an actual new session), just a separate flag and generalized to fire
+   on every load regardless of which theme is active, not tied to National Day. Combines
+   round firework-style bursts with falling/rotating confetti rectangles in one canvas
+   pass for "fireworks and confetti both", using a theme-agnostic color palette so it
+   looks right no matter which of the ~18 themes happens to be active. */
+function fireAppOpenCelebration(){
+  try{
+    if(sessionStorage.getItem('elAppOpenCelebrationFired') === '1') return;
+    sessionStorage.setItem('elAppOpenCelebrationFired', '1');
+  }catch(e){}
+  if(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const canvas = document.createElement('canvas');
+  canvas.style.cssText = 'position:fixed; inset:0; z-index:100000; pointer-events:none;';
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+  document.body.appendChild(canvas);
+  const ctx = canvas.getContext('2d');
+  const COLORS = ['#FFD23F', '#EE6C4D', '#3D9DF2', '#3BB273', '#A560E8', '#FF6FA5'];
+  const bursts = [];
+  const confetti = [];
+
+  function burst(x, y, big){
+    const count = big ? 130 : 85;
+    const color = COLORS[Math.floor(Math.random() * COLORS.length)];
+    for(let i = 0; i < count; i++){
+      const angle = (Math.PI * 2 * i) / count + Math.random() * 0.2;
+      const speed = (big ? 3.5 : 2.5) + Math.random() * (big ? 6 : 4.5);
+      bursts.push({
+        x, y,
+        vx: Math.cos(angle) * speed,
+        vy: Math.sin(angle) * speed,
+        color,
+        size: big ? 3.6 : 2.8,
+        life: 1,
+        decay: 0.008 + Math.random() * 0.01,
+      });
+    }
+  }
+  function spawnConfetti(count){
+    for(let i = 0; i < count; i++){
+      confetti.push({
+        x: Math.random() * canvas.width,
+        y: -20 - Math.random() * canvas.height * 0.4,
+        vx: (Math.random() - 0.5) * 2.2,
+        vy: 2 + Math.random() * 2.5,
+        rot: Math.random() * Math.PI * 2,
+        vrot: (Math.random() - 0.5) * 0.25,
+        color: COLORS[Math.floor(Math.random() * COLORS.length)],
+        w: 6 + Math.random() * 5,
+        h: 10 + Math.random() * 6,
+        life: 1,
+        decay: 0.004 + Math.random() * 0.004,
+      });
+    }
+  }
+
+  const fireworkBursts = [
+    { x: 0.2,  y: 0.22, delay: 0,    big: true },
+    { x: 0.78, y: 0.18, delay: 180,  big: true },
+    { x: 0.5,  y: 0.3,  delay: 380,  big: true },
+    { x: 0.1,  y: 0.4,  delay: 620 },
+    { x: 0.9,  y: 0.38, delay: 700 },
+    { x: 0.35, y: 0.5,  delay: 950 },
+    { x: 0.65, y: 0.48, delay: 1050, big: true },
+  ];
+  fireworkBursts.forEach(b => setTimeout(() => burst(b.x * canvas.width, b.y * canvas.height, b.big), b.delay));
+  spawnConfetti(90);
+  setTimeout(() => spawnConfetti(60), 500);
+
+  let running = true;
+  function tick(){
+    if(!running) return;
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    let anyAlive = false;
+    for(let i = bursts.length - 1; i >= 0; i--){
+      const p = bursts[i];
+      p.x += p.vx;
+      p.y += p.vy;
+      p.vy += 0.045;
+      p.life -= p.decay;
+      if(p.life <= 0){ bursts.splice(i, 1); continue; }
+      anyAlive = true;
+      ctx.globalAlpha = Math.max(p.life, 0);
+      ctx.fillStyle = p.color;
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+      ctx.fill();
+    }
+    for(let i = confetti.length - 1; i >= 0; i--){
+      const c = confetti[i];
+      c.x += c.vx;
+      c.y += c.vy;
+      c.vy += 0.03;
+      c.rot += c.vrot;
+      c.life -= c.decay;
+      if(c.life <= 0 || c.y > canvas.height + 30){ confetti.splice(i, 1); continue; }
+      anyAlive = true;
+      ctx.save();
+      ctx.globalAlpha = Math.max(c.life, 0);
+      ctx.translate(c.x, c.y);
+      ctx.rotate(c.rot);
+      ctx.fillStyle = c.color;
+      ctx.fillRect(-c.w / 2, -c.h / 2, c.w, c.h);
+      ctx.restore();
+    }
+    ctx.globalAlpha = 1;
+    if(anyAlive || Date.now() < startTime + 3200){
+      requestAnimationFrame(tick);
+    } else {
+      running = false;
+      canvas.remove();
+    }
+  }
+  const startTime = Date.now();
+  requestAnimationFrame(tick);
+  setTimeout(() => { running = false; canvas.remove(); }, 5500);
+}
 function fireNationalDayFireworksOnce(){
   try{
     if(sessionStorage.getItem('elNdFireworksFired') === '1') return;
