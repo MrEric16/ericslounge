@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-09-01T14:14:08.428334Z",
+  "generatedAt": "2026-09-01T18:38:59.851491Z",
   "events": [
     {
-      "title": "Yusupov Tomato Festival at Myasnoye",
+      "title": "Фестиваль юсуповского помидора в «Мясном»",
       "titleRu": "Фестиваль юсуповского помидора в «Мясном»",
       "category": "concert",
       "venue": "Мясной Steak HouseТашкент, ул. Шота Руставели, 13А",
@@ -13,7 +13,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Концерт Зиёды в Magic City",
+      "title": "Ziyoda concert in Magic City",
       "titleRu": "Концерт Зиёды в Magic City",
       "category": "concert",
       "venue": "Magic CityТашкент, ул. Бабура, 174",
@@ -57,7 +57,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Праздничная программа в Anhor Park",
+      "title": "Festive program at Anhor Park",
       "titleRu": "Праздничная программа в Anhor Park",
       "category": "kids",
       "venue": "Anhor parkТашкент, улица Лабзак",
@@ -68,7 +68,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Семейный праздник в ТРЦ NEXT",
+      "title": "Family holiday in the NEXT shopping center",
       "titleRu": "Семейный праздник в ТРЦ NEXT",
       "category": "kids",
       "venue": "Next - торгово-развлекательный комплексТашкент, ул. Бабура, 6",
@@ -79,7 +79,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Праздничные шоу в Luna Park",
+      "title": "Holiday shows at Luna Park",
       "titleRu": "Праздничные шоу в Luna Park",
       "category": "kids",
       "venue": "Luna ParkТашкент, ул. Лутфи, 57А",
@@ -90,7 +90,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Премьера спектакля «Синий карлик, или Жемчужное сердце»",
+      "title": "Premiere of the play “Blue Dwarf, or Heart of Pearl”",
       "titleRu": "Премьера спектакля «Синий карлик, или Жемчужное сердце»",
       "category": "kids",
       "venue": null,
@@ -112,7 +112,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Праздничные шоу в парке Yangi Oʻzbekiston",
+      "title": "Festive shows in Yangi Oʻzbekiston park",
       "titleRu": "Праздничные шоу в парке Yangi Oʻzbekiston",
       "category": "festival",
       "venue": "Парк «Янги Узбекистон»Ташкент, парк Янги Узбекистон",
@@ -123,7 +123,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Костюмированный фестиваль сап-сёрфинга Anhor Sup Fest 2026",
+      "title": "Costume SUP festival Anhor Sup Fest 2026",
       "titleRu": "Костюмированный фестиваль сап-сёрфинга Anhor Sup Fest 2026",
       "category": "festival",
       "venue": "Гребная база «Анхор»Ташкент, ул. Зульфияханум, 17",
@@ -156,37 +156,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "ЛАБОРАТОРИЯ «СССР»",
-      "titleRu": null,
-      "category": "concert",
-      "venue": "Mysterium",
-      "startDate": "2026-09-01",
-      "endDate": null,
-      "url": "https://iticket.uz/en/events/concerts/laboratoriya-sssr",
-      "source": "iticket.uz"
-    },
-    {
-      "title": "ПРЯТКИ В ТЕМНОТЕ",
-      "titleRu": null,
-      "category": "concert",
-      "venue": "Mysterium",
-      "startDate": "2026-09-01",
-      "endDate": null,
-      "url": "https://iticket.uz/en/events/concerts/pryatki-v-temnote",
-      "source": "iticket.uz"
-    },
-    {
-      "title": "ПЕЩЕРА СОКРОВИЩ",
-      "titleRu": null,
-      "category": "concert",
-      "venue": "Mysterium",
-      "startDate": "2026-09-01",
-      "endDate": null,
-      "url": "https://iticket.uz/en/events/concerts/peshera-sokrovish",
-      "source": "iticket.uz"
-    },
-    {
-      "title": "Yusupov Tomato Festival at Myasnoye",
+      "title": "Фестиваль юсуповского помидора в «Мясном»",
       "titleRu": "Фестиваль юсуповского помидора в «Мясном»",
       "category": "concert",
       "venue": "Мясной Steak HouseТашкент, ул. Шота Руставели, 13А",
@@ -252,7 +222,37 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Yusupov Tomato Festival at Myasnoye",
+      "title": "ЛАБОРАТОРИЯ «СССР»",
+      "titleRu": null,
+      "category": "concert",
+      "venue": "Mysterium",
+      "startDate": "2026-09-02",
+      "endDate": null,
+      "url": "https://iticket.uz/en/events/concerts/laboratoriya-sssr",
+      "source": "iticket.uz"
+    },
+    {
+      "title": "ПРЯТКИ В ТЕМНОТЕ",
+      "titleRu": null,
+      "category": "concert",
+      "venue": "Mysterium",
+      "startDate": "2026-09-02",
+      "endDate": null,
+      "url": "https://iticket.uz/en/events/concerts/pryatki-v-temnote",
+      "source": "iticket.uz"
+    },
+    {
+      "title": "ПЕЩЕРА СОКРОВИЩ",
+      "titleRu": null,
+      "category": "concert",
+      "venue": "Mysterium",
+      "startDate": "2026-09-02",
+      "endDate": null,
+      "url": "https://iticket.uz/en/events/concerts/peshera-sokrovish",
+      "source": "iticket.uz"
+    },
+    {
+      "title": "Фестиваль юсуповского помидора в «Мясном»",
       "titleRu": "Фестиваль юсуповского помидора в «Мясном»",
       "category": "concert",
       "venue": "Мясной Steak HouseТашкент, ул. Шота Руставели, 13А",
@@ -307,7 +307,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Yusupov Tomato Festival at Myasnoye",
+      "title": "Фестиваль юсуповского помидора в «Мясном»",
       "titleRu": "Фестиваль юсуповского помидора в «Мясном»",
       "category": "concert",
       "venue": "Мясной Steak HouseТашкент, ул. Шота Руставели, 13А",
@@ -351,7 +351,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Осенний фестиваль локальных брендов TEPLO AUTUMN FEST",
+      "title": "Autumn festival of local brands TEPLO AUTUMN FEST",
       "titleRu": "Осенний фестиваль локальных брендов TEPLO AUTUMN FEST",
       "category": "exhibition",
       "venue": null,
@@ -362,7 +362,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Футбольный матч «Пахтакор» — «Андижан»",
+      "title": "Football match \"Pakhtakor\" - \"Andijan\"",
       "titleRu": "Футбольный матч «Пахтакор» — «Андижан»",
       "category": "sport",
       "venue": null,
@@ -394,7 +394,7 @@
       "source": "iticket.uz"
     },
     {
-      "title": "Yusupov Tomato Festival at Myasnoye",
+      "title": "Фестиваль юсуповского помидора в «Мясном»",
       "titleRu": "Фестиваль юсуповского помидора в «Мясном»",
       "category": "concert",
       "venue": "Мясной Steak HouseТашкент, ул. Шота Руставели, 13А",
@@ -405,15 +405,14 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Премьера спектакля «Синий карлик, или Жемчужное сердце»",
-      "titleRu": "Премьера спектакля «Синий карлик, или Жемчужное сердце»",
-      "category": "kids",
-      "venue": null,
+      "title": "Blue Dwarf, or The Pearl Heart",
+      "titleRu": null,
+      "category": "theatre",
+      "venue": "Uzbek National Puppet theater",
       "startDate": "2026-09-05",
       "endDate": null,
-      "time": null,
-      "url": "https://www.afisha.uz/ru/children/2026/08/06/children-s-play",
-      "source": "afisha.uz (calendar)"
+      "url": "https://iticket.uz/en/events/theaters-tashkent/blue-dwarf-or-the-pearl-heart",
+      "source": "iticket.uz"
     },
     {
       "title": "Uzbegim Market fair in Tashkent City Park",
@@ -427,7 +426,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Осенний фестиваль локальных брендов TEPLO AUTUMN FEST",
+      "title": "Autumn festival of local brands TEPLO AUTUMN FEST",
       "titleRu": "Осенний фестиваль локальных брендов TEPLO AUTUMN FEST",
       "category": "exhibition",
       "venue": null,
@@ -438,7 +437,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Выставка Мохамеда Беншалала",
+      "title": "Exhibition by Mohamed Benshalal",
       "titleRu": "Выставка Мохамеда Беншалала",
       "category": "exhibition",
       "venue": "Государственный музей истории УзбекистанаТашкент, просп. Рашидова, 3",
@@ -449,7 +448,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Спектакль «Биринчи калдиргоч»",
+      "title": "Performance \"Birinchi Kaldirgoch\"",
       "titleRu": "Спектакль «Биринчи калдиргоч»",
       "category": "theatre",
       "venue": null,
@@ -460,7 +459,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Турнир смешанных единоборств OCTAGON 91",
+      "title": "Mixed martial arts tournament OCTAGON 91",
       "titleRu": "Турнир смешанных единоборств OCTAGON 91",
       "category": "sport",
       "venue": null,
@@ -557,17 +556,7 @@
       "source": "iticket.uz"
     },
     {
-      "title": "Blue Dwarf, or The Pearl Heart",
-      "titleRu": null,
-      "category": "theatre",
-      "venue": "Uzbek National Puppet theater",
-      "startDate": "2026-09-05",
-      "endDate": null,
-      "url": "https://iticket.uz/en/events/theaters-tashkent/blue-dwarf-or-the-pearl-heart",
-      "source": "iticket.uz"
-    },
-    {
-      "title": "Yusupov Tomato Festival at Myasnoye",
+      "title": "Фестиваль юсуповского помидора в «Мясном»",
       "titleRu": "Фестиваль юсуповского помидора в «Мясном»",
       "category": "concert",
       "venue": "Мясной Steak HouseТашкент, ул. Шота Руставели, 13А",
@@ -578,7 +567,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Премьера спектакля «Синий карлик, или Жемчужное сердце»",
+      "title": "Premiere of the play “Blue Dwarf, or Heart of Pearl”",
       "titleRu": "Премьера спектакля «Синий карлик, или Жемчужное сердце»",
       "category": "kids",
       "venue": null,
@@ -600,7 +589,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Осенний фестиваль локальных брендов TEPLO AUTUMN FEST",
+      "title": "Autumn festival of local brands TEPLO AUTUMN FEST",
       "titleRu": "Осенний фестиваль локальных брендов TEPLO AUTUMN FEST",
       "category": "exhibition",
       "venue": null,
@@ -611,7 +600,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Выставка Мохамеда Беншалала",
+      "title": "Exhibition by Mohamed Benshalal",
       "titleRu": "Выставка Мохамеда Беншалала",
       "category": "exhibition",
       "venue": "Государственный музей истории УзбекистанаТашкент, просп. Рашидова, 3",
@@ -774,7 +763,7 @@
       "source": "iticket.uz"
     },
     {
-      "title": "Yusupov Tomato Festival at Myasnoye",
+      "title": "Фестиваль юсуповского помидора в «Мясном»",
       "titleRu": "Фестиваль юсуповского помидора в «Мясном»",
       "category": "concert",
       "venue": "Мясной Steak HouseТашкент, ул. Шота Руставели, 13А",
@@ -796,7 +785,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Выставка Мохамеда Беншалала",
+      "title": "Exhibition by Mohamed Benshalal",
       "titleRu": "Выставка Мохамеда Беншалала",
       "category": "exhibition",
       "venue": "Государственный музей истории УзбекистанаТашкент, просп. Рашидова, 3",
@@ -829,7 +818,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Yusupov Tomato Festival at Myasnoye",
+      "title": "Фестиваль юсуповского помидора в «Мясном»",
       "titleRu": "Фестиваль юсуповского помидора в «Мясном»",
       "category": "concert",
       "venue": "Мясной Steak HouseТашкент, ул. Шота Руставели, 13А",
@@ -851,7 +840,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Выставка Мохамеда Беншалала",
+      "title": "Exhibition by Mohamed Benshalal",
       "titleRu": "Выставка Мохамеда Беншалала",
       "category": "exhibition",
       "venue": "Государственный музей истории УзбекистанаТашкент, просп. Рашидова, 3",
@@ -916,7 +905,7 @@
       "source": "iticket.uz"
     },
     {
-      "title": "Yusupov Tomato Festival at Myasnoye",
+      "title": "Фестиваль юсуповского помидора в «Мясном»",
       "titleRu": "Фестиваль юсуповского помидора в «Мясном»",
       "category": "concert",
       "venue": "Мясной Steak HouseТашкент, ул. Шота Руставели, 13А",
@@ -938,7 +927,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Выставка Мохамеда Беншалала",
+      "title": "Exhibition by Mohamed Benshalal",
       "titleRu": "Выставка Мохамеда Беншалала",
       "category": "exhibition",
       "venue": "Государственный музей истории УзбекистанаТашкент, просп. Рашидова, 3",
@@ -993,7 +982,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Выставка Мохамеда Беншалала",
+      "title": "Exhibition by Mohamed Benshalal",
       "titleRu": "Выставка Мохамеда Беншалала",
       "category": "exhibition",
       "venue": "Государственный музей истории УзбекистанаТашкент, просп. Рашидова, 3",
@@ -1070,16 +1059,6 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Команда АСТАНА",
-      "titleRu": null,
-      "category": "concert",
-      "venue": "Peoples' Friendship Palace",
-      "startDate": "2026-09-10",
-      "endDate": null,
-      "url": "https://iticket.uz/en/events/concerts/komanda-astana",
-      "source": "iticket.uz"
-    },
-    {
       "title": "Uzbegim Market fair in Tashkent City Park",
       "titleRu": "Ярмарка Uzbegim Market в парке Tashkent City",
       "category": "festival",
@@ -1091,7 +1070,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Выставка Мохамеда Беншалала",
+      "title": "Exhibition by Mohamed Benshalal",
       "titleRu": "Выставка Мохамеда Беншалала",
       "category": "exhibition",
       "venue": "Государственный музей истории УзбекистанаТашкент, просп. Рашидова, 3",
@@ -1113,17 +1092,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "QUEST PISTOLS",
-      "titleRu": null,
-      "category": "concert",
-      "venue": "Salama restaurant",
-      "startDate": "2026-09-11",
-      "endDate": null,
-      "url": "https://iticket.uz/en/events/concerts/quest-pistols",
-      "source": "iticket.uz"
-    },
-    {
-      "title": "Премьера спектакля «Синий карлик, или Жемчужное сердце»",
+      "title": "Premiere of the play “Blue Dwarf, or Heart of Pearl”",
       "titleRu": "Премьера спектакля «Синий карлик, или Жемчужное сердце»",
       "category": "kids",
       "venue": null,
@@ -1145,7 +1114,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Выставка Мохамеда Беншалала",
+      "title": "Exhibition by Mohamed Benshalal",
       "titleRu": "Выставка Мохамеда Беншалала",
       "category": "exhibition",
       "venue": "Государственный музей истории УзбекистанаТашкент, просп. Рашидова, 3",
@@ -1178,17 +1147,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Otamurod Nurmatov",
-      "titleRu": null,
-      "category": "concert",
-      "venue": "Peoples' Friendship Palace",
-      "startDate": "2026-09-12",
-      "endDate": null,
-      "url": "https://iticket.uz/en/events/concerts/otamurod-nurmatov26",
-      "source": "iticket.uz"
-    },
-    {
-      "title": "Премьера спектакля «Синий карлик, или Жемчужное сердце»",
+      "title": "Premiere of the play “Blue Dwarf, or Heart of Pearl”",
       "titleRu": "Премьера спектакля «Синий карлик, или Жемчужное сердце»",
       "category": "kids",
       "venue": null,
@@ -1210,7 +1169,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Выставка Мохамеда Беншалала",
+      "title": "Exhibition by Mohamed Benshalal",
       "titleRu": "Выставка Мохамеда Беншалала",
       "category": "exhibition",
       "venue": "Государственный музей истории УзбекистанаТашкент, просп. Рашидова, 3",
@@ -1265,7 +1224,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Выставка Мохамеда Беншалала",
+      "title": "Exhibition by Mohamed Benshalal",
       "titleRu": "Выставка Мохамеда Беншалала",
       "category": "exhibition",
       "venue": "Государственный музей истории УзбекистанаТашкент, просп. Рашидова, 3",
@@ -1287,16 +1246,6 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Shum bolalar shou",
-      "titleRu": null,
-      "category": "concert",
-      "venue": "Peoples' Friendship Palace",
-      "startDate": "2026-09-14",
-      "endDate": null,
-      "url": "https://iticket.uz/en/events/concerts/shum-bolalar-shou2026",
-      "source": "iticket.uz"
-    },
-    {
       "title": "Uzbegim Market fair in Tashkent City Park",
       "titleRu": "Ярмарка Uzbegim Market в парке Tashkent City",
       "category": "festival",
@@ -1308,7 +1257,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Выставка Мохамеда Беншалала",
+      "title": "Exhibition by Mohamed Benshalal",
       "titleRu": "Выставка Мохамеда Беншалала",
       "category": "exhibition",
       "venue": "Государственный музей истории УзбекистанаТашкент, просп. Рашидова, 3",
