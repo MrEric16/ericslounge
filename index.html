@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Mr Eric's Lounge</title>
-<meta name="app-build" content="20260901041409">
+<meta name="app-build" content="20260901042041">
 <script>
   // PWA update-detection: an installed home-screen app's standalone-mode navigation
   // cache can hold an old shell far longer than the CDN's 10-minute cache -
@@ -274,6 +274,13 @@
   body.usertheme-vintage:not(.dark-mode) header *{
     color:#F0F0F0;
     text-shadow:none;
+  }
+  /* Same white-icon-on-white-circle bug as Arsenal and IHL light had, same root cause:
+     .search-icon-btn's own background is var(--card), white in Vintage Light, and the
+     header-wide light-text rule above was making the icons nearly-white too. */
+  body.usertheme-vintage:not(.dark-mode) header .search-icon-btn,
+  body.usertheme-vintage:not(.dark-mode) header .search-icon-btn *{
+    color:#1A1A1A !important;
   }
   /* IHL - Interhouse Lyceum's real brand colors, pixel-extracted from a live screenshot
      of interhouselyceum.uz (blue #304EA0 confirmed from a solid stat-box region - 51,783
