@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Mr Eric's Lounge</title>
-<meta name="app-build" content="20260901000046">
+<meta name="app-build" content="20260901040338">
 <script>
   // PWA update-detection: an installed home-screen app's standalone-mode navigation
   // cache can hold an old shell far longer than the CDN's 10-minute cache -
@@ -287,6 +287,9 @@
   body.usertheme-ihl:not(.dark-mode) .sport-hub-tile{
     box-shadow:inset 0 3px 0 0 #FF9E2C;
   }
+  body.usertheme-ihl:not(.dark-mode) #backToTopBtn{
+    background:#FF9E2C !important;
+  }
   /* Site title in the exact palette orange, plus two named tiles Mr Eric called out
      specifically (Full Archive, Read/listen/download books) - deliberate scoped
      exceptions to the "no painted tiles" rule, not a general tile-painting pass. */
@@ -470,6 +473,9 @@
   body.dark-mode.usertheme-dihl .fac-tile,
   body.dark-mode.usertheme-dihl .sport-hub-tile{
     box-shadow:inset 0 3px 0 0 #FF9E2C;
+  }
+  body.dark-mode.usertheme-dihl #backToTopBtn{
+    background:#FF9E2C !important;
   }
   body.dark-mode.usertheme-dihl .title{
     color:#FF9E2C !important;
