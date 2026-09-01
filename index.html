@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Mr Eric's Lounge</title>
-<meta name="app-build" content="20260901044303">
+<meta name="app-build" content="20260901050954">
 <script>
   // PWA update-detection: an installed home-screen app's standalone-mode navigation
   // cache can hold an old shell far longer than the CDN's 10-minute cache -
@@ -21008,6 +21008,30 @@ function viewPhotos(){
     </section>
   `;
 }
+function viewMathsMrAyk(){
+  return `
+    <a class="back-link" href="#">← Back to Mr Eric's Lounge</a>
+    <section style="padding-top:14px;">
+      <div class="section-head"><span class="emoji">${icon('mathSymbols')}</span><h2>Maths with Mr Ayk</h2></div>
+      <div style="display:flex; flex-direction:column; gap:14px;">
+        <a class="events-tile" href="https://chaosxedu.com/" target="_blank" rel="noopener" style="background:#3D5A80;">
+          <span class="icon">${icon('mathSymbols')}</span>
+          <div>
+            <div class="title">General Maths</div>
+            <div class="sub">chaosxedu.com</div>
+          </div>
+        </a>
+        <a class="events-tile" href="https://chaosxsat.com/" target="_blank" rel="noopener" style="background:#293B5F;">
+          <span class="icon">${icon('target')}</span>
+          <div>
+            <div class="title">SAT Maths</div>
+            <div class="sub">chaosxsat.com</div>
+          </div>
+        </a>
+      </div>
+    </section>
+  `;
+}
 function viewPhotoLibrary(){
   const sorted = [...PHOTOS, ...SUBMITTED_PHOTOS].sort((a,b)=> b.date.localeCompare(a.date));
   const uploadWidget = `
@@ -22127,6 +22151,16 @@ function viewHome(){
     </section>
 
     <section>
+      <a class="events-tile" href="#maths-mr-ayk" style="background:#3D5A80;">
+        <span class="icon">${icon('mathSymbols')}</span>
+        <div>
+          <div class="title">Maths with Mr Ayk</div>
+          <div class="sub">General maths and SAT maths practice</div>
+        </div>
+      </a>
+    </section>
+
+    <section>
       <a class="flaggame-tile" href="#photos">
         <span class="icon">${icon('camera')}</span>
         <div>
@@ -22985,6 +23019,8 @@ function renderRoute(opts){
     html = viewSearch();
   } else if(parts[0] === 'photos'){
     html = viewPhotos();
+  } else if(parts[0] === 'maths-mr-ayk'){
+    html = viewMathsMrAyk();
   } else if(parts[0] === 'photo-library'){
     html = viewPhotoLibrary();
   } else if(parts[0] === 'full-archive-hub'){
