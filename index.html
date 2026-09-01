@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Mr Eric's Lounge</title>
-<meta name="app-build" content="20260901042041">
+<meta name="app-build" content="20260901044303">
 <script>
   // PWA update-detection: an installed home-screen app's standalone-mode navigation
   // cache can hold an old shell far longer than the CDN's 10-minute cache -
@@ -261,7 +261,16 @@
     --coral:#333333; --coral-dark:#000000; --gold:#666666; --teal:#999999; --line:#CCCCCC;
     --board-bg:rgba(0,0,0,.55);
   }
-  body.usertheme-vintage:not(.dark-mode){
+  /* Fix: filter on body itself broke every position:fixed overlay in the app (Stories,
+     the theme picker, toasts, confetti) - CSS spec makes a filtered element the
+     containing block for fixed-position descendants, which pulls them out of normal
+     viewport-relative positioning. Both Stories and the theme picker append straight to
+     document.body (confirmed in the actual code), so retargeting the filter onto #app
+     and header specifically - the only two things that actually need graying, and
+     neither of which contains any fixed-position modal - keeps the full-page grayscale
+     guarantee without breaking anything that escapes to body. */
+  body.usertheme-vintage:not(.dark-mode) #app,
+  body.usertheme-vintage:not(.dark-mode) header{
     filter:grayscale(100%);
   }
   body.usertheme-vintage:not(.dark-mode) header{
@@ -491,7 +500,12 @@
     --cream:#141414; --cream-2:#1E1E1E; --card:#262626; --ink:#EDEDED; --ink-soft:#B0B0B0;
     --coral:#CCCCCC; --coral-dark:#999999; --gold:#888888; --teal:#666666; --line:#3A3A3A;
   }
-  body.dark-mode.usertheme-dvintage{
+  /* Same fix as light Vintage - filter retargeted from body onto #app and header only,
+     so Stories/theme-picker/toasts (all appended straight to document.body) stay
+     correctly viewport-positioned instead of being pulled into the filtered elements
+     containing block. */
+  body.dark-mode.usertheme-dvintage #app,
+  body.dark-mode.usertheme-dvintage header{
     filter:grayscale(100%);
   }
   body.dark-mode.usertheme-dvintage header{
