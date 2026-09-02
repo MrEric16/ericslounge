@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-02T21:10:06.227825Z",
+  "generatedAt": "2026-09-02T23:24:25.827877Z",
   "events": [
     {
       "title": "Yusupov Tomato Festival at Myasnoye",
@@ -757,6 +757,16 @@
       "source": "afisha.uz (calendar)"
     },
     {
+      "title": "Og'abek Sobirov",
+      "titleRu": null,
+      "category": "concert",
+      "venue": "Peoples' Friendship Palace",
+      "startDate": "2026-09-08",
+      "endDate": null,
+      "url": "https://iticket.uz/en/events/concerts/ogabek-sobirov26",
+      "source": "iticket.uz"
+    },
+    {
       "title": "Yusupov Tomato Festival at Myasnoye",
       "titleRu": "Фестиваль юсуповского помидора в «Мясном»",
       "category": "concert",
@@ -910,6 +920,16 @@
       "source": "afisha.uz (calendar)"
     },
     {
+      "title": "Команда АСТАНА",
+      "titleRu": null,
+      "category": "concert",
+      "venue": "Peoples' Friendship Palace",
+      "startDate": "2026-09-10",
+      "endDate": null,
+      "url": "https://iticket.uz/en/events/concerts/komanda-astana",
+      "source": "iticket.uz"
+    },
+    {
       "title": "Uzbegim Market fair in Tashkent City Park",
       "titleRu": "Ярмарка Uzbegim Market в парке Tashkent City",
       "category": "festival",
@@ -998,6 +1018,16 @@
       "source": "afisha.uz (calendar)"
     },
     {
+      "title": "QUEST PISTOLS",
+      "titleRu": null,
+      "category": "concert",
+      "venue": "Salama restaurant",
+      "startDate": "2026-09-11",
+      "endDate": null,
+      "url": "https://iticket.uz/en/events/concerts/quest-pistols",
+      "source": "iticket.uz"
+    },
+    {
       "title": "Uzbegim Market fair in Tashkent City Park",
       "titleRu": "Ярмарка Uzbegim Market в парке Tashkent City",
       "category": "festival",
@@ -1064,15 +1094,14 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Concert of Otamurod Nurmatov",
-      "titleRu": "Концерт Отамурода Нурматова",
+      "title": "Otamurod Nurmatov",
+      "titleRu": null,
       "category": "concert",
-      "venue": null,
+      "venue": "Peoples' Friendship Palace",
       "startDate": "2026-09-12",
       "endDate": null,
-      "time": "19:30",
-      "url": "https://www.afisha.uz/ru/concerts/2026/07/31/kontsert-otamuroda-nurmatova-vy-menya-ne-zabyli",
-      "source": "afisha.uz (calendar)"
+      "url": "https://iticket.uz/en/events/concerts/otamurod-nurmatov26",
+      "source": "iticket.uz"
     },
     {
       "title": "ILKHOM PARTY at the Ilkhom Theater",
@@ -1375,6 +1404,16 @@
       "source": "afisha.uz (calendar)"
     },
     {
+      "title": "Shum bolalar shou",
+      "titleRu": null,
+      "category": "concert",
+      "venue": "Peoples' Friendship Palace",
+      "startDate": "2026-09-14",
+      "endDate": null,
+      "url": "https://iticket.uz/en/events/concerts/shum-bolalar-shou2026",
+      "source": "iticket.uz"
+    },
+    {
       "title": "Uzbegim Market fair in Tashkent City Park",
       "titleRu": "Ярмарка Uzbegim Market в парке Tashkent City",
       "category": "festival",
@@ -1515,6 +1554,16 @@
       "time": null,
       "url": "https://www.afisha.uz/ru/exhibitions/2026/08/31/homo-faber",
       "source": "afisha.uz (calendar)"
+    },
+    {
+      "title": "Ф.Шопен \"Шопениана\", А.Бородин \"Половецкие пляски\" одноактные балеты\"",
+      "titleRu": null,
+      "category": "theatre",
+      "venue": "Bolshoi Theater named after A. Navoi",
+      "startDate": "2026-09-17",
+      "endDate": null,
+      "url": "https://iticket.uz/en/events/theaters-tashkent/fsopen-sopeniana-aborodin-poloveckie-plyaski-odnoaktnye-balety-9544",
+      "source": "iticket.uz"
     }
   ]
 }
