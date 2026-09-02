@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-02T07:35:16.237613Z",
+  "generatedAt": "2026-09-02T12:30:22.488700Z",
   "standings": {
     "PL": [
       {
@@ -517,7 +517,7 @@
         "pts": 1
       },
       {
-        "name": "Hoffenheim",
+        "name": "Leverkusen",
         "pld": 1,
         "w": 0,
         "d": 0,
@@ -527,7 +527,7 @@
         "pts": 0
       },
       {
-        "name": "Leverkusen",
+        "name": "Hoffenheim",
         "pld": 1,
         "w": 0,
         "d": 0,
@@ -2259,18 +2259,18 @@
     "BL1": {
       "fixtures": [
         {
-          "utcDate": "2026-09-04T18:30:00Z",
-          "status": "TIMED",
-          "matchday": 2,
+          "utcDate": "2026-10-31T00:00:00Z",
+          "status": "SCHEDULED",
+          "matchday": 8,
           "homeTeam": {
-            "id": 10,
-            "name": "VfB Stuttgart",
-            "shortName": "Stuttgart"
+            "id": 18,
+            "name": "Borussia Mönchengladbach",
+            "shortName": "M'gladbach"
           },
           "awayTeam": {
-            "id": 1,
-            "name": "1. FC Köln",
-            "shortName": "1. FC Köln"
+            "id": 29,
+            "name": "SC Paderborn 07",
+            "shortName": "SC Paderborn"
           },
           "score": {
             "winner": null,
@@ -2290,13 +2290,13 @@
           "venue": null
         },
         {
-          "utcDate": "2026-09-05T13:30:00Z",
-          "status": "TIMED",
-          "matchday": 2,
+          "utcDate": "2026-10-31T00:00:00Z",
+          "status": "SCHEDULED",
+          "matchday": 8,
           "homeTeam": {
-            "id": 12,
-            "name": "SV Werder Bremen",
-            "shortName": "Bremen"
+            "id": 6,
+            "name": "FC Schalke 04",
+            "shortName": "Schalke"
           },
           "awayTeam": {
             "id": 721,
@@ -2321,80 +2321,18 @@
           "venue": null
         },
         {
-          "utcDate": "2026-09-05T13:30:00Z",
-          "status": "TIMED",
-          "matchday": 2,
+          "utcDate": "2026-10-31T00:00:00Z",
+          "status": "SCHEDULED",
+          "matchday": 8,
           "homeTeam": {
-            "id": 2,
-            "name": "TSG 1899 Hoffenheim",
-            "shortName": "Hoffenheim"
-          },
-          "awayTeam": {
-            "id": 4,
-            "name": "Borussia Dortmund",
-            "shortName": "Dortmund"
-          },
-          "score": {
-            "winner": null,
-            "duration": "REGULAR",
-            "fullTime": {
-              "home": null,
-              "away": null
-            },
-            "halfTime": {
-              "home": null,
-              "away": null
-            }
-          },
-          "competition": {
-            "name": "Bundesliga"
-          },
-          "venue": null
-        },
-        {
-          "utcDate": "2026-09-05T13:30:00Z",
-          "status": "TIMED",
-          "matchday": 2,
-          "homeTeam": {
-            "id": 3,
-            "name": "Bayer 04 Leverkusen",
-            "shortName": "Leverkusen"
-          },
-          "awayTeam": {
             "id": 28,
             "name": "1. FC Union Berlin",
             "shortName": "Union Berlin"
           },
-          "score": {
-            "winner": null,
-            "duration": "REGULAR",
-            "fullTime": {
-              "home": null,
-              "away": null
-            },
-            "halfTime": {
-              "home": null,
-              "away": null
-            }
-          },
-          "competition": {
-            "name": "Bundesliga"
-          },
-          "venue": null
-        },
-        {
-          "utcDate": "2026-09-05T13:30:00Z",
-          "status": "TIMED",
-          "matchday": 2,
-          "homeTeam": {
-            "id": 18,
-            "name": "Borussia Mönchengladbach",
-            "shortName": "M'gladbach"
-          },
           "awayTeam": {
-            "id": 719,
-            "name": "SV 07 Elversberg",
-            "shortName": "Elversberg"
+            "id": 1,
+            "name": "1. FC Köln",
+            "shortName": "1. FC Köln"
           },
           "score": {
             "winner": null,
@@ -2414,13 +2352,13 @@
           "venue": null
         },
         {
-          "utcDate": "2026-09-05T13:30:00Z",
-          "status": "TIMED",
-          "matchday": 2,
+          "utcDate": "2026-10-31T00:00:00Z",
+          "status": "SCHEDULED",
+          "matchday": 8,
           "homeTeam": {
-            "id": 29,
-            "name": "SC Paderborn 07",
-            "shortName": "SC Paderborn"
+            "id": 16,
+            "name": "FC Augsburg",
+            "shortName": "Augsburg"
           },
           "awayTeam": {
             "id": 17,
@@ -2445,18 +2383,18 @@
           "venue": null
         },
         {
-          "utcDate": "2026-09-05T16:30:00Z",
-          "status": "TIMED",
-          "matchday": 2,
+          "utcDate": "2026-10-31T00:00:00Z",
+          "status": "SCHEDULED",
+          "matchday": 8,
           "homeTeam": {
-            "id": 6,
-            "name": "FC Schalke 04",
-            "shortName": "Schalke"
+            "id": 12,
+            "name": "SV Werder Bremen",
+            "shortName": "Bremen"
           },
           "awayTeam": {
-            "id": 5,
-            "name": "FC Bayern München",
-            "shortName": "Bayern"
+            "id": 2,
+            "name": "TSG 1899 Hoffenheim",
+            "shortName": "Hoffenheim"
           },
           "score": {
             "winner": null,
@@ -2476,13 +2414,75 @@
           "venue": null
         },
         {
-          "utcDate": "2026-09-06T13:30:00Z",
-          "status": "TIMED",
-          "matchday": 2,
+          "utcDate": "2026-10-31T00:00:00Z",
+          "status": "SCHEDULED",
+          "matchday": 8,
           "homeTeam": {
+            "id": 19,
+            "name": "Eintracht Frankfurt",
+            "shortName": "Frankfurt"
+          },
+          "awayTeam": {
             "id": 7,
             "name": "Hamburger SV",
             "shortName": "HSV"
+          },
+          "score": {
+            "winner": null,
+            "duration": "REGULAR",
+            "fullTime": {
+              "home": null,
+              "away": null
+            },
+            "halfTime": {
+              "home": null,
+              "away": null
+            }
+          },
+          "competition": {
+            "name": "Bundesliga"
+          },
+          "venue": null
+        },
+        {
+          "utcDate": "2026-10-31T00:00:00Z",
+          "status": "SCHEDULED",
+          "matchday": 8,
+          "homeTeam": {
+            "id": 5,
+            "name": "FC Bayern München",
+            "shortName": "Bayern"
+          },
+          "awayTeam": {
+            "id": 4,
+            "name": "Borussia Dortmund",
+            "shortName": "Dortmund"
+          },
+          "score": {
+            "winner": null,
+            "duration": "REGULAR",
+            "fullTime": {
+              "home": null,
+              "away": null
+            },
+            "halfTime": {
+              "home": null,
+              "away": null
+            }
+          },
+          "competition": {
+            "name": "Bundesliga"
+          },
+          "venue": null
+        },
+        {
+          "utcDate": "2026-10-31T00:00:00Z",
+          "status": "SCHEDULED",
+          "matchday": 8,
+          "homeTeam": {
+            "id": 719,
+            "name": "SV 07 Elversberg",
+            "shortName": "Elversberg"
           },
           "awayTeam": {
             "id": 15,
@@ -2507,18 +2507,18 @@
           "venue": null
         },
         {
-          "utcDate": "2026-09-06T15:30:00Z",
-          "status": "TIMED",
-          "matchday": 2,
+          "utcDate": "2026-10-31T00:00:00Z",
+          "status": "SCHEDULED",
+          "matchday": 8,
           "homeTeam": {
-            "id": 19,
-            "name": "Eintracht Frankfurt",
-            "shortName": "Frankfurt"
+            "id": 3,
+            "name": "Bayer 04 Leverkusen",
+            "shortName": "Leverkusen"
           },
           "awayTeam": {
-            "id": 16,
-            "name": "FC Augsburg",
-            "shortName": "Augsburg"
+            "id": 10,
+            "name": "VfB Stuttgart",
+            "shortName": "Stuttgart"
           },
           "score": {
             "winner": null,
@@ -3052,37 +3052,6 @@
             "id": 98,
             "name": "AC Milan",
             "shortName": "Milan"
-          },
-          "score": {
-            "winner": null,
-            "duration": "REGULAR",
-            "fullTime": {
-              "home": null,
-              "away": null
-            },
-            "halfTime": {
-              "home": null,
-              "away": null
-            }
-          },
-          "competition": {
-            "name": "Serie A"
-          },
-          "venue": null
-        },
-        {
-          "utcDate": "2026-09-07T16:30:00Z",
-          "status": "TIMED",
-          "matchday": 3,
-          "homeTeam": {
-            "id": 104,
-            "name": "Cagliari Calcio",
-            "shortName": "Cagliari"
-          },
-          "awayTeam": {
-            "id": 5890,
-            "name": "US Lecce",
-            "shortName": "Lecce"
           },
           "score": {
             "winner": null,
