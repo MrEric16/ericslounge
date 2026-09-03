@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Mr Eric's Lounge</title>
-<meta name="app-build" content="20260903025220">
+<meta name="app-build" content="20260903025536">
 <script>
   // PWA update-detection: an installed home-screen app's standalone-mode navigation
   // cache can hold an old shell far longer than the CDN's 10-minute cache -
@@ -617,6 +617,36 @@
   }
   body.dark-mode.usertheme-darsenal .fac-tile.all{
     background:#EC0024 !important;
+  }
+  /* Birthday list contrast fix: .bday-item's background is var(--card), which is
+     crimson in Arsenal Dark, and both staff and myStudents categories color their text
+     via var(--coral)/var(--teal) - both of which are the same bright red in this theme
+     (ran out of unique colors from the 5-hex palette when building it originally). Red
+     text on a crimson card is nearly unreadable. otherStudents (gold) already had
+     acceptable contrast and needs no change. Reassigning staff to white and
+     myStudents to navy - both already-verified Arsenal colors, still nothing outside
+     the five exact hexes, just picking better-contrast roles for this one component
+     rather than changing the shared --coral/--teal variables everything else on the
+     page also depends on. Legend dots use inline style="background:var(--teal))" etc,
+     so matching them needs !important to win over an inline style - positional
+     (nth-child) since the legend is fixed, hand-authored markup, not a loop. */
+  body.dark-mode.usertheme-darsenal .bday-item.bday-cat-staff{
+    border-left-color:#FEFEFE !important;
+  }
+  body.dark-mode.usertheme-darsenal .bday-item.bday-cat-staff .bday-name{
+    color:#FEFEFE !important;
+  }
+  body.dark-mode.usertheme-darsenal .bday-item.bday-cat-myStudents{
+    border-left-color:#113476 !important;
+  }
+  body.dark-mode.usertheme-darsenal .bday-item.bday-cat-myStudents .bday-name{
+    color:#113476 !important;
+  }
+  body.dark-mode.usertheme-darsenal .bday-legend-item:nth-child(1) .bday-legend-dot{
+    background:#113476 !important;
+  }
+  body.dark-mode.usertheme-darsenal .bday-legend-item:nth-child(2) .bday-legend-dot{
+    background:#FEFEFE !important;
   }
   /* white-fill group needs navy text for contrast, not the white text everything else gets */
   body.dark-mode.usertheme-darsenal .faculties .fac-tile:not(.all):nth-child(4n+2),
