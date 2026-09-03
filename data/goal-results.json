@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-03T19:59:09.966095Z",
+  "generatedAt": "2026-09-03T22:23:36.644900Z",
   "results": [
     {
       "url": "https://www.goal.com/en/match/girona-vs-arsenal/__LS8d9Oc6I1wXn9g8956",
@@ -2475,6 +2475,37 @@
       ],
       "awayGoals": [],
       "competition": "SA"
+    },
+    {
+      "url": "https://www.goal.com/en/match/real-sociedad-vs-celta-vigo/uBjlTAkMFXO3hOrLFaIz-",
+      "date": null,
+      "home": "Real Sociedad",
+      "away": "Celta Vigo",
+      "htHome": 0,
+      "htAway": 0,
+      "ftHome": 0,
+      "ftAway": 0,
+      "homeGoals": [],
+      "awayGoals": [],
+      "competition": "PD"
+    },
+    {
+      "url": "https://www.goal.com/en/match/toulouse-vs-lille/epMByCs4VS-dQWJdeXRzC",
+      "date": null,
+      "home": "Toulouse",
+      "away": "Lille",
+      "htHome": 0,
+      "htAway": 0,
+      "ftHome": 0,
+      "ftAway": 1,
+      "homeGoals": [],
+      "awayGoals": [
+        {
+          "scorer": "A. Ueda",
+          "minute": 73
+        }
+      ],
+      "competition": "FL1"
     }
   ],
   "scorerParseRetryCounts": {
