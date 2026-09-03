@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-03T17:29:36.688482Z",
+  "generatedAt": "2026-09-03T20:05:02.797225Z",
   "standings": {
     "PL": [
       {
@@ -305,6 +305,16 @@
         "pts": 4
       },
       {
+        "name": "Real Sociedad",
+        "pld": 4,
+        "w": 1,
+        "d": 1,
+        "l": 2,
+        "gf": 3,
+        "ga": 6,
+        "pts": 4
+      },
+      {
         "name": "Espanyol",
         "pld": 3,
         "w": 1,
@@ -322,16 +332,6 @@
         "l": 2,
         "gf": 3,
         "ga": 5,
-        "pts": 3
-      },
-      {
-        "name": "Real Sociedad",
-        "pld": 3,
-        "w": 1,
-        "d": 0,
-        "l": 2,
-        "gf": 3,
-        "ga": 6,
         "pts": 3
       },
       {
@@ -356,13 +356,13 @@
       },
       {
         "name": "Celta",
-        "pld": 3,
+        "pld": 4,
         "w": 0,
-        "d": 1,
+        "d": 2,
         "l": 2,
         "gf": 1,
         "ga": 4,
-        "pts": 1
+        "pts": 2
       },
       {
         "name": "Valencia",
@@ -801,6 +801,16 @@
         "pts": 6
       },
       {
+        "name": "Lille",
+        "pld": 3,
+        "w": 1,
+        "d": 2,
+        "l": 0,
+        "gf": 4,
+        "ga": 2,
+        "pts": 5
+      },
+      {
         "name": "Paris FC",
         "pld": 2,
         "w": 1,
@@ -808,16 +818,6 @@
         "l": 0,
         "gf": 3,
         "ga": 0,
-        "pts": 4
-      },
-      {
-        "name": "Lille",
-        "pld": 2,
-        "w": 1,
-        "d": 1,
-        "l": 0,
-        "gf": 4,
-        "ga": 2,
         "pts": 4
       },
       {
@@ -911,6 +911,16 @@
         "pts": 2
       },
       {
+        "name": "Toulouse",
+        "pld": 3,
+        "w": 0,
+        "d": 2,
+        "l": 1,
+        "gf": 2,
+        "ga": 4,
+        "pts": 2
+      },
+      {
         "name": "Le Mans",
         "pld": 2,
         "w": 0,
@@ -938,16 +948,6 @@
         "l": 1,
         "gf": 1,
         "ga": 2,
-        "pts": 1
-      },
-      {
-        "name": "Toulouse",
-        "pld": 2,
-        "w": 0,
-        "d": 1,
-        "l": 1,
-        "gf": 2,
-        "ga": 4,
         "pts": 1
       },
       {
@@ -1757,230 +1757,13 @@
     "PD": {
       "fixtures": [
         {
-          "utcDate": "2026-09-03T19:00:00Z",
+          "utcDate": "2026-09-05T16:30:00Z",
           "status": "TIMED",
-          "matchday": 6,
-          "homeTeam": {
-            "id": 92,
-            "name": "Real Sociedad de Fútbol",
-            "shortName": "Real Sociedad"
-          },
-          "awayTeam": {
-            "id": 558,
-            "name": "RC Celta de Vigo",
-            "shortName": "Celta"
-          },
-          "score": {
-            "winner": null,
-            "duration": "REGULAR",
-            "fullTime": {
-              "home": null,
-              "away": null
-            },
-            "halfTime": {
-              "home": null,
-              "away": null
-            }
-          },
-          "competition": {
-            "name": "Primera Division"
-          },
-          "venue": null
-        },
-        {
-          "utcDate": "2026-09-15T17:00:00Z",
-          "status": "TIMED",
-          "matchday": 6,
+          "matchday": 4,
           "homeTeam": {
             "id": 87,
             "name": "Rayo Vallecano de Madrid",
             "shortName": "Rayo Vallecano"
-          },
-          "awayTeam": {
-            "id": 80,
-            "name": "RCD Espanyol de Barcelona",
-            "shortName": "Espanyol"
-          },
-          "score": {
-            "winner": null,
-            "duration": "REGULAR",
-            "fullTime": {
-              "home": null,
-              "away": null
-            },
-            "halfTime": {
-              "home": null,
-              "away": null
-            }
-          },
-          "competition": {
-            "name": "Primera Division"
-          },
-          "venue": null
-        },
-        {
-          "utcDate": "2026-09-15T18:00:00Z",
-          "status": "TIMED",
-          "matchday": 6,
-          "homeTeam": {
-            "id": 263,
-            "name": "Deportivo Alavés",
-            "shortName": "Alavés"
-          },
-          "awayTeam": {
-            "id": 95,
-            "name": "Valencia CF",
-            "shortName": "Valencia"
-          },
-          "score": {
-            "winner": null,
-            "duration": "REGULAR",
-            "fullTime": {
-              "home": null,
-              "away": null
-            },
-            "halfTime": {
-              "home": null,
-              "away": null
-            }
-          },
-          "competition": {
-            "name": "Primera Division"
-          },
-          "venue": null
-        },
-        {
-          "utcDate": "2026-09-15T19:30:00Z",
-          "status": "TIMED",
-          "matchday": 6,
-          "homeTeam": {
-            "id": 285,
-            "name": "Elche CF",
-            "shortName": "Elche"
-          },
-          "awayTeam": {
-            "id": 86,
-            "name": "Real Madrid CF",
-            "shortName": "Real Madrid"
-          },
-          "score": {
-            "winner": null,
-            "duration": "REGULAR",
-            "fullTime": {
-              "home": null,
-              "away": null
-            },
-            "halfTime": {
-              "home": null,
-              "away": null
-            }
-          },
-          "competition": {
-            "name": "Primera Division"
-          },
-          "venue": null
-        },
-        {
-          "utcDate": "2026-09-16T17:00:00Z",
-          "status": "TIMED",
-          "matchday": 6,
-          "homeTeam": {
-            "id": 560,
-            "name": "RC Deportivo La Coruña",
-            "shortName": "Deportivo"
-          },
-          "awayTeam": {
-            "id": 559,
-            "name": "Sevilla FC",
-            "shortName": "Sevilla FC"
-          },
-          "score": {
-            "winner": null,
-            "duration": "REGULAR",
-            "fullTime": {
-              "home": null,
-              "away": null
-            },
-            "halfTime": {
-              "home": null,
-              "away": null
-            }
-          },
-          "competition": {
-            "name": "Primera Division"
-          },
-          "venue": null
-        },
-        {
-          "utcDate": "2026-09-16T17:00:00Z",
-          "status": "TIMED",
-          "matchday": 6,
-          "homeTeam": {
-            "id": 78,
-            "name": "Club Atlético de Madrid",
-            "shortName": "Atleti"
-          },
-          "awayTeam": {
-            "id": 79,
-            "name": "CA Osasuna",
-            "shortName": "Osasuna"
-          },
-          "score": {
-            "winner": null,
-            "duration": "REGULAR",
-            "fullTime": {
-              "home": null,
-              "away": null
-            },
-            "halfTime": {
-              "home": null,
-              "away": null
-            }
-          },
-          "competition": {
-            "name": "Primera Division"
-          },
-          "venue": null
-        },
-        {
-          "utcDate": "2026-09-16T19:30:00Z",
-          "status": "TIMED",
-          "matchday": 6,
-          "homeTeam": {
-            "id": 88,
-            "name": "Levante UD",
-            "shortName": "Levante"
-          },
-          "awayTeam": {
-            "id": 77,
-            "name": "Athletic Club",
-            "shortName": "Athletic"
-          },
-          "score": {
-            "winner": null,
-            "duration": "REGULAR",
-            "fullTime": {
-              "home": null,
-              "away": null
-            },
-            "halfTime": {
-              "home": null,
-              "away": null
-            }
-          },
-          "competition": {
-            "name": "Primera Division"
-          },
-          "venue": null
-        },
-        {
-          "utcDate": "2026-09-16T19:30:00Z",
-          "status": "TIMED",
-          "matchday": 6,
-          "homeTeam": {
-            "id": 81,
-            "name": "FC Barcelona",
-            "shortName": "Barça"
           },
           "awayTeam": {
             "id": 5335,
@@ -2005,18 +1788,18 @@
           "venue": null
         },
         {
-          "utcDate": "2026-09-17T17:00:00Z",
+          "utcDate": "2026-09-05T19:00:00Z",
           "status": "TIMED",
-          "matchday": 6,
+          "matchday": 4,
           "homeTeam": {
-            "id": 90,
-            "name": "Real Betis Balompié",
-            "shortName": "Real Betis"
+            "id": 94,
+            "name": "Villarreal CF",
+            "shortName": "Villarreal"
           },
           "awayTeam": {
-            "id": 82,
-            "name": "Getafe CF",
-            "shortName": "Getafe"
+            "id": 560,
+            "name": "RC Deportivo La Coruña",
+            "shortName": "Deportivo"
           },
           "score": {
             "winner": null,
@@ -2036,18 +1819,173 @@
           "venue": null
         },
         {
-          "utcDate": "2026-09-17T19:30:00Z",
+          "utcDate": "2026-09-06T14:15:00Z",
           "status": "TIMED",
-          "matchday": 6,
+          "matchday": 4,
+          "homeTeam": {
+            "id": 95,
+            "name": "Valencia CF",
+            "shortName": "Valencia"
+          },
+          "awayTeam": {
+            "id": 81,
+            "name": "FC Barcelona",
+            "shortName": "Barça"
+          },
+          "score": {
+            "winner": null,
+            "duration": "REGULAR",
+            "fullTime": {
+              "home": null,
+              "away": null
+            },
+            "halfTime": {
+              "home": null,
+              "away": null
+            }
+          },
+          "competition": {
+            "name": "Primera Division"
+          },
+          "venue": null
+        },
+        {
+          "utcDate": "2026-09-06T16:30:00Z",
+          "status": "TIMED",
+          "matchday": 4,
+          "homeTeam": {
+            "id": 263,
+            "name": "Deportivo Alavés",
+            "shortName": "Alavés"
+          },
+          "awayTeam": {
+            "id": 79,
+            "name": "CA Osasuna",
+            "shortName": "Osasuna"
+          },
+          "score": {
+            "winner": null,
+            "duration": "REGULAR",
+            "fullTime": {
+              "home": null,
+              "away": null
+            },
+            "halfTime": {
+              "home": null,
+              "away": null
+            }
+          },
+          "competition": {
+            "name": "Primera Division"
+          },
+          "venue": null
+        },
+        {
+          "utcDate": "2026-09-06T16:30:00Z",
+          "status": "TIMED",
+          "matchday": 4,
           "homeTeam": {
             "id": 84,
             "name": "Málaga CF",
             "shortName": "Málaga"
           },
           "awayTeam": {
-            "id": 94,
-            "name": "Villarreal CF",
-            "shortName": "Villarreal"
+            "id": 88,
+            "name": "Levante UD",
+            "shortName": "Levante"
+          },
+          "score": {
+            "winner": null,
+            "duration": "REGULAR",
+            "fullTime": {
+              "home": null,
+              "away": null
+            },
+            "halfTime": {
+              "home": null,
+              "away": null
+            }
+          },
+          "competition": {
+            "name": "Primera Division"
+          },
+          "venue": null
+        },
+        {
+          "utcDate": "2026-09-06T19:00:00Z",
+          "status": "TIMED",
+          "matchday": 4,
+          "homeTeam": {
+            "id": 80,
+            "name": "RCD Espanyol de Barcelona",
+            "shortName": "Espanyol"
+          },
+          "awayTeam": {
+            "id": 559,
+            "name": "Sevilla FC",
+            "shortName": "Sevilla FC"
+          },
+          "score": {
+            "winner": null,
+            "duration": "REGULAR",
+            "fullTime": {
+              "home": null,
+              "away": null
+            },
+            "halfTime": {
+              "home": null,
+              "away": null
+            }
+          },
+          "competition": {
+            "name": "Primera Division"
+          },
+          "venue": null
+        },
+        {
+          "utcDate": "2026-09-07T17:00:00Z",
+          "status": "TIMED",
+          "matchday": 4,
+          "homeTeam": {
+            "id": 82,
+            "name": "Getafe CF",
+            "shortName": "Getafe"
+          },
+          "awayTeam": {
+            "id": 558,
+            "name": "RC Celta de Vigo",
+            "shortName": "Celta"
+          },
+          "score": {
+            "winner": null,
+            "duration": "REGULAR",
+            "fullTime": {
+              "home": null,
+              "away": null
+            },
+            "halfTime": {
+              "home": null,
+              "away": null
+            }
+          },
+          "competition": {
+            "name": "Primera Division"
+          },
+          "venue": null
+        },
+        {
+          "utcDate": "2026-09-07T19:30:00Z",
+          "status": "TIMED",
+          "matchday": 4,
+          "homeTeam": {
+            "id": 285,
+            "name": "Elche CF",
+            "shortName": "Elche"
+          },
+          "awayTeam": {
+            "id": 92,
+            "name": "Real Sociedad de Fútbol",
+            "shortName": "Real Sociedad"
           },
           "score": {
             "winner": null,
@@ -3882,37 +3820,6 @@
     },
     "FL1": {
       "fixtures": [
-        {
-          "utcDate": "2026-09-03T18:45:00Z",
-          "status": "TIMED",
-          "matchday": 3,
-          "homeTeam": {
-            "id": 511,
-            "name": "Toulouse FC",
-            "shortName": "Toulouse"
-          },
-          "awayTeam": {
-            "id": 521,
-            "name": "Lille OSC",
-            "shortName": "Lille"
-          },
-          "score": {
-            "winner": null,
-            "duration": "REGULAR",
-            "fullTime": {
-              "home": null,
-              "away": null
-            },
-            "halfTime": {
-              "home": null,
-              "away": null
-            }
-          },
-          "competition": {
-            "name": "Ligue 1"
-          },
-          "venue": null
-        },
         {
           "utcDate": "2026-09-04T17:00:00Z",
           "status": "TIMED",
