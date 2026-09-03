@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-03T08:03:11.424289Z",
+  "generatedAt": "2026-09-03T15:00:52.032112Z",
   "teams": [
     {
       "name": "Neftchi Fargona",
@@ -306,11 +306,6 @@
   ],
   "fixtures": [
     {
-      "home": "OKMK",
-      "away": "Xorazm Urganch",
-      "raw_time": "03.09. 14:00"
-    },
-    {
       "home": "Bunyodkor",
       "away": "Termez Surkhon",
       "raw_time": "04.09. 13:00"
@@ -403,6 +398,11 @@
     {
       "home": "Lok. Tashkent",
       "away": "Neftchi Fargona",
+      "raw_time": "19.09. 15:00"
+    },
+    {
+      "home": "Navbahor Namangan",
+      "away": "Din. Samarkand",
       "raw_time": "19.09. 15:00"
     }
   ]
