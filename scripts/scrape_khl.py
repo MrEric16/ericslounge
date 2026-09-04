@@ -157,108 +157,134 @@ def parse_standings(html):
 # browser page directly to each JSON endpoint (mimicking a real user visiting that URL)
 # rather than a lower-level request API, to stay as close to organic browsing as
 # possible.
-SOFASCORE_UNIQUE_TOURNAMENT_ID = 268  # confirmed via https://www.sofascore.com/ice-hockey/tournament/russia/khl/268
+# --- 365scores fixtures/results (added 2026-09-04, replacing the Sofascore attempt) ---
+# Sofascore's API returned a confirmed real 403 Forbidden even via genuine
+# Playwright/Chromium navigation AND an in-page fetch() carrying real cookies/referrer -
+# a harder anti-bot wall than expected. Mr Eric pointed at 365scores.com as another
+# option, and it turned out to need none of that: loaded completely cleanly with a
+# plain fetch, no Playwright/browser-fingerprint games required at all, confirmed by
+# directly fetching https://www.365scores.com/hockey/league/khl-636 and seeing real
+# match data (team names, times, scores) directly in the response. Uses plain
+# `requests` rather than Playwright for this part specifically, since a real browser
+# clearly isn't needed here and requests is simpler/faster/lighter.
+#
+# Anchors on the one thing guaranteed not to break with a CSS refresh: 365scores' own
+# match-page link pattern (/hockey/match/khl-636/{team-slug}_{team-slug}-{id}-{id}-636),
+# which was directly visible in the fetched content for every match card. Doesn't
+# depend on any specific class name at all.
+KHL_365SCORES_URL = "https://www.365scores.com/hockey/league/khl-636/matches"
+MATCH_LINK_RE = re.compile(r"/hockey/match/khl-636/[a-z0-9.\-]+-\d+-\d+-636#id=(\d+)")
+DATE_HEADER_RE = re.compile(r"^(\d{2})/(\d{2})/(\d{4})$")
+FINAL_SCORE_RE = re.compile(r"Final\s+(\d+)\s*-\s*(\d+)")
+CLOCK_TIME_RE = re.compile(r"\b([01]?\d|2[0-3]):([0-5]\d)\b")
 
-# Sofascore team names observed to already match khl.ru's own short forms exactly
-# (both showed "Admiral", "Ak Bars", "Amur", ... independently) - no name-mapping layer
-# needed between the two sources.
+
+def dedupe_repeated_words(name):
+    """365scores repeats each team name twice in a row in the link text (once as the
+    visible label, once as accessibility text, based on the markdown-converted content
+    seen when first checking this source) - e.g. "Lokomotiv Yaroslavl Lokomotiv
+    Yaroslavl" really means just "Lokomotiv Yaroslavl". Collapses that."""
+    words = name.split()
+    n = len(words)
+    if n % 2 == 0 and words[: n // 2] == words[n // 2:]:
+        return " ".join(words[: n // 2])
+    return name
 
 
-def fetch_json_in_page(page, url):
-    """Uses fetch() from WITHIN the already-loaded Sofascore page's own JS context,
-    rather than a top-level page.goto() straight to the API URL - that direct-
-    navigation approach got a confirmed real 403 Forbidden even via genuine
-    Playwright/Chromium (caught by diagnostic capture, not assumed). An in-page
-    fetch() carries the same cookies/referrer/origin a real user's browser sends when
-    the live site's own JS loads its own data, which is far less likely to get blocked
-    since blocking it would break the real site for everyone, not just scrapers."""
-    result = page.evaluate(
-        """async (url) => {
-            try {
-                const res = await fetch(url, { headers: { 'Accept': 'application/json' } });
-                const text = await res.text();
-                return { status: res.status, text: text };
-            } catch (e) {
-                return { status: -1, text: String(e) };
-            }
-        }""",
-        url,
-    )
-    if result["status"] != 200:
-        log(f"in-page fetch failed for {url}: status={result['status']}, body={result['text'][:300]!r}")
-        return None
+def parse_365scores_matches(html):
+    soup = BeautifulSoup(html, "html.parser")
+    matches = []
+    seen_ids = set()
+    current_date = None
+
+    for el in soup.find_all(True):
+        text = el.get_text(strip=True) if el.name not in ("script", "style") else ""
+        date_m = DATE_HEADER_RE.match(text) if text and len(text) <= 10 else None
+        if date_m:
+            day, month, year = date_m.groups()
+            current_date = (int(year), int(month), int(day))
+            continue
+
+        if el.name != "a":
+            continue
+        href = el.get("href", "")
+        link_m = MATCH_LINK_RE.search(href)
+        if not link_m:
+            continue
+        match_id = link_m.group(1)
+        if match_id in seen_ids:
+            continue
+
+        full_text = el.get_text(" ", strip=True)
+        score_m = FINAL_SCORE_RE.search(full_text)
+        time_m = None if score_m else CLOCK_TIME_RE.search(full_text)
+        marker = score_m or time_m
+        if not marker:
+            log(f"match link {match_id} has neither a Final score nor a clock time in its text, skipping: {full_text[:150]!r}")
+            continue
+
+        before = full_text[: marker.start()].strip()
+        after = full_text[marker.end():].strip()
+        # strip a leading "Final" off `before` if the score regex ate into it oddly
+        before = re.sub(r"\s*Final\s*$", "", before).strip()
+        home = dedupe_repeated_words(before)
+        away = dedupe_repeated_words(after)
+        if not home or not away:
+            log(f"match link {match_id}: could not split team names from {full_text[:150]!r} (before={before!r} after={after!r})")
+            continue
+
+        if not current_date:
+            log(f"match link {match_id} found before any date header was seen, skipping")
+            continue
+        year, month, day = current_date
+        if time_m:
+            hour, minute = int(time_m.group(1)), int(time_m.group(2))
+        else:
+            hour, minute = 19, 0
+        # 365scores' displayed time convention wasn't independently verified against a
+        # known-accurate reference, so treating it the same conservative way as the
+        # existing hand-verified opening-day static fixtures already do.
+        naive_dt_as_tashkent = datetime(year, month, day, hour, minute, tzinfo=timezone(timedelta(hours=5)))
+        start = naive_dt_as_tashkent.strftime("%Y-%m-%dT%H:%M:00+05:00")
+
+        entry = {"home": home, "away": away, "start": start}
+        if score_m:
+            entry["homeScore"] = int(score_m.group(1))
+            entry["awayScore"] = int(score_m.group(2))
+            entry["finished"] = True
+
+        matches.append(entry)
+        seen_ids.add(match_id)
+
+    return matches
+
+
+def fetch_365scores_matches():
+    headers = {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36",
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+    }
+    import urllib.request
+    req = urllib.request.Request(KHL_365SCORES_URL, headers=headers)
     try:
-        return json.loads(result["text"])
-    except json.JSONDecodeError as e:
-        log(f"JSON parse failed for {url}: {e}. First 300 chars: {result['text'][:300]!r}")
-        return None
-
-
-def find_current_season_id(page):
-    data = fetch_json_in_page(page, f"https://api.sofascore.com/api/v1/unique-tournament/{SOFASCORE_UNIQUE_TOURNAMENT_ID}/seasons")
-    if not data or "seasons" not in data:
-        log(f"could not fetch/parse the seasons list. Raw data: {str(data)[:500]!r}")
-        return None
-    seasons = data["seasons"]
-    log(f"found {len(seasons)} season(s), most recent few: {[s.get('year') for s in seasons[:3]]}")
-    if not seasons:
-        return None
-    # Seasons are returned most-recent-first on Sofascore's API.
-    return seasons[0]["id"]
-
-
-def fetch_sofascore_matches(page):
-    # Load the actual Sofascore tournament page first, establishing whatever
-    # cookies/session state a real visit creates, before making any API calls from
-    # within that page's own JS context (see fetch_json_in_page for why).
-    page.goto(f"https://www.sofascore.com/ice-hockey/tournament/russia/khl/{SOFASCORE_UNIQUE_TOURNAMENT_ID}", timeout=30000)
-    page.wait_for_timeout(3000)
-
-    season_id = find_current_season_id(page)
-    if season_id is None:
+        with urllib.request.urlopen(req, timeout=20) as resp:
+            html = resp.read().decode("utf-8", errors="replace")
+    except Exception as e:
+        log(f"365scores fetch failed: {e}")
         return []
 
-    all_events = []
-    # /last/{page} for finished matches (page 0 = most recent), /next/{page} for
-    # upcoming - the single combined /events endpoint some older integrations use
-    # returned 404 in other people's recent scraping notes, so going straight for the
-    # documented split endpoints instead.
-    for kind, path in [("results", "last"), ("fixtures", "next")]:
-        page_num = 0
-        empty_streak = 0
-        while page_num < 8 and empty_streak < 2:
-            url = f"https://api.sofascore.com/api/v1/unique-tournament/{SOFASCORE_UNIQUE_TOURNAMENT_ID}/season/{season_id}/events/{path}/{page_num}"
-            data = fetch_json_in_page(page, url)
-            events = (data or {}).get("events", [])
-            log(f"{kind} page {page_num}: {len(events)} event(s)")
-            if not events:
-                empty_streak += 1
-            else:
-                empty_streak = 0
-                all_events.extend(events)
-            page_num += 1
-
-    log(f"total events from Sofascore: {len(all_events)}")
-    matches = []
-    for ev in all_events:
-        try:
-            home = ev["homeTeam"]["name"]
-            away = ev["awayTeam"]["name"]
-            ts = ev["startTimestamp"]
-            status_type = ev.get("status", {}).get("type", "")
-            utc_dt = datetime.fromtimestamp(ts, tz=timezone.utc)
-            tashkent_dt = utc_dt.astimezone(timezone(timedelta(hours=5)))
-            entry = {
-                "home": home, "away": away,
-                "start": tashkent_dt.strftime("%Y-%m-%dT%H:%M:00+05:00"),
-            }
-            if status_type == "finished":
-                entry["homeScore"] = ev["homeScore"]["current"]
-                entry["awayScore"] = ev["awayScore"]["current"]
-                entry["finished"] = True
-            matches.append(entry)
-        except (KeyError, TypeError) as e:
-            log(f"skipping one malformed event ({e}): {str(ev)[:200]}")
+    log(f"365scores page: captured {len(html)} chars")
+    matches = parse_365scores_matches(html)
+    log(f"parsed {len(matches)} match(es) from 365scores")
+    if not matches:
+        teams_found = [t for t in KHL_TEAMS if t.split()[0] in html]
+        log(f"WARNING: 0 matches parsed. {len(teams_found)}/22 team first-words appear "
+            f"in the raw HTML: {teams_found[:6]}")
+        link_count = len(MATCH_LINK_RE.findall(html))
+        log(f"MATCH_LINK_RE found {link_count} raw href matches in the HTML")
+        if link_count == 0:
+            idx = html.find("khl-636")
+            log(f"first 'khl-636' occurrence context: {html[max(0,idx-200):idx+500]!r}")
     return matches
 
 
@@ -283,15 +309,11 @@ def main():
 
     all_matches = []
     try:
-        with sync_playwright() as p:
-            browser = p.chromium.launch()
-            page = browser.new_page(user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36")
-            all_matches = fetch_sofascore_matches(page)
-            browser.close()
+        all_matches = fetch_365scores_matches()
     except Exception as e:
-        log(f"Sofascore fetch failed entirely: {e}")
+        log(f"365scores fetch failed entirely: {e}")
 
-    log(f"parsed {len(all_matches)} total match(es) from Sofascore")
+    log(f"parsed {len(all_matches)} total match(es) from 365scores")
 
     fixtures = [m for m in all_matches if not m.get("finished")]
     results = [m for m in all_matches if m.get("finished")]
