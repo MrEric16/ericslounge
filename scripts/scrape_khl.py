@@ -276,8 +276,23 @@ def main():
         if cal_section:
             full = str(cal_section)
             log(f"match-center__calendar full length: {len(full)} chars")
-            log(f"match-center__calendar chars 0-4000: {full[:4000]!r}")
-            log(f"match-center__calendar chars 4000-8000: {full[4000:8000]!r}")
+            # Jump straight to where a real team name actually appears in this section,
+            # rather than dumping from the start (which turned out to be just the
+            # hidden date-picker widget chrome, not real game data).
+            anchor_pos = None
+            for t in KHL_TEAMS:
+                p = full.find(t)
+                if p != -1:
+                    anchor_pos = p
+                    anchor_team = t
+                    break
+            if anchor_pos is not None:
+                lo = max(0, anchor_pos - 2500)
+                hi = min(len(full), anchor_pos + 2500)
+                log(f"found {anchor_team!r} at offset {anchor_pos} in match-center__calendar - dumping window around it")
+                log(f"window: {full[lo:hi]!r}")
+            else:
+                log("no known team name found anywhere inside match-center__calendar itself")
 
     fixtures = [m for m in all_matches if not m.get("finished")]
     results = [m for m in all_matches if m.get("finished")]
