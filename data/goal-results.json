@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-04T21:48:34.049577Z",
+  "generatedAt": "2026-09-04T22:00:00.708587Z",
   "results": [
     {
       "url": "https://www.goal.com/en/match/girona-vs-arsenal/__LS8d9Oc6I1wXn9g8956",
@@ -3521,28 +3521,53 @@
       ],
       "awayGoals": [],
       "competition": "juventus"
+    },
+    {
+      "url": "https://www.goal.com/en/match/lecce-vs-roma/tW1qvyr9_Qo8wjo8JeDaG",
+      "date": "2026-08-31",
+      "home": "Lecce",
+      "away": "Roma",
+      "htHome": 0,
+      "htAway": 3,
+      "ftHome": 0,
+      "ftAway": 4,
+      "homeGoals": [],
+      "awayGoals": [
+        {
+          "scorer": "D. Malen",
+          "minute": 4
+        },
+        {
+          "scorer": "M. Soule",
+          "minute": 25
+        },
+        {
+          "scorer": "R. Mora",
+          "minute": 65
+        }
+      ],
+      "competition": "roma"
     }
   ],
   "scorerParseRetryCounts": {
-    "https://www.goal.com/en/match/lecce-vs-roma/tW1qvyr9_Qo8wjo8JeDaG": 2,
-    "https://www.goal.com/en/match/ipswich-town-vs-liverpool/qjMao9n9speO52jWoe6nd": 1,
-    "https://www.goal.com/en/match/genoa-vs-como/ZjI7u6Ry3gQLDTe471CdL": 1,
-    "https://www.goal.com/en/match/barcelona-vs-ce-europa/_ALaHuWMS8DB2jd-OZGrF": 1,
-    "https://www.goal.com/en/match/birmingham-city-vs-barcelona/K3VtapP4TCXOwIm3iJ_0j": 1,
-    "https://www.goal.com/en/match/basel-vs-barcelona/BecAmKNbUMIXdrZMQRRc8": 1,
-    "https://www.goal.com/en/match/fc-rottach-egern-vs-bayern-munich/Qx7pa3JAFVigM64WHXG7P": 1,
-    "https://www.goal.com/en/match/bayern-munich-vs-jeju-sk/Sr1UpS3ZGkz4YRhrglI3c": 1,
-    "https://www.goal.com/en/match/osnabrueck-vs-bayern-munich/ebLdOgagg2wHEGrpYfcg2": 1,
-    "https://www.goal.com/en/match/karlsruher-sc-vs-inter/v8Q_K4o99OLnuoY4LlHbn": 1,
-    "https://www.goal.com/en/match/celtic-vs-ac-milan/AeYRZaZp8UbukBDDTNSA2": 1,
-    "https://www.goal.com/en/match/chelsea-vs-ac-milan/ogEtfbm8SLpdocUUYHyG2": 1,
-    "https://www.goal.com/en/match/marseille-vs-nice/rKsspmsP3I5GhhajiY7Yd": 1,
-    "https://www.goal.com/en/match/marseille-vs-nimes/a63DINbL0KdecP4TYE7q1": 1,
-    "https://www.goal.com/en/match/hebc-hamburg-vs-borussia-dortmund/XsMyY7DmCyNoD2yvmKJQm": 1,
-    "https://www.goal.com/en/match/roma-vs-asd-trastevere/rEpIoomMZP4MF3iBnJkkk": 1,
-    "https://www.goal.com/en/match/cannes-vs-roma/mcwkL_f4LVruCD6tSOr07": 1,
-    "https://www.goal.com/en/match/cardiff-city-vs-roma/nDIfPYoZlv5kGFnwwOg2T": 1,
-    "https://www.goal.com/en/match/newport-county-vs-roma/tzfSzlMqY-uCJoRFGAe4m": 1,
-    "https://www.goal.com/en/match/brighton-and-hove-albion-vs-roma/x5IBegE9Gk-tB_J996CVG": 1
+    "https://www.goal.com/en/match/ipswich-town-vs-liverpool/qjMao9n9speO52jWoe6nd": 2,
+    "https://www.goal.com/en/match/genoa-vs-como/ZjI7u6Ry3gQLDTe471CdL": 2,
+    "https://www.goal.com/en/match/barcelona-vs-ce-europa/_ALaHuWMS8DB2jd-OZGrF": 2,
+    "https://www.goal.com/en/match/birmingham-city-vs-barcelona/K3VtapP4TCXOwIm3iJ_0j": 2,
+    "https://www.goal.com/en/match/basel-vs-barcelona/BecAmKNbUMIXdrZMQRRc8": 2,
+    "https://www.goal.com/en/match/fc-rottach-egern-vs-bayern-munich/Qx7pa3JAFVigM64WHXG7P": 2,
+    "https://www.goal.com/en/match/bayern-munich-vs-jeju-sk/Sr1UpS3ZGkz4YRhrglI3c": 2,
+    "https://www.goal.com/en/match/osnabrueck-vs-bayern-munich/ebLdOgagg2wHEGrpYfcg2": 2,
+    "https://www.goal.com/en/match/karlsruher-sc-vs-inter/v8Q_K4o99OLnuoY4LlHbn": 2,
+    "https://www.goal.com/en/match/celtic-vs-ac-milan/AeYRZaZp8UbukBDDTNSA2": 2,
+    "https://www.goal.com/en/match/chelsea-vs-ac-milan/ogEtfbm8SLpdocUUYHyG2": 2,
+    "https://www.goal.com/en/match/marseille-vs-nice/rKsspmsP3I5GhhajiY7Yd": 2,
+    "https://www.goal.com/en/match/marseille-vs-nimes/a63DINbL0KdecP4TYE7q1": 2,
+    "https://www.goal.com/en/match/hebc-hamburg-vs-borussia-dortmund/XsMyY7DmCyNoD2yvmKJQm": 2,
+    "https://www.goal.com/en/match/roma-vs-asd-trastevere/rEpIoomMZP4MF3iBnJkkk": 2,
+    "https://www.goal.com/en/match/cannes-vs-roma/mcwkL_f4LVruCD6tSOr07": 2,
+    "https://www.goal.com/en/match/cardiff-city-vs-roma/nDIfPYoZlv5kGFnwwOg2T": 2,
+    "https://www.goal.com/en/match/newport-county-vs-roma/tzfSzlMqY-uCJoRFGAe4m": 2,
+    "https://www.goal.com/en/match/brighton-and-hove-albion-vs-roma/x5IBegE9Gk-tB_J996CVG": 2
   }
 }
