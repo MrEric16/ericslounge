@@ -259,16 +259,20 @@ def parse_365scores_matches(html):
     return matches
 
 
-def fetch_365scores_matches():
-    headers = {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36",
-        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
-    }
-    import urllib.request
-    req = urllib.request.Request(KHL_365SCORES_URL, headers=headers)
+def fetch_365scores_matches(page):
+    # Switched from plain requests/urllib to Playwright: a real dispatch confirmed the
+    # plain-request version got back nothing but boilerplate HTML (a JS app shell with
+    # zero match content), while directly fetching the same URL through a real page
+    # render showed genuine match data - 365scores clearly renders its content
+    # client-side via JS rather than serving it in the initial HTML response, and isn't
+    # bot-blocked at all (unlike khl.ru's calendar and Sofascore's API, both confirmed
+    # hostile this session) - it just needs a real browser to execute that JS, exactly
+    # like the working khl.ru standings fetch already does. Reuses the same page/browser
+    # instance passed in from main() rather than launching a second browser.
     try:
-        with urllib.request.urlopen(req, timeout=20) as resp:
-            html = resp.read().decode("utf-8", errors="replace")
+        page.goto(KHL_365SCORES_URL, timeout=30000)
+        page.wait_for_timeout(6000)
+        html = page.content()
     except Exception as e:
         log(f"365scores fetch failed: {e}")
         return []
@@ -279,7 +283,7 @@ def fetch_365scores_matches():
     if not matches:
         teams_found = [t for t in KHL_TEAMS if t.split()[0] in html]
         log(f"WARNING: 0 matches parsed. {len(teams_found)}/22 team first-words appear "
-            f"in the raw HTML: {teams_found[:6]}")
+            f"in the rendered HTML: {teams_found[:6]}")
         link_count = len(MATCH_LINK_RE.findall(html))
         log(f"MATCH_LINK_RE found {link_count} raw href matches in the HTML")
         if link_count == 0:
@@ -309,7 +313,11 @@ def main():
 
     all_matches = []
     try:
-        all_matches = fetch_365scores_matches()
+        with sync_playwright() as p:
+            browser = p.chromium.launch()
+            page = browser.new_page(user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36")
+            all_matches = fetch_365scores_matches(page)
+            browser.close()
     except Exception as e:
         log(f"365scores fetch failed entirely: {e}")
 
