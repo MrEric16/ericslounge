@@ -178,7 +178,7 @@ def fetch_json_via_page(page, url):
 def find_current_season_id(page):
     data = fetch_json_via_page(page, f"https://api.sofascore.com/api/v1/unique-tournament/{SOFASCORE_UNIQUE_TOURNAMENT_ID}/seasons")
     if not data or "seasons" not in data:
-        log("could not fetch/parse the seasons list")
+        log(f"could not fetch/parse the seasons list. Raw data: {str(data)[:500]!r}")
         return None
     seasons = data["seasons"]
     log(f"found {len(seasons)} season(s), most recent few: {[s.get('year') for s in seasons[:3]]}")
