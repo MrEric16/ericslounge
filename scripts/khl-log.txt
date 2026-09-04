@@ -1,9 +1,6 @@
-[khl] standings page: captured 303259 chars
+[khl] standings page: captured 303258 chars
 [khl] parsed 22 standings row(s)
-[khl] 365scores page: captured 64627 chars
-[khl] parsed 0 match(es) from 365scores
-[khl] WARNING: 0 matches parsed. 1/22 team first-words appear in the raw HTML: ['Ak Bars Kazan']
-[khl] MATCH_LINK_RE found 0 raw href matches in the HTML
-[khl] first 'khl-636' occurrence context: '<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="viewport-fit=cover,width=device-width,initial-scale=1,user-scalable=no"><script>!function(){const e=["he","ar","fa"],o=window.location.href.split("/").filter((o=>e.includes(o))),t=Boolean(o.length);document.documentElement.dir=t?"rtl":"ltr";const n=`https://imagecache.365scores.com/image/upload/f_auto,q_auto:eco,dpr_1/WebSite/logo_wide${t?"_RTL":""}_new`;window.logoSrc=n;const c=document.createElement("lin'
-[khl] parsed 0 total match(es) from 365scores
-[khl] wrote data/khl-live.json: 22 standings, 0 fixtures, 0 results
+[khl] 365scores page: captured 278199 chars
+[khl] parsed 4 match(es) from 365scores
+[khl] parsed 4 total match(es) from 365scores
+[khl] wrote data/khl-live.json: 22 standings, 4 fixtures, 0 results

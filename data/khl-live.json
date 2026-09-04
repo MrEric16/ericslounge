@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-04T16:31:33.118576+00:00",
+  "generatedAt": "2026-09-04T16:54:19.829216+00:00",
   "standings": [
     {
       "team": "Avangard",
@@ -266,6 +266,27 @@
       "points": 0
     }
   ],
-  "fixtures": [],
+  "fixtures": [
+    {
+      "home": "Lokomotiv Yaroslavl",
+      "away": "Traktor Chelyabinsk",
+      "start": "2026-09-05T10:00:00+05:00"
+    },
+    {
+      "home": "Severstal Cherepovets",
+      "away": "Salavat Yulayev Ufa",
+      "start": "2026-09-05T14:00:00+05:00"
+    },
+    {
+      "home": "Spartak Moscow",
+      "away": "Torpedo Nizhny Novgorod",
+      "start": "2026-09-05T14:00:00+05:00"
+    },
+    {
+      "home": "SKA S.P.",
+      "away": "Lada Togliatti",
+      "start": "2026-09-05T14:00:00+05:00"
+    }
+  ],
   "results": []
 }
