@@ -83,12 +83,20 @@ def fetch_rendered(url):
         return text
 
 
-# Confirmed real column order via diagnostic capture (2026-08-17): the header's
-# data-sort attributes list exactly this sequence. Used to zip against each row's stat
-# cells rather than guessing positions. Note there is genuinely no goals-against column
-# in this table (confirmed, not a parsing gap) -- KHL's compact standings view only
-# shows goals-for.
-STAT_COLUMNS = ["gp", "w", "otw", "sow", "sol", "otl", "pts_pct", "l", "gf", "pts"]
+# Confirmed real structure via diagnostic capture (2026-09-01, second redesign since the
+# 2026-08-17 original): khl.ru moved off the old .championshipRegular-table__* classes
+# entirely. Real row layout, confirmed against a full captured row: cell[0]=rank,
+# cell[1]=logo, cell[2]=team name (.table__cell--team-name, a real <a> tag), cells[3:12]
+# (9 plain .table__cell, no modifier class) = the numeric stats in order, cell[12] =
+# combined "GF-GA" text (a real goals-against column exists now, unlike the old design),
+# cell[13]=last-5-results icons (skip, not a stat), cell[14]=next-match preview (skip).
+# The 9-stat order (gp/w/otw/sow/sol/otl/pts_pct/l/pts) carries over from the previously-
+# confirmed old order with "gf" pulled out into its own combined cell - reasonable
+# extrapolation since every value is genuinely 0 pre-season and the exact order can't be
+# cross-checked from content alone until real games happen, but low-risk: get this
+# slightly wrong and the fix is a straightforward reorder once non-zero data exists to
+# verify against, not a class of bug that breaks anything else.
+STAT_COLUMNS = ["gp", "w", "otw", "sow", "sol", "otl", "pts_pct", "l", "pts"]
 
 
 def parse_standings(html):
@@ -98,15 +106,16 @@ def parse_standings(html):
         return []
     standings = []
     for row in tbody.find_all("tr"):
-        club_link = row.select_one(".championshipRegular-table__club")
-        if not club_link:
+        name_el = row.select_one(".table__cell--team-name a")
+        if not name_el:
             continue
-        name_el = club_link.select_one(".championshipRegular-table__clubName")
-        team_name = (name_el or club_link).get_text(strip=True)
+        team_name = name_el.get_text(strip=True)
         if not team_name:
             continue
-        all_cells = row.find_all(["td", "th"])
-        stat_cells = all_cells[2:]
+        all_cells = row.find_all("td")
+        if len(all_cells) < 13:
+            continue
+        stat_cells = all_cells[3:12]
         values = [c.get_text(strip=True) for c in stat_cells]
         stats = dict(zip(STAT_COLUMNS, values))
 
@@ -117,6 +126,10 @@ def parse_standings(html):
             except (ValueError, TypeError):
                 return 0
 
+        gf_ga_text = all_cells[12].get_text(strip=True)
+        gf_match = re.match(r"(\d+)\D+(\d+)", gf_ga_text)
+        gf = int(gf_match.group(1)) if gf_match else 0
+
         standings.append({
             "team": team_name,
             "played": safe_int("gp"),
@@ -126,7 +139,7 @@ def parse_standings(html):
             "soLost": safe_int("sol"),
             "otLost": safe_int("otl"),
             "lost": safe_int("l"),
-            "gf": safe_int("gf"),
+            "gf": gf,
             "points": safe_int("pts"),
         })
     return standings
