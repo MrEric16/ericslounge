@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-04T20:52:49.608131Z",
+  "generatedAt": "2026-09-04T23:07:46.418369Z",
   "events": [
     {
       "title": "Фестиваль юсуповского помидора в «Мясном»",
@@ -68,7 +68,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Gamer Party at Gōsht Kids",
+      "title": "Gamer Party в Gōsht Kids",
       "titleRu": "Gamer Party в Gōsht Kids",
       "category": "kids",
       "venue": "Gosht KidsТашкент, ул. Мирабад, 21/1",
@@ -79,17 +79,18 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Hans and Gretel",
-      "titleRu": null,
-      "category": "theatre",
-      "venue": "Theatre - Studio Silk Route Marionettes Ecopark",
+      "title": "Спектакль «Ганс и Гретель»",
+      "titleRu": "Спектакль «Ганс и Гретель»",
+      "category": "kids",
+      "venue": null,
       "startDate": "2026-09-05",
       "endDate": null,
-      "url": "https://iticket.uz/en/events/theaters-tashkent/hans-and-gretel8965",
-      "source": "iticket.uz"
+      "time": "17:00",
+      "url": "https://www.afisha.uz/ru/children/2026/09/03/gans-i-gretel",
+      "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Children's master class at PRO.Khinkali",
+      "title": "Детский мастер-класс в  PRO.Хинкали",
       "titleRu": "Детский мастер-класс в  PRO.Хинкали",
       "category": "kids",
       "venue": "PRO.ХинкалиТашкент, ул. Шота Руставели, 22А/1",
@@ -100,7 +101,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Circus performances on weekends",
+      "title": "Цирковые представления по выходным",
       "titleRu": "Цирковые представления по выходным",
       "category": "kids",
       "venue": "ЦиркТашкент, пл. Хадра, 1",
@@ -111,7 +112,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Children's culinary master classes at PRO.Khinkali",
+      "title": "Детские кулинарные мастер-классы в PRO.Хинкали",
       "titleRu": "Детские кулинарные мастер-классы в PRO.Хинкали",
       "category": "kids",
       "venue": "PRO.ХинкалиТашкент, ул. Шота Руставели, 22А/1",
@@ -122,7 +123,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Operetta “Prince of the Arena”",
+      "title": "Оперетта «Принц арены»",
       "titleRu": "Оперетта «Принц арены»",
       "category": "kids",
       "venue": null,
@@ -133,7 +134,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Musical fairy tale \"Peter Pan\"",
+      "title": "Мюзикл-сказка «Питер Пэн»",
       "titleRu": "Мюзикл-сказка «Питер Пэн»",
       "category": "kids",
       "venue": null,
@@ -144,17 +145,18 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Blue Dwarf, or The Pearl Heart",
-      "titleRu": null,
-      "category": "theatre",
-      "venue": "Uzbek National Puppet theater",
+      "title": "Премьера спектакля «Синий карлик, или Жемчужное сердце»",
+      "titleRu": "Премьера спектакля «Синий карлик, или Жемчужное сердце»",
+      "category": "kids",
+      "venue": null,
       "startDate": "2026-09-05",
       "endDate": null,
-      "url": "https://iticket.uz/en/events/theaters-tashkent/blue-dwarf-or-the-pearl-heart",
-      "source": "iticket.uz"
+      "time": null,
+      "url": "https://www.afisha.uz/ru/children/2026/08/06/children-s-play",
+      "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Ice cream festival Muzz Fest 2.0",
+      "title": "Фестиваль мороженого Muzz Fest 2.0",
       "titleRu": "Фестиваль мороженого Muzz Fest 2.0",
       "category": "festival",
       "venue": null,
@@ -165,7 +167,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Uzbegim Market fair in Tashkent City Park",
+      "title": "Ярмарка Uzbegim Market в парке Tashkent City",
       "titleRu": "Ярмарка Uzbegim Market в парке Tashkent City",
       "category": "festival",
       "venue": "Tashkent CityТашкент, просп. Бунёдкор",
@@ -187,7 +189,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Uzbekistan will present contemporary craft at Homo Faber 2026 in Venice",
+      "title": "Узбекистан представит современное ремесло на Homo Faber 2026 в Венеции",
       "titleRu": "Узбекистан представит современное ремесло на Homo Faber 2026 в Венеции",
       "category": "exhibition",
       "venue": null,
@@ -258,6 +260,16 @@
       "source": "iticket.uz"
     },
     {
+      "title": "Blue Dwarf, or The Pearl Heart",
+      "titleRu": null,
+      "category": "theatre",
+      "venue": "Uzbek National Puppet theater",
+      "startDate": "2026-09-05",
+      "endDate": null,
+      "url": "https://iticket.uz/en/events/theaters-tashkent/blue-dwarf-or-the-pearl-heart",
+      "source": "iticket.uz"
+    },
+    {
       "title": "How Gingerbread Mind Gained",
       "titleRu": null,
       "category": "theatre",
@@ -265,6 +277,16 @@
       "startDate": "2026-09-05",
       "endDate": null,
       "url": "https://iticket.uz/en/events/theaters-tashkent/how-gingerbread-mind-gainedd",
+      "source": "iticket.uz"
+    },
+    {
+      "title": "Hans and Gretel",
+      "titleRu": null,
+      "category": "theatre",
+      "venue": "Theatre - Studio Silk Route Marionettes Ecopark",
+      "startDate": "2026-09-05",
+      "endDate": null,
+      "url": "https://iticket.uz/en/events/theaters-tashkent/hans-and-gretel8965",
       "source": "iticket.uz"
     },
     {
@@ -322,7 +344,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Circus performances on weekends",
+      "title": "Цирковые представления по выходным",
       "titleRu": "Цирковые представления по выходным",
       "category": "kids",
       "venue": "ЦиркТашкент, пл. Хадра, 1",
@@ -333,7 +355,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Operetta “Prince of the Arena”",
+      "title": "Оперетта «Принц арены»",
       "titleRu": "Оперетта «Принц арены»",
       "category": "kids",
       "venue": null,
@@ -344,7 +366,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Premiere of the play “Blue Dwarf, or Heart of Pearl”",
+      "title": "Премьера спектакля «Синий карлик, или Жемчужное сердце»",
       "titleRu": "Премьера спектакля «Синий карлик, или Жемчужное сердце»",
       "category": "kids",
       "venue": null,
@@ -355,7 +377,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Ice cream festival Muzz Fest 2.0",
+      "title": "Фестиваль мороженого Muzz Fest 2.0",
       "titleRu": "Фестиваль мороженого Muzz Fest 2.0",
       "category": "festival",
       "venue": null,
@@ -366,7 +388,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Uzbegim Market fair in Tashkent City Park",
+      "title": "Ярмарка Uzbegim Market в парке Tashkent City",
       "titleRu": "Ярмарка Uzbegim Market в парке Tashkent City",
       "category": "festival",
       "venue": "Tashkent CityТашкент, просп. Бунёдкор",
@@ -377,7 +399,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Stand-up concert by Sergei Orlov",
+      "title": "Stand-up концерт Сергея Орлова",
       "titleRu": "Stand-up концерт Сергея Орлова",
       "category": "concert",
       "venue": null,
@@ -388,7 +410,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Concert of pianist Lang Lang in Samarkand",
+      "title": "Концерт пианиста Lang Lang в Самарканде",
       "titleRu": "Концерт пианиста Lang Lang в Самарканде",
       "category": "concert",
       "venue": null,
@@ -399,7 +421,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Out of Rider performance at Human House",
+      "title": "Спектакль Out of Rider в Human House",
       "titleRu": "Спектакль Out of Rider в Human House",
       "category": "theatre",
       "venue": "Human HouseТашкент, ул. Ивлиева, 43",
@@ -410,7 +432,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Premiere of the play “Nasriddin Afandi”",
+      "title": "Премьера спектакля «Насриддин Афанди»",
       "titleRu": "Премьера спектакля «Насриддин Афанди»",
       "category": "theatre",
       "venue": null,
@@ -421,7 +443,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Performance “Bekhalovat koshona”",
+      "title": "Спектакль «Бехаловат кошона»",
       "titleRu": "Спектакль «Бехаловат кошона»",
       "category": "theatre",
       "venue": null,
@@ -520,7 +542,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Uzbekistan will present contemporary craft at Homo Faber 2026 in Venice",
+      "title": "Узбекистан представит современное ремесло на Homo Faber 2026 в Венеции",
       "titleRu": "Узбекистан представит современное ремесло на Homo Faber 2026 в Венеции",
       "category": "exhibition",
       "venue": null,
@@ -614,7 +636,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Uzbegim Market fair in Tashkent City Park",
+      "title": "Ярмарка Uzbegim Market в парке Tashkent City",
       "titleRu": "Ярмарка Uzbegim Market в парке Tashkent City",
       "category": "festival",
       "venue": "Tashkent CityТашкент, просп. Бунёдкор",
@@ -647,7 +669,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Uzbekistan will present contemporary craft at Homo Faber 2026 in Venice",
+      "title": "Узбекистан представит современное ремесло на Homo Faber 2026 в Венеции",
       "titleRu": "Узбекистан представит современное ремесло на Homo Faber 2026 в Венеции",
       "category": "exhibition",
       "venue": null,
@@ -691,7 +713,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Uzbegim Market fair in Tashkent City Park",
+      "title": "Ярмарка Uzbegim Market в парке Tashkent City",
       "titleRu": "Ярмарка Uzbegim Market в парке Tashkent City",
       "category": "festival",
       "venue": "Tashkent CityТашкент, просп. Бунёдкор",
@@ -746,7 +768,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Uzbekistan will present contemporary craft at Homo Faber 2026 in Venice",
+      "title": "Узбекистан представит современное ремесло на Homo Faber 2026 в Венеции",
       "titleRu": "Узбекистан представит современное ремесло на Homo Faber 2026 в Венеции",
       "category": "exhibition",
       "venue": null,
@@ -800,7 +822,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Uzbegim Market fair in Tashkent City Park",
+      "title": "Ярмарка Uzbegim Market в парке Tashkent City",
       "titleRu": "Ярмарка Uzbegim Market в парке Tashkent City",
       "category": "festival",
       "venue": "Tashkent CityТашкент, просп. Бунёдкор",
@@ -833,7 +855,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Uzbekistan will present contemporary craft at Homo Faber 2026 in Venice",
+      "title": "Узбекистан представит современное ремесло на Homo Faber 2026 в Венеции",
       "titleRu": "Узбекистан представит современное ремесло на Homo Faber 2026 в Венеции",
       "category": "exhibition",
       "venue": null,
@@ -866,7 +888,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Uzbegim Market fair in Tashkent City Park",
+      "title": "Ярмарка Uzbegim Market в парке Tashkent City",
       "titleRu": "Ярмарка Uzbegim Market в парке Tashkent City",
       "category": "festival",
       "venue": "Tashkent CityТашкент, просп. Бунёдкор",
@@ -931,7 +953,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Uzbekistan will present contemporary craft at Homo Faber 2026 in Venice",
+      "title": "Узбекистан представит современное ремесло на Homo Faber 2026 в Венеции",
       "titleRu": "Узбекистан представит современное ремесло на Homo Faber 2026 в Венеции",
       "category": "exhibition",
       "venue": null,
@@ -974,7 +996,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Uzbegim Market fair in Tashkent City Park",
+      "title": "Ярмарка Uzbegim Market в парке Tashkent City",
       "titleRu": "Ярмарка Uzbegim Market в парке Tashkent City",
       "category": "festival",
       "venue": "Tashkent CityТашкент, просп. Бунёдкор",
@@ -1062,7 +1084,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Uzbekistan will present contemporary craft at Homo Faber 2026 in Venice",
+      "title": "Узбекистан представит современное ремесло на Homo Faber 2026 в Венеции",
       "titleRu": "Узбекистан представит современное ремесло на Homo Faber 2026 в Венеции",
       "category": "exhibition",
       "venue": null,
@@ -1115,7 +1137,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Circus performances on weekends",
+      "title": "Цирковые представления по выходным",
       "titleRu": "Цирковые представления по выходным",
       "category": "kids",
       "venue": "ЦиркТашкент, пл. Хадра, 1",
@@ -1126,7 +1148,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Premiere of the play “Blue Dwarf, or Heart of Pearl”",
+      "title": "Премьера спектакля «Синий карлик, или Жемчужное сердце»",
       "titleRu": "Премьера спектакля «Синий карлик, или Жемчужное сердце»",
       "category": "kids",
       "venue": null,
@@ -1137,7 +1159,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Uzbegim Market fair in Tashkent City Park",
+      "title": "Ярмарка Uzbegim Market в парке Tashkent City",
       "titleRu": "Ярмарка Uzbegim Market в парке Tashkent City",
       "category": "festival",
       "venue": "Tashkent CityТашкент, просп. Бунёдкор",
@@ -1170,17 +1192,18 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Otamurod Nurmatov",
-      "titleRu": null,
+      "title": "Концерт Отамурода Нурматова",
+      "titleRu": "Концерт Отамурода Нурматова",
       "category": "concert",
-      "venue": "Peoples' Friendship Palace",
+      "venue": null,
       "startDate": "2026-09-12",
       "endDate": null,
-      "url": "https://iticket.uz/en/events/concerts/otamurod-nurmatov26",
-      "source": "iticket.uz"
+      "time": "19:30",
+      "url": "https://www.afisha.uz/ru/concerts/2026/07/31/kontsert-otamuroda-nurmatova-vy-menya-ne-zabyli",
+      "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Exhibition \"Garden of Memory\" in Haqiqiy",
+      "title": "Выставка «Сад памяти» в Haqiqiy",
       "titleRu": "Выставка «Сад памяти» в Haqiqiy",
       "category": "exhibition",
       "venue": "HaqiqiyТашкент, ул. Паркент, 115",
@@ -1202,7 +1225,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Premiere of the play about Bukhara",
+      "title": "Премьера спектакля о Бухаре",
       "titleRu": "Премьера спектакля о Бухаре",
       "category": "theatre",
       "venue": null,
@@ -1213,7 +1236,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Gala concert “From Vienna to Broadway”",
+      "title": "Гала-концерт «От Вены до Бродвея»",
       "titleRu": "Гала-концерт «От Вены до Бродвея»",
       "category": "theatre",
       "venue": null,
@@ -1224,7 +1247,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Ballet \"A Thousand and One Nights\"",
+      "title": "Балет «Тысяча и одна ночь»",
       "titleRu": "Балет «Тысяча и одна ночь»",
       "category": "theatre",
       "venue": null,
@@ -1235,17 +1258,18 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Snow White Lullaby",
-      "titleRu": null,
-      "category": "theatre",
-      "venue": "Theatre - Studio Silk Route Marionettes Ecopark",
+      "title": "Спектакль «Колыбельная для Белоснежки»",
+      "titleRu": "Спектакль «Колыбельная для Белоснежки»",
+      "category": "kids",
+      "venue": null,
       "startDate": "2026-09-12",
       "endDate": null,
-      "url": "https://iticket.uz/en/events/theaters-tashkent/snow-white-lullabyy",
-      "source": "iticket.uz"
+      "time": "17:00",
+      "url": "https://www.afisha.uz/ru/children/2026/09/03/kolybelnaya",
+      "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Musical fairy tale \"Little Muk\"",
+      "title": "Музыкальная сказка «Маленький Мук»",
       "titleRu": "Музыкальная сказка «Маленький Мук»",
       "category": "kids",
       "venue": null,
@@ -1256,7 +1280,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Auto festival Promotors Show 2026",
+      "title": "Автофестиваль Promotors Show 2026",
       "titleRu": "Автофестиваль Promotors Show 2026",
       "category": "festival",
       "venue": null,
@@ -1267,7 +1291,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Concert-immersion “Sound Paths”",
+      "title": "Концерт-погружение «Звуковые пути»",
       "titleRu": "Концерт-погружение «Звуковые пути»",
       "category": "lecture",
       "venue": null,
@@ -1278,7 +1302,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Uzbekistan will present contemporary craft at Homo Faber 2026 in Venice",
+      "title": "Узбекистан представит современное ремесло на Homo Faber 2026 в Венеции",
       "titleRu": "Узбекистан представит современное ремесло на Homo Faber 2026 в Венеции",
       "category": "exhibition",
       "venue": null,
@@ -1287,6 +1311,16 @@
       "time": null,
       "url": "https://www.afisha.uz/ru/exhibitions/2026/08/31/homo-faber",
       "source": "afisha.uz (calendar)"
+    },
+    {
+      "title": "Otamurod Nurmatov",
+      "titleRu": null,
+      "category": "concert",
+      "venue": "Peoples' Friendship Palace",
+      "startDate": "2026-09-12",
+      "endDate": null,
+      "url": "https://iticket.uz/en/events/concerts/otamurod-nurmatov26",
+      "source": "iticket.uz"
     },
     {
       "title": "Маленький Мук",
@@ -1306,6 +1340,16 @@
       "startDate": "2026-09-12",
       "endDate": null,
       "url": "https://iticket.uz/en/events/theaters-tashkent/dunyoning-ishlari256",
+      "source": "iticket.uz"
+    },
+    {
+      "title": "Snow White Lullaby",
+      "titleRu": null,
+      "category": "theatre",
+      "venue": "Theatre - Studio Silk Route Marionettes Ecopark",
+      "startDate": "2026-09-12",
+      "endDate": null,
+      "url": "https://iticket.uz/en/events/theaters-tashkent/snow-white-lullabyy",
       "source": "iticket.uz"
     },
     {
@@ -1351,7 +1395,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Circus performances on weekends",
+      "title": "Цирковые представления по выходным",
       "titleRu": "Цирковые представления по выходным",
       "category": "kids",
       "venue": "ЦиркТашкент, пл. Хадра, 1",
@@ -1362,7 +1406,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Premiere of the play “Blue Dwarf, or Heart of Pearl”",
+      "title": "Премьера спектакля «Синий карлик, или Жемчужное сердце»",
       "titleRu": "Премьера спектакля «Синий карлик, или Жемчужное сердце»",
       "category": "kids",
       "venue": null,
@@ -1373,7 +1417,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Uzbegim Market fair in Tashkent City Park",
+      "title": "Ярмарка Uzbegim Market в парке Tashkent City",
       "titleRu": "Ярмарка Uzbegim Market в парке Tashkent City",
       "category": "festival",
       "venue": "Tashkent CityТашкент, просп. Бунёдкор",
@@ -1395,7 +1439,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Exhibition \"Garden of Memory\" in Haqiqiy",
+      "title": "Выставка «Сад памяти» в Haqiqiy",
       "titleRu": "Выставка «Сад памяти» в Haqiqiy",
       "category": "exhibition",
       "venue": "HaqiqiyТашкент, ул. Паркент, 115",
@@ -1406,7 +1450,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Premiere of the play about Bukhara",
+      "title": "Премьера спектакля о Бухаре",
       "titleRu": "Премьера спектакля о Бухаре",
       "category": "theatre",
       "venue": null,
@@ -1417,7 +1461,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Auto festival Promotors Show 2026",
+      "title": "Автофестиваль Promotors Show 2026",
       "titleRu": "Автофестиваль Promotors Show 2026",
       "category": "festival",
       "venue": null,
@@ -1428,7 +1472,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Performance by the group \"Degrees\"",
+      "title": "Выступление группы «Градусы»",
       "titleRu": "Выступление группы «Градусы»",
       "category": "concert",
       "venue": null,
@@ -1439,7 +1483,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Free painting market in the Haqiqiy space",
+      "title": "Свободный маркет живописи в пространстве Haqiqiy",
       "titleRu": "Свободный маркет живописи в пространстве Haqiqiy",
       "category": "exhibition",
       "venue": "HaqiqiyТашкент, ул. Паркент, 115",
@@ -1461,7 +1505,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Performance \"Kungil\"",
+      "title": "Спектакль «Кунгил»",
       "titleRu": "Спектакль «Кунгил»",
       "category": "theatre",
       "venue": null,
@@ -1472,7 +1516,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Musical performance “It can’t be”",
+      "title": "Музыкальный спектакль «Не может быть»",
       "titleRu": "Музыкальный спектакль «Не может быть»",
       "category": "theatre",
       "venue": null,
@@ -1483,7 +1527,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Opera \"Carmen\" at the Bolshoi Theater",
+      "title": "Опера «Кармен» в ГАБТ",
       "titleRu": "Опера «Кармен» в ГАБТ",
       "category": "theatre",
       "venue": null,
@@ -1494,7 +1538,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Performance “Extraordinary Musicians”",
+      "title": "Спектакль «Необыкновенные музыканты»",
       "titleRu": "Спектакль «Необыкновенные музыканты»",
       "category": "kids",
       "venue": null,
@@ -1505,7 +1549,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Performance \"Aladdin\"",
+      "title": "Спектакль «Аладдин»",
       "titleRu": "Спектакль «Аладдин»",
       "category": "kids",
       "venue": null,
@@ -1516,7 +1560,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Uzbekistan will present contemporary craft at Homo Faber 2026 in Venice",
+      "title": "Узбекистан представит современное ремесло на Homo Faber 2026 в Венеции",
       "titleRu": "Узбекистан представит современное ремесло на Homo Faber 2026 в Венеции",
       "category": "exhibition",
       "venue": null,
@@ -1534,6 +1578,46 @@
       "startDate": "2026-09-13",
       "endDate": null,
       "url": "https://iticket.uz/en/events/theaters-tashkent/aladdin2424",
+      "source": "iticket.uz"
+    },
+    {
+      "title": "Ojiza demang bizni",
+      "titleRu": null,
+      "category": "theatre",
+      "venue": "State Drama Theater of Uzbekistan",
+      "startDate": "2026-09-13",
+      "endDate": null,
+      "url": "https://iticket.uz/en/events/theaters-tashkent/ojiza-demang-bizni-26",
+      "source": "iticket.uz"
+    },
+    {
+      "title": "Extraordinary Musicians",
+      "titleRu": null,
+      "category": "theatre",
+      "venue": "Theatre - Studio Silk Route Marionettes Ecopark",
+      "startDate": "2026-09-13",
+      "endDate": null,
+      "url": "https://iticket.uz/en/events/theaters-tashkent/extraordinary-musicians2",
+      "source": "iticket.uz"
+    },
+    {
+      "title": "Не может быть",
+      "titleRu": null,
+      "category": "theatre",
+      "venue": "The State Theater of Musical Comedy (Operetta) of Uzbekistan",
+      "startDate": "2026-09-13",
+      "endDate": null,
+      "url": "https://iticket.uz/en/events/theaters-tashkent/ne-mozhet-byt",
+      "source": "iticket.uz"
+    },
+    {
+      "title": "Жорж Бизе \"Кармен\" Опера",
+      "titleRu": null,
+      "category": "theatre",
+      "venue": "Bolshoi Theater named after A. Navoi",
+      "startDate": "2026-09-13",
+      "endDate": null,
+      "url": "https://iticket.uz/en/events/theaters-tashkent/zhorzh-bize-karmen-opera",
       "source": "iticket.uz"
     },
     {
@@ -1559,7 +1643,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Uzbegim Market fair in Tashkent City Park",
+      "title": "Ярмарка Uzbegim Market в парке Tashkent City",
       "titleRu": "Ярмарка Uzbegim Market в парке Tashkent City",
       "category": "festival",
       "venue": "Tashkent CityТашкент, просп. Бунёдкор",
@@ -1570,7 +1654,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Exhibition \"Garden of Memory\" in Haqiqiy",
+      "title": "Выставка «Сад памяти» в Haqiqiy",
       "titleRu": "Выставка «Сад памяти» в Haqiqiy",
       "category": "exhibition",
       "venue": "HaqiqiyТашкент, ул. Паркент, 115",
@@ -1592,7 +1676,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Uzbekistan will present contemporary craft at Homo Faber 2026 in Venice",
+      "title": "Узбекистан представит современное ремесло на Homo Faber 2026 в Венеции",
       "titleRu": "Узбекистан представит современное ремесло на Homo Faber 2026 в Венеции",
       "category": "exhibition",
       "venue": null,
@@ -1635,7 +1719,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Uzbegim Market fair in Tashkent City Park",
+      "title": "Ярмарка Uzbegim Market в парке Tashkent City",
       "titleRu": "Ярмарка Uzbegim Market в парке Tashkent City",
       "category": "festival",
       "venue": "Tashkent CityТашкент, просп. Бунёдкор",
@@ -1646,7 +1730,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Exhibition \"Garden of Memory\" in Haqiqiy",
+      "title": "Выставка «Сад памяти» в Haqiqiy",
       "titleRu": "Выставка «Сад памяти» в Haqiqiy",
       "category": "exhibition",
       "venue": "HaqiqiyТашкент, ул. Паркент, 115",
@@ -1668,7 +1752,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Uzbekistan will present contemporary craft at Homo Faber 2026 in Venice",
+      "title": "Узбекистан представит современное ремесло на Homo Faber 2026 в Венеции",
       "titleRu": "Узбекистан представит современное ремесло на Homo Faber 2026 в Венеции",
       "category": "exhibition",
       "venue": null,
@@ -1701,7 +1785,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Uzbegim Market fair in Tashkent City Park",
+      "title": "Ярмарка Uzbegim Market в парке Tashkent City",
       "titleRu": "Ярмарка Uzbegim Market в парке Tashkent City",
       "category": "festival",
       "venue": "Tashkent CityТашкент, просп. Бунёдкор",
@@ -1712,7 +1796,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Exhibition \"Garden of Memory\" in Haqiqiy",
+      "title": "Выставка «Сад памяти» в Haqiqiy",
       "titleRu": "Выставка «Сад памяти» в Haqiqiy",
       "category": "exhibition",
       "venue": "HaqiqiyТашкент, ул. Паркент, 115",
@@ -1734,7 +1818,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Uzbekistan will present contemporary craft at Homo Faber 2026 in Venice",
+      "title": "Узбекистан представит современное ремесло на Homo Faber 2026 в Венеции",
       "titleRu": "Узбекистан представит современное ремесло на Homo Faber 2026 в Венеции",
       "category": "exhibition",
       "venue": null,
@@ -1743,6 +1827,16 @@
       "time": null,
       "url": "https://www.afisha.uz/ru/exhibitions/2026/08/31/homo-faber",
       "source": "afisha.uz (calendar)"
+    },
+    {
+      "title": "Концерт симфонической музыки - Молодежный оркестр ГАБТ",
+      "titleRu": null,
+      "category": "theatre",
+      "venue": "Bolshoi Theater named after A. Navoi",
+      "startDate": "2026-09-16",
+      "endDate": null,
+      "url": "https://iticket.uz/en/events/theaters-tashkent/koncert-simfonicheskoj-muzyki-molodezhnyj-orkestr-gabt",
+      "source": "iticket.uz"
     },
     {
       "title": "Exhibition “On the Female Line”",
@@ -1767,7 +1861,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Uzbegim Market fair in Tashkent City Park",
+      "title": "Ярмарка Uzbegim Market в парке Tashkent City",
       "titleRu": "Ярмарка Uzbegim Market в парке Tashkent City",
       "category": "festival",
       "venue": "Tashkent CityТашкент, просп. Бунёдкор",
@@ -1778,7 +1872,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Performance “Bekhalovat koshona”",
+      "title": "Спектакль «Бехаловат кошона»",
       "titleRu": "Спектакль «Бехаловат кошона»",
       "category": "theatre",
       "venue": null,
@@ -1789,7 +1883,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Exhibition \"Garden of Memory\" in Haqiqiy",
+      "title": "Выставка «Сад памяти» в Haqiqiy",
       "titleRu": "Выставка «Сад памяти» в Haqiqiy",
       "category": "exhibition",
       "venue": "HaqiqiyТашкент, ул. Паркент, 115",
@@ -1811,7 +1905,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Uzbekistan will present contemporary craft at Homo Faber 2026 in Venice",
+      "title": "Узбекистан представит современное ремесло на Homo Faber 2026 в Венеции",
       "titleRu": "Узбекистан представит современное ремесло на Homo Faber 2026 в Венеции",
       "category": "exhibition",
       "venue": null,
@@ -1820,6 +1914,16 @@
       "time": null,
       "url": "https://www.afisha.uz/ru/exhibitions/2026/08/31/homo-faber",
       "source": "afisha.uz (calendar)"
+    },
+    {
+      "title": "Ф.Шопен \"Шопениана\", А.Бородин \"Половецкие пляски\" одноактные балеты\"",
+      "titleRu": null,
+      "category": "theatre",
+      "venue": "Bolshoi Theater named after A. Navoi",
+      "startDate": "2026-09-17",
+      "endDate": null,
+      "url": "https://iticket.uz/en/events/theaters-tashkent/fsopen-sopeniana-aborodin-poloveckie-plyaski-odnoaktnye-balety-9544",
+      "source": "iticket.uz"
     },
     {
       "title": "Exhibition “On the Female Line”",
@@ -1844,7 +1948,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Uzbegim Market fair in Tashkent City Park",
+      "title": "Ярмарка Uzbegim Market в парке Tashkent City",
       "titleRu": "Ярмарка Uzbegim Market в парке Tashkent City",
       "category": "festival",
       "venue": "Tashkent CityТашкент, просп. Бунёдкор",
@@ -1855,7 +1959,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Exhibition \"Garden of Memory\" in Haqiqiy",
+      "title": "Выставка «Сад памяти» в Haqiqiy",
       "titleRu": "Выставка «Сад памяти» в Haqiqiy",
       "category": "exhibition",
       "venue": "HaqiqiyТашкент, ул. Паркент, 115",
@@ -1877,7 +1981,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Uzbekistan will present contemporary craft at Homo Faber 2026 in Venice",
+      "title": "Узбекистан представит современное ремесло на Homo Faber 2026 в Венеции",
       "titleRu": "Узбекистан представит современное ремесло на Homo Faber 2026 в Венеции",
       "category": "exhibition",
       "venue": null,
@@ -1898,6 +2002,26 @@
       "source": "iticket.uz"
     },
     {
+      "title": "Счастливчик",
+      "titleRu": null,
+      "category": "theatre",
+      "venue": "The State Theater of Musical Comedy (Operetta) of Uzbekistan",
+      "startDate": "2026-09-18",
+      "endDate": null,
+      "url": "https://iticket.uz/en/events/theaters-tashkent/schastlivchik",
+      "source": "iticket.uz"
+    },
+    {
+      "title": "Людмила Слоним \"НИТЬ ЖЕМЧУГА\"",
+      "titleRu": null,
+      "category": "theatre",
+      "venue": "Bolshoi Theater named after A. Navoi",
+      "startDate": "2026-09-18",
+      "endDate": null,
+      "url": "https://iticket.uz/en/events/theaters-tashkent/lyudmila-slonim-nit-zemcuga-9503",
+      "source": "iticket.uz"
+    },
+    {
       "title": "Exhibition by Mohamed Benshalal",
       "titleRu": "Выставка Мохамеда Беншалала",
       "category": "exhibition",
@@ -1909,7 +2033,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Uzbegim Market fair in Tashkent City Park",
+      "title": "Ярмарка Uzbegim Market в парке Tashkent City",
       "titleRu": "Ярмарка Uzbegim Market в парке Tashkent City",
       "category": "festival",
       "venue": "Tashkent CityТашкент, просп. Бунёдкор",
@@ -1920,7 +2044,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Exhibition \"Garden of Memory\" in Haqiqiy",
+      "title": "Выставка «Сад памяти» в Haqiqiy",
       "titleRu": "Выставка «Сад памяти» в Haqiqiy",
       "category": "exhibition",
       "venue": "HaqiqiyТашкент, ул. Паркент, 115",
@@ -1931,7 +2055,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Uzbekistan will present contemporary craft at Homo Faber 2026 in Venice",
+      "title": "Узбекистан представит современное ремесло на Homo Faber 2026 в Венеции",
       "titleRu": "Узбекистан представит современное ремесло на Homo Faber 2026 в Венеции",
       "category": "exhibition",
       "venue": null,
@@ -1959,6 +2083,46 @@
       "startDate": "2026-09-19",
       "endDate": null,
       "url": "https://iticket.uz/en/events/concerts/tolib-toxtasinov",
+      "source": "iticket.uz"
+    },
+    {
+      "title": "Золушка",
+      "titleRu": null,
+      "category": "theatre",
+      "venue": "The State Theater of Musical Comedy (Operetta) of Uzbekistan",
+      "startDate": "2026-09-19",
+      "endDate": null,
+      "url": "https://iticket.uz/en/events/theaters-tashkent/zolushka2324",
+      "source": "iticket.uz"
+    },
+    {
+      "title": "“Xasis”",
+      "titleRu": null,
+      "category": "theatre",
+      "venue": "State Drama Theater of Uzbekistan",
+      "startDate": "2026-09-19",
+      "endDate": null,
+      "url": "https://iticket.uz/en/events/theaters-tashkent/xasis256",
+      "source": "iticket.uz"
+    },
+    {
+      "title": "Иван Васильевич меняет профессию",
+      "titleRu": null,
+      "category": "theatre",
+      "venue": "The State Theater of Musical Comedy (Operetta) of Uzbekistan",
+      "startDate": "2026-09-19",
+      "endDate": null,
+      "url": "https://iticket.uz/en/events/theaters-tashkent/ivan-vasilevich-menyaet-professiyu24",
+      "source": "iticket.uz"
+    },
+    {
+      "title": "Максим Аверин",
+      "titleRu": null,
+      "category": "theatre",
+      "venue": "Russian Drama Theater",
+      "startDate": "2026-09-19",
+      "endDate": null,
+      "url": "https://iticket.uz/en/events/theaters-tashkent/maksim-averin26",
       "source": "iticket.uz"
     }
   ]
