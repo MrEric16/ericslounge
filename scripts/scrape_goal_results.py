@@ -37,6 +37,26 @@ OUTPUT_PATH = "data/goal-results.json"
 # Arsenal team page -- covers pre-season friendlies not in any league's fixtures page.
 ARSENAL_URL = "https://www.goal.com/en/team/arsenal/4dsgumo7d4zupm2ugsvm4zm4d"
 
+# Dedicated team pages for the specific big clubs asked for by name (2026-09-04) -- same
+# reasoning as Arsenal's dedicated page: a team's OWN fixtures-results page inherently
+# lists every one of that team's matches, which is a fundamentally more reliable source
+# for "every game, guaranteed" than hoping a specific match happens to still be on a
+# whole league's "current matchweek" default view when the scraper runs. URLs verified
+# directly via search (each one's snippet showed real, dated 2026-27 season matches
+# matching the actual current season), not guessed at or pattern-constructed.
+BIG_CLUB_URLS = {
+    "real-madrid": "https://www.goal.com/en/team/real-madrid/fixtures-results/3kq9cckrnlogidldtdie2fkbl",
+    "barcelona": "https://www.goal.com/en/team/barcelona/fixtures-results/agh9ifb2mw3ivjusgedj7c3fe",
+    "bayern-munich": "https://www.goal.com/en/team/bayern-munich/fixtures-results/apoawtpvac4zqlancmvw4nk4o",
+    "inter-milan": "https://www.goal.com/en/team/inter/fixtures-results/3vo5mpj7catp66nrwwqiuhuup",
+    "ac-milan": "https://www.goal.com/en/team/ac-milan/fixtures-results/9dntj5dioj5ex52yrgwzxrq9l",
+    "psg": "https://www.goal.com/en/team/paris-saint-germain/fixtures-results/2b3mar72yy8d6uvat1ka6tn3r",
+    "marseille": "https://www.goal.com/en/team/marseille/fixtures-results/27xvwccz8kpmqsefjv2b2sc0o",
+    "dortmund": "https://www.goal.com/en/team/borussia-dortmund/fixtures-results/dt4pinj0vw0t0cvz7za6mhmzy",
+    "roma": "https://www.goal.com/en/team/roma/fixtures-results/2tk2l9sgktwc9jhzqdd4mpdtb",
+    "juventus": "https://www.goal.com/en/team/juventus/fixtures-results/bqbbqm98ud8obe45ds9ohgyrd",
+}
+
 # Major leagues tracked by the site (football only -- KHL is ice hockey, not
 # covered by goal.com at all; Uzbek/UAE leagues have uncertain goal.com
 # coverage and are left out of this pass, can be added later if confirmed).
@@ -282,6 +302,15 @@ def main():
     # Arsenal-page scrape and get the "arsenal-friendlies" tag, which is exactly right.
     for code, url in LEAGUES.items():
         total_new += process_source(url, existing_urls, existing["results"], code, retry_counts)
+
+    # Same ordering safety as Arsenal above, same reason: a big club's domestic league
+    # matches (e.g. Real Madrid in PD, Bayern Munich in BL1) already get their correct
+    # league tag from the loop above and claim the URL first - only matches that
+    # AREN'T in any covered league (Copa del Rey, Coppa Italia, DFB-Pokal, Coupe de
+    # France, club friendlies) still reach these team-page scrapes, exactly the same
+    # "catches what nothing else covers" role Arsenal's page already plays.
+    for slug, url in BIG_CLUB_URLS.items():
+        total_new += process_source(url, existing_urls, existing["results"], slug, retry_counts)
 
     total_new += process_source(ARSENAL_URL, existing_urls, existing["results"], "arsenal-friendlies", retry_counts)
 
