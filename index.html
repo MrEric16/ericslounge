@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Mr Eric's Lounge</title>
-<meta name="app-build" content="20260904154658">
+<meta name="app-build" content="20260904162110">
 <script>
   // PWA update-detection: an installed home-screen app's standalone-mode navigation
   // cache can hold an old shell far longer than the CDN's 10-minute cache -
@@ -9575,6 +9575,16 @@ const SPORTS_LEAGUES = [
       { home:"Lokomotiv Yaroslavl", away:"Traktor Chelyabinsk", start:"2026-09-05T21:00:00+05:00" },
       { home:"Severstal Cherepovets", away:"Salavat Yulaev Ufa", start:"2026-09-05T21:00:00+05:00" },
       { home:"Ak Bars Kazan", away:"Sibir Novosibirsk", start:"2026-09-05T21:00:00+05:00" },
+      // 6-7 Sept 2026 pairings confirmed directly against 365scores.com (which loaded
+      // cleanly with no bot-block, unlike khl.ru's own calendar and Sofascore's API -
+      // both hit genuine, confirmed anti-bot walls attempting live scraping this
+      // session). Same conservative time-estimate approach as the 5 Sept entries above
+      // since exact kickoff times weren't independently confirmed against a known-
+      // accurate reference either.
+      { home:"Metallurg Magnitogorsk", away:"Amur Khabarovsk", start:"2026-09-06T21:00:00+05:00" },
+      { home:"Neftekhimik Nizhnekamsk", away:"Shanghai Dragons", start:"2026-09-06T21:00:00+05:00" },
+      { home:"Avangard Omsk", away:"Salavat Yulaev Ufa", start:"2026-09-07T21:00:00+05:00" },
+      { home:"Barys Astana", away:"Sibir Novosibirsk", start:"2026-09-07T21:00:00+05:00" },
     ],
   },
 ];
