@@ -1,13 +1,11 @@
 [goal-scraper] Run started.
 [goal-scraper] [PL] Found 0 finished-match links
 [goal-scraper] [PD] Found 1 finished-match links
-[goal-scraper] [PD] Added: Real Sociedad 0-0 Celta Vigo
 [goal-scraper] [BL1] Found 0 finished-match links
 [goal-scraper] [SA] Found 0 finished-match links
 [goal-scraper] [FL1] Found 1 finished-match links
-[goal-scraper] [FL1] Added: Toulouse 0-1 Lille
 [goal-scraper] [CL] Found 0 finished-match links
 [goal-scraper] [arsenal-friendlies] Found 1 finished-match links
-[goal-scraper] TOTAL new results added this run: 2
+[goal-scraper] TOTAL new results added this run: 0
 [goal-scraper] Matches still awaiting a clean scorer parse (not yet committed): ['https://www.goal.com/en/match/monaco-vs-marseille/o_QlMszaNoxjSs5L9TLym', 'https://www.goal.com/en/match/barcelona-vs-rayo-vallecano/WYyZot_4M5sWl5vpAePKz', 'https://www.goal.com/en/match/lecce-vs-roma/tW1qvyr9_Qo8wjo8JeDaG']
 [goal-scraper] Wrote data/goal-results.json
