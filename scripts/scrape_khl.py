@@ -247,8 +247,10 @@ def main():
         soup = BeautifulSoup(standings_html, "html.parser")
         tbodies = soup.find_all("tbody")
         log(f"WARNING: 0 standings rows. Found {len(tbodies)} <tbody> element(s) total")
-        for i, tb in enumerate(tbodies[:3]):
-            log(f"tbody[{i}] first 500 chars: {str(tb)[:500]!r}")
+        if tbodies:
+            first_row = tbodies[0].find("tr")
+            if first_row:
+                log(f"FULL first row HTML: {str(first_row)!r}")
 
     try:
         calendar_html = fetch_rendered(CALENDAR_URL)
@@ -270,15 +272,12 @@ def main():
         # wrapper, whatever it's actually called.
         candidates = soup.find_all(class_=re.compile(r"match|game|event|calendar|schedule|fixture", re.I))
         log(f"found {len(candidates)} element(s) with a match/game/event/calendar/schedule-ish class")
-        seen_classes = set()
-        for el in candidates:
-            cls = " ".join(el.get("class", []))
-            if cls in seen_classes:
-                continue
-            seen_classes.add(cls)
-            if len(seen_classes) > 8:
-                break
-            log(f"class={cls!r} sample: {str(el)[:400]!r}")
+        cal_section = soup.select_one(".match-center__calendar")
+        if cal_section:
+            full = str(cal_section)
+            log(f"match-center__calendar full length: {len(full)} chars")
+            log(f"match-center__calendar chars 0-4000: {full[:4000]!r}")
+            log(f"match-center__calendar chars 4000-8000: {full[4000:8000]!r}")
 
     fixtures = [m for m in all_matches if not m.get("finished")]
     results = [m for m in all_matches if m.get("finished")]
