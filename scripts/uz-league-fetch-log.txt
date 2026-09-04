@@ -1,14 +1,14 @@
 [uz-league] loading standings page...
 [uz-league] found 16 standings rows
-[uz-league]   raw row parts: ['1.', 'Neftchi Fargona', '19', '14', '3', '2', '45:10', '35', '45', '?', 'W', 'L', 'W', 'W', 'D']
-[uz-league]   raw row parts: ['2.', 'Pakhtakor', '19', '11', '7', '1', '31:18', '13', '40', '?', 'D', 'D', 'W', 'D', 'D']
-[uz-league]   raw row parts: ['3.', 'Navbahor Namangan', '19', '11', '4', '4', '31:17', '14', '37', '?', 'W', 'W', 'W', 'W', 'W']
+[uz-league]   raw row parts: ['1.', 'Neftchi Fargona', '20', '14', '3', '3', '47:16', '31', '45', '?', 'L', 'W', 'L', 'W', 'W']
+[uz-league]   raw row parts: ['2.', 'Pakhtakor', '20', '12', '7', '1', '34:18', '16', '43', '?', 'W', 'D', 'D', 'W', 'D']
+[uz-league]   raw row parts: ['3.', 'Navbahor Namangan', '20', '11', '5', '4', '32:18', '14', '38', '?', 'D', 'W', 'W', 'W', 'W']
 [uz-league]   raw row parts: ['4.', 'Buxoro', '19', '10', '4', '5', '28:20', '8', '34', '?', 'D', 'W', 'W', 'D', 'W']
-[uz-league]   raw row parts: ['5.', 'OKMK', '20', '9', '5', '6', '28:25', '3', '32', '?', 'W', 'D', 'L', 'L', 'W']
-[uz-league]   raw row parts: ['6.', 'Lok. Tashkent', '19', '9', '4', '6', '32:26', '6', '31', '?', 'W', 'W', 'L', 'W', 'L']
-[uz-league]   raw row parts: ['7.', 'Andijan', '19', '8', '3', '8', '24:20', '4', '27', '?', 'W', 'W', 'L', 'L', 'D']
-[uz-league]   raw row parts: ['8.', 'Din. Samarkand', '19', '7', '5', '7', '29:30', '-1', '26', '?', 'D', 'W', 'D', 'L', 'D']
-[uz-league]   raw row parts: ['9.', 'Nasaf Qarshi', '19', '6', '7', '6', '20:18', '2', '25', '?', 'L', 'L', 'L', 'D', 'W']
+[uz-league]   raw row parts: ['5.', 'Lok. Tashkent', '20', '9', '5', '6', '33:27', '6', '32', '?', 'D', 'W', 'W', 'L', 'W']
+[uz-league]   raw row parts: ['6.', 'OKMK', '20', '9', '5', '6', '28:25', '3', '32', '?', 'W', 'D', 'L', 'L', 'W']
+[uz-league]   raw row parts: ['7.', 'Nasaf Qarshi', '20', '7', '7', '6', '26:20', '6', '28', '?', 'W', 'L', 'L', 'L', 'D']
+[uz-league]   raw row parts: ['8.', 'Andijan', '20', '8', '3', '9', '24:23', '1', '27', '?', 'L', 'W', 'W', 'L', 'L']
+[uz-league]   raw row parts: ['9.', 'Din. Samarkand', '19', '7', '5', '7', '29:30', '-1', '26', '?', 'D', 'W', 'D', 'L', 'D']
 [uz-league]   raw row parts: ['10.', 'Sogdiana', '19', '7', '3', '9', '32:39', '-7', '24', '?', 'L', 'W', 'W', 'W', 'W']
 [uz-league]   raw row parts: ['11.', 'Qizilqum', '19', '7', '2', '10', '17:26', '-9', '23', '?', 'W', 'L', 'W', 'L', 'W']
 [uz-league]   raw row parts: ['12.', 'Termez Surkhon', '20', '6', '5', '9', '17:26', '-9', '23', '?', 'W', 'D', 'D', 'L', 'L']
@@ -17,7 +17,7 @@
 [uz-league]   raw row parts: ['15.', 'Bunyodkor', '20', '6', '1', '13', '20:32', '-12', '19', '?', 'L', 'L', 'L', 'L', 'L']
 [uz-league]   raw row parts: ['16.', 'Mashal Muborak', '19', '1', '1', '17', '8:34', '-26', '4', '?', 'L', 'L', 'L', 'L', 'L']
 [uz-league] loading results page...
-[uz-league] found 106 results match elements
+[uz-league] found 103 results match elements
 [uz-league] loading fixtures page...
-[uz-league] found 84 fixtures match elements
-[uz-league] done: 16 teams, 106 results, 84 fixtures
+[uz-league] found 83 fixtures match elements
+[uz-league] done: 16 teams, 103 results, 83 fixtures
