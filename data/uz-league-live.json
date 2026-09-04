@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-04T07:58:59.113136Z",
+  "generatedAt": "2026-09-04T14:57:58.289151Z",
   "teams": [
     {
       "name": "Neftchi Fargona",
@@ -113,13 +113,13 @@
     },
     {
       "name": "Termez Surkhon",
-      "pld": 19,
-      "w": 5,
+      "pld": 20,
+      "w": 6,
       "d": 5,
       "l": 9,
-      "gf": 16,
+      "gf": 17,
       "ga": 26,
-      "pts": 20
+      "pts": 23
     },
     {
       "name": "Xorazm Urganch",
@@ -143,12 +143,12 @@
     },
     {
       "name": "Bunyodkor",
-      "pld": 19,
+      "pld": 20,
       "w": 6,
       "d": 1,
-      "l": 12,
+      "l": 13,
       "gf": 20,
-      "ga": 31,
+      "ga": 32,
       "pts": 19
     },
     {
@@ -163,6 +163,13 @@
     }
   ],
   "results": [
+    {
+      "home": "Bunyodkor",
+      "away": "Termez Surkhon",
+      "raw_time": "04.09. 13:00",
+      "homeScore": 0,
+      "awayScore": 1
+    },
     {
       "home": "OKMK",
       "away": "Xorazm Urganch",
@@ -295,31 +302,9 @@
       "raw_time": "15.08. 14:00",
       "homeScore": 2,
       "awayScore": 1
-    },
-    {
-      "home": "Qizilqum",
-      "away": "Mashal Muborak",
-      "raw_time": "14.08. 15:30",
-      "homeScore": 2,
-      "awayScore": 0
     }
   ],
   "fixtures": [
-    {
-      "home": "Bunyodkor",
-      "away": "Termez Surkhon",
-      "raw_time": "04.09. 13:00"
-    },
-    {
-      "home": "Nasaf Qarshi",
-      "away": "Neftchi Fargona",
-      "raw_time": "04.09. 14:00"
-    },
-    {
-      "home": "Navbahor Namangan",
-      "away": "Lok. Tashkent",
-      "raw_time": "04.09. 14:00"
-    },
     {
       "home": "Pakhtakor",
       "away": "Andijan",
@@ -404,6 +389,21 @@
       "home": "Navbahor Namangan",
       "away": "Din. Samarkand",
       "raw_time": "19.09. 15:00"
+    },
+    {
+      "home": "Sogdiana",
+      "away": "OKMK",
+      "raw_time": "19.09. 15:00"
+    },
+    {
+      "home": "Termez Surkhon",
+      "away": "Kokand 1912",
+      "raw_time": "20.09. 15:00"
+    },
+    {
+      "home": "Xorazm Urganch",
+      "away": "Qizilqum",
+      "raw_time": "20.09. 15:00"
     }
   ]
 }
