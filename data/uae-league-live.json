@@ -1,22 +1,33 @@
 {
-  "generatedAt": "2026-09-04T11:13:45.800552+00:00",
+  "generatedAt": "2026-09-04T16:18:52.072525+00:00",
   "teams": [
+    "Al Ain FC",
     "Shabab Al Ahli Club",
     "Al Jazira Club",
-    "Al Ain FC",
     "Al Wasl",
     "Sharjah FC",
     "United FC",
     "Ajman Club",
     "Al Nasr SC",
-    "Al Wahda",
     "Khor Fakkan Club",
+    "Al Wahda",
     "Ittihad Kalba FC",
     "Baniyas SC",
     "Hatta Club",
     "Al Dhafra"
   ],
   "standings": [
+    {
+      "team": "Al Ain FC",
+      "played": 4,
+      "won": 4,
+      "drawn": 0,
+      "lost": 0,
+      "gf": 10,
+      "ga": 3,
+      "gd": 7,
+      "points": 12
+    },
     {
       "team": "Shabab Al Ahli Club",
       "played": 3,
@@ -40,26 +51,15 @@
       "points": 9
     },
     {
-      "team": "Al Ain FC",
-      "played": 3,
-      "won": 3,
-      "drawn": 0,
-      "lost": 0,
-      "gf": 8,
-      "ga": 3,
-      "gd": 5,
-      "points": 9
-    },
-    {
       "team": "Al Wasl",
-      "played": 3,
+      "played": 4,
       "won": 2,
-      "drawn": 0,
+      "drawn": 1,
       "lost": 1,
       "gf": 8,
       "ga": 2,
       "gd": 6,
-      "points": 6
+      "points": 7
     },
     {
       "team": "Sharjah FC",
@@ -106,6 +106,17 @@
       "points": 4
     },
     {
+      "team": "Khor Fakkan Club",
+      "played": 4,
+      "won": 1,
+      "drawn": 1,
+      "lost": 2,
+      "gf": 3,
+      "ga": 7,
+      "gd": -4,
+      "points": 4
+    },
+    {
       "team": "Al Wahda",
       "played": 3,
       "won": 1,
@@ -117,25 +128,14 @@
       "points": 3
     },
     {
-      "team": "Khor Fakkan Club",
-      "played": 3,
-      "won": 1,
-      "drawn": 0,
-      "lost": 2,
-      "gf": 3,
-      "ga": 7,
-      "gd": -4,
-      "points": 3
-    },
-    {
       "team": "Ittihad Kalba FC",
-      "played": 3,
+      "played": 4,
       "won": 0,
       "drawn": 1,
-      "lost": 2,
+      "lost": 3,
       "gf": 3,
-      "ga": 9,
-      "gd": -6,
+      "ga": 11,
+      "gd": -8,
       "points": 1
     },
     {
@@ -173,16 +173,6 @@
     }
   ],
   "fixtures": [
-    {
-      "home": "Ittihad Kalba FC",
-      "away": "Al Ain FC",
-      "start": "2026-09-04T16:45:00+05:00"
-    },
-    {
-      "home": "Al Wasl",
-      "away": "Khor Fakkan Club",
-      "start": "2026-09-04T19:15:00+05:00"
-    },
     {
       "home": "Sharjah FC",
       "away": "United FC",
@@ -411,6 +401,22 @@
       "start": "2026-08-30T19:30:00+05:00",
       "homeScore": 2,
       "awayScore": 1,
+      "finished": true
+    },
+    {
+      "home": "Ittihad Kalba FC",
+      "away": "Al Ain FC",
+      "start": "2026-09-04T16:45:00+05:00",
+      "homeScore": 0,
+      "awayScore": 2,
+      "finished": true
+    },
+    {
+      "home": "Al Wasl",
+      "away": "Khor Fakkan Club",
+      "start": "2026-09-04T19:15:00+05:00",
+      "homeScore": 0,
+      "awayScore": 0,
       "finished": true
     }
   ]
