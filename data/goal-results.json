@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-04T17:17:59.658638Z",
+  "generatedAt": "2026-09-04T19:44:21.939929Z",
   "results": [
     {
       "url": "https://www.goal.com/en/match/girona-vs-arsenal/__LS8d9Oc6I1wXn9g8956",
@@ -2503,6 +2503,37 @@
         {
           "scorer": "A. Ueda",
           "minute": 73
+        }
+      ],
+      "competition": "FL1"
+    },
+    {
+      "url": "https://www.goal.com/en/match/lyon-vs-auxerre/d8-PCHiKE6MYpaS9e_7H4",
+      "date": null,
+      "home": "Lyon",
+      "away": "Auxerre",
+      "htHome": 2,
+      "htAway": 1,
+      "ftHome": 3,
+      "ftAway": 1,
+      "homeGoals": [
+        {
+          "scorer": "F. Bacher",
+          "minute": 28
+        },
+        {
+          "scorer": "Z. Athekame",
+          "minute": 31
+        },
+        {
+          "scorer": "E. Nuamah",
+          "minute": 53
+        }
+      ],
+      "awayGoals": [
+        {
+          "scorer": "C. Archer",
+          "minute": 42
         }
       ],
       "competition": "FL1"
