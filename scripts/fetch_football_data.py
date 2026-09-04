@@ -73,15 +73,43 @@ def trim_match(m):
 
 
 def process_league_matches(all_matches):
-    fixtures = sorted(
-        [m for m in all_matches if m.get("status") in ("SCHEDULED", "TIMED")],
-        key=lambda m: m.get("utcDate") or "",
-    )
-    if fixtures and fixtures[0].get("matchday") is not None:
-        soonest = fixtures[0]["matchday"]
-        fixtures = [m for m in fixtures if m.get("matchday") == soonest]
-    else:
-        fixtures = fixtures[:15]
+    # REAL BUG FOUND (2026-09-04, confirmed via live data going stale mid-session, not
+    # assumption): the old fixtures filter only matched status SCHEDULED/TIMED exactly.
+    # The instant a matchday's games move to any OTHER non-finished status (IN_PLAY,
+    # POSTPONED, SUSPENDED, or anything else the API might use) without yet being
+    # FINISHED, they become invisible to BOTH this filter (not scheduled/timed) AND the
+    # results filter below (not finished) - they silently vanish, and "soonest
+    # scheduled matchday" jumps straight past them to whatever matchday happens to
+    # still have plain-SCHEDULED games, which can be many gameweeks ahead. Caught this
+    # exact failure directly: a live run jumped from Matchday 3 to Matchday 8 skipping
+    # 3-7 entirely, despite the actual current gameweek (3) not even being finished
+    # yet. Rebuilt to be robust regardless of the exact status label: group ALL matches
+    # by matchday, find the LOWEST matchday number that still has at least one
+    # not-finished match (any status), and show every not-finished match from that one
+    # matchday as fixtures - a match's exact status no longer matters for whether its
+    # gameweek gets found, only whether it's the specific matches shown as fixtures vs
+    # results within that gameweek.
+    by_matchday = {}
+    for m in all_matches:
+        md = m.get("matchday")
+        if md is None:
+            continue
+        by_matchday.setdefault(md, []).append(m)
+
+    fixtures = []
+    if by_matchday:
+        current_matchday = None
+        for md in sorted(by_matchday.keys()):
+            matches_this_md = by_matchday[md]
+            if any(m.get("status") != "FINISHED" for m in matches_this_md):
+                current_matchday = md
+                break
+        if current_matchday is not None:
+            fixtures = sorted(
+                [m for m in by_matchday[current_matchday] if m.get("status") != "FINISHED"],
+                key=lambda m: m.get("utcDate") or "",
+            )
+
     results = sorted(
         [m for m in all_matches if m.get("status") == "FINISHED"],
         key=lambda m: m.get("utcDate") or "",
