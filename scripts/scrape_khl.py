@@ -272,6 +272,14 @@ def fetch_365scores_matches(page):
     try:
         page.goto(KHL_365SCORES_URL, timeout=30000)
         page.wait_for_timeout(6000)
+        # Only 4 of 10 known real games (verified independently) came back on the first
+        # working run - the missing ones (an entire second "Eastern Conference" section,
+        # plus two more days) are very likely lazy-loaded on scroll, a common pattern for
+        # long match lists. Scroll to the bottom in a few steps, pausing to let each
+        # batch load, before reading the final content.
+        for _ in range(6):
+            page.evaluate("window.scrollBy(0, document.body.scrollHeight)")
+            page.wait_for_timeout(1200)
         html = page.content()
     except Exception as e:
         log(f"365scores fetch failed: {e}")
