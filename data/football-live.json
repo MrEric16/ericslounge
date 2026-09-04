@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-04T05:26:32.345818Z",
+  "generatedAt": "2026-09-04T09:51:19.376576Z",
   "standings": {
     "PL": [
       {
@@ -1757,37 +1757,6 @@
     "PD": {
       "fixtures": [
         {
-          "utcDate": "2026-09-04T19:00:00Z",
-          "status": "TIMED",
-          "matchday": 4,
-          "homeTeam": {
-            "id": 90,
-            "name": "Real Betis Balompié",
-            "shortName": "Real Betis"
-          },
-          "awayTeam": {
-            "id": 86,
-            "name": "Real Madrid CF",
-            "shortName": "Real Madrid"
-          },
-          "score": {
-            "winner": null,
-            "duration": "REGULAR",
-            "fullTime": {
-              "home": null,
-              "away": null
-            },
-            "halfTime": {
-              "home": null,
-              "away": null
-            }
-          },
-          "competition": {
-            "name": "Primera Division"
-          },
-          "venue": null
-        },
-        {
           "utcDate": "2026-09-05T14:15:00Z",
           "status": "TIMED",
           "matchday": 4,
@@ -2068,37 +2037,6 @@
         }
       ],
       "results": [
-        {
-          "utcDate": "2026-09-03T19:00:00Z",
-          "status": "FINISHED",
-          "matchday": 6,
-          "homeTeam": {
-            "id": 92,
-            "name": "Real Sociedad de Fútbol",
-            "shortName": "Real Sociedad"
-          },
-          "awayTeam": {
-            "id": 558,
-            "name": "RC Celta de Vigo",
-            "shortName": "Celta"
-          },
-          "score": {
-            "winner": "DRAW",
-            "duration": "REGULAR",
-            "fullTime": {
-              "home": 0,
-              "away": 0
-            },
-            "halfTime": {
-              "home": 0,
-              "away": 0
-            }
-          },
-          "competition": {
-            "name": "Primera Division"
-          },
-          "venue": null
-        },
         {
           "utcDate": "2026-08-31T19:30:00Z",
           "status": "FINISHED",
@@ -2526,6 +2464,37 @@
             "halfTime": {
               "home": 0,
               "away": 0
+            }
+          },
+          "competition": {
+            "name": "Primera Division"
+          },
+          "venue": null
+        },
+        {
+          "utcDate": "2026-08-24T19:30:00Z",
+          "status": "FINISHED",
+          "matchday": 2,
+          "homeTeam": {
+            "id": 84,
+            "name": "Málaga CF",
+            "shortName": "Málaga"
+          },
+          "awayTeam": {
+            "id": 560,
+            "name": "RC Deportivo La Coruña",
+            "shortName": "Deportivo"
+          },
+          "score": {
+            "winner": "DRAW",
+            "duration": "REGULAR",
+            "fullTime": {
+              "home": 1,
+              "away": 1
+            },
+            "halfTime": {
+              "home": 1,
+              "away": 1
             }
           },
           "competition": {
