@@ -1,6 +1,6 @@
 [football-fetch] standings[PL]: raw season field = {'id': 2502, 'startDate': '2026-08-21', 'endDate': '2027-05-30', 'currentMatchday': 3, 'winner': None}
 [football-fetch] standings[PL]: OK (20 rows)
-[football-fetch] matches[PL]: OK (trimmed from 380 to 10 fixtures + 15 results)
+[football-fetch] matches[PL]: OK (trimmed from 380 to 5 fixtures + 10 results)
 [football-fetch] standings[PD]: raw season field = {'id': 2518, 'startDate': '2026-08-16', 'endDate': '2027-05-30', 'currentMatchday': 6, 'winner': None}
 [football-fetch] standings[PD]: OK (20 rows)
 [football-fetch] matches[PD]: OK (trimmed from 380 to 9 fixtures + 15 results)
@@ -17,4 +17,4 @@
 [football-fetch] matches[CL]: OK (trimmed from 144 to 18 fixtures + 0 results)
 [football-fetch] arsenalNextFixture: OK
 [football-fetch] arsenalFinishedMatches: OK (2 matches)
-[football-fetch] Wrote data/football-live.json (118.2 KB)
+[football-fetch] Wrote data/football-live.json (110.6 KB)
