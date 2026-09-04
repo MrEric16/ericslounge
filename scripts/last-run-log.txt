@@ -1,8 +1,8 @@
 [scrape] Run started. Today (Tashkent): 2026-09-04  Window end: 2026-09-18
 [scrape] NOTE: switched from per-category listing pages to afisha.uz's calendar view (one real day at a time, via Playwright) -- the old approach could only ever see whatever was on the current front page of each category, missing anything pushed down by newer posts. The calendar view asks for each specific date directly instead.
 [scrape] calendar 2026-09-04: 8 new event URLs discovered
-[scrape] calendar 2026-09-05: 15 new event URLs discovered
-[scrape] calendar 2026-09-06: 16 new event URLs discovered
+[scrape] calendar 2026-09-05: 16 new event URLs discovered
+[scrape] calendar 2026-09-06: 17 new event URLs discovered
 [scrape] calendar 2026-09-07: 1 new event URLs discovered
 [scrape] calendar 2026-09-08: 3 new event URLs discovered
 [scrape] calendar 2026-09-09: 0 new event URLs discovered
@@ -14,12 +14,8 @@
 [scrape] exhibitions listing page (supplementary): 8 new event URLs discovered, 22 total exhibition links seen on page
 [scrape]   TARGET CHECK 'our-heritage': NOT FOUND in any href on the rendered page
 [scrape]   TARGET CHECK 'photo-chronicle-xx': NOT FOUND in any href on the rendered page
-[scrape] calendar discovery complete: 85 unique event URLs to check
-[scrape] Translation failed for 'Фестиваль юсуповского помидора в «Мясном': Фестиваль юсуповского помидора в «Мясном» --> No translation was found using the current translator. Try another translator?
-[scrape]   DEBUG: dumped raw HTML for qimmat page, 134666 chars
-[scrape] Translation failed for 'Выставка «По женской линии»': Выставка «По женской линии» --> No translation was found using the current translator. Try another translator?
-[scrape] Translation failed for 'Выставка детских рисунков  «Мехир нма?»': Выставка детских рисунков  «Мехир нма?» --> No translation was found using the current translator. Try another translator?
-[scrape] Translation failed for 'Осенний фестиваль локальных брендов TEPL': Осенний фестиваль локальных брендов TEPLO AUTUMN FEST --> No translation was found using the current translator. Try another translator?
+[scrape] calendar discovery complete: 87 unique event URLs to check
+[scrape]   DEBUG: dumped raw HTML for qimmat page, 134623 chars
 [scrape] Translation failed for 'Silk Road Expo HUAHE 2026': Silk Road Expo HUAHE 2026 --> No translation was found using the current translator. Try another translator?
 [scrape] Translation failed for 'Футбольный матч «Пахтакор» — «Андижан»': Футбольный матч «Пахтакор» — «Андижан» --> No translation was found using the current translator. Try another translator?
 [scrape] Translation failed for 'Спектакль «Как Колобок ума-разума набира': Спектакль «Как Колобок ума-разума набирался» --> No translation was found using the current translator. Try another translator?
@@ -31,38 +27,41 @@
 [scrape] Translation failed for 'Спектакль «Ганс и Гретель»': Спектакль «Ганс и Гретель» --> No translation was found using the current translator. Try another translator?
 [scrape] Translation failed for 'Детский мастер-класс в  PRO.Хинкали': Детский мастер-класс в  PRO.Хинкали --> No translation was found using the current translator. Try another translator?
 [scrape] Translation failed for 'Цирковые представления по выходным': Цирковые представления по выходным --> No translation was found using the current translator. Try another translator?
-[scrape] Translation failed for 'Детские кулинарные мастер-классы в PRO.Х': Детские кулинарные мастер-классы в PRO.Хинкали --> No translation was found using the current translator. Try another translator?
-[scrape] Translation failed for 'Оперетта «Принц арены»': Оперетта «Принц арены» --> No translation was found using the current translator. Try another translator?
 [scrape] Translation failed for 'Мюзикл-сказка «Питер Пэн»': Мюзикл-сказка «Питер Пэн» --> No translation was found using the current translator. Try another translator?
 [scrape] Translation failed for 'Премьера спектакля «Синий карлик, или Же': Премьера спектакля «Синий карлик, или Жемчужное сердце» --> No translation was found using the current translator. Try another translator?
 [scrape] Translation failed for 'Фестиваль мороженого Muzz Fest 2.0': Фестиваль мороженого Muzz Fest 2.0 --> No translation was found using the current translator. Try another translator?
 [scrape] Translation failed for 'Stand-up\xa0концерт Сергея Орлова': Stand-up концерт Сергея Орлова --> No translation was found using the current translator. Try another translator?
+[scrape] Translation failed for 'Концерт пианиста Lang Lang в Самарканде': Концерт пианиста Lang Lang в Самарканде --> No translation was found using the current translator. Try another translator?
+[scrape] Translation failed for 'Выставка Hikmah на открытии CCA Tashkent': Выставка Hikmah на открытии CCA Tashkent --> No translation was found using the current translator. Try another translator?
 [scrape]   'Выставка Hikmah на открытии CCA Tashkent': no dates found in window (no schedule/date-range parsed) -- kept 0 events
 [scrape] Translation failed for 'Спектакль Out of Rider в Human House': Спектакль Out of Rider в Human House --> No translation was found using the current translator. Try another translator?
-[scrape] Translation failed for 'Концерт Огабека Собирова': Концерт Огабека Собирова --> No translation was found using the current translator. Try another translator?
-[scrape] Translation failed for 'Концерт Отамурода Нурматова': Концерт Отамурода Нурматова --> No translation was found using the current translator. Try another translator?
-[scrape] Translation failed for 'Выставка «Сад памяти» в Haqiqiy': Выставка «Сад памяти» в Haqiqiy --> No translation was found using the current translator. Try another translator?
-[scrape] Translation failed for 'ILKHOM PARTY в театре «Ильхом»': ILKHOM PARTY в театре «Ильхом» --> No translation was found using the current translator. Try another translator?
-[scrape] Translation failed for 'Премьера спектакля о Бухаре': Премьера спектакля о Бухаре --> No translation was found using the current translator. Try another translator?
+[scrape] Translation failed for 'Премьера спектакля «Насриддин Афанди»': Премьера спектакля «Насриддин Афанди» --> No translation was found using the current translator. Try another translator?
+[scrape] Translation failed for 'Спектакль «Бехаловат кошона»': Спектакль «Бехаловат кошона» --> No translation was found using the current translator. Try another translator?
+[scrape] Translation failed for 'Спектакль «Человек из Подольска»': Спектакль «Человек из Подольска» --> No translation was found using the current translator. Try another translator?
+[scrape] Translation failed for 'Tashkent International Half Marathon': Tashkent International Half Marathon --> No translation was found using the current translator. Try another translator?
+[scrape] Translation failed for 'Milliy Party в ТРЦ Compass': Milliy Party в ТРЦ Compass --> No translation was found using the current translator. Try another translator?
+[scrape] Translation failed for 'Milliy Party в ТРЦ Riviera': Milliy Party в ТРЦ Riviera --> No translation was found using the current translator. Try another translator?
 [scrape] Translation failed for 'Спектакль «Колыбельная для Белоснежки»': Спектакль «Колыбельная для Белоснежки» --> No translation was found using the current translator. Try another translator?
+[scrape] Translation failed for 'Музыкальная сказка «Маленький Мук»': Музыкальная сказка «Маленький Мук» --> No translation was found using the current translator. Try another translator?
+[scrape] Translation failed for 'Автофестиваль Promotors Show 2026': Автофестиваль Promotors Show 2026 --> No translation was found using the current translator. Try another translator?
+[scrape] Translation failed for 'Концерт-погружение «Звуковые пути»': Концерт-погружение «Звуковые пути» --> No translation was found using the current translator. Try another translator?
+[scrape] Translation failed for 'Выступление группы «Градусы»': Выступление группы «Градусы» --> No translation was found using the current translator. Try another translator?
 [scrape] Translation failed for 'Свободный маркет живописи в пространстве': Свободный маркет живописи в пространстве Haqiqiy --> No translation was found using the current translator. Try another translator?
 [scrape] Translation failed for 'Art Bazaar': Art Bazaar --> No translation was found using the current translator. Try another translator?
-[scrape] Translation failed for 'Музыкальный спектакль «Не может быть»': Музыкальный спектакль «Не может быть» --> No translation was found using the current translator. Try another translator?
-[scrape] Translation failed for 'Спектакль «Аладдин»': Спектакль «Аладдин» --> No translation was found using the current translator. Try another translator?
+[scrape] Translation failed for 'Спектакль «Кунгил»': Спектакль «Кунгил» --> No translation was found using the current translator. Try another translator?
+[scrape] Translation failed for 'Опера «Кармен» в ГАБТ': Опера «Кармен» в ГАБТ --> No translation was found using the current translator. Try another translator?
+[scrape] Translation failed for 'Спектакль «Необыкновенные музыканты»': Спектакль «Необыкновенные музыканты» --> No translation was found using the current translator. Try another translator?
 [scrape] Translation failed for '«По женской линии»: в пространстве Zanma': «По женской линии»: в пространстве Zanmakon открылась выставка Робии Кадыровой --> No translation was found using the current translator. Try another translator?
-[scrape] Translation failed for 'Бесплатно в музей: в Узбекистане стартов': Бесплатно в музей: в Узбекистане стартовала Неделя музеев --> No translation was found using the current translator. Try another translator?
-[scrape] Translation failed for 'Узбекистан представит современное ремесл': Узбекистан представит современное ремесло на Homo Faber 2026 в Венеции --> No translation was found using the current translator. Try another translator?
-[scrape] Translation failed for 'Эстетика многослойности: в Ташкенте откр': Эстетика многослойности: в Ташкенте открылась выставка Бобура Алимходжаева Duality: X-Ray of Memory --> No translation was found using the current translator. Try another translator?
 [scrape]   'Эстетика многослойности: в Ташкенте открылась выставка Бобура Алимходжаева Duality: X-Ray of Memory': no dates found in window (no schedule/date-range parsed) -- kept 0 events
-[scrape] calendar detail pass complete: 160 events kept from 85 pages checked
+[scrape] calendar detail pass complete: 161 events kept from 87 pages checked
 [scrape] special-tracked: FAILED to fetch or failed content check for https://www.afisha.uz/ru/cinema/2026/07/16/kinoprazdnik-v-sredu
-[scrape] iticket.uz cat=concert: 14 events kept
-[scrape] iticket.uz cat=theatre: 24 events kept
+[scrape] iticket.uz cat=concert: 11 events kept
+[scrape] iticket.uz cat=theatre: 23 events kept
 [scrape] iticket.uz cat=exhibition: 0 events kept
 [scrape] ticketon.uz: CONFIRMED BLOCKED (Cloudflare challenge, page title='Just a moment...'). 0 events -- this is expected, not a bug to fix.
 [scrape] eventbrite.com: CONFIRMED BLOCKED (AWS WAF CAPTCHA, page title='Human Verification'). 0 events -- this is expected, not a bug to fix. Same category of block as ticketon.uz.
 [scrape] eventbrite.com: 0 events found (dates NOT yet parsed -- see note in script)
 [scrape]   DEDUP: 0 target entries survived Pass 1
 [scrape]   DEDUP: 0 target entries survived Pass 2 (final)
-[scrape] TOTAL before dedup: 198  |  after dedup: 190
+[scrape] TOTAL before dedup: 195  |  after dedup: 188
 [scrape] Wrote data/events-tashkent.json
