@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Mr Eric's Lounge</title>
-<meta name="app-build" content="20260904162110">
+<meta name="app-build" content="20260904165856">
 <script>
   // PWA update-detection: an installed home-screen app's standalone-mode navigation
   // cache can hold an old shell far longer than the CDN's 10-minute cache -
@@ -10033,7 +10033,7 @@ async function loadGoalResults(){
     const cache = window._sportsCache;
     const staticLeague = meta ? SPORTS_LEAGUES.find(l => l.name === meta.name) : null;
     const matches = (cache && cache.matches && cache.matches[code]) || { results: [] };
-    results = matches.results.length > 0 ? matches.results : ((staticLeague && staticLeague.results) || []);
+    results = mergeMatchLists(matches.results, (staticLeague && staticLeague.results) || []);
   }
   if(results !== null){
     // The "2" badge next to "Results" in the summary header is a sibling of this
@@ -10190,6 +10190,28 @@ function staleDataBannerHtml(code){
     ${icon('gear')} Data last updated ${hrsRounded}h ago - may be out of date. The update scraper might be stuck.
   </div>`;
 }
+// Merges live-scraped matches with the static fallback list instead of an all-or-
+// nothing either/or choice - a partially-working scraper (some real matches, not zero,
+// not the full set) used to mean the static fallback got dropped ENTIRELY the moment
+// live data had length > 0, silently losing every game the scraper didn't happen to
+// catch. Live entries always win for a given team pairing; static fills in whatever
+// gaps remain. Dedup is by exact (home, away) string match, which can under-merge if a
+// live source spells a team name differently than the static list (e.g. "SKA S.P." vs
+// "SKA Saint Petersburg") and show that one match twice rather than once - a real but
+// far smaller and more visible problem than silently losing real games, so still
+// strictly an improvement over the previous either/or behavior.
+function mergeMatchLists(live, staticList){
+  const seen = new Set((live || []).map(m => `${m.home}|||${m.away}`));
+  const merged = [...(live || [])];
+  for(const m of (staticList || [])){
+    const key = `${m.home}|||${m.away}`;
+    if(!seen.has(key)){
+      merged.push(m);
+      seen.add(key);
+    }
+  }
+  return merged;
+}
 function leagueDetailBodyHtml(code){
   const meta = LEAGUE_DETAIL_META[code];
   const cache = window._sportsCache;
@@ -10205,8 +10227,8 @@ function leagueDetailBodyHtml(code){
         `).join('')
       : oneTableHtml((staticLeague && staticLeague.teams) || []);
   const matches = (cache && cache.matches && cache.matches[code]) || { fixtures: [], results: [] };
-  const fixtures = matches.fixtures.length > 0 ? matches.fixtures : ((staticLeague && staticLeague.fixtures) || []);
-  let results = matches.results.length > 0 ? matches.results : ((staticLeague && staticLeague.results) || []);
+  const fixtures = mergeMatchLists(matches.fixtures, (staticLeague && staticLeague.fixtures) || []);
+  let results = mergeMatchLists(matches.results, (staticLeague && staticLeague.results) || []);
   if(code === 'CL'){
     // Champions League has a long summer gap between seasons (final in late May, next
     // season's League Phase doesn't start until September) - without this, "Results" would
