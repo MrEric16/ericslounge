@@ -1,7 +1,5 @@
-[khl] standings page: captured 303258 chars
-[khl] parsed 0 standings row(s)
-[khl] WARNING: 0 standings rows. Found 7 <tbody> element(s) total
-[khl] FULL first row HTML: '<tr class="table__row"><td class="table__cell table__cell--number" data-type="number"><span><span>1</span></span></td><td class="table__cell table__cell--team-image"><div class="table__cell-content-wrapper"><img alt="table__cell" class="table__team-image" src="//img.khl.ru/teams/en/1436/34/200.png?u=2026"/></div></td><td class="table__cell table__cell--team-name"><div class="table__cell-content-wrapper"><span><a href="/clubs/avangard/">Avangard</a></span></div></td><td class="table__cell"><div class="table__cell-content-wrapper"><span>0</span></div></td><td class="table__cell"><div class="table__cell-content-wrapper"><span>0</span></div></td><td class="table__cell"><div class="table__cell-content-wrapper"><span>0</span></div></td><td class="table__cell"><div class="table__cell-content-wrapper"><span>0</span></div></td><td class="table__cell"><div class="table__cell-content-wrapper"><span>0</span></div></td><td class="table__cell"><div class="table__cell-content-wrapper"><span>0</span></div></td><td class="table__cell"><div class="table__cell-content-wrapper"><span>0</span></div></td><td class="table__cell"><div class="table__cell-content-wrapper"><span>0</span></div></td><td class="table__cell"><div class="table__cell-content-wrapper"><span>0</span></div></td><td class="table__cell"><div class="table__cell-content-wrapper"><span><p><span>0</span><span class="score-divider">-</span><span>0</span></p></span></div></td><td class="table__cell table__cell--matches"><div class="table__cell-content-wrapper"><div class="table__team-matches-container"></div></div></td><td class="table__cell table__cell--next-match"><div class="table__cell-content-wrapper"><img alt="Salavat Yulaev" class="table__next-match-image" src="//img.khl.ru/teams/en/1436/38/200.png?u=2026"/><span class="popup table__next-match-tooltip" role="tooltip">Salavat Yulaev</span></div></td></tr>'
+[khl] standings page: captured 303259 chars
+[khl] parsed 22 standings row(s)
 [khl] calendar page: captured 1683227 chars
 [khl] found 72 team-name element(s) on the calendar page
 [khl] parsed 0 match(es) from the calendar page
@@ -9,4 +7,4 @@
 [khl] found 19484 element(s) with a match/game/event/calendar/schedule-ish class
 [khl] match-center__calendar full length: 67424 chars
 [khl] no known team name found anywhere inside match-center__calendar itself
-[khl] wrote data/khl-live.json: 0 standings, 0 fixtures, 0 results
+[khl] wrote data/khl-live.json: 22 standings, 0 fixtures, 0 results
