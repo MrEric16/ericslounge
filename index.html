@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Mr Eric's Lounge</title>
-<meta name="app-build" content="20260903025536">
+<meta name="app-build" content="20260904154658">
 <script>
   // PWA update-detection: an installed home-screen app's standalone-mode navigation
   // cache can hold an old shell far longer than the CDN's 10-minute cache -
@@ -9873,18 +9873,24 @@ async function loadLiveSportsData(){
           }
         }catch(e){ /* UAE data file unavailable or malformed - falls back to static below */ }
 
-        // KHL - standings only for now (fixtures/results scraping not built yet, still
-        // falls back to static hardcoded data below for those). Same field-name mapping
-        // pattern as UAE above.
+        // KHL - live fixtures/results now built (2026-09-01, season starts 2026-09-05).
+        // Same field-name mapping pattern as UAE above, including the dataAges tracking
+        // for the staleness banner and fresh.matches wiring for the fixtures/results
+        // sections on the league detail page - none of that existed for KHL before.
         try{
           const khlRes = await fetch('./data/khl-live.json', { cache: 'no-store' });
           if(khlRes.ok){
             const khlLive = await khlRes.json();
+            if(khlLive.generatedAt) fresh.dataAges['KHL'] = khlLive.generatedAt;
             if(khlLive.standings && khlLive.standings.length){
               fresh.leagues['KHL'] = khlLive.standings.map(s => ({
                 name: s.team, pld: s.played, w: s.won + s.otWon + s.soWon, d: 0, l: s.lost + s.otLost + s.soLost, gf: s.gf, ga: 0, pts: s.points,
               }));
             }
+            fresh.matches['KHL'] = {
+              fixtures: (khlLive.fixtures || []).map(m => ({ ...m, homeScore: m.homeScore ?? null, awayScore: m.awayScore ?? null })),
+              results: (khlLive.results || []).map(m => ({ ...m, homeScore: m.homeScore ?? null, awayScore: m.awayScore ?? null })),
+            };
           }
         }catch(e){ /* KHL data file unavailable or malformed - falls back to static below */ }
 
