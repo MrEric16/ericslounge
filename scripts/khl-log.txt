@@ -1,10 +1,5 @@
-[khl] standings page: captured 303259 chars
+[khl] standings page: captured 303258 chars
 [khl] parsed 22 standings row(s)
-[khl] calendar page: captured 1683227 chars
-[khl] found 72 team-name element(s) on the calendar page
-[khl] parsed 0 match(es) from the calendar page
-[khl] WARNING: 0 matches parsed. 18/22 known team names appear somewhere in the page text: ['CSKA Moscow', 'Lada Togliatti', 'Lokomotiv Yaroslavl', 'HC Sochi', 'Severstal Cherepovets', 'SKA Saint Petersburg']...
-[khl] found 19484 element(s) with a match/game/event/calendar/schedule-ish class
-[khl] match-center__calendar full length: 67424 chars
-[khl] no known team name found anywhere inside match-center__calendar itself
+[khl] could not fetch/parse the seasons list
+[khl] parsed 0 total match(es) from Sofascore
 [khl] wrote data/khl-live.json: 22 standings, 0 fixtures, 0 results
