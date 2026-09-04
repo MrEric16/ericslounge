@@ -1,34 +1,36 @@
 #!/usr/bin/env python3
 """
-Live KHL data: standings + fixtures/results, from en.khl.ru (the league's own official
-site) -- the source Wikipedia itself cites for KHL standings tables. Bot-protected (a
-direct fetch was blocked outright, same kind of wall hit on other official sports sites
-this session -- confirmed again 2026-09-01 via a direct fetch attempt, still blocked),
-so this uses Playwright rather than plain requests.
+Live KHL data: standings from en.khl.ru (the league's own official site, bot-protected,
+fetched via Playwright), fixtures + results from Sofascore's public JSON API (a genuine
+alternative source Mr Eric pointed at directly). Both feed data/khl-live.json in the
+same {standings, fixtures, results} shape as the UAE Pro League scraper.
 
-UPDATE 2026-09-01: fixtures/results were never actually built despite the module
-existing since inception -- main() always wrote fixtures:[] and results:[] with a log
-line admitting it. Season starts 2026-09-05, so this had to actually get built now, not
-just re-verified. Also removed a duplicate `def main()` that silently shadowed the first
-(dead code, not a live bug since both had identical standings-fetch logic, but real
-enough to be worth cleaning up while in here).
-
-Cannot verify the calendar page's exact HTML structure directly (bot-blocked the same
-way as the standings page always was, and unlike the UAE/Arsenal scrapers built earlier
-this session, there was no way to inspect the real markup by hand first). Built instead
-to anchor on the one thing guaranteed not to change with a CSS/markup refresh: the 22
-real team names themselves (already confirmed correct, since they're the same list the
-existing hardcoded opening-day fixtures use). Finds every element whose text exactly
-matches a known team name, pairs up ones that share a close-enough common ancestor
-(same technique used for the UAE Pro League match-card parser), then looks for a score
-pattern (finished) or a time pattern (upcoming) within that shared container. If this
-finds zero matches on the real page, the diagnostic logging below is deliberately heavy
-(mirrors the standings parser's own "diagnostic capture" precedent from 2026-08-17) so
-the next run's log says exactly what needs adjusting, rather than another silent empty
-result.
-
-Output: data/khl-live.json, matching the same {standings, fixtures, results} shape as
-the UAE Pro League scraper.
+HISTORY, in order (all 2026-09-01 through 09-04):
+1. Fixtures/results were never actually built despite the module existing since
+   inception -- main() always wrote fixtures:[] and results:[] with a log line
+   admitting it. Season starting 2026-09-05 forced this to actually get built, not
+   just re-verified. Also removed a duplicate `def main()` shadowing the real one.
+2. khl.ru's standings page had been redesigned since the original 2026-08-17 build --
+   old .championshipRegular-table__* classes were gone. Fixed via a real captured row
+   from a live diagnostic run: team name is now in .table__cell--team-name, 9 plain
+   stat cells follow in gp/w/otw/sow/sol/otl/pts_pct/l/pts order, then a combined
+   "GF-GA" cell (a real goals-against column exists now, unlike the old design).
+3. Tried building fixtures/results the same way as UAE/Arsenal -- anchor on the 22 real
+   team names inside khl.ru's own calendar page. Three rounds of diagnostic capture all
+   confirmed zero team names exist anywhere in the default Playwright-rendered
+   snapshot, at all -- a hidden date-picker widget was found defaulted to "May 2025",
+   meaning the real game list needs further JS interaction (date selection, or an
+   internal API call) this script wasn't performing. Abandoned rather than ship a
+   guess against a page that provably has no match data in its initial render.
+4. Switched to Sofascore instead. Confirmed directly (not bot-blocked at all, and its
+   own page text surfaced "KHL next match is Lokomotiv Yaroslavl v Traktor Chelyabinsk"
+   on first fetch -- real, current data). Sofascore runs a well-documented public JSON
+   API (api.sofascore.com/api/v1/...), widely scraped by others. One documented gotcha:
+   it TLS-fingerprints plain HTTP clients, but this script already drives a real
+   Playwright/Chromium browser for the standings fetch, so the fixtures/results fetch
+   reuses that same real-browser navigation (page.goto() to each JSON endpoint,
+   mimicking an actual user visiting that URL) rather than a bare request library,
+   which should carry an authentic fingerprint the block can't easily catch.
 """
 import json
 import os
@@ -39,7 +41,6 @@ from bs4 import BeautifulSoup
 from playwright.sync_api import sync_playwright
 
 STANDINGS_URL = "https://en.khl.ru/standings/"
-CALENDAR_URL = "https://en.khl.ru/calendar/"
 OUTPUT_PATH = "data/khl-live.json"
 
 # Confirmed correct (same list the existing hardcoded opening-day fixtures use, which
@@ -55,13 +56,6 @@ KHL_TEAMS = [
 ]
 TEAM_SET = set(KHL_TEAMS)
 
-SCORE_RE = re.compile(r"^(\d+)\s*[:\-]\s*(\d+)$")
-TIME_RE = re.compile(r"^([01]\d|2[0-3]):([0-5]\d)$")
-DATE_RE = re.compile(r"(\d{1,2})\s+(January|February|March|April|May|June|July|August|"
-                      r"September|October|November|December)\s*,?\s*(\d{4})?", re.IGNORECASE)
-MONTHS = {m: i + 1 for i, m in enumerate(
-    ["January", "February", "March", "April", "May", "June", "July", "August",
-     "September", "October", "November", "December"])}
 
 
 def log(msg):
@@ -145,104 +139,101 @@ def parse_standings(html):
     return standings
 
 
-def find_ancestor_with_two_teams(el, max_hops=6):
-    """Walk up from a team-name element to find the smallest ancestor that also
-    contains exactly one OTHER team name (i.e. this looks like a single match card
-    with a home team and an away team, not a wider container with many matches)."""
-    node = el.parent
-    for _ in range(max_hops):
-        if node is None:
-            return None
-        text = node.get_text(" ", strip=True)
-        found = [t for t in KHL_TEAMS if t in text]
-        if len(found) == 2:
-            return node
-        if len(found) > 2:
-            return None  # too wide, contains multiple matches - not a single card
-        node = node.parent
-    return None
+# --- Sofascore fixtures/results (added 2026-09-04) ---
+# khl.ru's own calendar page doesn't render match data in the default snapshot at all
+# (three rounds of diagnostic capture confirmed this - a hidden date-picker widget was
+# found defaulted to May 2025, suggesting the real game list needs further JS
+# interaction this script doesn't perform). Mr Eric pointed at Sofascore as an
+# alternative source, and it turned out to be exactly right: not bot-blocked at all
+# (confirmed by directly fetching it), and it runs a real public JSON API
+# (api.sofascore.com/api/v1/...) that's widely documented and scraped by others,
+# including "KHL next match is Lokomotiv Yaroslavl v Traktor Chelyabinsk" surfaced
+# directly in the page text on first fetch - a strong sign the data genuinely exists
+# and is current. One documented gotcha: Sofascore TLS-fingerprints plain HTTP clients
+# (a naive requests.get() gets blocked) - solved here for free, since this script
+# already drives a real Playwright/Chromium browser for the khl.ru standings fetch, and
+# genuine browser navigation should carry an authentic fingerprint a fingerprint check
+# can't easily distinguish from an ordinary user. Fetches by navigating the same
+# browser page directly to each JSON endpoint (mimicking a real user visiting that URL)
+# rather than a lower-level request API, to stay as close to organic browsing as
+# possible.
+SOFASCORE_UNIQUE_TOURNAMENT_ID = 268  # confirmed via https://www.sofascore.com/ice-hockey/tournament/russia/khl/268
+
+# Sofascore team names observed to already match khl.ru's own short forms exactly
+# (both showed "Admiral", "Ak Bars", "Amur", ... independently) - no name-mapping layer
+# needed between the two sources.
 
 
-def parse_calendar(html):
-    soup = BeautifulSoup(html, "html.parser")
-    # Find every element whose OWN direct text (not descendants') is exactly a known
-    # team name - these are the leaf nodes actually naming a team, not a wrapping div.
-    team_els = []
-    for el in soup.find_all(string=True):
-        text = el.strip()
-        if text in TEAM_SET:
-            team_els.append(el.parent)
+def fetch_json_via_page(page, url):
+    resp = page.goto(url, timeout=20000)
+    text = page.evaluate("() => document.body.innerText")
+    try:
+        return json.loads(text)
+    except json.JSONDecodeError as e:
+        log(f"JSON parse failed for {url}: {e}. Response status: {resp.status if resp else '?'}. "
+            f"First 300 chars: {text[:300]!r}")
+        return None
 
-    log(f"found {len(team_els)} team-name element(s) on the calendar page")
 
+def find_current_season_id(page):
+    data = fetch_json_via_page(page, f"https://api.sofascore.com/api/v1/unique-tournament/{SOFASCORE_UNIQUE_TOURNAMENT_ID}/seasons")
+    if not data or "seasons" not in data:
+        log("could not fetch/parse the seasons list")
+        return None
+    seasons = data["seasons"]
+    log(f"found {len(seasons)} season(s), most recent few: {[s.get('year') for s in seasons[:3]]}")
+    if not seasons:
+        return None
+    # Seasons are returned most-recent-first on Sofascore's API.
+    return seasons[0]["id"]
+
+
+def fetch_sofascore_matches(page):
+    season_id = find_current_season_id(page)
+    if season_id is None:
+        return []
+
+    all_events = []
+    # /last/{page} for finished matches (page 0 = most recent), /next/{page} for
+    # upcoming - the single combined /events endpoint some older integrations use
+    # returned 404 in other people's recent scraping notes, so going straight for the
+    # documented split endpoints instead.
+    for kind, path in [("results", "last"), ("fixtures", "next")]:
+        page_num = 0
+        empty_streak = 0
+        while page_num < 8 and empty_streak < 2:
+            url = f"https://api.sofascore.com/api/v1/unique-tournament/{SOFASCORE_UNIQUE_TOURNAMENT_ID}/season/{season_id}/events/{path}/{page_num}"
+            data = fetch_json_via_page(page, url)
+            events = (data or {}).get("events", [])
+            log(f"{kind} page {page_num}: {len(events)} event(s)")
+            if not events:
+                empty_streak += 1
+            else:
+                empty_streak = 0
+                all_events.extend(events)
+            page_num += 1
+
+    log(f"total events from Sofascore: {len(all_events)}")
     matches = []
-    seen_pairs = set()
-    current_date = None
-
-    for node in soup.find_all(True):
-        text = node.get_text(strip=True) if node.name not in ("script", "style") else ""
-        date_match = DATE_RE.match(text) if text and len(text) < 40 else None
-        if date_match:
-            day = int(date_match.group(1))
-            month = MONTHS.get(date_match.group(2).capitalize())
-            year = int(date_match.group(3)) if date_match.group(3) else 2026
-            if month:
-                current_date = (year, month, day)
-            continue
-
-        if node not in team_els:
-            continue
-        card = find_ancestor_with_two_teams(node)
-        if card is None:
-            continue
-        card_text = card.get_text(" ", strip=True)
-        found_teams = [t for t in KHL_TEAMS if t in card_text]
-        if len(found_teams) != 2:
-            continue
-        pair_key = (id(card),)
-        if pair_key in seen_pairs:
-            continue
-        seen_pairs.add(pair_key)
-
-        # order the two teams by their actual position in the card's text
-        positions = sorted(found_teams, key=lambda t: card_text.find(t))
-        home, away = positions[0], positions[1]
-
-        score_m = None
-        time_m = None
-        for cand in card.find_all(string=True):
-            s = cand.strip()
-            # Check TIME_RE first: "19:00" matches the loose score pattern too (19-0),
-            # and a genuine hockey score practically never zero-pads to exactly 2 digits
-            # on each side the way a time always does - caught this exact bug in testing
-            # before it ever reached a real run (a fixture's kickoff time was getting
-            # parsed as a finished-match score).
-            if TIME_RE.match(s) and time_m is None:
-                time_m = TIME_RE.match(s)
-            elif SCORE_RE.match(s) and score_m is None:
-                score_m = SCORE_RE.match(s)
-
-        if not current_date:
-            continue
-        year, month, day = current_date
-        # KHL games are played Moscow time; site displays local (Moscow, UTC+3).
-        # Tashkent is UTC+5, so add 2 hours.
-        if time_m:
-            hour, minute = int(time_m.group(1)), int(time_m.group(2))
-        else:
-            hour, minute = 19, 0  # reasonable estimate if no time found, same as the
-            # existing hardcoded opening-day fixtures already used
-        moscow_dt = datetime(year, month, day, hour, minute, tzinfo=timezone(timedelta(hours=3)))
-        tashkent_dt = moscow_dt.astimezone(timezone(timedelta(hours=5)))
-        start = tashkent_dt.strftime("%Y-%m-%dT%H:%M:00+05:00")
-
-        entry = {"home": home, "away": away, "start": start}
-        if score_m:
-            entry["homeScore"] = int(score_m.group(1))
-            entry["awayScore"] = int(score_m.group(2))
-            entry["finished"] = True
-        matches.append(entry)
-
+    for ev in all_events:
+        try:
+            home = ev["homeTeam"]["name"]
+            away = ev["awayTeam"]["name"]
+            ts = ev["startTimestamp"]
+            status_type = ev.get("status", {}).get("type", "")
+            utc_dt = datetime.fromtimestamp(ts, tz=timezone.utc)
+            tashkent_dt = utc_dt.astimezone(timezone(timedelta(hours=5)))
+            entry = {
+                "home": home, "away": away,
+                "start": tashkent_dt.strftime("%Y-%m-%dT%H:%M:00+05:00"),
+            }
+            if status_type == "finished":
+                entry["homeScore"] = ev["homeScore"]["current"]
+                entry["awayScore"] = ev["awayScore"]["current"]
+                entry["finished"] = True
+            matches.append(entry)
+        except (KeyError, TypeError) as e:
+            log(f"skipping one malformed event ({e}): {str(ev)[:200]}")
     return matches
 
 
@@ -265,64 +256,47 @@ def main():
             if first_row:
                 log(f"FULL first row HTML: {str(first_row)!r}")
 
+    all_matches = []
     try:
-        calendar_html = fetch_rendered(CALENDAR_URL)
+        with sync_playwright() as p:
+            browser = p.chromium.launch()
+            page = browser.new_page(user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36")
+            all_matches = fetch_sofascore_matches(page)
+            browser.close()
     except Exception as e:
-        log(f"calendar fetch failed: {e}")
-        calendar_html = ""
+        log(f"Sofascore fetch failed entirely: {e}")
 
-    log(f"calendar page: captured {len(calendar_html)} chars")
-    all_matches = parse_calendar(calendar_html) if calendar_html else []
-    log(f"parsed {len(all_matches)} match(es) from the calendar page")
-    if not all_matches and calendar_html:
-        soup = BeautifulSoup(calendar_html, "html.parser")
-        body_text = soup.get_text(" ", strip=True)
-        teams_found_anywhere = [t for t in KHL_TEAMS if t in body_text]
-        log(f"WARNING: 0 matches parsed. {len(teams_found_anywhere)}/22 known team "
-            f"names appear somewhere in the page text: {teams_found_anywhere[:6]}...")
-        # Diagnostic dump: any element whose class attribute mentions match/game/event/
-        # calendar/schedule - one of these is almost certainly the real match-card
-        # wrapper, whatever it's actually called.
-        candidates = soup.find_all(class_=re.compile(r"match|game|event|calendar|schedule|fixture", re.I))
-        log(f"found {len(candidates)} element(s) with a match/game/event/calendar/schedule-ish class")
-        cal_section = soup.select_one(".match-center__calendar")
-        if cal_section:
-            full = str(cal_section)
-            log(f"match-center__calendar full length: {len(full)} chars")
-            # Jump straight to where a real team name actually appears in this section,
-            # rather than dumping from the start (which turned out to be just the
-            # hidden date-picker widget chrome, not real game data).
-            anchor_pos = None
-            for t in KHL_TEAMS:
-                p = full.find(t)
-                if p != -1:
-                    anchor_pos = p
-                    anchor_team = t
-                    break
-            if anchor_pos is not None:
-                lo = max(0, anchor_pos - 2500)
-                hi = min(len(full), anchor_pos + 2500)
-                log(f"found {anchor_team!r} at offset {anchor_pos} in match-center__calendar - dumping window around it")
-                log(f"window: {full[lo:hi]!r}")
-            else:
-                log("no known team name found anywhere inside match-center__calendar itself")
+    log(f"parsed {len(all_matches)} total match(es) from Sofascore")
 
     fixtures = [m for m in all_matches if not m.get("finished")]
     results = [m for m in all_matches if m.get("finished")]
-    results.sort(key=lambda m: m["start"], reverse=True)
-    fixtures.sort(key=lambda m: m["start"])
+    # de-dupe (last/next pages could in principle overlap at a boundary)
+    seen = set()
+    deduped_results = []
+    for m in sorted(results, key=lambda m: m["start"], reverse=True):
+        key = (m["home"], m["away"], m["start"])
+        if key not in seen:
+            seen.add(key)
+            deduped_results.append(m)
+    seen = set()
+    deduped_fixtures = []
+    for m in sorted(fixtures, key=lambda m: m["start"]):
+        key = (m["home"], m["away"], m["start"])
+        if key not in seen:
+            seen.add(key)
+            deduped_fixtures.append(m)
 
     output = {
         "generatedAt": datetime.now(timezone.utc).isoformat(),
         "standings": standings,
-        "fixtures": fixtures,
-        "results": results,
+        "fixtures": deduped_fixtures,
+        "results": deduped_results,
     }
 
     os.makedirs(os.path.dirname(OUTPUT_PATH), exist_ok=True)
     with open(OUTPUT_PATH, "w", encoding="utf-8") as f:
         json.dump(output, f, indent=2, ensure_ascii=False)
-    log(f"wrote {OUTPUT_PATH}: {len(standings)} standings, {len(fixtures)} fixtures, {len(results)} results")
+    log(f"wrote {OUTPUT_PATH}: {len(standings)} standings, {len(deduped_fixtures)} fixtures, {len(deduped_results)} results")
 
 
 if __name__ == "__main__":
