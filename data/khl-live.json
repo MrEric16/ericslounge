@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-04T16:56:53.702933+00:00",
+  "generatedAt": "2026-09-04T20:55:02.847193+00:00",
   "standings": [
     {
       "team": "Avangard",
@@ -273,6 +273,11 @@
       "start": "2026-09-05T10:00:00+05:00"
     },
     {
+      "home": "Avtomobilist Yekaterinburg",
+      "away": "Dynamo Moscow",
+      "start": "2026-09-05T11:30:00+05:00"
+    },
+    {
       "home": "Severstal Cherepovets",
       "away": "Salavat Yulayev Ufa",
       "start": "2026-09-05T14:00:00+05:00"
@@ -285,6 +290,11 @@
     {
       "home": "SKA S.P.",
       "away": "Lada Togliatti",
+      "start": "2026-09-05T14:00:00+05:00"
+    },
+    {
+      "home": "AK Bars",
+      "away": "Sibir Novosibirsk",
       "start": "2026-09-05T14:00:00+05:00"
     }
   ],
