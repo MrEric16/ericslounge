@@ -164,19 +164,38 @@ SOFASCORE_UNIQUE_TOURNAMENT_ID = 268  # confirmed via https://www.sofascore.com/
 # needed between the two sources.
 
 
-def fetch_json_via_page(page, url):
-    resp = page.goto(url, timeout=20000)
-    text = page.evaluate("() => document.body.innerText")
+def fetch_json_in_page(page, url):
+    """Uses fetch() from WITHIN the already-loaded Sofascore page's own JS context,
+    rather than a top-level page.goto() straight to the API URL - that direct-
+    navigation approach got a confirmed real 403 Forbidden even via genuine
+    Playwright/Chromium (caught by diagnostic capture, not assumed). An in-page
+    fetch() carries the same cookies/referrer/origin a real user's browser sends when
+    the live site's own JS loads its own data, which is far less likely to get blocked
+    since blocking it would break the real site for everyone, not just scrapers."""
+    result = page.evaluate(
+        """async (url) => {
+            try {
+                const res = await fetch(url, { headers: { 'Accept': 'application/json' } });
+                const text = await res.text();
+                return { status: res.status, text: text };
+            } catch (e) {
+                return { status: -1, text: String(e) };
+            }
+        }""",
+        url,
+    )
+    if result["status"] != 200:
+        log(f"in-page fetch failed for {url}: status={result['status']}, body={result['text'][:300]!r}")
+        return None
     try:
-        return json.loads(text)
+        return json.loads(result["text"])
     except json.JSONDecodeError as e:
-        log(f"JSON parse failed for {url}: {e}. Response status: {resp.status if resp else '?'}. "
-            f"First 300 chars: {text[:300]!r}")
+        log(f"JSON parse failed for {url}: {e}. First 300 chars: {result['text'][:300]!r}")
         return None
 
 
 def find_current_season_id(page):
-    data = fetch_json_via_page(page, f"https://api.sofascore.com/api/v1/unique-tournament/{SOFASCORE_UNIQUE_TOURNAMENT_ID}/seasons")
+    data = fetch_json_in_page(page, f"https://api.sofascore.com/api/v1/unique-tournament/{SOFASCORE_UNIQUE_TOURNAMENT_ID}/seasons")
     if not data or "seasons" not in data:
         log(f"could not fetch/parse the seasons list. Raw data: {str(data)[:500]!r}")
         return None
@@ -189,6 +208,12 @@ def find_current_season_id(page):
 
 
 def fetch_sofascore_matches(page):
+    # Load the actual Sofascore tournament page first, establishing whatever
+    # cookies/session state a real visit creates, before making any API calls from
+    # within that page's own JS context (see fetch_json_in_page for why).
+    page.goto(f"https://www.sofascore.com/ice-hockey/tournament/russia/khl/{SOFASCORE_UNIQUE_TOURNAMENT_ID}", timeout=30000)
+    page.wait_for_timeout(3000)
+
     season_id = find_current_season_id(page)
     if season_id is None:
         return []
@@ -203,7 +228,7 @@ def fetch_sofascore_matches(page):
         empty_streak = 0
         while page_num < 8 and empty_streak < 2:
             url = f"https://api.sofascore.com/api/v1/unique-tournament/{SOFASCORE_UNIQUE_TOURNAMENT_ID}/season/{season_id}/events/{path}/{page_num}"
-            data = fetch_json_via_page(page, url)
+            data = fetch_json_in_page(page, url)
             events = (data or {}).get("events", [])
             log(f"{kind} page {page_num}: {len(events)} event(s)")
             if not events:
