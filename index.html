@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Mr Eric's Lounge</title>
-<meta name="app-build" content="20260904165856">
+<meta name="app-build" content="20260904211821">
 <script>
   // PWA update-detection: an installed home-screen app's standalone-mode navigation
   // cache can hold an old shell far longer than the CDN's 10-minute cache -
@@ -10227,7 +10227,15 @@ function leagueDetailBodyHtml(code){
         `).join('')
       : oneTableHtml((staticLeague && staticLeague.teams) || []);
   const matches = (cache && cache.matches && cache.matches[code]) || { fixtures: [], results: [] };
-  const fixtures = mergeMatchLists(matches.fixtures, (staticLeague && staticLeague.fixtures) || []);
+  // A "fixture" can never be in the past by definition - filtering this here, after the
+  // merge, is a universal safety net regardless of which source (live or static) a
+  // stale entry came from. Real bug this just caught: static fallback fixtures for PL
+  // were weeks-old (22-25 Aug) and, unlike the old either/or fallback logic, the new
+  // merge doesn't automatically drop them just because live data exists - they don't
+  // count as duplicates of the live entries (different team pairings entirely), so
+  // they were appearing in the "Fixtures" list alongside the correct current gameweek.
+  const fixtures = mergeMatchLists(matches.fixtures, (staticLeague && staticLeague.fixtures) || [])
+    .filter(m => new Date(m.start) >= new Date());
   let results = mergeMatchLists(matches.results, (staticLeague && staticLeague.results) || []);
   if(code === 'CL'){
     // Champions League has a long summer gap between seasons (final in late May, next
