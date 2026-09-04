@@ -1,7 +1,9 @@
-[khl] standings page: captured 303104 chars
+[khl] standings page: captured 303258 chars
 [khl] parsed 0 standings row(s)
 [khl] WARNING: 0 standings rows. Found 7 <tbody> element(s) total
-[khl] first tbody has 24 <tr> row(s)
-[khl] club link found in first row: False
-[khl] first row raw HTML: '<tr class="table__row"><td class="table__cell table__cell--number" data-type="number"><span><span>1</span></span></td><td class="table__cell table__cell--team-image"><div class="table__cell-content-wrapper"><img alt="table__cell" class="table__team-image" src="//img.khl.ru/teams/en/1436/34/200.png?u=2026"/></div></td><td class="table__cell table__cell--team-name"><div class="table__cell-content-wrapper"><span><a href="/clubs/avangard/">Avangard</a></span></div></td><td class="table__cell"><div class="table__cell-content-wrapper"><span>0</span></div></td><td class="table__cell"><div class="table__cell-content-wrapper"><span>0</span></div></td><td class="table__cell"><div class="table__cell-content-wrapper"><span>0</span></div></td><td class="table__cell"><div class="table__cell-content-wrapper"><span>0</span></div></td><td class="table__cell"><div class="table__cell-content-wrapper"><span>0</span></div></td><td class="table__cell"><div class="table__cell-content-wrapper"><span>0</span></div></td><td class="table__cell"><div class="table__cell-content-wrapper"><span>0</span></div></td><td class="table__cell"><div class="table__cell-content-wrapper"><span>0</span></div></td><td class='
-[khl] wrote data/khl-live.json -- standings only for now, fixtures/results not yet built
+[khl] calendar page: captured 1683228 chars
+[khl] found 72 team-name element(s) on the calendar page
+[khl] parsed 0 match(es) from the calendar page
+[khl] WARNING: 0 matches parsed. 18/22 known team names appear somewhere in the page text: ['CSKA Moscow', 'Lada Togliatti', 'Lokomotiv Yaroslavl', 'HC Sochi', 'Severstal Cherepovets', 'SKA Saint Petersburg']...
+[khl] page text sample (first 800 chars): 'Standings - 2026/2027 - Regular season | Kontinental Hockey League (KHL) By continuing to use this site, you consent to the use of cookies for the purposes described in “CHL LLC Website Terms of Use” and you acknowledge that you accept the “CHL LLC Website Terms of Use” . You can disable the use of cookies in your browser settings OK PRIZES All games KHL Card Video Games News Standings Stats KHL TV More Players Photo Coaches Officials Clubs «West» Bobrov division Lada CSK VVS Ladya SKA SKA-Neva SKA-1946 SKA-Yunior Spartak Khimik JHC Spartak Krylya Sovetov Torpedo Torpedo-Gorky Chaika HC Sochi Rostov HC Kapitan Tarasov division Dinamo Mn Dinamo-Shinnik Dynamo M Dynamo SPb JHC Dynamo Msk Dragons Lokomotiv Molot Loko Loko-76 Severstal Diesel Almaz CSKA Zvezda Krasnaya Armiya «East» Kharlamov '
+[khl] wrote data/khl-live.json: 0 standings, 0 fixtures, 0 results
