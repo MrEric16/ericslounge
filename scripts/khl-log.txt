@@ -1,5 +1,5 @@
 [khl] standings page: captured 303258 chars
 [khl] parsed 22 standings row(s)
-[khl] could not fetch/parse the seasons list
+[khl] could not fetch/parse the seasons list. Raw data: "{'error': {'code': 403, 'reason': 'Forbidden'}}"
 [khl] parsed 0 total match(es) from Sofascore
 [khl] wrote data/khl-live.json: 22 standings, 0 fixtures, 0 results
