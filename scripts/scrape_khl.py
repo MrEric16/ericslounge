@@ -247,6 +247,8 @@ def main():
         soup = BeautifulSoup(standings_html, "html.parser")
         tbodies = soup.find_all("tbody")
         log(f"WARNING: 0 standings rows. Found {len(tbodies)} <tbody> element(s) total")
+        for i, tb in enumerate(tbodies[:3]):
+            log(f"tbody[{i}] first 500 chars: {str(tb)[:500]!r}")
 
     try:
         calendar_html = fetch_rendered(CALENDAR_URL)
@@ -263,7 +265,20 @@ def main():
         teams_found_anywhere = [t for t in KHL_TEAMS if t in body_text]
         log(f"WARNING: 0 matches parsed. {len(teams_found_anywhere)}/22 known team "
             f"names appear somewhere in the page text: {teams_found_anywhere[:6]}...")
-        log(f"page text sample (first 800 chars): {body_text[:800]!r}")
+        # Diagnostic dump: any element whose class attribute mentions match/game/event/
+        # calendar/schedule - one of these is almost certainly the real match-card
+        # wrapper, whatever it's actually called.
+        candidates = soup.find_all(class_=re.compile(r"match|game|event|calendar|schedule|fixture", re.I))
+        log(f"found {len(candidates)} element(s) with a match/game/event/calendar/schedule-ish class")
+        seen_classes = set()
+        for el in candidates:
+            cls = " ".join(el.get("class", []))
+            if cls in seen_classes:
+                continue
+            seen_classes.add(cls)
+            if len(seen_classes) > 8:
+                break
+            log(f"class={cls!r} sample: {str(el)[:400]!r}")
 
     fixtures = [m for m in all_matches if not m.get("finished")]
     results = [m for m in all_matches if m.get("finished")]
