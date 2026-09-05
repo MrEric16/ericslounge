@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-05T08:46:50.426128Z",
+  "generatedAt": "2026-09-05T12:20:00.851126Z",
   "standings": {
     "PL": [
       {
@@ -63,16 +63,6 @@
         "pts": 4
       },
       {
-        "name": "Newcastle",
-        "pld": 2,
-        "w": 1,
-        "d": 1,
-        "l": 0,
-        "gf": 4,
-        "ga": 2,
-        "pts": 4
-      },
-      {
         "name": "Everton",
         "pld": 2,
         "w": 1,
@@ -83,6 +73,16 @@
         "pts": 4
       },
       {
+        "name": "Newcastle",
+        "pld": 3,
+        "w": 1,
+        "d": 1,
+        "l": 1,
+        "gf": 5,
+        "ga": 4,
+        "pts": 4
+      },
+      {
         "name": "Leeds United",
         "pld": 2,
         "w": 1,
@@ -90,6 +90,16 @@
         "l": 0,
         "gf": 2,
         "ga": 1,
+        "pts": 4
+      },
+      {
+        "name": "Bournemouth",
+        "pld": 3,
+        "w": 1,
+        "d": 1,
+        "l": 1,
+        "gf": 4,
+        "ga": 4,
         "pts": 4
       },
       {
@@ -131,16 +141,6 @@
         "gf": 4,
         "ga": 8,
         "pts": 3
-      },
-      {
-        "name": "Bournemouth",
-        "pld": 2,
-        "w": 0,
-        "d": 1,
-        "l": 1,
-        "gf": 2,
-        "ga": 3,
-        "pts": 1
       },
       {
         "name": "Nottingham",
@@ -977,7 +977,7 @@
       "fixtures": [
         {
           "utcDate": "2026-09-05T11:30:00Z",
-          "status": "TIMED",
+          "status": "IN_PLAY",
           "matchday": 3,
           "homeTeam": {
             "id": 67,
@@ -990,11 +990,11 @@
             "shortName": "Bournemouth"
           },
           "score": {
-            "winner": null,
+            "winner": "AWAY_TEAM",
             "duration": "REGULAR",
             "fullTime": {
-              "home": null,
-              "away": null
+              "home": 1,
+              "away": 2
             },
             "halfTime": {
               "home": null,
