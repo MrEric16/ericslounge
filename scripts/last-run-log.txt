@@ -15,8 +15,17 @@
 [scrape]   TARGET CHECK 'our-heritage': NOT FOUND in any href on the rendered page
 [scrape]   TARGET CHECK 'photo-chronicle-xx': NOT FOUND in any href on the rendered page
 [scrape] calendar discovery complete: 89 unique event URLs to check
+[scrape] Translation failed for 'Фестиваль юсуповского помидора в «Мясном': Фестиваль юсуповского помидора в «Мясном» --> No translation was found using the current translator. Try another translator?
 [scrape]   DEBUG: dumped raw HTML for qimmat page, 134623 chars
+[scrape] Translation failed for 'Выставка «По женской линии»': Выставка «По женской линии» --> No translation was found using the current translator. Try another translator?
+[scrape] Translation failed for 'Выставка Мохамеда Беншалала': Выставка Мохамеда Беншалала --> No translation was found using the current translator. Try another translator?
+[scrape] Translation failed for 'Осенний фестиваль локальных брендов TEPL': Осенний фестиваль локальных брендов TEPLO AUTUMN FEST --> No translation was found using the current translator. Try another translator?
+[scrape] Translation failed for 'Спектакль «Биринчи калдиргоч»': Спектакль «Биринчи калдиргоч» --> No translation was found using the current translator. Try another translator?
+[scrape] Translation failed for 'Турнир смешанных единоборств OCTAGON 91': Турнир смешанных единоборств OCTAGON 91 --> No translation was found using the current translator. Try another translator?
+[scrape] Translation failed for 'Спектакль «Ганс и Гретель»': Спектакль «Ганс и Гретель» --> No translation was found using the current translator. Try another translator?
 [scrape] Translation failed for 'Фестиваль мороженого Muzz Fest 2.0': Фестиваль мороженого Muzz Fest 2.0 --> No translation was found using the current translator. Try another translator?
+[scrape] Translation failed for 'Фейерверк-шоу в парке Tashkent City': Фейерверк-шоу в парке Tashkent City --> No translation was found using the current translator. Try another translator?
+[scrape] Translation failed for 'Музыкальный фонтан в парке Magic City': Музыкальный фонтан в парке Magic City --> No translation was found using the current translator. Try another translator?
 [scrape] Translation failed for 'Ярмарка Uzbegim Market в парке Tashkent ': Ярмарка Uzbegim Market в парке Tashkent City --> No translation was found using the current translator. Try another translator?
 [scrape] Translation failed for 'Stand-up\xa0концерт Сергея Орлова': Stand-up концерт Сергея Орлова --> No translation was found using the current translator. Try another translator?
 [scrape] Translation failed for 'Концерт пианиста Lang Lang в Самарканде': Концерт пианиста Lang Lang в Самарканде --> No translation was found using the current translator. Try another translator?
@@ -41,9 +50,33 @@
 [scrape] Translation failed for 'Спектакль Jinlar bazmi': Спектакль Jinlar bazmi --> No translation was found using the current translator. Try another translator?
 [scrape] Translation failed for 'Спектакль «Адолат фасли»': Спектакль «Адолат фасли» --> No translation was found using the current translator. Try another translator?
 [scrape] Translation failed for 'Презентация книги «Так сложились обстоят': Презентация книги «Так сложились обстоятельства» --> No translation was found using the current translator. Try another translator?
+[scrape] Translation failed for 'Концерт Quest Pistols': Концерт Quest Pistols --> No translation was found using the current translator. Try another translator?
+[scrape] Translation failed for 'Фестиваль Mazza Fest': Фестиваль Mazza Fest --> No translation was found using the current translator. Try another translator?
+[scrape] Translation failed for 'Выступление Artik & Asti': Выступление Artik & Asti --> No translation was found using the current translator. Try another translator?
+[scrape] Translation failed for 'Групповая выставка «Осень. Когда природа': Групповая выставка «Осень. Когда природа щедра» --> No translation was found using the current translator. Try another translator?
+[scrape] Translation failed for 'Комедия по пьесе «Мисс Америки из Арканз': Комедия по пьесе «Мисс Америки из Арканзаса» --> No translation was found using the current translator. Try another translator?
+[scrape] Translation failed for 'Спектакль «Узгарар дарди»': Спектакль «Узгарар дарди» --> No translation was found using the current translator. Try another translator?
+[scrape] Translation failed for 'Спектакль «Аладдин и его волшебная лампа': Спектакль «Аладдин и его волшебная лампа» --> No translation was found using the current translator. Try another translator?
+[scrape] Translation failed for 'Выступление группы Fly Project': Выступление группы Fly Project --> No translation was found using the current translator. Try another translator?
+[scrape] Translation failed for 'Концерт Отамурода Нурматова': Концерт Отамурода Нурматова --> No translation was found using the current translator. Try another translator?
+[scrape] Translation failed for 'Выставка «Сад памяти» в Haqiqiy': Выставка «Сад памяти» в Haqiqiy --> No translation was found using the current translator. Try another translator?
+[scrape] Translation failed for 'ILKHOM PARTY в театре «Ильхом»': ILKHOM PARTY в театре «Ильхом» --> No translation was found using the current translator. Try another translator?
+[scrape] Translation failed for 'Премьера спектакля о Бухаре': Премьера спектакля о Бухаре --> No translation was found using the current translator. Try another translator?
+[scrape] Translation failed for 'Балет «Тысяча и одна ночь»': Балет «Тысяча и одна ночь» --> No translation was found using the current translator. Try another translator?
+[scrape] Translation failed for 'Музыкальная сказка «Маленький Мук»': Музыкальная сказка «Маленький Мук» --> No translation was found using the current translator. Try another translator?
+[scrape] Translation failed for 'Автофестиваль Promotors Show 2026': Автофестиваль Promotors Show 2026 --> No translation was found using the current translator. Try another translator?
+[scrape] Translation failed for 'Концерт-погружение «Звуковые пути»': Концерт-погружение «Звуковые пути» --> No translation was found using the current translator. Try another translator?
+[scrape] Translation failed for 'Выступление группы «Градусы»': Выступление группы «Градусы» --> No translation was found using the current translator. Try another translator?
+[scrape] Translation failed for 'Свободный маркет живописи в пространстве': Свободный маркет живописи в пространстве Haqiqiy --> No translation was found using the current translator. Try another translator?
+[scrape] Translation failed for 'Art Bazaar': Art Bazaar --> No translation was found using the current translator. Try another translator?
+[scrape] Translation failed for 'Спектакль «Кунгил»': Спектакль «Кунгил» --> No translation was found using the current translator. Try another translator?
+[scrape] Translation failed for 'Музыкальный спектакль «Не может быть»': Музыкальный спектакль «Не может быть» --> No translation was found using the current translator. Try another translator?
+[scrape] Translation failed for 'Опера «Кармен» в ГАБТ': Опера «Кармен» в ГАБТ --> No translation was found using the current translator. Try another translator?
+[scrape] Translation failed for 'Спектакль «Аладдин»': Спектакль «Аладдин» --> No translation was found using the current translator. Try another translator?
+[scrape] Translation failed for '«По женской линии»: в пространстве Zanma': «По женской линии»: в пространстве Zanmakon открылась выставка Робии Кадыровой --> No translation was found using the current translator. Try another translator?
 [scrape]   '«По женской линии»: в пространстве Zanmakon открылась выставка Робии Кадыровой': no dates found in window (no schedule/date-range parsed) -- kept 0 events
 [scrape]   'Эстетика многослойности: в Ташкенте открылась выставка Бобура Алимходжаева Duality: X-Ray of Memory': no dates found in window (no schedule/date-range parsed) -- kept 0 events
-[scrape] calendar detail pass complete: 190 events kept from 89 pages checked
+[scrape] calendar detail pass complete: 189 events kept from 89 pages checked
 [scrape] special-tracked: FAILED to fetch or failed content check for https://www.afisha.uz/ru/cinema/2026/07/16/kinoprazdnik-v-sredu
 [scrape] iticket.uz cat=concert: 10 events kept
 [scrape] iticket.uz cat=theatre: 15 events kept
@@ -53,5 +86,5 @@
 [scrape] eventbrite.com: 0 events found (dates NOT yet parsed -- see note in script)
 [scrape]   DEDUP: 0 target entries survived Pass 1
 [scrape]   DEDUP: 0 target entries survived Pass 2 (final)
-[scrape] TOTAL before dedup: 215  |  after dedup: 201
+[scrape] TOTAL before dedup: 214  |  after dedup: 203
 [scrape] Wrote data/events-tashkent.json
