@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-05T16:30:54.340980Z",
+  "generatedAt": "2026-09-05T18:31:25.107434Z",
   "results": [
     {
       "url": "https://www.goal.com/en/match/girona-vs-arsenal/__LS8d9Oc6I1wXn9g8956",
@@ -4335,10 +4335,56 @@
         }
       ],
       "competition": "SA"
+    },
+    {
+      "url": "https://www.goal.com/en/match/hull-city-vs-aston-villa/uTVM8Orb7-j7PgGfwAAc6",
+      "date": null,
+      "home": "Hull City",
+      "away": "Aston Villa",
+      "htHome": 0,
+      "htAway": 0,
+      "ftHome": 0,
+      "ftAway": 0,
+      "homeGoals": [],
+      "awayGoals": [],
+      "competition": "PL"
+    },
+    {
+      "url": "https://www.goal.com/en/match/schalke-04-vs-bayern-munich/Adbri7J8q1sjiSGwqV7DE",
+      "date": null,
+      "home": "Schalke 04",
+      "away": "Bayern Munich",
+      "htHome": 0,
+      "htAway": 0,
+      "ftHome": 0,
+      "ftAway": 0,
+      "homeGoals": [],
+      "awayGoals": [],
+      "competition": "BL1"
+    },
+    {
+      "url": "https://www.goal.com/en/match/lens-vs-lorient/zjaDI9eqoECJef07kqRhd",
+      "date": null,
+      "home": "Lens",
+      "away": "Lorient",
+      "htHome": 0,
+      "htAway": 0,
+      "ftHome": 0,
+      "ftAway": 1,
+      "homeGoals": [],
+      "awayGoals": [
+        {
+          "scorer": "M. Kone",
+          "minute": 54
+        }
+      ],
+      "competition": "FL1"
     }
   ],
   "scorerParseRetryCounts": {
-    "https://www.goal.com/en/match/fulham-vs-crystal-palace/s2ddlhsxqapsOesfNWAsP": 1,
-    "https://www.goal.com/en/match/borussia-moenchengladbach-vs-elversberg/b6nTUslEG9Nb1qpg5p0-i": 1
+    "https://www.goal.com/en/match/fulham-vs-crystal-palace/s2ddlhsxqapsOesfNWAsP": 2,
+    "https://www.goal.com/en/match/borussia-moenchengladbach-vs-elversberg/b6nTUslEG9Nb1qpg5p0-i": 2,
+    "https://www.goal.com/en/match/rayo-vallecano-vs-racing-santander/WgktFuMOxNdHtW7Eq79UZ": 1,
+    "https://www.goal.com/en/match/inter-vs-ssc-napoli/vS679Egd_NblTPcjWU5E6": 2
   }
 }
