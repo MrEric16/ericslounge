@@ -136,6 +136,16 @@ def parse_standings(html):
             "gf": gf,
             "points": safe_int("pts"),
         })
+        # Diagnostic (2026-09-05): season now genuinely underway with real non-zero
+        # data (previous build/test was necessarily all-zero preseason), and "points"
+        # is coming back 0 for a team with a real win - the column-order extrapolation
+        # from the all-zero row can't be trusted now that real data exists to check it
+        # against. Dump the raw cell values for the first non-zero row so the next run
+        # settles the real order definitively instead of guessing again.
+        if safe_int("gp") > 0 and not getattr(parse_standings, "_dumped", False):
+            parse_standings._dumped = True
+            log(f"DIAGNOSTIC non-zero row for {team_name}: raw stat_cells={values}, "
+                f"gf_ga_text={gf_ga_text!r}, full row HTML={str(row)!r}")
     return standings
 
 
@@ -157,146 +167,112 @@ def parse_standings(html):
 # browser page directly to each JSON endpoint (mimicking a real user visiting that URL)
 # rather than a lower-level request API, to stay as close to organic browsing as
 # possible.
-# --- 365scores fixtures/results (added 2026-09-04, replacing the Sofascore attempt) ---
-# Sofascore's API returned a confirmed real 403 Forbidden even via genuine
-# Playwright/Chromium navigation AND an in-page fetch() carrying real cookies/referrer -
-# a harder anti-bot wall than expected. Mr Eric pointed at 365scores.com as another
-# option, and it turned out to need none of that: loaded completely cleanly with a
-# plain fetch, no Playwright/browser-fingerprint games required at all, confirmed by
-# directly fetching https://www.365scores.com/hockey/league/khl-636 and seeing real
-# match data (team names, times, scores) directly in the response. Uses plain
-# `requests` rather than Playwright for this part specifically, since a real browser
-# clearly isn't needed here and requests is simpler/faster/lighter.
-#
-# Anchors on the one thing guaranteed not to break with a CSS refresh: 365scores' own
-# match-page link pattern (/hockey/match/khl-636/{team-slug}_{team-slug}-{id}-{id}-636),
-# which was directly visible in the fetched content for every match card. Doesn't
-# depend on any specific class name at all.
-KHL_365SCORES_URL = "https://www.365scores.com/hockey/league/khl-636/matches"
-MATCH_LINK_RE = re.compile(r"/hockey/match/khl-636/[a-z0-9.\-]+-\d+-\d+-636#id=(\d+)")
+FLASHSCORE_RESULTS_URL = "https://www.flashscoreusa.com/hockey/russia/khl/results/"
+FLASHSCORE_FIXTURES_URL = "https://www.flashscoreusa.com/hockey/russia/khl/fixtures/"
+# Flashscore's actual date-header format on the real page wasn't independently
+# confirmed (only saw a summary widget using M/D like "9/6"), so this accepts that
+# short form - a diagnostic run will confirm what actually appears, same as with
+# every other new source this session.
 DATE_HEADER_RE = re.compile(r"^(\d{2})/(\d{2})/(\d{4})$")
+DATE_HEADER_SHORT_RE = re.compile(r"^(\d{1,2})/(\d{1,2})$")
 FINAL_SCORE_RE = re.compile(r"Final\s+(\d+)\s*-\s*(\d+)")
+SCORE_DASH_RE = re.compile(r"(?<!\d)(\d{1,2})\s*-\s*(\d{1,2})(?!\d)")
 CLOCK_TIME_RE = re.compile(r"\b([01]?\d|2[0-3]):([0-5]\d)\b")
+# Flashscore game-page link pattern: /game/hockey/{team1-slug}-{id}/{team2-slug}-{id}/
+GAME_LINK_RE = re.compile(r"/game/hockey/[a-zA-Z0-9\-]+/[a-zA-Z0-9\-]+/?")
 
 
-def dedupe_repeated_words(name):
-    """365scores repeats each team name twice in a row in the link text (once as the
-    visible label, once as accessibility text, based on the markdown-converted content
-    seen when first checking this source) - e.g. "Lokomotiv Yaroslavl Lokomotiv
-    Yaroslavl" really means just "Lokomotiv Yaroslavl". Collapses that."""
-    words = name.split()
-    n = len(words)
-    if n % 2 == 0 and words[: n // 2] == words[n // 2:]:
-        return " ".join(words[: n // 2])
-    return name
+def fetch_flashscore_matches(page, url, expect_finished):
+    """Switched from 365scores to Flashscore (2026-09-05): 365scores was confirmed
+    serving STALE prior-season data (May 2026 playoff finals) rather than the new
+    September 2026-27 season - not a parsing bug, the wrong season's content entirely.
+    Flashscore has dedicated /results/ and /fixtures/ URLs that a direct check
+    confirmed show genuinely current games (Sept 6-9 2026-27 fixtures, verified
+    against real team pairings). Uses the same real-browser Playwright fetch as the
+    working khl.ru standings pull, since whether this specific page needs JS rendering
+    hasn't been separately confirmed and there's no cost to being safe about it.
+    Anchors on the /game/hockey/ URL pattern in each match's link, the same resilient
+    technique used for the abandoned 365scores parser - not tied to any CSS class name.
+    """
+    try:
+        page.goto(url, timeout=30000)
+        page.wait_for_timeout(5000)
+        html = page.content()
+    except Exception as e:
+        log(f"Flashscore fetch failed for {url}: {e}")
+        return []
 
-
-def parse_365scores_matches(html):
+    log(f"Flashscore {'results' if expect_finished else 'fixtures'} page: captured {len(html)} chars")
     soup = BeautifulSoup(html, "html.parser")
     matches = []
-    seen_ids = set()
+    seen_hrefs = set()
     current_date = None
 
     for el in soup.find_all(True):
         text = el.get_text(strip=True) if el.name not in ("script", "style") else ""
-        date_m = DATE_HEADER_RE.match(text) if text and len(text) <= 10 else None
+        date_m = DATE_HEADER_RE.match(text) if text and len(text) <= 12 else None
+        short_m = DATE_HEADER_SHORT_RE.match(text) if not date_m and text and len(text) <= 6 else None
         if date_m:
-            day, month, year = date_m.groups()
-            current_date = (int(year), int(month), int(day))
+            y, mo, d = date_m.group(3), date_m.group(2), date_m.group(1)
+            current_date = (int(y), int(mo), int(d))
+            continue
+        if short_m:
+            mo, d = int(short_m.group(1)), int(short_m.group(2))
+            # KHL 2026-27 regular season runs Sept 2026 - March 2027 (confirmed via
+            # Wikipedia earlier this session) - Jan/Feb/Mar dates belong to 2027.
+            year = 2027 if mo <= 3 else 2026
+            current_date = (year, mo, d)
             continue
 
         if el.name != "a":
             continue
         href = el.get("href", "")
-        link_m = MATCH_LINK_RE.search(href)
-        if not link_m:
+        if not GAME_LINK_RE.search(href):
             continue
-        match_id = link_m.group(1)
-        if match_id in seen_ids:
+        if href in seen_hrefs:
             continue
+        seen_hrefs.add(href)
 
         full_text = el.get_text(" ", strip=True)
-        score_m = FINAL_SCORE_RE.search(full_text)
+        score_m = FINAL_SCORE_RE.search(full_text) or SCORE_DASH_RE.search(full_text)
         time_m = None if score_m else CLOCK_TIME_RE.search(full_text)
         marker = score_m or time_m
         if not marker:
-            log(f"match link {match_id} has neither a Final score nor a clock time in its text, skipping: {full_text[:150]!r}")
+            log(f"Flashscore link has no score/time marker, skipping: {full_text[:150]!r} href={href!r}")
             continue
 
-        before = full_text[: marker.start()].strip()
-        after = full_text[marker.end():].strip()
-        # strip a leading "Final" off `before` if the score regex ate into it oddly
-        before = re.sub(r"\s*Final\s*$", "", before).strip()
-        home = dedupe_repeated_words(before)
-        away = dedupe_repeated_words(after)
-        if not home or not away:
-            log(f"match link {match_id}: could not split team names from {full_text[:150]!r} (before={before!r} after={after!r})")
+        before = full_text[: marker.start()].strip(" -")
+        after = full_text[marker.end():].strip(" -")
+        if not before or not after:
+            log(f"Flashscore link: could not split team names from {full_text[:150]!r}")
             continue
 
         if not current_date:
-            log(f"match link {match_id} found before any date header was seen, skipping")
+            log(f"Flashscore link found before any date header seen, skipping: {full_text[:100]!r}")
             continue
         year, month, day = current_date
         if time_m:
             hour, minute = int(time_m.group(1)), int(time_m.group(2))
         else:
             hour, minute = 19, 0
-        # 365scores' displayed time convention wasn't independently verified against a
-        # known-accurate reference, so treating it the same conservative way as the
-        # existing hand-verified opening-day static fixtures already do.
         naive_dt_as_tashkent = datetime(year, month, day, hour, minute, tzinfo=timezone(timedelta(hours=5)))
         start = naive_dt_as_tashkent.strftime("%Y-%m-%dT%H:%M:00+05:00")
 
-        entry = {"home": home, "away": away, "start": start}
+        entry = {"home": before, "away": after, "start": start}
         if score_m:
-            entry["homeScore"] = int(score_m.group(1))
-            entry["awayScore"] = int(score_m.group(2))
+            g = score_m.groups()
+            entry["homeScore"] = int(g[0])
+            entry["awayScore"] = int(g[1])
             entry["finished"] = True
-
         matches.append(entry)
-        seen_ids.add(match_id)
 
-    return matches
-
-
-def fetch_365scores_matches(page):
-    # Switched from plain requests/urllib to Playwright: a real dispatch confirmed the
-    # plain-request version got back nothing but boilerplate HTML (a JS app shell with
-    # zero match content), while directly fetching the same URL through a real page
-    # render showed genuine match data - 365scores clearly renders its content
-    # client-side via JS rather than serving it in the initial HTML response, and isn't
-    # bot-blocked at all (unlike khl.ru's calendar and Sofascore's API, both confirmed
-    # hostile this session) - it just needs a real browser to execute that JS, exactly
-    # like the working khl.ru standings fetch already does. Reuses the same page/browser
-    # instance passed in from main() rather than launching a second browser.
-    try:
-        page.goto(KHL_365SCORES_URL, timeout=30000)
-        page.wait_for_timeout(6000)
-        # Only 4 of 10 known real games (verified independently) came back on the first
-        # working run - the missing ones (an entire second "Eastern Conference" section,
-        # plus two more days) are very likely lazy-loaded on scroll, a common pattern for
-        # long match lists. Scroll to the bottom in a few steps, pausing to let each
-        # batch load, before reading the final content.
-        for _ in range(6):
-            page.evaluate("window.scrollBy(0, document.body.scrollHeight)")
-            page.wait_for_timeout(1200)
-        html = page.content()
-    except Exception as e:
-        log(f"365scores fetch failed: {e}")
-        return []
-
-    log(f"365scores page: captured {len(html)} chars")
-    matches = parse_365scores_matches(html)
-    log(f"parsed {len(matches)} match(es) from 365scores")
+    log(f"parsed {len(matches)} match(es) from Flashscore {'results' if expect_finished else 'fixtures'}")
     if not matches:
-        teams_found = [t for t in KHL_TEAMS if t.split()[0] in html]
-        log(f"WARNING: 0 matches parsed. {len(teams_found)}/22 team first-words appear "
-            f"in the rendered HTML: {teams_found[:6]}")
-        link_count = len(MATCH_LINK_RE.findall(html))
-        log(f"MATCH_LINK_RE found {link_count} raw href matches in the HTML")
+        link_count = len(GAME_LINK_RE.findall(html))
+        log(f"WARNING: 0 matches. GAME_LINK_RE found {link_count} raw href matches in the HTML")
         if link_count == 0:
-            idx = html.find("khl-636")
-            log(f"first 'khl-636' occurrence context: {html[max(0,idx-200):idx+500]!r}")
+            idx = html.find("/game/hockey/")
+            log(f"first '/game/hockey/' occurrence context: {html[max(0,idx-200):idx+500]!r}")
     return matches
 
 
@@ -324,12 +300,13 @@ def main():
         with sync_playwright() as p:
             browser = p.chromium.launch()
             page = browser.new_page(user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36")
-            all_matches = fetch_365scores_matches(page)
+            all_matches += fetch_flashscore_matches(page, FLASHSCORE_RESULTS_URL, expect_finished=True)
+            all_matches += fetch_flashscore_matches(page, FLASHSCORE_FIXTURES_URL, expect_finished=False)
             browser.close()
     except Exception as e:
-        log(f"365scores fetch failed entirely: {e}")
+        log(f"Flashscore fetch failed entirely: {e}")
 
-    log(f"parsed {len(all_matches)} total match(es) from 365scores")
+    log(f"parsed {len(all_matches)} total match(es) from Flashscore")
 
     fixtures = [m for m in all_matches if not m.get("finished")]
     results = [m for m in all_matches if m.get("finished")]
