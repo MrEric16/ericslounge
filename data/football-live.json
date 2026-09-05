@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-04T22:26:30.278066Z",
+  "generatedAt": "2026-09-05T00:16:18.658540Z",
   "standings": {
     "PL": [
       {
@@ -2038,6 +2038,37 @@
           "venue": null
         },
         {
+          "utcDate": "2026-09-03T19:00:00Z",
+          "status": "FINISHED",
+          "matchday": 6,
+          "homeTeam": {
+            "id": 92,
+            "name": "Real Sociedad de Fútbol",
+            "shortName": "Real Sociedad"
+          },
+          "awayTeam": {
+            "id": 558,
+            "name": "RC Celta de Vigo",
+            "shortName": "Celta"
+          },
+          "score": {
+            "winner": "DRAW",
+            "duration": "REGULAR",
+            "fullTime": {
+              "home": 0,
+              "away": 0
+            },
+            "halfTime": {
+              "home": 0,
+              "away": 0
+            }
+          },
+          "competition": {
+            "name": "Primera Division"
+          },
+          "venue": null
+        },
+        {
           "utcDate": "2026-08-31T19:30:00Z",
           "status": "FINISHED",
           "matchday": 3,
@@ -2433,37 +2464,6 @@
             "halfTime": {
               "home": 1,
               "away": 1
-            }
-          },
-          "competition": {
-            "name": "Primera Division"
-          },
-          "venue": null
-        },
-        {
-          "utcDate": "2026-08-25T19:00:00Z",
-          "status": "FINISHED",
-          "matchday": 1,
-          "homeTeam": {
-            "id": 95,
-            "name": "Valencia CF",
-            "shortName": "Valencia"
-          },
-          "awayTeam": {
-            "id": 90,
-            "name": "Real Betis Balompié",
-            "shortName": "Real Betis"
-          },
-          "score": {
-            "winner": "AWAY_TEAM",
-            "duration": "REGULAR",
-            "fullTime": {
-              "home": 0,
-              "away": 1
-            },
-            "halfTime": {
-              "home": 0,
-              "away": 0
             }
           },
           "competition": {
