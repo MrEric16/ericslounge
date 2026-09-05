@@ -124,17 +124,30 @@ def parse_standings(html):
         gf_match = re.match(r"(\d+)\D+(\d+)", gf_ga_text)
         gf = int(gf_match.group(1)) if gf_match else 0
 
+        won, ot_won, so_won = safe_int("w"), safe_int("otw"), safe_int("sow")
+        ot_lost, so_lost, lost = safe_int("otl"), safe_int("sol"), safe_int("l")
+        # Real fix (2026-09-05): stopped trusting whichever raw cell the earlier
+        # column-order guess assumed was "points" - multiple teams showed impossible
+        # combinations (2 wins but 0 points; 0 games played but 1 point), and the win/
+        # loss breakdown independently sums to "played" for every row checked, so those
+        # values are trustworthy even if the site's own displayed points figure isn't
+        # (plausibly still uninitialized this early in the season). Computing points
+        # directly from the confirmed real KHL formula instead (verified via
+        # Wikipedia's own season-summary tables): 2 points for any win regardless of
+        # how it was won, 1 point for an OT/shootout loss, 0 for a regulation loss.
+        points = 2 * (won + ot_won + so_won) + 1 * (ot_lost + so_lost)
+
         standings.append({
             "team": team_name,
             "played": safe_int("gp"),
-            "won": safe_int("w"),
-            "otWon": safe_int("otw"),
-            "soWon": safe_int("sow"),
-            "soLost": safe_int("sol"),
-            "otLost": safe_int("otl"),
-            "lost": safe_int("l"),
+            "won": won,
+            "otWon": ot_won,
+            "soWon": so_won,
+            "soLost": so_lost,
+            "otLost": ot_lost,
+            "lost": lost,
             "gf": gf,
-            "points": safe_int("pts"),
+            "points": points,
         })
         # Diagnostic (2026-09-05): season now genuinely underway with real non-zero
         # data (previous build/test was necessarily all-zero preseason), and "points"
