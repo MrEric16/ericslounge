@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-05T20:33:37.316460+00:00",
+  "generatedAt": "2026-09-05T21:01:38.396999+00:00",
   "standings": [
     {
       "team": "Lokomotiv",
@@ -266,37 +266,6 @@
       "points": 1
     }
   ],
-  "fixtures": [
-    {
-      "home": "Metallurg Magnitogorsk",
-      "away": "Amur Khabarovsk",
-      "start": "2026-09-06T11:30:00+05:00"
-    },
-    {
-      "home": "Neftekhimik Nizhnekamsk",
-      "away": "Shanghai Dragons",
-      "start": "2026-09-06T14:00:00+05:00"
-    },
-    {
-      "home": "Avangard Omsk",
-      "away": "Salavat Yulayev Ufa",
-      "start": "2026-09-07T13:30:00+05:00"
-    },
-    {
-      "home": "Barys Astana",
-      "away": "Sibir Novosibirsk",
-      "start": "2026-09-07T14:00:00+05:00"
-    },
-    {
-      "home": "Avtomobilist Yekaterinburg",
-      "away": "Traktor Chelyabinsk",
-      "start": "2026-09-07T14:00:00+05:00"
-    },
-    {
-      "home": "AK Bars",
-      "away": "Admiral Vladivostok",
-      "start": "2026-09-07T16:30:00+05:00"
-    }
-  ],
+  "fixtures": [],
   "results": []
 }
