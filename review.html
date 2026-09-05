@@ -335,6 +335,7 @@
     <button class="tab-btn active" id="tabPhotosBtn" data-tab="photos">📷 Photos</button>
     <button class="tab-btn" id="tabQuestionsBtn" data-tab="questions">💬 Questions</button>
     <button class="tab-btn" id="tabEventsBtn" data-tab="events">🌐 Events</button>
+    <button class="tab-btn" id="tabContentBtn" data-tab="content">📚 Content</button>
   </div>
 
   <div id="photosPanel">
@@ -353,6 +354,11 @@
     <p style="font-size:12px; color:var(--ink-soft); margin:0 0 14px;">Found by the daily scraper, not yet on the site. Approve to publish, reject to discard.</p>
     <div id="pendingEventsContainer"><div class="loading-text">Loading candidate events…</div></div>
   </div>
+
+  <div id="contentPanel" class="hidden">
+    <p style="font-size:12px; color:var(--ink-soft); margin:0 0 14px;">Articles/videos sourced for review. Approve marks it ready to publish (added to the site by hand from here) — reject discards it.</p>
+    <div id="pendingContentContainer"><div class="loading-text">Loading candidate content…</div></div>
+  </div>
 </div>
 
 <script>
@@ -368,10 +374,12 @@ const loginError = document.getElementById('loginError');
 const pendingContainer = document.getElementById('pendingContainer');
 const questionsContainer = document.getElementById('questionsContainer');
 const pendingEventsContainer = document.getElementById('pendingEventsContainer');
+const pendingContentContainer = document.getElementById('pendingContentContainer');
 const headerCount = document.getElementById('headerCount');
 const photosPanel = document.getElementById('photosPanel');
 const questionsPanel = document.getElementById('questionsPanel');
 const eventsPanel = document.getElementById('eventsPanel');
+const contentPanel = document.getElementById('contentPanel');
 
 let activeTab = 'photos';
 let activeQuestionsSubtab = 'unread';
@@ -453,6 +461,7 @@ document.getElementById('signOutBtn').addEventListener('click', async ()=>{
 document.getElementById('tabPhotosBtn').addEventListener('click', ()=> switchTab('photos'));
 document.getElementById('tabQuestionsBtn').addEventListener('click', ()=> switchTab('questions'));
 document.getElementById('tabEventsBtn').addEventListener('click', ()=> switchTab('events'));
+document.getElementById('tabContentBtn').addEventListener('click', ()=> switchTab('content'));
 document.getElementById('subtabUnreadBtn').addEventListener('click', ()=> switchQuestionsSubtab('unread'));
 document.getElementById('subtabArchiveBtn').addEventListener('click', ()=> switchQuestionsSubtab('archive'));
 
@@ -461,9 +470,11 @@ function switchTab(tab){
   document.getElementById('tabPhotosBtn').classList.toggle('active', tab === 'photos');
   document.getElementById('tabQuestionsBtn').classList.toggle('active', tab === 'questions');
   document.getElementById('tabEventsBtn').classList.toggle('active', tab === 'events');
+  document.getElementById('tabContentBtn').classList.toggle('active', tab === 'content');
   photosPanel.classList.toggle('hidden', tab !== 'photos');
   questionsPanel.classList.toggle('hidden', tab !== 'questions');
   eventsPanel.classList.toggle('hidden', tab !== 'events');
+  contentPanel.classList.toggle('hidden', tab !== 'content');
   loadActivePanel();
 }
 function switchQuestionsSubtab(subtab){
@@ -475,7 +486,8 @@ function switchQuestionsSubtab(subtab){
 function loadActivePanel(){
   if(activeTab === 'photos') loadPending();
   else if(activeTab === 'questions') loadQuestions();
-  else loadPendingEvents();
+  else if(activeTab === 'events') loadPendingEvents();
+  else loadPendingContent();
 }
 
 async function loadPending(){
@@ -711,6 +723,72 @@ async function handlePendingEventAction(id, action, el){
     headerCount.textContent = remaining === 0 ? 'Nothing waiting' : `${remaining} event${remaining===1?'':'s'} waiting for review`;
     if(remaining === 0){
       pendingEventsContainer.innerHTML = '<div class="empty-card">No candidate events right now.</div>';
+    }
+  }catch(e){
+    el.querySelectorAll('button').forEach(b=> b.disabled = false);
+    alert('Something went wrong — try again.');
+  }
+}
+
+// Content review: articles/videos sourced for the domain pages, same pending/approve/
+// reject pattern as events above. Approve just marks status='approved' - there's no
+// automated publish-to-site step for this yet (unlike events' scheduled workflow), so
+// approved rows get added to the site by hand afterward. Reject deletes immediately.
+async function loadPendingContent(){
+  pendingContentContainer.innerHTML = '<div class="loading-text">Loading candidate content…</div>';
+  const { data: rows, error } = await sb.from('pending_content')
+    .select('*')
+    .eq('status', 'pending')
+    .order('faculty', { ascending: true })
+    .limit(200);
+  if(error){
+    pendingContentContainer.innerHTML = '<div class="empty-card">Couldn\'t load content — check your connection and reload.</div>';
+    headerCount.textContent = 'Error';
+    return;
+  }
+  if(activeTab === 'content'){
+    headerCount.textContent = rows.length === 0 ? 'Nothing waiting' : `${rows.length} item${rows.length===1?'':'s'} waiting for review`;
+  }
+  if(rows.length === 0){
+    pendingContentContainer.innerHTML = '<div class="empty-card">No candidate content right now.</div>';
+    return;
+  }
+  pendingContentContainer.innerHTML = rows.map(c => `
+    <div class="pevent-item" data-id="${escapeHtml(c.id)}">
+      <div class="pevent-org">${c.content_type === 'video' ? '🎬' : '📄'} ${escapeHtml(c.faculty)}</div>
+      <div class="pevent-title">${escapeHtml(c.title)}</div>
+      ${c.description ? `<div class="pevent-desc">${escapeHtml(c.description)}</div>` : ''}
+      <a class="pevent-link" href="${escapeHtml(c.url)}" target="_blank" rel="noopener">${escapeHtml(c.url)}</a>
+      <div class="pevent-meta">Source: ${escapeHtml(c.source)}</div>
+      <div class="pevent-actions" style="margin-top:10px;">
+        <button class="btn-approve" data-action="approve">Approve</button>
+        <button class="btn-reject" data-action="reject">Reject</button>
+      </div>
+    </div>
+  `).join('');
+  pendingContentContainer.querySelectorAll('.pevent-item').forEach(el=>{
+    const id = el.dataset.id;
+    el.querySelectorAll('button').forEach(btn=>{
+      btn.addEventListener('click', ()=> handlePendingContentAction(id, btn.dataset.action, el));
+    });
+  });
+}
+
+async function handlePendingContentAction(id, action, el){
+  el.querySelectorAll('button').forEach(b=> b.disabled = true);
+  try{
+    if(action === 'approve'){
+      const { error } = await sb.from('pending_content').update({ status: 'approved' }).eq('id', id);
+      if(error) throw error;
+    } else {
+      const { error } = await sb.from('pending_content').delete().eq('id', id);
+      if(error) throw error;
+    }
+    el.remove();
+    const remaining = pendingContentContainer.querySelectorAll('.pevent-item').length;
+    headerCount.textContent = remaining === 0 ? 'Nothing waiting' : `${remaining} item${remaining===1?'':'s'} waiting for review`;
+    if(remaining === 0){
+      pendingContentContainer.innerHTML = '<div class="empty-card">No candidate content right now.</div>';
     }
   }catch(e){
     el.querySelectorAll('button').forEach(b=> b.disabled = false);
