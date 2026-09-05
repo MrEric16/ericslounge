@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-05T18:31:25.107434Z",
+  "generatedAt": "2026-09-05T20:51:51.855906Z",
   "results": [
     {
       "url": "https://www.goal.com/en/match/girona-vs-arsenal/__LS8d9Oc6I1wXn9g8956",
@@ -4379,12 +4379,157 @@
         }
       ],
       "competition": "FL1"
+    },
+    {
+      "url": "https://www.goal.com/en/match/fulham-vs-crystal-palace/s2ddlhsxqapsOesfNWAsP",
+      "date": null,
+      "home": "Fulham",
+      "away": "Crystal Palace",
+      "htHome": 2,
+      "htAway": 1,
+      "ftHome": 2,
+      "ftAway": 3,
+      "homeGoals": [
+        {
+          "scorer": "J. King",
+          "minute": 11
+        },
+        {
+          "scorer": "C. Palacios",
+          "minute": 42
+        }
+      ],
+      "awayGoals": [
+        {
+          "scorer": "T. Mitchell",
+          "minute": 35
+        },
+        {
+          "scorer": "B. Chilwell",
+          "minute": 77
+        }
+      ],
+      "competition": "PL"
+    },
+    {
+      "url": "https://www.goal.com/en/match/borussia-moenchengladbach-vs-elversberg/b6nTUslEG9Nb1qpg5p0-i",
+      "date": null,
+      "home": "Borussia Moenchengladbach",
+      "away": "Elversberg",
+      "htHome": 2,
+      "htAway": 1,
+      "ftHome": 3,
+      "ftAway": 4,
+      "homeGoals": [
+        {
+          "scorer": "H. Bolin",
+          "minute": 11
+        },
+        {
+          "scorer": "J. Scally",
+          "minute": 56
+        }
+      ],
+      "awayGoals": [
+        {
+          "scorer": "D. Mokwa",
+          "minute": 29
+        },
+        {
+          "scorer": "M. Krattenmacher",
+          "minute": 66
+        },
+        {
+          "scorer": "F. Keidel",
+          "minute": 80
+        }
+      ],
+      "competition": "BL1"
+    },
+    {
+      "url": "https://www.goal.com/en/match/inter-vs-ssc-napoli/vS679Egd_NblTPcjWU5E6",
+      "date": null,
+      "home": "Inter",
+      "away": "Ssc Napoli",
+      "htHome": 0,
+      "htAway": 0,
+      "ftHome": 3,
+      "ftAway": 2,
+      "homeGoals": [
+        {
+          "scorer": "L. Martinez",
+          "minute": 56
+        },
+        {
+          "scorer": "M. Thuram",
+          "minute": 82
+        }
+      ],
+      "awayGoals": [
+        {
+          "scorer": "M. Politano",
+          "minute": 50
+        },
+        {
+          "scorer": "R. Hoejlund",
+          "minute": 53
+        }
+      ],
+      "competition": "SA"
+    },
+    {
+      "url": "https://www.goal.com/en/match/roma-vs-atalanta/ItiEtMwNV50mSSAhXQcBS",
+      "date": null,
+      "home": "Roma",
+      "away": "Atalanta",
+      "htHome": 0,
+      "htAway": 0,
+      "ftHome": 2,
+      "ftAway": 1,
+      "homeGoals": [
+        {
+          "scorer": "M. Hermoso",
+          "minute": 90
+        },
+        {
+          "scorer": "M. Soule",
+          "minute": 90
+        }
+      ],
+      "awayGoals": [
+        {
+          "scorer": "Ederson",
+          "minute": 47
+        }
+      ],
+      "competition": "SA"
+    },
+    {
+      "url": "https://www.goal.com/en/match/nice-vs-le-mans/mKQqK-xaDm-z9FfLCNjCU",
+      "date": null,
+      "home": "Nice",
+      "away": "Le Mans",
+      "htHome": 1,
+      "htAway": 1,
+      "ftHome": 1,
+      "ftAway": 1,
+      "homeGoals": [
+        {
+          "scorer": "E. Wahi",
+          "minute": 44
+        }
+      ],
+      "awayGoals": [
+        {
+          "scorer": "A. Bourabaa",
+          "minute": 13
+        }
+      ],
+      "competition": "FL1"
     }
   ],
   "scorerParseRetryCounts": {
-    "https://www.goal.com/en/match/fulham-vs-crystal-palace/s2ddlhsxqapsOesfNWAsP": 2,
-    "https://www.goal.com/en/match/borussia-moenchengladbach-vs-elversberg/b6nTUslEG9Nb1qpg5p0-i": 2,
-    "https://www.goal.com/en/match/rayo-vallecano-vs-racing-santander/WgktFuMOxNdHtW7Eq79UZ": 1,
-    "https://www.goal.com/en/match/inter-vs-ssc-napoli/vS679Egd_NblTPcjWU5E6": 2
+    "https://www.goal.com/en/match/rayo-vallecano-vs-racing-santander/WgktFuMOxNdHtW7Eq79UZ": 2,
+    "https://www.goal.com/en/match/le-havre-vs-brest/a8L7y8yaM8rIvzxav4svA": 1
   }
 }

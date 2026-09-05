@@ -1,21 +1,25 @@
 [goal-scraper] Run started.
 [goal-scraper] [PL] Found 8 finished-match links
 [goal-scraper] WARNING: Crystal Palace scored 3 but only 2 scorer(s) were parsed for https://www.goal.com/en/match/fulham-vs-crystal-palace/s2ddlhsxqapsOesfNWAsP
-[goal-scraper] [PL] SCORER PARSE FAILED (attempt 2/3) for Fulham 2-3 Crystal Palace -- NOT committing, will retry next run: https://www.goal.com/en/match/fulham-vs-crystal-palace/s2ddlhsxqapsOesfNWAsP
-[goal-scraper] [PL] Added: Hull City 0-0 Aston Villa
+[goal-scraper] [PL] SCORER PARSE FAILED 3 times, giving up and committing WITH INCOMPLETE SCORER DATA (page structure likely changed) for Fulham 2-3 Crystal Palace: https://www.goal.com/en/match/fulham-vs-crystal-palace/s2ddlhsxqapsOesfNWAsP
+[goal-scraper] [PL] Added: Fulham 2-3 Crystal Palace
 [goal-scraper] [PD] Found 3 finished-match links
 [goal-scraper] WARNING: Rayo Vallecano scored 3 but only 2 scorer(s) were parsed for https://www.goal.com/en/match/rayo-vallecano-vs-racing-santander/WgktFuMOxNdHtW7Eq79UZ
-[goal-scraper] [PD] SCORER PARSE FAILED (attempt 1/3) for Rayo Vallecano 3-2 Racing Santander -- NOT committing, will retry next run: https://www.goal.com/en/match/rayo-vallecano-vs-racing-santander/WgktFuMOxNdHtW7Eq79UZ
+[goal-scraper] [PD] SCORER PARSE FAILED (attempt 2/3) for Rayo Vallecano 3-2 Racing Santander -- NOT committing, will retry next run: https://www.goal.com/en/match/rayo-vallecano-vs-racing-santander/WgktFuMOxNdHtW7Eq79UZ
 [goal-scraper] [BL1] Found 7 finished-match links
 [goal-scraper] WARNING: Borussia Moenchengladbach scored 3 but only 2 scorer(s) were parsed for https://www.goal.com/en/match/borussia-moenchengladbach-vs-elversberg/b6nTUslEG9Nb1qpg5p0-i
 [goal-scraper] WARNING: Elversberg scored 4 but only 3 scorer(s) were parsed for https://www.goal.com/en/match/borussia-moenchengladbach-vs-elversberg/b6nTUslEG9Nb1qpg5p0-i
-[goal-scraper] [BL1] SCORER PARSE FAILED (attempt 2/3) for Borussia Moenchengladbach 3-4 Elversberg -- NOT committing, will retry next run: https://www.goal.com/en/match/borussia-moenchengladbach-vs-elversberg/b6nTUslEG9Nb1qpg5p0-i
-[goal-scraper] [BL1] Added: Schalke 04 0-0 Bayern Munich
-[goal-scraper] [SA] Found 3 finished-match links
+[goal-scraper] [BL1] SCORER PARSE FAILED 3 times, giving up and committing WITH INCOMPLETE SCORER DATA (page structure likely changed) for Borussia Moenchengladbach 3-4 Elversberg: https://www.goal.com/en/match/borussia-moenchengladbach-vs-elversberg/b6nTUslEG9Nb1qpg5p0-i
+[goal-scraper] [BL1] Added: Borussia Moenchengladbach 3-4 Elversberg
+[goal-scraper] [SA] Found 4 finished-match links
 [goal-scraper] WARNING: Inter scored 3 but only 2 scorer(s) were parsed for https://www.goal.com/en/match/inter-vs-ssc-napoli/vS679Egd_NblTPcjWU5E6
-[goal-scraper] [SA] SCORER PARSE FAILED (attempt 1/3) for Inter 3-2 Ssc Napoli -- NOT committing, will retry next run: https://www.goal.com/en/match/inter-vs-ssc-napoli/vS679Egd_NblTPcjWU5E6
-[goal-scraper] [FL1] Found 4 finished-match links
-[goal-scraper] [FL1] Added: Lens 0-1 Lorient
+[goal-scraper] [SA] SCORER PARSE FAILED 3 times, giving up and committing WITH INCOMPLETE SCORER DATA (page structure likely changed) for Inter 3-2 Ssc Napoli: https://www.goal.com/en/match/inter-vs-ssc-napoli/vS679Egd_NblTPcjWU5E6
+[goal-scraper] [SA] Added: Inter 3-2 Ssc Napoli
+[goal-scraper] [SA] Added: Roma 2-1 Atalanta
+[goal-scraper] [FL1] Found 6 finished-match links
+[goal-scraper] WARNING: Brest scored 2 but only 1 scorer(s) were parsed for https://www.goal.com/en/match/le-havre-vs-brest/a8L7y8yaM8rIvzxav4svA
+[goal-scraper] [FL1] SCORER PARSE FAILED (attempt 1/3) for Le Havre 1-2 Brest -- NOT committing, will retry next run: https://www.goal.com/en/match/le-havre-vs-brest/a8L7y8yaM8rIvzxav4svA
+[goal-scraper] [FL1] Added: Nice 1-1 Le Mans
 [goal-scraper] [CL] Found 0 finished-match links
 [goal-scraper] [real-madrid] Found 19 finished-match links
 [goal-scraper] WARNING: Tottenham Hotspur scored 1 but 0 scorers were parsed for https://www.goal.com/en/match/real-madrid-vs-tottenham-hotspur/xdLKWe_FxdSoHo2tVKBzZ
@@ -63,8 +67,6 @@
 [goal-scraper] [inter-milan] Skipping stale match (older than 45 days): Inter vs River Plate on 2025-06-25
 [goal-scraper] [inter-milan] Skipping stale match (older than 45 days): Inter vs Fluminense on 2025-06-30
 [goal-scraper] [inter-milan] Skipping stale match (older than 45 days): Bologna vs Inter on 2025-12-19
-[goal-scraper] WARNING: Inter scored 3 but only 2 scorer(s) were parsed for https://www.goal.com/en/match/inter-vs-ssc-napoli/vS679Egd_NblTPcjWU5E6
-[goal-scraper] [inter-milan] SCORER PARSE FAILED (attempt 2/3) for Inter 3-2 Ssc Napoli -- NOT committing, will retry next run: https://www.goal.com/en/match/inter-vs-ssc-napoli/vS679Egd_NblTPcjWU5E6
 [goal-scraper] [ac-milan] Found 7 finished-match links
 [goal-scraper] [ac-milan] Skipping stale match (older than 45 days): Ssc Napoli vs Ac Milan on 2025-12-18
 [goal-scraper] [psg] Found 16 finished-match links
@@ -92,7 +94,7 @@
 [goal-scraper] WARNING: Borussia Dortmund scored 2 but only 1 scorer(s) were parsed for https://www.goal.com/en/match/borussia-dortmund-vs-monterrey/UFMDj_-1r2womLuAYX338
 [goal-scraper] [dortmund] Skipping stale match (older than 45 days): Borussia Dortmund vs Monterrey on 2025-07-01
 [goal-scraper] [dortmund] Skipping stale match (older than 45 days): Oberhausen vs Borussia Dortmund on 2026-07-18
-[goal-scraper] [roma] Found 8 finished-match links
+[goal-scraper] [roma] Found 9 finished-match links
 [goal-scraper] [juventus] Found 12 finished-match links
 [goal-scraper] WARNING: Juventus scored 5 but only 3 scorer(s) were parsed for https://www.goal.com/en/match/al-ain-vs-juventus/hZXoigptTekk6p6Awa3MU
 [goal-scraper] [juventus] Skipping stale match (older than 45 days): Al Ain vs Juventus on 2025-06-18
@@ -101,6 +103,6 @@
 [goal-scraper] [juventus] Skipping stale match (older than 45 days): Juventus vs Manchester City on 2025-06-26
 [goal-scraper] [juventus] Skipping stale match (older than 45 days): Basel vs Juventus on 2026-07-18
 [goal-scraper] [arsenal-friendlies] Found 1 finished-match links
-[goal-scraper] TOTAL new results added this run: 3
-[goal-scraper] Matches still awaiting a clean scorer parse (not yet committed): ['https://www.goal.com/en/match/fulham-vs-crystal-palace/s2ddlhsxqapsOesfNWAsP', 'https://www.goal.com/en/match/borussia-moenchengladbach-vs-elversberg/b6nTUslEG9Nb1qpg5p0-i', 'https://www.goal.com/en/match/rayo-vallecano-vs-racing-santander/WgktFuMOxNdHtW7Eq79UZ', 'https://www.goal.com/en/match/inter-vs-ssc-napoli/vS679Egd_NblTPcjWU5E6']
+[goal-scraper] TOTAL new results added this run: 5
+[goal-scraper] Matches still awaiting a clean scorer parse (not yet committed): ['https://www.goal.com/en/match/rayo-vallecano-vs-racing-santander/WgktFuMOxNdHtW7Eq79UZ', 'https://www.goal.com/en/match/le-havre-vs-brest/a8L7y8yaM8rIvzxav4svA']
 [goal-scraper] Wrote data/goal-results.json
