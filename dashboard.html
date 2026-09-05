@@ -319,26 +319,19 @@ function svgBarChart(labels, values, opts){
   return `<svg viewBox="0 0 ${w} ${h}" style="width:100%; height:${h}px;">${bars}</svg>`;
 }
 
-async function fetchAllAnalyticsEvents(){
-  // Two prior attempts (2026-09-06) still left this hanging on "Loading..." - confirmed
-  // via direct SQL that this project has no custom max-rows override, so the default
-  // 1000-per-request cap should apply and the sequential loop shouldn't be infinite,
-  // but a real person watching a spinner doesn't care about "shouldn't" - sequential,
-  // one-request-at-a-time pagination over 44,000+ rows (~45+ round trips, each waiting
-  // for the last to finish) is genuinely slow and indistinguishable from stuck.
-  // Rewritten to be fundamentally more reliable instead of another patch on the same
-  // approach: get the exact row count first (one lightweight request), then fetch
-  // every needed page IN PARALLEL, and bound the whole operation with a hard timeout
-  // so it can never hang indefinitely again - a real error shows up instead of an
-  // endless spinner.
+async function fetchAllAnalyticsEvents(progressEl){
+  const setProgress = (t) => { if(progressEl) progressEl.textContent = t; };
+  setProgress('Counting rows…');
   const { count, error: countError } = await sb.from('analytics_events')
     .select('*', { count: 'exact', head: true });
   if(countError) throw countError;
   const total = count || 0;
+  setProgress(`Row count: ${total}`);
   if(total === 0) return [];
 
   const PAGE = 1000;
   const pageCount = Math.ceil(total / PAGE);
+  setProgress(`Fetching ${pageCount} page(s)…`);
   const requests = [];
   for(let i = 0; i < pageCount; i++){
     const from = i * PAGE;
@@ -350,6 +343,7 @@ async function fetchAllAnalyticsEvents(){
   const timeoutMs = 25000;
   const timeoutPromise = new Promise((_, reject) => setTimeout(() => reject(new Error('Timed out loading analytics after 25s - try Refresh again.')), timeoutMs));
   const results = await Promise.race([Promise.all(requests), timeoutPromise]);
+  setProgress(`Got ${results.length} page response(s), combining…`);
 
   let all = [];
   for(const r of results){
@@ -361,10 +355,11 @@ async function fetchAllAnalyticsEvents(){
 
 async function loadAll(){
   const bodyEl = document.getElementById('body');
-  bodyEl.innerHTML = '<div class="loading-text">Loading analytics…</div>';
+  bodyEl.innerHTML = '<div class="loading-text" id="progressText">Starting…</div>';
+  const progressEl = document.getElementById('progressText');
   let data;
   try{
-    data = await fetchAllAnalyticsEvents();
+    data = await fetchAllAnalyticsEvents(progressEl);
   }catch(error){
     bodyEl.innerHTML = '<div class="empty-note">Could not load analytics data. ' + escapeHtml(error.message || String(error)) + '</div>';
     return;
