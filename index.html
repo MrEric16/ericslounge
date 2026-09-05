@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Mr Eric's Lounge</title>
-<meta name="app-build" content="20260905212136">
+<meta name="app-build" content="20260905221430">
 <script>
   // PWA update-detection: an installed home-screen app's standalone-mode navigation
   // cache can hold an old shell far longer than the CDN's 10-minute cache -
@@ -10228,13 +10228,38 @@ function mergeMatchLists(live, staticList){
   }
   return merged;
 }
+// Confirmed current 2026-27 season assignments via Wikipedia (2026-09-06) - Bobrov +
+// Tarasov divisions make up the Western Conference, Kharlamov + Chernyshev make up the
+// Eastern Conference. Names here match khl.ru's own short-name convention already used
+// throughout the live standings data (e.g. "Metallurg Mg" not "Metallurg Magnitogorsk"),
+// not the static fallback's fuller names - this only needs to match live data since
+// that's the only path currently splitting by conference.
+const KHL_WESTERN_TEAMS = new Set([
+  "Lada", "SKA", "HC Sochi", "Spartak", "Torpedo",
+  "CSKA", "Dinamo Mn", "Dynamo Msk", "Lokomotiv", "Severstal", "Dragons",
+]);
+
 function leagueDetailBodyHtml(code){
   const meta = LEAGUE_DETAIL_META[code];
   const cache = window._sportsCache;
   const liveTeams = (cache && cache.leagues && cache.leagues[code]) || [];
   const staticLeague = SPORTS_LEAGUES.find(l => l.name === meta.name);
   const staleBanner = staleDataBannerHtml(code);
-  const tableHtml = liveTeams.length > 0
+  // KHL specifically: split into Western/Eastern Conference tables regardless of
+  // whether the data came from live scraping or the static fallback, since Mr Eric
+  // wants this to hold no matter what source ends up providing the numbers.
+  const tableHtml = (code === 'KHL' && liveTeams.length > 0)
+    ? (() => {
+        const west = liveTeams.filter(t => KHL_WESTERN_TEAMS.has(t.name));
+        const east = liveTeams.filter(t => !KHL_WESTERN_TEAMS.has(t.name));
+        return `
+          <div class="division-label">Western Conference</div>
+          ${oneTableHtml(west)}
+          <div class="division-label">Eastern Conference</div>
+          ${oneTableHtml(east)}
+        `;
+      })()
+    : liveTeams.length > 0
     ? oneTableHtml(liveTeams)
     : (staticLeague && staticLeague.divisions)
       ? staticLeague.divisions.map(div => `
