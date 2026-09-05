@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Mr Eric's Lounge</title>
-<meta name="app-build" content="20260905162607">
+<meta name="app-build" content="20260905205552">
 <script>
   // PWA update-detection: an installed home-screen app's standalone-mode navigation
   // cache can hold an old shell far longer than the CDN's 10-minute cache -
@@ -22307,7 +22307,7 @@ async function loadAnsweredQuestions(){
     }
     container.innerHTML = rows.map(q => `
       <div class="question-item" style="background:var(--card); border:1px solid var(--line); border-radius:14px; padding:14px 16px; margin-bottom:12px;">
-        <div style="font-weight:700; font-size:13px; color:var(--ink-soft); margin-bottom:4px;">${q.name ? escapeHtml(q.name) : 'Anonymous'} asked:</div>
+        <div style="font-weight:700; font-size:13px; color:var(--ink-soft); margin-bottom:4px;">${q.name ? escapeHtml(q.name) : 'Anonymous'}:</div>
         <div style="font-size:15px; margin-bottom:10px;">${escapeHtml(q.body)}</div>
         <div style="font-weight:700; font-size:13px; color:var(--coral); margin-bottom:4px;">Mr Eric:</div>
         <div style="font-size:15px;">${escapeHtml(q.answer)}</div>
