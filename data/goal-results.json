@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-05T20:51:51.855906Z",
+  "generatedAt": "2026-09-05T22:32:08.400094Z",
   "results": [
     {
       "url": "https://www.goal.com/en/match/girona-vs-arsenal/__LS8d9Oc6I1wXn9g8956",
@@ -4526,10 +4526,75 @@
         }
       ],
       "competition": "FL1"
+    },
+    {
+      "url": "https://www.goal.com/en/match/rayo-vallecano-vs-racing-santander/WgktFuMOxNdHtW7Eq79UZ",
+      "date": null,
+      "home": "Rayo Vallecano",
+      "away": "Racing Santander",
+      "htHome": 2,
+      "htAway": 2,
+      "ftHome": 3,
+      "ftAway": 2,
+      "homeGoals": [
+        {
+          "scorer": "A. Ratiu",
+          "minute": 17
+        },
+        {
+          "scorer": "S. Camello",
+          "minute": 43
+        }
+      ],
+      "awayGoals": [
+        {
+          "scorer": "S. Canales",
+          "minute": 4
+        },
+        {
+          "scorer": "P. Garcia",
+          "minute": 28
+        }
+      ],
+      "competition": "PD"
+    },
+    {
+      "url": "https://www.goal.com/en/match/villarreal-vs-deportivo-de-a-coruna/vqr_K7DsroP1WxzIltDGr",
+      "date": null,
+      "home": "Villarreal",
+      "away": "Deportivo De A Coruna",
+      "htHome": 1,
+      "htAway": 1,
+      "ftHome": 2,
+      "ftAway": 3,
+      "homeGoals": [
+        {
+          "scorer": "N. Pepe",
+          "minute": 19
+        },
+        {
+          "scorer": "A. Traore",
+          "minute": 76
+        }
+      ],
+      "awayGoals": [
+        {
+          "scorer": "L. Cruz",
+          "minute": 43
+        },
+        {
+          "scorer": "Z. Eddahchouri",
+          "minute": 79
+        },
+        {
+          "scorer": "P. Aubameyang",
+          "minute": 88
+        }
+      ],
+      "competition": "PD"
     }
   ],
   "scorerParseRetryCounts": {
-    "https://www.goal.com/en/match/rayo-vallecano-vs-racing-santander/WgktFuMOxNdHtW7Eq79UZ": 2,
-    "https://www.goal.com/en/match/le-havre-vs-brest/a8L7y8yaM8rIvzxav4svA": 1
+    "https://www.goal.com/en/match/le-havre-vs-brest/a8L7y8yaM8rIvzxav4svA": 2
   }
 }
