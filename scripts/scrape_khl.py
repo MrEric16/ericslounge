@@ -277,6 +277,17 @@ def fetch_flashscore_matches(page, url, expect_finished):
             continue
 
         if not current_date:
+            if not getattr(fetch_flashscore_matches, "_date_dumped", False):
+                fetch_flashscore_matches._date_dumped = True
+                # Diagnostic: no date header format tried so far matched anything on
+                # the real page - dump a wide window of text preceding this match's
+                # own position in the page to see what the real date text looks like.
+                full_page_text = soup.get_text(" ", strip=True)
+                pos = full_page_text.find(home_name)
+                if pos == -1:
+                    pos = full_page_text.find(slugs[0].replace("-", " "))
+                window = full_page_text[max(0, pos - 300):pos] if pos != -1 else "(anchor text not found in page)"
+                log(f"DIAGNOSTIC no date matched yet. 300 chars of page text preceding first match ({home_name} v {away_name}): {window!r}")
             log(f"Flashscore match {home_name} v {away_name} found before any date header seen, skipping")
             continue
         year, month, day = current_date
