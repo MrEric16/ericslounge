@@ -182,6 +182,17 @@ CLOCK_TIME_RE = re.compile(r"\b([01]?\d|2[0-3]):([0-5]\d)\b")
 GAME_LINK_RE = re.compile(r"/game/hockey/[a-zA-Z0-9\-]+/[a-zA-Z0-9\-]+/?")
 
 
+def slug_to_name(slug):
+    """Flashscore href slugs look like 'amur-khabarovsk-QoswIp4U' - strip the trailing
+    alphanumeric ID and turn hyphens into spaces, giving a readable team-ish name.
+    Not matched against KHL_TEAMS at all; kept as whatever the site's own slug says,
+    same spirit as trusting khl.ru's own short names for standings."""
+    parts = slug.split("-")
+    if parts and re.match(r"^[a-zA-Z0-9]{6,}$", parts[-1]) and not parts[-1].isdigit():
+        parts = parts[:-1]
+    return " ".join(p.capitalize() for p in parts)
+
+
 def fetch_flashscore_matches(page, url, expect_finished):
     """Switched from 365scores to Flashscore (2026-09-05): 365scores was confirmed
     serving STALE prior-season data (May 2026 playoff finals) rather than the new
@@ -191,8 +202,14 @@ def fetch_flashscore_matches(page, url, expect_finished):
     against real team pairings). Uses the same real-browser Playwright fetch as the
     working khl.ru standings pull, since whether this specific page needs JS rendering
     hasn't been separately confirmed and there's no cost to being safe about it.
-    Anchors on the /game/hockey/ URL pattern in each match's link, the same resilient
-    technique used for the abandoned 365scores parser - not tied to any CSS class name.
+
+    First real run revealed the match link's own text never carries a score/time at
+    all (sometimes empty, sometimes just "Team - Team") - that lives in a sibling
+    element instead. Anchors on /game/hockey/ hrefs (deduped by path, ignoring the
+    ?mid= query variant that duplicates every match), extracts team names directly
+    from the URL slugs themselves (more reliable than the inconsistently-populated
+    link text), and walks up from the link to the smallest ancestor whose text
+    contains a score/time marker.
     """
     try:
         page.goto(url, timeout=30000)
@@ -205,7 +222,7 @@ def fetch_flashscore_matches(page, url, expect_finished):
     log(f"Flashscore {'results' if expect_finished else 'fixtures'} page: captured {len(html)} chars")
     soup = BeautifulSoup(html, "html.parser")
     matches = []
-    seen_hrefs = set()
+    seen_paths = set()
     current_date = None
 
     for el in soup.find_all(True):
@@ -218,8 +235,6 @@ def fetch_flashscore_matches(page, url, expect_finished):
             continue
         if short_m:
             mo, d = int(short_m.group(1)), int(short_m.group(2))
-            # KHL 2026-27 regular season runs Sept 2026 - March 2027 (confirmed via
-            # Wikipedia earlier this session) - Jan/Feb/Mar dates belong to 2027.
             year = 2027 if mo <= 3 else 2026
             current_date = (year, mo, d)
             continue
@@ -227,40 +242,54 @@ def fetch_flashscore_matches(page, url, expect_finished):
         if el.name != "a":
             continue
         href = el.get("href", "")
-        if not GAME_LINK_RE.search(href):
+        m = GAME_LINK_RE.search(href)
+        if not m:
             continue
-        if href in seen_hrefs:
+        path = m.group(0).rstrip("/")
+        if path in seen_paths:
             continue
-        seen_hrefs.add(href)
+        seen_paths.add(path)
 
-        full_text = el.get_text(" ", strip=True)
-        score_m = FINAL_SCORE_RE.search(full_text) or SCORE_DASH_RE.search(full_text)
-        time_m = None if score_m else CLOCK_TIME_RE.search(full_text)
-        marker = score_m or time_m
+        slugs = [s for s in path.split("/") if s and s not in ("game", "hockey")]
+        if len(slugs) != 2:
+            log(f"Flashscore path had {len(slugs)} slugs, expected 2, skipping: {path!r}")
+            continue
+        home_name = slug_to_name(slugs[0])
+        away_name = slug_to_name(slugs[1])
+
+        # Walk up from the link to find the smallest ancestor whose text contains a
+        # score or time marker - the match card wrapping this link plus its stats.
+        marker = None
+        node = el.parent
+        card_text = ""
+        for _ in range(6):
+            if node is None:
+                break
+            card_text = node.get_text(" ", strip=True)
+            score_m = FINAL_SCORE_RE.search(card_text) or SCORE_DASH_RE.search(card_text)
+            time_m = None if score_m else CLOCK_TIME_RE.search(card_text)
+            marker = score_m or time_m
+            if marker:
+                break
+            node = node.parent
         if not marker:
-            log(f"Flashscore link has no score/time marker, skipping: {full_text[:150]!r} href={href!r}")
-            continue
-
-        before = full_text[: marker.start()].strip(" -")
-        after = full_text[marker.end():].strip(" -")
-        if not before or not after:
-            log(f"Flashscore link: could not split team names from {full_text[:150]!r}")
+            log(f"Flashscore match {home_name} v {away_name}: no score/time marker found within 6 ancestor levels, skipping. path={path!r}")
             continue
 
         if not current_date:
-            log(f"Flashscore link found before any date header seen, skipping: {full_text[:100]!r}")
+            log(f"Flashscore match {home_name} v {away_name} found before any date header seen, skipping")
             continue
         year, month, day = current_date
-        if time_m:
-            hour, minute = int(time_m.group(1)), int(time_m.group(2))
+        if marker.re is CLOCK_TIME_RE:
+            hour, minute = int(marker.group(1)), int(marker.group(2))
         else:
             hour, minute = 19, 0
         naive_dt_as_tashkent = datetime(year, month, day, hour, minute, tzinfo=timezone(timedelta(hours=5)))
         start = naive_dt_as_tashkent.strftime("%Y-%m-%dT%H:%M:00+05:00")
 
-        entry = {"home": before, "away": after, "start": start}
-        if score_m:
-            g = score_m.groups()
+        entry = {"home": home_name, "away": away_name, "start": start}
+        if marker.re in (FINAL_SCORE_RE, SCORE_DASH_RE):
+            g = marker.groups()
             entry["homeScore"] = int(g[0])
             entry["awayScore"] = int(g[1])
             entry["finished"] = True
