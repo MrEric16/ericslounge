@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Mr Eric's Lounge</title>
-<meta name="app-build" content="20260905205552">
+<meta name="app-build" content="20260905212136">
 <script>
   // PWA update-detection: an installed home-screen app's standalone-mode navigation
   // cache can hold an old shell far longer than the CDN's 10-minute cache -
@@ -10055,11 +10055,25 @@ function findGoalResultDetail(m){
   if(!m.start) return null;
   const dateStr = new Date(m.start).toISOString().slice(0,10);
   const norm = s => (s||'').toLowerCase().trim();
-  return GOAL_RESULTS.find(d => {
-    if(d.date !== dateStr) return false;
+  const namesMatch = d => {
     const dh = norm(d.home), da = norm(d.away), mh = norm(m.home), ma = norm(m.away);
     return (dh.includes(mh) || mh.includes(dh)) && (da.includes(ma) || ma.includes(da));
-  }) || null;
+  };
+  // Primary: exact date + team names, as before - highest confidence when it hits.
+  const exact = GOAL_RESULTS.find(d => d.date === dateStr && namesMatch(d));
+  if(exact) return exact;
+  // Fallback: real data showed ~20-30% of goal.com's own league-page match reports
+  // don't expose a parseable date on their page at all (date: null), which silently
+  // blocked every one of those results from ever showing a scorer popup, however good
+  // their scorer data was. Team names + the actual final score is a strong enough
+  // signature on its own (a specific pair of teams finishing at a specific scoreline is
+  // very unlikely to collide with a different real match), and sidesteps needing a
+  // reliable date from goal.com entirely for this fallback path. Only used when the
+  // requested match has both scores known (m.homeScore/m.awayScore set).
+  if(m.homeScore == null || m.awayScore == null) return null;
+  return GOAL_RESULTS.find(d =>
+    namesMatch(d) && d.ftHome === m.homeScore && d.ftAway === m.awayScore
+  ) || null;
 }
 
 function resultsWithDetailHtml(results, isArsenal){
