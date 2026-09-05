@@ -317,35 +317,41 @@ function svgBarChart(labels, values, opts){
 }
 
 async function fetchAllAnalyticsEvents(){
-  // Supabase/PostgREST caps a single select() at 1000 rows by default - with 44,000+
-  // events and growing daily, that silently returned only the OLDEST 1000 rows (since
-  // sorted ascending), meaning the whole dashboard was looking at a sliver of data from
-  // back in July and calling it current. Paginating properly here instead of just
-  // raising the limit, since the real row count will keep growing past any fixed cap.
-  //
-  // REAL BUG FOUND (2026-09-06, from live testing that still showed near-empty data
-  // after the first pagination attempt): the loop advanced `from` by pageSize (what
-  // was REQUESTED) and stopped as soon as a page came back shorter than that. But
-  // Supabase projects can have their own server-side max-rows setting lower than
-  // whatever a client asks for - if this project's real cap is smaller than 1000, the
-  // very first "page" would already come back short, and the old logic would wrongly
-  // treat that as the final partial page and stop immediately, silently dropping
-  // everything after it. Fixed to advance `from` by the ACTUAL number of rows
-  // received, and only stop when a request returns genuinely zero rows - correct
-  // regardless of whatever the real per-request cap turns out to be.
+  // Two prior attempts (2026-09-06) still left this hanging on "Loading..." - confirmed
+  // via direct SQL that this project has no custom max-rows override, so the default
+  // 1000-per-request cap should apply and the sequential loop shouldn't be infinite,
+  // but a real person watching a spinner doesn't care about "shouldn't" - sequential,
+  // one-request-at-a-time pagination over 44,000+ rows (~45+ round trips, each waiting
+  // for the last to finish) is genuinely slow and indistinguishable from stuck.
+  // Rewritten to be fundamentally more reliable instead of another patch on the same
+  // approach: get the exact row count first (one lightweight request), then fetch
+  // every needed page IN PARALLEL, and bound the whole operation with a hard timeout
+  // so it can never hang indefinitely again - a real error shows up instead of an
+  // endless spinner.
+  const { count, error: countError } = await sb.from('analytics_events')
+    .select('*', { count: 'exact', head: true });
+  if(countError) throw countError;
+  const total = count || 0;
+  if(total === 0) return [];
+
+  const PAGE = 1000;
+  const pageCount = Math.ceil(total / PAGE);
+  const requests = [];
+  for(let i = 0; i < pageCount; i++){
+    const from = i * PAGE;
+    requests.push(
+      sb.from('analytics_events').select('*').order('created_at', { ascending: true }).range(from, from + PAGE - 1)
+    );
+  }
+
+  const timeoutMs = 25000;
+  const timeoutPromise = new Promise((_, reject) => setTimeout(() => reject(new Error('Timed out loading analytics after 25s - try Refresh again.')), timeoutMs));
+  const results = await Promise.race([Promise.all(requests), timeoutPromise]);
+
   let all = [];
-  let from = 0;
-  const requestSize = 1000;
-  let guard = 0;
-  while(guard++ < 500){ // hard safety cap: 500 iterations covers well over 500,000 rows even in the worst case (cap of 1), never expected to hit this
-    const { data, error } = await sb.from('analytics_events')
-      .select('*')
-      .order('created_at', { ascending: true })
-      .range(from, from + requestSize - 1);
-    if(error) throw error;
-    if(!data || data.length === 0) break;
-    all = all.concat(data);
-    from += data.length;
+  for(const r of results){
+    if(r.error) throw r.error;
+    all = all.concat(r.data || []);
   }
   return all;
 }
