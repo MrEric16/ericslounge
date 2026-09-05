@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-05T13:57:34.121932Z",
+  "generatedAt": "2026-09-05T16:30:54.340980Z",
   "results": [
     {
       "url": "https://www.goal.com/en/match/girona-vs-arsenal/__LS8d9Oc6I1wXn9g8956",
@@ -4091,7 +4091,254 @@
         }
       ],
       "competition": "PL"
+    },
+    {
+      "url": "https://www.goal.com/en/match/brighton-and-hove-albion-vs-leeds-united/PXhg7gKhkZqeywR1JmuJM",
+      "date": null,
+      "home": "Brighton And Hove Albion",
+      "away": "Leeds United",
+      "htHome": 0,
+      "htAway": 1,
+      "ftHome": 1,
+      "ftAway": 1,
+      "homeGoals": [
+        {
+          "scorer": "L. Vuskovic",
+          "minute": 71
+        }
+      ],
+      "awayGoals": [
+        {
+          "scorer": "J. Bogle",
+          "minute": 15
+        }
+      ],
+      "competition": "PL"
+    },
+    {
+      "url": "https://www.goal.com/en/match/brentford-vs-sunderland/RtrEwIPiqX39hHi6Dccm2",
+      "date": null,
+      "home": "Brentford",
+      "away": "Sunderland",
+      "htHome": 0,
+      "htAway": 0,
+      "ftHome": 1,
+      "ftAway": 1,
+      "homeGoals": [
+        {
+          "scorer": "V. Janelt",
+          "minute": 57
+        }
+      ],
+      "awayGoals": [
+        {
+          "scorer": "E. Le Fee",
+          "minute": 82
+        }
+      ],
+      "competition": "PL"
+    },
+    {
+      "url": "https://www.goal.com/en/match/nottingham-forest-vs-tottenham-hotspur/0EDR0M-GqyYkod9kJn1NU",
+      "date": null,
+      "home": "Nottingham Forest",
+      "away": "Tottenham Hotspur",
+      "htHome": 0,
+      "htAway": 0,
+      "ftHome": 0,
+      "ftAway": 0,
+      "homeGoals": [],
+      "awayGoals": [],
+      "competition": "PL"
+    },
+    {
+      "url": "https://www.goal.com/en/match/manchester-city-vs-coventry-city/aYKXqrF-cMyUHErbCIeuq",
+      "date": null,
+      "home": "Manchester City",
+      "away": "Coventry City",
+      "htHome": 1,
+      "htAway": 0,
+      "ftHome": 1,
+      "ftAway": 0,
+      "homeGoals": [
+        {
+          "scorer": "E. Haaland",
+          "minute": 26
+        }
+      ],
+      "awayGoals": [],
+      "competition": "PL"
+    },
+    {
+      "url": "https://www.goal.com/en/match/athletic-bilbao-vs-atletico-madrid/hXn2QUfosOlzDHePNP4Vq",
+      "date": null,
+      "home": "Athletic Bilbao",
+      "away": "Atletico Madrid",
+      "htHome": 0,
+      "htAway": 0,
+      "ftHome": 3,
+      "ftAway": 0,
+      "homeGoals": [
+        {
+          "scorer": "N. Williams",
+          "minute": 46
+        },
+        {
+          "scorer": "R. Navarro",
+          "minute": 48
+        },
+        {
+          "scorer": "O. Sancet",
+          "minute": 90
+        }
+      ],
+      "awayGoals": [],
+      "competition": "PD"
+    },
+    {
+      "url": "https://www.goal.com/en/match/werder-bremen-vs-rb-leipzig/pL50okCFWJXievJf3R7pC",
+      "date": null,
+      "home": "Werder Bremen",
+      "away": "Rb Leipzig",
+      "htHome": 1,
+      "htAway": 0,
+      "ftHome": 3,
+      "ftAway": 1,
+      "homeGoals": [
+        {
+          "scorer": "E. Dinkci",
+          "minute": 4
+        },
+        {
+          "scorer": "N. Fuellkrug",
+          "minute": 68
+        },
+        {
+          "scorer": "M. Gruell",
+          "minute": 80
+        }
+      ],
+      "awayGoals": [
+        {
+          "scorer": "R. Baku",
+          "minute": 90
+        }
+      ],
+      "competition": "BL1"
+    },
+    {
+      "url": "https://www.goal.com/en/match/bayer-leverkusen-vs-union-berlin/vf9QRLZlBVP24JDIm1z06",
+      "date": null,
+      "home": "Bayer Leverkusen",
+      "away": "Union Berlin",
+      "htHome": 2,
+      "htAway": 0,
+      "ftHome": 4,
+      "ftAway": 0,
+      "homeGoals": [
+        {
+          "scorer": "E. Fernandez",
+          "minute": 1
+        },
+        {
+          "scorer": "F. Medina",
+          "minute": 28
+        },
+        {
+          "scorer": "P. Schick",
+          "minute": 48
+        },
+        {
+          "scorer": "I. Maza",
+          "minute": 66
+        }
+      ],
+      "awayGoals": [],
+      "competition": "BL1"
+    },
+    {
+      "url": "https://www.goal.com/en/match/paderborn-vs-freiburg/E3CWzi11CESYUbqLrboyD",
+      "date": null,
+      "home": "Paderborn",
+      "away": "Freiburg",
+      "htHome": 0,
+      "htAway": 1,
+      "ftHome": 0,
+      "ftAway": 1,
+      "homeGoals": [],
+      "awayGoals": [
+        {
+          "scorer": "M. Eggestein",
+          "minute": 26
+        }
+      ],
+      "competition": "BL1"
+    },
+    {
+      "url": "https://www.goal.com/en/match/hoffenheim-vs-borussia-dortmund/FTKhZ0EYda51i2oJhG_nC",
+      "date": null,
+      "home": "Hoffenheim",
+      "away": "Borussia Dortmund",
+      "htHome": 1,
+      "htAway": 0,
+      "ftHome": 2,
+      "ftAway": 3,
+      "homeGoals": [
+        {
+          "scorer": "L. Avdullahu",
+          "minute": 45
+        },
+        {
+          "scorer": "T. Lemperle",
+          "minute": 54
+        }
+      ],
+      "awayGoals": [
+        {
+          "scorer": "S. Guirassy",
+          "minute": 61
+        },
+        {
+          "scorer": "F. Silva",
+          "minute": 66
+        },
+        {
+          "scorer": "A. Hajdari",
+          "minute": 86
+        }
+      ],
+      "competition": "BL1"
+    },
+    {
+      "url": "https://www.goal.com/en/match/fiorentina-vs-torino/o0q8KudbwxynX691-ERtk",
+      "date": null,
+      "home": "Fiorentina",
+      "away": "Torino",
+      "htHome": 0,
+      "htAway": 0,
+      "ftHome": 1,
+      "ftAway": 2,
+      "homeGoals": [
+        {
+          "scorer": "M. Pellegrino",
+          "minute": 48
+        }
+      ],
+      "awayGoals": [
+        {
+          "scorer": "R. Mandragora",
+          "minute": 74
+        },
+        {
+          "scorer": "C. Adams",
+          "minute": 82
+        }
+      ],
+      "competition": "SA"
     }
   ],
-  "scorerParseRetryCounts": {}
+  "scorerParseRetryCounts": {
+    "https://www.goal.com/en/match/fulham-vs-crystal-palace/s2ddlhsxqapsOesfNWAsP": 1,
+    "https://www.goal.com/en/match/borussia-moenchengladbach-vs-elversberg/b6nTUslEG9Nb1qpg5p0-i": 1
+  }
 }
