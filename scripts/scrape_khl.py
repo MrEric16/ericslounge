@@ -241,7 +241,7 @@ def fetch_flashscore_matches(page, url, expect_finished):
         # instead of an exact .match() so the month+day still gets picked out of a
         # slightly larger combined string.
         month_m = None
-        if not date_m and not short_m and text and len(text) <= 30:
+        if not date_m and not short_m and text and len(text) <= 60:
             month_m = DATE_HEADER_MONTHNAME_RE.search(text)
         if date_m:
             y, mo, d = date_m.group(3), date_m.group(2), date_m.group(1)
