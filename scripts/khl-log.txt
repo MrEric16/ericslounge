@@ -1,9 +1,7 @@
-[khl] standings page: captured 303666 chars
+[khl] standings page: captured 326541 chars
 [khl] parsed 22 standings row(s)
-[khl] 365scores page: captured 67017 chars
-[khl] parsed 0 match(es) from 365scores
-[khl] WARNING: 0 matches parsed. 1/22 team first-words appear in the rendered HTML: ['Ak Bars Kazan']
-[khl] MATCH_LINK_RE found 0 raw href matches in the HTML
-[khl] first 'khl-636' occurrence context: '<!DOCTYPE html><html lang="en" dir="ltr" data-theme="light"><head><meta charset="utf-8"><meta name="viewport" content="viewport-fit=cover,width=device-width,initial-scale=1,user-scalable=no"><script async="" src="https://www.googletagmanager.com/gtm.js?id=GTM-NHD76HT"></script><script>!function(){const e=["he","ar","fa"],o=window.location.href.split("/").filter((o=>e.includes(o))),t=Boolean(o.length);document.documentElement.dir=t?"rtl":"ltr";const n=`https://imagecache.365scores.com/image/uplo'
-[khl] parsed 0 total match(es) from 365scores
-[khl] wrote data/khl-live.json: 22 standings, 0 fixtures, 0 results
+[khl] 365scores page: captured 281295 chars
+[khl] match link 4758250 has neither a Final score nor a clock time in its text, skipping: 'Spartak Moscow P2 0 - 1 Torpedo Nizhny Novgorod'
+[khl] parsed 3 match(es) from 365scores
+[khl] parsed 3 total match(es) from 365scores
+[khl] wrote data/khl-live.json: 22 standings, 3 fixtures, 0 results
