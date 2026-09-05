@@ -1,5 +1,6 @@
 [goal-scraper] Run started.
-[goal-scraper] [PL] Found 1 finished-match links
+[goal-scraper] [PL] Found 2 finished-match links
+[goal-scraper] [PL] Added: Newcastle United 2-2 Afc Bournemouth
 [goal-scraper] [PD] Found 1 finished-match links
 [goal-scraper] [BL1] Found 1 finished-match links
 [goal-scraper] [SA] Found 1 finished-match links
@@ -87,5 +88,5 @@
 [goal-scraper] [juventus] Skipping stale match (older than 45 days): Juventus vs Manchester City on 2025-06-26
 [goal-scraper] [juventus] Skipping stale match (older than 45 days): Basel vs Juventus on 2026-07-18
 [goal-scraper] [arsenal-friendlies] Found 1 finished-match links
-[goal-scraper] TOTAL new results added this run: 0
+[goal-scraper] TOTAL new results added this run: 1
 [goal-scraper] Wrote data/goal-results.json
