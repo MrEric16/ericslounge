@@ -1,14 +1,8 @@
 [goal-scraper] Run started.
 [goal-scraper] [PL] Found 1 finished-match links
-[goal-scraper] WARNING: Liverpool scored 2 but only 1 scorer(s) were parsed for https://www.goal.com/en/match/ipswich-town-vs-liverpool/qjMao9n9speO52jWoe6nd
-[goal-scraper] [PL] SCORER PARSE FAILED 3 times, giving up and committing WITH INCOMPLETE SCORER DATA (page structure likely changed) for Ipswich Town 0-2 Liverpool: https://www.goal.com/en/match/ipswich-town-vs-liverpool/qjMao9n9speO52jWoe6nd
-[goal-scraper] [PL] Added: Ipswich Town 0-2 Liverpool
 [goal-scraper] [PD] Found 1 finished-match links
 [goal-scraper] [BL1] Found 1 finished-match links
 [goal-scraper] [SA] Found 1 finished-match links
-[goal-scraper] WARNING: Como scored 4 but only 3 scorer(s) were parsed for https://www.goal.com/en/match/genoa-vs-como/ZjI7u6Ry3gQLDTe471CdL
-[goal-scraper] [SA] SCORER PARSE FAILED 3 times, giving up and committing WITH INCOMPLETE SCORER DATA (page structure likely changed) for Genoa 1-4 Como: https://www.goal.com/en/match/genoa-vs-como/ZjI7u6Ry3gQLDTe471CdL
-[goal-scraper] [SA] Added: Genoa 1-4 Como
 [goal-scraper] [FL1] Found 3 finished-match links
 [goal-scraper] [CL] Found 0 finished-match links
 [goal-scraper] [real-madrid] Found 19 finished-match links
@@ -35,16 +29,6 @@
 [goal-scraper] [barcelona] Skipping stale match (older than 45 days): Atletico Madrid vs Barcelona on 2026-02-12
 [goal-scraper] WARNING: Barcelona scored 3 but only 2 scorer(s) were parsed for https://www.goal.com/en/match/barcelona-vs-atletico-madrid/_ZprE2-vo0-u6L1aa-2iV
 [goal-scraper] [barcelona] Skipping stale match (older than 45 days): Barcelona vs Atletico Madrid on 2026-03-03
-[goal-scraper] WARNING: Barcelona scored 4 but 0 scorers were parsed for https://www.goal.com/en/match/barcelona-vs-ce-europa/_ALaHuWMS8DB2jd-OZGrF
-[goal-scraper] WARNING: Ce Europa scored 1 but 0 scorers were parsed for https://www.goal.com/en/match/barcelona-vs-ce-europa/_ALaHuWMS8DB2jd-OZGrF
-[goal-scraper] [barcelona] SCORER PARSE FAILED 3 times, giving up and committing WITH INCOMPLETE SCORER DATA (page structure likely changed) for Barcelona 4-1 Ce Europa: https://www.goal.com/en/match/barcelona-vs-ce-europa/_ALaHuWMS8DB2jd-OZGrF
-[goal-scraper] [barcelona] Added: Barcelona 4-1 Ce Europa
-[goal-scraper] WARNING: Barcelona scored 2 but only 1 scorer(s) were parsed for https://www.goal.com/en/match/birmingham-city-vs-barcelona/K3VtapP4TCXOwIm3iJ_0j
-[goal-scraper] [barcelona] SCORER PARSE FAILED 3 times, giving up and committing WITH INCOMPLETE SCORER DATA (page structure likely changed) for Birmingham City 2-2 Barcelona: https://www.goal.com/en/match/birmingham-city-vs-barcelona/K3VtapP4TCXOwIm3iJ_0j
-[goal-scraper] [barcelona] Added: Birmingham City 2-2 Barcelona
-[goal-scraper] WARNING: Barcelona scored 5 but only 4 scorer(s) were parsed for https://www.goal.com/en/match/basel-vs-barcelona/BecAmKNbUMIXdrZMQRRc8
-[goal-scraper] [barcelona] SCORER PARSE FAILED 3 times, giving up and committing WITH INCOMPLETE SCORER DATA (page structure likely changed) for Basel 2-5 Barcelona: https://www.goal.com/en/match/basel-vs-barcelona/BecAmKNbUMIXdrZMQRRc8
-[goal-scraper] [barcelona] Added: Basel 2-5 Barcelona
 [goal-scraper] [bayern-munich] Found 17 finished-match links
 [goal-scraper] WARNING: Bayern Munich scored 6 but 0 scorers were parsed for https://www.goal.com/en/match/bayern-munich-vs-fenerbahce/ZCL4D3f-5GWp7UCPC24C5
 [goal-scraper] WARNING: Fenerbahce scored 1 but 0 scorers were parsed for https://www.goal.com/en/match/bayern-munich-vs-fenerbahce/ZCL4D3f-5GWp7UCPC24C5
@@ -61,32 +45,14 @@
 [goal-scraper] [bayern-munich] Skipping stale match (older than 45 days): Paris Saint Germain vs Bayern Munich on 2025-07-05
 [goal-scraper] WARNING: Bayern Munich scored 5 but only 4 scorer(s) were parsed for https://www.goal.com/en/match/salzburg-vs-bayern-munich/5HnHv_H00CkUM5w0_F4_S
 [goal-scraper] [bayern-munich] Skipping stale match (older than 45 days): Salzburg vs Bayern Munich on 2026-01-06
-[goal-scraper] WARNING: Bayern Munich scored 15 but only 11 scorer(s) were parsed for https://www.goal.com/en/match/fc-rottach-egern-vs-bayern-munich/Qx7pa3JAFVigM64WHXG7P
-[goal-scraper] [bayern-munich] SCORER PARSE FAILED 3 times, giving up and committing WITH INCOMPLETE SCORER DATA (page structure likely changed) for Fc Rottach Egern 0-15 Bayern Munich: https://www.goal.com/en/match/fc-rottach-egern-vs-bayern-munich/Qx7pa3JAFVigM64WHXG7P
-[goal-scraper] [bayern-munich] Added: Fc Rottach Egern 0-15 Bayern Munich
-[goal-scraper] WARNING: Bayern Munich scored 2 but only 1 scorer(s) were parsed for https://www.goal.com/en/match/bayern-munich-vs-jeju-sk/Sr1UpS3ZGkz4YRhrglI3c
-[goal-scraper] [bayern-munich] SCORER PARSE FAILED 3 times, giving up and committing WITH INCOMPLETE SCORER DATA (page structure likely changed) for Bayern Munich 2-1 Jeju Sk: https://www.goal.com/en/match/bayern-munich-vs-jeju-sk/Sr1UpS3ZGkz4YRhrglI3c
-[goal-scraper] [bayern-munich] Added: Bayern Munich 2-1 Jeju Sk
-[goal-scraper] WARNING: Bayern Munich scored 4 but only 3 scorer(s) were parsed for https://www.goal.com/en/match/osnabrueck-vs-bayern-munich/ebLdOgagg2wHEGrpYfcg2
-[goal-scraper] [bayern-munich] SCORER PARSE FAILED 3 times, giving up and committing WITH INCOMPLETE SCORER DATA (page structure likely changed) for Osnabrueck 1-4 Bayern Munich: https://www.goal.com/en/match/osnabrueck-vs-bayern-munich/ebLdOgagg2wHEGrpYfcg2
-[goal-scraper] [bayern-munich] Added: Osnabrueck 1-4 Bayern Munich
 [goal-scraper] [inter-milan] Found 12 finished-match links
 [goal-scraper] [inter-milan] Skipping stale match (older than 45 days): Monterrey vs Inter on 2025-06-17
 [goal-scraper] [inter-milan] Skipping stale match (older than 45 days): Inter vs Urawa Red Diamonds on 2025-06-21
 [goal-scraper] [inter-milan] Skipping stale match (older than 45 days): Inter vs River Plate on 2025-06-25
 [goal-scraper] [inter-milan] Skipping stale match (older than 45 days): Inter vs Fluminense on 2025-06-30
 [goal-scraper] [inter-milan] Skipping stale match (older than 45 days): Bologna vs Inter on 2025-12-19
-[goal-scraper] WARNING: Inter scored 2 but only 1 scorer(s) were parsed for https://www.goal.com/en/match/karlsruher-sc-vs-inter/v8Q_K4o99OLnuoY4LlHbn
-[goal-scraper] [inter-milan] SCORER PARSE FAILED 3 times, giving up and committing WITH INCOMPLETE SCORER DATA (page structure likely changed) for Karlsruher Sc 1-2 Inter: https://www.goal.com/en/match/karlsruher-sc-vs-inter/v8Q_K4o99OLnuoY4LlHbn
-[goal-scraper] [inter-milan] Added: Karlsruher Sc 1-2 Inter
 [goal-scraper] [ac-milan] Found 7 finished-match links
 [goal-scraper] [ac-milan] Skipping stale match (older than 45 days): Ssc Napoli vs Ac Milan on 2025-12-18
-[goal-scraper] WARNING: Ac Milan scored 2 but only 1 scorer(s) were parsed for https://www.goal.com/en/match/celtic-vs-ac-milan/AeYRZaZp8UbukBDDTNSA2
-[goal-scraper] [ac-milan] SCORER PARSE FAILED 3 times, giving up and committing WITH INCOMPLETE SCORER DATA (page structure likely changed) for Celtic 2-2 Ac Milan: https://www.goal.com/en/match/celtic-vs-ac-milan/AeYRZaZp8UbukBDDTNSA2
-[goal-scraper] [ac-milan] Added: Celtic 2-2 Ac Milan
-[goal-scraper] WARNING: Chelsea scored 3 but only 2 scorer(s) were parsed for https://www.goal.com/en/match/chelsea-vs-ac-milan/ogEtfbm8SLpdocUUYHyG2
-[goal-scraper] [ac-milan] SCORER PARSE FAILED 3 times, giving up and committing WITH INCOMPLETE SCORER DATA (page structure likely changed) for Chelsea 3-0 Ac Milan: https://www.goal.com/en/match/chelsea-vs-ac-milan/ogEtfbm8SLpdocUUYHyG2
-[goal-scraper] [ac-milan] Added: Chelsea 3-0 Ac Milan
 [goal-scraper] [psg] Found 16 finished-match links
 [goal-scraper] [psg] Skipping stale match (older than 45 days): Paris Saint Germain vs Atletico Madrid on 2025-06-15
 [goal-scraper] [psg] Skipping stale match (older than 45 days): Paris Saint Germain vs Botafogo Rj on 2025-06-19
@@ -105,12 +71,6 @@
 [goal-scraper] [marseille] Skipping stale match (older than 45 days): Marseille vs Rennes on 2026-02-03
 [goal-scraper] [marseille] Skipping stale match (older than 45 days): Marseille vs Toulouse on 2026-03-04
 [goal-scraper] [marseille] Skipping stale match (older than 45 days): Yamoussoukro Fc vs Marseille on 2026-07-17
-[goal-scraper] WARNING: Nice scored 3 but only 2 scorer(s) were parsed for https://www.goal.com/en/match/marseille-vs-nice/rKsspmsP3I5GhhajiY7Yd
-[goal-scraper] [marseille] SCORER PARSE FAILED 3 times, giving up and committing WITH INCOMPLETE SCORER DATA (page structure likely changed) for Marseille 0-3 Nice: https://www.goal.com/en/match/marseille-vs-nice/rKsspmsP3I5GhhajiY7Yd
-[goal-scraper] [marseille] Added: Marseille 0-3 Nice
-[goal-scraper] WARNING: Nimes scored 1 but 0 scorers were parsed for https://www.goal.com/en/match/marseille-vs-nimes/a63DINbL0KdecP4TYE7q1
-[goal-scraper] [marseille] SCORER PARSE FAILED 3 times, giving up and committing WITH INCOMPLETE SCORER DATA (page structure likely changed) for Marseille 2-1 Nimes: https://www.goal.com/en/match/marseille-vs-nimes/a63DINbL0KdecP4TYE7q1
-[goal-scraper] [marseille] Added: Marseille 2-1 Nimes
 [goal-scraper] [dortmund] Found 14 finished-match links
 [goal-scraper] [dortmund] Skipping stale match (older than 45 days): Fluminense vs Borussia Dortmund on 2025-06-17
 [goal-scraper] [dortmund] Skipping stale match (older than 45 days): Mamelodi Sundowns Fc vs Borussia Dortmund on 2025-06-21
@@ -118,26 +78,7 @@
 [goal-scraper] WARNING: Borussia Dortmund scored 2 but only 1 scorer(s) were parsed for https://www.goal.com/en/match/borussia-dortmund-vs-monterrey/UFMDj_-1r2womLuAYX338
 [goal-scraper] [dortmund] Skipping stale match (older than 45 days): Borussia Dortmund vs Monterrey on 2025-07-01
 [goal-scraper] [dortmund] Skipping stale match (older than 45 days): Oberhausen vs Borussia Dortmund on 2026-07-18
-[goal-scraper] WARNING: Borussia Dortmund scored 5 but only 4 scorer(s) were parsed for https://www.goal.com/en/match/hebc-hamburg-vs-borussia-dortmund/XsMyY7DmCyNoD2yvmKJQm
-[goal-scraper] [dortmund] SCORER PARSE FAILED 3 times, giving up and committing WITH INCOMPLETE SCORER DATA (page structure likely changed) for Hebc Hamburg 0-5 Borussia Dortmund: https://www.goal.com/en/match/hebc-hamburg-vs-borussia-dortmund/XsMyY7DmCyNoD2yvmKJQm
-[goal-scraper] [dortmund] Added: Hebc Hamburg 0-5 Borussia Dortmund
 [goal-scraper] [roma] Found 8 finished-match links
-[goal-scraper] WARNING: Roma scored 6 but 0 scorers were parsed for https://www.goal.com/en/match/roma-vs-asd-trastevere/rEpIoomMZP4MF3iBnJkkk
-[goal-scraper] [roma] SCORER PARSE FAILED 3 times, giving up and committing WITH INCOMPLETE SCORER DATA (page structure likely changed) for Roma 6-0 Asd Trastevere: https://www.goal.com/en/match/roma-vs-asd-trastevere/rEpIoomMZP4MF3iBnJkkk
-[goal-scraper] [roma] Added: Roma 6-0 Asd Trastevere
-[goal-scraper] WARNING: Cannes scored 3 but only 2 scorer(s) were parsed for https://www.goal.com/en/match/cannes-vs-roma/mcwkL_f4LVruCD6tSOr07
-[goal-scraper] WARNING: Roma scored 3 but only 2 scorer(s) were parsed for https://www.goal.com/en/match/cannes-vs-roma/mcwkL_f4LVruCD6tSOr07
-[goal-scraper] [roma] SCORER PARSE FAILED 3 times, giving up and committing WITH INCOMPLETE SCORER DATA (page structure likely changed) for Cannes 3-3 Roma: https://www.goal.com/en/match/cannes-vs-roma/mcwkL_f4LVruCD6tSOr07
-[goal-scraper] [roma] Added: Cannes 3-3 Roma
-[goal-scraper] WARNING: Cardiff City scored 4 but only 3 scorer(s) were parsed for https://www.goal.com/en/match/cardiff-city-vs-roma/nDIfPYoZlv5kGFnwwOg2T
-[goal-scraper] [roma] SCORER PARSE FAILED 3 times, giving up and committing WITH INCOMPLETE SCORER DATA (page structure likely changed) for Cardiff City 4-1 Roma: https://www.goal.com/en/match/cardiff-city-vs-roma/nDIfPYoZlv5kGFnwwOg2T
-[goal-scraper] [roma] Added: Cardiff City 4-1 Roma
-[goal-scraper] WARNING: Newport County scored 1 but 0 scorers were parsed for https://www.goal.com/en/match/newport-county-vs-roma/tzfSzlMqY-uCJoRFGAe4m
-[goal-scraper] [roma] SCORER PARSE FAILED 3 times, giving up and committing WITH INCOMPLETE SCORER DATA (page structure likely changed) for Newport County 1-4 Roma: https://www.goal.com/en/match/newport-county-vs-roma/tzfSzlMqY-uCJoRFGAe4m
-[goal-scraper] [roma] Added: Newport County 1-4 Roma
-[goal-scraper] WARNING: Brighton And Hove Albion scored 3 but only 2 scorer(s) were parsed for https://www.goal.com/en/match/brighton-and-hove-albion-vs-roma/x5IBegE9Gk-tB_J996CVG
-[goal-scraper] [roma] SCORER PARSE FAILED 3 times, giving up and committing WITH INCOMPLETE SCORER DATA (page structure likely changed) for Brighton And Hove Albion 3-0 Roma: https://www.goal.com/en/match/brighton-and-hove-albion-vs-roma/x5IBegE9Gk-tB_J996CVG
-[goal-scraper] [roma] Added: Brighton And Hove Albion 3-0 Roma
 [goal-scraper] [juventus] Found 12 finished-match links
 [goal-scraper] WARNING: Juventus scored 5 but only 3 scorer(s) were parsed for https://www.goal.com/en/match/al-ain-vs-juventus/hZXoigptTekk6p6Awa3MU
 [goal-scraper] [juventus] Skipping stale match (older than 45 days): Al Ain vs Juventus on 2025-06-18
@@ -146,5 +87,5 @@
 [goal-scraper] [juventus] Skipping stale match (older than 45 days): Juventus vs Manchester City on 2025-06-26
 [goal-scraper] [juventus] Skipping stale match (older than 45 days): Basel vs Juventus on 2026-07-18
 [goal-scraper] [arsenal-friendlies] Found 1 finished-match links
-[goal-scraper] TOTAL new results added this run: 19
+[goal-scraper] TOTAL new results added this run: 0
 [goal-scraper] Wrote data/goal-results.json
