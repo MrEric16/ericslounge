@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-05T07:40:31.602349Z",
+  "generatedAt": "2026-09-05T13:52:20.827613Z",
   "teams": [
     {
       "name": "Neftchi Fargona",
@@ -306,16 +306,6 @@
   ],
   "fixtures": [
     {
-      "home": "Kokand 1912",
-      "away": "Din. Samarkand",
-      "raw_time": "05.09. 13:00"
-    },
-    {
-      "home": "Sogdiana",
-      "away": "Mashal Muborak",
-      "raw_time": "05.09. 13:00"
-    },
-    {
       "home": "Qizilqum",
       "away": "Buxoro",
       "raw_time": "05.09. 15:15"
@@ -403,6 +393,16 @@
     {
       "home": "Buxoro",
       "away": "Andijan",
+      "raw_time": "09.10. 15:00"
+    },
+    {
+      "home": "Kokand 1912",
+      "away": "Mashal Muborak",
+      "raw_time": "09.10. 15:00"
+    },
+    {
+      "home": "Nasaf Qarshi",
+      "away": "Din. Samarkand",
       "raw_time": "09.10. 15:00"
     }
   ]
