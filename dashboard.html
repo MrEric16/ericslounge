@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Dashboard — Mr Eric's Lounge</title>
+<link rel="manifest" href="manifest-dashboard.json">
+<link rel="apple-touch-icon" href="icon-180.png">
+<meta name="theme-color" content="#3D2A22">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Lounge Stats">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Nunito:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+  :root{
+    --cream:#F3EADD;
+    --card:#FBF5EA;
+    --ink:#3D2A22;
+    --ink-soft:#856F5C;
+    --coral:#7A2E35;
+    --coral-dark:#5C2530;
+    --teal:#6B7A3D;
+    --gold:#B5862B;
+    --line:#E0CBA4;
+    --bar:#8C6A46;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--cream);
+    color:var(--ink);
+    font-family:'Nunito', sans-serif;
+    min-height:100vh;
+    padding:20px 16px 60px;
+  }
+  h1{
+    font-family:'Baloo 2', sans-serif;
+    font-weight:800;
+    font-size:22px;
+    margin:0 0 4px 0;
+  }
+  h2{
+    font-family:'Baloo 2', sans-serif;
+    font-weight:700;
+    font-size:16px;
+    margin:0 0 10px 0;
+  }
+  .sub{
+    font-family:'Space Mono', monospace;
+    font-size:12px;
+    color:var(--ink-soft);
+    margin-bottom:20px;
+  }
+  .hidden{ display:none !important; }
+  .login-box{
+    max-width:340px;
+    margin:60px auto 0;
+    background:var(--card);
+    border-radius:16px;
+    padding:24px;
+    box-shadow:0 2px 0 rgba(58,42,30,.08);
+  }
+  input{
+    width:100%;
+    padding:10px 12px;
+    margin-bottom:10px;
+    border:1px solid var(--line);
+    border-radius:10px;
+    font-family:'Nunito', sans-serif;
+    font-size:14px;
+    background:#fff;
+  }
+  .btn-primary{
+    width:100%;
+    padding:11px;
+    border:none;
+    border-radius:10px;
+    background:var(--coral);
+    color:#fff;
+    font-weight:700;
+    font-size:14px;
+    cursor:pointer;
+  }
+  .btn-primary:active{ background:var(--coral-dark); }
+  .error-msg{ color:var(--coral); font-size:12px; margin-bottom:8px; min-height:14px; }
+  .topbar{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    margin-bottom:18px;
+  }
+  .signout{
+    background:none;
+    border:1px solid var(--line);
+    border-radius:8px;
+    padding:6px 12px;
+    font-size:12px;
+    color:var(--ink-soft);
+    cursor:pointer;
+  }
+  .refresh-btn{
+    background:none;
+    border:1px solid var(--line);
+    border-radius:8px;
+    padding:6px 12px;
+    font-size:12px;
+    color:var(--ink-soft);
+    cursor:pointer;
+    margin-left:8px;
+  }
+  .card-grid{
+    display:grid;
+    grid-template-columns:repeat(2, 1fr);
+    gap:10px;
+    margin-bottom:22px;
+  }
+  .stat-card{
+    background:var(--card);
+    border-radius:14px;
+    padding:14px;
+    box-shadow:0 2px 0 rgba(58,42,30,.06);
+  }
+  .stat-num{
+    font-family:'Baloo 2', sans-serif;
+    font-weight:800;
+    font-size:24px;
+    color:var(--coral);
+  }
+  .stat-label{
+    font-size:11px;
+    color:var(--ink-soft);
+    text-transform:uppercase;
+    letter-spacing:.03em;
+    margin-top:2px;
+  }
+  section{
+    background:var(--card);
+    border-radius:16px;
+    padding:16px;
+    margin-bottom:16px;
+    box-shadow:0 2px 0 rgba(58,42,30,.06);
+  }
+  .bar-row{
+    display:flex;
+    align-items:center;
+    margin-bottom:6px;
+    font-size:12px;
+  }
+  .bar-label{
+    width:150px;
+    flex-shrink:0;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    padding-right:8px;
+    color:var(--ink);
+  }
+  .bar-track{
+    flex:1;
+    background:var(--line);
+    border-radius:4px;
+    height:14px;
+    position:relative;
+    overflow:hidden;
+  }
+  .bar-fill{
+    background:var(--bar);
+    height:100%;
+    border-radius:4px;
+  }
+  .bar-val{
+    font-family:'Space Mono', monospace;
+    width:38px;
+    text-align:right;
+    flex-shrink:0;
+    color:var(--ink-soft);
+    font-size:11px;
+  }
+  svg text{ font-family:'Space Mono', monospace; }
+  .empty-note{
+    font-size:12px;
+    color:var(--ink-soft);
+    font-style:italic;
+  }
+  .never-list{
+    display:flex;
+    flex-wrap:wrap;
+    gap:6px;
+  }
+  .never-chip{
+    background:#fff;
+    border:1px solid var(--line);
+    border-radius:999px;
+    padding:4px 10px;
+    font-size:11px;
+    color:var(--ink-soft);
+  }
+  .loading-text{ color:var(--ink-soft); font-size:13px; }
+</style>
+</head>
+<body>
+
+<div id="loginScreen" class="login-box">
+  <h1>Lounge Stats</h1>
+  <div class="sub">Private analytics — sign in to continue</div>
+  <input type="email" id="loginEmail" placeholder="Email" autocomplete="username">
+  <input type="password" id="loginPassword" placeholder="Password" autocomplete="current-password">
+  <div class="error-msg" id="loginError"></div>
+  <button class="btn-primary" id="loginBtn">Sign in</button>
+</div>
+
+<div id="dashScreen" class="hidden">
+  <div class="topbar">
+    <div>
+      <h1>Lounge Stats</h1>
+      <div class="sub" id="headerSub">Loading…</div>
+    </div>
+    <div>
+      <button class="refresh-btn" id="refreshBtn">↻ Refresh</button>
+      <button class="signout" id="signOutBtn">Sign out</button>
+    </div>
+  </div>
+
+  <div id="body"><div class="loading-text">Loading analytics…</div></div>
+</div>
+
+<script>
+const SUPABASE_URL = "https://uugjyucgeyopyvmhckdg.supabase.co";
+const SUPABASE_ANON_KEY = "sb_publishable_F-idKUOOIWIpm7sMRtR-mA_m5Zir3Na";
+const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+// Every internal game route, hardcoded from index.html's own GAMES list (2026-09-06) -
+// used only to compute "never played" (games with zero view events at all). Not
+// fetched dynamically since this is a private one-person tool - if a game gets
+// added/renamed on the main site, this list needs a manual update to match. Same
+// approach for domain keys (from FACULTIES) below.
+const ALL_GAMES = [
+  ["Guess the Flag","flag-game"], ["Capital Cities","capital-game"], ["Wordle","wordle-game"],
+  ["Word Scramble","anagram-game"], ["Odd One Out","odd-one-out-game"], ["Idiom Match","idiom-match-game"],
+  ["Antonym Match","antonym-match-game"], ["Guess the Currency","currency-game"], ["Guess the Language","language-game"],
+  ["Say Hello","phrase-lang-game"], ["Nerdle","nerdle-game"], ["Memory Match","memory-game"],
+  ["Country Silhouette","silhouette-game"], ["Mastermind","mastermind-game"], ["Lights Out","lightsout-game"],
+  ["Tower of Hanoi","hanoi-game"], ["2048","2048-game"], ["Minesweeper","minesweeper-game"],
+  ["Sudoku","sudoku-game"], ["Hangman","hangman-game"], ["Higher or Lower","higher-lower-game"],
+  ["True or False","true-false-game"], ["Mini Crossword","xword-game"], ["Chess","arcade/chess"],
+  ["Checkers","bt-checkers"], ["Connect 4","bt-connect4"], ["Battleship","battleship-game"],
+];
+
+const loginScreen = document.getElementById('loginScreen');
+const dashScreen = document.getElementById('dashScreen');
+const loginError = document.getElementById('loginError');
+
+async function checkSession(){
+  const { data } = await sb.auth.getSession();
+  if(data.session){ showDash(); } else { showLogin(); }
+}
+function showLogin(){ loginScreen.classList.remove('hidden'); dashScreen.classList.add('hidden'); }
+function showDash(){ loginScreen.classList.add('hidden'); dashScreen.classList.remove('hidden'); loadAll(); }
+
+document.getElementById('loginBtn').addEventListener('click', async () => {
+  const email = document.getElementById('loginEmail').value.trim();
+  const password = document.getElementById('loginPassword').value;
+  loginError.textContent = '';
+  const { error } = await sb.auth.signInWithPassword({ email, password });
+  if(error){ loginError.textContent = 'Wrong email or password.'; return; }
+  showDash();
+});
+document.getElementById('signOutBtn').addEventListener('click', async () => {
+  await sb.auth.signOut();
+  showLogin();
+});
+document.getElementById('refreshBtn').addEventListener('click', loadAll);
+
+function escapeHtml(s){
+  return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+
+// Simple horizontal bar list - reused for every "top N" ranking section.
+function barListHtml(pairs, maxItems){
+  const rows = pairs.slice(0, maxItems || pairs.length);
+  if(rows.length === 0) return '<div class="empty-note">No data yet.</div>';
+  const max = rows[0][1] || 1;
+  return rows.map(([label, count]) => `
+    <div class="bar-row">
+      <div class="bar-label" title="${escapeHtml(label)}">${escapeHtml(label)}</div>
+      <div class="bar-track"><div class="bar-fill" style="width:${Math.max(2, Math.round(count/max*100))}%"></div></div>
+      <div class="bar-val">${count}</div>
+    </div>
+  `).join('');
+}
+
+// Small inline SVG bar chart for time-series (daily counts, hour-of-day, day-of-week).
+function svgBarChart(labels, values, opts){
+  opts = opts || {};
+  const w = opts.width || 600, h = opts.height || 140;
+  const padL = 28, padB = 20, padT = 8, padR = 4;
+  const plotW = w - padL - padR, plotH = h - padT - padB;
+  const max = Math.max(1, ...values);
+  const n = values.length;
+  const bw = plotW / n;
+  const labelEvery = opts.labelEvery || Math.ceil(n / 12);
+  let bars = '';
+  for(let i=0;i<n;i++){
+    const bh = (values[i]/max) * plotH;
+    const x = padL + i*bw;
+    const y = padT + (plotH - bh);
+    bars += `<rect x="${x + bw*0.12}" y="${y}" width="${bw*0.76}" height="${Math.max(1,bh)}" fill="var(--bar,#8C6A46)" rx="2"></rect>`;
+    if(i % labelEvery === 0 || i === n-1){
+      bars += `<text x="${x + bw/2}" y="${h - 5}" font-size="8" fill="#856F5C" text-anchor="middle">${escapeHtml(labels[i])}</text>`;
+    }
+  }
+  bars += `<text x="2" y="${padT+8}" font-size="9" fill="#856F5C">${max}</text>`;
+  return `<svg viewBox="0 0 ${w} ${h}" style="width:100%; height:${h}px;">${bars}</svg>`;
+}
+
+async function loadAll(){
+  const bodyEl = document.getElementById('body');
+  bodyEl.innerHTML = '<div class="loading-text">Loading analytics…</div>';
+  const { data, error } = await sb.from('analytics_events').select('*').order('created_at', { ascending: true });
+  if(error || !data){
+    bodyEl.innerHTML = '<div class="empty-note">Could not load analytics data. ' + (error ? escapeHtml(error.message) : '') + '</div>';
+    return;
+  }
+
+  document.getElementById('headerSub').textContent = `${data.length.toLocaleString()} events tracked · updated just now`;
+
+  const opens = data.filter(d => d.event_type === 'open');
+  const views = data.filter(d => d.event_type === 'view');
+  const sessions = data.filter(d => d.event_type === 'session_end');
+  const clicksArticle = data.filter(d => d.event_type === 'click_article');
+  const clicksVideo = data.filter(d => d.event_type === 'click_video');
+  const clicksInstrument = data.filter(d => d.event_type === 'click_instrument');
+  const polls = data.filter(d => d.event_type === 'vote_poll');
+
+  // --- Overview cards ---
+  const uniqueUsersAll = new Set(data.map(d => d.user_id)).size;
+  const durations = sessions.map(x => parseInt(x.label || '0', 10)).filter(n => !isNaN(n));
+  const avgSessionSec = durations.length ? Math.round(durations.reduce((a,b)=>a+b,0)/durations.length) : 0;
+  const totalMinutes = Math.round(durations.reduce((a,b)=>a+b,0) / 60);
+
+  // --- Daily unique users + daily sessions (last 30 days) ---
+  const dayUsers = {}; // day -> Set(user_id)
+  const dayOpens = {};
+  data.forEach(d => {
+    const day = (d.created_at || '').slice(0,10);
+    if(!day) return;
+    if(!dayUsers[day]) dayUsers[day] = new Set();
+    dayUsers[day].add(d.user_id);
+  });
+  opens.forEach(o => {
+    const day = (o.created_at || '').slice(0,10);
+    dayOpens[day] = (dayOpens[day]||0) + 1;
+  });
+  const allDays = Object.keys(dayUsers).sort();
+  const last30 = allDays.slice(-30);
+  const dayLabels = last30.map(d => d.slice(5).replace('-','/'));
+  const dayUserCounts = last30.map(d => dayUsers[d] ? dayUsers[d].size : 0);
+  const dayOpenCounts = last30.map(d => dayOpens[d] || 0);
+
+  // --- Hour-of-day and day-of-week patterns (from 'open' events, Tashkent local time
+  // already baked into created_at's timezone by however Supabase stores it - using
+  // local browser interpretation via new Date(), consistent with how the existing
+  // public stats page on the main site already does this) ---
+  const hourCounts = new Array(24).fill(0);
+  const dowCounts = new Array(7).fill(0);
+  const dowNames = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+  opens.forEach(o => {
+    const dt = new Date(o.created_at);
+    hourCounts[dt.getHours()]++;
+    dowCounts[dt.getDay()]++;
+  });
+
+  // --- Top N helpers ---
+  function topN(list){
+    const counts = {};
+    list.forEach(x => { const l = x.label || '(untitled)'; counts[l] = (counts[l]||0) + 1; });
+    return Object.entries(counts).sort((a,b) => b[1]-a[1]);
+  }
+
+  // Games: view events whose label matches a known game route.
+  const gameRouteSet = new Set(ALL_GAMES.map(g => g[1]));
+  const gameNameByRoute = Object.fromEntries(ALL_GAMES);
+  const gameCounts = {};
+  views.forEach(v => { if(gameRouteSet.has(v.label)) gameCounts[v.label] = (gameCounts[v.label]||0) + 1; });
+  const gamesRanked = ALL_GAMES.map(([name, route]) => [name, gameCounts[route] || 0])
+    .sort((a,b) => b[1]-a[1]);
+  const neverPlayed = gamesRanked.filter(([,c]) => c === 0).map(([name]) => name);
+
+  const topArticles = topN(clicksArticle);
+  const topVideos = topN(clicksVideo);
+  const topInstruments = topN(clicksInstrument);
+
+  bodyEl.innerHTML = `
+    <div class="card-grid">
+      <div class="stat-card"><div class="stat-num">${opens.length.toLocaleString()}</div><div class="stat-label">Total sessions</div></div>
+      <div class="stat-card"><div class="stat-num">${uniqueUsersAll.toLocaleString()}</div><div class="stat-label">Unique users (all time)</div></div>
+      <div class="stat-card"><div class="stat-num">${avgSessionSec}s</div><div class="stat-label">Avg session length</div></div>
+      <div class="stat-card"><div class="stat-num">${totalMinutes.toLocaleString()}</div><div class="stat-label">Total minutes logged</div></div>
+    </div>
+
+    <section>
+      <h2>Daily unique users (last 30 days)</h2>
+      ${svgBarChart(dayLabels, dayUserCounts)}
+    </section>
+
+    <section>
+      <h2>Daily sessions (last 30 days)</h2>
+      ${svgBarChart(dayLabels, dayOpenCounts)}
+    </section>
+
+    <section>
+      <h2>When people use it — hour of day</h2>
+      ${svgBarChart(Array.from({length:24},(_,i)=>i), hourCounts, {labelEvery:2})}
+    </section>
+
+    <section>
+      <h2>When people use it — day of week</h2>
+      ${svgBarChart(dowNames, dowCounts, {labelEvery:1})}
+    </section>
+
+    <section>
+      <h2>Games leaderboard (${gamesRanked.length} games)</h2>
+      ${barListHtml(gamesRanked, gamesRanked.length)}
+    </section>
+
+    <section>
+      <h2>Never played (${neverPlayed.length})</h2>
+      ${neverPlayed.length === 0
+        ? '<div class="empty-note">Every game has been played at least once.</div>'
+        : `<div class="never-list">${neverPlayed.map(n => `<span class="never-chip">${escapeHtml(n)}</span>`).join('')}</div>`}
+    </section>
+
+    <section>
+      <h2>Top articles clicked</h2>
+      ${barListHtml(topArticles, 15)}
+    </section>
+
+    <section>
+      <h2>Top videos clicked</h2>
+      ${barListHtml(topVideos, 15)}
+    </section>
+
+    <section>
+      <h2>Top instruments clicked</h2>
+      ${barListHtml(topInstruments, 15)}
+    </section>
+
+    <section>
+      <h2>Poll votes cast</h2>
+      <div class="stat-num" style="font-size:20px;">${polls.length}</div>
+    </section>
+  `;
+}
+
+checkSession();
+</script>
+</body>
+</html>
