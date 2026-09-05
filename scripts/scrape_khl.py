@@ -175,6 +175,12 @@ FLASHSCORE_FIXTURES_URL = "https://www.flashscoreusa.com/hockey/russia/khl/fixtu
 # every other new source this session.
 DATE_HEADER_RE = re.compile(r"^(\d{2})/(\d{2})/(\d{4})$")
 DATE_HEADER_SHORT_RE = re.compile(r"^(\d{1,2})/(\d{1,2})$")
+# Real format confirmed via diagnostic capture (2026-09-05): "Sep 05" - month
+# abbreviation + day, no year, no separator. Neither of the two earlier guesses
+# (DD/MM/YYYY, M/D) matched anything on the real page.
+MONTH_ABBR = {m: i + 1 for i, m in enumerate(
+    ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"])}
+DATE_HEADER_MONTHNAME_RE = re.compile(r"\b([A-Z][a-z]{2})\s+(\d{1,2})\b")
 FINAL_SCORE_RE = re.compile(r"Final\s+(\d+)\s*-\s*(\d+)")
 SCORE_DASH_RE = re.compile(r"(?<!\d)(\d{1,2})\s*-\s*(\d{1,2})(?!\d)")
 CLOCK_TIME_RE = re.compile(r"\b([01]?\d|2[0-3]):([0-5]\d)\b")
@@ -229,6 +235,14 @@ def fetch_flashscore_matches(page, url, expect_finished):
         text = el.get_text(strip=True) if el.name not in ("script", "style") else ""
         date_m = DATE_HEADER_RE.match(text) if text and len(text) <= 12 else None
         short_m = DATE_HEADER_SHORT_RE.match(text) if not date_m and text and len(text) <= 6 else None
+        # Real diagnostic capture showed "Sep 05 02:00 PM After SO" as one combined
+        # string (date + time + status likely concatenated from sibling elements, not
+        # one isolated element's own text) - using .search() with a looser length bound
+        # instead of an exact .match() so the month+day still gets picked out of a
+        # slightly larger combined string.
+        month_m = None
+        if not date_m and not short_m and text and len(text) <= 30:
+            month_m = DATE_HEADER_MONTHNAME_RE.search(text)
         if date_m:
             y, mo, d = date_m.group(3), date_m.group(2), date_m.group(1)
             current_date = (int(y), int(mo), int(d))
@@ -238,6 +252,13 @@ def fetch_flashscore_matches(page, url, expect_finished):
             year = 2027 if mo <= 3 else 2026
             current_date = (year, mo, d)
             continue
+        if month_m:
+            mo = MONTH_ABBR.get(month_m.group(1))
+            d = int(month_m.group(2))
+            if mo:
+                year = 2027 if mo <= 3 else 2026
+                current_date = (year, mo, d)
+                continue
 
         if el.name != "a":
             continue
