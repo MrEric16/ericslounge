@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-06T20:40:13.846928Z",
+  "generatedAt": "2026-09-06T22:36:23.342958Z",
   "results": [
     {
       "url": "https://www.goal.com/en/match/girona-vs-arsenal/__LS8d9Oc6I1wXn9g8956",
@@ -4936,9 +4936,86 @@
         }
       ],
       "competition": "FL1"
+    },
+    {
+      "url": "https://www.goal.com/en/match/deportivo-alaves-vs-osasuna/3VuOX-kLSMWf0JZckLnd2",
+      "date": null,
+      "home": "Deportivo Alaves",
+      "away": "Osasuna",
+      "htHome": 2,
+      "htAway": 0,
+      "ftHome": 5,
+      "ftAway": 2,
+      "homeGoals": [
+        {
+          "scorer": "L. Boye",
+          "minute": 27
+        },
+        {
+          "scorer": "M. Diaz",
+          "minute": 36
+        },
+        {
+          "scorer": "P. Ibanez",
+          "minute": 90
+        }
+      ],
+      "awayGoals": [
+        {
+          "scorer": "A. Budimir",
+          "minute": 46
+        }
+      ],
+      "competition": "PD"
+    },
+    {
+      "url": "https://www.goal.com/en/match/espanyol-vs-sevilla/JTRtzMWcXtJq5k1qk-pQo",
+      "date": null,
+      "home": "Espanyol",
+      "away": "Sevilla",
+      "htHome": 0,
+      "htAway": 0,
+      "ftHome": 1,
+      "ftAway": 1,
+      "homeGoals": [
+        {
+          "scorer": "M. Fernandez",
+          "minute": 90
+        }
+      ],
+      "awayGoals": [
+        {
+          "scorer": "L. Stassin",
+          "minute": 86
+        }
+      ],
+      "competition": "PD"
+    },
+    {
+      "url": "https://www.goal.com/en/match/juventus-vs-ac-milan/tQEft5rQ3uJKIRitxNpqg",
+      "date": null,
+      "home": "Juventus",
+      "away": "Ac Milan",
+      "htHome": 0,
+      "htAway": 0,
+      "ftHome": 1,
+      "ftAway": 1,
+      "homeGoals": [
+        {
+          "scorer": "F. Gatti",
+          "minute": 90
+        }
+      ],
+      "awayGoals": [
+        {
+          "scorer": "A. Cisse",
+          "minute": 68
+        }
+      ],
+      "competition": "SA"
     }
   ],
   "scorerParseRetryCounts": {
-    "https://www.goal.com/en/match/deportivo-alaves-vs-osasuna/3VuOX-kLSMWf0JZckLnd2": 2
+    "https://www.goal.com/en/match/marseille-vs-paris-fc/mU8lJYkkbtdxRQtTw_Ln_": 2
   }
 }
