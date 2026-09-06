@@ -15,43 +15,22 @@
 [scrape]   TARGET CHECK 'our-heritage': NOT FOUND in any href on the rendered page
 [scrape]   TARGET CHECK 'photo-chronicle-xx': NOT FOUND in any href on the rendered page
 [scrape] calendar discovery complete: 65 unique event URLs to check
-[scrape]   DEBUG: dumped raw HTML for qimmat page, 134666 chars
+[scrape] Translation failed for 'Фестиваль юсуповского помидора в «Мясном': Фестиваль юсуповского помидора в «Мясном» --> No translation was found using the current translator. Try another translator?
+[scrape]   DEBUG: dumped raw HTML for qimmat page, 134623 chars
 [scrape]   'Выставка Hikmah на открытии CCA Tashkent': no dates found in window (no schedule/date-range parsed) -- kept 0 events
-[scrape] Translation failed for 'Премьера спектакля о Бухаре': Премьера спектакля о Бухаре --> No translation was found using the current translator. Try another translator?
-[scrape] Translation failed for 'Балет «Тысяча и одна ночь»': Балет «Тысяча и одна ночь» --> No translation was found using the current translator. Try another translator?
-[scrape] Translation failed for 'Спектакль «Колыбельная для Белоснежки»': Спектакль «Колыбельная для Белоснежки» --> No translation was found using the current translator. Try another translator?
-[scrape] Translation failed for 'Цирковые представления по выходным': Цирковые представления по выходным --> No translation was found using the current translator. Try another translator?
-[scrape] Translation failed for 'Музыкальная сказка «Маленький Мук»': Музыкальная сказка «Маленький Мук» --> No translation was found using the current translator. Try another translator?
-[scrape] Translation failed for 'Премьера спектакля «Синий карлик, или Же': Премьера спектакля «Синий карлик, или Жемчужное сердце» --> No translation was found using the current translator. Try another translator?
-[scrape] Translation failed for 'Автофестиваль Promotors Show 2026': Автофестиваль Promotors Show 2026 --> No translation was found using the current translator. Try another translator?
-[scrape] Translation failed for 'Концерт-погружение «Звуковые пути»': Концерт-погружение «Звуковые пути» --> No translation was found using the current translator. Try another translator?
-[scrape] Translation failed for 'Выступление группы «Градусы»': Выступление группы «Градусы» --> No translation was found using the current translator. Try another translator?
-[scrape] Translation failed for 'Art Bazaar': Art Bazaar --> No translation was found using the current translator. Try another translator?
-[scrape] Translation failed for 'Опера «Кармен» в ГАБТ': Опера «Кармен» в ГАБТ --> No translation was found using the current translator. Try another translator?
-[scrape] Translation failed for 'Моноспектакль «Альфа Центавра»': Моноспектакль «Альфа Центавра» --> No translation was found using the current translator. Try another translator?
-[scrape] Translation failed for 'Спектакль «Альфа Центавра»': Спектакль «Альфа Центавра» --> No translation was found using the current translator. Try another translator?
-[scrape] Translation failed for 'Uzbekistan Concrete Show 2026': Uzbekistan Concrete Show 2026 --> No translation was found using the current translator. Try another translator?
-[scrape] Translation failed for 'Спектакль «Тигр»': Спектакль «Тигр» --> No translation was found using the current translator. Try another translator?
-[scrape] Translation failed for 'Премьера спектакля «Кабала святош»': Премьера спектакля «Кабала святош» --> No translation was found using the current translator. Try another translator?
-[scrape] Translation failed for 'Концерт «Молодежный оркестр ГАБТ»': Концерт «Молодежный оркестр ГАБТ» --> No translation was found using the current translator. Try another translator?
-[scrape] Translation failed for 'ICTWeek Uzbekistan 2026': ICTWeek Uzbekistan 2026 --> No translation was found using the current translator. Try another translator?
 [scrape]   'ICTWeek Uzbekistan 2026': no dates found in window (no schedule/date-range parsed) -- kept 0 events
-[scrape] Translation failed for 'Plastex Uzbekistan 2026': Plastex Uzbekistan 2026 --> No translation was found using the current translator. Try another translator?
 [scrape]   'Plastex Uzbekistan 2026': no dates found in window (no schedule/date-range parsed) -- kept 0 events
-[scrape] Translation failed for '«По женской линии»: в пространстве Zanma': «По женской линии»: в пространстве Zanmakon открылась выставка Робии Кадыровой --> No translation was found using the current translator. Try another translator?
 [scrape]   '«По женской линии»: в пространстве Zanmakon открылась выставка Робии Кадыровой': no dates found in window (no schedule/date-range parsed) -- kept 0 events
-[scrape] Translation failed for 'Бесплатно в музей: в Узбекистане стартов': Бесплатно в музей: в Узбекистане стартовала Неделя музеев --> No translation was found using the current translator. Try another translator?
-[scrape] Translation failed for 'Узбекистан представит современное ремесл': Узбекистан представит современное ремесло на Homo Faber 2026 в Венеции --> No translation was found using the current translator. Try another translator?
 [scrape]   'Эстетика многослойности: в Ташкенте открылась выставка Бобура Алимходжаева Duality: X-Ray of Memory': no dates found in window (no schedule/date-range parsed) -- kept 0 events
 [scrape] calendar detail pass complete: 156 events kept from 65 pages checked
 [scrape] special-tracked: FAILED to fetch or failed content check for https://www.afisha.uz/ru/cinema/2026/07/16/kinoprazdnik-v-sredu
-[scrape] iticket.uz cat=concert: 10 events kept
-[scrape] iticket.uz cat=theatre: 15 events kept
+[scrape] iticket.uz cat=concert: 15 events kept
+[scrape] iticket.uz cat=theatre: 28 events kept
 [scrape] iticket.uz cat=exhibition: 0 events kept
 [scrape] ticketon.uz: CONFIRMED BLOCKED (Cloudflare challenge, page title='Just a moment...'). 0 events -- this is expected, not a bug to fix.
 [scrape] eventbrite.com: CONFIRMED BLOCKED (AWS WAF CAPTCHA, page title='Human Verification'). 0 events -- this is expected, not a bug to fix. Same category of block as ticketon.uz.
 [scrape] eventbrite.com: 0 events found (dates NOT yet parsed -- see note in script)
 [scrape]   DEDUP: 0 target entries survived Pass 1
 [scrape]   DEDUP: 0 target entries survived Pass 2 (final)
-[scrape] TOTAL before dedup: 181  |  after dedup: 171
+[scrape] TOTAL before dedup: 199  |  after dedup: 187
 [scrape] Wrote data/events-tashkent.json
