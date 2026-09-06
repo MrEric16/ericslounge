@@ -180,173 +180,131 @@ def parse_standings(html):
 # browser page directly to each JSON endpoint (mimicking a real user visiting that URL)
 # rather than a lower-level request API, to stay as close to organic browsing as
 # possible.
-FLASHSCORE_RESULTS_URL = "https://www.flashscoreusa.com/hockey/russia/khl/results/"
-FLASHSCORE_FIXTURES_URL = "https://www.flashscoreusa.com/hockey/russia/khl/fixtures/"
-# Flashscore's actual date-header format on the real page wasn't independently
-# confirmed (only saw a summary widget using M/D like "9/6"), so this accepts that
-# short form - a diagnostic run will confirm what actually appears, same as with
-# every other new source this session.
-DATE_HEADER_RE = re.compile(r"^(\d{2})/(\d{2})/(\d{4})$")
-DATE_HEADER_SHORT_RE = re.compile(r"^(\d{1,2})/(\d{1,2})$")
-# Real format confirmed via diagnostic capture (2026-09-05): "Sep 05" - month
-# abbreviation + day, no year, no separator. Neither of the two earlier guesses
-# (DD/MM/YYYY, M/D) matched anything on the real page.
-MONTH_ABBR = {m: i + 1 for i, m in enumerate(
-    ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"])}
-DATE_HEADER_MONTHNAME_RE = re.compile(r"\b([A-Z][a-z]{2})\s+(\d{1,2})\b")
-FINAL_SCORE_RE = re.compile(r"Final\s+(\d+)\s*-\s*(\d+)")
-SCORE_DASH_RE = re.compile(r"(?<!\d)(\d{1,2})\s*-\s*(\d{1,2})(?!\d)")
-CLOCK_TIME_RE = re.compile(r"\b([01]?\d|2[0-3]):([0-5]\d)\b")
-# Flashscore game-page link pattern: /game/hockey/{team1-slug}-{id}/{team2-slug}-{id}/
-GAME_LINK_RE = re.compile(r"/game/hockey/[a-zA-Z0-9\-]+/[a-zA-Z0-9\-]+/?")
+LIVERESULT_RESULTS_URL = "https://www.liveresult.ru/hockey/Kontinental-Hockey-League/results"
+LIVERESULT_SCHEDULE_URL = "https://www.liveresult.ru/hockey/Kontinental-Hockey-League/scheduled"
+# 2026-09-06: switched from Flashscore/365scores (both dead ends - 365scores served
+# stale prior-season data, Flashscore's date text couldn't be reliably isolated per
+# match after seven diagnostic rounds) to liveresult.ru, suggested directly by Mr Eric.
+# Confirmed via direct fetch: server-rendered (not a JS-only shell), genuinely current
+# 2026-27 season data, and - critically - each match is ONE single <a> tag containing
+# the date-adjacent time/score AND both team names together, unlike Flashscore where
+# the score lived in a separate sibling element. Much simpler structure to parse.
+DATE_HEADER_DMY_RE = re.compile(r"(?<!\d)(\d{2})\.(\d{2})\.(\d{4})(?!\d)")
+# Match link path: /hockey/matches/match408778_Spartak_Moscow-Torpedo_NN-online
+MATCH_LINK_RE = re.compile(r"/hockey/matches/match\d+_([a-zA-Z0-9_]+)-([a-zA-Z0-9_]+)-online")
+LIVERESULT_SCORE_RE = re.compile(r"(?<!\d)(\d{1,2}):(\d{1,2})(?!\d)")
+LIVERESULT_TIME_RE = re.compile(r"\b([01]?\d|2[0-3]):([0-5]\d)\b")
+
+# Maps liveresult.ru's URL-slug team names (underscored, various English transliteration
+# conventions) to this scraper's own canonical short names (matching khl.ru's standings
+# short names, e.g. "Metallurg Mg" not "Metallurg_Magnitogorsk"). Built from slugs
+# actually observed in a real fetch plus the known current 22-team roster - since not
+# every slug has been directly observed, matching is fuzzy (underscore-to-space,
+# lowercase, substring) rather than requiring an exact table hit for every team.
+LIVERESULT_TEAM_ALIASES = {
+    "spartak moscow": "Spartak", "torpedo nn": "Torpedo", "torpedo": "Torpedo",
+    "ska st petersburg": "SKA", "ska": "SKA", "lada togliatti": "Lada", "lada": "Lada",
+    "severstal cherepovets": "Severstal", "severstal": "Severstal",
+    "salavat yulayev ufa": "Salavat Yulaev", "salavat yulayev": "Salavat Yulaev",
+    "ak bars kazan": "Ak Bars", "ak bars": "Ak Bars",
+    "sibir novosibirsk": "Sibir", "sibir": "Sibir",
+    "avtomobilist": "Avtomobilist", "uhc dinamo": "Dinamo Mn", "dinamo minsk": "Dinamo Mn",
+    "lokomotiv yaroslavl": "Lokomotiv", "lokomotiv": "Lokomotiv",
+    "traktor": "Traktor", "traktor chelyabinsk": "Traktor",
+    "metallurg magnitogorsk": "Metallurg Mg", "metallurg mg": "Metallurg Mg",
+    "amur khabarovsk": "Amur", "amur": "Amur",
+    "neftekhimik": "Neftekhimik", "neftekhimik nizhnekamsk": "Neftekhimik",
+    "red star kunlun": "Dragons", "shanghai dragons": "Dragons", "kunlun red star": "Dragons",
+    "avangard omsk": "Avangard", "avangard": "Avangard",
+    "barys": "Barys", "barys astana": "Barys", "barys nur sultan": "Barys",
+    "dinamo moskva": "Dynamo Msk", "dynamo moscow": "Dynamo Msk", "dinamo": "Dynamo Msk",
+    "admiral": "Admiral", "admiral vladivostok": "Admiral",
+    "hc sochi": "HC Sochi", "sochi": "HC Sochi",
+    "cska": "CSKA", "cska moscow": "CSKA",
+}
 
 
-def slug_to_name(slug):
-    """Flashscore href slugs look like 'amur-khabarovsk-QoswIp4U' - strip the trailing
-    alphanumeric ID and turn hyphens into spaces, giving a readable team-ish name.
-    Not matched against KHL_TEAMS at all; kept as whatever the site's own slug says,
-    same spirit as trusting khl.ru's own short names for standings."""
-    parts = slug.split("-")
-    if parts and re.match(r"^[a-zA-Z0-9]{6,}$", parts[-1]) and not parts[-1].isdigit():
-        parts = parts[:-1]
-    return " ".join(p.capitalize() for p in parts)
+def liveresult_team_name(slug):
+    key = slug.replace("_", " ").strip().lower()
+    if key in LIVERESULT_TEAM_ALIASES:
+        return LIVERESULT_TEAM_ALIASES[key]
+    for alias, canonical in LIVERESULT_TEAM_ALIASES.items():
+        if alias in key or key in alias:
+            return canonical
+    return slug.replace("_", " ")  # fall back to a readable form rather than dropping the match
 
 
-def fetch_flashscore_matches(page, url, expect_finished):
-    """Switched from 365scores to Flashscore (2026-09-05): 365scores was confirmed
-    serving STALE prior-season data (May 2026 playoff finals) rather than the new
-    September 2026-27 season - not a parsing bug, the wrong season's content entirely.
-    Flashscore has dedicated /results/ and /fixtures/ URLs that a direct check
-    confirmed show genuinely current games (Sept 6-9 2026-27 fixtures, verified
-    against real team pairings). Uses the same real-browser Playwright fetch as the
-    working khl.ru standings pull, since whether this specific page needs JS rendering
-    hasn't been separately confirmed and there's no cost to being safe about it.
-
-    First real run revealed the match link's own text never carries a score/time at
-    all (sometimes empty, sometimes just "Team - Team") - that lives in a sibling
-    element instead. Anchors on /game/hockey/ hrefs (deduped by path, ignoring the
-    ?mid= query variant that duplicates every match), extracts team names directly
-    from the URL slugs themselves (more reliable than the inconsistently-populated
-    link text), and walks up from the link to the smallest ancestor whose text
-    contains a score/time marker.
-    """
+def fetch_liveresult_matches(page, url):
     try:
         page.goto(url, timeout=30000)
-        page.wait_for_timeout(5000)
+        page.wait_for_timeout(3000)
         html = page.content()
     except Exception as e:
-        log(f"Flashscore fetch failed for {url}: {e}")
+        log(f"liveresult fetch failed for {url}: {e}")
         return []
 
-    log(f"Flashscore {'results' if expect_finished else 'fixtures'} page: captured {len(html)} chars")
+    log(f"liveresult page {url}: captured {len(html)} chars")
     soup = BeautifulSoup(html, "html.parser")
     matches = []
     seen_paths = set()
     current_date = None
 
+    # Iterate every element (not just <a> tags) so plain-text date headers
+    # ("05.09.2026") are seen in document order and tracked before the matches
+    # under them.
     for el in soup.find_all(True):
-        text = el.get_text(strip=True) if el.name not in ("script", "style") else ""
-        date_m = DATE_HEADER_RE.match(text) if text and len(text) <= 12 else None
-        short_m = DATE_HEADER_SHORT_RE.match(text) if not date_m and text and len(text) <= 6 else None
-        # Real diagnostic capture showed "Sep 05 02:00 PM After SO" as one combined
-        # string (date + time + status likely concatenated from sibling elements, not
-        # one isolated element's own text) - using .search() with a looser length bound
-        # instead of an exact .match() so the month+day still gets picked out of a
-        # slightly larger combined string.
-        month_m = None
-        if not date_m and not short_m and text and len(text) <= 60:
-            month_m = DATE_HEADER_MONTHNAME_RE.search(text)
-        if date_m:
-            y, mo, d = date_m.group(3), date_m.group(2), date_m.group(1)
-            current_date = (int(y), int(mo), int(d))
-            continue
-        if short_m:
-            mo, d = int(short_m.group(1)), int(short_m.group(2))
-            year = 2027 if mo <= 3 else 2026
-            current_date = (year, mo, d)
-            continue
-        if month_m:
-            mo = MONTH_ABBR.get(month_m.group(1))
-            d = int(month_m.group(2))
-            if mo:
-                year = 2027 if mo <= 3 else 2026
-                current_date = (year, mo, d)
+        if el.name == "a":
+            href = el.get("href", "")
+            m = MATCH_LINK_RE.search(href)
+            if not m:
+                continue
+            path = m.group(0)
+            if path in seen_paths:
+                continue
+            seen_paths.add(path)
+
+            text = el.get_text(" ", strip=True)
+            home_name = liveresult_team_name(m.group(1))
+            away_name = liveresult_team_name(m.group(2))
+
+            # Real bug found in testing: the leading kickoff time ("10:00 ...") has the
+            # same N:N shape as a score and was being matched by the score regex before
+            # ever reaching the actual score later in the text ("... 0:1 ..."). The
+            # time always appears as a clean prefix at the very start of the text, so
+            # strip it off first and only search the remainder for a score.
+            leading_time_m = LIVERESULT_TIME_RE.match(text)
+            rest_of_text = text[leading_time_m.end():] if leading_time_m else text
+            score_m = LIVERESULT_SCORE_RE.search(rest_of_text)
+            time_m = None if score_m else leading_time_m
+            marker = score_m or time_m
+            if not marker:
+                log(f"liveresult match {home_name} v {away_name}: no score/time in link text {text[:100]!r}")
+                continue
+            if not current_date:
+                log(f"liveresult match {home_name} v {away_name} found before any date header seen, skipping")
                 continue
 
-        if el.name != "a":
-            continue
-        href = el.get("href", "")
-        m = GAME_LINK_RE.search(href)
-        if not m:
-            continue
-        path = m.group(0).rstrip("/")
-        if path in seen_paths:
-            continue
-        seen_paths.add(path)
+            year, month, day = current_date
+            if leading_time_m:
+                hour, minute = int(leading_time_m.group(1)), int(leading_time_m.group(2))
+            else:
+                hour, minute = 19, 0
+            start = datetime(year, month, day, hour, minute, tzinfo=timezone(timedelta(hours=5))) \
+                .strftime("%Y-%m-%dT%H:%M:00+05:00")
 
-        slugs = [s for s in path.split("/") if s and s not in ("game", "hockey")]
-        if len(slugs) != 2:
-            log(f"Flashscore path had {len(slugs)} slugs, expected 2, skipping: {path!r}")
-            continue
-        home_name = slug_to_name(slugs[0])
-        away_name = slug_to_name(slugs[1])
-
-        # Walk up from the link to find the smallest ancestor whose text contains a
-        # score or time marker - the match card wrapping this link plus its stats.
-        marker = None
-        node = el.parent
-        card_text = ""
-        for _ in range(6):
-            if node is None:
-                break
-            card_text = node.get_text(" ", strip=True)
-            score_m = FINAL_SCORE_RE.search(card_text) or SCORE_DASH_RE.search(card_text)
-            time_m = None if score_m else CLOCK_TIME_RE.search(card_text)
-            marker = score_m or time_m
-            if marker:
-                break
-            node = node.parent
-        if not marker:
-            log(f"Flashscore match {home_name} v {away_name}: no score/time marker found within 6 ancestor levels, skipping. path={path!r}")
-            continue
-
-        if not current_date:
-            if not getattr(fetch_flashscore_matches, "_date_dumped", False):
-                fetch_flashscore_matches._date_dumped = True
-                # Diagnostic: no date header format tried so far matched anything on
-                # the real page - dump a wide window of text preceding this match's
-                # own position in the page to see what the real date text looks like.
-                full_page_text = soup.get_text(" ", strip=True)
-                pos = full_page_text.find(home_name)
-                if pos == -1:
-                    pos = full_page_text.find(slugs[0].replace("-", " "))
-                window = full_page_text[max(0, pos - 300):pos] if pos != -1 else "(anchor text not found in page)"
-                log(f"DIAGNOSTIC no date matched yet. 300 chars of page text preceding first match ({home_name} v {away_name}): {window!r}")
-            log(f"Flashscore match {home_name} v {away_name} found before any date header seen, skipping")
-            continue
-        year, month, day = current_date
-        if marker.re is CLOCK_TIME_RE:
-            hour, minute = int(marker.group(1)), int(marker.group(2))
+            entry = {"home": home_name, "away": away_name, "start": start}
+            if score_m:
+                entry["homeScore"] = int(score_m.group(1))
+                entry["awayScore"] = int(score_m.group(2))
+            matches.append(entry)
         else:
-            hour, minute = 19, 0
-        naive_dt_as_tashkent = datetime(year, month, day, hour, minute, tzinfo=timezone(timedelta(hours=5)))
-        start = naive_dt_as_tashkent.strftime("%Y-%m-%dT%H:%M:00+05:00")
+            text = el.get_text(strip=True) if el.name not in ("script", "style") else ""
+            date_m = DATE_HEADER_DMY_RE.search(text) if text and len(text) <= 40 else None
+            if date_m:
+                d, mo, y = int(date_m.group(1)), int(date_m.group(2)), int(date_m.group(3))
+                current_date = (y, mo, d)
 
-        entry = {"home": home_name, "away": away_name, "start": start}
-        if marker.re in (FINAL_SCORE_RE, SCORE_DASH_RE):
-            g = marker.groups()
-            entry["homeScore"] = int(g[0])
-            entry["awayScore"] = int(g[1])
-            entry["finished"] = True
-        matches.append(entry)
-
-    log(f"parsed {len(matches)} match(es) from Flashscore {'results' if expect_finished else 'fixtures'}")
-    if not matches:
-        link_count = len(GAME_LINK_RE.findall(html))
-        log(f"WARNING: 0 matches. GAME_LINK_RE found {link_count} raw href matches in the HTML")
-        if link_count == 0:
-            idx = html.find("/game/hockey/")
-            log(f"first '/game/hockey/' occurrence context: {html[max(0,idx-200):idx+500]!r}")
+    log(f"parsed {len(matches)} match(es) from {url}")
     return matches
 
 
@@ -374,13 +332,13 @@ def main():
         with sync_playwright() as p:
             browser = p.chromium.launch()
             page = browser.new_page(user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36")
-            all_matches += fetch_flashscore_matches(page, FLASHSCORE_RESULTS_URL, expect_finished=True)
-            all_matches += fetch_flashscore_matches(page, FLASHSCORE_FIXTURES_URL, expect_finished=False)
+            all_matches += fetch_liveresult_matches(page, LIVERESULT_RESULTS_URL)
+            all_matches += fetch_liveresult_matches(page, LIVERESULT_SCHEDULE_URL)
             browser.close()
     except Exception as e:
-        log(f"Flashscore fetch failed entirely: {e}")
+        log(f"liveresult fetch failed entirely: {e}")
 
-    log(f"parsed {len(all_matches)} total match(es) from Flashscore")
+    log(f"parsed {len(all_matches)} total match(es) from liveresult")
 
     fixtures = [m for m in all_matches if not m.get("finished")]
     results = [m for m in all_matches if m.get("finished")]
