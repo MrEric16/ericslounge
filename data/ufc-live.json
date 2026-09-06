@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-05T07:46:44.912099+00:00",
+  "generatedAt": "2026-09-06T08:00:47.029082+00:00",
   "scheduled": [
     {
       "name": "UFC 335",
@@ -29,7 +29,8 @@
       "name": "UFC Fight Night 292",
       "date_text": "Oct 31, 2026",
       "venue": "[16]",
-      "location": null
+      "location": null,
+      "start_tashkent": "2026-11-01T05:00:00+05:00"
     },
     {
       "name": "UFC 333: Volkanovski vs. Evloev",
@@ -53,11 +54,11 @@
       "start_tashkent": "2026-10-11T05:00:00+05:00"
     },
     {
-      "name": "UFC 332",
+      "name": "UFC 332: Silva vs. Cong",
       "date_text": "Oct 3, 2026",
       "venue": "Delta Center",
       "location": "Salt Lake City,Utah, U.S.",
-      "start_tashkent": "2026-10-04T06:00:00+05:00"
+      "start_tashkent": "2026-10-04T05:00:00+05:00"
     },
     {
       "name": "UFC Fight Night: Rosas Jr. vs. Barcelos",
@@ -79,16 +80,15 @@
       "venue": "Desert Diamond Arena",
       "location": "Glendale,Arizona, U.S.",
       "start_tashkent": "2026-09-13T02:00:00+05:00"
-    },
+    }
+  ],
+  "past": [
     {
       "name": "UFC Fight Night: Hooker vs. Parnasse",
       "date_text": "Sep 5, 2026",
       "venue": "Accor Arena",
-      "location": "Paris, France",
-      "start_tashkent": "2026-09-06T00:00:00+05:00"
-    }
-  ],
-  "past": [
+      "location": "Paris, France"
+    },
     {
       "name": "UFC Fight Night: Nurmagomedov vs. Song",
       "date_text": "Aug 29, 2026",
@@ -184,13 +184,6 @@
       "venue": "Meta Apex",
       "location": "Las Vegas,Nevada, U.S.",
       "result": "Arnold Allen def. Melquizael Costa (Unanimous Decision)"
-    },
-    {
-      "name": "UFC 328: Chimaev vs. Strickland",
-      "date_text": "May 9, 2026",
-      "venue": "Prudential Center",
-      "location": "Newark, New Jersey, U.S.",
-      "result": "Sean Strickland def. Khamzat Chimaev (Split Decision)"
     }
   ]
 }
