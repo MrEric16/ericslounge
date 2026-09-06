@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-06T18:28:36.295120Z",
+  "generatedAt": "2026-09-06T18:33:51.975992Z",
   "results": [
     {
       "url": "https://www.goal.com/en/match/girona-vs-arsenal/__LS8d9Oc6I1wXn9g8956",
@@ -4802,12 +4802,143 @@
         }
       ],
       "competition": "FL1"
+    },
+    {
+      "url": "https://www.goal.com/en/match/valencia-vs-barcelona/PaKiQNegncrhyWNwvOsBO",
+      "date": null,
+      "home": "Valencia",
+      "away": "Barcelona",
+      "htHome": 0,
+      "htAway": 2,
+      "ftHome": 0,
+      "ftAway": 5,
+      "homeGoals": [],
+      "awayGoals": [
+        {
+          "scorer": "L. Yamal",
+          "minute": 6
+        },
+        {
+          "scorer": "F. Lopez",
+          "minute": 22
+        },
+        {
+          "scorer": "Raphinha",
+          "minute": 50
+        },
+        {
+          "scorer": "Pedri",
+          "minute": 79
+        }
+      ],
+      "competition": "PD"
+    },
+    {
+      "url": "https://www.goal.com/en/match/hamburger-sv-vs-mainz-05/1J5GS1PuYAeKk7S0gCHGR",
+      "date": null,
+      "home": "Hamburger Sv",
+      "away": "Mainz 05",
+      "htHome": 0,
+      "htAway": 2,
+      "ftHome": 0,
+      "ftAway": 5,
+      "homeGoals": [],
+      "awayGoals": [
+        {
+          "scorer": "S. Becker",
+          "minute": 19
+        },
+        {
+          "scorer": "P. Mwene",
+          "minute": 41
+        },
+        {
+          "scorer": "P. Tietz",
+          "minute": 48
+        },
+        {
+          "scorer": "R. Koenigsdoerffer",
+          "minute": 90
+        }
+      ],
+      "competition": "BL1"
+    },
+    {
+      "url": "https://www.goal.com/en/match/frosinone-vs-venezia/wgxkizIQRqQxiXfSzg0vc",
+      "date": null,
+      "home": "Frosinone",
+      "away": "Venezia",
+      "htHome": 2,
+      "htAway": 0,
+      "ftHome": 3,
+      "ftAway": 2,
+      "homeGoals": [
+        {
+          "scorer": "A. Raimondo",
+          "minute": 21
+        },
+        {
+          "scorer": "G. Kvernadze",
+          "minute": 83
+        }
+      ],
+      "awayGoals": [
+        {
+          "scorer": "J. Yeboah",
+          "minute": 66
+        },
+        {
+          "scorer": "R. Sagrado",
+          "minute": 74
+        }
+      ],
+      "competition": "SA"
+    },
+    {
+      "url": "https://www.goal.com/en/match/troyes-vs-strasbourg/koAMaRdnJV_EwV1QHnhTb",
+      "date": null,
+      "home": "Troyes",
+      "away": "Strasbourg",
+      "htHome": 1,
+      "htAway": 2,
+      "ftHome": 2,
+      "ftAway": 6,
+      "homeGoals": [
+        {
+          "scorer": "A. Mille",
+          "minute": 9
+        },
+        {
+          "scorer": "J. Le Douaron",
+          "minute": 90
+        }
+      ],
+      "awayGoals": [
+        {
+          "scorer": "J. Ortega",
+          "minute": 40
+        },
+        {
+          "scorer": "D. Sousa",
+          "minute": 42
+        },
+        {
+          "scorer": "G. Reyna",
+          "minute": 57
+        },
+        {
+          "scorer": "S. Amo-Ameyaw",
+          "minute": 85
+        },
+        {
+          "scorer": "C. Harder",
+          "minute": 90
+        }
+      ],
+      "competition": "FL1"
     }
   ],
   "scorerParseRetryCounts": {
-    "https://www.goal.com/en/match/hamburger-sv-vs-mainz-05/1J5GS1PuYAeKk7S0gCHGR": 2,
-    "https://www.goal.com/en/match/frosinone-vs-venezia/wgxkizIQRqQxiXfSzg0vc": 2,
-    "https://www.goal.com/en/match/troyes-vs-strasbourg/koAMaRdnJV_EwV1QHnhTb": 2,
-    "https://www.goal.com/en/match/valencia-vs-barcelona/PaKiQNegncrhyWNwvOsBO": 2
+    "https://www.goal.com/en/match/deportivo-alaves-vs-osasuna/3VuOX-kLSMWf0JZckLnd2": 1
   }
 }
