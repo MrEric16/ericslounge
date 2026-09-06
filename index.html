@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Mr Eric's Lounge</title>
-<meta name="app-build" content="20260906032724">
+<meta name="app-build" content="20260906042903">
 <script>
   // PWA update-detection: an installed home-screen app's standalone-mode navigation
   // cache can hold an old shell far longer than the CDN's 10-minute cache -
@@ -23076,6 +23076,14 @@ document.addEventListener('click', (e) => {
   }
   if(href.indexOf('#arcade/') === 0){
     e.preventDefault();
+    // Real bug found (2026-09-06): this route never touches location.hash (by design -
+    // see mtOpenOverlay/mtCloseOverlay comments on the swipe-back fix), but renderRoute's
+    // logEvent('view', hash) call reads location.hash to know what to log - so every open
+    // here was getting silently misattributed to whatever page the user was already on,
+    // not counted as a Chess (or other arcade game) view at all. Logging it explicitly
+    // here instead, with the same 'arcade/...' label the URL would have carried if it
+    // could change, so it lines up with how every other page's views are labeled.
+    logEvent('view', 'arcade/' + href.slice('#arcade/'.length));
     mtOpenOverlay(['arcade', href.slice('#arcade/'.length)]);
     return;
   }
