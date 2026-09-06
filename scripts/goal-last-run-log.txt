@@ -1,17 +1,22 @@
 [goal-scraper] Run started.
-[goal-scraper] [PL] Found 9 finished-match links
-[goal-scraper] [PL] Added: Everton 2-2 Manchester United
-[goal-scraper] [PD] Found 4 finished-match links
-[goal-scraper] [BL1] Found 8 finished-match links
+[goal-scraper] [PL] Found 10 finished-match links
+[goal-scraper] [PL] Added: Arsenal 2-1 Chelsea
+[goal-scraper] [PD] Found 6 finished-match links
+[goal-scraper] WARNING: Barcelona scored 5 but only 4 scorer(s) were parsed for https://www.goal.com/en/match/valencia-vs-barcelona/PaKiQNegncrhyWNwvOsBO
+[goal-scraper] [PD] SCORER PARSE FAILED (attempt 1/3) for Valencia 0-5 Barcelona -- NOT committing, will retry next run: https://www.goal.com/en/match/valencia-vs-barcelona/PaKiQNegncrhyWNwvOsBO
+[goal-scraper] [PD] Added: Malaga 0-0 Levante
+[goal-scraper] [BL1] Found 9 finished-match links
 [goal-scraper] WARNING: Mainz 05 scored 5 but only 4 scorer(s) were parsed for https://www.goal.com/en/match/hamburger-sv-vs-mainz-05/1J5GS1PuYAeKk7S0gCHGR
-[goal-scraper] [BL1] SCORER PARSE FAILED (attempt 1/3) for Hamburger Sv 0-5 Mainz 05 -- NOT committing, will retry next run: https://www.goal.com/en/match/hamburger-sv-vs-mainz-05/1J5GS1PuYAeKk7S0gCHGR
-[goal-scraper] [SA] Found 6 finished-match links
-[goal-scraper] [SA] Added: Parma Calcio 1913 1-1 Monza
+[goal-scraper] [BL1] SCORER PARSE FAILED (attempt 2/3) for Hamburger Sv 0-5 Mainz 05 -- NOT committing, will retry next run: https://www.goal.com/en/match/hamburger-sv-vs-mainz-05/1J5GS1PuYAeKk7S0gCHGR
+[goal-scraper] [BL1] Added: Eintracht Frankfurt 1-4 Augsburg
+[goal-scraper] [SA] Found 7 finished-match links
 [goal-scraper] WARNING: Frosinone scored 3 but only 2 scorer(s) were parsed for https://www.goal.com/en/match/frosinone-vs-venezia/wgxkizIQRqQxiXfSzg0vc
-[goal-scraper] [SA] SCORER PARSE FAILED (attempt 1/3) for Frosinone 3-2 Venezia -- NOT committing, will retry next run: https://www.goal.com/en/match/frosinone-vs-venezia/wgxkizIQRqQxiXfSzg0vc
-[goal-scraper] [FL1] Found 7 finished-match links
+[goal-scraper] [SA] SCORER PARSE FAILED (attempt 2/3) for Frosinone 3-2 Venezia -- NOT committing, will retry next run: https://www.goal.com/en/match/frosinone-vs-venezia/wgxkizIQRqQxiXfSzg0vc
+[goal-scraper] [SA] Added: Bologna 2-2 Sassuolo
+[goal-scraper] [FL1] Found 8 finished-match links
 [goal-scraper] WARNING: Strasbourg scored 6 but only 5 scorer(s) were parsed for https://www.goal.com/en/match/troyes-vs-strasbourg/koAMaRdnJV_EwV1QHnhTb
-[goal-scraper] [FL1] SCORER PARSE FAILED (attempt 1/3) for Troyes 2-6 Strasbourg -- NOT committing, will retry next run: https://www.goal.com/en/match/troyes-vs-strasbourg/koAMaRdnJV_EwV1QHnhTb
+[goal-scraper] [FL1] SCORER PARSE FAILED (attempt 2/3) for Troyes 2-6 Strasbourg -- NOT committing, will retry next run: https://www.goal.com/en/match/troyes-vs-strasbourg/koAMaRdnJV_EwV1QHnhTb
+[goal-scraper] [FL1] Added: Angers 1-2 Rennes
 [goal-scraper] [CL] Found 0 finished-match links
 [goal-scraper] [real-madrid] Found 19 finished-match links
 [goal-scraper] WARNING: Tottenham Hotspur scored 1 but 0 scorers were parsed for https://www.goal.com/en/match/real-madrid-vs-tottenham-hotspur/xdLKWe_FxdSoHo2tVKBzZ
@@ -30,13 +35,15 @@
 [goal-scraper] [real-madrid] Skipping stale match (older than 45 days): Cf Talavera De La Reina vs Real Madrid on 2025-12-17
 [goal-scraper] WARNING: Albacete scored 3 but only 2 scorer(s) were parsed for https://www.goal.com/en/match/albacete-vs-real-madrid/D4bjAPRMpTDjC8KGyEVOS
 [goal-scraper] [real-madrid] Skipping stale match (older than 45 days): Albacete vs Real Madrid on 2026-01-14
-[goal-scraper] [barcelona] Found 14 finished-match links
+[goal-scraper] [barcelona] Found 15 finished-match links
 [goal-scraper] [barcelona] Skipping stale match (older than 45 days): Cd Guadalajara vs Barcelona on 2025-12-16
 [goal-scraper] [barcelona] Skipping stale match (older than 45 days): Racing Santander vs Barcelona on 2026-01-15
 [goal-scraper] [barcelona] Skipping stale match (older than 45 days): Albacete vs Barcelona on 2026-02-03
 [goal-scraper] [barcelona] Skipping stale match (older than 45 days): Atletico Madrid vs Barcelona on 2026-02-12
 [goal-scraper] WARNING: Barcelona scored 3 but only 2 scorer(s) were parsed for https://www.goal.com/en/match/barcelona-vs-atletico-madrid/_ZprE2-vo0-u6L1aa-2iV
 [goal-scraper] [barcelona] Skipping stale match (older than 45 days): Barcelona vs Atletico Madrid on 2026-03-03
+[goal-scraper] WARNING: Barcelona scored 5 but only 4 scorer(s) were parsed for https://www.goal.com/en/match/valencia-vs-barcelona/PaKiQNegncrhyWNwvOsBO
+[goal-scraper] [barcelona] SCORER PARSE FAILED (attempt 2/3) for Valencia 0-5 Barcelona -- NOT committing, will retry next run: https://www.goal.com/en/match/valencia-vs-barcelona/PaKiQNegncrhyWNwvOsBO
 [goal-scraper] [bayern-munich] Found 18 finished-match links
 [goal-scraper] WARNING: Bayern Munich scored 6 but 0 scorers were parsed for https://www.goal.com/en/match/bayern-munich-vs-fenerbahce/ZCL4D3f-5GWp7UCPC24C5
 [goal-scraper] WARNING: Fenerbahce scored 1 but 0 scorers were parsed for https://www.goal.com/en/match/bayern-munich-vs-fenerbahce/ZCL4D3f-5GWp7UCPC24C5
@@ -95,6 +102,6 @@
 [goal-scraper] [juventus] Skipping stale match (older than 45 days): Juventus vs Manchester City on 2025-06-26
 [goal-scraper] [juventus] Skipping stale match (older than 45 days): Basel vs Juventus on 2026-07-18
 [goal-scraper] [arsenal-friendlies] Found 1 finished-match links
-[goal-scraper] TOTAL new results added this run: 2
-[goal-scraper] Matches still awaiting a clean scorer parse (not yet committed): ['https://www.goal.com/en/match/hamburger-sv-vs-mainz-05/1J5GS1PuYAeKk7S0gCHGR', 'https://www.goal.com/en/match/frosinone-vs-venezia/wgxkizIQRqQxiXfSzg0vc', 'https://www.goal.com/en/match/troyes-vs-strasbourg/koAMaRdnJV_EwV1QHnhTb']
+[goal-scraper] TOTAL new results added this run: 5
+[goal-scraper] Matches still awaiting a clean scorer parse (not yet committed): ['https://www.goal.com/en/match/hamburger-sv-vs-mainz-05/1J5GS1PuYAeKk7S0gCHGR', 'https://www.goal.com/en/match/frosinone-vs-venezia/wgxkizIQRqQxiXfSzg0vc', 'https://www.goal.com/en/match/troyes-vs-strasbourg/koAMaRdnJV_EwV1QHnhTb', 'https://www.goal.com/en/match/valencia-vs-barcelona/PaKiQNegncrhyWNwvOsBO']
 [goal-scraper] Wrote data/goal-results.json

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-06T16:05:49.558132Z",
+  "generatedAt": "2026-09-06T18:28:36.295120Z",
   "results": [
     {
       "url": "https://www.goal.com/en/match/girona-vs-arsenal/__LS8d9Oc6I1wXn9g8956",
@@ -4669,11 +4669,145 @@
         }
       ],
       "competition": "SA"
+    },
+    {
+      "url": "https://www.goal.com/en/match/arsenal-vs-chelsea/UavF2HCb2iErIWZYViCQ2",
+      "date": null,
+      "home": "Arsenal",
+      "away": "Chelsea",
+      "htHome": 1,
+      "htAway": 1,
+      "ftHome": 2,
+      "ftAway": 1,
+      "homeGoals": [
+        {
+          "scorer": "K. Havertz",
+          "minute": 25
+        },
+        {
+          "scorer": "M. Oedegaard",
+          "minute": 50
+        }
+      ],
+      "awayGoals": [
+        {
+          "scorer": "M. Rogers",
+          "minute": 2
+        }
+      ],
+      "competition": "PL"
+    },
+    {
+      "url": "https://www.goal.com/en/match/malaga-vs-levante/WJJaI2VD-g7sUYxq-2CAn",
+      "date": null,
+      "home": "Malaga",
+      "away": "Levante",
+      "htHome": 0,
+      "htAway": 0,
+      "ftHome": 0,
+      "ftAway": 0,
+      "homeGoals": [],
+      "awayGoals": [],
+      "competition": "PD"
+    },
+    {
+      "url": "https://www.goal.com/en/match/eintracht-frankfurt-vs-augsburg/Z7O37M7eO3H0ZEkjGGPRl",
+      "date": null,
+      "home": "Eintracht Frankfurt",
+      "away": "Augsburg",
+      "htHome": 1,
+      "htAway": 0,
+      "ftHome": 1,
+      "ftAway": 4,
+      "homeGoals": [
+        {
+          "scorer": "J. Burkardt",
+          "minute": 6
+        }
+      ],
+      "awayGoals": [
+        {
+          "scorer": "A. Ibrahimovic",
+          "minute": 46
+        },
+        {
+          "scorer": "R. Fellhauer",
+          "minute": 47
+        },
+        {
+          "scorer": "A. Claude-Maurice",
+          "minute": 65
+        },
+        {
+          "scorer": "F. Rieder",
+          "minute": 89
+        }
+      ],
+      "competition": "BL1"
+    },
+    {
+      "url": "https://www.goal.com/en/match/bologna-vs-sassuolo/9Ry5AM4GvAwLk782F1nBs",
+      "date": null,
+      "home": "Bologna",
+      "away": "Sassuolo",
+      "htHome": 0,
+      "htAway": 1,
+      "ftHome": 2,
+      "ftAway": 2,
+      "homeGoals": [
+        {
+          "scorer": "R. Piccoli",
+          "minute": 50
+        },
+        {
+          "scorer": "A. Dovbyk",
+          "minute": 90
+        }
+      ],
+      "awayGoals": [
+        {
+          "scorer": "J. Doig",
+          "minute": 19
+        },
+        {
+          "scorer": "V. Adzic",
+          "minute": 56
+        }
+      ],
+      "competition": "SA"
+    },
+    {
+      "url": "https://www.goal.com/en/match/angers-vs-rennes/KLq6-ereelFl6DobAa3et",
+      "date": null,
+      "home": "Angers",
+      "away": "Rennes",
+      "htHome": 1,
+      "htAway": 2,
+      "ftHome": 1,
+      "ftAway": 2,
+      "homeGoals": [
+        {
+          "scorer": "C. Arcus",
+          "minute": 35
+        }
+      ],
+      "awayGoals": [
+        {
+          "scorer": "P. Frankowski",
+          "minute": 9
+        },
+        {
+          "scorer": "J. Lefort",
+          "minute": 17
+        }
+      ],
+      "competition": "FL1"
     }
   ],
   "scorerParseRetryCounts": {
-    "https://www.goal.com/en/match/hamburger-sv-vs-mainz-05/1J5GS1PuYAeKk7S0gCHGR": 1,
-    "https://www.goal.com/en/match/frosinone-vs-venezia/wgxkizIQRqQxiXfSzg0vc": 1,
-    "https://www.goal.com/en/match/troyes-vs-strasbourg/koAMaRdnJV_EwV1QHnhTb": 1
+    "https://www.goal.com/en/match/hamburger-sv-vs-mainz-05/1J5GS1PuYAeKk7S0gCHGR": 2,
+    "https://www.goal.com/en/match/frosinone-vs-venezia/wgxkizIQRqQxiXfSzg0vc": 2,
+    "https://www.goal.com/en/match/troyes-vs-strasbourg/koAMaRdnJV_EwV1QHnhTb": 2,
+    "https://www.goal.com/en/match/valencia-vs-barcelona/PaKiQNegncrhyWNwvOsBO": 2
   }
 }
