@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-05T23:00:56.953154Z",
+  "generatedAt": "2026-09-06T04:49:48.441377Z",
   "events": [
     {
       "title": "Фестиваль юсуповского помидора в «Мясном»",
@@ -13,7 +13,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Stand-up концерт Сергея Орлова",
+      "title": "Stand-up concert by Sergei Orlov",
       "titleRu": "Stand-up концерт Сергея Орлова",
       "category": "concert",
       "venue": null,
@@ -24,7 +24,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Концерт пианиста Lang Lang в Самарканде",
+      "title": "Concert of pianist Lang Lang in Samarkand",
       "titleRu": "Концерт пианиста Lang Lang в Самарканде",
       "category": "concert",
       "venue": null,
@@ -35,7 +35,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Выставка «По женской линии»",
+      "title": "Exhibition “On the Female Line”",
       "titleRu": "Выставка «По женской линии»",
       "category": "exhibition",
       "venue": "ZanmakonТашкент, ул. Заркайнар, 48",
@@ -46,7 +46,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Выставка Мохамеда Беншалала",
+      "title": "Exhibition by Mohamed Benshalal",
       "titleRu": "Выставка Мохамеда Беншалала",
       "category": "exhibition",
       "venue": "Государственный музей истории УзбекистанаТашкент, просп. Рашидова, 3",
@@ -57,7 +57,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Осенний фестиваль локальных брендов TEPLO AUTUMN FEST",
+      "title": "Autumn festival of local brands TEPLO AUTUMN FEST",
       "titleRu": "Осенний фестиваль локальных брендов TEPLO AUTUMN FEST",
       "category": "exhibition",
       "venue": null,
@@ -68,7 +68,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Спектакль Out of Rider в Human House",
+      "title": "Out of Rider performance at Human House",
       "titleRu": "Спектакль Out of Rider в Human House",
       "category": "theatre",
       "venue": "Human HouseТашкент, ул. Ивлиева, 43",
@@ -79,7 +79,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Премьера спектакля «Насриддин Афанди»",
+      "title": "Premiere of the play “Nasriddin Afandi”",
       "titleRu": "Премьера спектакля «Насриддин Афанди»",
       "category": "theatre",
       "venue": null,
@@ -90,7 +90,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Спектакль «Бехаловат кошона»",
+      "title": "Performance “Bekhalovat koshona”",
       "titleRu": "Спектакль «Бехаловат кошона»",
       "category": "theatre",
       "venue": null,
@@ -101,7 +101,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Спектакль «Человек из Подольска»",
+      "title": "Performance “The Man from Podolsk”",
       "titleRu": "Спектакль «Человек из Подольска»",
       "category": "theatre",
       "venue": null,
@@ -123,7 +123,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Milliy Party в ТРЦ Compass",
+      "title": "Milliy Party in the Compass shopping center",
       "titleRu": "Milliy Party в ТРЦ Compass",
       "category": "kids",
       "venue": "ТРЦ CompassТашкент, ул. ТКАД, Фаргона йули, 17",
@@ -134,7 +134,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Milliy Party в ТРЦ Riviera",
+      "title": "Milliy Party in the Riviera shopping center",
       "titleRu": "Milliy Party в ТРЦ Riviera",
       "category": "kids",
       "venue": "ТРЦ RivieraТашкент, пересечение ул. Нурафшон и ул. Себзар",
@@ -145,18 +145,17 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Спектакль «Красавица и Чудовище»",
-      "titleRu": "Спектакль «Красавица и Чудовище»",
-      "category": "kids",
-      "venue": null,
+      "title": "The beauty and the Beast",
+      "titleRu": null,
+      "category": "theatre",
+      "venue": "Theatre - Studio Silk Route Marionettes Ecopark",
       "startDate": "2026-09-06",
       "endDate": null,
-      "time": "17:00",
-      "url": "https://www.afisha.uz/ru/children/2026/09/03/krasavica-i",
-      "source": "afisha.uz (calendar)"
+      "url": "https://iticket.uz/en/events/theaters-tashkent/the-beauty-and-the-beast-to",
+      "source": "iticket.uz"
     },
     {
-      "title": "Цирковые представления по выходным",
+      "title": "Circus performances on weekends",
       "titleRu": "Цирковые представления по выходным",
       "category": "kids",
       "venue": "ЦиркТашкент, пл. Хадра, 1",
@@ -167,7 +166,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Оперетта «Принц арены»",
+      "title": "Operetta “Prince of the Arena”",
       "titleRu": "Оперетта «Принц арены»",
       "category": "kids",
       "venue": null,
@@ -178,7 +177,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Сказка «Светофор»",
+      "title": "Fairy tale \"Traffic Light\"",
       "titleRu": "Сказка «Светофор»",
       "category": "kids",
       "venue": null,
@@ -189,18 +188,17 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Премьера спектакля «Синий карлик, или Жемчужное сердце»",
-      "titleRu": "Премьера спектакля «Синий карлик, или Жемчужное сердце»",
-      "category": "kids",
-      "venue": null,
+      "title": "Blue Dwarf, or The Pearl Heart",
+      "titleRu": null,
+      "category": "theatre",
+      "venue": "Uzbek National Puppet theater",
       "startDate": "2026-09-06",
       "endDate": null,
-      "time": null,
-      "url": "https://www.afisha.uz/ru/children/2026/08/06/children-s-play",
-      "source": "afisha.uz (calendar)"
+      "url": "https://iticket.uz/en/events/theaters-tashkent/blue-dwarf-or-the-pearl-heart",
+      "source": "iticket.uz"
     },
     {
-      "title": "Театрально-цирковое шоу Nova Circus",
+      "title": "Theater and circus show Nova Circus",
       "titleRu": "Театрально-цирковое шоу Nova Circus",
       "category": "kids",
       "venue": "Tashkent CityТашкент, просп. Бунёдкор",
@@ -211,7 +209,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "21-летие Zlotnikov Dance Centre",
+      "title": "21st anniversary of Zlotnikov Dance Center",
       "titleRu": "21-летие Zlotnikov Dance Centre",
       "category": "festival",
       "venue": "Magic CityТашкент, ул. Бабура, 174",
@@ -222,7 +220,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Фестиваль мороженого Muzz Fest 2.0",
+      "title": "Ice cream festival Muzz Fest 2.0",
       "titleRu": "Фестиваль мороженого Muzz Fest 2.0",
       "category": "festival",
       "venue": null,
@@ -233,7 +231,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Фейерверк-шоу в парке Tashkent City",
+      "title": "Fireworks show in Tashkent City Park",
       "titleRu": "Фейерверк-шоу в парке Tashkent City",
       "category": "festival",
       "venue": "Tashkent CityТашкент, просп. Бунёдкор",
@@ -244,7 +242,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Музыкальный фонтан в парке Magic City",
+      "title": "Musical fountain in Magic City Park",
       "titleRu": "Музыкальный фонтан в парке Magic City",
       "category": "festival",
       "venue": "Magic CityТашкент, ул. Бабура, 174",
@@ -266,7 +264,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Бесплатно в музей: в Узбекистане стартовала Неделя музеев",
+      "title": "Free entry to the museum: Museum Week has started in Uzbekistan",
       "titleRu": "Бесплатно в музей: в Узбекистане стартовала Неделя музеев",
       "category": "exhibition",
       "venue": null,
@@ -277,7 +275,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Узбекистан представит современное ремесло на Homo Faber 2026 в Венеции",
+      "title": "Uzbekistan will present contemporary craft at Homo Faber 2026 in Venice",
       "titleRu": "Узбекистан представит современное ремесло на Homo Faber 2026 в Венеции",
       "category": "exhibition",
       "venue": null,
@@ -338,16 +336,6 @@
       "source": "iticket.uz"
     },
     {
-      "title": "Blue Dwarf, or The Pearl Heart",
-      "titleRu": null,
-      "category": "theatre",
-      "venue": "Uzbek National Puppet theater",
-      "startDate": "2026-09-06",
-      "endDate": null,
-      "url": "https://iticket.uz/en/events/theaters-tashkent/blue-dwarf-or-the-pearl-heart",
-      "source": "iticket.uz"
-    },
-    {
       "title": "Hans and Gretel",
       "titleRu": null,
       "category": "theatre",
@@ -355,16 +343,6 @@
       "startDate": "2026-09-06",
       "endDate": null,
       "url": "https://iticket.uz/en/events/theaters-tashkent/hans-and-gretel8965",
-      "source": "iticket.uz"
-    },
-    {
-      "title": "The beauty and the Beast",
-      "titleRu": null,
-      "category": "theatre",
-      "venue": "Theatre - Studio Silk Route Marionettes Ecopark",
-      "startDate": "2026-09-06",
-      "endDate": null,
-      "url": "https://iticket.uz/en/events/theaters-tashkent/the-beauty-and-the-beast-to",
       "source": "iticket.uz"
     },
     {
@@ -389,7 +367,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Выставка «По женской линии»",
+      "title": "Exhibition “On the Female Line”",
       "titleRu": "Выставка «По женской линии»",
       "category": "exhibition",
       "venue": "ZanmakonТашкент, ул. Заркайнар, 48",
@@ -400,7 +378,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Выставка Мохамеда Беншалала",
+      "title": "Exhibition by Mohamed Benshalal",
       "titleRu": "Выставка Мохамеда Беншалала",
       "category": "exhibition",
       "venue": "Государственный музей истории УзбекистанаТашкент, просп. Рашидова, 3",
@@ -411,7 +389,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Музыкальный фонтан в парке Magic City",
+      "title": "Musical fountain in Magic City Park",
       "titleRu": "Музыкальный фонтан в парке Magic City",
       "category": "festival",
       "venue": "Magic CityТашкент, ул. Бабура, 174",
@@ -433,7 +411,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Концерт Гайбуллы Турсунова в Бухаре",
+      "title": "Concert of Gaibulla Tursunov in Bukhara",
       "titleRu": "Концерт Гайбуллы Турсунова в Бухаре",
       "category": "concert",
       "venue": null,
@@ -444,7 +422,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Бесплатно в музей: в Узбекистане стартовала Неделя музеев",
+      "title": "Free entry to the museum: Museum Week has started in Uzbekistan",
       "titleRu": "Бесплатно в музей: в Узбекистане стартовала Неделя музеев",
       "category": "exhibition",
       "venue": null,
@@ -455,7 +433,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Узбекистан представит современное ремесло на Homo Faber 2026 в Венеции",
+      "title": "Uzbekistan will present contemporary craft at Homo Faber 2026 in Venice",
       "titleRu": "Узбекистан представит современное ремесло на Homo Faber 2026 в Венеции",
       "category": "exhibition",
       "venue": null,
@@ -507,7 +485,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Выставка «По женской линии»",
+      "title": "Exhibition “On the Female Line”",
       "titleRu": "Выставка «По женской линии»",
       "category": "exhibition",
       "venue": "ZanmakonТашкент, ул. Заркайнар, 48",
@@ -518,7 +496,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Выставка Мохамеда Беншалала",
+      "title": "Exhibition by Mohamed Benshalal",
       "titleRu": "Выставка Мохамеда Беншалала",
       "category": "exhibition",
       "venue": "Государственный музей истории УзбекистанаТашкент, просп. Рашидова, 3",
@@ -529,7 +507,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Театрально-цирковое шоу Nova Circus",
+      "title": "Theater and circus show Nova Circus",
       "titleRu": "Театрально-цирковое шоу Nova Circus",
       "category": "kids",
       "venue": "Tashkent CityТашкент, просп. Бунёдкор",
@@ -540,7 +518,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Музыкальный фонтан в парке Magic City",
+      "title": "Musical fountain in Magic City Park",
       "titleRu": "Музыкальный фонтан в парке Magic City",
       "category": "festival",
       "venue": "Magic CityТашкент, ул. Бабура, 174",
@@ -562,7 +540,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Концерт Огабека Собирова",
+      "title": "Concert of Ogabek Sobirov",
       "titleRu": "Концерт Огабека Собирова",
       "category": "concert",
       "venue": null,
@@ -573,7 +551,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Юлдуз Усманова в Самарканде",
+      "title": "Yulduz Usmanova in Samarkand",
       "titleRu": "Юлдуз Усманова в Самарканде",
       "category": "concert",
       "venue": null,
@@ -595,7 +573,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Бесплатно в музей: в Узбекистане стартовала Неделя музеев",
+      "title": "Free entry to the museum: Museum Week has started in Uzbekistan",
       "titleRu": "Бесплатно в музей: в Узбекистане стартовала Неделя музеев",
       "category": "exhibition",
       "venue": null,
@@ -606,7 +584,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Узбекистан представит современное ремесло на Homo Faber 2026 в Венеции",
+      "title": "Uzbekistan will present contemporary craft at Homo Faber 2026 in Venice",
       "titleRu": "Узбекистан представит современное ремесло на Homo Faber 2026 в Венеции",
       "category": "exhibition",
       "venue": null,
@@ -638,7 +616,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Выставка «По женской линии»",
+      "title": "Exhibition “On the Female Line”",
       "titleRu": "Выставка «По женской линии»",
       "category": "exhibition",
       "venue": "ZanmakonТашкент, ул. Заркайнар, 48",
@@ -649,7 +627,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Выставка Мохамеда Беншалала",
+      "title": "Exhibition by Mohamed Benshalal",
       "titleRu": "Выставка Мохамеда Беншалала",
       "category": "exhibition",
       "venue": "Государственный музей истории УзбекистанаТашкент, просп. Рашидова, 3",
@@ -660,7 +638,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Музыкальный фонтан в парке Magic City",
+      "title": "Musical fountain in Magic City Park",
       "titleRu": "Музыкальный фонтан в парке Magic City",
       "category": "festival",
       "venue": "Magic CityТашкент, ул. Бабура, 174",
@@ -682,7 +660,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Концерт Огабека Собирова",
+      "title": "Concert of Ogabek Sobirov",
       "titleRu": "Концерт Огабека Собирова",
       "category": "concert",
       "venue": null,
@@ -704,7 +682,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Узбекистан представит современное ремесло на Homo Faber 2026 в Венеции",
+      "title": "Uzbekistan will present contemporary craft at Homo Faber 2026 in Venice",
       "titleRu": "Узбекистан представит современное ремесло на Homo Faber 2026 в Венеции",
       "category": "exhibition",
       "venue": null,
@@ -715,7 +693,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Выставка «По женской линии»",
+      "title": "Exhibition “On the Female Line”",
       "titleRu": "Выставка «По женской линии»",
       "category": "exhibition",
       "venue": "ZanmakonТашкент, ул. Заркайнар, 48",
@@ -726,7 +704,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Выставка Мохамеда Беншалала",
+      "title": "Exhibition by Mohamed Benshalal",
       "titleRu": "Выставка Мохамеда Беншалала",
       "category": "exhibition",
       "venue": "Государственный музей истории УзбекистанаТашкент, просп. Рашидова, 3",
@@ -737,7 +715,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Музыкальный фонтан в парке Magic City",
+      "title": "Musical fountain in Magic City Park",
       "titleRu": "Музыкальный фонтан в парке Magic City",
       "category": "festival",
       "venue": "Magic CityТашкент, ул. Бабура, 174",
@@ -770,7 +748,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Шоу «Команда Астана»",
+      "title": "Show \"Team Astana\"",
       "titleRu": "Шоу «Команда Астана»",
       "category": "concert",
       "venue": null,
@@ -791,7 +769,7 @@
       "source": "iticket.uz"
     },
     {
-      "title": "Спектакль «Адолат фасли»",
+      "title": "Performance “Adolat Fasli”",
       "titleRu": "Спектакль «Адолат фасли»",
       "category": "theatre",
       "venue": null,
@@ -813,7 +791,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Узбекистан представит современное ремесло на Homo Faber 2026 в Венеции",
+      "title": "Uzbekistan will present contemporary craft at Homo Faber 2026 in Venice",
       "titleRu": "Узбекистан представит современное ремесло на Homo Faber 2026 в Венеции",
       "category": "exhibition",
       "venue": null,
@@ -834,7 +812,7 @@
       "source": "iticket.uz"
     },
     {
-      "title": "Выставка «По женской линии»",
+      "title": "Exhibition “On the Female Line”",
       "titleRu": "Выставка «По женской линии»",
       "category": "exhibition",
       "venue": "ZanmakonТашкент, ул. Заркайнар, 48",
@@ -845,7 +823,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Выставка Мохамеда Беншалала",
+      "title": "Exhibition by Mohamed Benshalal",
       "titleRu": "Выставка Мохамеда Беншалала",
       "category": "exhibition",
       "venue": "Государственный музей истории УзбекистанаТашкент, просп. Рашидова, 3",
@@ -856,7 +834,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Театрально-цирковое шоу Nova Circus",
+      "title": "Theater and circus show Nova Circus",
       "titleRu": "Театрально-цирковое шоу Nova Circus",
       "category": "kids",
       "venue": "Tashkent CityТашкент, просп. Бунёдкор",
@@ -867,7 +845,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Фейерверк-шоу в парке Tashkent City",
+      "title": "Fireworks show in Tashkent City Park",
       "titleRu": "Фейерверк-шоу в парке Tashkent City",
       "category": "festival",
       "venue": "Tashkent CityТашкент, просп. Бунёдкор",
@@ -878,7 +856,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Музыкальный фонтан в парке Magic City",
+      "title": "Musical fountain in Magic City Park",
       "titleRu": "Музыкальный фонтан в парке Magic City",
       "category": "festival",
       "venue": "Magic CityТашкент, ул. Бабура, 174",
@@ -977,7 +955,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Узбекистан представит современное ремесло на Homo Faber 2026 в Венеции",
+      "title": "Uzbekistan will present contemporary craft at Homo Faber 2026 in Venice",
       "titleRu": "Узбекистан представит современное ремесло на Homo Faber 2026 в Венеции",
       "category": "exhibition",
       "venue": null,
@@ -1008,7 +986,7 @@
       "source": "iticket.uz"
     },
     {
-      "title": "Выставка «По женской линии»",
+      "title": "Exhibition “On the Female Line”",
       "titleRu": "Выставка «По женской линии»",
       "category": "exhibition",
       "venue": "ZanmakonТашкент, ул. Заркайнар, 48",
@@ -1019,7 +997,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Выставка Мохамеда Беншалала",
+      "title": "Exhibition by Mohamed Benshalal",
       "titleRu": "Выставка Мохамеда Беншалала",
       "category": "exhibition",
       "venue": "Государственный музей истории УзбекистанаТашкент, просп. Рашидова, 3",
@@ -1030,7 +1008,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Цирковые представления по выходным",
+      "title": "Circus performances on weekends",
       "titleRu": "Цирковые представления по выходным",
       "category": "kids",
       "venue": "ЦиркТашкент, пл. Хадра, 1",
@@ -1041,7 +1019,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Премьера спектакля «Синий карлик, или Жемчужное сердце»",
+      "title": "Premiere of the play “Blue Dwarf, or Heart of Pearl”",
       "titleRu": "Премьера спектакля «Синий карлик, или Жемчужное сердце»",
       "category": "kids",
       "venue": null,
@@ -1052,7 +1030,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Фейерверк-шоу в парке Tashkent City",
+      "title": "Fireworks show in Tashkent City Park",
       "titleRu": "Фейерверк-шоу в парке Tashkent City",
       "category": "festival",
       "venue": "Tashkent CityТашкент, просп. Бунёдкор",
@@ -1063,7 +1041,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Музыкальный фонтан в парке Magic City",
+      "title": "Musical fountain in Magic City Park",
       "titleRu": "Музыкальный фонтан в парке Magic City",
       "category": "festival",
       "venue": "Magic CityТашкент, ул. Бабура, 174",
@@ -1118,7 +1096,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Выставка «Сад памяти» в Haqiqiy",
+      "title": "Exhibition \"Garden of Memory\" in Haqiqiy",
       "titleRu": "Выставка «Сад памяти» в Haqiqiy",
       "category": "exhibition",
       "venue": "HaqiqiyТашкент, ул. Паркент, 115",
@@ -1162,7 +1140,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Ballet \"A Thousand and One Nights\"",
+      "title": "Балет «Тысяча и одна ночь»",
       "titleRu": "Балет «Тысяча и одна ночь»",
       "category": "theatre",
       "venue": null,
@@ -1206,7 +1184,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Concert-immersion “Sound Paths”",
+      "title": "Концерт-погружение «Звуковые пути»",
       "titleRu": "Концерт-погружение «Звуковые пути»",
       "category": "lecture",
       "venue": null,
@@ -1217,7 +1195,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Узбекистан представит современное ремесло на Homo Faber 2026 в Венеции",
+      "title": "Uzbekistan will present contemporary craft at Homo Faber 2026 in Venice",
       "titleRu": "Узбекистан представит современное ремесло на Homo Faber 2026 в Венеции",
       "category": "exhibition",
       "venue": null,
@@ -1288,7 +1266,7 @@
       "source": "iticket.uz"
     },
     {
-      "title": "Выставка «По женской линии»",
+      "title": "Exhibition “On the Female Line”",
       "titleRu": "Выставка «По женской линии»",
       "category": "exhibition",
       "venue": "ZanmakonТашкент, ул. Заркайнар, 48",
@@ -1299,7 +1277,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Выставка Мохамеда Беншалала",
+      "title": "Exhibition by Mohamed Benshalal",
       "titleRu": "Выставка Мохамеда Беншалала",
       "category": "exhibition",
       "venue": "Государственный музей истории УзбекистанаТашкент, просп. Рашидова, 3",
@@ -1310,7 +1288,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Цирковые представления по выходным",
+      "title": "Circus performances on weekends",
       "titleRu": "Цирковые представления по выходным",
       "category": "kids",
       "venue": "ЦиркТашкент, пл. Хадра, 1",
@@ -1321,7 +1299,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Премьера спектакля «Синий карлик, или Жемчужное сердце»",
+      "title": "Premiere of the play “Blue Dwarf, or Heart of Pearl”",
       "titleRu": "Премьера спектакля «Синий карлик, или Жемчужное сердце»",
       "category": "kids",
       "venue": null,
@@ -1332,7 +1310,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Фейерверк-шоу в парке Tashkent City",
+      "title": "Fireworks show in Tashkent City Park",
       "titleRu": "Фейерверк-шоу в парке Tashkent City",
       "category": "festival",
       "venue": "Tashkent CityТашкент, просп. Бунёдкор",
@@ -1343,7 +1321,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Музыкальный фонтан в парке Magic City",
+      "title": "Musical fountain in Magic City Park",
       "titleRu": "Музыкальный фонтан в парке Magic City",
       "category": "festival",
       "venue": "Magic CityТашкент, ул. Бабура, 174",
@@ -1376,7 +1354,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Выставка «Сад памяти» в Haqiqiy",
+      "title": "Exhibition \"Garden of Memory\" in Haqiqiy",
       "titleRu": "Выставка «Сад памяти» в Haqiqiy",
       "category": "exhibition",
       "venue": "HaqiqiyТашкент, ул. Паркент, 115",
@@ -1420,7 +1398,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Free painting market in the Haqiqiy space",
+      "title": "Свободный маркет живописи в пространстве Haqiqiy",
       "titleRu": "Свободный маркет живописи в пространстве Haqiqiy",
       "category": "exhibition",
       "venue": "HaqiqiyТашкент, ул. Паркент, 115",
@@ -1442,7 +1420,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Performance \"Kungil\"",
+      "title": "Спектакль «Кунгил»",
       "titleRu": "Спектакль «Кунгил»",
       "category": "theatre",
       "venue": null,
@@ -1453,7 +1431,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Musical performance “It can’t be”",
+      "title": "Музыкальный спектакль «Не может быть»",
       "titleRu": "Музыкальный спектакль «Не может быть»",
       "category": "theatre",
       "venue": null,
@@ -1485,7 +1463,7 @@
       "source": "iticket.uz"
     },
     {
-      "title": "Спектакль «Аладдин»",
+      "title": "Performance \"Aladdin\"",
       "titleRu": "Спектакль «Аладдин»",
       "category": "kids",
       "venue": null,
@@ -1496,7 +1474,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Узбекистан представит современное ремесло на Homo Faber 2026 в Венеции",
+      "title": "Uzbekistan will present contemporary craft at Homo Faber 2026 in Venice",
       "titleRu": "Узбекистан представит современное ремесло на Homo Faber 2026 в Венеции",
       "category": "exhibition",
       "venue": null,
@@ -1547,7 +1525,7 @@
       "source": "iticket.uz"
     },
     {
-      "title": "Выставка «По женской линии»",
+      "title": "Exhibition “On the Female Line”",
       "titleRu": "Выставка «По женской линии»",
       "category": "exhibition",
       "venue": "ZanmakonТашкент, ул. Заркайнар, 48",
@@ -1558,7 +1536,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Выставка Мохамеда Беншалала",
+      "title": "Exhibition by Mohamed Benshalal",
       "titleRu": "Выставка Мохамеда Беншалала",
       "category": "exhibition",
       "venue": "Государственный музей истории УзбекистанаТашкент, просп. Рашидова, 3",
@@ -1569,7 +1547,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Музыкальный фонтан в парке Magic City",
+      "title": "Musical fountain in Magic City Park",
       "titleRu": "Музыкальный фонтан в парке Magic City",
       "category": "festival",
       "venue": "Magic CityТашкент, ул. Бабура, 174",
@@ -1591,7 +1569,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Выставка «Сад памяти» в Haqiqiy",
+      "title": "Exhibition \"Garden of Memory\" in Haqiqiy",
       "titleRu": "Выставка «Сад памяти» в Haqiqiy",
       "category": "exhibition",
       "venue": "HaqiqiyТашкент, ул. Паркент, 115",
@@ -1613,7 +1591,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Узбекистан представит современное ремесло на Homo Faber 2026 в Венеции",
+      "title": "Uzbekistan will present contemporary craft at Homo Faber 2026 in Venice",
       "titleRu": "Узбекистан представит современное ремесло на Homo Faber 2026 в Венеции",
       "category": "exhibition",
       "venue": null,
@@ -1634,7 +1612,7 @@
       "source": "iticket.uz"
     },
     {
-      "title": "Выставка «По женской линии»",
+      "title": "Exhibition “On the Female Line”",
       "titleRu": "Выставка «По женской линии»",
       "category": "exhibition",
       "venue": "ZanmakonТашкент, ул. Заркайнар, 48",
@@ -1645,7 +1623,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Выставка Мохамеда Беншалала",
+      "title": "Exhibition by Mohamed Benshalal",
       "titleRu": "Выставка Мохамеда Беншалала",
       "category": "exhibition",
       "venue": "Государственный музей истории УзбекистанаТашкент, просп. Рашидова, 3",
@@ -1656,7 +1634,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Музыкальный фонтан в парке Magic City",
+      "title": "Musical fountain in Magic City Park",
       "titleRu": "Музыкальный фонтан в парке Magic City",
       "category": "festival",
       "venue": "Magic CityТашкент, ул. Бабура, 174",
@@ -1678,7 +1656,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Выставка «Сад памяти» в Haqiqiy",
+      "title": "Exhibition \"Garden of Memory\" in Haqiqiy",
       "titleRu": "Выставка «Сад памяти» в Haqiqiy",
       "category": "exhibition",
       "venue": "HaqiqiyТашкент, ул. Паркент, 115",
@@ -1700,7 +1678,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Моноспектакль «Альфа Центавра»",
+      "title": "Solo show \"Alpha Centauri\"",
       "titleRu": "Моноспектакль «Альфа Центавра»",
       "category": "theatre",
       "venue": null,
@@ -1711,7 +1689,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Спектакль «Альфа Центавра»",
+      "title": "Performance \"Alpha Centauri\"",
       "titleRu": "Спектакль «Альфа Центавра»",
       "category": "theatre",
       "venue": null,
@@ -1722,7 +1700,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Узбекистан представит современное ремесло на Homo Faber 2026 в Венеции",
+      "title": "Uzbekistan will present contemporary craft at Homo Faber 2026 in Venice",
       "titleRu": "Узбекистан представит современное ремесло на Homo Faber 2026 в Венеции",
       "category": "exhibition",
       "venue": null,
@@ -1733,7 +1711,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Выставка «По женской линии»",
+      "title": "Exhibition “On the Female Line”",
       "titleRu": "Выставка «По женской линии»",
       "category": "exhibition",
       "venue": "ZanmakonТашкент, ул. Заркайнар, 48",
@@ -1744,7 +1722,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Выставка Мохамеда Беншалала",
+      "title": "Exhibition by Mohamed Benshalal",
       "titleRu": "Выставка Мохамеда Беншалала",
       "category": "exhibition",
       "venue": "Государственный музей истории УзбекистанаТашкент, просп. Рашидова, 3",
@@ -1755,7 +1733,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Музыкальный фонтан в парке Magic City",
+      "title": "Musical fountain in Magic City Park",
       "titleRu": "Музыкальный фонтан в парке Magic City",
       "category": "festival",
       "venue": "Magic CityТашкент, ул. Бабура, 174",
@@ -1777,7 +1755,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Выставка «Сад памяти» в Haqiqiy",
+      "title": "Exhibition \"Garden of Memory\" in Haqiqiy",
       "titleRu": "Выставка «Сад памяти» в Haqiqiy",
       "category": "exhibition",
       "venue": "HaqiqiyТашкент, ул. Паркент, 115",
@@ -1799,7 +1777,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Узбекистан представит современное ремесло на Homo Faber 2026 в Венеции",
+      "title": "Uzbekistan will present contemporary craft at Homo Faber 2026 in Venice",
       "titleRu": "Узбекистан представит современное ремесло на Homo Faber 2026 в Венеции",
       "category": "exhibition",
       "venue": null,
@@ -1820,7 +1798,7 @@
       "source": "iticket.uz"
     },
     {
-      "title": "Выставка «По женской линии»",
+      "title": "Exhibition “On the Female Line”",
       "titleRu": "Выставка «По женской линии»",
       "category": "exhibition",
       "venue": "ZanmakonТашкент, ул. Заркайнар, 48",
@@ -1831,7 +1809,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Выставка Мохамеда Беншалала",
+      "title": "Exhibition by Mohamed Benshalal",
       "titleRu": "Выставка Мохамеда Беншалала",
       "category": "exhibition",
       "venue": "Государственный музей истории УзбекистанаТашкент, просп. Рашидова, 3",
@@ -1842,7 +1820,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Спектакль «Бехаловат кошона»",
+      "title": "Performance “Bekhalovat koshona”",
       "titleRu": "Спектакль «Бехаловат кошона»",
       "category": "theatre",
       "venue": null,
@@ -1853,7 +1831,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Музыкальный фонтан в парке Magic City",
+      "title": "Musical fountain in Magic City Park",
       "titleRu": "Музыкальный фонтан в парке Magic City",
       "category": "festival",
       "venue": "Magic CityТашкент, ул. Бабура, 174",
@@ -1875,7 +1853,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Выставка «Сад памяти» в Haqiqiy",
+      "title": "Exhibition \"Garden of Memory\" in Haqiqiy",
       "titleRu": "Выставка «Сад памяти» в Haqiqiy",
       "category": "exhibition",
       "venue": "HaqiqiyТашкент, ул. Паркент, 115",
@@ -1897,7 +1875,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Узбекистан представит современное ремесло на Homo Faber 2026 в Венеции",
+      "title": "Uzbekistan will present contemporary craft at Homo Faber 2026 in Venice",
       "titleRu": "Узбекистан представит современное ремесло на Homo Faber 2026 в Венеции",
       "category": "exhibition",
       "venue": null,
@@ -1918,7 +1896,7 @@
       "source": "iticket.uz"
     },
     {
-      "title": "Выставка «По женской линии»",
+      "title": "Exhibition “On the Female Line”",
       "titleRu": "Выставка «По женской линии»",
       "category": "exhibition",
       "venue": "ZanmakonТашкент, ул. Заркайнар, 48",
@@ -1929,7 +1907,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Выставка Мохамеда Беншалала",
+      "title": "Exhibition by Mohamed Benshalal",
       "titleRu": "Выставка Мохамеда Беншалала",
       "category": "exhibition",
       "venue": "Государственный музей истории УзбекистанаТашкент, просп. Рашидова, 3",
@@ -1940,7 +1918,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Фейерверк-шоу в парке Tashkent City",
+      "title": "Fireworks show in Tashkent City Park",
       "titleRu": "Фейерверк-шоу в парке Tashkent City",
       "category": "festival",
       "venue": "Tashkent CityТашкент, просп. Бунёдкор",
@@ -1951,7 +1929,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Музыкальный фонтан в парке Magic City",
+      "title": "Musical fountain in Magic City Park",
       "titleRu": "Музыкальный фонтан в парке Magic City",
       "category": "festival",
       "venue": "Magic CityТашкент, ул. Бабура, 174",
@@ -1973,7 +1951,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Выставка «Сад памяти» в Haqiqiy",
+      "title": "Exhibition \"Garden of Memory\" in Haqiqiy",
       "titleRu": "Выставка «Сад памяти» в Haqiqiy",
       "category": "exhibition",
       "venue": "HaqiqiyТашкент, ул. Паркент, 115",
@@ -1995,7 +1973,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Узбекистан представит современное ремесло на Homo Faber 2026 в Венеции",
+      "title": "Uzbekistan will present contemporary craft at Homo Faber 2026 in Venice",
       "titleRu": "Узбекистан представит современное ремесло на Homo Faber 2026 в Венеции",
       "category": "exhibition",
       "venue": null,
@@ -2036,7 +2014,7 @@
       "source": "iticket.uz"
     },
     {
-      "title": "Выставка Мохамеда Беншалала",
+      "title": "Exhibition by Mohamed Benshalal",
       "titleRu": "Выставка Мохамеда Беншалала",
       "category": "exhibition",
       "venue": "Государственный музей истории УзбекистанаТашкент, просп. Рашидова, 3",
@@ -2047,7 +2025,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Цирковые представления по выходным",
+      "title": "Circus performances on weekends",
       "titleRu": "Цирковые представления по выходным",
       "category": "kids",
       "venue": "ЦиркТашкент, пл. Хадра, 1",
@@ -2058,7 +2036,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Фейерверк-шоу в парке Tashkent City",
+      "title": "Fireworks show in Tashkent City Park",
       "titleRu": "Фейерверк-шоу в парке Tashkent City",
       "category": "festival",
       "venue": "Tashkent CityТашкент, просп. Бунёдкор",
@@ -2069,7 +2047,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Музыкальный фонтан в парке Magic City",
+      "title": "Musical fountain in Magic City Park",
       "titleRu": "Музыкальный фонтан в парке Magic City",
       "category": "festival",
       "venue": "Magic CityТашкент, ул. Бабура, 174",
@@ -2091,7 +2069,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Выставка «Сад памяти» в Haqiqiy",
+      "title": "Exhibition \"Garden of Memory\" in Haqiqiy",
       "titleRu": "Выставка «Сад памяти» в Haqiqiy",
       "category": "exhibition",
       "venue": "HaqiqiyТашкент, ул. Паркент, 115",
@@ -2102,7 +2080,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Узбекистан представит современное ремесло на Homo Faber 2026 в Венеции",
+      "title": "Uzbekistan will present contemporary craft at Homo Faber 2026 in Venice",
       "titleRu": "Узбекистан представит современное ремесло на Homo Faber 2026 в Венеции",
       "category": "exhibition",
       "venue": null,
@@ -2173,7 +2151,7 @@
       "source": "iticket.uz"
     },
     {
-      "title": "Выставка Мохамеда Беншалала",
+      "title": "Exhibition by Mohamed Benshalal",
       "titleRu": "Выставка Мохамеда Беншалала",
       "category": "exhibition",
       "venue": "Государственный музей истории УзбекистанаТашкент, просп. Рашидова, 3",
@@ -2184,7 +2162,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Цирковые представления по выходным",
+      "title": "Circus performances on weekends",
       "titleRu": "Цирковые представления по выходным",
       "category": "kids",
       "venue": "ЦиркТашкент, пл. Хадра, 1",
@@ -2195,7 +2173,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Фейерверк-шоу в парке Tashkent City",
+      "title": "Fireworks show in Tashkent City Park",
       "titleRu": "Фейерверк-шоу в парке Tashkent City",
       "category": "festival",
       "venue": "Tashkent CityТашкент, просп. Бунёдкор",
@@ -2206,7 +2184,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Музыкальный фонтан в парке Magic City",
+      "title": "Musical fountain in Magic City Park",
       "titleRu": "Музыкальный фонтан в парке Magic City",
       "category": "festival",
       "venue": "Magic CityТашкент, ул. Бабура, 174",
@@ -2228,7 +2206,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Выставка «Сад памяти» в Haqiqiy",
+      "title": "Exhibition \"Garden of Memory\" in Haqiqiy",
       "titleRu": "Выставка «Сад памяти» в Haqiqiy",
       "category": "exhibition",
       "venue": "HaqiqiyТашкент, ул. Паркент, 115",
@@ -2239,7 +2217,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Узбекистан представит современное ремесло на Homo Faber 2026 в Венеции",
+      "title": "Uzbekistan will present contemporary craft at Homo Faber 2026 in Venice",
       "titleRu": "Узбекистан представит современное ремесло на Homo Faber 2026 в Венеции",
       "category": "exhibition",
       "venue": null,
