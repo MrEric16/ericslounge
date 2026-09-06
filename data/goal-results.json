@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-06T13:00:15.933646Z",
+  "generatedAt": "2026-09-06T16:05:49.558132Z",
   "results": [
     {
       "url": "https://www.goal.com/en/match/girona-vs-arsenal/__LS8d9Oc6I1wXn9g8956",
@@ -4615,7 +4615,65 @@
         }
       ],
       "competition": "FL1"
+    },
+    {
+      "url": "https://www.goal.com/en/match/everton-vs-manchester-united/RlWHA4fVOLOnhwK_dQITa",
+      "date": null,
+      "home": "Everton",
+      "away": "Manchester United",
+      "htHome": 0,
+      "htAway": 0,
+      "ftHome": 2,
+      "ftAway": 2,
+      "homeGoals": [
+        {
+          "scorer": "T. George",
+          "minute": 83
+        },
+        {
+          "scorer": "A. Maitland-Niles",
+          "minute": 90
+        }
+      ],
+      "awayGoals": [
+        {
+          "scorer": "B. Mbeumo",
+          "minute": 46
+        },
+        {
+          "scorer": "B. Sesko",
+          "minute": 88
+        }
+      ],
+      "competition": "PL"
+    },
+    {
+      "url": "https://www.goal.com/en/match/parma-calcio-1913-vs-monza/wNWzP6vhRl0gcv8N5YpXM",
+      "date": null,
+      "home": "Parma Calcio 1913",
+      "away": "Monza",
+      "htHome": 0,
+      "htAway": 1,
+      "ftHome": 1,
+      "ftAway": 1,
+      "homeGoals": [
+        {
+          "scorer": "S. Lontani",
+          "minute": 60
+        }
+      ],
+      "awayGoals": [
+        {
+          "scorer": "J. Robinson",
+          "minute": 38
+        }
+      ],
+      "competition": "SA"
     }
   ],
-  "scorerParseRetryCounts": {}
+  "scorerParseRetryCounts": {
+    "https://www.goal.com/en/match/hamburger-sv-vs-mainz-05/1J5GS1PuYAeKk7S0gCHGR": 1,
+    "https://www.goal.com/en/match/frosinone-vs-venezia/wgxkizIQRqQxiXfSzg0vc": 1,
+    "https://www.goal.com/en/match/troyes-vs-strasbourg/koAMaRdnJV_EwV1QHnhTb": 1
+  }
 }
