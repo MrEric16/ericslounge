@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-06T15:25:48.862701+00:00",
+  "generatedAt": "2026-09-06T18:16:08.601158+00:00",
   "teams": [
     "Al Jazira Club",
     "Al Ain FC",
@@ -7,9 +7,9 @@
     "Shabab Al Ahli Club",
     "Sharjah FC",
     "Ajman Club",
+    "Al Wahda",
     "United FC",
     "Al Nasr SC",
-    "Al Wahda",
     "Hatta Club",
     "Khor Fakkan Club",
     "Ittihad Kalba FC",
@@ -84,6 +84,17 @@
       "points": 9
     },
     {
+      "team": "Al Wahda",
+      "played": 4,
+      "won": 2,
+      "drawn": 0,
+      "lost": 2,
+      "gf": 5,
+      "ga": 5,
+      "gd": 0,
+      "points": 6
+    },
+    {
       "team": "United FC",
       "played": 4,
       "won": 2,
@@ -104,17 +115,6 @@
       "ga": 6,
       "gd": -1,
       "points": 4
-    },
-    {
-      "team": "Al Wahda",
-      "played": 3,
-      "won": 1,
-      "drawn": 0,
-      "lost": 2,
-      "gf": 4,
-      "ga": 5,
-      "gd": -1,
-      "points": 3
     },
     {
       "team": "Hatta Club",
@@ -162,22 +162,17 @@
     },
     {
       "team": "Al Dhafra",
-      "played": 3,
+      "played": 4,
       "won": 0,
       "drawn": 0,
-      "lost": 3,
+      "lost": 4,
       "gf": 1,
-      "ga": 7,
-      "gd": -6,
+      "ga": 8,
+      "gd": -7,
       "points": 0
     }
   ],
   "fixtures": [
-    {
-      "home": "Al Dhafra",
-      "away": "Al Wahda",
-      "start": "2026-09-06T19:15:00+05:00"
-    },
     {
       "home": "Al Jazira Club",
       "away": "Al Nasr SC",
@@ -429,6 +424,14 @@
       "start": "2026-09-06T16:45:00+05:00",
       "homeScore": 1,
       "awayScore": 2,
+      "finished": true
+    },
+    {
+      "home": "Al Dhafra",
+      "away": "Al Wahda",
+      "start": "2026-09-06T19:15:00+05:00",
+      "homeScore": 0,
+      "awayScore": 1,
       "finished": true
     }
   ]
