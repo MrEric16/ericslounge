@@ -1,24 +1,12 @@
 [goal-scraper] Run started.
 [goal-scraper] [PL] Found 10 finished-match links
 [goal-scraper] [PD] Found 7 finished-match links
-[goal-scraper] WARNING: Barcelona scored 5 but only 4 scorer(s) were parsed for https://www.goal.com/en/match/valencia-vs-barcelona/PaKiQNegncrhyWNwvOsBO
-[goal-scraper] [PD] SCORER PARSE FAILED 3 times, giving up and committing WITH INCOMPLETE SCORER DATA (page structure likely changed) for Valencia 0-5 Barcelona: https://www.goal.com/en/match/valencia-vs-barcelona/PaKiQNegncrhyWNwvOsBO
-[goal-scraper] [PD] Added: Valencia 0-5 Barcelona
 [goal-scraper] WARNING: Deportivo Alaves scored 5 but only 3 scorer(s) were parsed for https://www.goal.com/en/match/deportivo-alaves-vs-osasuna/3VuOX-kLSMWf0JZckLnd2
 [goal-scraper] WARNING: Osasuna scored 2 but only 1 scorer(s) were parsed for https://www.goal.com/en/match/deportivo-alaves-vs-osasuna/3VuOX-kLSMWf0JZckLnd2
-[goal-scraper] [PD] SCORER PARSE FAILED (attempt 1/3) for Deportivo Alaves 5-2 Osasuna -- NOT committing, will retry next run: https://www.goal.com/en/match/deportivo-alaves-vs-osasuna/3VuOX-kLSMWf0JZckLnd2
+[goal-scraper] [PD] SCORER PARSE FAILED (attempt 2/3) for Deportivo Alaves 5-2 Osasuna -- NOT committing, will retry next run: https://www.goal.com/en/match/deportivo-alaves-vs-osasuna/3VuOX-kLSMWf0JZckLnd2
 [goal-scraper] [BL1] Found 9 finished-match links
-[goal-scraper] WARNING: Mainz 05 scored 5 but only 4 scorer(s) were parsed for https://www.goal.com/en/match/hamburger-sv-vs-mainz-05/1J5GS1PuYAeKk7S0gCHGR
-[goal-scraper] [BL1] SCORER PARSE FAILED 3 times, giving up and committing WITH INCOMPLETE SCORER DATA (page structure likely changed) for Hamburger Sv 0-5 Mainz 05: https://www.goal.com/en/match/hamburger-sv-vs-mainz-05/1J5GS1PuYAeKk7S0gCHGR
-[goal-scraper] [BL1] Added: Hamburger Sv 0-5 Mainz 05
 [goal-scraper] [SA] Found 7 finished-match links
-[goal-scraper] WARNING: Frosinone scored 3 but only 2 scorer(s) were parsed for https://www.goal.com/en/match/frosinone-vs-venezia/wgxkizIQRqQxiXfSzg0vc
-[goal-scraper] [SA] SCORER PARSE FAILED 3 times, giving up and committing WITH INCOMPLETE SCORER DATA (page structure likely changed) for Frosinone 3-2 Venezia: https://www.goal.com/en/match/frosinone-vs-venezia/wgxkizIQRqQxiXfSzg0vc
-[goal-scraper] [SA] Added: Frosinone 3-2 Venezia
 [goal-scraper] [FL1] Found 8 finished-match links
-[goal-scraper] WARNING: Strasbourg scored 6 but only 5 scorer(s) were parsed for https://www.goal.com/en/match/troyes-vs-strasbourg/koAMaRdnJV_EwV1QHnhTb
-[goal-scraper] [FL1] SCORER PARSE FAILED 3 times, giving up and committing WITH INCOMPLETE SCORER DATA (page structure likely changed) for Troyes 2-6 Strasbourg: https://www.goal.com/en/match/troyes-vs-strasbourg/koAMaRdnJV_EwV1QHnhTb
-[goal-scraper] [FL1] Added: Troyes 2-6 Strasbourg
 [goal-scraper] [CL] Found 0 finished-match links
 [goal-scraper] [real-madrid] Found 19 finished-match links
 [goal-scraper] WARNING: Tottenham Hotspur scored 1 but 0 scorers were parsed for https://www.goal.com/en/match/real-madrid-vs-tottenham-hotspur/xdLKWe_FxdSoHo2tVKBzZ
@@ -102,6 +90,6 @@
 [goal-scraper] [juventus] Skipping stale match (older than 45 days): Juventus vs Manchester City on 2025-06-26
 [goal-scraper] [juventus] Skipping stale match (older than 45 days): Basel vs Juventus on 2026-07-18
 [goal-scraper] [arsenal-friendlies] Found 1 finished-match links
-[goal-scraper] TOTAL new results added this run: 4
+[goal-scraper] TOTAL new results added this run: 0
 [goal-scraper] Matches still awaiting a clean scorer parse (not yet committed): ['https://www.goal.com/en/match/deportivo-alaves-vs-osasuna/3VuOX-kLSMWf0JZckLnd2']
 [goal-scraper] Wrote data/goal-results.json
