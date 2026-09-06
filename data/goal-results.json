@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-05T22:32:08.400094Z",
+  "generatedAt": "2026-09-06T00:27:22.951154Z",
   "results": [
     {
       "url": "https://www.goal.com/en/match/girona-vs-arsenal/__LS8d9Oc6I1wXn9g8956",
@@ -4592,9 +4592,30 @@
         }
       ],
       "competition": "PD"
+    },
+    {
+      "url": "https://www.goal.com/en/match/le-havre-vs-brest/a8L7y8yaM8rIvzxav4svA",
+      "date": null,
+      "home": "Le Havre",
+      "away": "Brest",
+      "htHome": 0,
+      "htAway": 1,
+      "ftHome": 1,
+      "ftAway": 2,
+      "homeGoals": [
+        {
+          "scorer": "R. Fofana",
+          "minute": 79
+        }
+      ],
+      "awayGoals": [
+        {
+          "scorer": "K. Doumbia",
+          "minute": 12
+        }
+      ],
+      "competition": "FL1"
     }
   ],
-  "scorerParseRetryCounts": {
-    "https://www.goal.com/en/match/le-havre-vs-brest/a8L7y8yaM8rIvzxav4svA": 2
-  }
+  "scorerParseRetryCounts": {}
 }

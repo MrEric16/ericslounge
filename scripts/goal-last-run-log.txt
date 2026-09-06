@@ -1,15 +1,12 @@
 [goal-scraper] Run started.
 [goal-scraper] [PL] Found 8 finished-match links
 [goal-scraper] [PD] Found 4 finished-match links
-[goal-scraper] WARNING: Rayo Vallecano scored 3 but only 2 scorer(s) were parsed for https://www.goal.com/en/match/rayo-vallecano-vs-racing-santander/WgktFuMOxNdHtW7Eq79UZ
-[goal-scraper] [PD] SCORER PARSE FAILED 3 times, giving up and committing WITH INCOMPLETE SCORER DATA (page structure likely changed) for Rayo Vallecano 3-2 Racing Santander: https://www.goal.com/en/match/rayo-vallecano-vs-racing-santander/WgktFuMOxNdHtW7Eq79UZ
-[goal-scraper] [PD] Added: Rayo Vallecano 3-2 Racing Santander
-[goal-scraper] [PD] Added: Villarreal 2-3 Deportivo De A Coruna
 [goal-scraper] [BL1] Found 7 finished-match links
 [goal-scraper] [SA] Found 4 finished-match links
 [goal-scraper] [FL1] Found 6 finished-match links
 [goal-scraper] WARNING: Brest scored 2 but only 1 scorer(s) were parsed for https://www.goal.com/en/match/le-havre-vs-brest/a8L7y8yaM8rIvzxav4svA
-[goal-scraper] [FL1] SCORER PARSE FAILED (attempt 2/3) for Le Havre 1-2 Brest -- NOT committing, will retry next run: https://www.goal.com/en/match/le-havre-vs-brest/a8L7y8yaM8rIvzxav4svA
+[goal-scraper] [FL1] SCORER PARSE FAILED 3 times, giving up and committing WITH INCOMPLETE SCORER DATA (page structure likely changed) for Le Havre 1-2 Brest: https://www.goal.com/en/match/le-havre-vs-brest/a8L7y8yaM8rIvzxav4svA
+[goal-scraper] [FL1] Added: Le Havre 1-2 Brest
 [goal-scraper] [CL] Found 0 finished-match links
 [goal-scraper] [real-madrid] Found 19 finished-match links
 [goal-scraper] WARNING: Tottenham Hotspur scored 1 but 0 scorers were parsed for https://www.goal.com/en/match/real-madrid-vs-tottenham-hotspur/xdLKWe_FxdSoHo2tVKBzZ
@@ -93,6 +90,5 @@
 [goal-scraper] [juventus] Skipping stale match (older than 45 days): Juventus vs Manchester City on 2025-06-26
 [goal-scraper] [juventus] Skipping stale match (older than 45 days): Basel vs Juventus on 2026-07-18
 [goal-scraper] [arsenal-friendlies] Found 1 finished-match links
-[goal-scraper] TOTAL new results added this run: 2
-[goal-scraper] Matches still awaiting a clean scorer parse (not yet committed): ['https://www.goal.com/en/match/le-havre-vs-brest/a8L7y8yaM8rIvzxav4svA']
+[goal-scraper] TOTAL new results added this run: 1
 [goal-scraper] Wrote data/goal-results.json
