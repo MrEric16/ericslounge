@@ -296,6 +296,7 @@ def fetch_liveresult_matches(page, url):
             if score_m:
                 entry["homeScore"] = int(score_m.group(1))
                 entry["awayScore"] = int(score_m.group(2))
+                entry["finished"] = True
             matches.append(entry)
         else:
             text = el.get_text(strip=True) if el.name not in ("script", "style") else ""
