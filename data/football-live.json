@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-06T11:12:14.297465Z",
+  "generatedAt": "2026-09-06T14:18:46.341564Z",
   "standings": {
     "PL": [
       {
@@ -40,6 +40,16 @@
         "l": 0,
         "gf": 7,
         "ga": 5,
+        "pts": 6
+      },
+      {
+        "name": "Man United",
+        "pld": 3,
+        "w": 2,
+        "d": 0,
+        "l": 1,
+        "gf": 6,
+        "ga": 4,
         "pts": 6
       },
       {
@@ -94,12 +104,12 @@
       },
       {
         "name": "Everton",
-        "pld": 2,
+        "pld": 3,
         "w": 1,
         "d": 1,
-        "l": 0,
+        "l": 1,
         "gf": 3,
-        "ga": 1,
+        "ga": 2,
         "pts": 4
       },
       {
@@ -111,16 +121,6 @@
         "gf": 3,
         "ga": 3,
         "pts": 4
-      },
-      {
-        "name": "Man United",
-        "pld": 2,
-        "w": 1,
-        "d": 0,
-        "l": 1,
-        "gf": 5,
-        "ga": 4,
-        "pts": 3
       },
       {
         "name": "Crystal Palace",
@@ -447,6 +447,16 @@
         "pts": 4
       },
       {
+        "name": "Mainz",
+        "pld": 2,
+        "w": 1,
+        "d": 1,
+        "l": 0,
+        "gf": 1,
+        "ga": 0,
+        "pts": 4
+      },
+      {
         "name": "Leverkusen",
         "pld": 2,
         "w": 1,
@@ -517,16 +527,6 @@
         "pts": 1
       },
       {
-        "name": "Mainz",
-        "pld": 1,
-        "w": 0,
-        "d": 1,
-        "l": 0,
-        "gf": 0,
-        "ga": 0,
-        "pts": 1
-      },
-      {
         "name": "SC Paderborn",
         "pld": 2,
         "w": 0,
@@ -568,12 +568,12 @@
       },
       {
         "name": "HSV",
-        "pld": 1,
+        "pld": 2,
         "w": 0,
         "d": 0,
-        "l": 1,
+        "l": 2,
         "gf": 0,
-        "ga": 2,
+        "ga": 3,
         "pts": 0
       },
       {
@@ -617,6 +617,16 @@
         "gf": 7,
         "ga": 3,
         "pts": 7
+      },
+      {
+        "name": "Frosinone",
+        "pld": 3,
+        "w": 2,
+        "d": 0,
+        "l": 1,
+        "gf": 5,
+        "ga": 1,
+        "pts": 6
       },
       {
         "name": "Milan",
@@ -669,16 +679,6 @@
         "pts": 4
       },
       {
-        "name": "Frosinone",
-        "pld": 2,
-        "w": 1,
-        "d": 0,
-        "l": 1,
-        "gf": 3,
-        "ga": 1,
-        "pts": 3
-      },
-      {
         "name": "Napoli",
         "pld": 3,
         "w": 1,
@@ -729,6 +729,16 @@
         "pts": 3
       },
       {
+        "name": "Monza",
+        "pld": 3,
+        "w": 1,
+        "d": 0,
+        "l": 2,
+        "gf": 4,
+        "ga": 7,
+        "pts": 3
+      },
+      {
         "name": "Bologna",
         "pld": 2,
         "w": 0,
@@ -740,30 +750,10 @@
       },
       {
         "name": "Parma",
-        "pld": 2,
+        "pld": 3,
         "w": 0,
         "d": 0,
-        "l": 2,
-        "gf": 0,
-        "ga": 3,
-        "pts": 0
-      },
-      {
-        "name": "Monza",
-        "pld": 2,
-        "w": 0,
-        "d": 0,
-        "l": 2,
-        "gf": 3,
-        "ga": 7,
-        "pts": 0
-      },
-      {
-        "name": "Venezia FC",
-        "pld": 2,
-        "w": 0,
-        "d": 0,
-        "l": 2,
+        "l": 3,
         "gf": 0,
         "ga": 4,
         "pts": 0
@@ -776,6 +766,16 @@
         "l": 3,
         "gf": 1,
         "ga": 7,
+        "pts": 0
+      },
+      {
+        "name": "Venezia FC",
+        "pld": 3,
+        "w": 0,
+        "d": 0,
+        "l": 3,
+        "gf": 0,
+        "ga": 6,
         "pts": 0
       },
       {
@@ -821,6 +821,16 @@
         "pts": 7
       },
       {
+        "name": "Strasbourg",
+        "pld": 3,
+        "w": 2,
+        "d": 0,
+        "l": 1,
+        "gf": 4,
+        "ga": 6,
+        "pts": 6
+      },
+      {
         "name": "Brest",
         "pld": 3,
         "w": 1,
@@ -852,12 +862,12 @@
       },
       {
         "name": "Troyes",
-        "pld": 2,
+        "pld": 3,
         "w": 1,
         "d": 1,
-        "l": 0,
-        "gf": 2,
-        "ga": 1,
+        "l": 1,
+        "gf": 3,
+        "ga": 3,
         "pts": 4
       },
       {
@@ -898,16 +908,6 @@
         "l": 1,
         "gf": 3,
         "ga": 3,
-        "pts": 3
-      },
-      {
-        "name": "Strasbourg",
-        "pld": 2,
-        "w": 1,
-        "d": 0,
-        "l": 1,
-        "gf": 2,
-        "ga": 5,
         "pts": 3
       },
       {
@@ -977,7 +977,7 @@
       "fixtures": [
         {
           "utcDate": "2026-09-06T13:00:00Z",
-          "status": "TIMED",
+          "status": "IN_PLAY",
           "matchday": 3,
           "homeTeam": {
             "id": 62,
@@ -990,15 +990,15 @@
             "shortName": "Man United"
           },
           "score": {
-            "winner": null,
+            "winner": "AWAY_TEAM",
             "duration": "REGULAR",
             "fullTime": {
-              "home": null,
-              "away": null
+              "home": 0,
+              "away": 1
             },
             "halfTime": {
-              "home": null,
-              "away": null
+              "home": 0,
+              "away": 0
             }
           },
           "competition": {
@@ -2167,7 +2167,7 @@
       "fixtures": [
         {
           "utcDate": "2026-09-06T13:30:00Z",
-          "status": "TIMED",
+          "status": "IN_PLAY",
           "matchday": 2,
           "homeTeam": {
             "id": 7,
@@ -2180,11 +2180,11 @@
             "shortName": "Mainz"
           },
           "score": {
-            "winner": null,
+            "winner": "AWAY_TEAM",
             "duration": "REGULAR",
             "fullTime": {
-              "home": null,
-              "away": null
+              "home": 0,
+              "away": 2
             },
             "halfTime": {
               "home": null,
@@ -2700,7 +2700,7 @@
       "fixtures": [
         {
           "utcDate": "2026-09-06T13:00:00Z",
-          "status": "TIMED",
+          "status": "IN_PLAY",
           "matchday": 3,
           "homeTeam": {
             "id": 112,
@@ -2713,15 +2713,15 @@
             "shortName": "Monza"
           },
           "score": {
-            "winner": null,
+            "winner": "AWAY_TEAM",
             "duration": "REGULAR",
             "fullTime": {
-              "home": null,
-              "away": null
+              "home": 0,
+              "away": 1
             },
             "halfTime": {
-              "home": null,
-              "away": null
+              "home": 0,
+              "away": 1
             }
           },
           "competition": {
@@ -2731,7 +2731,7 @@
         },
         {
           "utcDate": "2026-09-06T13:00:00Z",
-          "status": "TIMED",
+          "status": "IN_PLAY",
           "matchday": 3,
           "homeTeam": {
             "id": 470,
@@ -2744,15 +2744,15 @@
             "shortName": "Venezia FC"
           },
           "score": {
-            "winner": null,
+            "winner": "HOME_TEAM",
             "duration": "REGULAR",
             "fullTime": {
-              "home": null,
-              "away": null
+              "home": 2,
+              "away": 0
             },
             "halfTime": {
-              "home": null,
-              "away": null
+              "home": 2,
+              "away": 0
             }
           },
           "competition": {
@@ -3357,7 +3357,7 @@
       "fixtures": [
         {
           "utcDate": "2026-09-06T13:00:00Z",
-          "status": "TIMED",
+          "status": "IN_PLAY",
           "matchday": 3,
           "homeTeam": {
             "id": 531,
@@ -3370,15 +3370,15 @@
             "shortName": "Strasbourg"
           },
           "score": {
-            "winner": null,
+            "winner": "AWAY_TEAM",
             "duration": "REGULAR",
             "fullTime": {
-              "home": null,
-              "away": null
+              "home": 1,
+              "away": 2
             },
             "halfTime": {
-              "home": null,
-              "away": null
+              "home": 1,
+              "away": 2
             }
           },
           "competition": {
