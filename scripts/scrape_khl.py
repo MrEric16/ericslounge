@@ -208,7 +208,12 @@ LIVERESULT_TEAM_ALIASES = {
     "salavat yulayev ufa": "Salavat Yulaev", "salavat yulayev": "Salavat Yulaev",
     "ak bars kazan": "Ak Bars", "ak bars": "Ak Bars",
     "sibir novosibirsk": "Sibir", "sibir": "Sibir",
-    "avtomobilist": "Avtomobilist", "uhc dinamo": "Dinamo Mn", "dinamo minsk": "Dinamo Mn",
+    "avtomobilist": "Avtomobilist", "dinamo minsk": "Dinamo Mn",
+    # Confirmed via direct evidence (2026-09-06): the real match "Avtomobilist 2:1
+    # Dynamo Moscow" used the URL slug "UHC_Dinamo" - this is Dynamo Moscow's slug on
+    # liveresult.ru, NOT Dinamo Minsk, despite "uhc dinamo" sounding closer to Minsk's
+    # name. Was wrongly mapped to Dinamo Mn before; fixed to Dynamo Msk.
+    "uhc dinamo": "Dynamo Msk",
     "lokomotiv yaroslavl": "Lokomotiv", "lokomotiv": "Lokomotiv",
     "traktor": "Traktor", "traktor chelyabinsk": "Traktor",
     "metallurg magnitogorsk": "Metallurg Mg", "metallurg mg": "Metallurg Mg",
