@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-06T15:36:53.504087+00:00",
+  "generatedAt": "2026-09-06T20:36:29.646295+00:00",
   "standings": [
     {
       "team": "Lokomotiv",
@@ -62,6 +62,18 @@
       "points": 4
     },
     {
+      "team": "Dragons",
+      "played": 2,
+      "won": 1,
+      "otWon": 0,
+      "soWon": 1,
+      "soLost": 0,
+      "otLost": 0,
+      "lost": 0,
+      "gf": 5,
+      "points": 4
+    },
+    {
       "team": "SKA",
       "played": 2,
       "won": 1,
@@ -84,6 +96,18 @@
       "lost": 0,
       "gf": 4,
       "points": 3
+    },
+    {
+      "team": "Neftekhimik",
+      "played": 1,
+      "won": 1,
+      "otWon": 0,
+      "soWon": 0,
+      "soLost": 0,
+      "otLost": 0,
+      "lost": 0,
+      "gf": 4,
+      "points": 2
     },
     {
       "team": "Lada",
@@ -147,30 +171,6 @@
     },
     {
       "team": "Dinamo Mn",
-      "played": 0,
-      "won": 0,
-      "otWon": 0,
-      "soWon": 0,
-      "soLost": 0,
-      "otLost": 0,
-      "lost": 0,
-      "gf": 0,
-      "points": 0
-    },
-    {
-      "team": "Dragons",
-      "played": 0,
-      "won": 0,
-      "otWon": 0,
-      "soWon": 0,
-      "soLost": 0,
-      "otLost": 0,
-      "lost": 0,
-      "gf": 0,
-      "points": 0
-    },
-    {
-      "team": "Neftekhimik",
       "played": 0,
       "won": 0,
       "otWon": 0,
@@ -3974,6 +3974,14 @@
     }
   ],
   "results": [
+    {
+      "home": "Neftekhimik",
+      "away": "Dragons",
+      "start": "2026-09-06T07:00:00+05:00",
+      "homeScore": 4,
+      "awayScore": 5,
+      "finished": true
+    },
     {
       "home": "Metallurg Mg",
       "away": "Amur",
