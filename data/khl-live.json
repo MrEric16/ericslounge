@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-07T18:33:22.427902+00:00",
+  "generatedAt": "2026-09-07T21:39:30.495836+00:00",
   "standings": [
     {
       "team": "Salavat Yulaev",
@@ -12,6 +12,42 @@
       "lost": 0,
       "gf": 7,
       "points": 8
+    },
+    {
+      "team": "SKA",
+      "played": 4,
+      "won": 2,
+      "otWon": 1,
+      "soWon": 1,
+      "soLost": 0,
+      "otLost": 0,
+      "lost": 0,
+      "gf": 9,
+      "points": 8
+    },
+    {
+      "team": "Ak Bars",
+      "played": 4,
+      "won": 2,
+      "otWon": 1,
+      "soWon": 0,
+      "soLost": 1,
+      "otLost": 0,
+      "lost": 0,
+      "gf": 6,
+      "points": 7
+    },
+    {
+      "team": "Torpedo",
+      "played": 4,
+      "won": 2,
+      "otWon": 1,
+      "soWon": 0,
+      "soLost": 1,
+      "otLost": 0,
+      "lost": 0,
+      "gf": 5,
+      "points": 7
     },
     {
       "team": "Avtomobilist",
@@ -62,19 +98,19 @@
       "points": 4
     },
     {
-      "team": "Torpedo",
+      "team": "Severstal",
       "played": 2,
-      "won": 1,
+      "won": 2,
       "otWon": 1,
       "soWon": 0,
       "soLost": 0,
       "otLost": 0,
       "lost": 0,
-      "gf": 1,
-      "points": 4
+      "gf": 3,
+      "points": 6
     },
     {
-      "team": "Severstal",
+      "team": "Spartak",
       "played": 2,
       "won": 2,
       "otWon": 1,
@@ -98,18 +134,6 @@
       "points": 4
     },
     {
-      "team": "SKA",
-      "played": 2,
-      "won": 1,
-      "otWon": 0,
-      "soWon": 1,
-      "soLost": 0,
-      "otLost": 0,
-      "lost": 0,
-      "gf": 4,
-      "points": 4
-    },
-    {
       "team": "Traktor",
       "played": 2,
       "won": 2,
@@ -122,18 +146,6 @@
       "points": 6
     },
     {
-      "team": "Ak Bars",
-      "played": 2,
-      "won": 1,
-      "otWon": 0,
-      "soWon": 0,
-      "soLost": 1,
-      "otLost": 0,
-      "lost": 0,
-      "gf": 4,
-      "points": 3
-    },
-    {
       "team": "Neftekhimik",
       "played": 1,
       "won": 1,
@@ -144,6 +156,18 @@
       "lost": 0,
       "gf": 4,
       "points": 2
+    },
+    {
+      "team": "Dinamo Mn",
+      "played": 1,
+      "won": 1,
+      "otWon": 0,
+      "soWon": 0,
+      "soLost": 0,
+      "otLost": 1,
+      "lost": 0,
+      "gf": 3,
+      "points": 3
     },
     {
       "team": "Lada",
@@ -170,30 +194,6 @@
       "points": 5
     },
     {
-      "team": "Admiral",
-      "played": 0,
-      "won": 0,
-      "otWon": 0,
-      "soWon": 0,
-      "soLost": 0,
-      "otLost": 0,
-      "lost": 0,
-      "gf": 0,
-      "points": 0
-    },
-    {
-      "team": "Dinamo Mn",
-      "played": 0,
-      "won": 0,
-      "otWon": 0,
-      "soWon": 0,
-      "soLost": 0,
-      "otLost": 0,
-      "lost": 0,
-      "gf": 0,
-      "points": 0
-    },
-    {
       "team": "HC Sochi",
       "played": 0,
       "won": 0,
@@ -208,37 +208,13 @@
     {
       "team": "CSKA",
       "played": 0,
-      "won": 0,
-      "otWon": 0,
-      "soWon": 0,
-      "soLost": 0,
-      "otLost": 0,
-      "lost": 0,
-      "gf": 0,
-      "points": 0
-    },
-    {
-      "team": "Dynamo Msk",
-      "played": 0,
       "won": 1,
       "otWon": 0,
       "soWon": 0,
       "soLost": 0,
       "otLost": 0,
       "lost": 0,
-      "gf": 1,
-      "points": 2
-    },
-    {
-      "team": "Spartak",
-      "played": 0,
-      "won": 1,
-      "otWon": 0,
-      "soWon": 0,
-      "soLost": 0,
-      "otLost": 0,
-      "lost": 0,
-      "gf": 0,
+      "gf": 2,
       "points": 2
     },
     {
@@ -252,6 +228,30 @@
       "lost": 0,
       "gf": 2,
       "points": 2
+    },
+    {
+      "team": "Admiral",
+      "played": 0,
+      "won": 1,
+      "otWon": 0,
+      "soWon": 0,
+      "soLost": 0,
+      "otLost": 0,
+      "lost": 0,
+      "gf": 0,
+      "points": 2
+    },
+    {
+      "team": "Dynamo Msk",
+      "played": 0,
+      "won": 2,
+      "otWon": 0,
+      "soWon": 0,
+      "soLost": 0,
+      "otLost": 0,
+      "lost": 0,
+      "gf": 4,
+      "points": 4
     },
     {
       "team": "Avangard",
@@ -3939,6 +3939,38 @@
     }
   ],
   "results": [
+    {
+      "home": "CSKA",
+      "away": "Spartak",
+      "start": "2026-09-07T12:30:00+05:00",
+      "homeScore": 2,
+      "awayScore": 3,
+      "finished": true
+    },
+    {
+      "home": "SKA",
+      "away": "Dynamo Msk",
+      "start": "2026-09-07T12:30:00+05:00",
+      "homeScore": 5,
+      "awayScore": 3,
+      "finished": true
+    },
+    {
+      "home": "Ak Bars",
+      "away": "Admiral",
+      "start": "2026-09-07T12:30:00+05:00",
+      "homeScore": 2,
+      "awayScore": 0,
+      "finished": true
+    },
+    {
+      "home": "Dynamo Minsk",
+      "away": "Torpedo",
+      "start": "2026-09-07T12:10:00+05:00",
+      "homeScore": 3,
+      "awayScore": 4,
+      "finished": true
+    },
     {
       "home": "Severstal",
       "away": "Lada",
