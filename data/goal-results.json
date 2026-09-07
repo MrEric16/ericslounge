@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-07T20:19:13.396881Z",
+  "generatedAt": "2026-09-07T22:55:56.155587Z",
   "results": [
     {
       "url": "https://www.goal.com/en/match/girona-vs-arsenal/__LS8d9Oc6I1wXn9g8956",
@@ -5076,6 +5076,68 @@
         }
       ],
       "awayGoals": [],
+      "competition": "SA"
+    },
+    {
+      "url": "https://www.goal.com/en/match/elche-vs-real-sociedad/gvJtrBfmRQscw3oTBsWwy",
+      "date": null,
+      "home": "Elche",
+      "away": "Real Sociedad",
+      "htHome": 0,
+      "htAway": 2,
+      "ftHome": 2,
+      "ftAway": 3,
+      "homeGoals": [
+        {
+          "scorer": "T. Lemar",
+          "minute": 67
+        },
+        {
+          "scorer": "F. Nino",
+          "minute": 74
+        }
+      ],
+      "awayGoals": [
+        {
+          "scorer": "J. Ochieng",
+          "minute": 11
+        },
+        {
+          "scorer": "Y. Herrera",
+          "minute": 31
+        },
+        {
+          "scorer": "L. Sucic",
+          "minute": 90
+        }
+      ],
+      "competition": "PD"
+    },
+    {
+      "url": "https://www.goal.com/en/match/udinese-vs-lazio/8_FzCJJij7Lwru2OgW_AX",
+      "date": null,
+      "home": "Udinese",
+      "away": "Lazio",
+      "htHome": 0,
+      "htAway": 0,
+      "ftHome": 1,
+      "ftAway": 2,
+      "homeGoals": [
+        {
+          "scorer": "J. Karlstroem",
+          "minute": 49
+        }
+      ],
+      "awayGoals": [
+        {
+          "scorer": "D. Frattesi",
+          "minute": 75
+        },
+        {
+          "scorer": "A. Gudmundsson",
+          "minute": 88
+        }
+      ],
       "competition": "SA"
     }
   ],
