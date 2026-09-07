@@ -13,7 +13,8 @@
 [football-fetch] standings[FL1]: raw season field = {'id': 2497, 'startDate': '2026-08-22', 'endDate': '2027-05-29', 'currentMatchday': 3, 'winner': None}
 [football-fetch] standings[FL1]: OK (18 rows)
 [football-fetch] matches[FL1]: OK (trimmed from 306 to 9 fixtures + 15 results)
-[football-fetch] standings[CL]: FAILED (404 Client Error:  for url: https://api.football-data.org/v4/competitions/CL/standings)
+[football-fetch] standings[CL]: raw season field = {'id': 2557, 'startDate': '2026-09-08', 'endDate': '2027-01-27', 'currentMatchday': 1, 'winner': None}
+[football-fetch] standings[CL]: OK (0 rows)
 [football-fetch] matches[CL]: OK (trimmed from 144 to 18 fixtures + 0 results)
 [football-fetch] arsenalNextFixture: OK
 [football-fetch] arsenalFinishedMatches: OK (3 matches)
