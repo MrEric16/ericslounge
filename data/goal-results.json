@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-06T22:36:23.342958Z",
+  "generatedAt": "2026-09-07T00:33:42.981004Z",
   "results": [
     {
       "url": "https://www.goal.com/en/match/girona-vs-arsenal/__LS8d9Oc6I1wXn9g8956",
@@ -5013,9 +5013,30 @@
         }
       ],
       "competition": "SA"
+    },
+    {
+      "url": "https://www.goal.com/en/match/marseille-vs-paris-fc/mU8lJYkkbtdxRQtTw_Ln_",
+      "date": null,
+      "home": "Marseille",
+      "away": "Paris Fc",
+      "htHome": 1,
+      "htAway": 2,
+      "ftHome": 2,
+      "ftAway": 3,
+      "homeGoals": [
+        {
+          "scorer": "A. Gouiri",
+          "minute": 8
+        }
+      ],
+      "awayGoals": [
+        {
+          "scorer": "L. Sinayoko",
+          "minute": 1
+        }
+      ],
+      "competition": "FL1"
     }
   ],
-  "scorerParseRetryCounts": {
-    "https://www.goal.com/en/match/marseille-vs-paris-fc/mU8lJYkkbtdxRQtTw_Ln_": 2
-  }
+  "scorerParseRetryCounts": {}
 }

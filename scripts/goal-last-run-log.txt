@@ -1,18 +1,13 @@
 [goal-scraper] Run started.
 [goal-scraper] [PL] Found 10 finished-match links
 [goal-scraper] [PD] Found 8 finished-match links
-[goal-scraper] WARNING: Deportivo Alaves scored 5 but only 3 scorer(s) were parsed for https://www.goal.com/en/match/deportivo-alaves-vs-osasuna/3VuOX-kLSMWf0JZckLnd2
-[goal-scraper] WARNING: Osasuna scored 2 but only 1 scorer(s) were parsed for https://www.goal.com/en/match/deportivo-alaves-vs-osasuna/3VuOX-kLSMWf0JZckLnd2
-[goal-scraper] [PD] SCORER PARSE FAILED 3 times, giving up and committing WITH INCOMPLETE SCORER DATA (page structure likely changed) for Deportivo Alaves 5-2 Osasuna: https://www.goal.com/en/match/deportivo-alaves-vs-osasuna/3VuOX-kLSMWf0JZckLnd2
-[goal-scraper] [PD] Added: Deportivo Alaves 5-2 Osasuna
-[goal-scraper] [PD] Added: Espanyol 1-1 Sevilla
 [goal-scraper] [BL1] Found 9 finished-match links
 [goal-scraper] [SA] Found 8 finished-match links
-[goal-scraper] [SA] Added: Juventus 1-1 Ac Milan
 [goal-scraper] [FL1] Found 9 finished-match links
 [goal-scraper] WARNING: Marseille scored 2 but only 1 scorer(s) were parsed for https://www.goal.com/en/match/marseille-vs-paris-fc/mU8lJYkkbtdxRQtTw_Ln_
 [goal-scraper] WARNING: Paris Fc scored 3 but only 1 scorer(s) were parsed for https://www.goal.com/en/match/marseille-vs-paris-fc/mU8lJYkkbtdxRQtTw_Ln_
-[goal-scraper] [FL1] SCORER PARSE FAILED (attempt 1/3) for Marseille 2-3 Paris Fc -- NOT committing, will retry next run: https://www.goal.com/en/match/marseille-vs-paris-fc/mU8lJYkkbtdxRQtTw_Ln_
+[goal-scraper] [FL1] SCORER PARSE FAILED 3 times, giving up and committing WITH INCOMPLETE SCORER DATA (page structure likely changed) for Marseille 2-3 Paris Fc: https://www.goal.com/en/match/marseille-vs-paris-fc/mU8lJYkkbtdxRQtTw_Ln_
+[goal-scraper] [FL1] Added: Marseille 2-3 Paris Fc
 [goal-scraper] [CL] Found 0 finished-match links
 [goal-scraper] [real-madrid] Found 19 finished-match links
 [goal-scraper] WARNING: Tottenham Hotspur scored 1 but 0 scorers were parsed for https://www.goal.com/en/match/real-madrid-vs-tottenham-hotspur/xdLKWe_FxdSoHo2tVKBzZ
@@ -80,9 +75,6 @@
 [goal-scraper] [marseille] Skipping stale match (older than 45 days): Marseille vs Rennes on 2026-02-03
 [goal-scraper] [marseille] Skipping stale match (older than 45 days): Marseille vs Toulouse on 2026-03-04
 [goal-scraper] [marseille] Skipping stale match (older than 45 days): Yamoussoukro Fc vs Marseille on 2026-07-17
-[goal-scraper] WARNING: Marseille scored 2 but only 1 scorer(s) were parsed for https://www.goal.com/en/match/marseille-vs-paris-fc/mU8lJYkkbtdxRQtTw_Ln_
-[goal-scraper] WARNING: Paris Fc scored 3 but only 1 scorer(s) were parsed for https://www.goal.com/en/match/marseille-vs-paris-fc/mU8lJYkkbtdxRQtTw_Ln_
-[goal-scraper] [marseille] SCORER PARSE FAILED (attempt 2/3) for Marseille 2-3 Paris Fc -- NOT committing, will retry next run: https://www.goal.com/en/match/marseille-vs-paris-fc/mU8lJYkkbtdxRQtTw_Ln_
 [goal-scraper] [dortmund] Found 15 finished-match links
 [goal-scraper] [dortmund] Skipping stale match (older than 45 days): Fluminense vs Borussia Dortmund on 2025-06-17
 [goal-scraper] [dortmund] Skipping stale match (older than 45 days): Mamelodi Sundowns Fc vs Borussia Dortmund on 2025-06-21
@@ -99,6 +91,5 @@
 [goal-scraper] [juventus] Skipping stale match (older than 45 days): Juventus vs Manchester City on 2025-06-26
 [goal-scraper] [juventus] Skipping stale match (older than 45 days): Basel vs Juventus on 2026-07-18
 [goal-scraper] [arsenal-friendlies] Found 1 finished-match links
-[goal-scraper] TOTAL new results added this run: 3
-[goal-scraper] Matches still awaiting a clean scorer parse (not yet committed): ['https://www.goal.com/en/match/marseille-vs-paris-fc/mU8lJYkkbtdxRQtTw_Ln_']
+[goal-scraper] TOTAL new results added this run: 1
 [goal-scraper] Wrote data/goal-results.json
