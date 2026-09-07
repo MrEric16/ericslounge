@@ -1,8 +1,10 @@
 [goal-scraper] Run started.
 [goal-scraper] [PL] Found 0 finished-match links
-[goal-scraper] [PD] Found 8 finished-match links
+[goal-scraper] [PD] Found 9 finished-match links
+[goal-scraper] [PD] Added: Getafe 1-1 Celta Vigo
 [goal-scraper] [BL1] Found 0 finished-match links
-[goal-scraper] [SA] Found 8 finished-match links
+[goal-scraper] [SA] Found 9 finished-match links
+[goal-scraper] [SA] Added: Cagliari 1-0 Lecce
 [goal-scraper] [FL1] Found 0 finished-match links
 [goal-scraper] [CL] Found 0 finished-match links
 [goal-scraper] [real-madrid] Found 19 finished-match links
@@ -87,5 +89,5 @@
 [goal-scraper] [juventus] Skipping stale match (older than 45 days): Juventus vs Manchester City on 2025-06-26
 [goal-scraper] [juventus] Skipping stale match (older than 45 days): Basel vs Juventus on 2026-07-18
 [goal-scraper] [arsenal-friendlies] Found 1 finished-match links
-[goal-scraper] TOTAL new results added this run: 0
+[goal-scraper] TOTAL new results added this run: 2
 [goal-scraper] Wrote data/goal-results.json

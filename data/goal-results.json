@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-07T16:34:57.691313Z",
+  "generatedAt": "2026-09-07T20:19:13.396881Z",
   "results": [
     {
       "url": "https://www.goal.com/en/match/girona-vs-arsenal/__LS8d9Oc6I1wXn9g8956",
@@ -5036,6 +5036,47 @@
         }
       ],
       "competition": "FL1"
+    },
+    {
+      "url": "https://www.goal.com/en/match/getafe-vs-celta-vigo/1wd-2TPC4JhiLdlC0JyWB",
+      "date": null,
+      "home": "Getafe",
+      "away": "Celta Vigo",
+      "htHome": 1,
+      "htAway": 0,
+      "ftHome": 1,
+      "ftAway": 1,
+      "homeGoals": [
+        {
+          "scorer": "M. Satriano",
+          "minute": 21
+        }
+      ],
+      "awayGoals": [
+        {
+          "scorer": "C. Starfelt",
+          "minute": 57
+        }
+      ],
+      "competition": "PD"
+    },
+    {
+      "url": "https://www.goal.com/en/match/cagliari-vs-lecce/4QqJqU2YoEMkQLC0PMQXF",
+      "date": null,
+      "home": "Cagliari",
+      "away": "Lecce",
+      "htHome": 1,
+      "htAway": 0,
+      "ftHome": 1,
+      "ftAway": 0,
+      "homeGoals": [
+        {
+          "scorer": "D. Maldini",
+          "minute": 29
+        }
+      ],
+      "awayGoals": [],
+      "competition": "SA"
     }
   ],
   "scorerParseRetryCounts": {}
