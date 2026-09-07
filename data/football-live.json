@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-07T12:53:30.735581Z",
+  "generatedAt": "2026-09-07T18:04:21.073910Z",
   "standings": {
     "PL": [
       {
@@ -295,6 +295,16 @@
         "pts": 6
       },
       {
+        "name": "Getafe",
+        "pld": 4,
+        "w": 2,
+        "d": 0,
+        "l": 2,
+        "gf": 2,
+        "ga": 4,
+        "pts": 6
+      },
+      {
         "name": "Levante",
         "pld": 4,
         "w": 1,
@@ -345,16 +355,6 @@
         "pts": 4
       },
       {
-        "name": "Getafe",
-        "pld": 3,
-        "w": 1,
-        "d": 0,
-        "l": 2,
-        "gf": 1,
-        "ga": 4,
-        "pts": 3
-      },
-      {
         "name": "Villarreal",
         "pld": 4,
         "w": 0,
@@ -366,12 +366,12 @@
       },
       {
         "name": "Celta",
-        "pld": 4,
+        "pld": 5,
         "w": 0,
         "d": 2,
-        "l": 2,
+        "l": 3,
         "gf": 1,
-        "ga": 4,
+        "ga": 5,
         "pts": 2
       },
       {
@@ -669,6 +669,16 @@
         "pts": 6
       },
       {
+        "name": "Cagliari",
+        "pld": 3,
+        "w": 2,
+        "d": 0,
+        "l": 1,
+        "gf": 2,
+        "ga": 1,
+        "pts": 6
+      },
+      {
         "name": "Udinese",
         "pld": 2,
         "w": 1,
@@ -699,16 +709,6 @@
         "pts": 3
       },
       {
-        "name": "Cagliari",
-        "pld": 2,
-        "w": 1,
-        "d": 0,
-        "l": 1,
-        "gf": 1,
-        "ga": 1,
-        "pts": 3
-      },
-      {
         "name": "Torino",
         "pld": 3,
         "w": 1,
@@ -720,12 +720,12 @@
       },
       {
         "name": "Lecce",
-        "pld": 2,
+        "pld": 3,
         "w": 1,
         "d": 0,
-        "l": 1,
+        "l": 2,
         "gf": 2,
-        "ga": 4,
+        "ga": 5,
         "pts": 3
       },
       {
@@ -1758,7 +1758,7 @@
       "fixtures": [
         {
           "utcDate": "2026-09-07T17:00:00Z",
-          "status": "TIMED",
+          "status": "PAUSED",
           "matchday": 4,
           "homeTeam": {
             "id": 82,
@@ -1771,15 +1771,15 @@
             "shortName": "Celta"
           },
           "score": {
-            "winner": null,
+            "winner": "HOME_TEAM",
             "duration": "REGULAR",
             "fullTime": {
-              "home": null,
-              "away": null
+              "home": 1,
+              "away": 0
             },
             "halfTime": {
-              "home": null,
-              "away": null
+              "home": 1,
+              "away": 0
             }
           },
           "competition": {
@@ -3041,7 +3041,7 @@
       "fixtures": [
         {
           "utcDate": "2026-09-07T16:30:00Z",
-          "status": "TIMED",
+          "status": "IN_PLAY",
           "matchday": 3,
           "homeTeam": {
             "id": 104,
@@ -3054,15 +3054,15 @@
             "shortName": "Lecce"
           },
           "score": {
-            "winner": null,
+            "winner": "HOME_TEAM",
             "duration": "REGULAR",
             "fullTime": {
-              "home": null,
-              "away": null
+              "home": 1,
+              "away": 0
             },
             "halfTime": {
-              "home": null,
-              "away": null
+              "home": 1,
+              "away": 0
             }
           },
           "competition": {
