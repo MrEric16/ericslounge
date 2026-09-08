@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Mr Eric's Lounge</title>
-<meta name="app-build" content="20260908030455">
+<meta name="app-build" content="20260908075240">
 <script>
   // PWA update-detection: an installed home-screen app's standalone-mode navigation
   // cache can hold an old shell far longer than the CDN's 10-minute cache -
@@ -21987,7 +21987,7 @@ function upcomingBirthdayTileHtml(){
   const todayM = today.getMonth()+1, todayD = today.getDate();
   const todays = BIRTHDAYS.filter(b => b.month===todayM && b.day===todayD);
   if(todays.length > 0){
-    const todayText = todays.map(b => `<span class="bday-trigger" data-name="${escapeHtml(b.name)}">🎉 It's ${escapeHtml(b.name)}'s birthday today!</span>`).join(' ');
+    const todayText = todays.map(b => `<div class="bday-trigger" data-name="${escapeHtml(b.name)}">🎉 It's ${escapeHtml(b.name)}'s birthday today!</div>`).join('');
     return `<a class="bday-tile-card today" href="#birthdays">
       <span class="icon">${icon('cake')}</span>
       <div>
@@ -22012,7 +22012,7 @@ function upcomingBirthdayTileHtml(){
   const withinThreeDays = withNext.filter(b => b.next <= threeDaysOut);
   const toShow = withinThreeDays.length > 0 ? withinThreeDays : [withNext[0]];
 
-  const namesText = toShow.map(b => `${escapeHtml(b.name)}, ${formatBdayDate(b.day, b.month)}`).join(' · ');
+  const namesText = toShow.map(b => `<div>${escapeHtml(b.name)}, ${formatBdayDate(b.day, b.month)}</div>`).join('');
   return `<a class="bday-tile-card" href="#birthdays">
     <span class="icon">${icon('cake')}</span>
     <div>
