@@ -15,7 +15,7 @@
 [football-fetch] matches[FL1]: OK (trimmed from 306 to 9 fixtures + 15 results)
 [football-fetch] standings[CL]: raw season field = {'id': 2557, 'startDate': '2026-09-08', 'endDate': '2027-01-27', 'currentMatchday': 1, 'winner': None}
 [football-fetch] standings[CL]: OK (36 rows)
-[football-fetch] matches[CL]: OK (trimmed from 144 to 16 fixtures + 2 results)
+[football-fetch] matches[CL]: OK (trimmed from 144 to 12 fixtures + 6 results)
 [football-fetch] arsenalNextFixture: OK
 [football-fetch] arsenalFinishedMatches: OK (3 matches)
 [football-fetch] Wrote data/football-live.json (130.6 KB)
