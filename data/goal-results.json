@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-08T17:59:09.658365Z",
+  "generatedAt": "2026-09-08T20:51:25.474513Z",
   "results": [
     {
       "url": "https://www.goal.com/en/match/girona-vs-arsenal/__LS8d9Oc6I1wXn9g8956",
@@ -5139,6 +5139,59 @@
         }
       ],
       "competition": "SA"
+    },
+    {
+      "url": "https://www.goal.com/en/match/club-brugge-vs-aston-villa/-pzOi-JlFgyh5yPsM5vEI",
+      "date": null,
+      "home": "Club Brugge",
+      "away": "Aston Villa",
+      "htHome": 1,
+      "htAway": 3,
+      "ftHome": 2,
+      "ftAway": 3,
+      "homeGoals": [
+        {
+          "scorer": "H. Vetlesen",
+          "minute": 19
+        },
+        {
+          "scorer": "N. Tresoldi",
+          "minute": 61
+        }
+      ],
+      "awayGoals": [
+        {
+          "scorer": "J. McGinn",
+          "minute": 11
+        },
+        {
+          "scorer": "E. Buendia",
+          "minute": 22
+        },
+        {
+          "scorer": "N. Jackson",
+          "minute": 43
+        }
+      ],
+      "competition": "CL"
+    },
+    {
+      "url": "https://www.goal.com/en/match/aek-athens-vs-lask/_BlDn4Q6ONEsZQHZ0VlTv",
+      "date": null,
+      "home": "Aek Athens",
+      "away": "Lask",
+      "htHome": 1,
+      "htAway": 0,
+      "ftHome": 1,
+      "ftAway": 0,
+      "homeGoals": [
+        {
+          "scorer": "R. Marin",
+          "minute": 21
+        }
+      ],
+      "awayGoals": [],
+      "competition": "CL"
     }
   ],
   "scorerParseRetryCounts": {}

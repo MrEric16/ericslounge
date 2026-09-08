@@ -4,7 +4,9 @@
 [goal-scraper] [BL1] Found 0 finished-match links
 [goal-scraper] [SA] Found 0 finished-match links
 [goal-scraper] [FL1] Found 0 finished-match links
-[goal-scraper] [CL] Found 0 finished-match links
+[goal-scraper] [CL] Found 2 finished-match links
+[goal-scraper] [CL] Added: Club Brugge 2-3 Aston Villa
+[goal-scraper] [CL] Added: Aek Athens 1-0 Lask
 [goal-scraper] [real-madrid] Found 19 finished-match links
 [goal-scraper] WARNING: Tottenham Hotspur scored 1 but 0 scorers were parsed for https://www.goal.com/en/match/real-madrid-vs-tottenham-hotspur/xdLKWe_FxdSoHo2tVKBzZ
 [goal-scraper] [real-madrid] Skipping stale match (older than 45 days): Real Madrid vs Tottenham Hotspur on 2019-07-30
@@ -87,5 +89,5 @@
 [goal-scraper] [juventus] Skipping stale match (older than 45 days): Juventus vs Manchester City on 2025-06-26
 [goal-scraper] [juventus] Skipping stale match (older than 45 days): Basel vs Juventus on 2026-07-18
 [goal-scraper] [arsenal-friendlies] Found 1 finished-match links
-[goal-scraper] TOTAL new results added this run: 0
+[goal-scraper] TOTAL new results added this run: 2
 [goal-scraper] Wrote data/goal-results.json
