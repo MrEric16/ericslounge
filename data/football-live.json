@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-08T17:19:16.970239Z",
+  "generatedAt": "2026-09-08T20:02:46.878094Z",
   "standings": {
     "PL": [
       {
@@ -973,7 +973,27 @@
     ],
     "CL": [
       {
+        "name": "Real Madrid",
+        "pld": 1,
+        "w": 1,
+        "d": 0,
+        "l": 0,
+        "gf": 2,
+        "ga": 0,
+        "pts": 3
+      },
+      {
         "name": "Aston Villa",
+        "pld": 1,
+        "w": 1,
+        "d": 0,
+        "l": 0,
+        "gf": 3,
+        "ga": 2,
+        "pts": 3
+      },
+      {
+        "name": "Lille",
         "pld": 1,
         "w": 1,
         "d": 0,
@@ -991,6 +1011,46 @@
         "gf": 1,
         "ga": 0,
         "pts": 3
+      },
+      {
+        "name": "Dortmund",
+        "pld": 1,
+        "w": 0,
+        "d": 1,
+        "l": 0,
+        "gf": 0,
+        "ga": 0,
+        "pts": 1
+      },
+      {
+        "name": "Porto",
+        "pld": 1,
+        "w": 0,
+        "d": 1,
+        "l": 0,
+        "gf": 0,
+        "ga": 0,
+        "pts": 1
+      },
+      {
+        "name": "Man City",
+        "pld": 1,
+        "w": 0,
+        "d": 1,
+        "l": 0,
+        "gf": 0,
+        "ga": 0,
+        "pts": 1
+      },
+      {
+        "name": "Villarreal",
+        "pld": 1,
+        "w": 0,
+        "d": 1,
+        "l": 0,
+        "gf": 0,
+        "ga": 0,
+        "pts": 1
       },
       {
         "name": "Arsenal",
@@ -1033,16 +1093,6 @@
         "pts": 0
       },
       {
-        "name": "Dortmund",
-        "pld": 0,
-        "w": 0,
-        "d": 0,
-        "l": 0,
-        "gf": 0,
-        "ga": 0,
-        "pts": 0
-      },
-      {
         "name": "Como 1907",
         "pld": 0,
         "w": 0,
@@ -1054,16 +1104,6 @@
       },
       {
         "name": "Barça",
-        "pld": 0,
-        "w": 0,
-        "d": 0,
-        "l": 0,
-        "gf": 0,
-        "ga": 0,
-        "pts": 0
-      },
-      {
-        "name": "Porto",
         "pld": 0,
         "w": 0,
         "d": 0,
@@ -1113,37 +1153,7 @@
         "pts": 0
       },
       {
-        "name": "Inter",
-        "pld": 0,
-        "w": 0,
-        "d": 0,
-        "l": 0,
-        "gf": 0,
-        "ga": 0,
-        "pts": 0
-      },
-      {
-        "name": "Lille",
-        "pld": 0,
-        "w": 0,
-        "d": 0,
-        "l": 0,
-        "gf": 0,
-        "ga": 0,
-        "pts": 0
-      },
-      {
         "name": "Liverpool",
-        "pld": 0,
-        "w": 0,
-        "d": 0,
-        "l": 0,
-        "gf": 0,
-        "ga": 0,
-        "pts": 0
-      },
-      {
-        "name": "Man City",
         "pld": 0,
         "w": 0,
         "d": 0,
@@ -1194,26 +1204,6 @@
       },
       {
         "name": "RC Lens",
-        "pld": 0,
-        "w": 0,
-        "d": 0,
-        "l": 0,
-        "gf": 0,
-        "ga": 0,
-        "pts": 0
-      },
-      {
-        "name": "Real Betis",
-        "pld": 0,
-        "w": 0,
-        "d": 0,
-        "l": 0,
-        "gf": 0,
-        "ga": 0,
-        "pts": 0
-      },
-      {
-        "name": "Real Madrid",
         "pld": 0,
         "w": 0,
         "d": 0,
@@ -1303,17 +1293,17 @@
         "pts": 0
       },
       {
-        "name": "Villarreal",
-        "pld": 0,
+        "name": "Club Brugge",
+        "pld": 1,
         "w": 0,
         "d": 0,
-        "l": 0,
-        "gf": 0,
-        "ga": 0,
+        "l": 1,
+        "gf": 2,
+        "ga": 3,
         "pts": 0
       },
       {
-        "name": "Club Brugge",
+        "name": "Real Betis",
         "pld": 1,
         "w": 0,
         "d": 0,
@@ -1330,6 +1320,16 @@
         "l": 1,
         "gf": 0,
         "ga": 1,
+        "pts": 0
+      },
+      {
+        "name": "Inter",
+        "pld": 1,
+        "w": 0,
+        "d": 0,
+        "l": 1,
+        "gf": 0,
+        "ga": 2,
         "pts": 0
       }
     ]
@@ -5181,70 +5181,8 @@
     "CL": {
       "fixtures": [
         {
-          "utcDate": "2026-09-08T16:45:00Z",
-          "status": "IN_PLAY",
-          "matchday": 1,
-          "homeTeam": {
-            "id": 851,
-            "name": "Club Brugge KV",
-            "shortName": "Club Brugge"
-          },
-          "awayTeam": {
-            "id": 58,
-            "name": "Aston Villa FC",
-            "shortName": "Aston Villa"
-          },
-          "score": {
-            "winner": "AWAY_TEAM",
-            "duration": "REGULAR",
-            "fullTime": {
-              "home": 1,
-              "away": 2
-            },
-            "halfTime": {
-              "home": null,
-              "away": null
-            }
-          },
-          "competition": {
-            "name": "UEFA Champions League"
-          },
-          "venue": null
-        },
-        {
-          "utcDate": "2026-09-08T16:45:00Z",
-          "status": "IN_PLAY",
-          "matchday": 1,
-          "homeTeam": {
-            "id": 1899,
-            "name": "PAE AEK",
-            "shortName": "PAE AEK"
-          },
-          "awayTeam": {
-            "id": 2016,
-            "name": "LASK Linz",
-            "shortName": "LASK"
-          },
-          "score": {
-            "winner": "HOME_TEAM",
-            "duration": "REGULAR",
-            "fullTime": {
-              "home": 1,
-              "away": 0
-            },
-            "halfTime": {
-              "home": null,
-              "away": null
-            }
-          },
-          "competition": {
-            "name": "UEFA Champions League"
-          },
-          "venue": null
-        },
-        {
           "utcDate": "2026-09-08T19:00:00Z",
-          "status": "TIMED",
+          "status": "IN_PLAY",
           "matchday": 1,
           "homeTeam": {
             "id": 86,
@@ -5257,15 +5195,15 @@
             "shortName": "Inter"
           },
           "score": {
-            "winner": null,
+            "winner": "HOME_TEAM",
             "duration": "REGULAR",
             "fullTime": {
-              "home": null,
-              "away": null
+              "home": 2,
+              "away": 0
             },
             "halfTime": {
-              "home": null,
-              "away": null
+              "home": 2,
+              "away": 0
             }
           },
           "competition": {
@@ -5275,7 +5213,7 @@
         },
         {
           "utcDate": "2026-09-08T19:00:00Z",
-          "status": "TIMED",
+          "status": "IN_PLAY",
           "matchday": 1,
           "homeTeam": {
             "id": 503,
@@ -5288,15 +5226,15 @@
             "shortName": "Man City"
           },
           "score": {
-            "winner": null,
+            "winner": "DRAW",
             "duration": "REGULAR",
             "fullTime": {
-              "home": null,
-              "away": null
+              "home": 0,
+              "away": 0
             },
             "halfTime": {
-              "home": null,
-              "away": null
+              "home": 0,
+              "away": 0
             }
           },
           "competition": {
@@ -5306,7 +5244,7 @@
         },
         {
           "utcDate": "2026-09-08T19:00:00Z",
-          "status": "TIMED",
+          "status": "IN_PLAY",
           "matchday": 1,
           "homeTeam": {
             "id": 4,
@@ -5319,15 +5257,15 @@
             "shortName": "Villarreal"
           },
           "score": {
-            "winner": null,
+            "winner": "DRAW",
             "duration": "REGULAR",
             "fullTime": {
-              "home": null,
-              "away": null
+              "home": 0,
+              "away": 0
             },
             "halfTime": {
-              "home": null,
-              "away": null
+              "home": 0,
+              "away": 0
             }
           },
           "competition": {
@@ -5337,7 +5275,7 @@
         },
         {
           "utcDate": "2026-09-08T19:00:00Z",
-          "status": "TIMED",
+          "status": "IN_PLAY",
           "matchday": 1,
           "homeTeam": {
             "id": 521,
@@ -5350,15 +5288,15 @@
             "shortName": "Real Betis"
           },
           "score": {
-            "winner": null,
+            "winner": "HOME_TEAM",
             "duration": "REGULAR",
             "fullTime": {
-              "home": null,
-              "away": null
+              "home": 2,
+              "away": 1
             },
             "halfTime": {
-              "home": null,
-              "away": null
+              "home": 2,
+              "away": 1
             }
           },
           "competition": {
@@ -5739,7 +5677,70 @@
           "venue": null
         }
       ],
-      "results": []
+      "results": [
+        {
+          "utcDate": "2026-09-08T16:45:00Z",
+          "status": "FINISHED",
+          "matchday": 1,
+          "homeTeam": {
+            "id": 851,
+            "name": "Club Brugge KV",
+            "shortName": "Club Brugge"
+          },
+          "awayTeam": {
+            "id": 58,
+            "name": "Aston Villa FC",
+            "shortName": "Aston Villa"
+          },
+          "score": {
+            "winner": "AWAY_TEAM",
+            "duration": "REGULAR",
+            "fullTime": {
+              "home": 2,
+              "away": 3
+            },
+            "halfTime": {
+              "home": 1,
+              "away": 3
+            }
+          },
+          "competition": {
+            "name": "UEFA Champions League"
+          },
+          "venue": null
+        },
+        {
+          "utcDate": "2026-09-08T16:45:00Z",
+          "status": "FINISHED",
+          "matchday": 1,
+          "homeTeam": {
+            "id": 1899,
+            "name": "PAE AEK",
+            "shortName": "PAE AEK"
+          },
+          "awayTeam": {
+            "id": 2016,
+            "name": "LASK Linz",
+            "shortName": "LASK"
+          },
+          "score": {
+            "winner": "HOME_TEAM",
+            "duration": "REGULAR",
+            "fullTime": {
+              "home": 2,
+              "away": 0
+            },
+            "halfTime": {
+              "home": 1,
+              "away": 0
+            }
+          },
+          "competition": {
+            "name": "UEFA Champions League"
+          },
+          "venue": null
+        }
+      ]
     }
   },
   "arsenalNextFixture": {
