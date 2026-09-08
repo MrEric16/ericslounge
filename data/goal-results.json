@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-08T20:51:25.474513Z",
+  "generatedAt": "2026-09-08T23:06:04.930284Z",
   "results": [
     {
       "url": "https://www.goal.com/en/match/girona-vs-arsenal/__LS8d9Oc6I1wXn9g8956",
@@ -5192,7 +5192,38 @@
       ],
       "awayGoals": [],
       "competition": "CL"
+    },
+    {
+      "url": "https://www.goal.com/en/match/real-madrid-vs-inter/o9sR1SUFa-hDFLGRK4GGM",
+      "date": null,
+      "home": "Real Madrid",
+      "away": "Inter",
+      "htHome": 2,
+      "htAway": 0,
+      "ftHome": 2,
+      "ftAway": 1,
+      "homeGoals": [
+        {
+          "scorer": "K. Mbappe",
+          "minute": 14
+        },
+        {
+          "scorer": "F. Valverde",
+          "minute": 23
+        }
+      ],
+      "awayGoals": [
+        {
+          "scorer": "C. Augusto",
+          "minute": 77
+        }
+      ],
+      "competition": "CL"
     }
   ],
-  "scorerParseRetryCounts": {}
+  "scorerParseRetryCounts": {
+    "https://www.goal.com/en/match/fc-porto-vs-manchester-city/EnyTvTsPuFMMRrQAhl9hN": 1,
+    "https://www.goal.com/en/match/borussia-dortmund-vs-villarreal/lxudoRYk1HPZQ_HMpTcwW": 2,
+    "https://www.goal.com/en/match/lille-vs-real-betis/wnF_vS_YuDogqW7t4szSl": 1
+  }
 }
