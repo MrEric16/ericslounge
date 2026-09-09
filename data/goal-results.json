@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-08T23:06:04.930284Z",
+  "generatedAt": "2026-09-09T01:21:15.052110Z",
   "results": [
     {
       "url": "https://www.goal.com/en/match/girona-vs-arsenal/__LS8d9Oc6I1wXn9g8956",
@@ -5219,11 +5219,41 @@
         }
       ],
       "competition": "CL"
+    },
+    {
+      "url": "https://www.goal.com/en/match/borussia-dortmund-vs-villarreal/lxudoRYk1HPZQ_HMpTcwW",
+      "date": null,
+      "home": "Borussia Dortmund",
+      "away": "Villarreal",
+      "htHome": 0,
+      "htAway": 0,
+      "ftHome": 3,
+      "ftAway": 2,
+      "homeGoals": [
+        {
+          "scorer": "R. Veiga",
+          "minute": 53
+        },
+        {
+          "scorer": "S. Guirassy",
+          "minute": 80
+        }
+      ],
+      "awayGoals": [
+        {
+          "scorer": "S. Mourino",
+          "minute": 66
+        },
+        {
+          "scorer": "S. Guirassy",
+          "minute": 90
+        }
+      ],
+      "competition": "CL"
     }
   ],
   "scorerParseRetryCounts": {
-    "https://www.goal.com/en/match/fc-porto-vs-manchester-city/EnyTvTsPuFMMRrQAhl9hN": 1,
-    "https://www.goal.com/en/match/borussia-dortmund-vs-villarreal/lxudoRYk1HPZQ_HMpTcwW": 2,
-    "https://www.goal.com/en/match/lille-vs-real-betis/wnF_vS_YuDogqW7t4szSl": 1
+    "https://www.goal.com/en/match/fc-porto-vs-manchester-city/EnyTvTsPuFMMRrQAhl9hN": 2,
+    "https://www.goal.com/en/match/lille-vs-real-betis/wnF_vS_YuDogqW7t4szSl": 2
   }
 }
