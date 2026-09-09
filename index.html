@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Mr Eric's Lounge</title>
-<meta name="app-build" content="20260909194128">
+<meta name="app-build" content="20260909194604">
 <script>
   // PWA update-detection: an installed home-screen app's standalone-mode navigation
   // cache can hold an old shell far longer than the CDN's 10-minute cache -
@@ -10251,25 +10251,29 @@ function leagueDetailBodyHtml(code){
   // KHL specifically: split into Western/Eastern Conference tables regardless of
   // whether the data came from live scraping or the static fallback, since Mr Eric
   // wants this to hold no matter what source ends up providing the numbers.
+  // Arsenal trophy symbol next to the team name is suppressed specifically in the
+  // Champions League table - Mr Eric's call, since it reads oddly for a competition
+  // Arsenal hasn't actually won yet this cycle. Every other table keeps it.
+  const showTrophy = code !== 'CL';
   const tableHtml = (code === 'KHL' && liveTeams.length > 0)
     ? (() => {
         const west = liveTeams.filter(t => KHL_WESTERN_TEAMS.has(t.name));
         const east = liveTeams.filter(t => !KHL_WESTERN_TEAMS.has(t.name));
         return `
           <div class="division-label">Western Conference</div>
-          ${oneTableHtml(west)}
+          ${oneTableHtml(west, showTrophy)}
           <div class="division-label">Eastern Conference</div>
-          ${oneTableHtml(east)}
+          ${oneTableHtml(east, showTrophy)}
         `;
       })()
     : liveTeams.length > 0
-    ? oneTableHtml(liveTeams)
+    ? oneTableHtml(liveTeams, showTrophy)
     : (staticLeague && staticLeague.divisions)
       ? staticLeague.divisions.map(div => `
           <div class="division-label">${escapeHtml(div.label)}</div>
-          ${oneTableHtml(div.teams)}
+          ${oneTableHtml(div.teams, showTrophy)}
         `).join('')
-      : oneTableHtml((staticLeague && staticLeague.teams) || []);
+      : oneTableHtml((staticLeague && staticLeague.teams) || [], showTrophy);
   const matches = (cache && cache.matches && cache.matches[code]) || { fixtures: [], results: [] };
   // A "fixture" can never be in the past by definition - filtering this here, after the
   // merge, is a universal safety net regardless of which source (live or static) a
@@ -21390,11 +21394,12 @@ function teamNameHtml(name, showTrophy, enableEgg){
   if(n.includes('tottenham') || n === 'spurs') return `<span class="easter-egg-trigger" data-egg="tottenham">${escapeHtml(name)} 💩</span>`;
   return escapeHtml(name);
 }
-function oneTableHtml(teams){
+function oneTableHtml(teams, showTrophy){
+  if(showTrophy === undefined) showTrophy = true;
   const rows = teams.map((t, i) => `
     <tr${(t.name || '').toLowerCase().includes('arsenal') ? ' class="own-team-row"' : ''}>
       <td class="pos">${i + 1}</td>
-      <td class="team-name">${teamNameHtml(t.name, true, true)}</td>
+      <td class="team-name">${teamNameHtml(t.name, showTrophy, true)}</td>
       <td>${t.pld}</td>
       <td>${t.w}</td>
       <td>${t.d}</td>
