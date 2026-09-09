@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Mr Eric's Lounge</title>
-<meta name="app-build" content="20260909194604">
+<meta name="app-build" content="20260909195109">
 <script>
   // PWA update-detection: an installed home-screen app's standalone-mode navigation
   // cache can hold an old shell far longer than the CDN's 10-minute cache -
@@ -9371,6 +9371,9 @@ const UFC_RESULT_OVERRIDES = {
   "UFC 330: Makhachev vs. Machado Garry": "Islam Makhachev def. Ian Machado Garry (Unanimous Decision)",
   "UFC Fight Night: Gamrot vs. Salkilld": "Quillan Salkilld def. Mateusz Gamrot (Submission, R1)",
   "UFC Fight Night: Medić vs. Rodriguez": "Uroš Medić def. Daniel Rodriguez (TKO, R1)",
+  "UFC Fight Night: Hernandez vs. Rodrigues": "Gregory Rodrigues def. Anthony Hernandez (Unanimous Decision)",
+  "UFC Fight Night: Nurmagomedov vs. Song": "Song Yadong def. Umar Nurmagomedov (TKO, R2 1:48)",
+  "UFC Fight Night: Hooker vs. Parnasse": "Salahdine Parnasse def. Dan Hooker (KO, R1 2:35)",
 };
 function ufcEventRowsHtml(list){
   if(!list || list.length === 0) return '<div class="empty-card">Nothing here yet.</div>';
@@ -10341,7 +10344,6 @@ function viewLeagueDetail(code){
     <a class="back-link" href="#sports">← Back to Sports</a>
     <section style="padding-top:14px;">
       <div class="league-head"><span class="flag">${meta.flag}</span><h3 style="font-size:20px;">${escapeHtml(meta.name)}</h3></div>
-      <div class="league-note">Live</div>
       <div id="leagueDetailContainer" data-code="${code}">${leagueDetailBodyHtml(code)}</div>
     </section>
   `;
