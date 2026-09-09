@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Mr Eric's Lounge</title>
-<meta name="app-build" content="20260909082126">
+<meta name="app-build" content="20260909110853">
 <script>
   // PWA update-detection: an installed home-screen app's standalone-mode navigation
   // cache can hold an old shell far longer than the CDN's 10-minute cache -
@@ -22039,6 +22039,7 @@ function upcomingBirthdayTileHtml(){
     </div>
   </a>`;
 }
+const BDAY_MONTH_NAMES = ['January','February','March','April','May','June','July','August','September','October','November','December'];
 function birthdaysHtml(){
   if(BIRTHDAYS.length===0){
     return '<div class="empty-card">No birthdays yet. Nobody\'s been born apparently.</div>';
@@ -22052,17 +22053,47 @@ function birthdaysHtml(){
     }
     return {...b, next};
   }).sort((a,b)=> a.next - b.next);
-  const rows = withNext.map(b=>{
-    const isToday = b.month===todayM && b.day===todayD;
-    const cat = b.category || 'staff';
-    const nameHtml = isToday
-      ? `<span class="bday-name bday-trigger" data-name="${escapeHtml(b.name)}">${escapeHtml(b.name)} 🎉</span>`
-      : `<span class="bday-name">${escapeHtml(b.name)}</span>`;
-    return `<div class="bday-item bday-cat-${cat} ${isToday?'today':''}">
-      ${nameHtml}
-      <span class="bday-date">${formatBdayDate(b.day, b.month)}</span>
-    </div>`;
+
+  // Group into collapsible-by-month sections, in the same rotating order the
+  // chronological sort already produced (current month first, wrapping round
+  // to next year) - so groups appear in "what's coming up" order, not Jan-Dec.
+  const groups = [];
+  for(const b of withNext){
+    let g = groups[groups.length-1];
+    if(!g || g.month !== b.month){
+      g = { month: b.month, items: [] };
+      groups.push(g);
+    }
+    g.items.push(b);
+  }
+
+  const groupsHtml = groups.map(g=>{
+    const rows = g.items.map(b=>{
+      const isToday = b.month===todayM && b.day===todayD;
+      const cat = b.category || 'staff';
+      const nameHtml = isToday
+        ? `<span class="bday-name bday-trigger" data-name="${escapeHtml(b.name)}">${escapeHtml(b.name)} 🎉</span>`
+        : `<span class="bday-name">${escapeHtml(b.name)}</span>`;
+      return `<div class="bday-item bday-cat-${cat} ${isToday?'today':''}">
+        ${nameHtml}
+        <span class="bday-date">${formatBdayDate(b.day, b.month)}</span>
+      </div>`;
+    }).join('');
+    const isCurrentMonth = g.month === todayM;
+    return `
+      <details class="domain-group"${isCurrentMonth ? ' open' : ''}>
+        <summary class="section-head domain-summary">
+          <h2>${BDAY_MONTH_NAMES[g.month-1]}</h2>
+          <span class="domain-count">${g.items.length}</span>
+          <span class="domain-chevron">${icon('chevronDown')}</span>
+        </summary>
+        <div class="domain-group-content">
+          <div class="bday-list">${rows}</div>
+        </div>
+      </details>
+    `;
   }).join('');
+
   return `
     <div class="bday-today-banner">Today is ${formatBdayDate(todayD, todayM)}</div>
     <div class="bday-legend">
@@ -22070,7 +22101,7 @@ function birthdaysHtml(){
       <span class="bday-legend-item"><span class="bday-legend-dot" style="background:var(--coral)"></span>The Grownups (Allegedly)</span>
       <span class="bday-legend-item"><span class="bday-legend-dot" style="background:var(--gold)"></span>Other students</span>
     </div>
-    <div class="bday-list">${rows}</div>
+    ${groupsHtml}
   `;
 }
 
