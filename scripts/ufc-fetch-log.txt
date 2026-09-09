@@ -5,8 +5,8 @@
 [ufc-fetch]   table preceded by/captioned: 'number of events by year'
 [ufc-fetch]   preserved 12 previously-recorded result(s) across this run
 [ufc-fetch] fetching ufc.com/events for Main Card start times (upcoming events only)...
-[ufc-fetch] ufc.com: captured 1873 chars of body text
+[ufc-fetch] ufc.com: captured 1865 chars of body text
 [ufc-fetch] ufc.com: text around first 'Main Card' match: '\nPrevious\nNext\nSILVA VS DELGADO\nSat, Sep 12 / 9:00 PM UTC / Main Card\nDesert Dia'
-[ufc-fetch] ufc.com: found 8 dated Main Card time(s): [('Sep', 12, 21, 0), ('Sep', 20, 1, 0), ('Sep', 26, 22, 0), ('Oct', 4, 0, 0), ('Oct', 11, 0, 0), ('Oct', 18, 0, 0), ('Oct', 24, 18, 0), ('Nov', 1, 0, 0)]
+[ufc-fetch] ufc.com: found 8 dated Main Card time(s): [('Sep', 12, 21, 0), ('Sep', 20, 1, 0), ('Sep', 27, 0, 0), ('Oct', 4, 0, 0), ('Oct', 11, 0, 0), ('Oct', 18, 0, 0), ('Oct', 24, 18, 0), ('Nov', 1, 0, 0)]
 [ufc-fetch] attached a confirmed start time to 8/12 upcoming events
 [ufc-fetch] done: 12 scheduled events, 15 past events found (kept most recent slices)
