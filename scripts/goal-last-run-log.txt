@@ -6,12 +6,11 @@
 [goal-scraper] [FL1] Found 0 finished-match links
 [goal-scraper] [CL] Found 6 finished-match links
 [goal-scraper] WARNING: Manchester City scored 2 but only 1 scorer(s) were parsed for https://www.goal.com/en/match/fc-porto-vs-manchester-city/EnyTvTsPuFMMRrQAhl9hN
-[goal-scraper] [CL] SCORER PARSE FAILED (attempt 2/3) for Fc Porto 0-2 Manchester City -- NOT committing, will retry next run: https://www.goal.com/en/match/fc-porto-vs-manchester-city/EnyTvTsPuFMMRrQAhl9hN
-[goal-scraper] WARNING: Borussia Dortmund scored 3 but only 2 scorer(s) were parsed for https://www.goal.com/en/match/borussia-dortmund-vs-villarreal/lxudoRYk1HPZQ_HMpTcwW
-[goal-scraper] [CL] SCORER PARSE FAILED 3 times, giving up and committing WITH INCOMPLETE SCORER DATA (page structure likely changed) for Borussia Dortmund 3-2 Villarreal: https://www.goal.com/en/match/borussia-dortmund-vs-villarreal/lxudoRYk1HPZQ_HMpTcwW
-[goal-scraper] [CL] Added: Borussia Dortmund 3-2 Villarreal
+[goal-scraper] [CL] SCORER PARSE FAILED 3 times, giving up and committing WITH INCOMPLETE SCORER DATA (page structure likely changed) for Fc Porto 0-2 Manchester City: https://www.goal.com/en/match/fc-porto-vs-manchester-city/EnyTvTsPuFMMRrQAhl9hN
+[goal-scraper] [CL] Added: Fc Porto 0-2 Manchester City
 [goal-scraper] WARNING: Real Betis scored 3 but only 2 scorer(s) were parsed for https://www.goal.com/en/match/lille-vs-real-betis/wnF_vS_YuDogqW7t4szSl
-[goal-scraper] [CL] SCORER PARSE FAILED (attempt 2/3) for Lille 2-3 Real Betis -- NOT committing, will retry next run: https://www.goal.com/en/match/lille-vs-real-betis/wnF_vS_YuDogqW7t4szSl
+[goal-scraper] [CL] SCORER PARSE FAILED 3 times, giving up and committing WITH INCOMPLETE SCORER DATA (page structure likely changed) for Lille 2-3 Real Betis: https://www.goal.com/en/match/lille-vs-real-betis/wnF_vS_YuDogqW7t4szSl
+[goal-scraper] [CL] Added: Lille 2-3 Real Betis
 [goal-scraper] [real-madrid] Found 20 finished-match links
 [goal-scraper] WARNING: Tottenham Hotspur scored 1 but 0 scorers were parsed for https://www.goal.com/en/match/real-madrid-vs-tottenham-hotspur/xdLKWe_FxdSoHo2tVKBzZ
 [goal-scraper] [real-madrid] Skipping stale match (older than 45 days): Real Madrid vs Tottenham Hotspur on 2019-07-30
@@ -94,6 +93,5 @@
 [goal-scraper] [juventus] Skipping stale match (older than 45 days): Juventus vs Manchester City on 2025-06-26
 [goal-scraper] [juventus] Skipping stale match (older than 45 days): Basel vs Juventus on 2026-07-18
 [goal-scraper] [arsenal-friendlies] Found 1 finished-match links
-[goal-scraper] TOTAL new results added this run: 1
-[goal-scraper] Matches still awaiting a clean scorer parse (not yet committed): ['https://www.goal.com/en/match/fc-porto-vs-manchester-city/EnyTvTsPuFMMRrQAhl9hN', 'https://www.goal.com/en/match/lille-vs-real-betis/wnF_vS_YuDogqW7t4szSl']
+[goal-scraper] TOTAL new results added this run: 2
 [goal-scraper] Wrote data/goal-results.json

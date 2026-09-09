@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-09T01:21:15.052110Z",
+  "generatedAt": "2026-09-09T06:14:21.385681Z",
   "results": [
     {
       "url": "https://www.goal.com/en/match/girona-vs-arsenal/__LS8d9Oc6I1wXn9g8956",
@@ -5250,10 +5250,56 @@
         }
       ],
       "competition": "CL"
+    },
+    {
+      "url": "https://www.goal.com/en/match/fc-porto-vs-manchester-city/EnyTvTsPuFMMRrQAhl9hN",
+      "date": null,
+      "home": "Fc Porto",
+      "away": "Manchester City",
+      "htHome": 0,
+      "htAway": 0,
+      "ftHome": 0,
+      "ftAway": 2,
+      "homeGoals": [],
+      "awayGoals": [
+        {
+          "scorer": "E. Haaland",
+          "minute": 47
+        }
+      ],
+      "competition": "CL"
+    },
+    {
+      "url": "https://www.goal.com/en/match/lille-vs-real-betis/wnF_vS_YuDogqW7t4szSl",
+      "date": null,
+      "home": "Lille",
+      "away": "Real Betis",
+      "htHome": 2,
+      "htAway": 1,
+      "ftHome": 2,
+      "ftAway": 3,
+      "homeGoals": [
+        {
+          "scorer": "A. Ueda",
+          "minute": 12
+        },
+        {
+          "scorer": "A. Ribeiro",
+          "minute": 36
+        }
+      ],
+      "awayGoals": [
+        {
+          "scorer": "M. Bartra",
+          "minute": 33
+        },
+        {
+          "scorer": "T. Parrott",
+          "minute": 53
+        }
+      ],
+      "competition": "CL"
     }
   ],
-  "scorerParseRetryCounts": {
-    "https://www.goal.com/en/match/fc-porto-vs-manchester-city/EnyTvTsPuFMMRrQAhl9hN": 2,
-    "https://www.goal.com/en/match/lille-vs-real-betis/wnF_vS_YuDogqW7t4szSl": 2
-  }
+  "scorerParseRetryCounts": {}
 }
