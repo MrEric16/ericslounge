@@ -4,7 +4,11 @@
 [goal-scraper] [BL1] Found 0 finished-match links
 [goal-scraper] [SA] Found 0 finished-match links
 [goal-scraper] [FL1] Found 0 finished-match links
-[goal-scraper] [CL] Found 6 finished-match links
+[goal-scraper] [CL] Found 8 finished-match links
+[goal-scraper] WARNING: Vfb Stuttgart scored 3 but only 1 scorer(s) were parsed for https://www.goal.com/en/match/vfb-stuttgart-vs-viking/IcysFKcTPvu743K-ufH2Z
+[goal-scraper] [CL] SCORER PARSE FAILED (attempt 1/3) for Vfb Stuttgart 3-1 Viking -- NOT committing, will retry next run: https://www.goal.com/en/match/vfb-stuttgart-vs-viking/IcysFKcTPvu743K-ufH2Z
+[goal-scraper] WARNING: Barcelona scored 5 but only 4 scorer(s) were parsed for https://www.goal.com/en/match/barcelona-vs-feyenoord/BmZmNapiiYVNhac92aduw
+[goal-scraper] [CL] SCORER PARSE FAILED (attempt 1/3) for Barcelona 5-1 Feyenoord -- NOT committing, will retry next run: https://www.goal.com/en/match/barcelona-vs-feyenoord/BmZmNapiiYVNhac92aduw
 [goal-scraper] [real-madrid] Found 20 finished-match links
 [goal-scraper] WARNING: Tottenham Hotspur scored 1 but 0 scorers were parsed for https://www.goal.com/en/match/real-madrid-vs-tottenham-hotspur/xdLKWe_FxdSoHo2tVKBzZ
 [goal-scraper] [real-madrid] Skipping stale match (older than 45 days): Real Madrid vs Tottenham Hotspur on 2019-07-30
@@ -22,13 +26,15 @@
 [goal-scraper] [real-madrid] Skipping stale match (older than 45 days): Cf Talavera De La Reina vs Real Madrid on 2025-12-17
 [goal-scraper] WARNING: Albacete scored 3 but only 2 scorer(s) were parsed for https://www.goal.com/en/match/albacete-vs-real-madrid/D4bjAPRMpTDjC8KGyEVOS
 [goal-scraper] [real-madrid] Skipping stale match (older than 45 days): Albacete vs Real Madrid on 2026-01-14
-[goal-scraper] [barcelona] Found 15 finished-match links
+[goal-scraper] [barcelona] Found 16 finished-match links
 [goal-scraper] [barcelona] Skipping stale match (older than 45 days): Cd Guadalajara vs Barcelona on 2025-12-16
 [goal-scraper] [barcelona] Skipping stale match (older than 45 days): Racing Santander vs Barcelona on 2026-01-15
 [goal-scraper] [barcelona] Skipping stale match (older than 45 days): Albacete vs Barcelona on 2026-02-03
 [goal-scraper] [barcelona] Skipping stale match (older than 45 days): Atletico Madrid vs Barcelona on 2026-02-12
 [goal-scraper] WARNING: Barcelona scored 3 but only 2 scorer(s) were parsed for https://www.goal.com/en/match/barcelona-vs-atletico-madrid/_ZprE2-vo0-u6L1aa-2iV
 [goal-scraper] [barcelona] Skipping stale match (older than 45 days): Barcelona vs Atletico Madrid on 2026-03-03
+[goal-scraper] WARNING: Barcelona scored 5 but only 4 scorer(s) were parsed for https://www.goal.com/en/match/barcelona-vs-feyenoord/BmZmNapiiYVNhac92aduw
+[goal-scraper] [barcelona] SCORER PARSE FAILED (attempt 2/3) for Barcelona 5-1 Feyenoord -- NOT committing, will retry next run: https://www.goal.com/en/match/barcelona-vs-feyenoord/BmZmNapiiYVNhac92aduw
 [goal-scraper] [bayern-munich] Found 18 finished-match links
 [goal-scraper] WARNING: Bayern Munich scored 6 but 0 scorers were parsed for https://www.goal.com/en/match/bayern-munich-vs-fenerbahce/ZCL4D3f-5GWp7UCPC24C5
 [goal-scraper] WARNING: Fenerbahce scored 1 but 0 scorers were parsed for https://www.goal.com/en/match/bayern-munich-vs-fenerbahce/ZCL4D3f-5GWp7UCPC24C5
@@ -88,4 +94,5 @@
 [goal-scraper] [juventus] Skipping stale match (older than 45 days): Basel vs Juventus on 2026-07-18
 [goal-scraper] [arsenal-friendlies] Found 1 finished-match links
 [goal-scraper] TOTAL new results added this run: 0
+[goal-scraper] Matches still awaiting a clean scorer parse (not yet committed): ['https://www.goal.com/en/match/vfb-stuttgart-vs-viking/IcysFKcTPvu743K-ufH2Z', 'https://www.goal.com/en/match/barcelona-vs-feyenoord/BmZmNapiiYVNhac92aduw']
 [goal-scraper] Wrote data/goal-results.json

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-09T15:40:33.637775Z",
+  "generatedAt": "2026-09-09T18:58:51.265512Z",
   "results": [
     {
       "url": "https://www.goal.com/en/match/girona-vs-arsenal/__LS8d9Oc6I1wXn9g8956",
@@ -5301,5 +5301,8 @@
       "competition": "CL"
     }
   ],
-  "scorerParseRetryCounts": {}
+  "scorerParseRetryCounts": {
+    "https://www.goal.com/en/match/vfb-stuttgart-vs-viking/IcysFKcTPvu743K-ufH2Z": 1,
+    "https://www.goal.com/en/match/barcelona-vs-feyenoord/BmZmNapiiYVNhac92aduw": 2
+  }
 }
