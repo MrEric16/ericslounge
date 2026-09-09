@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-09T18:58:51.265512Z",
+  "generatedAt": "2026-09-09T21:31:21.248904Z",
   "results": [
     {
       "url": "https://www.goal.com/en/match/girona-vs-arsenal/__LS8d9Oc6I1wXn9g8956",
@@ -5299,10 +5299,121 @@
         }
       ],
       "competition": "CL"
+    },
+    {
+      "url": "https://www.goal.com/en/match/barcelona-vs-feyenoord/BmZmNapiiYVNhac92aduw",
+      "date": null,
+      "home": "Barcelona",
+      "away": "Feyenoord",
+      "htHome": 2,
+      "htAway": 0,
+      "ftHome": 5,
+      "ftAway": 1,
+      "homeGoals": [
+        {
+          "scorer": "Raphinha",
+          "minute": 3
+        },
+        {
+          "scorer": "K. Adeyemi",
+          "minute": 22
+        },
+        {
+          "scorer": "L. Yamal",
+          "minute": 77
+        },
+        {
+          "scorer": "G. Jesus",
+          "minute": 85
+        }
+      ],
+      "awayGoals": [
+        {
+          "scorer": "S. Steijn",
+          "minute": 82
+        }
+      ],
+      "competition": "CL"
+    },
+    {
+      "url": "https://www.goal.com/en/match/ssc-napoli-vs-arsenal/yeIy8FOqDdiQaVGOTFZp9",
+      "date": null,
+      "home": "Ssc Napoli",
+      "away": "Arsenal",
+      "htHome": 0,
+      "htAway": 0,
+      "ftHome": 0,
+      "ftAway": 1,
+      "homeGoals": [],
+      "awayGoals": [
+        {
+          "scorer": "M. Oedegaard",
+          "minute": 75
+        }
+      ],
+      "competition": "CL"
+    },
+    {
+      "url": "https://www.goal.com/en/match/sporting-cp-vs-galatasaray/jvGSzRO-ZwS81PXs-fQm4",
+      "date": null,
+      "home": "Sporting Cp",
+      "away": "Galatasaray",
+      "htHome": 1,
+      "htAway": 1,
+      "ftHome": 3,
+      "ftAway": 1,
+      "homeGoals": [
+        {
+          "scorer": "G. Catamo",
+          "minute": 27
+        },
+        {
+          "scorer": "L. Suarez",
+          "minute": 57
+        },
+        {
+          "scorer": "R. Zalazar",
+          "minute": 63
+        }
+      ],
+      "awayGoals": [
+        {
+          "scorer": "G. Inacio",
+          "minute": 5
+        }
+      ],
+      "competition": "CL"
+    },
+    {
+      "url": "https://www.goal.com/en/match/liverpool-vs-atletico-madrid/Pa5Jgy-eUzFLax_f1AkzP",
+      "date": null,
+      "home": "Liverpool",
+      "away": "Atletico Madrid",
+      "htHome": 1,
+      "htAway": 1,
+      "ftHome": 2,
+      "ftAway": 1,
+      "homeGoals": [
+        {
+          "scorer": "D. Szoboszlai",
+          "minute": 40
+        },
+        {
+          "scorer": "A. Mac Allister",
+          "minute": 50
+        }
+      ],
+      "awayGoals": [
+        {
+          "scorer": "M. Llorente",
+          "minute": 17
+        }
+      ],
+      "competition": "CL"
     }
   ],
   "scorerParseRetryCounts": {
-    "https://www.goal.com/en/match/vfb-stuttgart-vs-viking/IcysFKcTPvu743K-ufH2Z": 1,
-    "https://www.goal.com/en/match/barcelona-vs-feyenoord/BmZmNapiiYVNhac92aduw": 2
+    "https://www.goal.com/en/match/vfb-stuttgart-vs-viking/IcysFKcTPvu743K-ufH2Z": 2,
+    "https://www.goal.com/en/match/paris-saint-germain-vs-slovan-bratislava/6Xke_d5-JmaNtv-aTjueH": 2
   }
 }
