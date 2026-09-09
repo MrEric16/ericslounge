@@ -6,15 +6,11 @@
 [goal-scraper] [FL1] Found 0 finished-match links
 [goal-scraper] [CL] Found 12 finished-match links
 [goal-scraper] WARNING: Vfb Stuttgart scored 3 but only 1 scorer(s) were parsed for https://www.goal.com/en/match/vfb-stuttgart-vs-viking/IcysFKcTPvu743K-ufH2Z
-[goal-scraper] [CL] SCORER PARSE FAILED (attempt 2/3) for Vfb Stuttgart 3-1 Viking -- NOT committing, will retry next run: https://www.goal.com/en/match/vfb-stuttgart-vs-viking/IcysFKcTPvu743K-ufH2Z
-[goal-scraper] WARNING: Barcelona scored 5 but only 4 scorer(s) were parsed for https://www.goal.com/en/match/barcelona-vs-feyenoord/BmZmNapiiYVNhac92aduw
-[goal-scraper] [CL] SCORER PARSE FAILED 3 times, giving up and committing WITH INCOMPLETE SCORER DATA (page structure likely changed) for Barcelona 5-1 Feyenoord: https://www.goal.com/en/match/barcelona-vs-feyenoord/BmZmNapiiYVNhac92aduw
-[goal-scraper] [CL] Added: Barcelona 5-1 Feyenoord
-[goal-scraper] [CL] Added: Ssc Napoli 0-1 Arsenal
-[goal-scraper] [CL] Added: Sporting Cp 3-1 Galatasaray
+[goal-scraper] [CL] SCORER PARSE FAILED 3 times, giving up and committing WITH INCOMPLETE SCORER DATA (page structure likely changed) for Vfb Stuttgart 3-1 Viking: https://www.goal.com/en/match/vfb-stuttgart-vs-viking/IcysFKcTPvu743K-ufH2Z
+[goal-scraper] [CL] Added: Vfb Stuttgart 3-1 Viking
 [goal-scraper] WARNING: Paris Saint Germain scored 6 but only 3 scorer(s) were parsed for https://www.goal.com/en/match/paris-saint-germain-vs-slovan-bratislava/6Xke_d5-JmaNtv-aTjueH
-[goal-scraper] [CL] SCORER PARSE FAILED (attempt 1/3) for Paris Saint Germain 6-1 Slovan Bratislava -- NOT committing, will retry next run: https://www.goal.com/en/match/paris-saint-germain-vs-slovan-bratislava/6Xke_d5-JmaNtv-aTjueH
-[goal-scraper] [CL] Added: Liverpool 2-1 Atletico Madrid
+[goal-scraper] [CL] SCORER PARSE FAILED 3 times, giving up and committing WITH INCOMPLETE SCORER DATA (page structure likely changed) for Paris Saint Germain 6-1 Slovan Bratislava: https://www.goal.com/en/match/paris-saint-germain-vs-slovan-bratislava/6Xke_d5-JmaNtv-aTjueH
+[goal-scraper] [CL] Added: Paris Saint Germain 6-1 Slovan Bratislava
 [goal-scraper] [real-madrid] Found 20 finished-match links
 [goal-scraper] WARNING: Tottenham Hotspur scored 1 but 0 scorers were parsed for https://www.goal.com/en/match/real-madrid-vs-tottenham-hotspur/xdLKWe_FxdSoHo2tVKBzZ
 [goal-scraper] [real-madrid] Skipping stale match (older than 45 days): Real Madrid vs Tottenham Hotspur on 2019-07-30
@@ -74,8 +70,6 @@
 [goal-scraper] WARNING: Paris Saint Germain scored 4 but only 3 scorer(s) were parsed for https://www.goal.com/en/match/vendee-fontenay-foot-vs-paris-saint-germain/H95TaHXkvzClAm2AMFdgg
 [goal-scraper] [psg] Skipping stale match (older than 45 days): Vendee Fontenay Foot vs Paris Saint Germain on 2025-12-20
 [goal-scraper] [psg] Skipping stale match (older than 45 days): Paris Saint Germain vs Paris Fc on 2026-01-12
-[goal-scraper] WARNING: Paris Saint Germain scored 6 but only 3 scorer(s) were parsed for https://www.goal.com/en/match/paris-saint-germain-vs-slovan-bratislava/6Xke_d5-JmaNtv-aTjueH
-[goal-scraper] [psg] SCORER PARSE FAILED (attempt 2/3) for Paris Saint Germain 6-1 Slovan Bratislava -- NOT committing, will retry next run: https://www.goal.com/en/match/paris-saint-germain-vs-slovan-bratislava/6Xke_d5-JmaNtv-aTjueH
 [goal-scraper] [marseille] Found 13 finished-match links
 [goal-scraper] [marseille] Skipping stale match (older than 45 days): Bourg En Bresse Peronnas vs Marseille on 2025-12-21
 [goal-scraper] WARNING: Marseille scored 9 but only 6 scorer(s) were parsed for https://www.goal.com/en/match/bayeux-vs-marseille/R85xLJltvhkq24LKLCcBj
@@ -99,6 +93,5 @@
 [goal-scraper] [juventus] Skipping stale match (older than 45 days): Juventus vs Manchester City on 2025-06-26
 [goal-scraper] [juventus] Skipping stale match (older than 45 days): Basel vs Juventus on 2026-07-18
 [goal-scraper] [arsenal-friendlies] Found 1 finished-match links
-[goal-scraper] TOTAL new results added this run: 4
-[goal-scraper] Matches still awaiting a clean scorer parse (not yet committed): ['https://www.goal.com/en/match/vfb-stuttgart-vs-viking/IcysFKcTPvu743K-ufH2Z', 'https://www.goal.com/en/match/paris-saint-germain-vs-slovan-bratislava/6Xke_d5-JmaNtv-aTjueH']
+[goal-scraper] TOTAL new results added this run: 2
 [goal-scraper] Wrote data/goal-results.json

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-09T21:31:21.248904Z",
+  "generatedAt": "2026-09-09T23:44:10.944553Z",
   "results": [
     {
       "url": "https://www.goal.com/en/match/girona-vs-arsenal/__LS8d9Oc6I1wXn9g8956",
@@ -5410,10 +5410,61 @@
         }
       ],
       "competition": "CL"
+    },
+    {
+      "url": "https://www.goal.com/en/match/vfb-stuttgart-vs-viking/IcysFKcTPvu743K-ufH2Z",
+      "date": null,
+      "home": "Vfb Stuttgart",
+      "away": "Viking",
+      "htHome": 3,
+      "htAway": 1,
+      "ftHome": 3,
+      "ftAway": 1,
+      "homeGoals": [
+        {
+          "scorer": "E. Demirovic",
+          "minute": 20
+        }
+      ],
+      "awayGoals": [
+        {
+          "scorer": "Z. Tripic",
+          "minute": 22
+        }
+      ],
+      "competition": "CL"
+    },
+    {
+      "url": "https://www.goal.com/en/match/paris-saint-germain-vs-slovan-bratislava/6Xke_d5-JmaNtv-aTjueH",
+      "date": null,
+      "home": "Paris Saint Germain",
+      "away": "Slovan Bratislava",
+      "htHome": 3,
+      "htAway": 0,
+      "ftHome": 6,
+      "ftAway": 1,
+      "homeGoals": [
+        {
+          "scorer": "O. Dembele",
+          "minute": 17
+        },
+        {
+          "scorer": "F. Torres",
+          "minute": 31
+        },
+        {
+          "scorer": "F. Ruiz",
+          "minute": 88
+        }
+      ],
+      "awayGoals": [
+        {
+          "scorer": "S. Camara",
+          "minute": 59
+        }
+      ],
+      "competition": "CL"
     }
   ],
-  "scorerParseRetryCounts": {
-    "https://www.goal.com/en/match/vfb-stuttgart-vs-viking/IcysFKcTPvu743K-ufH2Z": 2,
-    "https://www.goal.com/en/match/paris-saint-germain-vs-slovan-bratislava/6Xke_d5-JmaNtv-aTjueH": 2
-  }
+  "scorerParseRetryCounts": {}
 }
