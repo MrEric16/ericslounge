@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-09T23:23:24.052063Z",
+  "generatedAt": "2026-09-10T04:54:36.577684Z",
   "events": [
     {
       "title": "Musical evenings at 12 Tashkent",
@@ -1727,14 +1727,15 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "The beauty and the Beast",
-      "titleRu": null,
-      "category": "theatre",
-      "venue": "Theatre - Studio Silk Route Marionettes Ecopark",
+      "title": "Performance \"Beauty and the Beast\"",
+      "titleRu": "Спектакль «Красавица и Чудовище»",
+      "category": "kids",
+      "venue": "Театр марионетокТашкент, пересечение ул. улииц Хамида Алимжана и ул. Узбекистон Овози",
       "startDate": "2026-09-18",
       "endDate": null,
-      "url": "https://iticket.uz/en/events/theaters-tashkent/the-beauty-and-the-beast-to",
-      "source": "iticket.uz"
+      "time": "18:00",
+      "url": "https://www.afisha.uz/ru/children/2026/09/03/krasavica-i",
+      "source": "afisha.uz (calendar)"
     },
     {
       "title": "Uzbekistan will present contemporary craft at Homo Faber 2026 in Venice",
@@ -1755,26 +1756,6 @@
       "startDate": "2026-09-18",
       "endDate": null,
       "url": "https://iticket.uz/en/events/concerts/iymona-hayriya-konserti",
-      "source": "iticket.uz"
-    },
-    {
-      "title": "Счастливчик",
-      "titleRu": null,
-      "category": "theatre",
-      "venue": "The State Theater of Musical Comedy (Operetta) of Uzbekistan",
-      "startDate": "2026-09-18",
-      "endDate": null,
-      "url": "https://iticket.uz/en/events/theaters-tashkent/schastlivchik",
-      "source": "iticket.uz"
-    },
-    {
-      "title": "Людмила Слоним \"НИТЬ ЖЕМЧУГА\"",
-      "titleRu": null,
-      "category": "theatre",
-      "venue": "Bolshoi Theater named after A. Navoi",
-      "startDate": "2026-09-18",
-      "endDate": null,
-      "url": "https://iticket.uz/en/events/theaters-tashkent/lyudmila-slonim-nit-zemcuga-9503",
       "source": "iticket.uz"
     },
     {
@@ -1877,7 +1858,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Sound drama \"Don't be afraid\" at the Millat Theater",
+      "title": "Sound drama “Don't be afraid” at the Millat Theater",
       "titleRu": "Саунд-драма «Не бойся» в театре Millat",
       "category": "theatre",
       "venue": null,
@@ -1941,76 +1922,6 @@
       "time": null,
       "url": "https://www.afisha.uz/ru/exhibitions/2026/08/31/homo-faber",
       "source": "afisha.uz (calendar)"
-    },
-    {
-      "title": "IOSIS Fest 2026",
-      "titleRu": null,
-      "category": "concert",
-      "venue": "Turkiston Concert Hall",
-      "startDate": "2026-09-19",
-      "endDate": null,
-      "url": "https://iticket.uz/en/events/concerts/iosis-fest-20266",
-      "source": "iticket.uz"
-    },
-    {
-      "title": "Tolib To'xtasinov",
-      "titleRu": null,
-      "category": "concert",
-      "venue": "Peoples' Friendship Palace",
-      "startDate": "2026-09-19",
-      "endDate": null,
-      "url": "https://iticket.uz/en/events/concerts/tolib-toxtasinov",
-      "source": "iticket.uz"
-    },
-    {
-      "title": "Золушка",
-      "titleRu": null,
-      "category": "theatre",
-      "venue": "The State Theater of Musical Comedy (Operetta) of Uzbekistan",
-      "startDate": "2026-09-19",
-      "endDate": null,
-      "url": "https://iticket.uz/en/events/theaters-tashkent/zolushka2324",
-      "source": "iticket.uz"
-    },
-    {
-      "title": "“Xasis”",
-      "titleRu": null,
-      "category": "theatre",
-      "venue": "State Drama Theater of Uzbekistan",
-      "startDate": "2026-09-19",
-      "endDate": null,
-      "url": "https://iticket.uz/en/events/theaters-tashkent/xasis256",
-      "source": "iticket.uz"
-    },
-    {
-      "title": "Иван Васильевич меняет профессию",
-      "titleRu": null,
-      "category": "theatre",
-      "venue": "The State Theater of Musical Comedy (Operetta) of Uzbekistan",
-      "startDate": "2026-09-19",
-      "endDate": null,
-      "url": "https://iticket.uz/en/events/theaters-tashkent/ivan-vasilevich-menyaet-professiyu24",
-      "source": "iticket.uz"
-    },
-    {
-      "title": "Гала-Концерт Дильбар Абдурахманова",
-      "titleRu": null,
-      "category": "theatre",
-      "venue": "Bolshoi Theater named after A. Navoi",
-      "startDate": "2026-09-19",
-      "endDate": null,
-      "url": "https://iticket.uz/en/events/theaters-tashkent/gala-koncert-dilbar-abduraxmanova-9556",
-      "source": "iticket.uz"
-    },
-    {
-      "title": "Максим Аверин",
-      "titleRu": null,
-      "category": "theatre",
-      "venue": "Russian Drama Theater",
-      "startDate": "2026-09-19",
-      "endDate": null,
-      "url": "https://iticket.uz/en/events/theaters-tashkent/maksim-averin26",
-      "source": "iticket.uz"
     },
     {
       "title": "Exhibition by Mohamed Benshalal",
@@ -2112,86 +2023,6 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Gala Konsert",
-      "titleRu": null,
-      "category": "concert",
-      "venue": "Peoples' Friendship Palace",
-      "startDate": "2026-09-20",
-      "endDate": null,
-      "url": "https://iticket.uz/en/events/concerts/gala-konsert26",
-      "source": "iticket.uz"
-    },
-    {
-      "title": "MASXARABOZ SHOU",
-      "titleRu": null,
-      "category": "concert",
-      "venue": "Theater of Young Spectators",
-      "startDate": "2026-09-20",
-      "endDate": null,
-      "url": "https://iticket.uz/en/events/concerts/masxaraboz-shou",
-      "source": "iticket.uz"
-    },
-    {
-      "title": "Приключения Буратино",
-      "titleRu": null,
-      "category": "theatre",
-      "venue": "The State Theater of Musical Comedy (Operetta) of Uzbekistan",
-      "startDate": "2026-09-20",
-      "endDate": null,
-      "url": "https://iticket.uz/en/events/theaters-tashkent/priklyucheniya-buratino24",
-      "source": "iticket.uz"
-    },
-    {
-      "title": "С. Мухамедов «Алиса в стране чудес» сказка. Балет",
-      "titleRu": null,
-      "category": "theatre",
-      "venue": "Bolshoi Theater named after A. Navoi",
-      "startDate": "2026-09-20",
-      "endDate": null,
-      "url": "https://iticket.uz/en/events/theaters-tashkent/s-muhamedov-alisa-v-strane-chudes-skazka-balet",
-      "source": "iticket.uz"
-    },
-    {
-      "title": "ADVOKATLIK OSONMI?",
-      "titleRu": null,
-      "category": "theatre",
-      "venue": "State Drama Theater of Uzbekistan",
-      "startDate": "2026-09-20",
-      "endDate": null,
-      "url": "https://iticket.uz/en/events/theaters-tashkent/advokatlik-osonmi22226",
-      "source": "iticket.uz"
-    },
-    {
-      "title": "Hans and Gretel",
-      "titleRu": null,
-      "category": "theatre",
-      "venue": "Theatre - Studio Silk Route Marionettes Ecopark",
-      "startDate": "2026-09-20",
-      "endDate": null,
-      "url": "https://iticket.uz/en/events/theaters-tashkent/hans-and-gretel8965",
-      "source": "iticket.uz"
-    },
-    {
-      "title": "Любовный вертеж",
-      "titleRu": null,
-      "category": "theatre",
-      "venue": "The State Theater of Musical Comedy (Operetta) of Uzbekistan",
-      "startDate": "2026-09-20",
-      "endDate": null,
-      "url": "https://iticket.uz/en/events/theaters-tashkent/lyubovnyi-vertezh20223",
-      "source": "iticket.uz"
-    },
-    {
-      "title": "Концерт Народного артиста Узбекистана Самандара Алимова \"Grande Amore\"",
-      "titleRu": null,
-      "category": "theatre",
-      "venue": "Bolshoi Theater named after A. Navoi",
-      "startDate": "2026-09-20",
-      "endDate": null,
-      "url": "https://iticket.uz/en/events/theaters-tashkent/koncert-narodnogo-artista-uzbekistana-samandara-alimova-grande-amore-9488",
-      "source": "iticket.uz"
-    },
-    {
       "title": "Musical fountain in Magic City Park",
       "titleRu": "Музыкальный фонтан в парке Magic City",
       "category": "festival",
@@ -2234,16 +2065,6 @@
       "time": null,
       "url": "https://www.afisha.uz/ru/exhibitions/2026/08/31/homo-faber",
       "source": "afisha.uz (calendar)"
-    },
-    {
-      "title": "Gulzirahan Ablat",
-      "titleRu": null,
-      "category": "concert",
-      "venue": "Peoples' Friendship Palace",
-      "startDate": "2026-09-21",
-      "endDate": null,
-      "url": "https://iticket.uz/en/events/concerts/gulzirahan-ablat",
-      "source": "iticket.uz"
     },
     {
       "title": "Musical fountain in Magic City Park",
@@ -2290,16 +2111,6 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Открытие концертного сезона. Гала концерт",
-      "titleRu": null,
-      "category": "concert",
-      "venue": "State Conservatory of Uzbekistan",
-      "startDate": "2026-09-22",
-      "endDate": null,
-      "url": "https://iticket.uz/en/events/concerts/otkrytie-koncertnogo-sezona-gala-koncert",
-      "source": "iticket.uz"
-    },
-    {
       "title": "Musical fountain in Magic City Park",
       "titleRu": "Музыкальный фонтан в парке Magic City",
       "category": "festival",
@@ -2342,16 +2153,6 @@
       "time": null,
       "url": "https://www.afisha.uz/ru/exhibitions/2026/08/31/homo-faber",
       "source": "afisha.uz (calendar)"
-    },
-    {
-      "title": "П.Чайковский «Евгений Онегин» опера",
-      "titleRu": null,
-      "category": "theatre",
-      "venue": "Bolshoi Theater named after A. Navoi",
-      "startDate": "2026-09-23",
-      "endDate": null,
-      "url": "https://iticket.uz/en/events/theaters-tashkent/pcaikovskii-evgenii-onegin-opera-9545",
-      "source": "iticket.uz"
     },
     {
       "title": "Musical fountain in Magic City Park",
@@ -2407,46 +2208,6 @@
       "time": null,
       "url": "https://www.afisha.uz/ru/exhibitions/2026/08/31/homo-faber",
       "source": "afisha.uz (calendar)"
-    },
-    {
-      "title": "20TOKENS",
-      "titleRu": null,
-      "category": "concert",
-      "venue": "\"SAHNA\" StandUp Club",
-      "startDate": "2026-09-24",
-      "endDate": null,
-      "url": "https://iticket.uz/en/events/concerts/20tokens",
-      "source": "iticket.uz"
-    },
-    {
-      "title": "Сергей Лазарев",
-      "titleRu": null,
-      "category": "concert",
-      "venue": "Peoples' Friendship Palace",
-      "startDate": "2026-09-24",
-      "endDate": null,
-      "url": "https://iticket.uz/en/events/concerts/sergej-lazarev2026",
-      "source": "iticket.uz"
-    },
-    {
-      "title": "Calvin Harris",
-      "titleRu": null,
-      "category": "concert",
-      "venue": "Baku Crystal Hall",
-      "startDate": "2026-09-24",
-      "endDate": null,
-      "url": "https://iticket.uz/en/events/concerts/calvin-harris-az",
-      "source": "iticket.uz"
-    },
-    {
-      "title": "“Bog’lasangiz bog’lanay”",
-      "titleRu": null,
-      "category": "theatre",
-      "venue": "State Drama Theater of Uzbekistan",
-      "startDate": "2026-09-24",
-      "endDate": null,
-      "url": "https://iticket.uz/en/events/theaters-tashkent/boglasangiz-boglanay26",
-      "source": "iticket.uz"
     }
   ]
 }
