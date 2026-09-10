@@ -4,7 +4,9 @@
 [goal-scraper] [BL1] Found 0 finished-match links
 [goal-scraper] [SA] Found 0 finished-match links
 [goal-scraper] [FL1] Found 0 finished-match links
-[goal-scraper] [CL] Found 12 finished-match links
+[goal-scraper] [CL] Found 14 finished-match links
+[goal-scraper] [CL] Added: Psv Eindhoven 1-1 Shakhtar Donetsk
+[goal-scraper] [CL] Added: Fenerbahce 1-1 Roma
 [goal-scraper] [real-madrid] Found 20 finished-match links
 [goal-scraper] WARNING: Tottenham Hotspur scored 1 but 0 scorers were parsed for https://www.goal.com/en/match/real-madrid-vs-tottenham-hotspur/xdLKWe_FxdSoHo2tVKBzZ
 [goal-scraper] [real-madrid] Skipping stale match (older than 45 days): Real Madrid vs Tottenham Hotspur on 2019-07-30
@@ -78,7 +80,7 @@
 [goal-scraper] WARNING: Borussia Dortmund scored 2 but only 1 scorer(s) were parsed for https://www.goal.com/en/match/borussia-dortmund-vs-monterrey/UFMDj_-1r2womLuAYX338
 [goal-scraper] [dortmund] Skipping stale match (older than 45 days): Borussia Dortmund vs Monterrey on 2025-07-01
 [goal-scraper] [dortmund] Skipping stale match (older than 45 days): Oberhausen vs Borussia Dortmund on 2026-07-18
-[goal-scraper] [roma] Found 9 finished-match links
+[goal-scraper] [roma] Found 10 finished-match links
 [goal-scraper] [juventus] Found 13 finished-match links
 [goal-scraper] WARNING: Juventus scored 5 but only 3 scorer(s) were parsed for https://www.goal.com/en/match/al-ain-vs-juventus/hZXoigptTekk6p6Awa3MU
 [goal-scraper] [juventus] Skipping stale match (older than 45 days): Al Ain vs Juventus on 2025-06-18
@@ -87,5 +89,5 @@
 [goal-scraper] [juventus] Skipping stale match (older than 45 days): Juventus vs Manchester City on 2025-06-26
 [goal-scraper] [juventus] Skipping stale match (older than 45 days): Basel vs Juventus on 2026-07-18
 [goal-scraper] [arsenal-friendlies] Found 1 finished-match links
-[goal-scraper] TOTAL new results added this run: 0
+[goal-scraper] TOTAL new results added this run: 2
 [goal-scraper] Wrote data/goal-results.json

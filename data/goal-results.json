@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-10T16:34:35.349944Z",
+  "generatedAt": "2026-09-10T19:23:37.195535Z",
   "results": [
     {
       "url": "https://www.goal.com/en/match/girona-vs-arsenal/__LS8d9Oc6I1wXn9g8956",
@@ -5461,6 +5461,52 @@
         {
           "scorer": "S. Camara",
           "minute": 59
+        }
+      ],
+      "competition": "CL"
+    },
+    {
+      "url": "https://www.goal.com/en/match/psv-eindhoven-vs-shakhtar-donetsk/4BzYfOy1VPF-TGlzfD0DW",
+      "date": null,
+      "home": "Psv Eindhoven",
+      "away": "Shakhtar Donetsk",
+      "htHome": 0,
+      "htAway": 1,
+      "ftHome": 1,
+      "ftAway": 1,
+      "homeGoals": [
+        {
+          "scorer": "S. Dest",
+          "minute": 48
+        }
+      ],
+      "awayGoals": [
+        {
+          "scorer": "G. Mendoza",
+          "minute": 45
+        }
+      ],
+      "competition": "CL"
+    },
+    {
+      "url": "https://www.goal.com/en/match/fenerbahce-vs-roma/kxzDuDQ-_ZiLUATbrPAjE",
+      "date": null,
+      "home": "Fenerbahce",
+      "away": "Roma",
+      "htHome": 0,
+      "htAway": 1,
+      "ftHome": 1,
+      "ftAway": 1,
+      "homeGoals": [
+        {
+          "scorer": "A. Brown",
+          "minute": 48
+        }
+      ],
+      "awayGoals": [
+        {
+          "scorer": "B. Cristante",
+          "minute": 39
         }
       ],
       "competition": "CL"
