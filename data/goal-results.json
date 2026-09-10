@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-10T19:23:37.195535Z",
+  "generatedAt": "2026-09-10T21:43:35.559930Z",
   "results": [
     {
       "url": "https://www.goal.com/en/match/girona-vs-arsenal/__LS8d9Oc6I1wXn9g8956",
@@ -5510,7 +5510,75 @@
         }
       ],
       "competition": "CL"
+    },
+    {
+      "url": "https://www.goal.com/en/match/manchester-united-vs-sabah-fk/ojkEuSEOT740meqR8DgXI",
+      "date": null,
+      "home": "Manchester United",
+      "away": "Sabah Fk",
+      "htHome": 3,
+      "htAway": 0,
+      "ftHome": 4,
+      "ftAway": 0,
+      "homeGoals": [
+        {
+          "scorer": "M. Cunha",
+          "minute": 27
+        },
+        {
+          "scorer": "B. Fernandes",
+          "minute": 42
+        },
+        {
+          "scorer": "B. Sesko",
+          "minute": 45
+        },
+        {
+          "scorer": "L. Martinez",
+          "minute": 68
+        }
+      ],
+      "awayGoals": [],
+      "competition": "CL"
+    },
+    {
+      "url": "https://www.goal.com/en/match/como-vs-rb-leipzig/To4ceX8YEcDIiY2qrvhuf",
+      "date": null,
+      "home": "Como",
+      "away": "Rb Leipzig",
+      "htHome": 2,
+      "htAway": 0,
+      "ftHome": 4,
+      "ftAway": 1,
+      "homeGoals": [
+        {
+          "scorer": "M. Baturina",
+          "minute": 15
+        },
+        {
+          "scorer": "A. Douvikas",
+          "minute": 38
+        },
+        {
+          "scorer": "A. Diao",
+          "minute": 54
+        },
+        {
+          "scorer": "M. Perrone",
+          "minute": 90
+        }
+      ],
+      "awayGoals": [
+        {
+          "scorer": "A. Maksimovic",
+          "minute": 58
+        }
+      ],
+      "competition": "CL"
     }
   ],
-  "scorerParseRetryCounts": {}
+  "scorerParseRetryCounts": {
+    "https://www.goal.com/en/match/bayern-munich-vs-bodoe-glimt/m_ZMn5GKSEOK2P5D1fqiL": 2,
+    "https://www.goal.com/en/match/slavia-prague-vs-lens/8tl536s9YeGCuVkrI5O7Y": 1
+  }
 }
