@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-10T12:40:39.854531Z",
+  "generatedAt": "2026-09-10T16:52:30.588467Z",
   "standings": {
     "PL": [
       {
@@ -1094,13 +1094,43 @@
       },
       {
         "name": "Roma",
-        "pld": 0,
+        "pld": 1,
         "w": 0,
-        "d": 0,
+        "d": 1,
         "l": 0,
         "gf": 0,
         "ga": 0,
-        "pts": 0
+        "pts": 1
+      },
+      {
+        "name": "Fenerbahçe",
+        "pld": 1,
+        "w": 0,
+        "d": 1,
+        "l": 0,
+        "gf": 0,
+        "ga": 0,
+        "pts": 1
+      },
+      {
+        "name": "PSV",
+        "pld": 1,
+        "w": 0,
+        "d": 1,
+        "l": 0,
+        "gf": 0,
+        "ga": 0,
+        "pts": 1
+      },
+      {
+        "name": "Shaktar",
+        "pld": 1,
+        "w": 0,
+        "d": 1,
+        "l": 0,
+        "gf": 0,
+        "ga": 0,
+        "pts": 1
       },
       {
         "name": "Bayern",
@@ -1123,16 +1153,6 @@
         "pts": 0
       },
       {
-        "name": "Fenerbahçe",
-        "pld": 0,
-        "w": 0,
-        "d": 0,
-        "l": 0,
-        "gf": 0,
-        "ga": 0,
-        "pts": 0
-      },
-      {
         "name": "Bodø/Glimt",
         "pld": 0,
         "w": 0,
@@ -1144,16 +1164,6 @@
       },
       {
         "name": "Man United",
-        "pld": 0,
-        "w": 0,
-        "d": 0,
-        "l": 0,
-        "gf": 0,
-        "ga": 0,
-        "pts": 0
-      },
-      {
-        "name": "PSV",
         "pld": 0,
         "w": 0,
         "d": 0,
@@ -1184,16 +1194,6 @@
       },
       {
         "name": "Sabah FK",
-        "pld": 0,
-        "w": 0,
-        "d": 0,
-        "l": 0,
-        "gf": 0,
-        "ga": 0,
-        "pts": 0
-      },
-      {
-        "name": "Shaktar",
         "pld": 0,
         "w": 0,
         "d": 0,
@@ -3651,7 +3651,7 @@
       "fixtures": [
         {
           "utcDate": "2026-09-11T18:45:00Z",
-          "status": "TIMED",
+          "status": "2026-09-11 17:45:00Z",
           "matchday": 4,
           "homeTeam": {
             "id": 454,
@@ -3682,7 +3682,7 @@
         },
         {
           "utcDate": "2026-09-12T13:00:00Z",
-          "status": "TIMED",
+          "status": "2026-09-12 12:00:00Z",
           "matchday": 4,
           "homeTeam": {
             "id": 107,
@@ -3713,7 +3713,7 @@
         },
         {
           "utcDate": "2026-09-12T16:00:00Z",
-          "status": "TIMED",
+          "status": "2026-09-12 15:00:00Z",
           "matchday": 4,
           "homeTeam": {
             "id": 110,
@@ -3744,7 +3744,7 @@
         },
         {
           "utcDate": "2026-09-12T18:45:00Z",
-          "status": "TIMED",
+          "status": "2026-09-12 17:45:00Z",
           "matchday": 4,
           "homeTeam": {
             "id": 102,
@@ -3775,7 +3775,7 @@
         },
         {
           "utcDate": "2026-09-13T13:00:00Z",
-          "status": "TIMED",
+          "status": "2026-09-13 12:00:00Z",
           "matchday": 4,
           "homeTeam": {
             "id": 5890,
@@ -3806,7 +3806,7 @@
         },
         {
           "utcDate": "2026-09-13T16:00:00Z",
-          "status": "TIMED",
+          "status": "2026-09-13 15:00:00Z",
           "matchday": 4,
           "homeTeam": {
             "id": 113,
@@ -3837,7 +3837,7 @@
         },
         {
           "utcDate": "2026-09-13T18:45:00Z",
-          "status": "TIMED",
+          "status": "2026-09-13 17:45:00Z",
           "matchday": 4,
           "homeTeam": {
             "id": 471,
@@ -3868,7 +3868,7 @@
         },
         {
           "utcDate": "2026-09-14T16:30:00Z",
-          "status": "TIMED",
+          "status": "2026-09-14 15:30:00Z",
           "matchday": 4,
           "homeTeam": {
             "id": 7397,
@@ -3899,7 +3899,7 @@
         },
         {
           "utcDate": "2026-09-14T16:30:00Z",
-          "status": "TIMED",
+          "status": "2026-09-14 15:30:00Z",
           "matchday": 4,
           "homeTeam": {
             "id": 586,
@@ -3930,7 +3930,7 @@
         },
         {
           "utcDate": "2026-09-14T18:45:00Z",
-          "status": "TIMED",
+          "status": "2026-09-14 17:45:00Z",
           "matchday": 4,
           "homeTeam": {
             "id": 108,
@@ -4432,7 +4432,7 @@
       "fixtures": [
         {
           "utcDate": "2026-09-11T18:45:00Z",
-          "status": "TIMED",
+          "status": "2026-09-11 17:45:00Z",
           "matchday": 4,
           "homeTeam": {
             "id": 529,
@@ -4463,7 +4463,7 @@
         },
         {
           "utcDate": "2026-09-12T15:15:00Z",
-          "status": "TIMED",
+          "status": "2026-09-12 14:15:00Z",
           "matchday": 4,
           "homeTeam": {
             "id": 576,
@@ -4494,7 +4494,7 @@
         },
         {
           "utcDate": "2026-09-12T18:45:00Z",
-          "status": "TIMED",
+          "status": "2026-09-12 17:45:00Z",
           "matchday": 4,
           "homeTeam": {
             "id": 525,
@@ -4525,7 +4525,7 @@
         },
         {
           "utcDate": "2026-09-12T18:45:00Z",
-          "status": "TIMED",
+          "status": "2026-09-12 17:45:00Z",
           "matchday": 4,
           "homeTeam": {
             "id": 519,
@@ -4556,7 +4556,7 @@
         },
         {
           "utcDate": "2026-09-12T18:45:00Z",
-          "status": "TIMED",
+          "status": "2026-09-12 17:45:00Z",
           "matchday": 4,
           "homeTeam": {
             "id": 533,
@@ -4587,7 +4587,7 @@
         },
         {
           "utcDate": "2026-09-12T18:45:00Z",
-          "status": "TIMED",
+          "status": "2026-09-12 17:45:00Z",
           "matchday": 4,
           "homeTeam": {
             "id": 1045,
@@ -4618,7 +4618,7 @@
         },
         {
           "utcDate": "2026-09-13T13:00:00Z",
-          "status": "TIMED",
+          "status": "2026-09-13 12:00:00Z",
           "matchday": 4,
           "homeTeam": {
             "id": 521,
@@ -4649,7 +4649,7 @@
         },
         {
           "utcDate": "2026-09-13T15:15:00Z",
-          "status": "TIMED",
+          "status": "2026-09-13 14:15:00Z",
           "matchday": 4,
           "homeTeam": {
             "id": 535,
@@ -4680,7 +4680,7 @@
         },
         {
           "utcDate": "2026-09-13T18:45:00Z",
-          "status": "TIMED",
+          "status": "2026-09-13 17:45:00Z",
           "matchday": 4,
           "homeTeam": {
             "id": 512,
@@ -5182,7 +5182,7 @@
       "fixtures": [
         {
           "utcDate": "2026-09-10T16:45:00Z",
-          "status": "TIMED",
+          "status": "IN_PLAY",
           "matchday": 1,
           "homeTeam": {
             "id": 613,
@@ -5195,11 +5195,11 @@
             "shortName": "Roma"
           },
           "score": {
-            "winner": null,
+            "winner": "DRAW",
             "duration": "REGULAR",
             "fullTime": {
-              "home": null,
-              "away": null
+              "home": 0,
+              "away": 0
             },
             "halfTime": {
               "home": null,
@@ -5213,7 +5213,7 @@
         },
         {
           "utcDate": "2026-09-10T16:45:00Z",
-          "status": "TIMED",
+          "status": "IN_PLAY",
           "matchday": 1,
           "homeTeam": {
             "id": 674,
@@ -5226,11 +5226,11 @@
             "shortName": "Shaktar"
           },
           "score": {
-            "winner": null,
+            "winner": "DRAW",
             "duration": "REGULAR",
             "fullTime": {
-              "home": null,
-              "away": null
+              "home": 0,
+              "away": 0
             },
             "halfTime": {
               "home": null,
