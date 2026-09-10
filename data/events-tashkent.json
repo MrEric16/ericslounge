@@ -1,202 +1,15 @@
 {
-  "generatedAt": "2026-09-10T16:33:28.463712Z",
+  "generatedAt": "2026-09-10T20:59:59.351373Z",
   "events": [
     {
       "title": "Musical evenings at 12 Tashkent",
       "titleRu": "Музыкальные вечера в заведении 12 Tashkent",
       "category": "concert",
       "venue": null,
-      "startDate": "2026-09-10",
-      "endDate": null,
-      "time": null,
-      "url": "https://www.afisha.uz/ru/restaurants/2026/09/09/12-tashkent",
-      "source": "afisha.uz (calendar)"
-    },
-    {
-      "title": "Show \"Team Astana\"",
-      "titleRu": "Шоу «Команда Астана»",
-      "category": "concert",
-      "venue": null,
-      "startDate": "2026-09-10",
-      "endDate": null,
-      "time": "19:30",
-      "url": "https://www.afisha.uz/ru/concerts/2026/07/14/komanda-astana",
-      "source": "afisha.uz (calendar)"
-    },
-    {
-      "title": "Exhibition “The Image of the Motherland - Through the Eyes of an Artist”",
-      "titleRu": "Выставка «Образ Родины — глазами художника»",
-      "category": "exhibition",
-      "venue": "Международный Караван-Сарай культуры Икуо ХираямыТашкент, ул. Юсуф Хос Ходжиб, 37А",
-      "startDate": "2026-09-10",
-      "endDate": null,
-      "time": null,
-      "url": "https://www.afisha.uz/ru/exhibitions/2026/09/09/obraz-rod",
-      "source": "afisha.uz (calendar)"
-    },
-    {
-      "title": "Exhibition “On the Female Line”",
-      "titleRu": "Выставка «По женской линии»",
-      "category": "exhibition",
-      "venue": "ZanmakonТашкент, ул. Заркайнар, 48",
-      "startDate": "2026-09-10",
-      "endDate": null,
-      "time": null,
-      "url": "https://www.afisha.uz/ru/exhibitions/2026/08/27/zanmakon",
-      "source": "afisha.uz (calendar)"
-    },
-    {
-      "title": "Exhibition by Mohamed Benshalal",
-      "titleRu": "Выставка Мохамеда Беншалала",
-      "category": "exhibition",
-      "venue": "Государственный музей истории УзбекистанаТашкент, просп. Рашидова, 3",
-      "startDate": "2026-09-10",
-      "endDate": null,
-      "time": null,
-      "url": "https://www.afisha.uz/ru/exhibitions/2026/08/25/benchellal-vystavka",
-      "source": "afisha.uz (calendar)"
-    },
-    {
-      "title": "CAITME 2026",
-      "titleRu": "CAITME 2026",
-      "category": "exhibition",
-      "venue": "УзЭкспоцентрТашкент, просп. Амира Темура, 107",
-      "startDate": "2026-09-10",
-      "endDate": null,
-      "time": null,
-      "url": "https://www.afisha.uz/ru/exhibitions/2026/08/13/caitme-2026",
-      "source": "afisha.uz (calendar)"
-    },
-    {
-      "title": "Performance Jinlar bazmi",
-      "titleRu": "Спектакль Jinlar bazmi",
-      "category": "theatre",
-      "venue": null,
-      "startDate": "2026-09-10",
-      "endDate": null,
-      "time": "17:00",
-      "url": "https://www.afisha.uz/ru/theatres/2026/08/26/jinlar-bazmi",
-      "source": "afisha.uz (calendar)"
-    },
-    {
-      "title": "Performance “Adolat Fasli”",
-      "titleRu": "Спектакль «Адолат фасли»",
-      "category": "theatre",
-      "venue": null,
-      "startDate": "2026-09-10",
-      "endDate": null,
-      "time": "18:00",
-      "url": "https://www.afisha.uz/ru/theatres/2026/08/20/adolat-fasli",
-      "source": "afisha.uz (calendar)"
-    },
-    {
-      "title": "Musical fountain in Magic City Park",
-      "titleRu": "Музыкальный фонтан в парке Magic City",
-      "category": "festival",
-      "venue": "Magic CityТашкент, ул. Бабура, 174",
-      "startDate": "2026-09-10",
-      "endDate": null,
-      "time": null,
-      "url": "https://www.afisha.uz/ru/gorod/2026/07/17/muzykalnyy-fontan-magic-city-2026",
-      "source": "afisha.uz (calendar)"
-    },
-    {
-      "title": "Uzbegim Market fair in Tashkent City Park",
-      "titleRu": "Ярмарка Uzbegim Market в парке Tashkent City",
-      "category": "festival",
-      "venue": "Tashkent CityТашкент, просп. Бунёдкор",
-      "startDate": "2026-09-10",
-      "endDate": null,
-      "time": null,
-      "url": "https://www.afisha.uz/ru/gorod/2026/07/16/uzbegim-market-2026",
-      "source": "afisha.uz (calendar)"
-    },
-    {
-      "title": "Presentation of the book “Thus were the circumstances”",
-      "titleRu": "Презентация книги «Так сложились обстоятельства»",
-      "category": "lecture",
-      "venue": null,
-      "startDate": "2026-09-10",
-      "endDate": null,
-      "time": "19:00",
-      "url": "https://www.afisha.uz/ru/znaniya/2026/08/24/luzanova-kniga",
-      "source": "afisha.uz (calendar)"
-    },
-    {
-      "title": "Uzbekistan will present contemporary craft at Homo Faber 2026 in Venice",
-      "titleRu": "Узбекистан представит современное ремесло на Homo Faber 2026 в Венеции",
-      "category": "exhibition",
-      "venue": null,
-      "startDate": "2026-09-10",
-      "endDate": null,
-      "time": null,
-      "url": "https://www.afisha.uz/ru/exhibitions/2026/08/31/homo-faber",
-      "source": "afisha.uz (calendar)"
-    },
-    {
-      "title": "Musical evenings at 12 Tashkent",
-      "titleRu": "Музыкальные вечера в заведении 12 Tashkent",
-      "category": "concert",
-      "venue": null,
       "startDate": "2026-09-11",
       "endDate": null,
       "time": null,
       "url": "https://www.afisha.uz/ru/restaurants/2026/09/09/12-tashkent",
-      "source": "afisha.uz (calendar)"
-    },
-    {
-      "title": "Exhibition “The Image of the Motherland - Through the Eyes of an Artist”",
-      "titleRu": "Выставка «Образ Родины — глазами художника»",
-      "category": "exhibition",
-      "venue": "Международный Караван-Сарай культуры Икуо ХираямыТашкент, ул. Юсуф Хос Ходжиб, 37А",
-      "startDate": "2026-09-11",
-      "endDate": null,
-      "time": null,
-      "url": "https://www.afisha.uz/ru/exhibitions/2026/09/09/obraz-rod",
-      "source": "afisha.uz (calendar)"
-    },
-    {
-      "title": "Exhibition “On the Female Line”",
-      "titleRu": "Выставка «По женской линии»",
-      "category": "exhibition",
-      "venue": "ZanmakonТашкент, ул. Заркайнар, 48",
-      "startDate": "2026-09-11",
-      "endDate": null,
-      "time": null,
-      "url": "https://www.afisha.uz/ru/exhibitions/2026/08/27/zanmakon",
-      "source": "afisha.uz (calendar)"
-    },
-    {
-      "title": "Exhibition by Mohamed Benshalal",
-      "titleRu": "Выставка Мохамеда Беншалала",
-      "category": "exhibition",
-      "venue": "Государственный музей истории УзбекистанаТашкент, просп. Рашидова, 3",
-      "startDate": "2026-09-11",
-      "endDate": null,
-      "time": null,
-      "url": "https://www.afisha.uz/ru/exhibitions/2026/08/25/benchellal-vystavka",
-      "source": "afisha.uz (calendar)"
-    },
-    {
-      "title": "Musical fountain in Magic City Park",
-      "titleRu": "Музыкальный фонтан в парке Magic City",
-      "category": "festival",
-      "venue": "Magic CityТашкент, ул. Бабура, 174",
-      "startDate": "2026-09-11",
-      "endDate": null,
-      "time": null,
-      "url": "https://www.afisha.uz/ru/gorod/2026/07/17/muzykalnyy-fontan-magic-city-2026",
-      "source": "afisha.uz (calendar)"
-    },
-    {
-      "title": "Uzbegim Market fair in Tashkent City Park",
-      "titleRu": "Ярмарка Uzbegim Market в парке Tashkent City",
-      "category": "festival",
-      "venue": "Tashkent CityТашкент, просп. Бунёдкор",
-      "startDate": "2026-09-11",
-      "endDate": null,
-      "time": null,
-      "url": "https://www.afisha.uz/ru/gorod/2026/07/16/uzbegim-market-2026",
       "source": "afisha.uz (calendar)"
     },
     {
@@ -222,7 +35,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Festival Mazza Fest",
+      "title": "Фестиваль Mazza Fest",
       "titleRu": "Фестиваль Mazza Fest",
       "category": "concert",
       "venue": null,
@@ -244,6 +57,17 @@
       "source": "afisha.uz (calendar)"
     },
     {
+      "title": "Exhibition “The Image of the Motherland - Through the Eyes of an Artist”",
+      "titleRu": "Выставка «Образ Родины — глазами художника»",
+      "category": "exhibition",
+      "venue": "Международный Караван-Сарай культуры Икуо ХираямыТашкент, ул. Юсуф Хос Ходжиб, 37А",
+      "startDate": "2026-09-11",
+      "endDate": null,
+      "time": null,
+      "url": "https://www.afisha.uz/ru/exhibitions/2026/09/09/obraz-rod",
+      "source": "afisha.uz (calendar)"
+    },
+    {
       "title": "Exhibition “Autumn. When nature is generous\"",
       "titleRu": "Выставка «Осень. Когда природа щедра»",
       "category": "exhibition",
@@ -252,6 +76,28 @@
       "endDate": null,
       "time": "18:00",
       "url": "https://www.afisha.uz/ru/exhibitions/2026/09/03/andakulovas",
+      "source": "afisha.uz (calendar)"
+    },
+    {
+      "title": "Exhibition “On the Female Line”",
+      "titleRu": "Выставка «По женской линии»",
+      "category": "exhibition",
+      "venue": "ZanmakonТашкент, ул. Заркайнар, 48",
+      "startDate": "2026-09-11",
+      "endDate": null,
+      "time": null,
+      "url": "https://www.afisha.uz/ru/exhibitions/2026/08/27/zanmakon",
+      "source": "afisha.uz (calendar)"
+    },
+    {
+      "title": "Exhibition by Mohamed Benshalal",
+      "titleRu": "Выставка Мохамеда Беншалала",
+      "category": "exhibition",
+      "venue": "Государственный музей истории УзбекистанаТашкент, просп. Рашидова, 3",
+      "startDate": "2026-09-11",
+      "endDate": null,
+      "time": null,
+      "url": "https://www.afisha.uz/ru/exhibitions/2026/08/25/benchellal-vystavka",
       "source": "afisha.uz (calendar)"
     },
     {
@@ -328,6 +174,28 @@
       "endDate": null,
       "time": "22:00",
       "url": "https://www.afisha.uz/ru/gorod/2026/07/17/feyerverk-shou-tashkent-city",
+      "source": "afisha.uz (calendar)"
+    },
+    {
+      "title": "Musical fountain in Magic City Park",
+      "titleRu": "Музыкальный фонтан в парке Magic City",
+      "category": "festival",
+      "venue": "Magic CityТашкент, ул. Бабура, 174",
+      "startDate": "2026-09-11",
+      "endDate": null,
+      "time": null,
+      "url": "https://www.afisha.uz/ru/gorod/2026/07/17/muzykalnyy-fontan-magic-city-2026",
+      "source": "afisha.uz (calendar)"
+    },
+    {
+      "title": "Uzbegim Market fair in Tashkent City Park",
+      "titleRu": "Ярмарка Uzbegim Market в парке Tashkent City",
+      "category": "festival",
+      "venue": "Tashkent CityТашкент, просп. Бунёдкор",
+      "startDate": "2026-09-11",
+      "endDate": null,
+      "time": null,
+      "url": "https://www.afisha.uz/ru/gorod/2026/07/16/uzbegim-market-2026",
       "source": "afisha.uz (calendar)"
     },
     {
@@ -413,6 +281,17 @@
       "source": "afisha.uz (calendar)"
     },
     {
+      "title": "Фестиваль Mazza Fest",
+      "titleRu": "Фестиваль Mazza Fest",
+      "category": "concert",
+      "venue": null,
+      "startDate": "2026-09-12",
+      "endDate": null,
+      "time": "16:00",
+      "url": "https://www.afisha.uz/ru/concerts/2026/08/05/mazza-fest-yangi-uzbekiston-sentyabr-2026",
+      "source": "afisha.uz (calendar)"
+    },
+    {
       "title": "Exhibition “The Image of the Motherland - Through the Eyes of an Artist”",
       "titleRu": "Выставка «Образ Родины — глазами художника»",
       "category": "exhibition",
@@ -446,39 +325,6 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Musical fountain in Magic City Park",
-      "titleRu": "Музыкальный фонтан в парке Magic City",
-      "category": "festival",
-      "venue": "Magic CityТашкент, ул. Бабура, 174",
-      "startDate": "2026-09-12",
-      "endDate": null,
-      "time": null,
-      "url": "https://www.afisha.uz/ru/gorod/2026/07/17/muzykalnyy-fontan-magic-city-2026",
-      "source": "afisha.uz (calendar)"
-    },
-    {
-      "title": "Uzbegim Market fair in Tashkent City Park",
-      "titleRu": "Ярмарка Uzbegim Market в парке Tashkent City",
-      "category": "festival",
-      "venue": "Tashkent CityТашкент, просп. Бунёдкор",
-      "startDate": "2026-09-12",
-      "endDate": null,
-      "time": null,
-      "url": "https://www.afisha.uz/ru/gorod/2026/07/16/uzbegim-market-2026",
-      "source": "afisha.uz (calendar)"
-    },
-    {
-      "title": "Festival Mazza Fest",
-      "titleRu": "Фестиваль Mazza Fest",
-      "category": "concert",
-      "venue": null,
-      "startDate": "2026-09-12",
-      "endDate": null,
-      "time": "16:00",
-      "url": "https://www.afisha.uz/ru/concerts/2026/08/05/mazza-fest-yangi-uzbekiston-sentyabr-2026",
-      "source": "afisha.uz (calendar)"
-    },
-    {
       "title": "“Lucky Fair” in Dustlik Park",
       "titleRu": "«уДачная ярмарка» в парке «Дустлик»",
       "category": "festival",
@@ -501,7 +347,29 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "\"Spanish Evening\" at Velvet",
+      "title": "Musical fountain in Magic City Park",
+      "titleRu": "Музыкальный фонтан в парке Magic City",
+      "category": "festival",
+      "venue": "Magic CityТашкент, ул. Бабура, 174",
+      "startDate": "2026-09-12",
+      "endDate": null,
+      "time": null,
+      "url": "https://www.afisha.uz/ru/gorod/2026/07/17/muzykalnyy-fontan-magic-city-2026",
+      "source": "afisha.uz (calendar)"
+    },
+    {
+      "title": "Uzbegim Market fair in Tashkent City Park",
+      "titleRu": "Ярмарка Uzbegim Market в парке Tashkent City",
+      "category": "festival",
+      "venue": "Tashkent CityТашкент, просп. Бунёдкор",
+      "startDate": "2026-09-12",
+      "endDate": null,
+      "time": null,
+      "url": "https://www.afisha.uz/ru/gorod/2026/07/16/uzbegim-market-2026",
+      "source": "afisha.uz (calendar)"
+    },
+    {
+      "title": "«Испанский вечер» в  Velvet",
       "titleRu": "«Испанский вечер» в  Velvet",
       "category": "concert",
       "venue": "VelvetТашкент, ул. Абдуллы Кадыри, 35",
@@ -758,6 +626,17 @@
       "source": "iticket.uz"
     },
     {
+      "title": "Фестиваль Mazza Fest",
+      "titleRu": "Фестиваль Mazza Fest",
+      "category": "concert",
+      "venue": null,
+      "startDate": "2026-09-13",
+      "endDate": null,
+      "time": "16:00",
+      "url": "https://www.afisha.uz/ru/concerts/2026/08/05/mazza-fest-yangi-uzbekiston-sentyabr-2026",
+      "source": "afisha.uz (calendar)"
+    },
+    {
       "title": "Exhibition “The Image of the Motherland - Through the Eyes of an Artist”",
       "titleRu": "Выставка «Образ Родины — глазами художника»",
       "category": "exhibition",
@@ -791,6 +670,17 @@
       "source": "afisha.uz (calendar)"
     },
     {
+      "title": "Fireworks show in Tashkent City Park",
+      "titleRu": "Фейерверк-шоу в парке Tashkent City",
+      "category": "festival",
+      "venue": "Tashkent CityТашкент, просп. Бунёдкор",
+      "startDate": "2026-09-13",
+      "endDate": null,
+      "time": "22:00",
+      "url": "https://www.afisha.uz/ru/gorod/2026/07/17/feyerverk-shou-tashkent-city",
+      "source": "afisha.uz (calendar)"
+    },
+    {
       "title": "Musical fountain in Magic City Park",
       "titleRu": "Музыкальный фонтан в парке Magic City",
       "category": "festival",
@@ -810,28 +700,6 @@
       "endDate": null,
       "time": null,
       "url": "https://www.afisha.uz/ru/gorod/2026/07/16/uzbegim-market-2026",
-      "source": "afisha.uz (calendar)"
-    },
-    {
-      "title": "Festival Mazza Fest",
-      "titleRu": "Фестиваль Mazza Fest",
-      "category": "concert",
-      "venue": null,
-      "startDate": "2026-09-13",
-      "endDate": null,
-      "time": "16:00",
-      "url": "https://www.afisha.uz/ru/concerts/2026/08/05/mazza-fest-yangi-uzbekiston-sentyabr-2026",
-      "source": "afisha.uz (calendar)"
-    },
-    {
-      "title": "Fireworks show in Tashkent City Park",
-      "titleRu": "Фейерверк-шоу в парке Tashkent City",
-      "category": "festival",
-      "venue": "Tashkent CityТашкент, просп. Бунёдкор",
-      "startDate": "2026-09-13",
-      "endDate": null,
-      "time": "22:00",
-      "url": "https://www.afisha.uz/ru/gorod/2026/07/17/feyerverk-shou-tashkent-city",
       "source": "afisha.uz (calendar)"
     },
     {
@@ -1011,7 +879,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Kids Day at Cucucina Restaurant",
+      "title": "Kids Day at Cucucina restaurant",
       "titleRu": "Kids Day в ресторане Cucucina",
       "category": "kids",
       "venue": "CucucinaТашкент, ул. Батыра Закирова, 7",
@@ -1022,7 +890,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Children's show program \"Marvel Heroes\"",
+      "title": "Детская шоу-программа «Герои Marvel»",
       "titleRu": "Детская шоу-программа «Герои Marvel»",
       "category": "kids",
       "venue": "Jungle Family ClubТашкент, Юнусабад-12, 20А",
@@ -1033,7 +901,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Master class “Monsters and Aliens”",
+      "title": "Мастер-класc «Монстры и пришельцы»",
       "titleRu": "Мастер-класc «Монстры и пришельцы»",
       "category": "kids",
       "venue": "Human HouseТашкент, ул. Ивлиева, 43",
@@ -1587,7 +1455,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Performance “Bekhalovat koshona”",
+      "title": "Performance \"Bekhalovat koshona\"",
       "titleRu": "Спектакль «Бехаловат кошона»",
       "category": "theatre",
       "venue": null,
@@ -1598,7 +1466,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Спектакль «Подпольные девочки»",
+      "title": "Performance “Underground Girls”",
       "titleRu": "Спектакль «Подпольные девочки»",
       "category": "theatre",
       "venue": null,
@@ -1620,7 +1488,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "One-act ballets “Chopiniana” and “Polovtsian Dances”",
+      "title": "Одноактные балеты «Шопениана» и «Половецкие пляски»",
       "titleRu": "Одноактные балеты «Шопениана» и «Половецкие пляски»",
       "category": "theatre",
       "venue": null,
@@ -1674,6 +1542,17 @@
       "source": "afisha.uz (calendar)"
     },
     {
+      "title": "Fireworks show in Tashkent City Park",
+      "titleRu": "Фейерверк-шоу в парке Tashkent City",
+      "category": "festival",
+      "venue": "Tashkent CityТашкент, просп. Бунёдкор",
+      "startDate": "2026-09-18",
+      "endDate": null,
+      "time": "22:00",
+      "url": "https://www.afisha.uz/ru/gorod/2026/07/17/feyerverk-shou-tashkent-city",
+      "source": "afisha.uz (calendar)"
+    },
+    {
       "title": "Musical fountain in Magic City Park",
       "titleRu": "Музыкальный фонтан в парке Magic City",
       "category": "festival",
@@ -1693,17 +1572,6 @@
       "endDate": null,
       "time": null,
       "url": "https://www.afisha.uz/ru/gorod/2026/07/16/uzbegim-market-2026",
-      "source": "afisha.uz (calendar)"
-    },
-    {
-      "title": "Fireworks show in Tashkent City Park",
-      "titleRu": "Фейерверк-шоу в парке Tashkent City",
-      "category": "festival",
-      "venue": "Tashkent CityТашкент, просп. Бунёдкор",
-      "startDate": "2026-09-18",
-      "endDate": null,
-      "time": "22:00",
-      "url": "https://www.afisha.uz/ru/gorod/2026/07/17/feyerverk-shou-tashkent-city",
       "source": "afisha.uz (calendar)"
     },
     {
@@ -1740,7 +1608,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Blues Night at Human House",
+      "title": "Blues Night в Human House",
       "titleRu": "Blues Night в Human House",
       "category": "concert",
       "venue": null,
@@ -1773,7 +1641,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Play “How Ivan Ivanovich quarreled with Ivan Nikiforovich”",
+      "title": "Спектакль «Как поссорился Иван Иванович с Иваном Никифоровичем»",
       "titleRu": "Спектакль «Как поссорился Иван Иванович с Иваном Никифоровичем»",
       "category": "theatre",
       "venue": null,
@@ -1795,7 +1663,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Musical comedy \"Lucky\"",
+      "title": "Музыкальная комедия «Счастливчик»",
       "titleRu": "Музыкальная комедия «Счастливчик»",
       "category": "theatre",
       "venue": null,
@@ -1806,7 +1674,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Concert “String of Pearls”",
+      "title": "Концерт «Нить жемчуга»",
       "titleRu": "Концерт «Нить жемчуга»",
       "category": "theatre",
       "venue": null,
@@ -1817,7 +1685,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Opening of the running club “Run like a girl”",
+      "title": "Открытие бегового клуба «Бегаешь как девчонка»",
       "titleRu": "Открытие бегового клуба «Бегаешь как девчонка»",
       "category": "sport",
       "venue": "Krispy KremeТашкент, Ц-1, ул. Буюк Ипак Йули, 24",
@@ -1859,6 +1727,26 @@
       "source": "iticket.uz"
     },
     {
+      "title": "Счастливчик",
+      "titleRu": null,
+      "category": "theatre",
+      "venue": "The State Theater of Musical Comedy (Operetta) of Uzbekistan",
+      "startDate": "2026-09-18",
+      "endDate": null,
+      "url": "https://iticket.uz/en/events/theaters-tashkent/schastlivchik",
+      "source": "iticket.uz"
+    },
+    {
+      "title": "Людмила Слоним \"НИТЬ ЖЕМЧУГА\"",
+      "titleRu": null,
+      "category": "theatre",
+      "venue": "Bolshoi Theater named after A. Navoi",
+      "startDate": "2026-09-18",
+      "endDate": null,
+      "url": "https://iticket.uz/en/events/theaters-tashkent/lyudmila-slonim-nit-zemcuga-9503",
+      "source": "iticket.uz"
+    },
+    {
       "title": "Exhibition by Mohamed Benshalal",
       "titleRu": "Выставка Мохамеда Беншалала",
       "category": "exhibition",
@@ -1867,6 +1755,17 @@
       "endDate": null,
       "time": null,
       "url": "https://www.afisha.uz/ru/exhibitions/2026/08/25/benchellal-vystavka",
+      "source": "afisha.uz (calendar)"
+    },
+    {
+      "title": "Fireworks show in Tashkent City Park",
+      "titleRu": "Фейерверк-шоу в парке Tashkent City",
+      "category": "festival",
+      "venue": "Tashkent CityТашкент, просп. Бунёдкор",
+      "startDate": "2026-09-19",
+      "endDate": null,
+      "time": "22:00",
+      "url": "https://www.afisha.uz/ru/gorod/2026/07/17/feyerverk-shou-tashkent-city",
       "source": "afisha.uz (calendar)"
     },
     {
@@ -1889,17 +1788,6 @@
       "endDate": null,
       "time": null,
       "url": "https://www.afisha.uz/ru/gorod/2026/07/16/uzbegim-market-2026",
-      "source": "afisha.uz (calendar)"
-    },
-    {
-      "title": "Fireworks show in Tashkent City Park",
-      "titleRu": "Фейерверк-шоу в парке Tashkent City",
-      "category": "festival",
-      "venue": "Tashkent CityТашкент, просп. Бунёдкор",
-      "startDate": "2026-09-19",
-      "endDate": null,
-      "time": "22:00",
-      "url": "https://www.afisha.uz/ru/gorod/2026/07/17/feyerverk-shou-tashkent-city",
       "source": "afisha.uz (calendar)"
     },
     {
@@ -1936,7 +1824,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Tolib Tokhtasinov",
+      "title": "Толиб Тохтасинов",
       "titleRu": "Толиб Тохтасинов",
       "category": "concert",
       "venue": null,
@@ -2044,6 +1932,66 @@
       "source": "iticket.uz"
     },
     {
+      "title": "Золушка",
+      "titleRu": null,
+      "category": "theatre",
+      "venue": "The State Theater of Musical Comedy (Operetta) of Uzbekistan",
+      "startDate": "2026-09-19",
+      "endDate": null,
+      "url": "https://iticket.uz/en/events/theaters-tashkent/zolushka2324",
+      "source": "iticket.uz"
+    },
+    {
+      "title": "“Xasis”",
+      "titleRu": null,
+      "category": "theatre",
+      "venue": "State Drama Theater of Uzbekistan",
+      "startDate": "2026-09-19",
+      "endDate": null,
+      "url": "https://iticket.uz/en/events/theaters-tashkent/xasis256",
+      "source": "iticket.uz"
+    },
+    {
+      "title": "\"Матч\"",
+      "titleRu": null,
+      "category": "sport",
+      "venue": "Дийдор ёшлар экспериментал театр студияси",
+      "startDate": "2026-09-19",
+      "endDate": null,
+      "url": "https://iticket.uz/en/events/theaters-tashkent/matc-8734",
+      "source": "iticket.uz"
+    },
+    {
+      "title": "Иван Васильевич меняет профессию",
+      "titleRu": null,
+      "category": "theatre",
+      "venue": "The State Theater of Musical Comedy (Operetta) of Uzbekistan",
+      "startDate": "2026-09-19",
+      "endDate": null,
+      "url": "https://iticket.uz/en/events/theaters-tashkent/ivan-vasilevich-menyaet-professiyu24",
+      "source": "iticket.uz"
+    },
+    {
+      "title": "Гала-Концерт Дильбар Абдурахманова",
+      "titleRu": null,
+      "category": "theatre",
+      "venue": "Bolshoi Theater named after A. Navoi",
+      "startDate": "2026-09-19",
+      "endDate": null,
+      "url": "https://iticket.uz/en/events/theaters-tashkent/gala-koncert-dilbar-abduraxmanova-9556",
+      "source": "iticket.uz"
+    },
+    {
+      "title": "Максим Аверин",
+      "titleRu": null,
+      "category": "theatre",
+      "venue": "Russian Drama Theater",
+      "startDate": "2026-09-19",
+      "endDate": null,
+      "url": "https://iticket.uz/en/events/theaters-tashkent/maksim-averin26",
+      "source": "iticket.uz"
+    },
+    {
       "title": "Exhibition by Mohamed Benshalal",
       "titleRu": "Выставка Мохамеда Беншалала",
       "category": "exhibition",
@@ -2052,6 +2000,17 @@
       "endDate": null,
       "time": null,
       "url": "https://www.afisha.uz/ru/exhibitions/2026/08/25/benchellal-vystavka",
+      "source": "afisha.uz (calendar)"
+    },
+    {
+      "title": "Fireworks show in Tashkent City Park",
+      "titleRu": "Фейерверк-шоу в парке Tashkent City",
+      "category": "festival",
+      "venue": "Tashkent CityТашкент, просп. Бунёдкор",
+      "startDate": "2026-09-20",
+      "endDate": null,
+      "time": "22:00",
+      "url": "https://www.afisha.uz/ru/gorod/2026/07/17/feyerverk-shou-tashkent-city",
       "source": "afisha.uz (calendar)"
     },
     {
@@ -2074,17 +2033,6 @@
       "endDate": null,
       "time": null,
       "url": "https://www.afisha.uz/ru/gorod/2026/07/16/uzbegim-market-2026",
-      "source": "afisha.uz (calendar)"
-    },
-    {
-      "title": "Fireworks show in Tashkent City Park",
-      "titleRu": "Фейерверк-шоу в парке Tashkent City",
-      "category": "festival",
-      "venue": "Tashkent CityТашкент, просп. Бунёдкор",
-      "startDate": "2026-09-20",
-      "endDate": null,
-      "time": "22:00",
-      "url": "https://www.afisha.uz/ru/gorod/2026/07/17/feyerverk-shou-tashkent-city",
       "source": "afisha.uz (calendar)"
     },
     {
@@ -2132,6 +2080,114 @@
       "source": "afisha.uz (calendar)"
     },
     {
+      "title": "Musical evening “Peru: Journey into the World of the Incas”",
+      "titleRu": "Музыкальный вечер «Перу: Путешествие в мир инков»",
+      "category": "concert",
+      "venue": "Human HouseТашкент, ул. Ивлиева, 43",
+      "startDate": "2026-09-20",
+      "endDate": null,
+      "time": "18:00",
+      "url": "https://www.afisha.uz/ru/concerts/2026/09/07/human-house",
+      "source": "afisha.uz (calendar)"
+    },
+    {
+      "title": "Концерт Народного артиста Узбекистана Самандара Алимова \"Grande Amore\"",
+      "titleRu": null,
+      "category": "theatre",
+      "venue": "Bolshoi Theater named after A. Navoi",
+      "startDate": "2026-09-20",
+      "endDate": null,
+      "url": "https://iticket.uz/en/events/theaters-tashkent/koncert-narodnogo-artista-uzbekistana-samandara-alimova-grande-amore-9488",
+      "source": "iticket.uz"
+    },
+    {
+      "title": "Gala concert of Uzbek pop stars",
+      "titleRu": "Гала-концерт звезд узбекской эстрады",
+      "category": "concert",
+      "venue": null,
+      "startDate": "2026-09-20",
+      "endDate": null,
+      "time": "19:00",
+      "url": "https://www.afisha.uz/ru/concerts/2026/07/31/gala-kontsert-zvezd-uzbekskoy-estrady-sentyabr",
+      "source": "afisha.uz (calendar)"
+    },
+    {
+      "title": "Solo show “The Neighbor” at the theater-studio “Other Animals”",
+      "titleRu": "Моноспектакль «Соседка» в театре-студии «Другие Звери»",
+      "category": "theatre",
+      "venue": null,
+      "startDate": "2026-09-20",
+      "endDate": null,
+      "time": "19:00",
+      "url": "https://www.afisha.uz/ru/theatres/2026/09/03/sosedka-zveri-sen",
+      "source": "afisha.uz (calendar)"
+    },
+    {
+      "title": "Comedy \"Rosencrantz and Guildenstern are Dead\"",
+      "titleRu": "Комедия «Розенкранц и Гильденстерн мертвы»",
+      "category": "theatre",
+      "venue": null,
+      "startDate": "2026-09-20",
+      "endDate": null,
+      "time": "17:00",
+      "url": "https://www.afisha.uz/ru/theatres/2026/08/28/play",
+      "source": "afisha.uz (calendar)"
+    },
+    {
+      "title": "Performance \"Tartuffe\"",
+      "titleRu": "Спектакль «Тартюф»",
+      "category": "theatre",
+      "venue": null,
+      "startDate": "2026-09-20",
+      "endDate": null,
+      "time": "19:00",
+      "url": "https://www.afisha.uz/ru/theatres/2026/08/11/spektakl-tartyuf-sentyabr-2026",
+      "source": "afisha.uz (calendar)"
+    },
+    {
+      "title": "Musical fairy tale \"Pinocchio\"",
+      "titleRu": "Музыкальная сказка «Буратино»",
+      "category": "theatre",
+      "venue": null,
+      "startDate": "2026-09-20",
+      "endDate": null,
+      "time": "11:00",
+      "url": "https://www.afisha.uz/ru/theatres/2026/08/11/buratino",
+      "source": "afisha.uz (calendar)"
+    },
+    {
+      "title": "Musical performance “Love twist”",
+      "titleRu": "Музыкальный спектакль «Любовный вертеж»",
+      "category": "theatre",
+      "venue": null,
+      "startDate": "2026-09-20",
+      "endDate": null,
+      "time": "18:30",
+      "url": "https://www.afisha.uz/ru/theatres/2026/08/11/whirl-of-love",
+      "source": "afisha.uz (calendar)"
+    },
+    {
+      "title": "Hans and Gretel",
+      "titleRu": null,
+      "category": "theatre",
+      "venue": "Theatre - Studio Silk Route Marionettes Ecopark",
+      "startDate": "2026-09-20",
+      "endDate": null,
+      "url": "https://iticket.uz/en/events/theaters-tashkent/hans-and-gretel8965",
+      "source": "iticket.uz"
+    },
+    {
+      "title": "Lecture “Peru: a journey into the world of the Incas”",
+      "titleRu": "Лекция «Перу: путешествие в мир инков»",
+      "category": "lecture",
+      "venue": null,
+      "startDate": "2026-09-20",
+      "endDate": null,
+      "time": "18:00",
+      "url": "https://www.afisha.uz/ru/znaniya/2026/08/24/peru-inki",
+      "source": "afisha.uz (calendar)"
+    },
+    {
       "title": "Uzbekistan will present contemporary craft at Homo Faber 2026 in Venice",
       "titleRu": "Узбекистан представит современное ремесло на Homo Faber 2026 в Венеции",
       "category": "exhibition",
@@ -2160,6 +2216,46 @@
       "startDate": "2026-09-20",
       "endDate": null,
       "url": "https://iticket.uz/en/events/concerts/masxaraboz-shou",
+      "source": "iticket.uz"
+    },
+    {
+      "title": "Приключения Буратино",
+      "titleRu": null,
+      "category": "theatre",
+      "venue": "The State Theater of Musical Comedy (Operetta) of Uzbekistan",
+      "startDate": "2026-09-20",
+      "endDate": null,
+      "url": "https://iticket.uz/en/events/theaters-tashkent/priklyucheniya-buratino24",
+      "source": "iticket.uz"
+    },
+    {
+      "title": "С. Мухамедов «Алиса в стране чудес» сказка. Балет",
+      "titleRu": null,
+      "category": "theatre",
+      "venue": "Bolshoi Theater named after A. Navoi",
+      "startDate": "2026-09-20",
+      "endDate": null,
+      "url": "https://iticket.uz/en/events/theaters-tashkent/s-muhamedov-alisa-v-strane-chudes-skazka-balet",
+      "source": "iticket.uz"
+    },
+    {
+      "title": "ADVOKATLIK OSONMI?",
+      "titleRu": null,
+      "category": "theatre",
+      "venue": "State Drama Theater of Uzbekistan",
+      "startDate": "2026-09-20",
+      "endDate": null,
+      "url": "https://iticket.uz/en/events/theaters-tashkent/advokatlik-osonmi22226",
+      "source": "iticket.uz"
+    },
+    {
+      "title": "Любовный вертеж",
+      "titleRu": null,
+      "category": "theatre",
+      "venue": "The State Theater of Musical Comedy (Operetta) of Uzbekistan",
+      "startDate": "2026-09-20",
+      "endDate": null,
+      "url": "https://iticket.uz/en/events/theaters-tashkent/lyubovnyi-vertezh20223",
       "source": "iticket.uz"
     },
     {
@@ -2315,6 +2411,16 @@
       "source": "afisha.uz (calendar)"
     },
     {
+      "title": "П.Чайковский «Евгений Онегин» опера",
+      "titleRu": null,
+      "category": "theatre",
+      "venue": "Bolshoi Theater named after A. Navoi",
+      "startDate": "2026-09-23",
+      "endDate": null,
+      "url": "https://iticket.uz/en/events/theaters-tashkent/pcaikovskii-evgenii-onegin-opera-9545",
+      "source": "iticket.uz"
+    },
+    {
       "title": "Musical fountain in Magic City Park",
       "titleRu": "Музыкальный фонтан в парке Magic City",
       "category": "festival",
@@ -2387,6 +2493,131 @@
       "startDate": "2026-09-24",
       "endDate": null,
       "url": "https://iticket.uz/en/events/concerts/calvin-harris-az",
+      "source": "iticket.uz"
+    },
+    {
+      "title": "“Bog’lasangiz bog’lanay”",
+      "titleRu": null,
+      "category": "theatre",
+      "venue": "State Drama Theater of Uzbekistan",
+      "startDate": "2026-09-24",
+      "endDate": null,
+      "url": "https://iticket.uz/en/events/theaters-tashkent/boglasangiz-boglanay26",
+      "source": "iticket.uz"
+    },
+    {
+      "title": "Fireworks show in Tashkent City Park",
+      "titleRu": "Фейерверк-шоу в парке Tashkent City",
+      "category": "festival",
+      "venue": "Tashkent CityТашкент, просп. Бунёдкор",
+      "startDate": "2026-09-25",
+      "endDate": null,
+      "time": "22:00",
+      "url": "https://www.afisha.uz/ru/gorod/2026/07/17/feyerverk-shou-tashkent-city",
+      "source": "afisha.uz (calendar)"
+    },
+    {
+      "title": "Musical fountain in Magic City Park",
+      "titleRu": "Музыкальный фонтан в парке Magic City",
+      "category": "festival",
+      "venue": "Magic CityТашкент, ул. Бабура, 174",
+      "startDate": "2026-09-25",
+      "endDate": null,
+      "time": null,
+      "url": "https://www.afisha.uz/ru/gorod/2026/07/17/muzykalnyy-fontan-magic-city-2026",
+      "source": "afisha.uz (calendar)"
+    },
+    {
+      "title": "Uzbegim Market fair in Tashkent City Park",
+      "titleRu": "Ярмарка Uzbegim Market в парке Tashkent City",
+      "category": "festival",
+      "venue": "Tashkent CityТашкент, просп. Бунёдкор",
+      "startDate": "2026-09-25",
+      "endDate": null,
+      "time": null,
+      "url": "https://www.afisha.uz/ru/gorod/2026/07/16/uzbegim-market-2026",
+      "source": "afisha.uz (calendar)"
+    },
+    {
+      "title": "Exhibition \"Garden of Memory\" in Haqiqiy",
+      "titleRu": "Выставка «Сад памяти» в Haqiqiy",
+      "category": "exhibition",
+      "venue": "HaqiqiyТашкент, ул. Паркент, 115",
+      "startDate": "2026-09-25",
+      "endDate": null,
+      "time": null,
+      "url": "https://www.afisha.uz/ru/exhibitions/2026/09/04/sad-pamyati",
+      "source": "afisha.uz (calendar)"
+    },
+    {
+      "title": "Uzbekistan will present contemporary craft at Homo Faber 2026 in Venice",
+      "titleRu": "Узбекистан представит современное ремесло на Homo Faber 2026 в Венеции",
+      "category": "exhibition",
+      "venue": null,
+      "startDate": "2026-09-25",
+      "endDate": null,
+      "time": null,
+      "url": "https://www.afisha.uz/ru/exhibitions/2026/08/31/homo-faber",
+      "source": "afisha.uz (calendar)"
+    },
+    {
+      "title": "Солисты Узбекистана. Музыкальные настроения Композиторов Азии",
+      "titleRu": null,
+      "category": "concert",
+      "venue": "State Conservatory of Uzbekistan",
+      "startDate": "2026-09-25",
+      "endDate": null,
+      "url": "https://iticket.uz/en/events/concerts/solisty-uzbekistana-muzykalnye-nastroeniya-kompozitorov-azii",
+      "source": "iticket.uz"
+    },
+    {
+      "title": "Katy Perry",
+      "titleRu": null,
+      "category": "concert",
+      "venue": "Baku Crystal Hall",
+      "startDate": "2026-09-25",
+      "endDate": null,
+      "url": "https://iticket.uz/en/events/concerts/katy-perry-az",
+      "source": "iticket.uz"
+    },
+    {
+      "title": "“Atirgullar qismati”",
+      "titleRu": null,
+      "category": "theatre",
+      "venue": "State Drama Theater of Uzbekistan",
+      "startDate": "2026-09-25",
+      "endDate": null,
+      "url": "https://iticket.uz/en/events/theaters-tashkent/atirgullar-qismati26",
+      "source": "iticket.uz"
+    },
+    {
+      "title": "How Gingerbread Mind Gained",
+      "titleRu": null,
+      "category": "theatre",
+      "venue": "Theatre - Studio Silk Route Marionettes Ecopark",
+      "startDate": "2026-09-25",
+      "endDate": null,
+      "url": "https://iticket.uz/en/events/theaters-tashkent/how-gingerbread-mind-gainedd",
+      "source": "iticket.uz"
+    },
+    {
+      "title": "Это было в махалле",
+      "titleRu": null,
+      "category": "theatre",
+      "venue": "The State Theater of Musical Comedy (Operetta) of Uzbekistan",
+      "startDate": "2026-09-25",
+      "endDate": null,
+      "url": "https://iticket.uz/en/events/theaters-tashkent/eto-bylo-v-mahalle",
+      "source": "iticket.uz"
+    },
+    {
+      "title": "А. Адан \"Жизель\" балет",
+      "titleRu": null,
+      "category": "theatre",
+      "venue": "Bolshoi Theater named after A. Navoi",
+      "startDate": "2026-09-25",
+      "endDate": null,
+      "url": "https://iticket.uz/en/events/theaters-tashkent/a-adan-zizel-balet-9557",
       "source": "iticket.uz"
     }
   ]
