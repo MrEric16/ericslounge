@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-10T21:43:35.559930Z",
+  "generatedAt": "2026-09-10T23:35:32.806580Z",
   "results": [
     {
       "url": "https://www.goal.com/en/match/girona-vs-arsenal/__LS8d9Oc6I1wXn9g8956",
@@ -5575,10 +5575,39 @@
         }
       ],
       "competition": "CL"
+    },
+    {
+      "url": "https://www.goal.com/en/match/bayern-munich-vs-bodoe-glimt/m_ZMn5GKSEOK2P5D1fqiL",
+      "date": null,
+      "home": "Bayern Munich",
+      "away": "Bodoe Glimt",
+      "htHome": 0,
+      "htAway": 0,
+      "ftHome": 5,
+      "ftAway": 0,
+      "homeGoals": [
+        {
+          "scorer": "J. Musiala",
+          "minute": 47
+        },
+        {
+          "scorer": "H. Kane",
+          "minute": 61
+        },
+        {
+          "scorer": "A. Davies",
+          "minute": 77
+        },
+        {
+          "scorer": "M. Olise",
+          "minute": 83
+        }
+      ],
+      "awayGoals": [],
+      "competition": "CL"
     }
   ],
   "scorerParseRetryCounts": {
-    "https://www.goal.com/en/match/bayern-munich-vs-bodoe-glimt/m_ZMn5GKSEOK2P5D1fqiL": 2,
-    "https://www.goal.com/en/match/slavia-prague-vs-lens/8tl536s9YeGCuVkrI5O7Y": 1
+    "https://www.goal.com/en/match/slavia-prague-vs-lens/8tl536s9YeGCuVkrI5O7Y": 2
   }
 }
