@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-10T08:08:16.013549Z",
+  "generatedAt": "2026-09-10T15:00:03.100420Z",
   "teams": [
     {
       "name": "Neftchi Fargona",
@@ -306,16 +306,6 @@
   ],
   "fixtures": [
     {
-      "home": "Andijan",
-      "away": "Kokand 1912",
-      "raw_time": "10.09. 14:00"
-    },
-    {
-      "home": "Din. Samarkand",
-      "away": "Qizilqum",
-      "raw_time": "10.09. 14:00"
-    },
-    {
       "home": "Xorazm Urganch",
       "away": "Sogdiana",
       "raw_time": "10.09. 15:00"
@@ -333,42 +323,42 @@
     {
       "home": "Navbahor Namangan",
       "away": "Din. Samarkand",
-      "raw_time": "17.09. 15:00"
-    },
-    {
-      "home": "Bunyodkor",
-      "away": "Buxoro",
-      "raw_time": "19.09. 15:00"
+      "raw_time": "17.09. 13:00"
     },
     {
       "home": "Mashal Muborak",
       "away": "Pakhtakor",
-      "raw_time": "19.09. 15:00"
+      "raw_time": "19.09. 13:00"
+    },
+    {
+      "home": "Bunyodkor",
+      "away": "Buxoro",
+      "raw_time": "19.09. 15:15"
     },
     {
       "home": "Andijan",
       "away": "Nasaf Qarshi",
-      "raw_time": "20.09. 15:00"
-    },
-    {
-      "home": "Lok. Tashkent",
-      "away": "Neftchi Fargona",
-      "raw_time": "20.09. 15:00"
+      "raw_time": "20.09. 12:15"
     },
     {
       "home": "Sogdiana",
       "away": "OKMK",
-      "raw_time": "20.09. 15:00"
+      "raw_time": "20.09. 14:00"
+    },
+    {
+      "home": "Lok. Tashkent",
+      "away": "Neftchi Fargona",
+      "raw_time": "20.09. 14:30"
     },
     {
       "home": "Termez Surkhon",
       "away": "Kokand 1912",
-      "raw_time": "21.09. 15:00"
+      "raw_time": "21.09. 13:00"
     },
     {
       "home": "Xorazm Urganch",
       "away": "Qizilqum",
-      "raw_time": "21.09. 15:00"
+      "raw_time": "21.09. 15:15"
     },
     {
       "home": "Neftchi Fargona",
@@ -404,6 +394,16 @@
       "home": "OKMK",
       "away": "Navbahor Namangan",
       "raw_time": "11.10. 15:00"
+    },
+    {
+      "home": "Sogdiana",
+      "away": "Lok. Tashkent",
+      "raw_time": "11.10. 15:00"
+    },
+    {
+      "home": "Andijan",
+      "away": "Qizilqum",
+      "raw_time": "16.10. 15:00"
     }
   ]
 }
