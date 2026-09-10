@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-10T16:21:45.785373+00:00",
+  "generatedAt": "2026-09-10T20:49:17.084971+00:00",
   "teams": [
     "Al Jazira Club",
     "Al Ain FC",
@@ -34,8 +34,8 @@
       "won": 4,
       "drawn": 1,
       "lost": 0,
-      "gf": 10,
-      "ga": 3,
+      "gf": 12,
+      "ga": 5,
       "gd": 7,
       "points": 13
     },
@@ -45,8 +45,8 @@
       "won": 3,
       "drawn": 1,
       "lost": 1,
-      "gf": 13,
-      "ga": 4,
+      "gf": 15,
+      "ga": 6,
       "gd": 9,
       "points": 10
     },
@@ -439,8 +439,8 @@
       "home": "Al Ain FC",
       "away": "Al Wasl",
       "start": "2026-09-10T19:15:00+05:00",
-      "homeScore": 0,
-      "awayScore": 0,
+      "homeScore": 2,
+      "awayScore": 2,
       "finished": true
     }
   ]
