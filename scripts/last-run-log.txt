@@ -1,9 +1,9 @@
 [scrape] Run started. Today (Tashkent): 2026-09-10  Window end: 2026-09-24
 [scrape] NOTE: switched from per-category listing pages to afisha.uz's calendar view (one real day at a time, via Playwright) -- the old approach could only ever see whatever was on the current front page of each category, missing anything pushed down by newer posts. The calendar view asks for each specific date directly instead.
 [scrape] calendar 2026-09-10: 13 new event URLs discovered
-[scrape] calendar 2026-09-11: 10 new event URLs discovered
-[scrape] calendar 2026-09-12: 20 new event URLs discovered
-[scrape] calendar 2026-09-13: 12 new event URLs discovered
+[scrape] calendar 2026-09-11: 12 new event URLs discovered
+[scrape] calendar 2026-09-12: 21 new event URLs discovered
+[scrape] calendar 2026-09-13: 15 new event URLs discovered
 [scrape] calendar 2026-09-14: 2 new event URLs discovered
 [scrape] calendar 2026-09-15: 3 new event URLs discovered
 [scrape] calendar 2026-09-16: 4 new event URLs discovered
@@ -14,40 +14,16 @@
 [scrape] exhibitions listing page (supplementary): 8 new event URLs discovered, 20 total exhibition links seen on page
 [scrape]   TARGET CHECK 'our-heritage': NOT FOUND in any href on the rendered page
 [scrape]   TARGET CHECK 'photo-chronicle-xx': NOT FOUND in any href on the rendered page
-[scrape] calendar discovery complete: 98 unique event URLs to check
-[scrape]   DEBUG: dumped raw HTML for qimmat page, 134667 chars
+[scrape] calendar discovery complete: 104 unique event URLs to check
+[scrape]   DEBUG: dumped raw HTML for qimmat page, 134710 chars
 [scrape]   'Выставка Hikmah на открытии CCA Tashkent': no dates found in window (no schedule/date-range parsed) -- kept 0 events
-[scrape] Translation failed for 'Плоггинг-забег вдоль Анхора': Плоггинг-забег вдоль Анхора --> No translation was found using the current translator. Try another translator?
-[scrape] Translation failed for 'Кулинарный мастер-класс «Человек-Паук»': Кулинарный мастер-класс «Человек-Паук» --> No translation was found using the current translator. Try another translator?
-[scrape] Translation failed for 'Научная программа «Транспорт»': Научная программа «Транспорт» --> No translation was found using the current translator. Try another translator?
-[scrape] Translation failed for 'Музыкальная сказка «Маленький Мук»': Музыкальная сказка «Маленький Мук» --> No translation was found using the current translator. Try another translator?
-[scrape] Translation failed for 'Одноактные балеты «Шопениана» и «Половец': Одноактные балеты «Шопениана» и «Половецкие пляски» --> No translation was found using the current translator. Try another translator?
-[scrape] Translation failed for 'Blues Night в Human House': Blues Night в Human House --> No translation was found using the current translator. Try another translator?
-[scrape] Translation failed for 'Концерт «Божалар»': Концерт «Божалар» --> No translation was found using the current translator. Try another translator?
-[scrape] Translation failed for 'Спектакль «Потерянные» в театре-студии «': Спектакль «Потерянные» в театре-студии «Другие Звери» --> No translation was found using the current translator. Try another translator?
-[scrape] Translation failed for 'Спектакль «Как поссорился Иван Иванович ': Спектакль «Как поссорился Иван Иванович с Иваном Никифоровичем» --> No translation was found using the current translator. Try another translator?
-[scrape] Translation failed for 'Спектакль «Семь лун»': Спектакль «Семь лун» --> No translation was found using the current translator. Try another translator?
-[scrape] Translation failed for 'Музыкальная комедия «Счастливчик»': Музыкальная комедия «Счастливчик» --> No translation was found using the current translator. Try another translator?
-[scrape] Translation failed for 'Концерт «Нить жемчуга»': Концерт «Нить жемчуга» --> No translation was found using the current translator. Try another translator?
-[scrape] Translation failed for 'Открытие бегового клуба «Бегаешь как дев': Открытие бегового клуба «Бегаешь как девчонка» --> No translation was found using the current translator. Try another translator?
-[scrape] Translation failed for 'Спектакль «Красавица и Чудовище»': Спектакль «Красавица и Чудовище» --> No translation was found using the current translator. Try another translator?
-[scrape] Translation failed for 'Толиб Тохтасинов': Толиб Тохтасинов --> No translation was found using the current translator. Try another translator?
-[scrape] Translation failed for 'Жахонгир Отажонов в Самарканде': Жахонгир Отажонов в Самарканде --> No translation was found using the current translator. Try another translator?
-[scrape] Translation failed for 'Саунд-драма «Не бойся» в театре Millat': Саунд-драма «Не бойся» в театре Millat --> No translation was found using the current translator. Try another translator?
-[scrape] Translation failed for 'Комедия «Иван Васильевич меняет професси': Комедия «Иван Васильевич меняет профессию» --> No translation was found using the current translator. Try another translator?
-[scrape] Translation failed for 'Вечер, посвященный Дильбар Абдурахманово': Вечер, посвященный Дильбар Абдурахмановой --> No translation was found using the current translator. Try another translator?
-[scrape] Translation failed for 'Музыкальная сказка «Золушка»': Музыкальная сказка «Золушка» --> No translation was found using the current translator. Try another translator?
-[scrape] Translation failed for 'Творческий вечер Максима Аверина': Творческий вечер Максима Аверина --> No translation was found using the current translator. Try another translator?
-[scrape] Translation failed for '«По женской линии»: в пространстве Zanma': «По женской линии»: в пространстве Zanmakon открылась выставка Робии Кадыровой --> No translation was found using the current translator. Try another translator?
+[scrape] Translation failed for 'Спектакль «Подпольные девочки»': Спектакль «Подпольные девочки» --> No translation was found using the current translator. Try another translator?
 [scrape]   '«По женской линии»: в пространстве Zanmakon открылась выставка Робии Кадыровой': no dates found in window (no schedule/date-range parsed) -- kept 0 events
-[scrape] Translation failed for 'Бесплатно в музей: в Узбекистане стартов': Бесплатно в музей: в Узбекистане стартовала Неделя музеев --> No translation was found using the current translator. Try another translator?
 [scrape]   'Бесплатно в музей: в Узбекистане стартовала Неделя музеев': no dates found in window (no schedule/date-range parsed) -- kept 0 events
-[scrape] Translation failed for 'Узбекистан представит современное ремесл': Узбекистан представит современное ремесло на Homo Faber 2026 в Венеции --> No translation was found using the current translator. Try another translator?
-[scrape] Translation failed for 'Эстетика многослойности: в Ташкенте откр': Эстетика многослойности: в Ташкенте открылась выставка Бобура Алимходжаева Duality: X-Ray of Memory --> No translation was found using the current translator. Try another translator?
 [scrape]   'Эстетика многослойности: в Ташкенте открылась выставка Бобура Алимходжаева Duality: X-Ray of Memory': no dates found in window (no schedule/date-range parsed) -- kept 0 events
-[scrape] calendar detail pass complete: 201 events kept from 98 pages checked
+[scrape] calendar detail pass complete: 209 events kept from 104 pages checked
 [scrape] special-tracked: FAILED to fetch or failed content check for https://www.afisha.uz/ru/cinema/2026/07/16/kinoprazdnik-v-sredu
-[scrape] iticket.uz cat=concert: 10 events kept
+[scrape] iticket.uz cat=concert: 17 events kept
 [scrape] iticket.uz cat=theatre: 15 events kept
 [scrape] iticket.uz cat=exhibition: 0 events kept
 [scrape] ticketon.uz: CONFIRMED BLOCKED (Cloudflare challenge, page title='Just a moment...'). 0 events -- this is expected, not a bug to fix.
@@ -55,5 +31,5 @@
 [scrape] eventbrite.com: 0 events found (dates NOT yet parsed -- see note in script)
 [scrape]   DEDUP: 0 target entries survived Pass 1
 [scrape]   DEDUP: 0 target entries survived Pass 2 (final)
-[scrape] TOTAL before dedup: 226  |  after dedup: 205
+[scrape] TOTAL before dedup: 241  |  after dedup: 220
 [scrape] Wrote data/events-tashkent.json
