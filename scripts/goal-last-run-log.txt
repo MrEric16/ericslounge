@@ -5,12 +5,6 @@
 [goal-scraper] [SA] Found 0 finished-match links
 [goal-scraper] [FL1] Found 0 finished-match links
 [goal-scraper] [CL] Found 12 finished-match links
-[goal-scraper] WARNING: Vfb Stuttgart scored 3 but only 1 scorer(s) were parsed for https://www.goal.com/en/match/vfb-stuttgart-vs-viking/IcysFKcTPvu743K-ufH2Z
-[goal-scraper] [CL] SCORER PARSE FAILED 3 times, giving up and committing WITH INCOMPLETE SCORER DATA (page structure likely changed) for Vfb Stuttgart 3-1 Viking: https://www.goal.com/en/match/vfb-stuttgart-vs-viking/IcysFKcTPvu743K-ufH2Z
-[goal-scraper] [CL] Added: Vfb Stuttgart 3-1 Viking
-[goal-scraper] WARNING: Paris Saint Germain scored 6 but only 3 scorer(s) were parsed for https://www.goal.com/en/match/paris-saint-germain-vs-slovan-bratislava/6Xke_d5-JmaNtv-aTjueH
-[goal-scraper] [CL] SCORER PARSE FAILED 3 times, giving up and committing WITH INCOMPLETE SCORER DATA (page structure likely changed) for Paris Saint Germain 6-1 Slovan Bratislava: https://www.goal.com/en/match/paris-saint-germain-vs-slovan-bratislava/6Xke_d5-JmaNtv-aTjueH
-[goal-scraper] [CL] Added: Paris Saint Germain 6-1 Slovan Bratislava
 [goal-scraper] [real-madrid] Found 20 finished-match links
 [goal-scraper] WARNING: Tottenham Hotspur scored 1 but 0 scorers were parsed for https://www.goal.com/en/match/real-madrid-vs-tottenham-hotspur/xdLKWe_FxdSoHo2tVKBzZ
 [goal-scraper] [real-madrid] Skipping stale match (older than 45 days): Real Madrid vs Tottenham Hotspur on 2019-07-30
@@ -93,5 +87,5 @@
 [goal-scraper] [juventus] Skipping stale match (older than 45 days): Juventus vs Manchester City on 2025-06-26
 [goal-scraper] [juventus] Skipping stale match (older than 45 days): Basel vs Juventus on 2026-07-18
 [goal-scraper] [arsenal-friendlies] Found 1 finished-match links
-[goal-scraper] TOTAL new results added this run: 2
+[goal-scraper] TOTAL new results added this run: 0
 [goal-scraper] Wrote data/goal-results.json
