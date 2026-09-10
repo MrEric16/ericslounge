@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-10T21:45:26.258133Z",
+  "generatedAt": "2026-09-10T23:40:35.833633Z",
   "standings": {
     "PL": [
       {
@@ -2901,7 +2901,7 @@
       "fixtures": [
         {
           "utcDate": "2026-09-11T18:30:00Z",
-          "status": "TIMED",
+          "status": "2026-09-11 17:30:00Z",
           "matchday": 3,
           "homeTeam": {
             "id": 28,
@@ -2932,7 +2932,7 @@
         },
         {
           "utcDate": "2026-09-12T13:30:00Z",
-          "status": "TIMED",
+          "status": "2026-09-12 12:30:00Z",
           "matchday": 3,
           "homeTeam": {
             "id": 2,
@@ -2963,7 +2963,7 @@
         },
         {
           "utcDate": "2026-09-12T13:30:00Z",
-          "status": "TIMED",
+          "status": "2026-09-12 12:30:00Z",
           "matchday": 3,
           "homeTeam": {
             "id": 4,
@@ -2994,7 +2994,7 @@
         },
         {
           "utcDate": "2026-09-12T13:30:00Z",
-          "status": "TIMED",
+          "status": "2026-09-12 12:30:00Z",
           "matchday": 3,
           "homeTeam": {
             "id": 16,
@@ -3025,7 +3025,7 @@
         },
         {
           "utcDate": "2026-09-12T13:30:00Z",
-          "status": "TIMED",
+          "status": "2026-09-12 12:30:00Z",
           "matchday": 3,
           "homeTeam": {
             "id": 15,
@@ -3056,7 +3056,7 @@
         },
         {
           "utcDate": "2026-09-12T13:30:00Z",
-          "status": "TIMED",
+          "status": "2026-09-12 12:30:00Z",
           "matchday": 3,
           "homeTeam": {
             "id": 17,
@@ -3087,7 +3087,7 @@
         },
         {
           "utcDate": "2026-09-12T16:30:00Z",
-          "status": "TIMED",
+          "status": "2026-09-12 15:30:00Z",
           "matchday": 3,
           "homeTeam": {
             "id": 1,
@@ -3118,7 +3118,7 @@
         },
         {
           "utcDate": "2026-09-13T13:30:00Z",
-          "status": "TIMED",
+          "status": "2026-09-13 12:30:00Z",
           "matchday": 3,
           "homeTeam": {
             "id": 721,
@@ -3149,7 +3149,7 @@
         },
         {
           "utcDate": "2026-09-13T15:30:00Z",
-          "status": "TIMED",
+          "status": "2026-09-13 14:30:00Z",
           "matchday": 3,
           "homeTeam": {
             "id": 719,
@@ -4432,7 +4432,7 @@
       "fixtures": [
         {
           "utcDate": "2026-09-11T18:45:00Z",
-          "status": "2026-09-11 17:45:00Z",
+          "status": "TIMED",
           "matchday": 4,
           "homeTeam": {
             "id": 529,
@@ -4463,7 +4463,7 @@
         },
         {
           "utcDate": "2026-09-12T15:15:00Z",
-          "status": "2026-09-12 14:15:00Z",
+          "status": "TIMED",
           "matchday": 4,
           "homeTeam": {
             "id": 576,
@@ -4494,7 +4494,7 @@
         },
         {
           "utcDate": "2026-09-12T18:45:00Z",
-          "status": "2026-09-12 17:45:00Z",
+          "status": "TIMED",
           "matchday": 4,
           "homeTeam": {
             "id": 525,
@@ -4525,7 +4525,7 @@
         },
         {
           "utcDate": "2026-09-12T18:45:00Z",
-          "status": "2026-09-12 17:45:00Z",
+          "status": "TIMED",
           "matchday": 4,
           "homeTeam": {
             "id": 519,
@@ -4556,7 +4556,7 @@
         },
         {
           "utcDate": "2026-09-12T18:45:00Z",
-          "status": "2026-09-12 17:45:00Z",
+          "status": "TIMED",
           "matchday": 4,
           "homeTeam": {
             "id": 533,
@@ -4587,7 +4587,7 @@
         },
         {
           "utcDate": "2026-09-12T18:45:00Z",
-          "status": "2026-09-12 17:45:00Z",
+          "status": "TIMED",
           "matchday": 4,
           "homeTeam": {
             "id": 1045,
@@ -4618,7 +4618,7 @@
         },
         {
           "utcDate": "2026-09-13T13:00:00Z",
-          "status": "2026-09-13 12:00:00Z",
+          "status": "TIMED",
           "matchday": 4,
           "homeTeam": {
             "id": 521,
@@ -4649,7 +4649,7 @@
         },
         {
           "utcDate": "2026-09-13T15:15:00Z",
-          "status": "2026-09-13 14:15:00Z",
+          "status": "TIMED",
           "matchday": 4,
           "homeTeam": {
             "id": 535,
@@ -4680,7 +4680,7 @@
         },
         {
           "utcDate": "2026-09-13T18:45:00Z",
-          "status": "2026-09-13 17:45:00Z",
+          "status": "TIMED",
           "matchday": 4,
           "homeTeam": {
             "id": 512,
