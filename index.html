@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Mr Eric's Lounge</title>
-<meta name="app-build" content="20260909195109">
+<meta name="app-build" content="20260911030049">
 <script>
   // PWA update-detection: an installed home-screen app's standalone-mode navigation
   // cache can hold an old shell far longer than the CDN's 10-minute cache -
@@ -9885,8 +9885,8 @@ async function loadLiveSportsData(){
               }));
             }
             fresh.matches['UAE'] = {
-              fixtures: (uaeLive.fixtures || []).map(m => ({ ...m, homeScore: m.homeScore ?? null, awayScore: m.awayScore ?? null })),
-              results: (uaeLive.results || []).map(m => ({ ...m, homeScore: m.homeScore ?? null, awayScore: m.awayScore ?? null })),
+              fixtures: (uaeLive.fixtures || []).map(m => ({ ...m, homeScore: (m.homeScore == null ? null : m.homeScore), awayScore: (m.awayScore == null ? null : m.awayScore) })),
+              results: (uaeLive.results || []).map(m => ({ ...m, homeScore: (m.homeScore == null ? null : m.homeScore), awayScore: (m.awayScore == null ? null : m.awayScore) })),
             };
           }
         }catch(e){ /* UAE data file unavailable or malformed - falls back to static below */ }
@@ -9906,8 +9906,8 @@ async function loadLiveSportsData(){
               }));
             }
             fresh.matches['KHL'] = {
-              fixtures: (khlLive.fixtures || []).map(m => ({ ...m, homeScore: m.homeScore ?? null, awayScore: m.awayScore ?? null })),
-              results: (khlLive.results || []).map(m => ({ ...m, homeScore: m.homeScore ?? null, awayScore: m.awayScore ?? null })),
+              fixtures: (khlLive.fixtures || []).map(m => ({ ...m, homeScore: (m.homeScore == null ? null : m.homeScore), awayScore: (m.awayScore == null ? null : m.awayScore) })),
+              results: (khlLive.results || []).map(m => ({ ...m, homeScore: (m.homeScore == null ? null : m.homeScore), awayScore: (m.awayScore == null ? null : m.awayScore) })),
             };
           }
         }catch(e){ /* KHL data file unavailable or malformed - falls back to static below */ }
@@ -19956,7 +19956,7 @@ function mtComputeWellbeingStats(log){
     if(categoryBreakdown[e.category] && categoryBreakdown[e.category][e.valence] !== undefined) categoryBreakdown[e.category][e.valence]++;
     const d = new Date(e.ts);
     const hour = d.getHours();
-    const score = MT_VALENCE_SCORE[e.valence] ?? 0;
+    const score = (MT_VALENCE_SCORE[e.valence] == null ? 0 : MT_VALENCE_SCORE[e.valence]);
     const bucket = MT_TIME_BUCKETS.find(b => b.test(hour));
     if(bucket && timeOfDayBreakdown[bucket.key][e.valence] !== undefined) timeOfDayBreakdown[bucket.key][e.valence]++;
     if(hourlyBreakdown[hour][e.valence] !== undefined) hourlyBreakdown[hour][e.valence]++;
