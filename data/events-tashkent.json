@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-11T04:51:38.819299Z",
+  "generatedAt": "2026-09-11T11:33:26.521200Z",
   "events": [
     {
       "title": "Музыкальные вечера в заведении 12 Tashkent",
@@ -271,6 +271,16 @@
       "source": "iticket.uz"
     },
     {
+      "title": "Ayajonlarim",
+      "titleRu": null,
+      "category": "theatre",
+      "venue": "State Drama Theater of Uzbekistan",
+      "startDate": "2026-09-11",
+      "endDate": null,
+      "url": "https://iticket.uz/en/events/theaters-tashkent/ayajonlarim-26",
+      "source": "iticket.uz"
+    },
+    {
       "title": "Aladdin and his magic lamp",
       "titleRu": null,
       "category": "theatre",
@@ -424,7 +434,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Exhibition \"Garden of Memory\" in Haqiqiy",
+      "title": "Выставка «Сад памяти» в Haqiqiy",
       "titleRu": "Выставка «Сад памяти» в Haqiqiy",
       "category": "exhibition",
       "venue": "HaqiqiyТашкент, ул. Паркент, 115",
@@ -578,7 +588,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Concert-immersion “Sound Paths”",
+      "title": "Концерт-погружение «Звуковые пути»",
       "titleRu": "Концерт-погружение «Звуковые пути»",
       "category": "lecture",
       "venue": null,
@@ -620,7 +630,7 @@
       "source": "iticket.uz"
     },
     {
-      "title": "Blue Dwarf, or The Pearl Heart",
+      "title": "Sold out Blue Dwarf, or The Pearl Heart",
       "titleRu": null,
       "category": "theatre",
       "venue": "Uzbek National Puppet theater",
@@ -747,7 +757,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Exhibition \"Garden of Memory\" in Haqiqiy",
+      "title": "Выставка «Сад памяти» в Haqiqiy",
       "titleRu": "Выставка «Сад памяти» в Haqiqiy",
       "category": "exhibition",
       "venue": "HaqiqiyТашкент, ул. Паркент, 115",
@@ -846,7 +856,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Exhibition by Vyacheslav Useinov “Here”",
+      "title": "Выставка Вячеслава Усеинова «Тут»",
       "titleRu": "Выставка Вячеслава Усеинова «Тут»",
       "category": "exhibition",
       "venue": "Театр «Ильхом»Ташкент, ул. Пахтакорская, 5",
@@ -857,7 +867,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Free painting market in the Haqiqiy space",
+      "title": "Свободный маркет живописи в пространстве Haqiqiy",
       "titleRu": "Свободный маркет живописи в пространстве Haqiqiy",
       "category": "exhibition",
       "venue": "HaqiqiyТашкент, ул. Паркент, 115",
@@ -879,7 +889,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Performance \"Kungil\"",
+      "title": "Спектакль «Кунгил»",
       "titleRu": "Спектакль «Кунгил»",
       "category": "theatre",
       "venue": null,
@@ -890,7 +900,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Musical performance “It can’t be”",
+      "title": "Музыкальный спектакль «Не может быть»",
       "titleRu": "Музыкальный спектакль «Не может быть»",
       "category": "theatre",
       "venue": null,
@@ -901,7 +911,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Opera \"Carmen\" at the Bolshoi Theater",
+      "title": "Опера «Кармен» в ГАБТ",
       "titleRu": "Опера «Кармен» в ГАБТ",
       "category": "theatre",
       "venue": null,
@@ -912,7 +922,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Master class on padel",
+      "title": "Мастер-класс по паделу",
       "titleRu": "Мастер-класс по паделу",
       "category": "sport",
       "venue": "Padel.uzТашкент, махаллинский сход граждан Бешагач",
@@ -923,7 +933,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Kids Day at Cucucina Restaurant",
+      "title": "Kids Day в ресторане Cucucina",
       "titleRu": "Kids Day в ресторане Cucucina",
       "category": "kids",
       "venue": "CucucinaТашкент, ул. Батыра Закирова, 7",
@@ -934,7 +944,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Children's show program \"Marvel Heroes\"",
+      "title": "Детская шоу-программа «Герои Marvel»",
       "titleRu": "Детская шоу-программа «Герои Marvel»",
       "category": "kids",
       "venue": "Jungle Family ClubТашкент, Юнусабад-12, 20А",
@@ -945,7 +955,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Master class “Monsters and Aliens”",
+      "title": "Мастер-класc «Монстры и пришельцы»",
       "titleRu": "Мастер-класc «Монстры и пришельцы»",
       "category": "kids",
       "venue": "Human HouseТашкент, ул. Ивлиева, 43",
@@ -956,17 +966,18 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Extraordinary Musicians",
-      "titleRu": null,
-      "category": "theatre",
-      "venue": "Theatre - Studio Silk Route Marionettes Ecopark",
+      "title": "Спектакль «Необыкновенные музыканты»",
+      "titleRu": "Спектакль «Необыкновенные музыканты»",
+      "category": "kids",
+      "venue": null,
       "startDate": "2026-09-13",
       "endDate": null,
-      "url": "https://iticket.uz/en/events/theaters-tashkent/extraordinary-musicians2",
-      "source": "iticket.uz"
+      "time": "17:00",
+      "url": "https://www.afisha.uz/ru/children/2026/09/03/neobyknovennye",
+      "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Performance \"Aladdin\"",
+      "title": "Спектакль «Аладдин»",
       "titleRu": "Спектакль «Аладдин»",
       "category": "kids",
       "venue": null,
@@ -1005,6 +1016,16 @@
       "startDate": "2026-09-13",
       "endDate": null,
       "url": "https://iticket.uz/en/events/theaters-tashkent/ojiza-demang-bizni-26",
+      "source": "iticket.uz"
+    },
+    {
+      "title": "Extraordinary Musicians",
+      "titleRu": null,
+      "category": "theatre",
+      "venue": "Theatre - Studio Silk Route Marionettes Ecopark",
+      "startDate": "2026-09-13",
+      "endDate": null,
+      "url": "https://iticket.uz/en/events/theaters-tashkent/extraordinary-musicians2",
       "source": "iticket.uz"
     },
     {
@@ -1072,7 +1093,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Exhibition \"Garden of Memory\" in Haqiqiy",
+      "title": "Выставка «Сад памяти» в Haqiqiy",
       "titleRu": "Выставка «Сад памяти» в Haqiqiy",
       "category": "exhibition",
       "venue": "HaqiqiyТашкент, ул. Паркент, 115",
@@ -1083,7 +1104,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Exhibition by Vyacheslav Useinov “Here”",
+      "title": "Выставка Вячеслава Усеинова «Тут»",
       "titleRu": "Выставка Вячеслава Усеинова «Тут»",
       "category": "exhibition",
       "venue": "Театр «Ильхом»Ташкент, ул. Пахтакорская, 5",
@@ -1094,7 +1115,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Gastronomic evening at the Plov Museum",
+      "title": "Гастрономический вечер в Музее плова",
       "titleRu": "Гастрономический вечер в Музее плова",
       "category": "concert",
       "venue": "Музей пловаТашкент, ул. Катта Дархон, 55",
@@ -1181,7 +1202,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Exhibition \"Garden of Memory\" in Haqiqiy",
+      "title": "Выставка «Сад памяти» в Haqiqiy",
       "titleRu": "Выставка «Сад памяти» в Haqiqiy",
       "category": "exhibition",
       "venue": "HaqiqiyТашкент, ул. Паркент, 115",
@@ -1192,7 +1213,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Exhibition by Vyacheslav Useinov “Here”",
+      "title": "Выставка Вячеслава Усеинова «Тут»",
       "titleRu": "Выставка Вячеслава Усеинова «Тут»",
       "category": "exhibition",
       "venue": "Театр «Ильхом»Ташкент, ул. Пахтакорская, 5",
@@ -1214,7 +1235,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "International medical exhibition UzMedExpo - 2026",
+      "title": "Международная медицинская выставка UzMedExpo — 2026",
       "titleRu": "Международная медицинская выставка UzMedExpo — 2026",
       "category": "exhibition",
       "venue": "УзЭкспоцентрТашкент, просп. Амира Темура, 107",
@@ -1225,7 +1246,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Solo show \"Alpha Centauri\"",
+      "title": "Моноспектакль «Альфа Центавра»",
       "titleRu": "Моноспектакль «Альфа Центавра»",
       "category": "theatre",
       "venue": null,
@@ -1236,7 +1257,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Performance \"Alpha Centauri\"",
+      "title": "Спектакль «Альфа Центавра»",
       "titleRu": "Спектакль «Альфа Центавра»",
       "category": "theatre",
       "venue": null,
@@ -1302,7 +1323,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Exhibition \"Garden of Memory\" in Haqiqiy",
+      "title": "Выставка «Сад памяти» в Haqiqiy",
       "titleRu": "Выставка «Сад памяти» в Haqiqiy",
       "category": "exhibition",
       "venue": "HaqiqiyТашкент, ул. Паркент, 115",
@@ -1313,7 +1334,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Exhibition by Vyacheslav Useinov “Here”",
+      "title": "Выставка Вячеслава Усеинова «Тут»",
       "titleRu": "Выставка Вячеслава Усеинова «Тут»",
       "category": "exhibition",
       "venue": "Театр «Ильхом»Ташкент, ул. Пахтакорская, 5",
@@ -1324,7 +1345,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "International medical exhibition UzMedExpo - 2026",
+      "title": "Международная медицинская выставка UzMedExpo — 2026",
       "titleRu": "Международная медицинская выставка UzMedExpo — 2026",
       "category": "exhibition",
       "venue": "УзЭкспоцентрТашкент, просп. Амира Темура, 107",
@@ -1346,7 +1367,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Performance \"Tiger\"",
+      "title": "Спектакль «Тигр»",
       "titleRu": "Спектакль «Тигр»",
       "category": "theatre",
       "venue": null,
@@ -1357,7 +1378,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Premiere of the play “Cabal of the Saint”",
+      "title": "Премьера спектакля «Кабала святош»",
       "titleRu": "Премьера спектакля «Кабала святош»",
       "category": "theatre",
       "venue": null,
@@ -1368,7 +1389,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Concert \"The Bolshoi Theater Youth Orchestra\"",
+      "title": "Концерт «Молодежный оркестр ГАБТ»",
       "titleRu": "Концерт «Молодежный оркестр ГАБТ»",
       "category": "theatre",
       "venue": null,
@@ -1444,7 +1465,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Exhibition \"Garden of Memory\" in Haqiqiy",
+      "title": "Выставка «Сад памяти» в Haqiqiy",
       "titleRu": "Выставка «Сад памяти» в Haqiqiy",
       "category": "exhibition",
       "venue": "HaqiqiyТашкент, ул. Паркент, 115",
@@ -1455,7 +1476,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Exhibition by Vyacheslav Useinov “Here”",
+      "title": "Выставка Вячеслава Усеинова «Тут»",
       "titleRu": "Выставка Вячеслава Усеинова «Тут»",
       "category": "exhibition",
       "venue": "Театр «Ильхом»Ташкент, ул. Пахтакорская, 5",
@@ -1466,7 +1487,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "International medical exhibition UzMedExpo - 2026",
+      "title": "Международная медицинская выставка UzMedExpo — 2026",
       "titleRu": "Международная медицинская выставка UzMedExpo — 2026",
       "category": "exhibition",
       "venue": "УзЭкспоцентрТашкент, просп. Амира Темура, 107",
@@ -1488,7 +1509,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Comedy \"Bear. Offer\"",
+      "title": "Комедия «Медведь. Предложение»",
       "titleRu": "Комедия «Медведь. Предложение»",
       "category": "theatre",
       "venue": null,
@@ -1499,7 +1520,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Performance “Bekhalovat koshona”",
+      "title": "Спектакль «Бехаловат кошона»",
       "titleRu": "Спектакль «Бехаловат кошона»",
       "category": "theatre",
       "venue": null,
@@ -1510,7 +1531,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Performance “Underground Girls”",
+      "title": "Спектакль «Подпольные девочки»",
       "titleRu": "Спектакль «Подпольные девочки»",
       "category": "theatre",
       "venue": null,
@@ -1521,7 +1542,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Ballet \"Alice in Wonderland\"",
+      "title": "Балет «Алиса в Стране чудес»",
       "titleRu": "Балет «Алиса в Стране чудес»",
       "category": "theatre",
       "venue": "ГАБТ Алишера НавоиТашкент, ул. Зарафшан, 28",
@@ -1532,7 +1553,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "One-act ballets “Chopiniana” and “Polovtsian Dances”",
+      "title": "Одноактные балеты «Шопениана» и «Половецкие пляски»",
       "titleRu": "Одноактные балеты «Шопениана» и «Половецкие пляски»",
       "category": "theatre",
       "venue": null,
@@ -1619,7 +1640,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Exhibition \"Garden of Memory\" in Haqiqiy",
+      "title": "Выставка «Сад памяти» в Haqiqiy",
       "titleRu": "Выставка «Сад памяти» в Haqiqiy",
       "category": "exhibition",
       "venue": "HaqiqiyТашкент, ул. Паркент, 115",
@@ -1630,7 +1651,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Exhibition by Vyacheslav Useinov “Here”",
+      "title": "Выставка Вячеслава Усеинова «Тут»",
       "titleRu": "Выставка Вячеслава Усеинова «Тут»",
       "category": "exhibition",
       "venue": "Театр «Ильхом»Ташкент, ул. Пахтакорская, 5",
@@ -1652,7 +1673,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Blues Night at Human House",
+      "title": "Blues Night в Human House",
       "titleRu": "Blues Night в Human House",
       "category": "concert",
       "venue": null,
@@ -1663,7 +1684,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Concert \"Bozhalar\"",
+      "title": "Концерт «Божалар»",
       "titleRu": "Концерт «Божалар»",
       "category": "concert",
       "venue": null,
@@ -1685,7 +1706,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Play “How Ivan Ivanovich quarreled with Ivan Nikiforovich”",
+      "title": "Спектакль «Как поссорился Иван Иванович с Иваном Никифоровичем»",
       "titleRu": "Спектакль «Как поссорился Иван Иванович с Иваном Никифоровичем»",
       "category": "theatre",
       "venue": null,
@@ -1729,7 +1750,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Opening of the running club “Run like a girl”",
+      "title": "Открытие бегового клуба «Бегаешь как девчонка»",
       "titleRu": "Открытие бегового клуба «Бегаешь как девчонка»",
       "category": "sport",
       "venue": "Krispy KremeТашкент, Ц-1, ул. Буюк Ипак Йули, 24",
@@ -1740,14 +1761,15 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "The beauty and the Beast",
-      "titleRu": null,
-      "category": "theatre",
-      "venue": "Theatre - Studio Silk Route Marionettes Ecopark",
+      "title": "Спектакль «Красавица и Чудовище»",
+      "titleRu": "Спектакль «Красавица и Чудовище»",
+      "category": "kids",
+      "venue": "Театр марионетокТашкент, пересечение ул. улииц Хамида Алимжана и ул. Узбекистон Овози",
       "startDate": "2026-09-18",
       "endDate": null,
-      "url": "https://iticket.uz/en/events/theaters-tashkent/the-beauty-and-the-beast-to",
-      "source": "iticket.uz"
+      "time": "18:00",
+      "url": "https://www.afisha.uz/ru/children/2026/09/03/krasavica-i",
+      "source": "afisha.uz (calendar)"
     },
     {
       "title": "Узбекистан представит современное ремесло на Homo Faber 2026 в Венеции",
@@ -1815,7 +1837,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Exhibition \"Garden of Memory\" in Haqiqiy",
+      "title": "Выставка «Сад памяти» в Haqiqiy",
       "titleRu": "Выставка «Сад памяти» в Haqiqiy",
       "category": "exhibition",
       "venue": "HaqiqiyТашкент, ул. Паркент, 115",
@@ -1837,7 +1859,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Exhibition by Vyacheslav Useinov “Here”",
+      "title": "Выставка Вячеслава Усеинова «Тут»",
       "titleRu": "Выставка Вячеслава Усеинова «Тут»",
       "category": "exhibition",
       "venue": "Театр «Ильхом»Ташкент, ул. Пахтакорская, 5",
@@ -1848,7 +1870,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Tolib Tokhtasinov",
+      "title": "Толиб Тохтасинов",
       "titleRu": "Толиб Тохтасинов",
       "category": "concert",
       "venue": null,
@@ -1859,7 +1881,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Jakhongir Otajonov in Samarkand",
+      "title": "Жахонгир Отажонов в Самарканде",
       "titleRu": "Жахонгир Отажонов в Самарканде",
       "category": "concert",
       "venue": null,
@@ -1870,7 +1892,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Sound drama “Don't be afraid” at the Millat Theater",
+      "title": "Саунд-драма «Не бойся» в театре Millat",
       "titleRu": "Саунд-драма «Не бойся» в театре Millat",
       "category": "theatre",
       "venue": null,
@@ -1881,7 +1903,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Comedy “Ivan Vasilyevich changes profession”",
+      "title": "Комедия «Иван Васильевич меняет профессию»",
       "titleRu": "Комедия «Иван Васильевич меняет профессию»",
       "category": "theatre",
       "venue": null,
@@ -1892,7 +1914,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Evening dedicated to Dilbar Abdurakhmanova",
+      "title": "Вечер, посвященный Дильбар Абдурахмановой",
       "titleRu": "Вечер, посвященный Дильбар Абдурахмановой",
       "category": "theatre",
       "venue": null,
@@ -1903,7 +1925,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Musical fairy tale \"Cinderella\"",
+      "title": "Музыкальная сказка «Золушка»",
       "titleRu": "Музыкальная сказка «Золушка»",
       "category": "kids",
       "venue": null,
@@ -1939,7 +1961,7 @@
       "title": "IOSIS Fest 2026",
       "titleRu": null,
       "category": "concert",
-      "venue": "Turkiston Concert Hall",
+      "venue": "\"SAHNA\" StandUp Club",
       "startDate": "2026-09-19",
       "endDate": null,
       "url": "https://iticket.uz/en/events/concerts/iosis-fest-20266",
@@ -1990,7 +2012,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Exhibition \"Garden of Memory\" in Haqiqiy",
+      "title": "Выставка «Сад памяти» в Haqiqiy",
       "titleRu": "Выставка «Сад памяти» в Haqiqiy",
       "category": "exhibition",
       "venue": "HaqiqiyТашкент, ул. Паркент, 115",
@@ -2012,7 +2034,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Exhibition by Vyacheslav Useinov “Here”",
+      "title": "Выставка Вячеслава Усеинова «Тут»",
       "titleRu": "Выставка Вячеслава Усеинова «Тут»",
       "category": "exhibition",
       "venue": "Театр «Ильхом»Ташкент, ул. Пахтакорская, 5",
@@ -2023,7 +2045,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Ballet \"Alice in Wonderland\"",
+      "title": "Балет «Алиса в Стране чудес»",
       "titleRu": "Балет «Алиса в Стране чудес»",
       "category": "theatre",
       "venue": "ГАБТ Алишера НавоиТашкент, ул. Зарафшан, 28",
@@ -2045,7 +2067,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Grande Amore concert",
+      "title": "Концерт Grande Amore",
       "titleRu": "Концерт Grande Amore",
       "category": "concert",
       "venue": null,
@@ -2155,6 +2177,17 @@
       "source": "afisha.uz (calendar)"
     },
     {
+      "title": "Выставка Мохамеда Беншалала",
+      "titleRu": "Выставка Мохамеда Беншалала",
+      "category": "exhibition",
+      "venue": "Государственный музей истории УзбекистанаТашкент, просп. Рашидова, 3",
+      "startDate": "2026-09-21",
+      "endDate": null,
+      "time": null,
+      "url": "https://www.afisha.uz/ru/exhibitions/2026/08/25/benchellal-vystavka",
+      "source": "afisha.uz (calendar)"
+    },
+    {
       "title": "Музыкальный фонтан в парке Magic City",
       "titleRu": "Музыкальный фонтан в парке Magic City",
       "category": "festival",
@@ -2177,7 +2210,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Exhibition \"Garden of Memory\" in Haqiqiy",
+      "title": "Выставка «Сад памяти» в Haqiqiy",
       "titleRu": "Выставка «Сад памяти» в Haqiqiy",
       "category": "exhibition",
       "venue": "HaqiqiyТашкент, ул. Паркент, 115",
@@ -2196,6 +2229,17 @@
       "endDate": null,
       "time": null,
       "url": "https://www.afisha.uz/ru/exhibitions/2026/08/31/homo-faber",
+      "source": "afisha.uz (calendar)"
+    },
+    {
+      "title": "Выставка Мохамеда Беншалала",
+      "titleRu": "Выставка Мохамеда Беншалала",
+      "category": "exhibition",
+      "venue": "Государственный музей истории УзбекистанаТашкент, просп. Рашидова, 3",
+      "startDate": "2026-09-22",
+      "endDate": null,
+      "time": null,
+      "url": "https://www.afisha.uz/ru/exhibitions/2026/08/25/benchellal-vystavka",
       "source": "afisha.uz (calendar)"
     },
     {
@@ -2221,7 +2265,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Exhibition \"Garden of Memory\" in Haqiqiy",
+      "title": "Выставка «Сад памяти» в Haqiqiy",
       "titleRu": "Выставка «Сад памяти» в Haqiqiy",
       "category": "exhibition",
       "venue": "HaqiqiyТашкент, ул. Паркент, 115",
@@ -2240,6 +2284,17 @@
       "endDate": null,
       "time": null,
       "url": "https://www.afisha.uz/ru/exhibitions/2026/08/31/homo-faber",
+      "source": "afisha.uz (calendar)"
+    },
+    {
+      "title": "Выставка Мохамеда Беншалала",
+      "titleRu": "Выставка Мохамеда Беншалала",
+      "category": "exhibition",
+      "venue": "Государственный музей истории УзбекистанаТашкент, просп. Рашидова, 3",
+      "startDate": "2026-09-23",
+      "endDate": null,
+      "time": null,
+      "url": "https://www.afisha.uz/ru/exhibitions/2026/08/25/benchellal-vystavka",
       "source": "afisha.uz (calendar)"
     },
     {
@@ -2265,7 +2320,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Exhibition \"Garden of Memory\" in Haqiqiy",
+      "title": "Выставка «Сад памяти» в Haqiqiy",
       "titleRu": "Выставка «Сад памяти» в Haqiqiy",
       "category": "exhibition",
       "venue": "HaqiqiyТашкент, ул. Паркент, 115",
@@ -2284,6 +2339,17 @@
       "endDate": null,
       "time": null,
       "url": "https://www.afisha.uz/ru/exhibitions/2026/08/31/homo-faber",
+      "source": "afisha.uz (calendar)"
+    },
+    {
+      "title": "Выставка Мохамеда Беншалала",
+      "titleRu": "Выставка Мохамеда Беншалала",
+      "category": "exhibition",
+      "venue": "Государственный музей истории УзбекистанаТашкент, просп. Рашидова, 3",
+      "startDate": "2026-09-24",
+      "endDate": null,
+      "time": null,
+      "url": "https://www.afisha.uz/ru/exhibitions/2026/08/25/benchellal-vystavka",
       "source": "afisha.uz (calendar)"
     },
     {
@@ -2309,7 +2375,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Exhibition \"Garden of Memory\" in Haqiqiy",
+      "title": "Выставка «Сад памяти» в Haqiqiy",
       "titleRu": "Выставка «Сад памяти» в Haqiqiy",
       "category": "exhibition",
       "venue": "HaqiqiyТашкент, ул. Паркент, 115",
@@ -2320,7 +2386,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Concert \"The Bolshoi Theater Youth Orchestra\"",
+      "title": "Концерт «Молодежный оркестр ГАБТ»",
       "titleRu": "Концерт «Молодежный оркестр ГАБТ»",
       "category": "theatre",
       "venue": null,
@@ -2339,6 +2405,17 @@
       "endDate": null,
       "time": null,
       "url": "https://www.afisha.uz/ru/exhibitions/2026/08/31/homo-faber",
+      "source": "afisha.uz (calendar)"
+    },
+    {
+      "title": "Выставка Мохамеда Беншалала",
+      "titleRu": "Выставка Мохамеда Беншалала",
+      "category": "exhibition",
+      "venue": "Государственный музей истории УзбекистанаТашкент, просп. Рашидова, 3",
+      "startDate": "2026-09-25",
+      "endDate": null,
+      "time": null,
+      "url": "https://www.afisha.uz/ru/exhibitions/2026/08/25/benchellal-vystavka",
       "source": "afisha.uz (calendar)"
     },
     {
@@ -2375,7 +2452,7 @@
       "source": "afisha.uz (calendar)"
     },
     {
-      "title": "Exhibition \"Garden of Memory\" in Haqiqiy",
+      "title": "Выставка «Сад памяти» в Haqiqiy",
       "titleRu": "Выставка «Сад памяти» в Haqiqiy",
       "category": "exhibition",
       "venue": "HaqiqiyТашкент, ул. Паркент, 115",
