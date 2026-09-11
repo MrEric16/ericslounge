@@ -1,14 +1,11 @@
 [goal-scraper] Run started.
 [goal-scraper] [PL] Found 0 finished-match links
 [goal-scraper] [PD] Found 1 finished-match links
-[goal-scraper] [PD] Added: Sevilla 1-0 Valencia
 [goal-scraper] [BL1] Found 1 finished-match links
-[goal-scraper] [BL1] Added: Union Berlin 1-3 Schalke 04
 [goal-scraper] [SA] Found 1 finished-match links
 [goal-scraper] WARNING: Fiorentina scored 4 but only 2 scorer(s) were parsed for https://www.goal.com/en/match/venezia-vs-fiorentina/mHUb3Wk0HWcTJiwVuUFOc
-[goal-scraper] [SA] SCORER PARSE FAILED (attempt 1/3) for Venezia 2-4 Fiorentina -- NOT committing, will retry next run: https://www.goal.com/en/match/venezia-vs-fiorentina/mHUb3Wk0HWcTJiwVuUFOc
+[goal-scraper] [SA] SCORER PARSE FAILED (attempt 2/3) for Venezia 2-4 Fiorentina -- NOT committing, will retry next run: https://www.goal.com/en/match/venezia-vs-fiorentina/mHUb3Wk0HWcTJiwVuUFOc
 [goal-scraper] [FL1] Found 1 finished-match links
-[goal-scraper] [FL1] Added: Rennes 1-0 Marseille
 [goal-scraper] [CL] Found 0 finished-match links
 [goal-scraper] [real-madrid] Found 20 finished-match links
 [goal-scraper] WARNING: Tottenham Hotspur scored 1 but 0 scorers were parsed for https://www.goal.com/en/match/real-madrid-vs-tottenham-hotspur/xdLKWe_FxdSoHo2tVKBzZ
@@ -92,6 +89,6 @@
 [goal-scraper] [juventus] Skipping stale match (older than 45 days): Juventus vs Manchester City on 2025-06-26
 [goal-scraper] [juventus] Skipping stale match (older than 45 days): Basel vs Juventus on 2026-07-18
 [goal-scraper] [arsenal-friendlies] Found 1 finished-match links
-[goal-scraper] TOTAL new results added this run: 3
+[goal-scraper] TOTAL new results added this run: 0
 [goal-scraper] Matches still awaiting a clean scorer parse (not yet committed): ['https://www.goal.com/en/match/slavia-prague-vs-lens/8tl536s9YeGCuVkrI5O7Y', 'https://www.goal.com/en/match/venezia-vs-fiorentina/mHUb3Wk0HWcTJiwVuUFOc']
 [goal-scraper] Wrote data/goal-results.json
