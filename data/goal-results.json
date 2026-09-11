@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-11T19:22:18.269586Z",
+  "generatedAt": "2026-09-11T21:49:09.109347Z",
   "results": [
     {
       "url": "https://www.goal.com/en/match/girona-vs-arsenal/__LS8d9Oc6I1wXn9g8956",
@@ -5605,9 +5605,77 @@
       ],
       "awayGoals": [],
       "competition": "CL"
+    },
+    {
+      "url": "https://www.goal.com/en/match/sevilla-vs-valencia/mvyy2x6CAO-MyjCMBUXjz",
+      "date": null,
+      "home": "Sevilla",
+      "away": "Valencia",
+      "htHome": 0,
+      "htAway": 0,
+      "ftHome": 1,
+      "ftAway": 0,
+      "homeGoals": [
+        {
+          "scorer": "J. Iglesias",
+          "minute": 81
+        }
+      ],
+      "awayGoals": [],
+      "competition": "PD"
+    },
+    {
+      "url": "https://www.goal.com/en/match/union-berlin-vs-schalke-04/iEh2y1QePWpZx5dhJlyug",
+      "date": null,
+      "home": "Union Berlin",
+      "away": "Schalke 04",
+      "htHome": 0,
+      "htAway": 1,
+      "ftHome": 1,
+      "ftAway": 3,
+      "homeGoals": [
+        {
+          "scorer": "T. Skarke",
+          "minute": 90
+        }
+      ],
+      "awayGoals": [
+        {
+          "scorer": "R. Gosens",
+          "minute": 25
+        },
+        {
+          "scorer": "A. Aouchiche",
+          "minute": 46
+        },
+        {
+          "scorer": "M. Woeber",
+          "minute": 90
+        }
+      ],
+      "competition": "BL1"
+    },
+    {
+      "url": "https://www.goal.com/en/match/rennes-vs-marseille/w_yPIJ3CIgWAZ1cceM6ks",
+      "date": null,
+      "home": "Rennes",
+      "away": "Marseille",
+      "htHome": 0,
+      "htAway": 0,
+      "ftHome": 1,
+      "ftAway": 0,
+      "homeGoals": [
+        {
+          "scorer": "A. Thomasson",
+          "minute": 52
+        }
+      ],
+      "awayGoals": [],
+      "competition": "FL1"
     }
   ],
   "scorerParseRetryCounts": {
-    "https://www.goal.com/en/match/slavia-prague-vs-lens/8tl536s9YeGCuVkrI5O7Y": 2
+    "https://www.goal.com/en/match/slavia-prague-vs-lens/8tl536s9YeGCuVkrI5O7Y": 2,
+    "https://www.goal.com/en/match/venezia-vs-fiorentina/mHUb3Wk0HWcTJiwVuUFOc": 1
   }
 }
