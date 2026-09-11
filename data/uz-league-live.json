@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-11T15:01:05.579970Z",
+  "generatedAt": "2026-09-11T21:43:55.057389Z",
   "teams": [
     {
       "name": "Neftchi Fargona",
@@ -23,33 +23,33 @@
     },
     {
       "name": "Navbahor Namangan",
-      "pld": 20,
-      "w": 11,
+      "pld": 21,
+      "w": 12,
       "d": 5,
       "l": 4,
-      "gf": 32,
-      "ga": 18,
-      "pts": 38
-    },
-    {
-      "name": "Buxoro",
-      "pld": 20,
-      "w": 10,
-      "d": 4,
-      "l": 6,
-      "gf": 30,
-      "ga": 23,
-      "pts": 34
+      "gf": 36,
+      "ga": 19,
+      "pts": 41
     },
     {
       "name": "Lok. Tashkent",
-      "pld": 20,
-      "w": 9,
+      "pld": 21,
+      "w": 10,
       "d": 5,
       "l": 6,
-      "gf": 33,
+      "gf": 36,
       "ga": 27,
-      "pts": 32
+      "pts": 35
+    },
+    {
+      "name": "Buxoro",
+      "pld": 21,
+      "w": 10,
+      "d": 4,
+      "l": 7,
+      "gf": 31,
+      "ga": 27,
+      "pts": 34
     },
     {
       "name": "OKMK",
@@ -153,16 +153,30 @@
     },
     {
       "name": "Mashal Muborak",
-      "pld": 20,
+      "pld": 21,
       "w": 1,
       "d": 1,
-      "l": 18,
+      "l": 19,
       "gf": 10,
-      "ga": 39,
+      "ga": 42,
       "pts": 4
     }
   ],
   "results": [
+    {
+      "home": "Buxoro",
+      "away": "Navbahor Namangan",
+      "raw_time": "11.09. 14:00",
+      "homeScore": 1,
+      "awayScore": 4
+    },
+    {
+      "home": "Lok. Tashkent",
+      "away": "Mashal Muborak",
+      "raw_time": "11.09. 14:00",
+      "homeScore": 3,
+      "awayScore": 0
+    },
     {
       "home": "Xorazm Urganch",
       "away": "Sogdiana",
@@ -288,20 +302,6 @@
       "raw_time": "25.08. 15:00",
       "homeScore": 1,
       "awayScore": 1
-    },
-    {
-      "home": "Andijan",
-      "away": "Xorazm Urganch",
-      "raw_time": "25.08. 14:00",
-      "homeScore": 1,
-      "awayScore": 0
-    },
-    {
-      "home": "Termez Surkhon",
-      "away": "OKMK",
-      "raw_time": "25.08. 14:00",
-      "homeScore": 0,
-      "awayScore": 0
     }
   ],
   "fixtures": [
