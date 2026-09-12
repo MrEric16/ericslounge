@@ -1,7 +1,17 @@
 {
-  "generatedAt": "2026-09-12T11:57:12.316681Z",
+  "generatedAt": "2026-09-12T15:12:04.353199Z",
   "standings": {
     "PL": [
+      {
+        "name": "Hull City",
+        "pld": 4,
+        "w": 3,
+        "d": 1,
+        "l": 0,
+        "gf": 5,
+        "ga": 1,
+        "pts": 10
+      },
       {
         "name": "Man City",
         "pld": 3,
@@ -23,44 +33,44 @@
         "pts": 9
       },
       {
-        "name": "Hull City",
-        "pld": 3,
-        "w": 2,
-        "d": 1,
+        "name": "Brentford",
+        "pld": 4,
+        "w": 1,
+        "d": 3,
         "l": 0,
-        "gf": 3,
-        "ga": 0,
-        "pts": 7
-      },
-      {
-        "name": "Chelsea",
-        "pld": 3,
-        "w": 2,
-        "d": 0,
-        "l": 1,
-        "gf": 8,
-        "ga": 7,
+        "gf": 6,
+        "ga": 3,
         "pts": 6
       },
       {
-        "name": "Brentford",
-        "pld": 3,
-        "w": 1,
-        "d": 2,
-        "l": 0,
-        "gf": 5,
-        "ga": 2,
-        "pts": 5
-      },
-      {
         "name": "Liverpool",
-        "pld": 3,
+        "pld": 4,
         "w": 1,
-        "d": 2,
+        "d": 3,
         "l": 0,
         "gf": 6,
         "ga": 4,
-        "pts": 5
+        "pts": 6
+      },
+      {
+        "name": "Chelsea",
+        "pld": 4,
+        "w": 2,
+        "d": 0,
+        "l": 2,
+        "gf": 9,
+        "ga": 9,
+        "pts": 6
+      },
+      {
+        "name": "Ipswich Town",
+        "pld": 4,
+        "w": 2,
+        "d": 0,
+        "l": 2,
+        "gf": 6,
+        "ga": 9,
+        "pts": 6
       },
       {
         "name": "Newcastle",
@@ -90,6 +100,16 @@
         "l": 0,
         "gf": 3,
         "ga": 2,
+        "pts": 5
+      },
+      {
+        "name": "Nottingham",
+        "pld": 4,
+        "w": 1,
+        "d": 2,
+        "l": 1,
+        "gf": 3,
+        "ga": 3,
         "pts": 5
       },
       {
@@ -123,53 +143,33 @@
         "pts": 4
       },
       {
-        "name": "Crystal Palace",
-        "pld": 3,
-        "w": 1,
-        "d": 0,
-        "l": 2,
-        "gf": 4,
-        "ga": 8,
-        "pts": 3
-      },
-      {
-        "name": "Ipswich Town",
-        "pld": 3,
-        "w": 1,
-        "d": 0,
-        "l": 2,
-        "gf": 4,
-        "ga": 8,
-        "pts": 3
-      },
-      {
         "name": "Bournemouth",
-        "pld": 3,
+        "pld": 4,
         "w": 0,
-        "d": 2,
+        "d": 3,
         "l": 1,
-        "gf": 4,
-        "ga": 5,
-        "pts": 2
+        "gf": 5,
+        "ga": 6,
+        "pts": 3
       },
       {
-        "name": "Nottingham",
-        "pld": 3,
-        "w": 0,
-        "d": 2,
-        "l": 1,
-        "gf": 2,
-        "ga": 3,
-        "pts": 2
+        "name": "Crystal Palace",
+        "pld": 4,
+        "w": 1,
+        "d": 0,
+        "l": 3,
+        "gf": 5,
+        "ga": 10,
+        "pts": 3
       },
       {
-        "name": "Aston Villa",
-        "pld": 3,
+        "name": "Fulham",
+        "pld": 4,
         "w": 0,
         "d": 1,
-        "l": 2,
-        "gf": 0,
-        "ga": 5,
+        "l": 3,
+        "gf": 4,
+        "ga": 7,
         "pts": 1
       },
       {
@@ -183,14 +183,14 @@
         "pts": 1
       },
       {
-        "name": "Fulham",
-        "pld": 3,
+        "name": "Aston Villa",
+        "pld": 4,
         "w": 0,
-        "d": 0,
+        "d": 1,
         "l": 3,
-        "gf": 4,
-        "ga": 7,
-        "pts": 0
+        "gf": 0,
+        "ga": 6,
+        "pts": 1
       },
       {
         "name": "Coventry City",
@@ -216,12 +216,12 @@
       },
       {
         "name": "Alavés",
-        "pld": 4,
+        "pld": 5,
         "w": 3,
         "d": 1,
-        "l": 0,
-        "gf": 10,
-        "ga": 3,
+        "l": 1,
+        "gf": 11,
+        "ga": 5,
         "pts": 10
       },
       {
@@ -265,6 +265,16 @@
         "pts": 8
       },
       {
+        "name": "Espanyol",
+        "pld": 5,
+        "w": 2,
+        "d": 1,
+        "l": 2,
+        "gf": 8,
+        "ga": 5,
+        "pts": 7
+      },
+      {
         "name": "Atleti",
         "pld": 4,
         "w": 2,
@@ -275,13 +285,13 @@
         "pts": 7
       },
       {
-        "name": "Osasuna",
-        "pld": 4,
+        "name": "Santander",
+        "pld": 5,
         "w": 2,
         "d": 1,
-        "l": 1,
-        "gf": 5,
-        "ga": 6,
+        "l": 2,
+        "gf": 9,
+        "ga": 9,
         "pts": 7
       },
       {
@@ -291,6 +301,16 @@
         "d": 1,
         "l": 2,
         "gf": 6,
+        "ga": 8,
+        "pts": 7
+      },
+      {
+        "name": "Osasuna",
+        "pld": 5,
+        "w": 2,
+        "d": 1,
+        "l": 2,
+        "gf": 5,
         "ga": 8,
         "pts": 7
       },
@@ -313,26 +333,6 @@
         "gf": 5,
         "ga": 5,
         "pts": 5
-      },
-      {
-        "name": "Espanyol",
-        "pld": 4,
-        "w": 1,
-        "d": 1,
-        "l": 2,
-        "gf": 6,
-        "ga": 5,
-        "pts": 4
-      },
-      {
-        "name": "Santander",
-        "pld": 4,
-        "w": 1,
-        "d": 1,
-        "l": 2,
-        "gf": 7,
-        "ga": 8,
-        "pts": 4
       },
       {
         "name": "Rayo Vallecano",
@@ -407,34 +407,34 @@
     ],
     "BL1": [
       {
-        "name": "Augsburg",
-        "pld": 2,
-        "w": 2,
+        "name": "Freiburg",
+        "pld": 3,
+        "w": 3,
         "d": 0,
         "l": 0,
-        "gf": 7,
+        "gf": 9,
         "ga": 1,
-        "pts": 6
+        "pts": 9
       },
       {
-        "name": "Freiburg",
-        "pld": 2,
-        "w": 2,
+        "name": "Augsburg",
+        "pld": 3,
+        "w": 3,
         "d": 0,
         "l": 0,
-        "gf": 5,
-        "ga": 1,
-        "pts": 6
+        "gf": 9,
+        "ga": 2,
+        "pts": 9
       },
       {
         "name": "Dortmund",
-        "pld": 2,
-        "w": 2,
+        "pld": 3,
+        "w": 3,
         "d": 0,
         "l": 0,
-        "gf": 5,
+        "gf": 6,
         "ga": 2,
-        "pts": 6
+        "pts": 9
       },
       {
         "name": "Elversberg",
@@ -447,16 +447,6 @@
         "pts": 6
       },
       {
-        "name": "Mainz",
-        "pld": 2,
-        "w": 1,
-        "d": 1,
-        "l": 0,
-        "gf": 5,
-        "ga": 0,
-        "pts": 4
-      },
-      {
         "name": "Bayern",
         "pld": 2,
         "w": 1,
@@ -464,6 +454,26 @@
         "l": 0,
         "gf": 5,
         "ga": 1,
+        "pts": 4
+      },
+      {
+        "name": "Mainz",
+        "pld": 3,
+        "w": 1,
+        "d": 1,
+        "l": 1,
+        "gf": 5,
+        "ga": 3,
+        "pts": 4
+      },
+      {
+        "name": "Frankfurt",
+        "pld": 3,
+        "w": 1,
+        "d": 1,
+        "l": 1,
+        "gf": 7,
+        "ga": 7,
         "pts": 4
       },
       {
@@ -478,12 +488,12 @@
       },
       {
         "name": "Leverkusen",
-        "pld": 2,
+        "pld": 3,
         "w": 1,
         "d": 0,
-        "l": 1,
-        "gf": 6,
-        "ga": 3,
+        "l": 2,
+        "gf": 7,
+        "ga": 5,
         "pts": 3
       },
       {
@@ -497,13 +507,13 @@
         "pts": 3
       },
       {
-        "name": "Stuttgart",
-        "pld": 2,
+        "name": "Hoffenheim",
+        "pld": 3,
         "w": 1,
         "d": 0,
-        "l": 1,
-        "gf": 5,
-        "ga": 6,
+        "l": 2,
+        "gf": 6,
+        "ga": 7,
         "pts": 3
       },
       {
@@ -514,6 +524,16 @@
         "l": 1,
         "gf": 4,
         "ga": 5,
+        "pts": 3
+      },
+      {
+        "name": "Stuttgart",
+        "pld": 3,
+        "w": 1,
+        "d": 0,
+        "l": 2,
+        "gf": 6,
+        "ga": 8,
         "pts": 3
       },
       {
@@ -528,22 +548,12 @@
       },
       {
         "name": "SC Paderborn",
-        "pld": 2,
+        "pld": 3,
         "w": 0,
         "d": 1,
-        "l": 1,
+        "l": 2,
         "gf": 0,
-        "ga": 1,
-        "pts": 1
-      },
-      {
-        "name": "Frankfurt",
-        "pld": 2,
-        "w": 0,
-        "d": 1,
-        "l": 1,
-        "gf": 4,
-        "ga": 7,
+        "ga": 2,
         "pts": 1
       },
       {
@@ -557,26 +567,6 @@
         "pts": 1
       },
       {
-        "name": "Hoffenheim",
-        "pld": 2,
-        "w": 0,
-        "d": 0,
-        "l": 2,
-        "gf": 4,
-        "ga": 6,
-        "pts": 0
-      },
-      {
-        "name": "M'gladbach",
-        "pld": 2,
-        "w": 0,
-        "d": 0,
-        "l": 2,
-        "gf": 3,
-        "ga": 7,
-        "pts": 0
-      },
-      {
         "name": "HSV",
         "pld": 2,
         "w": 0,
@@ -584,6 +574,16 @@
         "l": 2,
         "gf": 0,
         "ga": 7,
+        "pts": 0
+      },
+      {
+        "name": "M'gladbach",
+        "pld": 3,
+        "w": 0,
+        "d": 0,
+        "l": 3,
+        "gf": 3,
+        "ga": 11,
         "pts": 0
       }
     ],
@@ -629,6 +629,16 @@
         "pts": 7
       },
       {
+        "name": "Frosinone",
+        "pld": 4,
+        "w": 2,
+        "d": 1,
+        "l": 1,
+        "gf": 7,
+        "ga": 4,
+        "pts": 7
+      },
+      {
         "name": "Milan",
         "pld": 3,
         "w": 2,
@@ -647,16 +657,6 @@
         "gf": 4,
         "ga": 1,
         "pts": 7
-      },
-      {
-        "name": "Frosinone",
-        "pld": 3,
-        "w": 2,
-        "d": 0,
-        "l": 1,
-        "gf": 6,
-        "ga": 3,
-        "pts": 6
       },
       {
         "name": "Atalanta",
@@ -770,13 +770,13 @@
       },
       {
         "name": "Genoa",
-        "pld": 3,
+        "pld": 4,
         "w": 0,
-        "d": 0,
+        "d": 1,
         "l": 3,
-        "gf": 1,
-        "ga": 7,
-        "pts": 0
+        "gf": 2,
+        "ga": 8,
+        "pts": 1
       },
       {
         "name": "Venezia FC",
@@ -1339,7 +1339,7 @@
       "fixtures": [
         {
           "utcDate": "2026-09-12T14:00:00Z",
-          "status": "TIMED",
+          "status": "IN_PLAY",
           "matchday": 4,
           "homeTeam": {
             "id": 354,
@@ -1352,15 +1352,15 @@
             "shortName": "Ipswich Town"
           },
           "score": {
-            "winner": null,
+            "winner": "AWAY_TEAM",
             "duration": "REGULAR",
             "fullTime": {
-              "home": null,
-              "away": null
+              "home": 1,
+              "away": 2
             },
             "halfTime": {
-              "home": null,
-              "away": null
+              "home": 1,
+              "away": 2
             }
           },
           "competition": {
@@ -1370,7 +1370,7 @@
         },
         {
           "utcDate": "2026-09-12T14:00:00Z",
-          "status": "TIMED",
+          "status": "IN_PLAY",
           "matchday": 4,
           "homeTeam": {
             "id": 64,
@@ -1383,15 +1383,15 @@
             "shortName": "Fulham"
           },
           "score": {
-            "winner": null,
+            "winner": "DRAW",
             "duration": "REGULAR",
             "fullTime": {
-              "home": null,
-              "away": null
+              "home": 0,
+              "away": 0
             },
             "halfTime": {
-              "home": null,
-              "away": null
+              "home": 0,
+              "away": 0
             }
           },
           "competition": {
@@ -1401,7 +1401,7 @@
         },
         {
           "utcDate": "2026-09-12T14:00:00Z",
-          "status": "TIMED",
+          "status": "IN_PLAY",
           "matchday": 4,
           "homeTeam": {
             "id": 58,
@@ -1414,15 +1414,15 @@
             "shortName": "Nottingham"
           },
           "score": {
-            "winner": null,
+            "winner": "DRAW",
             "duration": "REGULAR",
             "fullTime": {
-              "home": null,
-              "away": null
+              "home": 0,
+              "away": 0
             },
             "halfTime": {
-              "home": null,
-              "away": null
+              "home": 0,
+              "away": 0
             }
           },
           "competition": {
@@ -1432,7 +1432,7 @@
         },
         {
           "utcDate": "2026-09-12T14:00:00Z",
-          "status": "TIMED",
+          "status": "IN_PLAY",
           "matchday": 4,
           "homeTeam": {
             "id": 1044,
@@ -1445,15 +1445,15 @@
             "shortName": "Brentford"
           },
           "score": {
-            "winner": null,
+            "winner": "DRAW",
             "duration": "REGULAR",
             "fullTime": {
-              "home": null,
-              "away": null
+              "home": 1,
+              "away": 1
             },
             "halfTime": {
-              "home": null,
-              "away": null
+              "home": 1,
+              "away": 1
             }
           },
           "competition": {
@@ -1463,7 +1463,7 @@
         },
         {
           "utcDate": "2026-09-12T14:00:00Z",
-          "status": "TIMED",
+          "status": "IN_PLAY",
           "matchday": 4,
           "homeTeam": {
             "id": 61,
@@ -1476,15 +1476,15 @@
             "shortName": "Hull City"
           },
           "score": {
-            "winner": null,
+            "winner": "AWAY_TEAM",
             "duration": "REGULAR",
             "fullTime": {
-              "home": null,
-              "away": null
+              "home": 1,
+              "away": 2
             },
             "halfTime": {
-              "home": null,
-              "away": null
+              "home": 1,
+              "away": 2
             }
           },
           "competition": {
@@ -2119,39 +2119,8 @@
     "PD": {
       "fixtures": [
         {
-          "utcDate": "2026-09-12T12:00:00Z",
-          "status": "TIMED",
-          "matchday": 5,
-          "homeTeam": {
-            "id": 5335,
-            "name": "Real Racing Club de Santander",
-            "shortName": "Santander"
-          },
-          "awayTeam": {
-            "id": 263,
-            "name": "Deportivo Alavés",
-            "shortName": "Alavés"
-          },
-          "score": {
-            "winner": null,
-            "duration": "REGULAR",
-            "fullTime": {
-              "home": null,
-              "away": null
-            },
-            "halfTime": {
-              "home": null,
-              "away": null
-            }
-          },
-          "competition": {
-            "name": "Primera Division"
-          },
-          "venue": null
-        },
-        {
           "utcDate": "2026-09-12T14:15:00Z",
-          "status": "TIMED",
+          "status": "PAUSED",
           "matchday": 5,
           "homeTeam": {
             "id": 79,
@@ -2164,15 +2133,15 @@
             "shortName": "Espanyol"
           },
           "score": {
-            "winner": null,
+            "winner": "AWAY_TEAM",
             "duration": "REGULAR",
             "fullTime": {
-              "home": null,
-              "away": null
+              "home": 0,
+              "away": 2
             },
             "halfTime": {
-              "home": null,
-              "away": null
+              "home": 0,
+              "away": 2
             }
           },
           "competition": {
@@ -2399,6 +2368,37 @@
         }
       ],
       "results": [
+        {
+          "utcDate": "2026-09-12T12:00:00Z",
+          "status": "FINISHED",
+          "matchday": 5,
+          "homeTeam": {
+            "id": 5335,
+            "name": "Real Racing Club de Santander",
+            "shortName": "Santander"
+          },
+          "awayTeam": {
+            "id": 263,
+            "name": "Deportivo Alavés",
+            "shortName": "Alavés"
+          },
+          "score": {
+            "winner": "HOME_TEAM",
+            "duration": "REGULAR",
+            "fullTime": {
+              "home": 2,
+              "away": 1
+            },
+            "halfTime": {
+              "home": 1,
+              "away": 1
+            }
+          },
+          "competition": {
+            "name": "Primera Division"
+          },
+          "venue": null
+        },
         {
           "utcDate": "2026-09-11T19:00:00Z",
           "status": "FINISHED",
@@ -2832,37 +2832,6 @@
             "name": "Primera Division"
           },
           "venue": null
-        },
-        {
-          "utcDate": "2026-08-30T19:30:00Z",
-          "status": "FINISHED",
-          "matchday": 3,
-          "homeTeam": {
-            "id": 558,
-            "name": "RC Celta de Vigo",
-            "shortName": "Celta"
-          },
-          "awayTeam": {
-            "id": 77,
-            "name": "Athletic Club",
-            "shortName": "Athletic"
-          },
-          "score": {
-            "winner": "AWAY_TEAM",
-            "duration": "REGULAR",
-            "fullTime": {
-              "home": 0,
-              "away": 2
-            },
-            "halfTime": {
-              "home": 0,
-              "away": 2
-            }
-          },
-          "competition": {
-            "name": "Primera Division"
-          },
-          "venue": null
         }
       ]
     },
@@ -2870,7 +2839,7 @@
       "fixtures": [
         {
           "utcDate": "2026-09-12T13:30:00Z",
-          "status": "TIMED",
+          "status": "IN_PLAY",
           "matchday": 3,
           "homeTeam": {
             "id": 2,
@@ -2883,15 +2852,15 @@
             "shortName": "Stuttgart"
           },
           "score": {
-            "winner": null,
+            "winner": "HOME_TEAM",
             "duration": "REGULAR",
             "fullTime": {
-              "home": null,
-              "away": null
+              "home": 2,
+              "away": 1
             },
             "halfTime": {
-              "home": null,
-              "away": null
+              "home": 1,
+              "away": 0
             }
           },
           "competition": {
@@ -2901,7 +2870,7 @@
         },
         {
           "utcDate": "2026-09-12T13:30:00Z",
-          "status": "TIMED",
+          "status": "IN_PLAY",
           "matchday": 3,
           "homeTeam": {
             "id": 4,
@@ -2914,15 +2883,15 @@
             "shortName": "SC Paderborn"
           },
           "score": {
-            "winner": null,
+            "winner": "HOME_TEAM",
             "duration": "REGULAR",
             "fullTime": {
-              "home": null,
-              "away": null
+              "home": 1,
+              "away": 0
             },
             "halfTime": {
-              "home": null,
-              "away": null
+              "home": 1,
+              "away": 0
             }
           },
           "competition": {
@@ -2932,7 +2901,7 @@
         },
         {
           "utcDate": "2026-09-12T13:30:00Z",
-          "status": "TIMED",
+          "status": "IN_PLAY",
           "matchday": 3,
           "homeTeam": {
             "id": 16,
@@ -2945,15 +2914,15 @@
             "shortName": "Leverkusen"
           },
           "score": {
-            "winner": null,
+            "winner": "DRAW",
             "duration": "REGULAR",
             "fullTime": {
-              "home": null,
-              "away": null
+              "home": 2,
+              "away": 2
             },
             "halfTime": {
-              "home": null,
-              "away": null
+              "home": 0,
+              "away": 1
             }
           },
           "competition": {
@@ -2963,7 +2932,7 @@
         },
         {
           "utcDate": "2026-09-12T13:30:00Z",
-          "status": "TIMED",
+          "status": "IN_PLAY",
           "matchday": 3,
           "homeTeam": {
             "id": 15,
@@ -2976,15 +2945,15 @@
             "shortName": "Frankfurt"
           },
           "score": {
-            "winner": null,
+            "winner": "AWAY_TEAM",
             "duration": "REGULAR",
             "fullTime": {
-              "home": null,
-              "away": null
+              "home": 0,
+              "away": 3
             },
             "halfTime": {
-              "home": null,
-              "away": null
+              "home": 0,
+              "away": 2
             }
           },
           "competition": {
@@ -2994,7 +2963,7 @@
         },
         {
           "utcDate": "2026-09-12T13:30:00Z",
-          "status": "TIMED",
+          "status": "IN_PLAY",
           "matchday": 3,
           "homeTeam": {
             "id": 17,
@@ -3007,15 +2976,15 @@
             "shortName": "M'gladbach"
           },
           "score": {
-            "winner": null,
+            "winner": "HOME_TEAM",
             "duration": "REGULAR",
             "fullTime": {
-              "home": null,
-              "away": null
+              "home": 3,
+              "away": 0
             },
             "halfTime": {
-              "home": null,
-              "away": null
+              "home": 2,
+              "away": 0
             }
           },
           "competition": {
@@ -3588,37 +3557,6 @@
     "SA": {
       "fixtures": [
         {
-          "utcDate": "2026-09-12T13:00:00Z",
-          "status": "TIMED",
-          "matchday": 4,
-          "homeTeam": {
-            "id": 107,
-            "name": "Genoa CFC",
-            "shortName": "Genoa"
-          },
-          "awayTeam": {
-            "id": 470,
-            "name": "Frosinone Calcio",
-            "shortName": "Frosinone"
-          },
-          "score": {
-            "winner": null,
-            "duration": "REGULAR",
-            "fullTime": {
-              "home": null,
-              "away": null
-            },
-            "halfTime": {
-              "home": null,
-              "away": null
-            }
-          },
-          "competition": {
-            "name": "Serie A"
-          },
-          "venue": null
-        },
-        {
           "utcDate": "2026-09-12T16:00:00Z",
           "status": "TIMED",
           "matchday": 4,
@@ -3868,6 +3806,37 @@
         }
       ],
       "results": [
+        {
+          "utcDate": "2026-09-12T13:00:00Z",
+          "status": "FINISHED",
+          "matchday": 4,
+          "homeTeam": {
+            "id": 107,
+            "name": "Genoa CFC",
+            "shortName": "Genoa"
+          },
+          "awayTeam": {
+            "id": 470,
+            "name": "Frosinone Calcio",
+            "shortName": "Frosinone"
+          },
+          "score": {
+            "winner": "DRAW",
+            "duration": "REGULAR",
+            "fullTime": {
+              "home": 1,
+              "away": 1
+            },
+            "halfTime": {
+              "home": 0,
+              "away": 1
+            }
+          },
+          "competition": {
+            "name": "Serie A"
+          },
+          "venue": null
+        },
         {
           "utcDate": "2026-09-11T18:45:00Z",
           "status": "FINISHED",
@@ -4295,37 +4264,6 @@
             "halfTime": {
               "home": 1,
               "away": 0
-            }
-          },
-          "competition": {
-            "name": "Serie A"
-          },
-          "venue": null
-        },
-        {
-          "utcDate": "2026-08-30T18:45:00Z",
-          "status": "FINISHED",
-          "matchday": 2,
-          "homeTeam": {
-            "id": 104,
-            "name": "Cagliari Calcio",
-            "shortName": "Cagliari"
-          },
-          "awayTeam": {
-            "id": 108,
-            "name": "FC Internazionale Milano",
-            "shortName": "Inter"
-          },
-          "score": {
-            "winner": "AWAY_TEAM",
-            "duration": "REGULAR",
-            "fullTime": {
-              "home": 0,
-              "away": 1
-            },
-            "halfTime": {
-              "home": 0,
-              "away": 1
             }
           },
           "competition": {
