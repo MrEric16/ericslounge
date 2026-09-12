@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Mr Eric's Lounge</title>
-<meta name="app-build" content="20260912202103">
+<meta name="app-build" content="20260912203039">
 <script>
   // PWA update-detection: an installed home-screen app's standalone-mode navigation
   // cache can hold an old shell far longer than the CDN's 10-minute cache -
@@ -324,6 +324,27 @@
   body.usertheme-ihl:not(.dark-mode) .books-tile,
   body.usertheme-ihl:not(.dark-mode) .books-tile *{
     color:#304EA0 !important;
+  }
+  /* Arsenal font: Mr Eric asked for the actual font from arsenal.com. That's Agency FB
+     (confirmed via a professional Arsenal brand-guidelines write-up - their official
+     brand typeface since the 2002 rebrand), but it's a commercial Monotype font with no
+     free web-embedding license, unlike the Soviet theme's Propaganda font which was
+     explicitly free for commercial use. Using Oswald instead - a free, open-license
+     Google Font specifically cited (by multiple type foundries independently) as one of
+     the closest free substitutes for Agency FB's bold-condensed look, and better suited
+     to on-screen UI text than Agency FB's original print/display design. Loaded once via
+     @import, applied to all three Arsenal themes (arsenal, arsenal2, darsenal). Unlike
+     Propaganda, Oswald ships real light/regular/bold weights, so no font-weight override
+     is needed here - existing bold/700 declarations elsewhere in the site render as
+     Oswald's own real bold, not a synthesized fake one. */
+  @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&display=swap');
+  body.usertheme-arsenal:not(.dark-mode),
+  body.usertheme-arsenal:not(.dark-mode) *,
+  body.usertheme-arsenal2:not(.dark-mode),
+  body.usertheme-arsenal2:not(.dark-mode) *,
+  body.dark-mode.usertheme-darsenal,
+  body.dark-mode.usertheme-darsenal *{
+    font-family:'Oswald','Impact',sans-serif !important;
   }
   /* Arsenal - Mr Eric's own pick, real crest colors he supplied (red #ec0024, crimson
      #ce0041, navy #113476, gold #99824c, off-white #fefefe). First pass was too subtle -
