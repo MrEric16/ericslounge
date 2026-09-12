@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Mr Eric's Lounge</title>
-<meta name="app-build" content="20260912211715">
+<meta name="app-build" content="20260912213000">
 <script>
   // PWA update-detection: an installed home-screen app's standalone-mode navigation
   // cache can hold an old shell far longer than the CDN's 10-minute cache -
@@ -24465,7 +24465,7 @@ const COMPLIMENTS = [
     // window) per Mr Eric - it's a real palette option forever, cyclable/pickable any
     // time. The window end (2 Sept 18:00 Tashkent) only controls the one-time default
     // reset below, not availability.
-    const base = ['default','nationalday','ihl','arsenal','arsenal2','uzbekistan2','soviet','bazaar','hacker','vintage','d1','dihl','darsenal','dvintage'];
+    const base = ['default','d1','ihl','dihl','nationalday','uzbekistan2','arsenal','arsenal2','darsenal','vintage','dvintage','soviet','hacker','bazaar'];
     return base;
   }
   let THEME_ORDER = buildThemeOrder();
@@ -24586,19 +24586,19 @@ const COMPLIMENTS = [
   // swatch circle without needing to actually switch CSS classes to preview it.
   const THEME_SWATCHES = [
     { key:'default', label:'Classic', c1:'#7A2E35', c2:'#D4AF37' },
-    { key:'nationalday', label:'Uzbekistan', c1:'#0072CE', c2:'#DA291C' },
     { key:'d1', label:'Classic Dark', c1:'#CC9142', c2:'#D6C171' },
     { key:'ihl', label:'IHL', c1:'#304EA0', c2:'#FF9E2C' },
     { key:'dihl', label:'IHL (Dark)', c1:'#304EA0', c2:'#FF9E2C' },
+    { key:'nationalday', label:'Uzbekistan', c1:'#0072CE', c2:'#DA291C' },
+    { key:'uzbekistan2', label:'Uzbekistan 2', c1:'#1B3F8B', c2:'#0F6E75' },
     { key:'arsenal', label:'Arsenal', c1:'#EC0024', c2:'#99824C' },
     { key:'arsenal2', label:'Arsenal 2', c1:'#2E375D', c2:'#C9A542' },
-    { key:'uzbekistan2', label:'Uzbekistan 2', c1:'#1B3F8B', c2:'#0F6E75' },
-    { key:'soviet', label:'Soviet Poster', c1:'#D34039', c2:'#AE352F' },
-    { key:'bazaar', label:'Grand Bazaar', c1:'#C5510B', c2:'#93610B' },
-    { key:'hacker', label:'Hacker', c1:'#00CC41', c2:'#0F5C24' },
     { key:'darsenal', label:'Arsenal (Dark)', c1:'#EC0024', c2:'#99824C' },
     { key:'vintage', label:'Vintage', c1:'#333333', c2:'#999999' },
     { key:'dvintage', label:'Vintage (Dark)', c1:'#CCCCCC', c2:'#666666' },
+    { key:'soviet', label:'Soviet', c1:'#D34039', c2:'#AE352F' },
+    { key:'hacker', label:'Matrix', c1:'#00CC41', c2:'#0F5C24' },
+    { key:'bazaar', label:'Grand Bazaar', c1:'#C5510B', c2:'#93610B' },
   ];
 
   let themePickerBackdrop = null;
