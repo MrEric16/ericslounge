@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Mr Eric's Lounge</title>
-<meta name="app-build" content="20260912075242">
+<meta name="app-build" content="20260912075621">
 <script>
   // PWA update-detection: an installed home-screen app's standalone-mode navigation
   // cache can hold an old shell far longer than the CDN's 10-minute cache -
@@ -519,10 +519,18 @@
   body.usertheme-arsenal2:not(.dark-mode) .fac-tile.all{
     background:#2E375D !important;
   }
+  /* Whichever domain tile lands on the navy slot in the 4-colour cycle above is the same
+     colour as the page background now that --cream is navy too, so it had no visible
+     edge - looked "burnt into" the background. A uniform gold outline on every tile
+     guarantees a visible edge no matter which of the 4 cycle colours it lands on. */
+  body.usertheme-arsenal2:not(.dark-mode) .fac-tile{
+    border:1.5px solid rgba(201,165,66,.55) !important;
+  }
   body.usertheme-arsenal2:not(.dark-mode) .sport-hub-tile,
   body.usertheme-arsenal2:not(.dark-mode) .sports-tile,
   body.usertheme-arsenal2:not(.dark-mode) .sports-card{
     background:#2E375D !important;
+    border:1.5px solid rgba(201,165,66,.55) !important;
   }
   body.usertheme-arsenal2:not(.dark-mode) .goodnews-tile,
   body.usertheme-arsenal2:not(.dark-mode) .watch-tile,
