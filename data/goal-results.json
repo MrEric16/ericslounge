@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-12T21:54:54.875540Z",
+  "generatedAt": "2026-09-12T23:39:04.804103Z",
   "results": [
     {
       "url": "https://www.goal.com/en/match/girona-vs-arsenal/__LS8d9Oc6I1wXn9g8956",
@@ -6254,10 +6254,40 @@
       "homeGoals": [],
       "awayGoals": [],
       "competition": "FL1"
+    },
+    {
+      "url": "https://www.goal.com/en/match/real-madrid-vs-rayo-vallecano/NAdYQGt3M_ZuU0agZUaez",
+      "date": null,
+      "home": "Real Madrid",
+      "away": "Rayo Vallecano",
+      "htHome": 3,
+      "htAway": 0,
+      "ftHome": 4,
+      "ftAway": 1,
+      "homeGoals": [
+        {
+          "scorer": "K. Mbappe",
+          "minute": 14
+        },
+        {
+          "scorer": "A. Carreras",
+          "minute": 17
+        },
+        {
+          "scorer": "J. Bellingham",
+          "minute": 35
+        }
+      ],
+      "awayGoals": [
+        {
+          "scorer": "S. Camello",
+          "minute": 51
+        }
+      ],
+      "competition": "PD"
     }
   ],
   "scorerParseRetryCounts": {
-    "https://www.goal.com/en/match/slavia-prague-vs-lens/8tl536s9YeGCuVkrI5O7Y": 2,
-    "https://www.goal.com/en/match/real-madrid-vs-rayo-vallecano/NAdYQGt3M_ZuU0agZUaez": 2
+    "https://www.goal.com/en/match/slavia-prague-vs-lens/8tl536s9YeGCuVkrI5O7Y": 2
   }
 }
