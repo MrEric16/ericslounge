@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-12T14:44:08.204672Z",
+  "generatedAt": "2026-09-12T17:35:06.677043Z",
   "results": [
     {
       "url": "https://www.goal.com/en/match/girona-vs-arsenal/__LS8d9Oc6I1wXn9g8956",
@@ -5703,10 +5703,139 @@
         }
       ],
       "competition": "SA"
+    },
+    {
+      "url": "https://www.goal.com/en/match/crystal-palace-vs-ipswich-town/dQBcUMivUblZVc26Qw_IU",
+      "date": null,
+      "home": "Crystal Palace",
+      "away": "Ipswich Town",
+      "htHome": 1,
+      "htAway": 2,
+      "ftHome": 2,
+      "ftAway": 3,
+      "homeGoals": [
+        {
+          "scorer": "A. Khalaili",
+          "minute": 14
+        },
+        {
+          "scorer": "J. Larsen",
+          "minute": 75
+        }
+      ],
+      "awayGoals": [
+        {
+          "scorer": "Emersonn",
+          "minute": 23
+        },
+        {
+          "scorer": "L. Davis",
+          "minute": 45
+        },
+        {
+          "scorer": "Z. Flemming",
+          "minute": 90
+        }
+      ],
+      "competition": "PL"
+    },
+    {
+      "url": "https://www.goal.com/en/match/aston-villa-vs-nottingham-forest/y_ECR9nxhDcjrB3wUYXj7",
+      "date": null,
+      "home": "Aston Villa",
+      "away": "Nottingham Forest",
+      "htHome": 0,
+      "htAway": 0,
+      "ftHome": 1,
+      "ftAway": 2,
+      "homeGoals": [
+        {
+          "scorer": "Alysson Edward",
+          "minute": 74
+        }
+      ],
+      "awayGoals": [
+        {
+          "scorer": "L. Delap",
+          "minute": 46
+        },
+        {
+          "scorer": "I. Jesus",
+          "minute": 88
+        }
+      ],
+      "competition": "PL"
+    },
+    {
+      "url": "https://www.goal.com/en/match/liverpool-vs-fulham/w9GSIb6yf7FYsfTiDJOLZ",
+      "date": null,
+      "home": "Liverpool",
+      "away": "Fulham",
+      "htHome": 0,
+      "htAway": 0,
+      "ftHome": 0,
+      "ftAway": 0,
+      "homeGoals": [],
+      "awayGoals": [],
+      "competition": "PL"
+    },
+    {
+      "url": "https://www.goal.com/en/match/genoa-vs-frosinone/EoASQ8IvLjSJFcbukLPlY",
+      "date": null,
+      "home": "Genoa",
+      "away": "Frosinone",
+      "htHome": 0,
+      "htAway": 1,
+      "ftHome": 1,
+      "ftAway": 1,
+      "homeGoals": [
+        {
+          "scorer": "J. Vasquez",
+          "minute": 50
+        }
+      ],
+      "awayGoals": [
+        {
+          "scorer": "G. Kvernadze",
+          "minute": 14
+        }
+      ],
+      "competition": "SA"
+    },
+    {
+      "url": "https://www.goal.com/en/match/strasbourg-vs-monaco/otWMmsGf36CmmkFHdCap3",
+      "date": null,
+      "home": "Strasbourg",
+      "away": "Monaco",
+      "htHome": 0,
+      "htAway": 0,
+      "ftHome": 1,
+      "ftAway": 1,
+      "homeGoals": [
+        {
+          "scorer": "S. Sane",
+          "minute": 52
+        }
+      ],
+      "awayGoals": [
+        {
+          "scorer": "P. Brunner",
+          "minute": 71
+        }
+      ],
+      "competition": "FL1"
     }
   ],
   "scorerParseRetryCounts": {
     "https://www.goal.com/en/match/slavia-prague-vs-lens/8tl536s9YeGCuVkrI5O7Y": 2,
-    "https://www.goal.com/en/match/racing-santander-vs-deportivo-alaves/cTxD2fTSlxkb-eBfpDVhC": 1
+    "https://www.goal.com/en/match/racing-santander-vs-deportivo-alaves/cTxD2fTSlxkb-eBfpDVhC": 2,
+    "https://www.goal.com/en/match/chelsea-vs-hull-city/sf34-VeBGJZV0MkmnLRwZ": 1,
+    "https://www.goal.com/en/match/afc-bournemouth-vs-brentford/S5OKGP9DZ3KjwyIFcK06y": 1,
+    "https://www.goal.com/en/match/osasuna-vs-espanyol/WzK-gU-bYMDziDpYFmoWJ": 1,
+    "https://www.goal.com/en/match/freiburg-vs-borussia-moenchengladbach/5dheouRu191iHNvjUU6Nm": 1,
+    "https://www.goal.com/en/match/mainz-05-vs-eintracht-frankfurt/TmzzY95sxlwXg_jvz2k74": 1,
+    "https://www.goal.com/en/match/borussia-dortmund-vs-paderborn/mVltOBR1-p_bkbFIrD2FF": 2,
+    "https://www.goal.com/en/match/augsburg-vs-bayer-leverkusen/RHupm8O3cuc0zxsbidDvW": 1,
+    "https://www.goal.com/en/match/hoffenheim-vs-vfb-stuttgart/EO224FUoX98HZEVidlKXH": 1
   }
 }

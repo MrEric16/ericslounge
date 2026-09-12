@@ -1,11 +1,32 @@
 [goal-scraper] Run started.
-[goal-scraper] [PL] Found 0 finished-match links
-[goal-scraper] [PD] Found 2 finished-match links
+[goal-scraper] [PL] Found 5 finished-match links
+[goal-scraper] WARNING: Hull City scored 2 but only 1 scorer(s) were parsed for https://www.goal.com/en/match/chelsea-vs-hull-city/sf34-VeBGJZV0MkmnLRwZ
+[goal-scraper] [PL] SCORER PARSE FAILED (attempt 1/3) for Chelsea 2-2 Hull City -- NOT committing, will retry next run: https://www.goal.com/en/match/chelsea-vs-hull-city/sf34-VeBGJZV0MkmnLRwZ
+[goal-scraper] [PL] Added: Crystal Palace 2-3 Ipswich Town
+[goal-scraper] WARNING: Brentford scored 2 but only 1 scorer(s) were parsed for https://www.goal.com/en/match/afc-bournemouth-vs-brentford/S5OKGP9DZ3KjwyIFcK06y
+[goal-scraper] [PL] SCORER PARSE FAILED (attempt 1/3) for Afc Bournemouth 2-2 Brentford -- NOT committing, will retry next run: https://www.goal.com/en/match/afc-bournemouth-vs-brentford/S5OKGP9DZ3KjwyIFcK06y
+[goal-scraper] [PL] Added: Aston Villa 1-2 Nottingham Forest
+[goal-scraper] [PL] Added: Liverpool 0-0 Fulham
+[goal-scraper] [PD] Found 3 finished-match links
 [goal-scraper] WARNING: Racing Santander scored 2 but only 1 scorer(s) were parsed for https://www.goal.com/en/match/racing-santander-vs-deportivo-alaves/cTxD2fTSlxkb-eBfpDVhC
-[goal-scraper] [PD] SCORER PARSE FAILED (attempt 1/3) for Racing Santander 2-1 Deportivo Alaves -- NOT committing, will retry next run: https://www.goal.com/en/match/racing-santander-vs-deportivo-alaves/cTxD2fTSlxkb-eBfpDVhC
-[goal-scraper] [BL1] Found 1 finished-match links
-[goal-scraper] [SA] Found 1 finished-match links
-[goal-scraper] [FL1] Found 1 finished-match links
+[goal-scraper] [PD] SCORER PARSE FAILED (attempt 2/3) for Racing Santander 2-1 Deportivo Alaves -- NOT committing, will retry next run: https://www.goal.com/en/match/racing-santander-vs-deportivo-alaves/cTxD2fTSlxkb-eBfpDVhC
+[goal-scraper] WARNING: Espanyol scored 2 but only 1 scorer(s) were parsed for https://www.goal.com/en/match/osasuna-vs-espanyol/WzK-gU-bYMDziDpYFmoWJ
+[goal-scraper] [PD] SCORER PARSE FAILED (attempt 1/3) for Osasuna 0-2 Espanyol -- NOT committing, will retry next run: https://www.goal.com/en/match/osasuna-vs-espanyol/WzK-gU-bYMDziDpYFmoWJ
+[goal-scraper] [BL1] Found 6 finished-match links
+[goal-scraper] WARNING: Freiburg scored 5 but only 3 scorer(s) were parsed for https://www.goal.com/en/match/freiburg-vs-borussia-moenchengladbach/5dheouRu191iHNvjUU6Nm
+[goal-scraper] [BL1] SCORER PARSE FAILED (attempt 1/3) for Freiburg 5-0 Borussia Moenchengladbach -- NOT committing, will retry next run: https://www.goal.com/en/match/freiburg-vs-borussia-moenchengladbach/5dheouRu191iHNvjUU6Nm
+[goal-scraper] WARNING: Eintracht Frankfurt scored 3 but only 2 scorer(s) were parsed for https://www.goal.com/en/match/mainz-05-vs-eintracht-frankfurt/TmzzY95sxlwXg_jvz2k74
+[goal-scraper] [BL1] SCORER PARSE FAILED (attempt 1/3) for Mainz 05 1-3 Eintracht Frankfurt -- NOT committing, will retry next run: https://www.goal.com/en/match/mainz-05-vs-eintracht-frankfurt/TmzzY95sxlwXg_jvz2k74
+[goal-scraper] WARNING: Borussia Dortmund scored 3 but only 2 scorer(s) were parsed for https://www.goal.com/en/match/borussia-dortmund-vs-paderborn/mVltOBR1-p_bkbFIrD2FF
+[goal-scraper] [BL1] SCORER PARSE FAILED (attempt 1/3) for Borussia Dortmund 3-0 Paderborn -- NOT committing, will retry next run: https://www.goal.com/en/match/borussia-dortmund-vs-paderborn/mVltOBR1-p_bkbFIrD2FF
+[goal-scraper] WARNING: Augsburg scored 2 but only 1 scorer(s) were parsed for https://www.goal.com/en/match/augsburg-vs-bayer-leverkusen/RHupm8O3cuc0zxsbidDvW
+[goal-scraper] [BL1] SCORER PARSE FAILED (attempt 1/3) for Augsburg 2-2 Bayer Leverkusen -- NOT committing, will retry next run: https://www.goal.com/en/match/augsburg-vs-bayer-leverkusen/RHupm8O3cuc0zxsbidDvW
+[goal-scraper] WARNING: Hoffenheim scored 2 but only 1 scorer(s) were parsed for https://www.goal.com/en/match/hoffenheim-vs-vfb-stuttgart/EO224FUoX98HZEVidlKXH
+[goal-scraper] [BL1] SCORER PARSE FAILED (attempt 1/3) for Hoffenheim 2-1 Vfb Stuttgart -- NOT committing, will retry next run: https://www.goal.com/en/match/hoffenheim-vs-vfb-stuttgart/EO224FUoX98HZEVidlKXH
+[goal-scraper] [SA] Found 2 finished-match links
+[goal-scraper] [SA] Added: Genoa 1-1 Frosinone
+[goal-scraper] [FL1] Found 2 finished-match links
+[goal-scraper] [FL1] Added: Strasbourg 1-1 Monaco
 [goal-scraper] [CL] Found 0 finished-match links
 [goal-scraper] [real-madrid] Found 20 finished-match links
 [goal-scraper] WARNING: Tottenham Hotspur scored 1 but 0 scorers were parsed for https://www.goal.com/en/match/real-madrid-vs-tottenham-hotspur/xdLKWe_FxdSoHo2tVKBzZ
@@ -73,13 +94,15 @@
 [goal-scraper] [marseille] Skipping stale match (older than 45 days): Marseille vs Rennes on 2026-02-03
 [goal-scraper] [marseille] Skipping stale match (older than 45 days): Marseille vs Toulouse on 2026-03-04
 [goal-scraper] [marseille] Skipping stale match (older than 45 days): Yamoussoukro Fc vs Marseille on 2026-07-17
-[goal-scraper] [dortmund] Found 16 finished-match links
+[goal-scraper] [dortmund] Found 17 finished-match links
 [goal-scraper] [dortmund] Skipping stale match (older than 45 days): Fluminense vs Borussia Dortmund on 2025-06-17
 [goal-scraper] [dortmund] Skipping stale match (older than 45 days): Mamelodi Sundowns Fc vs Borussia Dortmund on 2025-06-21
 [goal-scraper] [dortmund] Skipping stale match (older than 45 days): Borussia Dortmund vs Ulsan Hd Fc on 2025-06-25
 [goal-scraper] WARNING: Borussia Dortmund scored 2 but only 1 scorer(s) were parsed for https://www.goal.com/en/match/borussia-dortmund-vs-monterrey/UFMDj_-1r2womLuAYX338
 [goal-scraper] [dortmund] Skipping stale match (older than 45 days): Borussia Dortmund vs Monterrey on 2025-07-01
 [goal-scraper] [dortmund] Skipping stale match (older than 45 days): Oberhausen vs Borussia Dortmund on 2026-07-18
+[goal-scraper] WARNING: Borussia Dortmund scored 3 but only 2 scorer(s) were parsed for https://www.goal.com/en/match/borussia-dortmund-vs-paderborn/mVltOBR1-p_bkbFIrD2FF
+[goal-scraper] [dortmund] SCORER PARSE FAILED (attempt 2/3) for Borussia Dortmund 3-0 Paderborn -- NOT committing, will retry next run: https://www.goal.com/en/match/borussia-dortmund-vs-paderborn/mVltOBR1-p_bkbFIrD2FF
 [goal-scraper] [roma] Found 10 finished-match links
 [goal-scraper] [juventus] Found 13 finished-match links
 [goal-scraper] WARNING: Juventus scored 5 but only 3 scorer(s) were parsed for https://www.goal.com/en/match/al-ain-vs-juventus/hZXoigptTekk6p6Awa3MU
@@ -89,6 +112,6 @@
 [goal-scraper] [juventus] Skipping stale match (older than 45 days): Juventus vs Manchester City on 2025-06-26
 [goal-scraper] [juventus] Skipping stale match (older than 45 days): Basel vs Juventus on 2026-07-18
 [goal-scraper] [arsenal-friendlies] Found 1 finished-match links
-[goal-scraper] TOTAL new results added this run: 0
-[goal-scraper] Matches still awaiting a clean scorer parse (not yet committed): ['https://www.goal.com/en/match/slavia-prague-vs-lens/8tl536s9YeGCuVkrI5O7Y', 'https://www.goal.com/en/match/racing-santander-vs-deportivo-alaves/cTxD2fTSlxkb-eBfpDVhC']
+[goal-scraper] TOTAL new results added this run: 5
+[goal-scraper] Matches still awaiting a clean scorer parse (not yet committed): ['https://www.goal.com/en/match/slavia-prague-vs-lens/8tl536s9YeGCuVkrI5O7Y', 'https://www.goal.com/en/match/racing-santander-vs-deportivo-alaves/cTxD2fTSlxkb-eBfpDVhC', 'https://www.goal.com/en/match/chelsea-vs-hull-city/sf34-VeBGJZV0MkmnLRwZ', 'https://www.goal.com/en/match/afc-bournemouth-vs-brentford/S5OKGP9DZ3KjwyIFcK06y', 'https://www.goal.com/en/match/osasuna-vs-espanyol/WzK-gU-bYMDziDpYFmoWJ', 'https://www.goal.com/en/match/freiburg-vs-borussia-moenchengladbach/5dheouRu191iHNvjUU6Nm', 'https://www.goal.com/en/match/mainz-05-vs-eintracht-frankfurt/TmzzY95sxlwXg_jvz2k74', 'https://www.goal.com/en/match/borussia-dortmund-vs-paderborn/mVltOBR1-p_bkbFIrD2FF', 'https://www.goal.com/en/match/augsburg-vs-bayer-leverkusen/RHupm8O3cuc0zxsbidDvW', 'https://www.goal.com/en/match/hoffenheim-vs-vfb-stuttgart/EO224FUoX98HZEVidlKXH']
 [goal-scraper] Wrote data/goal-results.json
