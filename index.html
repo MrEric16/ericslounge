@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Mr Eric's Lounge</title>
-<meta name="app-build" content="20260912201031">
+<meta name="app-build" content="20260912202103">
 <script>
   // PWA update-detection: an installed home-screen app's standalone-mode navigation
   // cache can hold an old shell far longer than the CDN's 10-minute cache -
@@ -781,33 +781,34 @@
   }
 
 
-  /* - Soviet Poster, rebuilt from Mr Eric's own 6 poster photos (Rodina-Mat, the
-     cosmonaut/hammer-and-sickle "Slava!" poster, the worker-with-bread poster, the
-     running red figure in space, Lenin with the torch, and the 1961 Gagarin poster).
-     Same lesson as Grand Bazaar just relearned: on a light cream page, the real
-     pixel-sampled poster red (#E8473F) and orange (#FE6701) both measure under 3:1 as
-     a white-text tile - real fails - so a light-cream version of this theme would have
-     hit the exact same "muddy, not vivid" problem. Two of the six reference posters are
-     themselves dark-navy space-race scenes, so a dark background (#02192A, sampled from
-     the cosmonaut poster's night sky) is both the contrast fix and true to half the
-     references, not just a workaround. Red only needed 10% darkening to pass
-     (#E8473F -> #D03F38), orange needed 25% (#FE6701 -> #BE4D00) - still clearly vivid,
-     nowhere near the 50-70% cuts the first version needed on cream. Oxblood #6B1D1D
-     and the aged-parchment cream #FCD093 (sampled from the Gagarin poster's paper)
-     round out the four tile colours.
+  /* - Soviet Poster, revised again: Mr Eric wants the beige paper background back (not
+     the dark navy from the previous revision) but a BRIGHTER red header, plus the font
+     less bold without losing its blocky shape. Colours are still pixel-sampled from his
+     6 poster photos, just recalibrated for a light background instead of a dark one -
+     going back to beige reintroduces the exact contrast cost explained earlier: the raw
+     red (#E8473F) and orange (#FE6701) need real darkening (25% and 35% respectively,
+     not the 10-25% the dark-navy version needed) to pass BOTH as text-on-beige and as a
+     white-text tile at once. That's an honest, unavoidable trade for keeping the paper
+     background - not a corner cut.
 
-     Same structural conflict as Uzbekistan2/Grand Bazaar (--coral/--teal/--gold/
-     --coral-dark each used both as light-needing text and dark-needing tile fills
-     elsewhere in the codebase), same ~30 call sites, same resolution: each variable set
-     to whichever role dominates, explicit override for every call site on the losing
-     side.
+     The header gets its own, slightly brighter red (#D34039) than the tile/text red
+     (#AE352F) - the header bar only has to pass white-text-on-it (4.56:1, still a real
+     pass), it never has to work as small text against beige the way the tile colour
+     does, so it doesn't need the same amount of darkening.
 
-     Font: Mr Eric asked for "Propaganda" by Square Gear (1001fonts.com), applied to
-     every element on this theme including the header title. Loaded by direct URL in
-     @font-face - the deployed site runs in a real browser with full internet access,
-     so it fetches this at runtime regardless of what domains this dev sandbox can
-     reach. Impact/sans-serif fallback in case the font fails to load for any reason
-     (e.g. hotlink protection from the font host, which I can't test for from here). */
+     Because the background is light again, this reverts to the SIMPLE architecture
+     (matching original Arsenal/first-draft Soviet) - no more per-selector override
+     audit needed, since every accent colour here passes both its text and tile role at
+     once against beige.
+
+     Font: still Propaganda by Square Gear, direct-URL @font-face as before. Added
+     font-weight:normal !important this time - the earlier version only overrode
+     font-family, so every element that already had font-weight:700/800 set elsewhere in
+     the site's CSS kept that weight, and since Propaganda ships as a single static
+     weight (no real bold face), the browser was likely synthesizing a fake bold on top
+     of an already-heavy display face - blocky AND bold stacked together. Forcing normal
+     weight keeps the font's inherent blocky letterforms without that extra synthetic
+     thickening. */
   @font-face{
     font-family:'Propaganda';
     src:url('https://st.1001fonts.net/download/font/propaganda.regular-version-1-00.ttf') format('truetype');
@@ -818,18 +819,19 @@
   body.usertheme-soviet:not(.dark-mode),
   body.usertheme-soviet:not(.dark-mode) *{
     font-family:'Propaganda','Impact',sans-serif !important;
+    font-weight:normal !important;
   }
   body.usertheme-soviet:not(.dark-mode){
-    --cream:#02192A; --cream-2:#02192A; --card:#02192A;
-    --ink:#FEFEFE; --ink-soft:#FCD093;
-    --coral:#D03F38; --coral-dark:#FCD093; --gold:#FCD093; --teal:#FCD093;
-    --line:rgba(252,208,147,.3);
-    --board-bg:rgba(208,63,56,.55);
+    --cream:#E8DCC0; --cream-2:#E8DCC0; --card:#E8DCC0;
+    --ink:#2B1D0E; --ink-soft:#6B1D1D;
+    --coral:#AE352F; --coral-dark:#363636; --gold:#A54200; --teal:#6B1D1D;
+    --line:rgba(43,29,14,.25);
+    --board-bg:rgba(211,64,57,.55);
   }
   body.usertheme-soviet:not(.dark-mode) .aurora-layer{ opacity:0; }
   body.usertheme-soviet:not(.dark-mode) header{
-    background:#D03F38;
-    border-bottom:4px solid #FCD093;
+    background:#D34039;
+    border-bottom:4px solid #363636;
   }
   body.usertheme-soviet:not(.dark-mode) header::before,
   body.usertheme-soviet:not(.dark-mode) header::after{ content:none; }
@@ -840,41 +842,36 @@
   }
   body.usertheme-soviet:not(.dark-mode) header .search-icon-btn,
   body.usertheme-soviet:not(.dark-mode) header .search-icon-btn *{
-    color:#FEFEFE !important;
+    color:#D34039 !important;
   }
   body.usertheme-soviet:not(.dark-mode) .faculties .fac-tile:not(.all):nth-child(4n+1){
-    background:#D03F38 !important;
+    background:#AE352F !important;
   }
   body.usertheme-soviet:not(.dark-mode) .faculties .fac-tile:not(.all):nth-child(4n+2){
-    background:#BE4D00 !important;
+    background:#A54200 !important;
   }
   body.usertheme-soviet:not(.dark-mode) .faculties .fac-tile:not(.all):nth-child(4n+3){
     background:#6B1D1D !important;
   }
   body.usertheme-soviet:not(.dark-mode) .faculties .fac-tile:not(.all):nth-child(4n+4){
-    background:#FCD093 !important;
-  }
-  body.usertheme-soviet:not(.dark-mode) .fac-tile.all{
     background:#363636 !important;
   }
-  /* Every tile here measures under 3.8:1 edge-contrast against the dark navy page on
-     its own - a real risk of vanishing, same lesson as Grand Bazaar - so a bright
-     border is not optional. */
+  body.usertheme-soviet:not(.dark-mode) .fac-tile.all{
+    background:#2B1D0E !important;
+  }
   body.usertheme-soviet:not(.dark-mode) .fac-tile{
-    border:2px solid rgba(252,208,147,.7) !important;
+    border:1.5px solid rgba(43,29,14,.35) !important;
   }
   body.usertheme-soviet:not(.dark-mode) .sport-hub-tile,
   body.usertheme-soviet:not(.dark-mode) .sports-tile,
   body.usertheme-soviet:not(.dark-mode) .sports-card{
-    background:#D03F38 !important;
-    border:2px solid rgba(252,208,147,.7) !important;
+    background:#AE352F !important;
   }
   body.usertheme-soviet:not(.dark-mode) .goodnews-tile,
   body.usertheme-soviet:not(.dark-mode) .watch-tile,
   body.usertheme-soviet:not(.dark-mode) .watch-card,
   body.usertheme-soviet:not(.dark-mode) .otd-card{
-    background:#BE4D00 !important;
-    border:2px solid rgba(252,208,147,.5) !important;
+    background:#A54200 !important;
   }
   body.usertheme-soviet:not(.dark-mode) .books-tile,
   body.usertheme-soviet:not(.dark-mode) .mindtemple-tile,
@@ -882,19 +879,14 @@
   body.usertheme-soviet:not(.dark-mode) .explore-card,
   body.usertheme-soviet:not(.dark-mode) .page-result{
     background:#6B1D1D !important;
-    border:2px solid rgba(252,208,147,.5) !important;
   }
-  /* Group 4 is a light cream tile (not dark) - the only one of the four that needs
-     dark navy text instead of white, applied after the blanket white-text rule below
-     so it wins the tie. */
   body.usertheme-soviet:not(.dark-mode) .bday-tile-card,
   body.usertheme-soviet:not(.dark-mode) .random-tile,
   body.usertheme-soviet:not(.dark-mode) .rec-item,
   body.usertheme-soviet:not(.dark-mode) .empty-card,
   body.usertheme-soviet:not(.dark-mode) .photo-tile,
   body.usertheme-soviet:not(.dark-mode) .sotw-card{
-    background:#FCD093 !important;
-    border:2px solid rgba(2,25,42,.4) !important;
+    background:#363636 !important;
   }
   body.usertheme-soviet:not(.dark-mode) .fac-tile,
   body.usertheme-soviet:not(.dark-mode) .fac-tile *,
@@ -921,9 +913,7 @@
   body.usertheme-soviet:not(.dark-mode) .explore-card,
   body.usertheme-soviet:not(.dark-mode) .explore-card *,
   body.usertheme-soviet:not(.dark-mode) .page-result,
-  body.usertheme-soviet:not(.dark-mode) .page-result *{
-    color:#FEFEFE !important;
-  }
+  body.usertheme-soviet:not(.dark-mode) .page-result *,
   body.usertheme-soviet:not(.dark-mode) .bday-tile-card,
   body.usertheme-soviet:not(.dark-mode) .bday-tile-card *,
   body.usertheme-soviet:not(.dark-mode) .random-tile,
@@ -936,54 +926,8 @@
   body.usertheme-soviet:not(.dark-mode) .photo-tile *,
   body.usertheme-soviet:not(.dark-mode) .sotw-card,
   body.usertheme-soviet:not(.dark-mode) .sotw-card *{
-    color:#02192A !important;
-  }
-
-  /* --- Targeted overrides: same ~30 call sites audited for Uzbekistan2/Grand
-     Bazaar, reapplied here with Soviet's colours. --- */
-
-  /* --coral text call-sites (variable is dark red, background-role-optimised) */
-  body.usertheme-soviet:not(.dark-mode) .random-btn:hover,
-  body.usertheme-soviet:not(.dark-mode) .domain-summary:hover h2,
-  body.usertheme-soviet:not(.dark-mode) a.headline:hover,
-  body.usertheme-soviet:not(.dark-mode) .share-btn:hover,
-  body.usertheme-soviet:not(.dark-mode) .rec-item a:hover,
-  body.usertheme-soviet:not(.dark-mode) .wordle-message,
-  body.usertheme-soviet:not(.dark-mode) .anagram-message,
-  body.usertheme-soviet:not(.dark-mode) .page-result-icon,
-  body.usertheme-soviet:not(.dark-mode) .bday-item.bday-cat-staff .bday-name,
-  body.usertheme-soviet:not(.dark-mode) .bottom-tabs a:hover,
-  body.usertheme-soviet:not(.dark-mode) .explore-card-name,
-  body.usertheme-soviet:not(.dark-mode) .question-item div:nth-child(3){
-    color:#FCD093 !important;
-  }
-
-  /* --coral-dark background call-site (variable is pale cream, text-role-optimised) */
-  body.usertheme-soviet:not(.dark-mode) .install-step-num{
-    background:#6B1D1D !important;
-  }
-
-  /* --gold background call-sites (variable is pale cream, text-role-optimised) */
-  body.usertheme-soviet:not(.dark-mode) .bookmark-btn.active,
-  body.usertheme-soviet:not(.dark-mode) .fg-bonus-tag,
-  body.usertheme-soviet:not(.dark-mode) .bday-item.today{
-    background:#BE4D00 !important;
     color:#FEFEFE !important;
   }
-  body.usertheme-soviet:not(.dark-mode) .bday-item.today .bday-name,
-  body.usertheme-soviet:not(.dark-mode) .bday-item.today .bday-date{
-    color:#FEFEFE !important;
-  }
-
-  /* --teal background call-sites (variable is pale cream, text-role-optimised) */
-  body.usertheme-soviet:not(.dark-mode) .fg-option-btn.fg-correct,
-  body.usertheme-soviet:not(.dark-mode) .anagram-btn.check,
-  body.usertheme-soviet:not(.dark-mode) .hanoi-disc[data-size="3"],
-  body.usertheme-soviet:not(.dark-mode) .event-cat-badge{
-    background:#6B1D1D !important;
-    color:#FEFEFE !important;
-  }
-
 
   /* - Grand Bazaar, rebuilt from Mr Eric's own spice-market photos after the first
      version read as muddy rather than vivid. The problem wasn't the colour choice, it
@@ -24396,7 +24340,7 @@ const COMPLIMENTS = [
     { key:'arsenal', label:'Arsenal', c1:'#EC0024', c2:'#99824C' },
     { key:'arsenal2', label:'Arsenal 2', c1:'#2E375D', c2:'#C9A542' },
     { key:'uzbekistan2', label:'Uzbekistan 2', c1:'#1B3F8B', c2:'#0F6E75' },
-    { key:'soviet', label:'Soviet Poster', c1:'#D03F38', c2:'#BE4D00' },
+    { key:'soviet', label:'Soviet Poster', c1:'#D34039', c2:'#AE352F' },
     { key:'bazaar', label:'Grand Bazaar', c1:'#C5510B', c2:'#93610B' },
     { key:'darsenal', label:'Arsenal (Dark)', c1:'#EC0024', c2:'#99824C' },
     { key:'vintage', label:'Vintage', c1:'#333333', c2:'#999999' },
