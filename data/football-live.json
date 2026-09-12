@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-11T23:51:03.934533Z",
+  "generatedAt": "2026-09-12T02:58:59.216514Z",
   "standings": {
     "PL": [
       {
@@ -2119,29 +2119,122 @@
     "PD": {
       "fixtures": [
         {
-          "utcDate": "2026-08-26T19:00:00Z",
-          "status": "2026-08-26 18:00:00Z",
-          "matchday": 1,
+          "utcDate": "2026-09-12T12:00:00Z",
+          "status": "TIMED",
+          "matchday": 5,
+          "homeTeam": {
+            "id": 5335,
+            "name": "Real Racing Club de Santander",
+            "shortName": "Santander"
+          },
+          "awayTeam": {
+            "id": 263,
+            "name": "Deportivo Alavés",
+            "shortName": "Alavés"
+          },
+          "score": {
+            "winner": null,
+            "duration": "REGULAR",
+            "fullTime": {
+              "home": null,
+              "away": null
+            },
+            "halfTime": {
+              "home": null,
+              "away": null
+            }
+          },
+          "competition": {
+            "name": "Primera Division"
+          },
+          "venue": null
+        },
+        {
+          "utcDate": "2026-09-12T14:15:00Z",
+          "status": "TIMED",
+          "matchday": 5,
+          "homeTeam": {
+            "id": 79,
+            "name": "CA Osasuna",
+            "shortName": "Osasuna"
+          },
+          "awayTeam": {
+            "id": 80,
+            "name": "RCD Espanyol de Barcelona",
+            "shortName": "Espanyol"
+          },
+          "score": {
+            "winner": null,
+            "duration": "REGULAR",
+            "fullTime": {
+              "home": null,
+              "away": null
+            },
+            "halfTime": {
+              "home": null,
+              "away": null
+            }
+          },
+          "competition": {
+            "name": "Primera Division"
+          },
+          "venue": null
+        },
+        {
+          "utcDate": "2026-09-12T16:30:00Z",
+          "status": "TIMED",
+          "matchday": 5,
+          "homeTeam": {
+            "id": 77,
+            "name": "Athletic Club",
+            "shortName": "Athletic"
+          },
+          "awayTeam": {
+            "id": 285,
+            "name": "Elche CF",
+            "shortName": "Elche"
+          },
+          "score": {
+            "winner": null,
+            "duration": "REGULAR",
+            "fullTime": {
+              "home": null,
+              "away": null
+            },
+            "halfTime": {
+              "home": null,
+              "away": null
+            }
+          },
+          "competition": {
+            "name": "Primera Division"
+          },
+          "venue": null
+        },
+        {
+          "utcDate": "2026-09-12T19:00:00Z",
+          "status": "TIMED",
+          "matchday": 5,
           "homeTeam": {
             "id": 86,
             "name": "Real Madrid CF",
             "shortName": "Real Madrid"
           },
           "awayTeam": {
-            "id": 92,
-            "name": "Real Sociedad de Fútbol",
-            "shortName": "Real Sociedad"
+            "id": 87,
+            "name": "Rayo Vallecano de Madrid",
+            "shortName": "Rayo Vallecano"
           },
           "score": {
-            "winner": "HOME_TEAM",
+            "winner": null,
             "duration": "REGULAR",
             "fullTime": {
-              "home": 4,
-              "away": 1
+              "home": null,
+              "away": null
             },
             "halfTime": {
-              "home": 1,
-              "away": 1
+              "home": null,
+              "away": null
             }
           },
           "competition": {
@@ -2150,29 +2243,29 @@
           "venue": null
         },
         {
-          "utcDate": "2026-08-27T18:30:00Z",
-          "status": "2026-08-27 17:30:00Z",
-          "matchday": 1,
+          "utcDate": "2026-09-13T12:00:00Z",
+          "status": "TIMED",
+          "matchday": 5,
           "homeTeam": {
             "id": 558,
             "name": "RC Celta de Vigo",
             "shortName": "Celta"
           },
           "awayTeam": {
-            "id": 79,
-            "name": "CA Osasuna",
-            "shortName": "Osasuna"
+            "id": 84,
+            "name": "Málaga CF",
+            "shortName": "Málaga"
           },
           "score": {
-            "winner": "AWAY_TEAM",
+            "winner": null,
             "duration": "REGULAR",
             "fullTime": {
-              "home": 1,
-              "away": 2
+              "home": null,
+              "away": null
             },
             "halfTime": {
-              "home": 1,
-              "away": 0
+              "home": null,
+              "away": null
             }
           },
           "competition": {
@@ -2181,29 +2274,122 @@
           "venue": null
         },
         {
-          "utcDate": "2026-08-27T19:00:00Z",
-          "status": "2026-08-27 18:00:00Z",
-          "matchday": 1,
+          "utcDate": "2026-09-13T14:15:00Z",
+          "status": "TIMED",
+          "matchday": 5,
           "homeTeam": {
+            "id": 88,
+            "name": "Levante UD",
+            "shortName": "Levante"
+          },
+          "awayTeam": {
             "id": 81,
             "name": "FC Barcelona",
             "shortName": "Barça"
           },
-          "awayTeam": {
-            "id": 77,
-            "name": "Athletic Club",
-            "shortName": "Athletic"
-          },
           "score": {
-            "winner": "HOME_TEAM",
+            "winner": null,
             "duration": "REGULAR",
             "fullTime": {
-              "home": 2,
-              "away": 0
+              "home": null,
+              "away": null
             },
             "halfTime": {
-              "home": 1,
-              "away": 0
+              "home": null,
+              "away": null
+            }
+          },
+          "competition": {
+            "name": "Primera Division"
+          },
+          "venue": null
+        },
+        {
+          "utcDate": "2026-09-13T16:30:00Z",
+          "status": "TIMED",
+          "matchday": 5,
+          "homeTeam": {
+            "id": 82,
+            "name": "Getafe CF",
+            "shortName": "Getafe"
+          },
+          "awayTeam": {
+            "id": 560,
+            "name": "RC Deportivo La Coruña",
+            "shortName": "Deportivo"
+          },
+          "score": {
+            "winner": null,
+            "duration": "REGULAR",
+            "fullTime": {
+              "home": null,
+              "away": null
+            },
+            "halfTime": {
+              "home": null,
+              "away": null
+            }
+          },
+          "competition": {
+            "name": "Primera Division"
+          },
+          "venue": null
+        },
+        {
+          "utcDate": "2026-09-13T19:00:00Z",
+          "status": "TIMED",
+          "matchday": 5,
+          "homeTeam": {
+            "id": 92,
+            "name": "Real Sociedad de Fútbol",
+            "shortName": "Real Sociedad"
+          },
+          "awayTeam": {
+            "id": 78,
+            "name": "Club Atlético de Madrid",
+            "shortName": "Atleti"
+          },
+          "score": {
+            "winner": null,
+            "duration": "REGULAR",
+            "fullTime": {
+              "home": null,
+              "away": null
+            },
+            "halfTime": {
+              "home": null,
+              "away": null
+            }
+          },
+          "competition": {
+            "name": "Primera Division"
+          },
+          "venue": null
+        },
+        {
+          "utcDate": "2026-09-14T19:00:00Z",
+          "status": "TIMED",
+          "matchday": 5,
+          "homeTeam": {
+            "id": 94,
+            "name": "Villarreal CF",
+            "shortName": "Villarreal"
+          },
+          "awayTeam": {
+            "id": 90,
+            "name": "Real Betis Balompié",
+            "shortName": "Real Betis"
+          },
+          "score": {
+            "winner": null,
+            "duration": "REGULAR",
+            "fullTime": {
+              "home": null,
+              "away": null
+            },
+            "halfTime": {
+              "home": null,
+              "away": null
             }
           },
           "competition": {
@@ -2245,24 +2431,86 @@
           "venue": null
         },
         {
-          "utcDate": "2026-08-25T19:00:00Z",
+          "utcDate": "2026-09-07T19:30:00Z",
           "status": "FINISHED",
-          "matchday": 1,
+          "matchday": 4,
           "homeTeam": {
-            "id": 95,
-            "name": "Valencia CF",
-            "shortName": "Valencia"
+            "id": 285,
+            "name": "Elche CF",
+            "shortName": "Elche"
           },
           "awayTeam": {
-            "id": 90,
-            "name": "Real Betis Balompié",
-            "shortName": "Real Betis"
+            "id": 92,
+            "name": "Real Sociedad de Fútbol",
+            "shortName": "Real Sociedad"
           },
           "score": {
             "winner": "AWAY_TEAM",
             "duration": "REGULAR",
             "fullTime": {
+              "home": 2,
+              "away": 3
+            },
+            "halfTime": {
               "home": 0,
+              "away": 2
+            }
+          },
+          "competition": {
+            "name": "Primera Division"
+          },
+          "venue": null
+        },
+        {
+          "utcDate": "2026-09-07T17:00:00Z",
+          "status": "FINISHED",
+          "matchday": 4,
+          "homeTeam": {
+            "id": 82,
+            "name": "Getafe CF",
+            "shortName": "Getafe"
+          },
+          "awayTeam": {
+            "id": 558,
+            "name": "RC Celta de Vigo",
+            "shortName": "Celta"
+          },
+          "score": {
+            "winner": "DRAW",
+            "duration": "REGULAR",
+            "fullTime": {
+              "home": 1,
+              "away": 1
+            },
+            "halfTime": {
+              "home": 1,
+              "away": 0
+            }
+          },
+          "competition": {
+            "name": "Primera Division"
+          },
+          "venue": null
+        },
+        {
+          "utcDate": "2026-09-06T19:00:00Z",
+          "status": "FINISHED",
+          "matchday": 4,
+          "homeTeam": {
+            "id": 80,
+            "name": "RCD Espanyol de Barcelona",
+            "shortName": "Espanyol"
+          },
+          "awayTeam": {
+            "id": 559,
+            "name": "Sevilla FC",
+            "shortName": "Sevilla FC"
+          },
+          "score": {
+            "winner": "DRAW",
+            "duration": "REGULAR",
+            "fullTime": {
+              "home": 1,
               "away": 1
             },
             "halfTime": {
@@ -2276,29 +2524,29 @@
           "venue": null
         },
         {
-          "utcDate": "2026-08-24T19:30:00Z",
+          "utcDate": "2026-09-06T16:30:00Z",
           "status": "FINISHED",
-          "matchday": 2,
+          "matchday": 4,
           "homeTeam": {
-            "id": 84,
-            "name": "Málaga CF",
-            "shortName": "Málaga"
+            "id": 263,
+            "name": "Deportivo Alavés",
+            "shortName": "Alavés"
           },
           "awayTeam": {
-            "id": 560,
-            "name": "RC Deportivo La Coruña",
-            "shortName": "Deportivo"
+            "id": 79,
+            "name": "CA Osasuna",
+            "shortName": "Osasuna"
           },
           "score": {
-            "winner": "DRAW",
+            "winner": "HOME_TEAM",
             "duration": "REGULAR",
             "fullTime": {
-              "home": 1,
-              "away": 1
+              "home": 5,
+              "away": 2
             },
             "halfTime": {
-              "home": 1,
-              "away": 1
+              "home": 2,
+              "away": 0
             }
           },
           "competition": {
@@ -2307,13 +2555,13 @@
           "venue": null
         },
         {
-          "utcDate": "2026-08-24T17:30:00Z",
+          "utcDate": "2026-09-06T16:30:00Z",
           "status": "FINISHED",
-          "matchday": 2,
+          "matchday": 4,
           "homeTeam": {
-            "id": 79,
-            "name": "CA Osasuna",
-            "shortName": "Osasuna"
+            "id": 84,
+            "name": "Málaga CF",
+            "shortName": "Málaga"
           },
           "awayTeam": {
             "id": 88,
@@ -2338,13 +2586,13 @@
           "venue": null
         },
         {
-          "utcDate": "2026-08-23T19:30:00Z",
+          "utcDate": "2026-09-06T14:15:00Z",
           "status": "FINISHED",
-          "matchday": 2,
+          "matchday": 4,
           "homeTeam": {
-            "id": 285,
-            "name": "Elche CF",
-            "shortName": "Elche"
+            "id": 95,
+            "name": "Valencia CF",
+            "shortName": "Valencia"
           },
           "awayTeam": {
             "id": 81,
@@ -2369,18 +2617,111 @@
           "venue": null
         },
         {
-          "utcDate": "2026-08-23T17:30:00Z",
+          "utcDate": "2026-09-05T19:00:00Z",
           "status": "FINISHED",
-          "matchday": 2,
+          "matchday": 4,
           "homeTeam": {
-            "id": 82,
-            "name": "Getafe CF",
-            "shortName": "Getafe"
+            "id": 94,
+            "name": "Villarreal CF",
+            "shortName": "Villarreal"
+          },
+          "awayTeam": {
+            "id": 560,
+            "name": "RC Deportivo La Coruña",
+            "shortName": "Deportivo"
+          },
+          "score": {
+            "winner": "AWAY_TEAM",
+            "duration": "REGULAR",
+            "fullTime": {
+              "home": 2,
+              "away": 3
+            },
+            "halfTime": {
+              "home": 1,
+              "away": 1
+            }
+          },
+          "competition": {
+            "name": "Primera Division"
+          },
+          "venue": null
+        },
+        {
+          "utcDate": "2026-09-05T16:30:00Z",
+          "status": "FINISHED",
+          "matchday": 4,
+          "homeTeam": {
+            "id": 87,
+            "name": "Rayo Vallecano de Madrid",
+            "shortName": "Rayo Vallecano"
           },
           "awayTeam": {
             "id": 5335,
             "name": "Real Racing Club de Santander",
             "shortName": "Santander"
+          },
+          "score": {
+            "winner": "HOME_TEAM",
+            "duration": "REGULAR",
+            "fullTime": {
+              "home": 3,
+              "away": 2
+            },
+            "halfTime": {
+              "home": 2,
+              "away": 2
+            }
+          },
+          "competition": {
+            "name": "Primera Division"
+          },
+          "venue": null
+        },
+        {
+          "utcDate": "2026-09-05T14:15:00Z",
+          "status": "FINISHED",
+          "matchday": 4,
+          "homeTeam": {
+            "id": 77,
+            "name": "Athletic Club",
+            "shortName": "Athletic"
+          },
+          "awayTeam": {
+            "id": 78,
+            "name": "Club Atlético de Madrid",
+            "shortName": "Atleti"
+          },
+          "score": {
+            "winner": "HOME_TEAM",
+            "duration": "REGULAR",
+            "fullTime": {
+              "home": 3,
+              "away": 0
+            },
+            "halfTime": {
+              "home": 0,
+              "away": 0
+            }
+          },
+          "competition": {
+            "name": "Primera Division"
+          },
+          "venue": null
+        },
+        {
+          "utcDate": "2026-09-04T19:00:00Z",
+          "status": "FINISHED",
+          "matchday": 4,
+          "homeTeam": {
+            "id": 90,
+            "name": "Real Betis Balompié",
+            "shortName": "Real Betis"
+          },
+          "awayTeam": {
+            "id": 86,
+            "name": "Real Madrid CF",
+            "shortName": "Real Madrid"
           },
           "score": {
             "winner": "HOME_TEAM",
@@ -2400,75 +2741,13 @@
           "venue": null
         },
         {
-          "utcDate": "2026-08-23T15:00:00Z",
+          "utcDate": "2026-09-03T19:00:00Z",
           "status": "FINISHED",
-          "matchday": 2,
+          "matchday": 6,
           "homeTeam": {
-            "id": 78,
-            "name": "Club Atlético de Madrid",
-            "shortName": "Atleti"
-          },
-          "awayTeam": {
-            "id": 94,
-            "name": "Villarreal CF",
-            "shortName": "Villarreal"
-          },
-          "score": {
-            "winner": "DRAW",
-            "duration": "REGULAR",
-            "fullTime": {
-              "home": 2,
-              "away": 2
-            },
-            "halfTime": {
-              "home": 0,
-              "away": 0
-            }
-          },
-          "competition": {
-            "name": "Primera Division"
-          },
-          "venue": null
-        },
-        {
-          "utcDate": "2026-08-22T19:30:00Z",
-          "status": "FINISHED",
-          "matchday": 2,
-          "homeTeam": {
-            "id": 80,
-            "name": "RCD Espanyol de Barcelona",
-            "shortName": "Espanyol"
-          },
-          "awayTeam": {
-            "id": 86,
-            "name": "Real Madrid CF",
-            "shortName": "Real Madrid"
-          },
-          "score": {
-            "winner": "AWAY_TEAM",
-            "duration": "REGULAR",
-            "fullTime": {
-              "home": 1,
-              "away": 2
-            },
-            "halfTime": {
-              "home": 1,
-              "away": 1
-            }
-          },
-          "competition": {
-            "name": "Primera Division"
-          },
-          "venue": null
-        },
-        {
-          "utcDate": "2026-08-22T17:30:00Z",
-          "status": "FINISHED",
-          "matchday": 2,
-          "homeTeam": {
-            "id": 95,
-            "name": "Valencia CF",
-            "shortName": "Valencia"
+            "id": 92,
+            "name": "Real Sociedad de Fútbol",
+            "shortName": "Real Sociedad"
           },
           "awayTeam": {
             "id": 558,
@@ -2493,184 +2772,91 @@
           "venue": null
         },
         {
-          "utcDate": "2026-08-22T15:00:00Z",
+          "utcDate": "2026-08-31T19:30:00Z",
           "status": "FINISHED",
-          "matchday": 2,
+          "matchday": 3,
           "homeTeam": {
+            "id": 81,
+            "name": "FC Barcelona",
+            "shortName": "Barça"
+          },
+          "awayTeam": {
+            "id": 87,
+            "name": "Rayo Vallecano de Madrid",
+            "shortName": "Rayo Vallecano"
+          },
+          "score": {
+            "winner": "HOME_TEAM",
+            "duration": "REGULAR",
+            "fullTime": {
+              "home": 5,
+              "away": 2
+            },
+            "halfTime": {
+              "home": 2,
+              "away": 1
+            }
+          },
+          "competition": {
+            "name": "Primera Division"
+          },
+          "venue": null
+        },
+        {
+          "utcDate": "2026-08-31T17:30:00Z",
+          "status": "FINISHED",
+          "matchday": 3,
+          "homeTeam": {
+            "id": 79,
+            "name": "CA Osasuna",
+            "shortName": "Osasuna"
+          },
+          "awayTeam": {
+            "id": 82,
+            "name": "Getafe CF",
+            "shortName": "Getafe"
+          },
+          "score": {
+            "winner": "HOME_TEAM",
+            "duration": "REGULAR",
+            "fullTime": {
+              "home": 1,
+              "away": 0
+            },
+            "halfTime": {
+              "home": 1,
+              "away": 0
+            }
+          },
+          "competition": {
+            "name": "Primera Division"
+          },
+          "venue": null
+        },
+        {
+          "utcDate": "2026-08-30T19:30:00Z",
+          "status": "FINISHED",
+          "matchday": 3,
+          "homeTeam": {
+            "id": 558,
+            "name": "RC Celta de Vigo",
+            "shortName": "Celta"
+          },
+          "awayTeam": {
             "id": 77,
             "name": "Athletic Club",
             "shortName": "Athletic"
-          },
-          "awayTeam": {
-            "id": 559,
-            "name": "Sevilla FC",
-            "shortName": "Sevilla FC"
           },
           "score": {
             "winner": "AWAY_TEAM",
             "duration": "REGULAR",
             "fullTime": {
-              "home": 1,
-              "away": 3
+              "home": 0,
+              "away": 2
             },
             "halfTime": {
               "home": 0,
-              "away": 1
-            }
-          },
-          "competition": {
-            "name": "Primera Division"
-          },
-          "venue": null
-        },
-        {
-          "utcDate": "2026-08-21T19:00:00Z",
-          "status": "FINISHED",
-          "matchday": 2,
-          "homeTeam": {
-            "id": 90,
-            "name": "Real Betis Balompié",
-            "shortName": "Real Betis"
-          },
-          "awayTeam": {
-            "id": 92,
-            "name": "Real Sociedad de Fútbol",
-            "shortName": "Real Sociedad"
-          },
-          "score": {
-            "winner": "HOME_TEAM",
-            "duration": "REGULAR",
-            "fullTime": {
-              "home": 1,
-              "away": 0
-            },
-            "halfTime": {
-              "home": 0,
-              "away": 0
-            }
-          },
-          "competition": {
-            "name": "Primera Division"
-          },
-          "venue": null
-        },
-        {
-          "utcDate": "2026-08-20T19:00:00Z",
-          "status": "FINISHED",
-          "matchday": 2,
-          "homeTeam": {
-            "id": 87,
-            "name": "Rayo Vallecano de Madrid",
-            "shortName": "Rayo Vallecano"
-          },
-          "awayTeam": {
-            "id": 263,
-            "name": "Deportivo Alavés",
-            "shortName": "Alavés"
-          },
-          "score": {
-            "winner": "DRAW",
-            "duration": "REGULAR",
-            "fullTime": {
-              "home": 1,
-              "away": 1
-            },
-            "halfTime": {
-              "home": 0,
-              "away": 0
-            }
-          },
-          "competition": {
-            "name": "Primera Division"
-          },
-          "venue": null
-        },
-        {
-          "utcDate": "2026-08-19T19:00:00Z",
-          "status": "FINISHED",
-          "matchday": 1,
-          "homeTeam": {
-            "id": 78,
-            "name": "Club Atlético de Madrid",
-            "shortName": "Atleti"
-          },
-          "awayTeam": {
-            "id": 84,
-            "name": "Málaga CF",
-            "shortName": "Málaga"
-          },
-          "score": {
-            "winner": "HOME_TEAM",
-            "duration": "REGULAR",
-            "fullTime": {
-              "home": 2,
-              "away": 0
-            },
-            "halfTime": {
-              "home": 0,
-              "away": 0
-            }
-          },
-          "competition": {
-            "name": "Primera Division"
-          },
-          "venue": null
-        },
-        {
-          "utcDate": "2026-08-17T19:00:00Z",
-          "status": "FINISHED",
-          "matchday": 1,
-          "homeTeam": {
-            "id": 560,
-            "name": "RC Deportivo La Coruña",
-            "shortName": "Deportivo"
-          },
-          "awayTeam": {
-            "id": 285,
-            "name": "Elche CF",
-            "shortName": "Elche"
-          },
-          "score": {
-            "winner": "DRAW",
-            "duration": "REGULAR",
-            "fullTime": {
-              "home": 1,
-              "away": 1
-            },
-            "halfTime": {
-              "home": 1,
-              "away": 0
-            }
-          },
-          "competition": {
-            "name": "Primera Division"
-          },
-          "venue": null
-        },
-        {
-          "utcDate": "2026-08-16T17:00:00Z",
-          "status": "FINISHED",
-          "matchday": 1,
-          "homeTeam": {
-            "id": 80,
-            "name": "RCD Espanyol de Barcelona",
-            "shortName": "Espanyol"
-          },
-          "awayTeam": {
-            "id": 88,
-            "name": "Levante UD",
-            "shortName": "Levante"
-          },
-          "score": {
-            "winner": "HOME_TEAM",
-            "duration": "REGULAR",
-            "fullTime": {
-              "home": 3,
-              "away": 0
-            },
-            "halfTime": {
-              "home": 2,
-              "away": 0
+              "away": 2
             }
           },
           "competition": {
