@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Mr Eric's Lounge</title>
-<meta name="app-build" content="20260912203039">
+<meta name="app-build" content="20260912203906">
 <script>
   // PWA update-detection: an installed home-screen app's standalone-mode navigation
   // cache can hold an old shell far longer than the CDN's 10-minute cache -
@@ -222,6 +222,28 @@
      body.dark-mode (both classes present together) so they inherit dark-mode's base ink/text
      handling and only override the five accent/surface colors, placed after the dark-mode
      block so cascade order gives them priority. */
+  /* Vintage typewriter font: Bohemian Typewriter by Lukas Krakora (1001fonts). Flagged
+     to Mr Eric that this one is "free for personal use, not free for commercial use" per
+     the author's own license, unlike Propaganda (explicitly free for commercial use) -
+     he said use it anyway, so it's in, same direct-URL @font-face technique as the other
+     two custom fonts. Applied to both vintage themes (light "vintage" and dark
+     "dvintage"). Single static weight like Propaganda, so font-weight:normal !important
+     alongside it to avoid the same synthetic-bold-on-top-of-a-heavy-face problem the
+     Soviet theme hit. */
+  @font-face{
+    font-family:'BohemianTypewriter';
+    src:url('https://st.1001fonts.net/download/font/bohemian-typewriter.regular.ttf') format('truetype');
+    font-weight:normal;
+    font-style:normal;
+    font-display:swap;
+  }
+  body.usertheme-vintage:not(.dark-mode),
+  body.usertheme-vintage:not(.dark-mode) *,
+  body.dark-mode.usertheme-dvintage,
+  body.dark-mode.usertheme-dvintage *{
+    font-family:'BohemianTypewriter','Courier New',monospace !important;
+    font-weight:normal !important;
+  }
   /* Vintage - fully monochrome, no color anywhere, old-newspaper feel. Given the sheer
      number of places color shows up across this codebase (Arsenal's tile, IHL's orange,
      National Day's flag colors, category emoji, the animated tile-logo mark) manually
