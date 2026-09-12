@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Mr Eric's Lounge</title>
-<meta name="app-build" content="20260912194457">
+<meta name="app-build" content="20260912195813">
 <script>
   // PWA update-detection: an installed home-screen app's standalone-mode navigation
   // cache can hold an old shell far longer than the CDN's 10-minute cache -
@@ -900,25 +900,36 @@
     color:#FEFEFE !important;
   }
 
-  /* - Grand Bazaar: Istanbul market palette - saffron gold, ruby red, copper, and
-     Iznik-pottery turquoise, on a warm parchment/awning cream. Same light-background
-     architecture as Soviet Poster (every colour works both as text-on-cream and as a
-     white-text tile). The raw saffron and copper both failed contrast badly at their
-     natural market-stall brightness (saffron: 2.07 as text, 2.59 as a white-text tile -
-     both real fails) and needed deepening well past a "slightly darker" adjustment to
-     pass; the deepened versions still read clearly as saffron/copper, just closer to a
-     spice's dried, ground state than the raw threads. */
+  /* - Grand Bazaar, rebuilt from Mr Eric's own spice-market photos after the first
+     version read as muddy rather than vivid. The problem wasn't the colour choice, it
+     was the background: on a light cream page, genuinely vivid spice colours (a real
+     pixel-sampled burnt orange, curry gold, olive tea, dried-flower mauve) all measure
+     under 3:1 as text and under 4:1 as a white-text tile - not close, real fails - and
+     the only way to make them pass on cream is to darken them 50-70%, which is what
+     produced the muddy result. Pairing the SAME colours with a dark background instead
+     (the actual shadowed-stall look in the reference photos, not a bright page) needs
+     only a 10-20% darkening to pass white-text-on-tile, so they stay recognisably
+     vivid: burnt orange #DB5B0D -> #C5510B, curry gold #B87A0E -> #93610B, olive
+     #8B7429 -> #7D6824, dried-flower mauve #BE6D85 -> #98576A. Sumac #914334 and a
+     deep paprika red #6C0D07 needed no adjustment at all.
+
+     This reintroduces the exact same structural conflict Uzbekistan2 hit (--coral/
+     --teal/--gold/--coral-dark each used both as light-needing text and dark-needing
+     tile fills elsewhere in the codebase) and is resolved the same way: each variable
+     set to whichever role dominates its call sites, with an explicit override for
+     every call site on the losing side. Same ~30 call sites as Uzbekistan2, same file,
+     just Grand-Bazaar colours in place of Uzbekistan2's. */
   body.usertheme-bazaar:not(.dark-mode){
-    --cream:#F2E4C8; --cream-2:#F2E4C8; --card:#F2E4C8;
-    --ink:#2B1D0E; --ink-soft:#9B1B30;
-    --coral:#9B1B30; --coral-dark:#2B1D0E; --gold:#7A5209; --teal:#0F6E75;
-    --line:rgba(122,82,9,.3);
-    --board-bg:rgba(155,27,48,.55);
+    --cream:#2B1D14; --cream-2:#2B1D14; --card:#2B1D14;
+    --ink:#FEFEFE; --ink-soft:#F0D6A0;
+    --coral:#6C0D07; --coral-dark:#F0D6A0; --gold:#F0D6A0; --teal:#F0D6A0;
+    --line:rgba(240,214,160,.3);
+    --board-bg:rgba(197,81,11,.55);
   }
   body.usertheme-bazaar:not(.dark-mode) .aurora-layer{ opacity:0; }
   body.usertheme-bazaar:not(.dark-mode) header{
-    background:#9B1B30;
-    border-bottom:4px solid #7A5209;
+    background:#C5510B;
+    border-bottom:4px solid #6C0D07;
   }
   body.usertheme-bazaar:not(.dark-mode) header::before,
   body.usertheme-bazaar:not(.dark-mode) header::after{ content:none; }
@@ -929,43 +940,49 @@
   }
   body.usertheme-bazaar:not(.dark-mode) header .search-icon-btn,
   body.usertheme-bazaar:not(.dark-mode) header .search-icon-btn *{
-    color:#9B1B30 !important;
+    color:#FEFEFE !important;
   }
   body.usertheme-bazaar:not(.dark-mode) .faculties .fac-tile:not(.all):nth-child(4n+1){
-    background:#9B1B30 !important;
+    background:#C5510B !important;
   }
   body.usertheme-bazaar:not(.dark-mode) .faculties .fac-tile:not(.all):nth-child(4n+2){
-    background:#7D411F !important;
+    background:#914334 !important;
   }
   body.usertheme-bazaar:not(.dark-mode) .faculties .fac-tile:not(.all):nth-child(4n+3){
-    background:#0F6E75 !important;
+    background:#7D6824 !important;
   }
   body.usertheme-bazaar:not(.dark-mode) .faculties .fac-tile:not(.all):nth-child(4n+4){
-    background:#7A5209 !important;
+    background:#98576A !important;
   }
   body.usertheme-bazaar:not(.dark-mode) .fac-tile.all{
-    background:#2B1D0E !important;
+    background:#6C0D07 !important;
   }
+  /* Every one of these tiles measures under 3.6:1 edge-contrast against the dark page
+     on its own - a real risk of vanishing into the background, same lesson as before -
+     so a bright, clearly visible border is not optional here. */
   body.usertheme-bazaar:not(.dark-mode) .fac-tile{
-    border:1.5px solid rgba(43,29,14,.35) !important;
+    border:2px solid rgba(240,214,160,.7) !important;
   }
   body.usertheme-bazaar:not(.dark-mode) .sport-hub-tile,
   body.usertheme-bazaar:not(.dark-mode) .sports-tile,
   body.usertheme-bazaar:not(.dark-mode) .sports-card{
-    background:#9B1B30 !important;
+    background:#C5510B !important;
+    border:2px solid rgba(240,214,160,.7) !important;
   }
   body.usertheme-bazaar:not(.dark-mode) .goodnews-tile,
   body.usertheme-bazaar:not(.dark-mode) .watch-tile,
   body.usertheme-bazaar:not(.dark-mode) .watch-card,
   body.usertheme-bazaar:not(.dark-mode) .otd-card{
-    background:#7D411F !important;
+    background:#914334 !important;
+    border:2px solid rgba(240,214,160,.5) !important;
   }
   body.usertheme-bazaar:not(.dark-mode) .books-tile,
   body.usertheme-bazaar:not(.dark-mode) .mindtemple-tile,
   body.usertheme-bazaar:not(.dark-mode) .explore-tile,
   body.usertheme-bazaar:not(.dark-mode) .explore-card,
   body.usertheme-bazaar:not(.dark-mode) .page-result{
-    background:#0F6E75 !important;
+    background:#7D6824 !important;
+    border:2px solid rgba(240,214,160,.5) !important;
   }
   body.usertheme-bazaar:not(.dark-mode) .bday-tile-card,
   body.usertheme-bazaar:not(.dark-mode) .random-tile,
@@ -973,7 +990,8 @@
   body.usertheme-bazaar:not(.dark-mode) .empty-card,
   body.usertheme-bazaar:not(.dark-mode) .photo-tile,
   body.usertheme-bazaar:not(.dark-mode) .sotw-card{
-    background:#7A5209 !important;
+    background:#98576A !important;
+    border:2px solid rgba(240,214,160,.5) !important;
   }
   body.usertheme-bazaar:not(.dark-mode) .fac-tile,
   body.usertheme-bazaar:not(.dark-mode) .fac-tile *,
@@ -1013,6 +1031,51 @@
   body.usertheme-bazaar:not(.dark-mode) .photo-tile *,
   body.usertheme-bazaar:not(.dark-mode) .sotw-card,
   body.usertheme-bazaar:not(.dark-mode) .sotw-card *{
+    color:#FEFEFE !important;
+  }
+
+  /* --- Targeted overrides: same ~30 call sites audited for Uzbekistan2, reapplied
+     here with Grand Bazaar's colours. --- */
+
+  /* --coral text call-sites (variable is dark red, background-role-optimised) */
+  body.usertheme-bazaar:not(.dark-mode) .random-btn:hover,
+  body.usertheme-bazaar:not(.dark-mode) .domain-summary:hover h2,
+  body.usertheme-bazaar:not(.dark-mode) a.headline:hover,
+  body.usertheme-bazaar:not(.dark-mode) .share-btn:hover,
+  body.usertheme-bazaar:not(.dark-mode) .rec-item a:hover,
+  body.usertheme-bazaar:not(.dark-mode) .wordle-message,
+  body.usertheme-bazaar:not(.dark-mode) .anagram-message,
+  body.usertheme-bazaar:not(.dark-mode) .page-result-icon,
+  body.usertheme-bazaar:not(.dark-mode) .bday-item.bday-cat-staff .bday-name,
+  body.usertheme-bazaar:not(.dark-mode) .bottom-tabs a:hover,
+  body.usertheme-bazaar:not(.dark-mode) .explore-card-name,
+  body.usertheme-bazaar:not(.dark-mode) .question-item div:nth-child(3){
+    color:#F0D6A0 !important;
+  }
+
+  /* --coral-dark background call-site (variable is pale cream, text-role-optimised) */
+  body.usertheme-bazaar:not(.dark-mode) .install-step-num{
+    background:#6C0D07 !important;
+  }
+
+  /* --gold background call-sites (variable is pale cream, text-role-optimised) */
+  body.usertheme-bazaar:not(.dark-mode) .bookmark-btn.active,
+  body.usertheme-bazaar:not(.dark-mode) .fg-bonus-tag,
+  body.usertheme-bazaar:not(.dark-mode) .bday-item.today{
+    background:#93610B !important;
+    color:#FEFEFE !important;
+  }
+  body.usertheme-bazaar:not(.dark-mode) .bday-item.today .bday-name,
+  body.usertheme-bazaar:not(.dark-mode) .bday-item.today .bday-date{
+    color:#FEFEFE !important;
+  }
+
+  /* --teal background call-sites (variable is pale cream, text-role-optimised) */
+  body.usertheme-bazaar:not(.dark-mode) .fg-option-btn.fg-correct,
+  body.usertheme-bazaar:not(.dark-mode) .anagram-btn.check,
+  body.usertheme-bazaar:not(.dark-mode) .hanoi-disc[data-size="3"],
+  body.usertheme-bazaar:not(.dark-mode) .event-cat-badge{
+    background:#7D6824 !important;
     color:#FEFEFE !important;
   }
 
@@ -24249,7 +24312,7 @@ const COMPLIMENTS = [
     { key:'arsenal2', label:'Arsenal 2', c1:'#2E375D', c2:'#C9A542' },
     { key:'uzbekistan2', label:'Uzbekistan 2', c1:'#1B3F8B', c2:'#0F6E75' },
     { key:'soviet', label:'Soviet Poster', c1:'#C10000', c2:'#1A1614' },
-    { key:'bazaar', label:'Grand Bazaar', c1:'#9B1B30', c2:'#7A5209' },
+    { key:'bazaar', label:'Grand Bazaar', c1:'#C5510B', c2:'#93610B' },
     { key:'darsenal', label:'Arsenal (Dark)', c1:'#EC0024', c2:'#99824C' },
     { key:'vintage', label:'Vintage', c1:'#333333', c2:'#999999' },
     { key:'dvintage', label:'Vintage (Dark)', c1:'#CCCCCC', c2:'#666666' },
