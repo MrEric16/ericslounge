@@ -1,5 +1,5 @@
 {
-  "curatedAt": "2026-09-05",
+  "curatedAt": "2026-09-12",
   "note": "Manually curated and vetted by Claude per Mr Eric's strict content rules (free, educational, non-controversial, teen-appropriate, zero tolerance for banned topics). Refreshed on request, not auto-scraped -- this content type requires human judgment per-item, unlike the Tashkent ticketing feed.",
   "dated": [
     {
@@ -10,6 +10,15 @@
       "time": "7:00 AM ET",
       "category": "Space",
       "url": "https://www.nasa.gov/live/"
+    },
+    {
+      "title": "The Blackstone Law Review Competition",
+      "org": "The Blackstone Law Review (Cambridge-affiliated)",
+      "description": "Free, international legal research and writing competition open to high school and undergraduate students. Not moot court or mock trial - this tests legal research and writing, the skill law reviews and judicial clerkships actually select for. Register any time from 1 Sep 2026 to get your case packet immediately; no timed window, no live event - papers are due 31 Mar 2027. Blind judging against a published rubric, cash prizes, and publication in The Blackstone Law Review for winners.",
+      "startDate": "2026-09-01",
+      "time": "Registration open now, no fixed window - papers due 31 March 2027",
+      "category": "Jurisprudence",
+      "url": "https://theblackstonereview.org/"
     },
     {
       "title": "Future-Proof Your Chemistry Career for 2030",
@@ -354,6 +363,15 @@
       "url": "https://www.ayhc.com/virtual-fair"
     },
     {
+      "title": "Harvard Student Agencies Case Competition (HSACC) 2026",
+      "org": "Harvard Student Agencies",
+      "description": "Individual business case competition for high schoolers worldwide (enrolled as of Dec 31, 2026). Build a strategy deck, pitch to real judges. Free prep workshops Sep 18/26 and Oct 10; registration open now through Oct 17 ($5-15 depending on when you register); Round 1 submission deadline Oct 31; final results Dec 6. Cash prizes + Ladder Internships scholarships up to $4,690.",
+      "startDate": "2026-09-18",
+      "time": "Ongoing through Oct 17 registration deadline",
+      "category": "Business",
+      "url": "https://highschoolcasecomp.org/"
+    },
+    {
       "title": "Blood, Guts and Nasty Cuts — Family",
       "org": null,
       "description": null,
@@ -507,6 +525,24 @@
       "url": "https://www.nasa.gov/learning-resources/for-students-grades-9-12/"
     },
     {
+      "title": "Harvard International Economics Essay Contest (HIEEC) 2026-27",
+      "org": "Harvard Undergraduate Economics Association",
+      "description": "Free international economics essay contest for high school students (grades 9-12) worldwide. Choose one of several economics prompts and write a focused ~1,500-word essay. Every entry is read by the HUEA board; the strongest are judged by a Harvard economics professor (past judges include a Nobel laureate). Winning essays get published; finalists and highly-commended entrants are recognized by name. NOTE: as of this writing the 2026-27 edition has not opened yet - Harvard's own page lists dates as tentative (prompts released Oct-Nov, submission deadline January, results in spring). Check thehuea.org closer to October for the confirmed opening date before relying on this.",
+      "startDate": "2026-10-01",
+      "time": "Not yet open - tentatively prompts in Oct-Nov, deadline January (dates unconfirmed)",
+      "category": "Economics",
+      "url": "https://www.thehuea.org/competitions/hieec"
+    },
+    {
+      "title": "World Artificial Intelligence Competition for Youth (WAICY) 2026",
+      "org": "Ready AI",
+      "description": "Free global AI competition for students ages 6-18, individual or team. Choose a track: AI Showcase (build a project solving a real-world problem), AI-Generated Art, AI Large Language Model, or AI-Generated Video. No prerequisites or robot/hardware needed - open platform for any AI learning experience. Large and long-running (74,000+ students, 47,000+ teams, 103 countries in 2025), and Uzbekistan is already among WAICY's partner countries. NOTE: as of this writing, WAICY 2026 registration has not opened yet - the official site only offers \"notify me\" sign-up with no confirmed open date.",
+      "startDate": "2026-10-01",
+      "time": "Registration not yet open - sign up for notification, no confirmed date yet",
+      "category": "Technology / IT",
+      "url": "https://www.waicy.org/"
+    },
+    {
       "title": "ICRGU Virtual Hackathon 2026 (through 9 October 2026)",
       "org": null,
       "description": null,
@@ -604,6 +640,15 @@
       "time": "23:00 Tashkent",
       "category": "culture",
       "url": "https://www.roadscholar.org/find-an-adventure/24526/Online-Lecture-Santa-Muerte-The-Day-of-the-Dead"
+    },
+    {
+      "title": "Lumiere Scholars Essay Award 2026",
+      "org": "Lumiere Education",
+      "description": "Free global argumentative essay competition open to high school students from any country (enrolled as of Dec 31, 2026). Choose one of six prompts across three categories - Humanities, STEM, Social Sciences - and write a formal academic essay judged by professors from Oxford, Cambridge, Cornell and Dartmouth. Submissions open now through Nov 2 deadline; winners announced Dec 16. Six winners split $20,500 in cash prizes and scholarships.",
+      "startDate": "2026-11-02",
+      "time": "Submissions open now, deadline Nov 2, winners Dec 16",
+      "category": "History / Humanities",
+      "url": "https://www.lumiere-education.com/lumiere-scholars-essay-award"
     },
     {
       "title": "Florida's Gentle Giants: Protecting Manatees",
