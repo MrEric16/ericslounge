@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-12T19:56:54.661191Z",
+  "generatedAt": "2026-09-12T21:54:54.875540Z",
   "results": [
     {
       "url": "https://www.goal.com/en/match/girona-vs-arsenal/__LS8d9Oc6I1wXn9g8956",
@@ -5928,17 +5928,336 @@
         }
       ],
       "competition": "BL1"
+    },
+    {
+      "url": "https://www.goal.com/en/match/afc-bournemouth-vs-brentford/S5OKGP9DZ3KjwyIFcK06y",
+      "date": null,
+      "home": "Afc Bournemouth",
+      "away": "Brentford",
+      "htHome": 1,
+      "htAway": 1,
+      "ftHome": 2,
+      "ftAway": 2,
+      "homeGoals": [
+        {
+          "scorer": "J. Kluivert",
+          "minute": 38
+        },
+        {
+          "scorer": "M. Tavernier",
+          "minute": 52
+        }
+      ],
+      "awayGoals": [
+        {
+          "scorer": "K. Schade",
+          "minute": 34
+        }
+      ],
+      "competition": "PL"
+    },
+    {
+      "url": "https://www.goal.com/en/match/chelsea-vs-hull-city/sf34-VeBGJZV0MkmnLRwZ",
+      "date": null,
+      "home": "Chelsea",
+      "away": "Hull City",
+      "htHome": 1,
+      "htAway": 2,
+      "ftHome": 2,
+      "ftAway": 2,
+      "homeGoals": [
+        {
+          "scorer": "M. Rogers",
+          "minute": 7
+        },
+        {
+          "scorer": "J. Pedro",
+          "minute": 66
+        }
+      ],
+      "awayGoals": [
+        {
+          "scorer": "M. Belloumi",
+          "minute": 28
+        }
+      ],
+      "competition": "PL"
+    },
+    {
+      "url": "https://www.goal.com/en/match/sunderland-vs-arsenal/c8bkvwAzpfwfqLxwNk4uu",
+      "date": null,
+      "home": "Sunderland",
+      "away": "Arsenal",
+      "htHome": 0,
+      "htAway": 0,
+      "ftHome": 0,
+      "ftAway": 2,
+      "homeGoals": [],
+      "awayGoals": [
+        {
+          "scorer": "B. Guimaraes",
+          "minute": 58
+        },
+        {
+          "scorer": "B. Saka",
+          "minute": 90
+        }
+      ],
+      "competition": "PL"
+    },
+    {
+      "url": "https://www.goal.com/en/match/osasuna-vs-espanyol/WzK-gU-bYMDziDpYFmoWJ",
+      "date": null,
+      "home": "Osasuna",
+      "away": "Espanyol",
+      "htHome": 0,
+      "htAway": 2,
+      "ftHome": 0,
+      "ftAway": 2,
+      "homeGoals": [],
+      "awayGoals": [
+        {
+          "scorer": "R. Fernandez",
+          "minute": 3
+        }
+      ],
+      "competition": "PD"
+    },
+    {
+      "url": "https://www.goal.com/en/match/hoffenheim-vs-vfb-stuttgart/EO224FUoX98HZEVidlKXH",
+      "date": null,
+      "home": "Hoffenheim",
+      "away": "Vfb Stuttgart",
+      "htHome": 1,
+      "htAway": 0,
+      "ftHome": 2,
+      "ftAway": 1,
+      "homeGoals": [
+        {
+          "scorer": "A. Hlozek",
+          "minute": 13
+        }
+      ],
+      "awayGoals": [
+        {
+          "scorer": "M. Mittelstaedt",
+          "minute": 48
+        }
+      ],
+      "competition": "BL1"
+    },
+    {
+      "url": "https://www.goal.com/en/match/freiburg-vs-borussia-moenchengladbach/5dheouRu191iHNvjUU6Nm",
+      "date": null,
+      "home": "Freiburg",
+      "away": "Borussia Moenchengladbach",
+      "htHome": 2,
+      "htAway": 0,
+      "ftHome": 5,
+      "ftAway": 0,
+      "homeGoals": [
+        {
+          "scorer": "Y. Engelhardt",
+          "minute": 23
+        },
+        {
+          "scorer": "I. Matanovic",
+          "minute": 29
+        },
+        {
+          "scorer": "M. Eggestein",
+          "minute": 86
+        }
+      ],
+      "awayGoals": [],
+      "competition": "BL1"
+    },
+    {
+      "url": "https://www.goal.com/en/match/mainz-05-vs-eintracht-frankfurt/TmzzY95sxlwXg_jvz2k74",
+      "date": null,
+      "home": "Mainz 05",
+      "away": "Eintracht Frankfurt",
+      "htHome": 0,
+      "htAway": 2,
+      "ftHome": 1,
+      "ftAway": 3,
+      "homeGoals": [
+        {
+          "scorer": "P. Tietz",
+          "minute": 89
+        }
+      ],
+      "awayGoals": [
+        {
+          "scorer": "C. Uzun",
+          "minute": 9
+        },
+        {
+          "scorer": "J. Burkardt",
+          "minute": 45
+        }
+      ],
+      "competition": "BL1"
+    },
+    {
+      "url": "https://www.goal.com/en/match/augsburg-vs-bayer-leverkusen/RHupm8O3cuc0zxsbidDvW",
+      "date": null,
+      "home": "Augsburg",
+      "away": "Bayer Leverkusen",
+      "htHome": 0,
+      "htAway": 1,
+      "ftHome": 2,
+      "ftAway": 2,
+      "homeGoals": [
+        {
+          "scorer": "M. Gregoritsch",
+          "minute": 50
+        }
+      ],
+      "awayGoals": [
+        {
+          "scorer": "C. Kofane",
+          "minute": 18
+        },
+        {
+          "scorer": "P. Schick",
+          "minute": 89
+        }
+      ],
+      "competition": "BL1"
+    },
+    {
+      "url": "https://www.goal.com/en/match/lazio-vs-ac-milan/mm8P_b7I991fgmrhJ6EAV",
+      "date": null,
+      "home": "Lazio",
+      "away": "Ac Milan",
+      "htHome": 2,
+      "htAway": 0,
+      "ftHome": 2,
+      "ftAway": 2,
+      "homeGoals": [
+        {
+          "scorer": "M. Cancellieri",
+          "minute": 10
+        },
+        {
+          "scorer": "T. Noslin",
+          "minute": 39
+        }
+      ],
+      "awayGoals": [
+        {
+          "scorer": "D. Moreira",
+          "minute": 65
+        }
+      ],
+      "competition": "SA"
+    },
+    {
+      "url": "https://www.goal.com/en/match/atalanta-vs-cagliari/kI3DqRW9nGcYMlE9TTUfa",
+      "date": null,
+      "home": "Atalanta",
+      "away": "Cagliari",
+      "htHome": 1,
+      "htAway": 1,
+      "ftHome": 1,
+      "ftAway": 2,
+      "homeGoals": [
+        {
+          "scorer": "G. Scamacca",
+          "minute": 41
+        }
+      ],
+      "awayGoals": [
+        {
+          "scorer": "P. Mendy",
+          "minute": 19
+        },
+        {
+          "scorer": "D. Maldini",
+          "minute": 61
+        }
+      ],
+      "competition": "SA"
+    },
+    {
+      "url": "https://www.goal.com/en/match/auxerre-vs-nice/YI2BsKoXJ7Kcqb6wxR2FR",
+      "date": null,
+      "home": "Auxerre",
+      "away": "Nice",
+      "htHome": 0,
+      "htAway": 0,
+      "ftHome": 1,
+      "ftAway": 0,
+      "homeGoals": [
+        {
+          "scorer": "C. Archer",
+          "minute": 74
+        }
+      ],
+      "awayGoals": [],
+      "competition": "FL1"
+    },
+    {
+      "url": "https://www.goal.com/en/match/lorient-vs-toulouse/tS8HDdj-vLkFUizCk6BUY",
+      "date": null,
+      "home": "Lorient",
+      "away": "Toulouse",
+      "htHome": 2,
+      "htAway": 0,
+      "ftHome": 2,
+      "ftAway": 2,
+      "homeGoals": [
+        {
+          "scorer": "I. Balde",
+          "minute": 37
+        },
+        {
+          "scorer": "N. Mbamba",
+          "minute": 39
+        }
+      ],
+      "awayGoals": [
+        {
+          "scorer": "C. Tengstedt",
+          "minute": 48
+        },
+        {
+          "scorer": "T. Joergensen",
+          "minute": 68
+        }
+      ],
+      "competition": "FL1"
+    },
+    {
+      "url": "https://www.goal.com/en/match/le-havre-vs-angers/Gcinf7cXVOCH1fQudLHEs",
+      "date": null,
+      "home": "Le Havre",
+      "away": "Angers",
+      "htHome": 0,
+      "htAway": 0,
+      "ftHome": 0,
+      "ftAway": 0,
+      "homeGoals": [],
+      "awayGoals": [],
+      "competition": "FL1"
+    },
+    {
+      "url": "https://www.goal.com/en/match/paris-fc-vs-lyon/lqhG09o58lfMZBZ_YCS2E",
+      "date": null,
+      "home": "Paris Fc",
+      "away": "Lyon",
+      "htHome": 0,
+      "htAway": 0,
+      "ftHome": 0,
+      "ftAway": 0,
+      "homeGoals": [],
+      "awayGoals": [],
+      "competition": "FL1"
     }
   ],
   "scorerParseRetryCounts": {
     "https://www.goal.com/en/match/slavia-prague-vs-lens/8tl536s9YeGCuVkrI5O7Y": 2,
-    "https://www.goal.com/en/match/chelsea-vs-hull-city/sf34-VeBGJZV0MkmnLRwZ": 2,
-    "https://www.goal.com/en/match/afc-bournemouth-vs-brentford/S5OKGP9DZ3KjwyIFcK06y": 2,
-    "https://www.goal.com/en/match/osasuna-vs-espanyol/WzK-gU-bYMDziDpYFmoWJ": 2,
-    "https://www.goal.com/en/match/freiburg-vs-borussia-moenchengladbach/5dheouRu191iHNvjUU6Nm": 2,
-    "https://www.goal.com/en/match/mainz-05-vs-eintracht-frankfurt/TmzzY95sxlwXg_jvz2k74": 2,
-    "https://www.goal.com/en/match/augsburg-vs-bayer-leverkusen/RHupm8O3cuc0zxsbidDvW": 2,
-    "https://www.goal.com/en/match/hoffenheim-vs-vfb-stuttgart/EO224FUoX98HZEVidlKXH": 2,
-    "https://www.goal.com/en/match/lazio-vs-ac-milan/mm8P_b7I991fgmrhJ6EAV": 2
+    "https://www.goal.com/en/match/real-madrid-vs-rayo-vallecano/NAdYQGt3M_ZuU0agZUaez": 2
   }
 }
