@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Mr Eric's Lounge</title>
-<meta name="app-build" content="20260912203906">
+<meta name="app-build" content="20260912210738">
 <script>
   // PWA update-detection: an installed home-screen app's standalone-mode navigation
   // cache can hold an old shell far longer than the CDN's 10-minute cache -
@@ -1149,6 +1149,194 @@
   body.usertheme-bazaar:not(.dark-mode) .event-cat-badge{
     background:#7D6824 !important;
     color:#FEFEFE !important;
+  }
+
+  /* - Hacker: terminal-green-on-black. Font is Terminal Vision (1001fonts, HipFonts) -
+     same "free for personal use, not free for commercial use" situation as Bohemian
+     Typewriter; flagged, Mr Eric said proceed regardless, same call as last time.
+
+     Same structural conflict as Uzbekistan2/Grand Bazaar/Soviet (--coral/--teal/--gold/
+     --coral-dark each used both as light-needing text and dark-needing tile fills
+     elsewhere in the codebase, because --card is dark here too) - same ~30 call-site
+     audit, same resolution.
+
+     Two of the four tile colours are bright enough that phosphor-green text on them
+     fails badly (neon green tile: 1.59:1, real fail) and need black text instead - which
+     doubles as an authentic terminal touch: those two read like an active/selected
+     terminal line (inverted colours), the other two read like dim background panels
+     (green text on dark green), matching how real terminals actually distinguish
+     focused vs. unfocused text. */
+  @font-face{
+    font-family:'TerminalVision';
+    src:url('https://st.1001fonts.net/download/font/terminal-vision.regular.otf') format('opentype');
+    font-weight:normal;
+    font-style:normal;
+    font-display:swap;
+  }
+  body.usertheme-hacker:not(.dark-mode),
+  body.usertheme-hacker:not(.dark-mode) *{
+    font-family:'TerminalVision','Courier New',monospace !important;
+    font-weight:normal !important;
+  }
+  body.usertheme-hacker:not(.dark-mode){
+    --cream:#0A0A0A; --cream-2:#0A0A0A; --card:#0A3D18;
+    --ink:#33FF33; --ink-soft:#2ABF4E;
+    --coral:#0F5C24; --coral-dark:#33FF33; --gold:#33FF33; --teal:#33FF33;
+    --line:rgba(51,255,51,.3);
+    --board-bg:rgba(0,204,65,.55);
+  }
+  body.usertheme-hacker:not(.dark-mode) .aurora-layer{ opacity:0; }
+  body.usertheme-hacker:not(.dark-mode) header{
+    background:#00CC41;
+    border-bottom:4px solid #33FF33;
+  }
+  body.usertheme-hacker:not(.dark-mode) header::before,
+  body.usertheme-hacker:not(.dark-mode) header::after{ content:none; }
+  body.usertheme-hacker:not(.dark-mode) header,
+  body.usertheme-hacker:not(.dark-mode) header *{
+    color:#0A0A0A;
+    text-shadow:none;
+  }
+  body.usertheme-hacker:not(.dark-mode) header .search-icon-btn,
+  body.usertheme-hacker:not(.dark-mode) header .search-icon-btn *{
+    color:#33FF33 !important;
+  }
+  body.usertheme-hacker:not(.dark-mode) .faculties .fac-tile:not(.all):nth-child(4n+1){
+    background:#0F5C24 !important;
+  }
+  body.usertheme-hacker:not(.dark-mode) .faculties .fac-tile:not(.all):nth-child(4n+2){
+    background:#00CC41 !important;
+  }
+  body.usertheme-hacker:not(.dark-mode) .faculties .fac-tile:not(.all):nth-child(4n+3){
+    background:#0A3D18 !important;
+  }
+  body.usertheme-hacker:not(.dark-mode) .faculties .fac-tile:not(.all):nth-child(4n+4){
+    background:#1C9A40 !important;
+  }
+  body.usertheme-hacker:not(.dark-mode) .fac-tile.all{
+    background:#051A0C !important;
+  }
+  /* All four tiles measure under 5.5:1 edge-contrast against black on their own (two
+     well under) - bright green border guarantees a visible edge regardless. */
+  body.usertheme-hacker:not(.dark-mode) .fac-tile{
+    border:1.5px solid rgba(51,255,51,.5) !important;
+  }
+  body.usertheme-hacker:not(.dark-mode) .sport-hub-tile,
+  body.usertheme-hacker:not(.dark-mode) .sports-tile,
+  body.usertheme-hacker:not(.dark-mode) .sports-card{
+    background:#0F5C24 !important;
+    border:1.5px solid rgba(51,255,51,.5) !important;
+  }
+  body.usertheme-hacker:not(.dark-mode) .goodnews-tile,
+  body.usertheme-hacker:not(.dark-mode) .watch-tile,
+  body.usertheme-hacker:not(.dark-mode) .watch-card,
+  body.usertheme-hacker:not(.dark-mode) .otd-card{
+    background:#00CC41 !important;
+  }
+  body.usertheme-hacker:not(.dark-mode) .books-tile,
+  body.usertheme-hacker:not(.dark-mode) .mindtemple-tile,
+  body.usertheme-hacker:not(.dark-mode) .explore-tile,
+  body.usertheme-hacker:not(.dark-mode) .explore-card,
+  body.usertheme-hacker:not(.dark-mode) .page-result{
+    background:#0A3D18 !important;
+  }
+  body.usertheme-hacker:not(.dark-mode) .bday-tile-card,
+  body.usertheme-hacker:not(.dark-mode) .random-tile,
+  body.usertheme-hacker:not(.dark-mode) .rec-item,
+  body.usertheme-hacker:not(.dark-mode) .empty-card,
+  body.usertheme-hacker:not(.dark-mode) .photo-tile,
+  body.usertheme-hacker:not(.dark-mode) .sotw-card{
+    background:#1C9A40 !important;
+  }
+  /* Groups 1 & 3 (dark green) pass with phosphor-green text. Groups 2 & 4 (brighter
+     green) fail badly with green text and need black instead - applied after the
+     blanket rule below so it wins the tie. */
+  body.usertheme-hacker:not(.dark-mode) .fac-tile,
+  body.usertheme-hacker:not(.dark-mode) .fac-tile *,
+  body.usertheme-hacker:not(.dark-mode) .sport-hub-tile,
+  body.usertheme-hacker:not(.dark-mode) .sport-hub-tile *,
+  body.usertheme-hacker:not(.dark-mode) .sports-tile,
+  body.usertheme-hacker:not(.dark-mode) .sports-tile *,
+  body.usertheme-hacker:not(.dark-mode) .sports-card,
+  body.usertheme-hacker:not(.dark-mode) .sports-card *,
+  body.usertheme-hacker:not(.dark-mode) .books-tile,
+  body.usertheme-hacker:not(.dark-mode) .books-tile *,
+  body.usertheme-hacker:not(.dark-mode) .mindtemple-tile,
+  body.usertheme-hacker:not(.dark-mode) .mindtemple-tile *,
+  body.usertheme-hacker:not(.dark-mode) .explore-tile,
+  body.usertheme-hacker:not(.dark-mode) .explore-tile *,
+  body.usertheme-hacker:not(.dark-mode) .explore-card,
+  body.usertheme-hacker:not(.dark-mode) .explore-card *,
+  body.usertheme-hacker:not(.dark-mode) .page-result,
+  body.usertheme-hacker:not(.dark-mode) .page-result *{
+    color:#33FF33 !important;
+  }
+  body.usertheme-hacker:not(.dark-mode) .goodnews-tile,
+  body.usertheme-hacker:not(.dark-mode) .goodnews-tile *,
+  body.usertheme-hacker:not(.dark-mode) .watch-tile,
+  body.usertheme-hacker:not(.dark-mode) .watch-tile *,
+  body.usertheme-hacker:not(.dark-mode) .watch-card,
+  body.usertheme-hacker:not(.dark-mode) .watch-card *,
+  body.usertheme-hacker:not(.dark-mode) .otd-card,
+  body.usertheme-hacker:not(.dark-mode) .otd-card *,
+  body.usertheme-hacker:not(.dark-mode) .bday-tile-card,
+  body.usertheme-hacker:not(.dark-mode) .bday-tile-card *,
+  body.usertheme-hacker:not(.dark-mode) .random-tile,
+  body.usertheme-hacker:not(.dark-mode) .random-tile *,
+  body.usertheme-hacker:not(.dark-mode) .rec-item,
+  body.usertheme-hacker:not(.dark-mode) .rec-item *,
+  body.usertheme-hacker:not(.dark-mode) .empty-card,
+  body.usertheme-hacker:not(.dark-mode) .empty-card *,
+  body.usertheme-hacker:not(.dark-mode) .photo-tile,
+  body.usertheme-hacker:not(.dark-mode) .photo-tile *,
+  body.usertheme-hacker:not(.dark-mode) .sotw-card,
+  body.usertheme-hacker:not(.dark-mode) .sotw-card *{
+    color:#0A0A0A !important;
+  }
+
+  /* --- Targeted overrides: same ~30 call sites audited for the previous three themes,
+     reapplied here with Hacker's colours. --- */
+
+  /* --coral text call-sites (variable is dark green, background-role-optimised) */
+  body.usertheme-hacker:not(.dark-mode) .random-btn:hover,
+  body.usertheme-hacker:not(.dark-mode) .domain-summary:hover h2,
+  body.usertheme-hacker:not(.dark-mode) a.headline:hover,
+  body.usertheme-hacker:not(.dark-mode) .share-btn:hover,
+  body.usertheme-hacker:not(.dark-mode) .rec-item a:hover,
+  body.usertheme-hacker:not(.dark-mode) .wordle-message,
+  body.usertheme-hacker:not(.dark-mode) .anagram-message,
+  body.usertheme-hacker:not(.dark-mode) .page-result-icon,
+  body.usertheme-hacker:not(.dark-mode) .bday-item.bday-cat-staff .bday-name,
+  body.usertheme-hacker:not(.dark-mode) .bottom-tabs a:hover,
+  body.usertheme-hacker:not(.dark-mode) .explore-card-name,
+  body.usertheme-hacker:not(.dark-mode) .question-item div:nth-child(3){
+    color:#33FF33 !important;
+  }
+
+  /* --coral-dark background call-site (variable is phosphor green, text-role-optimised) */
+  body.usertheme-hacker:not(.dark-mode) .install-step-num{
+    background:#0A3D18 !important;
+  }
+
+  /* --gold background call-sites (variable is phosphor green, text-role-optimised) */
+  body.usertheme-hacker:not(.dark-mode) .bookmark-btn.active,
+  body.usertheme-hacker:not(.dark-mode) .fg-bonus-tag,
+  body.usertheme-hacker:not(.dark-mode) .bday-item.today{
+    background:#0F5C24 !important;
+    color:#33FF33 !important;
+  }
+  body.usertheme-hacker:not(.dark-mode) .bday-item.today .bday-name,
+  body.usertheme-hacker:not(.dark-mode) .bday-item.today .bday-date{
+    color:#33FF33 !important;
+  }
+
+  /* --teal background call-sites (variable is phosphor green, text-role-optimised) */
+  body.usertheme-hacker:not(.dark-mode) .fg-option-btn.fg-correct,
+  body.usertheme-hacker:not(.dark-mode) .anagram-btn.check,
+  body.usertheme-hacker:not(.dark-mode) .hanoi-disc[data-size="3"],
+  body.usertheme-hacker:not(.dark-mode) .event-cat-badge{
+    background:#0A3D18 !important;
+    color:#33FF33 !important;
   }
 
   body.dark-mode.usertheme-d1{
@@ -24255,7 +24443,7 @@ const COMPLIMENTS = [
     // window) per Mr Eric - it's a real palette option forever, cyclable/pickable any
     // time. The window end (2 Sept 18:00 Tashkent) only controls the one-time default
     // reset below, not availability.
-    const base = ['default','nationalday','ihl','arsenal','arsenal2','uzbekistan2','soviet','bazaar','vintage','d1','dihl','darsenal','dvintage'];
+    const base = ['default','nationalday','ihl','arsenal','arsenal2','uzbekistan2','soviet','bazaar','hacker','vintage','d1','dihl','darsenal','dvintage'];
     return base;
   }
   let THEME_ORDER = buildThemeOrder();
@@ -24264,7 +24452,7 @@ const COMPLIMENTS = [
     const persist = !opts || opts.persist !== false;
     const isDark = key !== 'default' && key !== 'nationalday' && key.charAt(0) === 'd';
     document.body.classList.toggle('dark-mode', isDark);
-    ['ihl','arsenal','arsenal2','uzbekistan2','soviet','bazaar','vintage','d1','dihl','darsenal','dvintage'].forEach(k => document.body.classList.remove('usertheme-' + k));
+    ['ihl','arsenal','arsenal2','uzbekistan2','soviet','bazaar','hacker','vintage','d1','dihl','darsenal','dvintage'].forEach(k => document.body.classList.remove('usertheme-' + k));
     document.body.classList.remove('theme-nationalday');
     if(key === 'nationalday'){
       document.body.classList.add('theme-nationalday');
@@ -24385,6 +24573,7 @@ const COMPLIMENTS = [
     { key:'uzbekistan2', label:'Uzbekistan 2', c1:'#1B3F8B', c2:'#0F6E75' },
     { key:'soviet', label:'Soviet Poster', c1:'#D34039', c2:'#AE352F' },
     { key:'bazaar', label:'Grand Bazaar', c1:'#C5510B', c2:'#93610B' },
+    { key:'hacker', label:'Hacker', c1:'#00CC41', c2:'#0F5C24' },
     { key:'darsenal', label:'Arsenal (Dark)', c1:'#EC0024', c2:'#99824C' },
     { key:'vintage', label:'Vintage', c1:'#333333', c2:'#999999' },
     { key:'dvintage', label:'Vintage (Dark)', c1:'#CCCCCC', c2:'#666666' },
