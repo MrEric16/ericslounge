@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Mr Eric's Lounge</title>
-<meta name="app-build" content="20260912210738">
+<meta name="app-build" content="20260912211715">
 <script>
   // PWA update-detection: an installed home-screen app's standalone-mode navigation
   // cache can hold an old shell far longer than the CDN's 10-minute cache -
@@ -752,6 +752,15 @@
   body.usertheme-uzbekistan2:not(.dark-mode) .sotw-card *{
     color:#FEFEFE !important;
   }
+  /* Same gap as Hacker's fix: the blanket rule above forces white text on every domain
+     tile regardless of colour, but the gold-background position (nth-child 4n+4) needs
+     dark navy text instead (white-on-gold measures 2.35:1, a real fail) - the other
+     gold-tile components below already get navy text, but the domains grid itself was
+     missed. Closing that gap here. */
+  body.usertheme-uzbekistan2:not(.dark-mode) .faculties .fac-tile:not(.all):nth-child(4n+4),
+  body.usertheme-uzbekistan2:not(.dark-mode) .faculties .fac-tile:not(.all):nth-child(4n+4) *{
+    color:#07093B !important;
+  }
   body.usertheme-uzbekistan2:not(.dark-mode) .bday-tile-card,
   body.usertheme-uzbekistan2:not(.dark-mode) .bday-tile-card *,
   body.usertheme-uzbekistan2:not(.dark-mode) .random-tile,
@@ -1270,6 +1279,19 @@
   body.usertheme-hacker:not(.dark-mode) .page-result,
   body.usertheme-hacker:not(.dark-mode) .page-result *{
     color:#33FF33 !important;
+  }
+  /* Bug fix: the blanket rule above (".fac-tile, .fac-tile *") forces green text on
+     EVERY domain tile regardless of which of the 4 cycle colours it landed on -
+     including the two bright ones (nth-child 4n+2, 4n+4), where green text on a bright
+     green background is exactly the low-contrast problem Mr Eric flagged from a
+     screenshot. The other bright-tile components (Sports hub, Birthday tile, etc.)
+     already get black text from the block below, but the domains grid itself was
+     missed - this closes that gap, positioned after the blanket rule so it wins. */
+  body.usertheme-hacker:not(.dark-mode) .faculties .fac-tile:not(.all):nth-child(4n+2),
+  body.usertheme-hacker:not(.dark-mode) .faculties .fac-tile:not(.all):nth-child(4n+2) *,
+  body.usertheme-hacker:not(.dark-mode) .faculties .fac-tile:not(.all):nth-child(4n+4),
+  body.usertheme-hacker:not(.dark-mode) .faculties .fac-tile:not(.all):nth-child(4n+4) *{
+    color:#0A0A0A !important;
   }
   body.usertheme-hacker:not(.dark-mode) .goodnews-tile,
   body.usertheme-hacker:not(.dark-mode) .goodnews-tile *,
