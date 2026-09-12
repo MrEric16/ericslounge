@@ -4,7 +4,8 @@
 [goal-scraper] [BL1] Found 1 finished-match links
 [goal-scraper] [SA] Found 1 finished-match links
 [goal-scraper] WARNING: Fiorentina scored 4 but only 2 scorer(s) were parsed for https://www.goal.com/en/match/venezia-vs-fiorentina/mHUb3Wk0HWcTJiwVuUFOc
-[goal-scraper] [SA] SCORER PARSE FAILED (attempt 2/3) for Venezia 2-4 Fiorentina -- NOT committing, will retry next run: https://www.goal.com/en/match/venezia-vs-fiorentina/mHUb3Wk0HWcTJiwVuUFOc
+[goal-scraper] [SA] SCORER PARSE FAILED 3 times, giving up and committing WITH INCOMPLETE SCORER DATA (page structure likely changed) for Venezia 2-4 Fiorentina: https://www.goal.com/en/match/venezia-vs-fiorentina/mHUb3Wk0HWcTJiwVuUFOc
+[goal-scraper] [SA] Added: Venezia 2-4 Fiorentina
 [goal-scraper] [FL1] Found 1 finished-match links
 [goal-scraper] [CL] Found 0 finished-match links
 [goal-scraper] [real-madrid] Found 20 finished-match links
@@ -89,6 +90,6 @@
 [goal-scraper] [juventus] Skipping stale match (older than 45 days): Juventus vs Manchester City on 2025-06-26
 [goal-scraper] [juventus] Skipping stale match (older than 45 days): Basel vs Juventus on 2026-07-18
 [goal-scraper] [arsenal-friendlies] Found 1 finished-match links
-[goal-scraper] TOTAL new results added this run: 0
-[goal-scraper] Matches still awaiting a clean scorer parse (not yet committed): ['https://www.goal.com/en/match/slavia-prague-vs-lens/8tl536s9YeGCuVkrI5O7Y', 'https://www.goal.com/en/match/venezia-vs-fiorentina/mHUb3Wk0HWcTJiwVuUFOc']
+[goal-scraper] TOTAL new results added this run: 1
+[goal-scraper] Matches still awaiting a clean scorer parse (not yet committed): ['https://www.goal.com/en/match/slavia-prague-vs-lens/8tl536s9YeGCuVkrI5O7Y']
 [goal-scraper] Wrote data/goal-results.json
