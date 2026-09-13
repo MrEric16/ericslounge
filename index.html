@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Mr Eric's Lounge</title>
-<meta name="app-build" content="20260913122753">
+<meta name="app-build" content="20260913123306">
 <script>
   // PWA update-detection: an installed home-screen app's standalone-mode navigation
   // cache can hold an old shell far longer than the CDN's 10-minute cache -
@@ -1756,6 +1756,49 @@
     --board-bg:rgba(157,0,255,.55);
   }
   body.usertheme-synthwave:not(.dark-mode) .aurora-layer{ opacity:0; }
+  /* SIGNATURE: retro sun (horizontal-striped circle, classic 80s-sunset look) low in
+     the page background, and a perspective grid floor beneath it - the two devices
+     actually requested, not a colour reskin. Both purely decorative shapes with no
+     text on them, so neither needed any contrast check - unlike the header title (see
+     below), which does. */
+  body.usertheme-synthwave:not(.dark-mode)::before{
+    content:'';
+    position:fixed; z-index:-1; pointer-events:none;
+    left:50%; bottom:18vh;
+    width:260px; height:260px;
+    transform:translateX(-50%);
+    border-radius:50%;
+    background:
+      repeating-linear-gradient(0deg, #170B2E 0px, #170B2E 7px, transparent 7px, transparent 16px),
+      linear-gradient(180deg, #FF2E97 0%, #FF6EC7 40%, #FFB86B 75%, #FFD700 100%);
+    opacity:.8;
+  }
+  /* Grid floor: a large rectangle tilted back via perspective, grid lines fading
+     toward the horizon. Faint scanline texture folded into the same layer rather than
+     a separate full-page overlay - keeps this to 2 pseudo-elements total on body. */
+  body.usertheme-synthwave:not(.dark-mode)::after{
+    content:'';
+    position:fixed; z-index:-1; pointer-events:none;
+    left:0; right:0; bottom:0;
+    height:40vh;
+    transform-origin:bottom;
+    transform:perspective(320px) rotateX(65deg);
+    background-image:
+      repeating-linear-gradient(90deg, rgba(159,247,255,.35) 0px, rgba(159,247,255,.35) 1.5px, transparent 1.5px, transparent 40px),
+      repeating-linear-gradient(0deg, rgba(159,247,255,.25) 0px, rgba(159,247,255,.25) 1.5px, transparent 1.5px, transparent 40px),
+      repeating-linear-gradient(0deg, rgba(0,0,0,.06) 0px, rgba(0,0,0,.06) 1px, transparent 1px, transparent 3px);
+    opacity:.7;
+  }
+  /* SIGNATURE: neon glow on section headings ("Domains", "Vox Populi", etc) - these
+     use --ink (white) against the dark page background at 18.53:1, so there's a lot of
+     contrast margin to spend on a glow. The header title itself is NOT glowed - it
+     uses dark navy text on the bright pink header (the only pairing that passes there;
+     checked cyan/white/pale-cyan against the pink header first, all three failed at
+     2.69-3.42:1), and a glow reads as an emission effect that only makes sense on
+     light text over dark, so it would look wrong there even if contrast allowed it. */
+  body.usertheme-synthwave:not(.dark-mode) .section-head h2{
+    text-shadow:0 0 10px rgba(255,46,151,.7), 0 0 20px rgba(0,255,225,.4);
+  }
   body.usertheme-synthwave:not(.dark-mode) header{
     background:#FF00C8;
     border-bottom:4px solid #00FFE1;
