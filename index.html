@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Mr Eric's Lounge</title>
-<meta name="app-build" content="20260913172057">
+<meta name="app-build" content="20260913172712">
 <script>
   // PWA update-detection: an installed home-screen app's standalone-mode navigation
   // cache can hold an old shell far longer than the CDN's 10-minute cache -
@@ -643,25 +643,20 @@
   }
   body.usertheme-uzbekistan2:not(.dark-mode) .aurora-layer{ opacity:0; }
   /* SIGNATURE: Uzbek brick-facade texture - the offset running-bond coursing seen on
-     real Bukhara/Samarkand brickwork, not a generic grid. Uses only the navy already
-     in the palette (--coral, #07093B) layered over the existing turquoise/gold - no
-     new colour introduced. Opacity raised from .16 to .38 after Mr Eric reported the
-     first pass was imperceptible on a small screen - .16 technically satisfied "don't
-     change the colour" but failed to deliver a visible pattern at all, which isn't
-     actually what was wanted; .38 still reads as the same base hue at a glance while
-     the brick coursing is now genuinely visible. Copied onto the header too (its own
-     opaque background hides the page-level version, same reason every other header
-     device on other themes needed its own copy). */
+     real Bukhara/Samarkand brickwork. Uses only the navy already in the palette
+     (--coral, #07093B) layered over the existing turquoise/gold - no new colour
+     introduced. Rebuilt a second time: the first version used the common "diagonal
+     linear-gradient" CSS brick trick (angles of 335deg/155deg), which actually
+     produces a herringbone/chevron look with slanted edges, not real bricks - Mr Eric
+     called it out as "wavy". Switched to an SVG line-tile instead (a 40x40 tile with
+     exact horizontal and vertical strokes, offset by half a brick-width every other
+     row) - pure right-angle lines, verified by rendering the same path with PIL before
+     shipping it rather than trusting the raw path string. */
   body.usertheme-uzbekistan2:not(.dark-mode)::before{
     content:'';
     position:fixed; inset:0; z-index:-1; pointer-events:none;
-    background-image:
-      linear-gradient(335deg, rgba(7,9,59,.38) 12px, transparent 12px),
-      linear-gradient(155deg, rgba(7,9,59,.38) 12px, transparent 12px),
-      linear-gradient(335deg, rgba(7,9,59,.38) 12px, transparent 12px),
-      linear-gradient(155deg, rgba(7,9,59,.38) 12px, transparent 12px);
-    background-position:0px 2px, 0px 2px, 20px 32px, 20px 32px;
-    background-size:40px 64px;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40'%3E%3Cpath d='M0 0H40M0 20H40M0 40H40M0 0V20M40 0V20M20 20V40' stroke='rgb(7,9,59)' stroke-width='2' fill='none' stroke-opacity='0.42'/%3E%3C/svg%3E");
+    background-size:40px 40px;
   }
   body.usertheme-uzbekistan2:not(.dark-mode) header{
     background:#DDA96E;
@@ -672,13 +667,8 @@
   body.usertheme-uzbekistan2:not(.dark-mode) header::before{
     content:'';
     position:absolute; inset:0; z-index:0; pointer-events:none;
-    background-image:
-      linear-gradient(335deg, rgba(7,9,59,.22) 12px, transparent 12px),
-      linear-gradient(155deg, rgba(7,9,59,.22) 12px, transparent 12px),
-      linear-gradient(335deg, rgba(7,9,59,.22) 12px, transparent 12px),
-      linear-gradient(155deg, rgba(7,9,59,.22) 12px, transparent 12px);
-    background-position:0px 2px, 0px 2px, 20px 32px, 20px 32px;
-    background-size:40px 64px;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40'%3E%3Cpath d='M0 0H40M0 20H40M0 40H40M0 0V20M40 0V20M20 20V40' stroke='rgb(7,9,59)' stroke-width='2' fill='none' stroke-opacity='0.25'/%3E%3C/svg%3E");
+    background-size:40px 40px;
   }
   body.usertheme-uzbekistan2:not(.dark-mode) header::after{ content:none; }
   body.usertheme-uzbekistan2:not(.dark-mode) header > *{ position:relative; z-index:1; }
