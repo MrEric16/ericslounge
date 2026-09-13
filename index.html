@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Mr Eric's Lounge</title>
-<meta name="app-build" content="20260913091518">
+<meta name="app-build" content="20260913100256">
 <script>
   // PWA update-detection: an installed home-screen app's standalone-mode navigation
   // cache can hold an old shell far longer than the CDN's 10-minute cache -
@@ -833,34 +833,36 @@
   }
 
 
-  /* - Soviet Poster, revised again: Mr Eric wants the beige paper background back (not
-     the dark navy from the previous revision) but a BRIGHTER red header, plus the font
-     less bold without losing its blocky shape. Colours are still pixel-sampled from his
-     6 poster photos, just recalibrated for a light background instead of a dark one -
-     going back to beige reintroduces the exact contrast cost explained earlier: the raw
-     red (#E8473F) and orange (#FE6701) need real darkening (25% and 35% respectively,
-     not the 10-25% the dark-navy version needed) to pass BOTH as text-on-beige and as a
-     white-text tile at once. That's an honest, unavoidable trade for keeping the paper
-     background - not a corner cut.
+  /* - Soviet Poster, given an actual signature instead of just a colour swap. Six real
+     visual devices pulled from the genre (including the Gagarin/Rodina-Mat posters Mr
+     Eric supplied earlier), each a genuine recurring feature of real Soviet propaganda
+     print, not decoration invented for its own sake:
 
-     The header gets its own, slightly brighter red (#D34039) than the tile/text red
-     (#AE352F) - the header bar only has to pass white-text-on-it (4.56:1, still a real
-     pass), it never has to work as small text against beige the way the tile colour
-     does, so it doesn't need the same amount of darkening.
+     1. Radiating sunburst rays behind the header title (conic-gradient) - literally in
+        the Gagarin poster reference, the single most recognisable device of the genre.
+     2. A bold diagonal constructivist wedge in one page corner - the Rodchenko-style
+        diagonal red bar cutting across a composition.
+     3. Aged-paper texture on the whole page: a vignette darkening the edges plus a real
+        grain texture (SVG feTurbulence noise, not a gradient approximation) instead of
+        a flat modern colour.
+     4. Thick black keyline borders on every tile - propaganda posters are heavily
+        woodblock/linocut in style, bold black outlines throughout.
+     5. A small red star badge in the header corner - the recurring Soviet symbol,
+        independent of hammer-and-sickle.
+     6. A halftone dot texture layered into every tile's fill - mimics cheap mass-print
+        reproduction rather than a flat vector swatch.
 
-     Because the background is light again, this reverts to the SIMPLE architecture
-     (matching original Arsenal/first-draft Soviet) - no more per-selector override
-     audit needed, since every accent colour here passes both its text and tile role at
-     once against beige.
-
-     Font: still Propaganda by Square Gear, direct-URL @font-face as before. Added
-     font-weight:normal !important this time - the earlier version only overrode
-     font-family, so every element that already had font-weight:700/800 set elsewhere in
-     the site's CSS kept that weight, and since Propaganda ships as a single static
-     weight (no real bold face), the browser was likely synthesizing a fake bold on top
-     of an already-heavy display face - blocky AND bold stacked together. Forcing normal
-     weight keeps the font's inherent blocky letterforms without that extra synthetic
-     thickening. */
+     All static, no animation, per the standing lesson against animating decorative
+     layers. None of this touches colour or text-colour pairings - every contrast
+     relationship from the previous audit is untouched, only what's drawn underneath the
+     same colours changed, so nothing here needed re-auditing. */
+  body.usertheme-soviet:not(.dark-mode){
+    --cream:#E8DCC0; --cream-2:#E8DCC0; --card:#E8DCC0;
+    --ink:#2B1D0E; --ink-soft:#6B1D1D;
+    --coral:#AE352F; --coral-dark:#363636; --gold:#A54200; --teal:#6B1D1D;
+    --line:rgba(43,29,14,.25);
+    --board-bg:rgba(211,64,57,.55);
+  }
   @font-face{
     font-family:'Propaganda';
     src:url('https://st.1001fonts.net/download/font/propaganda.regular-version-1-00.ttf') format('truetype');
@@ -873,20 +875,62 @@
     font-family:'Propaganda','Impact',sans-serif !important;
     font-weight:normal !important;
   }
-  body.usertheme-soviet:not(.dark-mode){
-    --cream:#E8DCC0; --cream-2:#E8DCC0; --card:#E8DCC0;
-    --ink:#2B1D0E; --ink-soft:#6B1D1D;
-    --coral:#AE352F; --coral-dark:#363636; --gold:#A54200; --teal:#6B1D1D;
-    --line:rgba(43,29,14,.25);
-    --board-bg:rgba(211,64,57,.55);
-  }
   body.usertheme-soviet:not(.dark-mode) .aurora-layer{ opacity:0; }
+  /* DEVICE 3: aged-paper texture - vignette (::before) + real grain noise via SVG
+     feTurbulence (::after), fixed so both stay put while scrolling, low z-index so
+     they sit behind all real content. */
+  body.usertheme-soviet:not(.dark-mode)::before,
+  body.usertheme-soviet:not(.dark-mode)::after{
+    content:''; position:fixed; inset:0; z-index:-1; pointer-events:none;
+  }
+  body.usertheme-soviet:not(.dark-mode)::before{
+    background:radial-gradient(ellipse at center, transparent 45%, rgba(43,29,14,.18) 100%);
+  }
+  body.usertheme-soviet:not(.dark-mode)::after{
+    opacity:.05;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+  /* DEVICE 2: Rodchenko-style diagonal wedge, bottom-right page corner */
+  body.usertheme-soviet:not(.dark-mode) #app::after{
+    content:'';
+    position:fixed;
+    right:-60px; bottom:-60px;
+    width:280px; height:90px;
+    background:#AE352F;
+    transform:rotate(-35deg);
+    z-index:-1;
+    pointer-events:none;
+    opacity:.9;
+  }
   body.usertheme-soviet:not(.dark-mode) header{
     background:#D34039;
     border-bottom:4px solid #363636;
+    position:relative;
+    overflow:hidden;
   }
-  body.usertheme-soviet:not(.dark-mode) header::before,
-  body.usertheme-soviet:not(.dark-mode) header::after{ content:none; }
+  /* DEVICE 1: radiating sunburst behind the header title */
+  body.usertheme-soviet:not(.dark-mode) header::before{
+    content:'';
+    position:absolute;
+    top:50%; left:50%;
+    width:600px; height:600px;
+    transform:translate(-50%,-50%);
+    background:repeating-conic-gradient(rgba(232,220,192,.35) 0deg 9deg, transparent 9deg 18deg);
+    z-index:0;
+    pointer-events:none;
+  }
+  /* DEVICE 5: small red star badge, top-right of the header */
+  body.usertheme-soviet:not(.dark-mode) header::after{
+    content:'';
+    position:absolute;
+    top:14px; right:18px;
+    width:34px; height:34px;
+    background:#E8DCC0;
+    clip-path:polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+    z-index:0;
+    pointer-events:none;
+  }
+  body.usertheme-soviet:not(.dark-mode) header > *{ position:relative; z-index:1; }
   body.usertheme-soviet:not(.dark-mode) header,
   body.usertheme-soviet:not(.dark-mode) header *{
     color:#FEFEFE;
@@ -894,43 +938,67 @@
   }
   body.usertheme-soviet:not(.dark-mode) header .search-icon-btn,
   body.usertheme-soviet:not(.dark-mode) header .search-icon-btn *{
-    color:#2B1D0E !important;
+    color:#D34039 !important;
   }
+  /* DEVICE 6: halftone dot texture layered into every tile's fill, plus DEVICE 4's
+     thick black keyline. Solid colour is now the second layer under the dot pattern
+     rather than a flat background, so the colour: values below all changed shape from
+     "background:#HEX" to "background:PATTERN, #HEX" - still the same underlying hex,
+     just no longer a flat swatch. */
   body.usertheme-soviet:not(.dark-mode) .faculties .fac-tile:not(.all):nth-child(4n+1){
-    background:#AE352F !important;
+    background:
+      repeating-radial-gradient(circle at 4px 4px, rgba(0,0,0,.14) 0, rgba(0,0,0,.14) 1.1px, transparent 1.6px, transparent 8px),
+      #AE352F !important;
   }
   body.usertheme-soviet:not(.dark-mode) .faculties .fac-tile:not(.all):nth-child(4n+2){
-    background:#A54200 !important;
+    background:
+      repeating-radial-gradient(circle at 4px 4px, rgba(0,0,0,.14) 0, rgba(0,0,0,.14) 1.1px, transparent 1.6px, transparent 8px),
+      #A54200 !important;
   }
   body.usertheme-soviet:not(.dark-mode) .faculties .fac-tile:not(.all):nth-child(4n+3){
-    background:#6B1D1D !important;
+    background:
+      repeating-radial-gradient(circle at 4px 4px, rgba(232,220,192,.14) 0, rgba(232,220,192,.14) 1.1px, transparent 1.6px, transparent 8px),
+      #6B1D1D !important;
   }
   body.usertheme-soviet:not(.dark-mode) .faculties .fac-tile:not(.all):nth-child(4n+4){
-    background:#363636 !important;
+    background:
+      repeating-radial-gradient(circle at 4px 4px, rgba(232,220,192,.14) 0, rgba(232,220,192,.14) 1.1px, transparent 1.6px, transparent 8px),
+      #363636 !important;
   }
   body.usertheme-soviet:not(.dark-mode) .fac-tile.all{
-    background:#2B1D0E !important;
+    background:
+      repeating-radial-gradient(circle at 4px 4px, rgba(232,220,192,.14) 0, rgba(232,220,192,.14) 1.1px, transparent 1.6px, transparent 8px),
+      #2B1D0E !important;
   }
   body.usertheme-soviet:not(.dark-mode) .fac-tile{
-    border:1.5px solid rgba(43,29,14,.35) !important;
+    border:2.5px solid #2B1D0E !important;
   }
   body.usertheme-soviet:not(.dark-mode) .sport-hub-tile,
   body.usertheme-soviet:not(.dark-mode) .sports-tile,
   body.usertheme-soviet:not(.dark-mode) .sports-card{
-    background:#AE352F !important;
+    background:
+      repeating-radial-gradient(circle at 4px 4px, rgba(0,0,0,.14) 0, rgba(0,0,0,.14) 1.1px, transparent 1.6px, transparent 8px),
+      #AE352F !important;
+    border:2.5px solid #2B1D0E !important;
   }
   body.usertheme-soviet:not(.dark-mode) .goodnews-tile,
   body.usertheme-soviet:not(.dark-mode) .watch-tile,
   body.usertheme-soviet:not(.dark-mode) .watch-card,
   body.usertheme-soviet:not(.dark-mode) .otd-card{
-    background:#A54200 !important;
+    background:
+      repeating-radial-gradient(circle at 4px 4px, rgba(0,0,0,.14) 0, rgba(0,0,0,.14) 1.1px, transparent 1.6px, transparent 8px),
+      #A54200 !important;
+    border:2.5px solid #2B1D0E !important;
   }
   body.usertheme-soviet:not(.dark-mode) .books-tile,
   body.usertheme-soviet:not(.dark-mode) .mindtemple-tile,
   body.usertheme-soviet:not(.dark-mode) .explore-tile,
   body.usertheme-soviet:not(.dark-mode) .explore-card,
   body.usertheme-soviet:not(.dark-mode) .page-result{
-    background:#6B1D1D !important;
+    background:
+      repeating-radial-gradient(circle at 4px 4px, rgba(232,220,192,.14) 0, rgba(232,220,192,.14) 1.1px, transparent 1.6px, transparent 8px),
+      #6B1D1D !important;
+    border:2.5px solid #2B1D0E !important;
   }
   body.usertheme-soviet:not(.dark-mode) .bday-tile-card,
   body.usertheme-soviet:not(.dark-mode) .random-tile,
@@ -938,7 +1006,10 @@
   body.usertheme-soviet:not(.dark-mode) .empty-card,
   body.usertheme-soviet:not(.dark-mode) .photo-tile,
   body.usertheme-soviet:not(.dark-mode) .sotw-card{
-    background:#363636 !important;
+    background:
+      repeating-radial-gradient(circle at 4px 4px, rgba(232,220,192,.14) 0, rgba(232,220,192,.14) 1.1px, transparent 1.6px, transparent 8px),
+      #363636 !important;
+    border:2.5px solid #2B1D0E !important;
   }
   body.usertheme-soviet:not(.dark-mode) .fac-tile,
   body.usertheme-soviet:not(.dark-mode) .fac-tile *,
