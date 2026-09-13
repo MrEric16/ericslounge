@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Mr Eric's Lounge</title>
-<meta name="app-build" content="20260913042058">
+<meta name="app-build" content="20260913071113">
 <script>
   // PWA update-detection: an installed home-screen app's standalone-mode navigation
   // cache can hold an old shell far longer than the CDN's 10-minute cache -
@@ -1572,6 +1572,177 @@
     color:#FEFEFE !important;
   }
 
+
+  /* - Synthwave: retro-80s neon - hot pink, electric cyan, purple, sunset orange, on a
+     deep purple-black night sky. Same structural conflict as Nebula/Uzbekistan2/Grand
+     Bazaar (--coral/--teal/--gold/--coral-dark each used both as light-needing text and
+     dark-needing tile fills elsewhere in the codebase) - same ~30 call-site audit, same
+     resolution. Same majority-flip as Nebula too: 3 of 4 tile colours (pink, cyan,
+     orange) are bright enough that white text on them fails - cyan especially badly,
+     1.53:1 - so they need dark text; only purple is dark enough for white text. */
+  body.usertheme-synthwave:not(.dark-mode){
+    --cream:#170B2E; --cream-2:#170B2E; --card:#2A1450;
+    --ink:#FEFEFE; --ink-soft:#9FF7FF;
+    --coral:#8A2BE2; --coral-dark:#9FF7FF; --gold:#9FF7FF; --teal:#9FF7FF;
+    --line:rgba(159,247,255,.3);
+    --board-bg:rgba(138,43,226,.55);
+  }
+  body.usertheme-synthwave:not(.dark-mode) .aurora-layer{ opacity:0; }
+  body.usertheme-synthwave:not(.dark-mode) header{
+    background:#FF2E97;
+    border-bottom:4px solid #00E5FF;
+  }
+  body.usertheme-synthwave:not(.dark-mode) header::before,
+  body.usertheme-synthwave:not(.dark-mode) header::after{ content:none; }
+  body.usertheme-synthwave:not(.dark-mode) header,
+  body.usertheme-synthwave:not(.dark-mode) header *{
+    color:#170B2E;
+    text-shadow:none;
+  }
+  body.usertheme-synthwave:not(.dark-mode) header .search-icon-btn,
+  body.usertheme-synthwave:not(.dark-mode) header .search-icon-btn *{
+    color:#170B2E !important;
+  }
+  body.usertheme-synthwave:not(.dark-mode) .faculties .fac-tile:not(.all):nth-child(4n+1){
+    background:#8A2BE2 !important;
+  }
+  body.usertheme-synthwave:not(.dark-mode) .faculties .fac-tile:not(.all):nth-child(4n+2){
+    background:#FF2E97 !important;
+  }
+  body.usertheme-synthwave:not(.dark-mode) .faculties .fac-tile:not(.all):nth-child(4n+3){
+    background:#00E5FF !important;
+  }
+  body.usertheme-synthwave:not(.dark-mode) .faculties .fac-tile:not(.all):nth-child(4n+4){
+    background:#FF8C42 !important;
+  }
+  body.usertheme-synthwave:not(.dark-mode) .fac-tile.all{
+    background:#2A1450 !important;
+  }
+  /* Purple in particular measures only 3.14:1 edge-contrast against the page - bright
+     cyan border guarantees a visible edge on every tile regardless. */
+  body.usertheme-synthwave:not(.dark-mode) .fac-tile{
+    border:1.5px solid rgba(159,247,255,.6) !important;
+  }
+  body.usertheme-synthwave:not(.dark-mode) .sport-hub-tile,
+  body.usertheme-synthwave:not(.dark-mode) .sports-tile,
+  body.usertheme-synthwave:not(.dark-mode) .sports-card{
+    background:#8A2BE2 !important;
+    border:1.5px solid rgba(159,247,255,.6) !important;
+  }
+  body.usertheme-synthwave:not(.dark-mode) .goodnews-tile,
+  body.usertheme-synthwave:not(.dark-mode) .watch-tile,
+  body.usertheme-synthwave:not(.dark-mode) .watch-card,
+  body.usertheme-synthwave:not(.dark-mode) .otd-card{
+    background:#FF2E97 !important;
+  }
+  body.usertheme-synthwave:not(.dark-mode) .books-tile,
+  body.usertheme-synthwave:not(.dark-mode) .mindtemple-tile,
+  body.usertheme-synthwave:not(.dark-mode) .explore-tile,
+  body.usertheme-synthwave:not(.dark-mode) .explore-card,
+  body.usertheme-synthwave:not(.dark-mode) .page-result{
+    background:#00E5FF !important;
+  }
+  body.usertheme-synthwave:not(.dark-mode) .bday-tile-card,
+  body.usertheme-synthwave:not(.dark-mode) .random-tile,
+  body.usertheme-synthwave:not(.dark-mode) .rec-item,
+  body.usertheme-synthwave:not(.dark-mode) .empty-card,
+  body.usertheme-synthwave:not(.dark-mode) .photo-tile,
+  body.usertheme-synthwave:not(.dark-mode) .sotw-card{
+    background:#FF8C42 !important;
+  }
+  /* Groups 2-4 (pink/cyan/orange) all need dark text. Group 1 (purple) is the one
+     exception needing WHITE text - overridden after the blanket rule below, covering
+     both its generic classes and the fac-tile grid's specific nth-child position (the
+     exact gap that caused the Hacker/Uzbekistan2 bug). */
+  body.usertheme-synthwave:not(.dark-mode) .fac-tile,
+  body.usertheme-synthwave:not(.dark-mode) .fac-tile *,
+  body.usertheme-synthwave:not(.dark-mode) .goodnews-tile,
+  body.usertheme-synthwave:not(.dark-mode) .goodnews-tile *,
+  body.usertheme-synthwave:not(.dark-mode) .watch-tile,
+  body.usertheme-synthwave:not(.dark-mode) .watch-tile *,
+  body.usertheme-synthwave:not(.dark-mode) .watch-card,
+  body.usertheme-synthwave:not(.dark-mode) .watch-card *,
+  body.usertheme-synthwave:not(.dark-mode) .otd-card,
+  body.usertheme-synthwave:not(.dark-mode) .otd-card *,
+  body.usertheme-synthwave:not(.dark-mode) .books-tile,
+  body.usertheme-synthwave:not(.dark-mode) .books-tile *,
+  body.usertheme-synthwave:not(.dark-mode) .mindtemple-tile,
+  body.usertheme-synthwave:not(.dark-mode) .mindtemple-tile *,
+  body.usertheme-synthwave:not(.dark-mode) .explore-tile,
+  body.usertheme-synthwave:not(.dark-mode) .explore-tile *,
+  body.usertheme-synthwave:not(.dark-mode) .explore-card,
+  body.usertheme-synthwave:not(.dark-mode) .explore-card *,
+  body.usertheme-synthwave:not(.dark-mode) .page-result,
+  body.usertheme-synthwave:not(.dark-mode) .page-result *,
+  body.usertheme-synthwave:not(.dark-mode) .bday-tile-card,
+  body.usertheme-synthwave:not(.dark-mode) .bday-tile-card *,
+  body.usertheme-synthwave:not(.dark-mode) .random-tile,
+  body.usertheme-synthwave:not(.dark-mode) .random-tile *,
+  body.usertheme-synthwave:not(.dark-mode) .rec-item,
+  body.usertheme-synthwave:not(.dark-mode) .rec-item *,
+  body.usertheme-synthwave:not(.dark-mode) .empty-card,
+  body.usertheme-synthwave:not(.dark-mode) .empty-card *,
+  body.usertheme-synthwave:not(.dark-mode) .photo-tile,
+  body.usertheme-synthwave:not(.dark-mode) .photo-tile *,
+  body.usertheme-synthwave:not(.dark-mode) .sotw-card,
+  body.usertheme-synthwave:not(.dark-mode) .sotw-card *{
+    color:#170B2E !important;
+  }
+  body.usertheme-synthwave:not(.dark-mode) .sport-hub-tile,
+  body.usertheme-synthwave:not(.dark-mode) .sport-hub-tile *,
+  body.usertheme-synthwave:not(.dark-mode) .sports-tile,
+  body.usertheme-synthwave:not(.dark-mode) .sports-tile *,
+  body.usertheme-synthwave:not(.dark-mode) .sports-card,
+  body.usertheme-synthwave:not(.dark-mode) .sports-card *,
+  body.usertheme-synthwave:not(.dark-mode) .faculties .fac-tile:not(.all):nth-child(4n+1),
+  body.usertheme-synthwave:not(.dark-mode) .faculties .fac-tile:not(.all):nth-child(4n+1) *{
+    color:#FEFEFE !important;
+  }
+
+  /* --- Targeted overrides: same ~30 call sites audited for the prior dark-background
+     themes, reapplied here with Synthwave's colours. --- */
+
+  /* --coral text call-sites (variable is dark purple, background-role-optimised) */
+  body.usertheme-synthwave:not(.dark-mode) .random-btn:hover,
+  body.usertheme-synthwave:not(.dark-mode) .domain-summary:hover h2,
+  body.usertheme-synthwave:not(.dark-mode) a.headline:hover,
+  body.usertheme-synthwave:not(.dark-mode) .share-btn:hover,
+  body.usertheme-synthwave:not(.dark-mode) .rec-item a:hover,
+  body.usertheme-synthwave:not(.dark-mode) .wordle-message,
+  body.usertheme-synthwave:not(.dark-mode) .anagram-message,
+  body.usertheme-synthwave:not(.dark-mode) .page-result-icon,
+  body.usertheme-synthwave:not(.dark-mode) .bday-item.bday-cat-staff .bday-name,
+  body.usertheme-synthwave:not(.dark-mode) .bottom-tabs a:hover,
+  body.usertheme-synthwave:not(.dark-mode) .explore-card-name,
+  body.usertheme-synthwave:not(.dark-mode) .question-item div:nth-child(3){
+    color:#9FF7FF !important;
+  }
+
+  /* --coral-dark background call-site (variable is pale cyan, text-role-optimised) */
+  body.usertheme-synthwave:not(.dark-mode) .install-step-num{
+    background:#8A2BE2 !important;
+  }
+
+  /* --gold background call-sites (variable is pale cyan, text-role-optimised) */
+  body.usertheme-synthwave:not(.dark-mode) .bookmark-btn.active,
+  body.usertheme-synthwave:not(.dark-mode) .fg-bonus-tag,
+  body.usertheme-synthwave:not(.dark-mode) .bday-item.today{
+    background:#FF8C42 !important;
+    color:#170B2E !important;
+  }
+  body.usertheme-synthwave:not(.dark-mode) .bday-item.today .bday-name,
+  body.usertheme-synthwave:not(.dark-mode) .bday-item.today .bday-date{
+    color:#170B2E !important;
+  }
+
+  /* --teal background call-sites (variable is pale cyan, text-role-optimised) */
+  body.usertheme-synthwave:not(.dark-mode) .fg-option-btn.fg-correct,
+  body.usertheme-synthwave:not(.dark-mode) .anagram-btn.check,
+  body.usertheme-synthwave:not(.dark-mode) .hanoi-disc[data-size="3"],
+  body.usertheme-synthwave:not(.dark-mode) .event-cat-badge{
+    background:#8A2BE2 !important;
+    color:#FEFEFE !important;
+  }
 
   body.dark-mode.usertheme-d1{
     --cream:#1B1512; --cream-2:#271E18; --card:#3A2C22; --ink:#F0E3D2; --ink-soft:#C2A98C;
@@ -24677,7 +24848,7 @@ const COMPLIMENTS = [
     // window) per Mr Eric - it's a real palette option forever, cyclable/pickable any
     // time. The window end (2 Sept 18:00 Tashkent) only controls the one-time default
     // reset below, not availability.
-    const base = ['default','d1','ihl','dihl','nationalday','uzbekistan2','arsenal','arsenal2','darsenal','vintage','dvintage','soviet','hacker','bazaar','nebula'];
+    const base = ['default','d1','ihl','dihl','nationalday','uzbekistan2','arsenal','arsenal2','darsenal','vintage','dvintage','soviet','hacker','bazaar','nebula','synthwave'];
     return base;
   }
   let THEME_ORDER = buildThemeOrder();
@@ -24731,7 +24902,7 @@ const COMPLIMENTS = [
     const persist = !opts || opts.persist !== false;
     const isDark = key !== 'default' && key !== 'nationalday' && key.charAt(0) === 'd';
     document.body.classList.toggle('dark-mode', isDark);
-    ['ihl','arsenal','arsenal2','uzbekistan2','soviet','bazaar','hacker','nebula','vintage','d1','dihl','darsenal','dvintage'].forEach(k => document.body.classList.remove('usertheme-' + k));
+    ['ihl','arsenal','arsenal2','uzbekistan2','soviet','bazaar','hacker','nebula','synthwave','vintage','d1','dihl','darsenal','dvintage'].forEach(k => document.body.classList.remove('usertheme-' + k));
     document.body.classList.remove('theme-nationalday');
     if(key === 'nationalday'){
       document.body.classList.add('theme-nationalday');
@@ -24858,6 +25029,7 @@ const COMPLIMENTS = [
     { key:'hacker', label:'Matrix', c1:'#00CC41', c2:'#0F5C24' },
     { key:'bazaar', label:'Grand Bazaar', c1:'#C5510B', c2:'#93610B' },
     { key:'nebula', label:'Nebula', c1:'#3D0A66', c2:'#8B0A50' },
+    { key:'synthwave', label:'Synthwave', c1:'#FF2E97', c2:'#00E5FF' },
   ];
 
   let themePickerBackdrop = null;
