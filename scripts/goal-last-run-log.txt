@@ -1,19 +1,16 @@
 [goal-scraper] Run started.
 [goal-scraper] [PL] Found 9 finished-match links
-[goal-scraper] [PL] Added: Manchester United 0-1 Manchester City
-[goal-scraper] [PD] Found 8 finished-match links
-[goal-scraper] WARNING: Barcelona scored 4 but only 3 scorer(s) were parsed for https://www.goal.com/en/match/levante-vs-barcelona/yIjUEP_4ATKfv2dgC_aZ7
-[goal-scraper] [PD] SCORER PARSE FAILED 3 times, giving up and committing WITH INCOMPLETE SCORER DATA (page structure likely changed) for Levante 2-4 Barcelona: https://www.goal.com/en/match/levante-vs-barcelona/yIjUEP_4ATKfv2dgC_aZ7
-[goal-scraper] [PD] Added: Levante 2-4 Barcelona
-[goal-scraper] [PD] Added: Getafe 1-1 Deportivo De A Coruna
+[goal-scraper] [PD] Found 9 finished-match links
+[goal-scraper] [PD] Added: Real Sociedad 0-3 Atletico Madrid
 [goal-scraper] [BL1] Found 9 finished-match links
-[goal-scraper] [BL1] Added: Elversberg 1-2 Bayern Munich
-[goal-scraper] [SA] Found 6 finished-match links
+[goal-scraper] [SA] Found 7 finished-match links
 [goal-scraper] WARNING: Lecce scored 3 but only 2 scorer(s) were parsed for https://www.goal.com/en/match/lecce-vs-monza/nZWlT9uFtMToV-YzdDxgn
-[goal-scraper] [SA] SCORER PARSE FAILED (attempt 2/3) for Lecce 3-2 Monza -- NOT committing, will retry next run: https://www.goal.com/en/match/lecce-vs-monza/nZWlT9uFtMToV-YzdDxgn
-[goal-scraper] [SA] Added: Ssc Napoli 1-0 Bologna
-[goal-scraper] [FL1] Found 8 finished-match links
-[goal-scraper] [FL1] Added: Le Mans 2-2 Lens
+[goal-scraper] [SA] SCORER PARSE FAILED 3 times, giving up and committing WITH INCOMPLETE SCORER DATA (page structure likely changed) for Lecce 3-2 Monza: https://www.goal.com/en/match/lecce-vs-monza/nZWlT9uFtMToV-YzdDxgn
+[goal-scraper] [SA] Added: Lecce 3-2 Monza
+[goal-scraper] WARNING: Juventus scored 2 but only 1 scorer(s) were parsed for https://www.goal.com/en/match/sassuolo-vs-juventus/tnRD1bsGLLA906m1dEyLA
+[goal-scraper] [SA] SCORER PARSE FAILED (attempt 1/3) for Sassuolo 3-2 Juventus -- NOT committing, will retry next run: https://www.goal.com/en/match/sassuolo-vs-juventus/tnRD1bsGLLA906m1dEyLA
+[goal-scraper] [FL1] Found 9 finished-match links
+[goal-scraper] [FL1] Added: Brest 0-1 Paris Saint Germain
 [goal-scraper] [CL] Found 0 finished-match links
 [goal-scraper] [real-madrid] Found 21 finished-match links
 [goal-scraper] WARNING: Tottenham Hotspur scored 1 but 0 scorers were parsed for https://www.goal.com/en/match/real-madrid-vs-tottenham-hotspur/xdLKWe_FxdSoHo2tVKBzZ
@@ -63,7 +60,7 @@
 [goal-scraper] [inter-milan] Skipping stale match (older than 45 days): Bologna vs Inter on 2025-12-19
 [goal-scraper] [ac-milan] Found 9 finished-match links
 [goal-scraper] [ac-milan] Skipping stale match (older than 45 days): Ssc Napoli vs Ac Milan on 2025-12-18
-[goal-scraper] [psg] Found 17 finished-match links
+[goal-scraper] [psg] Found 18 finished-match links
 [goal-scraper] [psg] Skipping stale match (older than 45 days): Paris Saint Germain vs Atletico Madrid on 2025-06-15
 [goal-scraper] [psg] Skipping stale match (older than 45 days): Paris Saint Germain vs Botafogo Rj on 2025-06-19
 [goal-scraper] [psg] Skipping stale match (older than 45 days): Seattle Sounders Fc vs Paris Saint Germain on 2025-06-23
@@ -89,14 +86,16 @@
 [goal-scraper] [dortmund] Skipping stale match (older than 45 days): Borussia Dortmund vs Monterrey on 2025-07-01
 [goal-scraper] [dortmund] Skipping stale match (older than 45 days): Oberhausen vs Borussia Dortmund on 2026-07-18
 [goal-scraper] [roma] Found 10 finished-match links
-[goal-scraper] [juventus] Found 13 finished-match links
+[goal-scraper] [juventus] Found 14 finished-match links
 [goal-scraper] WARNING: Juventus scored 5 but only 3 scorer(s) were parsed for https://www.goal.com/en/match/al-ain-vs-juventus/hZXoigptTekk6p6Awa3MU
 [goal-scraper] [juventus] Skipping stale match (older than 45 days): Al Ain vs Juventus on 2025-06-18
 [goal-scraper] WARNING: Juventus scored 4 but only 3 scorer(s) were parsed for https://www.goal.com/en/match/juventus-vs-wydad-casablanca/-pKHM6JA5PGaaJ-6nK6sk
 [goal-scraper] [juventus] Skipping stale match (older than 45 days): Juventus vs Wydad Casablanca on 2025-06-22
 [goal-scraper] [juventus] Skipping stale match (older than 45 days): Juventus vs Manchester City on 2025-06-26
 [goal-scraper] [juventus] Skipping stale match (older than 45 days): Basel vs Juventus on 2026-07-18
+[goal-scraper] WARNING: Juventus scored 2 but only 1 scorer(s) were parsed for https://www.goal.com/en/match/sassuolo-vs-juventus/tnRD1bsGLLA906m1dEyLA
+[goal-scraper] [juventus] SCORER PARSE FAILED (attempt 2/3) for Sassuolo 3-2 Juventus -- NOT committing, will retry next run: https://www.goal.com/en/match/sassuolo-vs-juventus/tnRD1bsGLLA906m1dEyLA
 [goal-scraper] [arsenal-friendlies] Found 1 finished-match links
-[goal-scraper] TOTAL new results added this run: 6
-[goal-scraper] Matches still awaiting a clean scorer parse (not yet committed): ['https://www.goal.com/en/match/slavia-prague-vs-lens/8tl536s9YeGCuVkrI5O7Y', 'https://www.goal.com/en/match/lecce-vs-monza/nZWlT9uFtMToV-YzdDxgn']
+[goal-scraper] TOTAL new results added this run: 3
+[goal-scraper] Matches still awaiting a clean scorer parse (not yet committed): ['https://www.goal.com/en/match/slavia-prague-vs-lens/8tl536s9YeGCuVkrI5O7Y', 'https://www.goal.com/en/match/sassuolo-vs-juventus/tnRD1bsGLLA906m1dEyLA']
 [goal-scraper] Wrote data/goal-results.json

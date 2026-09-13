@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-13T19:10:28.632363Z",
+  "generatedAt": "2026-09-13T21:32:21.901236Z",
   "results": [
     {
       "url": "https://www.goal.com/en/match/girona-vs-arsenal/__LS8d9Oc6I1wXn9g8956",
@@ -6550,10 +6550,85 @@
         }
       ],
       "competition": "FL1"
+    },
+    {
+      "url": "https://www.goal.com/en/match/real-sociedad-vs-atletico-madrid/UHXaBM9yWYeGUDfYTDJNf",
+      "date": null,
+      "home": "Real Sociedad",
+      "away": "Atletico Madrid",
+      "htHome": 0,
+      "htAway": 0,
+      "ftHome": 0,
+      "ftAway": 3,
+      "homeGoals": [],
+      "awayGoals": [
+        {
+          "scorer": "A. Grimaldo",
+          "minute": 84
+        },
+        {
+          "scorer": "J. David",
+          "minute": 90
+        },
+        {
+          "scorer": "G. Simeone",
+          "minute": 90
+        }
+      ],
+      "competition": "PD"
+    },
+    {
+      "url": "https://www.goal.com/en/match/lecce-vs-monza/nZWlT9uFtMToV-YzdDxgn",
+      "date": null,
+      "home": "Lecce",
+      "away": "Monza",
+      "htHome": 3,
+      "htAway": 1,
+      "ftHome": 3,
+      "ftAway": 2,
+      "homeGoals": [
+        {
+          "scorer": "L. Coulibaly",
+          "minute": 3
+        },
+        {
+          "scorer": "Gabriel",
+          "minute": 11
+        }
+      ],
+      "awayGoals": [
+        {
+          "scorer": "R. Mangas",
+          "minute": 20
+        },
+        {
+          "scorer": "E. Zeballos",
+          "minute": 89
+        }
+      ],
+      "competition": "SA"
+    },
+    {
+      "url": "https://www.goal.com/en/match/brest-vs-paris-saint-germain/5M37ThPFm0yHOK7cCnOyQ",
+      "date": null,
+      "home": "Brest",
+      "away": "Paris Saint Germain",
+      "htHome": 0,
+      "htAway": 1,
+      "ftHome": 0,
+      "ftAway": 1,
+      "homeGoals": [],
+      "awayGoals": [
+        {
+          "scorer": "F. Torres",
+          "minute": 5
+        }
+      ],
+      "competition": "FL1"
     }
   ],
   "scorerParseRetryCounts": {
     "https://www.goal.com/en/match/slavia-prague-vs-lens/8tl536s9YeGCuVkrI5O7Y": 2,
-    "https://www.goal.com/en/match/lecce-vs-monza/nZWlT9uFtMToV-YzdDxgn": 2
+    "https://www.goal.com/en/match/sassuolo-vs-juventus/tnRD1bsGLLA906m1dEyLA": 2
   }
 }
