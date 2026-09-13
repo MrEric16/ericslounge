@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Mr Eric's Lounge</title>
-<meta name="app-build" content="20260913100256">
+<meta name="app-build" content="20260913121937">
 <script>
   // PWA update-detection: an installed home-screen app's standalone-mode navigation
   // cache can hold an old shell far longer than the CDN's 10-minute cache -
@@ -1266,12 +1266,62 @@
     --board-bg:rgba(0,204,65,.55);
   }
   body.usertheme-hacker:not(.dark-mode) .aurora-layer{ opacity:0; }
+  /* DEVICE: page-wide scanlines + curved-screen vignette (static) */
+  body.usertheme-hacker:not(.dark-mode)::before{
+    content:'';
+    position:fixed; inset:0; z-index:-1; pointer-events:none;
+    background-image:
+      repeating-linear-gradient(0deg, rgba(0,0,0,.15) 0px, rgba(0,0,0,.15) 1px, transparent 1px, transparent 3px),
+      radial-gradient(ellipse at center, transparent 45%, rgba(0,0,0,.4) 100%);
+  }
+  /* DEVICE: digital rain. The one genuinely animated device across every theme built so
+     far - flagged deliberately, not an oversight. Kept cheap on purpose: a repeating
+     background pattern taller than the viewport, moved with transform:translateY only
+     (compositor-handled, same cost class as the opacity-only star twinkles elsewhere),
+     never background-position (which repaints every frame) and never JS per-frame
+     updates. Single layer with the translate distance exactly matching the pattern's
+     own vertical period - a two-layer version was tried first but the two periods
+     (60px/38px) don't share a small common multiple, so the loop would visibly jump at
+     the seam; one clean period loops perfectly with no glitch. */
+  body.usertheme-hacker:not(.dark-mode)::after{
+    content:'';
+    position:fixed; inset:-50px 0 0 0; z-index:-1; pointer-events:none;
+    background-image:repeating-linear-gradient(180deg, rgba(51,255,51,.4) 0px, rgba(51,255,51,.4) 2px, transparent 2px, transparent 50px);
+    background-size:28px 50px;
+    animation:hackerRainFall 8s linear infinite;
+  }
+  @keyframes hackerRainFall{
+    from{ transform:translateY(-50px); }
+    to{ transform:translateY(0); }
+  }
   body.usertheme-hacker:not(.dark-mode) header{
     background:#00CC41;
     border-bottom:4px solid #33FF33;
+    position:relative;
+    overflow:hidden;
   }
-  body.usertheme-hacker:not(.dark-mode) header::before,
-  body.usertheme-hacker:not(.dark-mode) header::after{ content:none; }
+  /* DEVICE: scanlines + curved-screen vignette, layered onto the header specifically
+     (a page-level ::before/::after would be hidden behind the header's own opaque
+     background, same lesson learned from Nebula's header stars). */
+  body.usertheme-hacker:not(.dark-mode) header::before{
+    content:'';
+    position:absolute; inset:0; z-index:0; pointer-events:none;
+    background-image:
+      repeating-linear-gradient(0deg, rgba(0,0,0,.18) 0px, rgba(0,0,0,.18) 1px, transparent 1px, transparent 3px),
+      radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,.35) 100%);
+  }
+  /* DEVICE: blinking terminal cursor, small block to the right of the title */
+  body.usertheme-hacker:not(.dark-mode) header::after{
+    content:'';
+    position:absolute; z-index:0; pointer-events:none;
+    left:calc(50% + 92px); top:50%;
+    width:10px; height:22px;
+    background:#0A0A0A;
+    transform:translateY(-50%);
+    animation:hackerCursorBlink 1s steps(1) infinite;
+  }
+  @keyframes hackerCursorBlink{ 0%,49%{opacity:1;} 50%,100%{opacity:0;} }
+  body.usertheme-hacker:not(.dark-mode) header > *{ position:relative; z-index:1; }
   body.usertheme-hacker:not(.dark-mode) header,
   body.usertheme-hacker:not(.dark-mode) header *{
     color:#0A0A0A;
@@ -1300,6 +1350,33 @@
      well under) - bright green border guarantees a visible edge regardless. */
   body.usertheme-hacker:not(.dark-mode) .fac-tile{
     border:1.5px solid rgba(51,255,51,.5) !important;
+  }
+  /* DEVICE: terminal-bezel look - a dark inset ring plus a faint green outer glow, so
+     each tile reads like a little monitor window rather than a flat colour card. Pure
+     addition on top of the existing border-colour logic above/below, doesn't touch any
+     background or border-colour value already audited for contrast. */
+  body.usertheme-hacker:not(.dark-mode) .fac-tile,
+  body.usertheme-hacker:not(.dark-mode) .sport-hub-tile,
+  body.usertheme-hacker:not(.dark-mode) .sports-tile,
+  body.usertheme-hacker:not(.dark-mode) .sports-card,
+  body.usertheme-hacker:not(.dark-mode) .goodnews-tile,
+  body.usertheme-hacker:not(.dark-mode) .watch-tile,
+  body.usertheme-hacker:not(.dark-mode) .watch-card,
+  body.usertheme-hacker:not(.dark-mode) .otd-card,
+  body.usertheme-hacker:not(.dark-mode) .books-tile,
+  body.usertheme-hacker:not(.dark-mode) .mindtemple-tile,
+  body.usertheme-hacker:not(.dark-mode) .explore-tile,
+  body.usertheme-hacker:not(.dark-mode) .explore-card,
+  body.usertheme-hacker:not(.dark-mode) .page-result,
+  body.usertheme-hacker:not(.dark-mode) .bday-tile-card,
+  body.usertheme-hacker:not(.dark-mode) .random-tile,
+  body.usertheme-hacker:not(.dark-mode) .rec-item,
+  body.usertheme-hacker:not(.dark-mode) .empty-card,
+  body.usertheme-hacker:not(.dark-mode) .photo-tile,
+  body.usertheme-hacker:not(.dark-mode) .sotw-card{
+    box-shadow:
+      inset 0 0 0 3px rgba(10,10,10,.6),
+      0 0 10px rgba(51,255,51,.25) !important;
   }
   body.usertheme-hacker:not(.dark-mode) .sport-hub-tile,
   body.usertheme-hacker:not(.dark-mode) .sports-tile,
