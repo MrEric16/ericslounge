@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Mr Eric's Lounge</title>
-<meta name="app-build" content="20260913015811">
+<meta name="app-build" content="20260913033515">
 <script>
   // PWA update-detection: an installed home-screen app's standalone-mode navigation
   // cache can hold an old shell far longer than the CDN's 10-minute cache -
@@ -1361,38 +1361,127 @@
     color:#33FF33 !important;
   }
 
-  /* - Nebula: deep-space astrophotography palette - magenta/pink (H-alpha emission),
-     cyan (OIII emission), deep purple (dust clouds), and star-gold, on near-black space.
-     No user photo to pixel-sample this time (it's a genre, not a specific object), so
-     colours are standard astrophotography channel-mapping references, verified with the
-     same contrast discipline as every other custom theme.
+  /* - Nebula, deepened: Mr Eric said the colours weren't deep or spacey enough, and
+     attached a real JWST Cosmic Cliffs photo. Re-pixel-sampled from that photo instead
+     of using invented astrophotography-reference guesses: near-black corner (#18141B),
+     a genuinely deep navy sky (#1C2958, used for --card instead of a generic dark
+     purple), and warm amber/copper nebula gas (~#A05A32, replacing the flat star-gold).
+     Purple, cyan and magenta were all substantially darkened from the first pass - not
+     a small tweak, roughly halved in lightness across the board.
 
-     Same structural conflict as the last four dark-background themes (--coral/--teal/
-     --gold/--coral-dark each used both as light-needing text and dark-needing tile
-     fills elsewhere in the codebase) - same ~30 call-site audit, same resolution.
+     Happy side effect of going darker: all four tile colours now pass with a single
+     uniform white text colour (the first version needed 3 of 4 tiles on dark text,
+     which is exactly the split that caused the Hacker/Uzbekistan2 bug) - so this
+     version uses one blanket text rule for the whole domains grid, removing that whole
+     category of risk rather than re-auditing it.
 
-     Three of the four tile colours (cyan, magenta, gold) are light enough that white
-     text on them fails badly (gold: 1.39:1, a real fail) and need dark text instead;
-     only purple is dark enough for white text. That's the opposite ratio from every
-     previous theme (usually 1 of 4 needs the exception, not 3 of 4), so the blanket
-     rule below is dark text by default with white text as the override for purple -
-     flipped from the usual pattern, and double-checked against the exact bug just
-     fixed in Hacker/Uzbekistan2 (the blanket rule must not skip the fac-tile grid's
-     nth-child position for the exception group). */
+     Same structural conflict as the other dark-background themes still applies for
+     --coral/--teal/--gold/--coral-dark (each used both as light-needing text and dark-
+     needing tile fills elsewhere in the codebase) - same ~30 call-site audit, same
+     resolution.
+
+     Starfield: scattered white points with an opacity-only twinkle, on both the page
+     and the header specifically (the header has its own opaque background, so a
+     page-level star layer alone would be invisible behind it - needs its own layer).
+     Deliberately opacity-only, no transform/blur/position animation: this codebase has
+     a standing lesson on exactly this class of effect - the aurora-layer's original
+     animation was removed because "it ran forever, every frame, competing with real
+     interactions for the main thread." Opacity fades on a handful of pseudo-elements
+     are compositor-handled and cheap; that's the only animation type used here, and the
+     star count is kept modest (4 layers, ~12 points each) rather than hundreds of
+     independent DOM elements. */
   body.usertheme-nebula:not(.dark-mode){
-    --cream:#0A0518; --cream-2:#0A0518; --card:#1A0F33;
+    --cream:#06040F; --cream-2:#06040F; --card:#1C2958;
     --ink:#FEFEFE; --ink-soft:#E0C8FF;
-    --coral:#6A0DAD; --coral-dark:#E0C8FF; --gold:#E0C8FF; --teal:#E0C8FF;
+    --coral:#3D0A66; --coral-dark:#E0C8FF; --gold:#E0C8FF; --teal:#E0C8FF;
     --line:rgba(224,200,255,.3);
-    --board-bg:rgba(106,13,173,.55);
+    --board-bg:rgba(61,10,102,.55);
   }
   body.usertheme-nebula:not(.dark-mode) .aurora-layer{ opacity:0; }
+  @keyframes nebulaTwinkleA{ 0%,100%{opacity:.25;} 50%{opacity:1;} }
+  @keyframes nebulaTwinkleB{ 0%,100%{opacity:1;} 50%{opacity:.3;} }
+  body.usertheme-nebula:not(.dark-mode)::before,
+  body.usertheme-nebula:not(.dark-mode)::after{
+    content:'';
+    position:fixed; inset:0; z-index:0; pointer-events:none;
+  }
+  body.usertheme-nebula:not(.dark-mode)::before{
+    background-image:
+      radial-gradient(1.2px 1.2px at 63.4% 4.4%, #fff 60%, transparent 100%),
+      radial-gradient(1.4px 1.4px at 23.4% 72.7%, #fff 60%, transparent 100%),
+      radial-gradient(1.3px 1.3px at 87.6% 10.3%, #fff 60%, transparent 100%),
+      radial-gradient(1.3px 1.3px at 4.9% 23.0%, #fff 60%, transparent 100%),
+      radial-gradient(1.4px 1.4px at 4.5% 21.1%, #fff 60%, transparent 100%),
+      radial-gradient(1.4px 1.4px at 54.3% 23.2%, #fff 60%, transparent 100%),
+      radial-gradient(1.5px 1.5px at 79.7% 2.6%, #fff 60%, transparent 100%),
+      radial-gradient(1.1px 1.1px at 69.0% 34.7%, #fff 60%, transparent 100%),
+      radial-gradient(1.1px 1.1px at 93.9% 34.3%, #fff 60%, transparent 100%),
+      radial-gradient(1.4px 1.4px at 11.3% 83.4%, #fff 60%, transparent 100%),
+      radial-gradient(1.3px 1.3px at 79.5% 72.1%, #fff 60%, transparent 100%),
+      radial-gradient(1.3px 1.3px at 95.4% 38.3%, #fff 60%, transparent 100%),
+      radial-gradient(1.5px 1.5px at 81.6% 61.4%, #fff 60%, transparent 100%),
+      radial-gradient(1.0px 1.0px at 57.4% 69.6%, #fff 60%, transparent 100%),
+      radial-gradient(1.0px 1.0px at 23.9% 29.8%, #fff 60%, transparent 100%),
+      radial-gradient(1.2px 1.2px at 24.3% 11.7%, #fff 60%, transparent 100%);
+    animation:nebulaTwinkleA 4s ease-in-out infinite;
+  }
+  body.usertheme-nebula:not(.dark-mode)::after{
+    background-image:
+      radial-gradient(1.0px 1.0px at 63.0% 37.0%, #fff 60%, transparent 100%),
+      radial-gradient(1.4px 1.4px at 22.1% 27.6%, #fff 60%, transparent 100%),
+      radial-gradient(0.9px 0.9px at 64.2% 60.5%, #fff 60%, transparent 100%),
+      radial-gradient(1.0px 1.0px at 72.0% 17.7%, #fff 60%, transparent 100%),
+      radial-gradient(1.1px 1.1px at 97.0% 63.4%, #fff 60%, transparent 100%),
+      radial-gradient(1.3px 1.3px at 67.7% 82.9%, #fff 60%, transparent 100%),
+      radial-gradient(1.0px 1.0px at 24.0% 5.1%, #fff 60%, transparent 100%),
+      radial-gradient(1.4px 1.4px at 27.7% 22.3%, #fff 60%, transparent 100%),
+      radial-gradient(1.2px 1.2px at 86.1% 32.2%, #fff 60%, transparent 100%),
+      radial-gradient(1.1px 1.1px at 40.0% 89.8%, #fff 60%, transparent 100%),
+      radial-gradient(1.1px 1.1px at 27.4% 25.7%, #fff 60%, transparent 100%),
+      radial-gradient(1.3px 1.3px at 27.2% 58.1%, #fff 60%, transparent 100%),
+      radial-gradient(1.4px 1.4px at 40.3% 23.1%, #fff 60%, transparent 100%),
+      radial-gradient(0.8px 0.8px at 50.9% 10.7%, #fff 60%, transparent 100%);
+    animation:nebulaTwinkleB 5s ease-in-out infinite; animation-delay:1.2s;
+  }
   body.usertheme-nebula:not(.dark-mode) header{
-    background:#8A2BE2;
+    background:#3D0A66;
     border-bottom:4px solid #E0C8FF;
+    position:relative;
+    overflow:hidden;
   }
   body.usertheme-nebula:not(.dark-mode) header::before,
-  body.usertheme-nebula:not(.dark-mode) header::after{ content:none; }
+  body.usertheme-nebula:not(.dark-mode) header::after{
+    content:'';
+    position:absolute; inset:0; z-index:0; pointer-events:none;
+  }
+  body.usertheme-nebula:not(.dark-mode) header::before{
+    background-image:
+      radial-gradient(1.6px 1.6px at 12.5% 62.2%, #fff 60%, transparent 100%),
+      radial-gradient(1.3px 1.3px at 42.5% 8.1%, #fff 60%, transparent 100%),
+      radial-gradient(1.8px 1.8px at 97.6% 52.8%, #fff 60%, transparent 100%),
+      radial-gradient(1.6px 1.6px at 84.6% 3.1%, #fff 60%, transparent 100%),
+      radial-gradient(1.2px 1.2px at 67.4% 53.5%, #fff 60%, transparent 100%),
+      radial-gradient(1.3px 1.3px at 63.5% 12.7%, #fff 60%, transparent 100%),
+      radial-gradient(1.7px 1.7px at 45.6% 93.6%, #fff 60%, transparent 100%),
+      radial-gradient(1.1px 1.1px at 27.3% 50.1%, #fff 60%, transparent 100%),
+      radial-gradient(1.2px 1.2px at 89.6% 85.6%, #fff 60%, transparent 100%),
+      radial-gradient(1.1px 1.1px at 63.3% 60.5%, #fff 60%, transparent 100%);
+    animation:nebulaTwinkleA 3.4s ease-in-out infinite; animation-delay:.6s;
+  }
+  body.usertheme-nebula:not(.dark-mode) header::after{
+    background-image:
+      radial-gradient(1.2px 1.2px at 75.2% 53.8%, #fff 60%, transparent 100%),
+      radial-gradient(1.0px 1.0px at 52.9% 2.1%, #fff 60%, transparent 100%),
+      radial-gradient(1.2px 1.2px at 3.9% 91.2%, #fff 60%, transparent 100%),
+      radial-gradient(0.8px 0.8px at 81.8% 31.5%, #fff 60%, transparent 100%),
+      radial-gradient(0.8px 0.8px at 86.3% 92.9%, #fff 60%, transparent 100%),
+      radial-gradient(1.2px 1.2px at 48.7% 8.6%, #fff 60%, transparent 100%),
+      radial-gradient(1.0px 1.0px at 75.5% 14.3%, #fff 60%, transparent 100%),
+      radial-gradient(1.2px 1.2px at 54.8% 27.4%, #fff 60%, transparent 100%),
+      radial-gradient(1.1px 1.1px at 42.6% 22.3%, #fff 60%, transparent 100%);
+    animation:nebulaTwinkleB 4.6s ease-in-out infinite; animation-delay:2s;
+  }
+  body.usertheme-nebula:not(.dark-mode) header > *{ position:relative; z-index:1; }
   body.usertheme-nebula:not(.dark-mode) header,
   body.usertheme-nebula:not(.dark-mode) header *{
     color:#FEFEFE;
@@ -1403,44 +1492,44 @@
     color:#FEFEFE !important;
   }
   body.usertheme-nebula:not(.dark-mode) .faculties .fac-tile:not(.all):nth-child(4n+1){
-    background:#6A0DAD !important;
+    background:#3D0A66 !important;
   }
   body.usertheme-nebula:not(.dark-mode) .faculties .fac-tile:not(.all):nth-child(4n+2){
-    background:#00CED1 !important;
+    background:#005F6B !important;
   }
   body.usertheme-nebula:not(.dark-mode) .faculties .fac-tile:not(.all):nth-child(4n+3){
-    background:#FF1493 !important;
+    background:#8B0A50 !important;
   }
   body.usertheme-nebula:not(.dark-mode) .faculties .fac-tile:not(.all):nth-child(4n+4){
-    background:#FFD700 !important;
+    background:#A05A32 !important;
   }
   body.usertheme-nebula:not(.dark-mode) .fac-tile.all{
-    background:#12081F !important;
+    background:#100826 !important;
   }
-  /* Tile 1 (purple) in particular measures only 2.17:1 edge-contrast against the page -
-     close to invisible on its own - bright lavender border guarantees a visible edge on
-     every tile regardless. */
+  /* Every tile here measures under 4:1 edge-contrast against the near-black page (they're
+     all deep, on purpose, per Mr Eric's request) - a bright lavender border is not
+     optional, it's the only thing giving these tiles a visible edge at all. */
   body.usertheme-nebula:not(.dark-mode) .fac-tile{
-    border:1.5px solid rgba(224,200,255,.6) !important;
+    border:1.5px solid rgba(224,200,255,.65) !important;
   }
   body.usertheme-nebula:not(.dark-mode) .sport-hub-tile,
   body.usertheme-nebula:not(.dark-mode) .sports-tile,
   body.usertheme-nebula:not(.dark-mode) .sports-card{
-    background:#6A0DAD !important;
-    border:1.5px solid rgba(224,200,255,.6) !important;
+    background:#3D0A66 !important;
+    border:1.5px solid rgba(224,200,255,.65) !important;
   }
   body.usertheme-nebula:not(.dark-mode) .goodnews-tile,
   body.usertheme-nebula:not(.dark-mode) .watch-tile,
   body.usertheme-nebula:not(.dark-mode) .watch-card,
   body.usertheme-nebula:not(.dark-mode) .otd-card{
-    background:#00CED1 !important;
+    background:#005F6B !important;
   }
   body.usertheme-nebula:not(.dark-mode) .books-tile,
   body.usertheme-nebula:not(.dark-mode) .mindtemple-tile,
   body.usertheme-nebula:not(.dark-mode) .explore-tile,
   body.usertheme-nebula:not(.dark-mode) .explore-card,
   body.usertheme-nebula:not(.dark-mode) .page-result{
-    background:#FF1493 !important;
+    background:#8B0A50 !important;
   }
   body.usertheme-nebula:not(.dark-mode) .bday-tile-card,
   body.usertheme-nebula:not(.dark-mode) .random-tile,
@@ -1448,16 +1537,18 @@
   body.usertheme-nebula:not(.dark-mode) .empty-card,
   body.usertheme-nebula:not(.dark-mode) .photo-tile,
   body.usertheme-nebula:not(.dark-mode) .sotw-card{
-    background:#FFD700 !important;
+    background:#A05A32 !important;
   }
-  /* Blanket is DARK text (covers the 3 light tiles: cyan/magenta/gold, both the
-     fac-tile grid via unqualified ".fac-tile" and the equivalent generic-class
-     components). Purple (tile 1 / sport-hub group) is the one exception needing WHITE
-     text - overridden below via BOTH its generic classes AND the fac-tile grid's
-     specific nth-child position, so the domains-grid bug from Hacker/Uzbekistan2 can't
-     recur here. */
+  /* All four tiles now pass with a single white text colour - no split needed, which
+     removes the whole class of bug fixed in Hacker/Uzbekistan2. */
   body.usertheme-nebula:not(.dark-mode) .fac-tile,
   body.usertheme-nebula:not(.dark-mode) .fac-tile *,
+  body.usertheme-nebula:not(.dark-mode) .sport-hub-tile,
+  body.usertheme-nebula:not(.dark-mode) .sport-hub-tile *,
+  body.usertheme-nebula:not(.dark-mode) .sports-tile,
+  body.usertheme-nebula:not(.dark-mode) .sports-tile *,
+  body.usertheme-nebula:not(.dark-mode) .sports-card,
+  body.usertheme-nebula:not(.dark-mode) .sports-card *,
   body.usertheme-nebula:not(.dark-mode) .goodnews-tile,
   body.usertheme-nebula:not(.dark-mode) .goodnews-tile *,
   body.usertheme-nebula:not(.dark-mode) .watch-tile,
@@ -1488,23 +1579,13 @@
   body.usertheme-nebula:not(.dark-mode) .photo-tile *,
   body.usertheme-nebula:not(.dark-mode) .sotw-card,
   body.usertheme-nebula:not(.dark-mode) .sotw-card *{
-    color:#0A0518 !important;
-  }
-  body.usertheme-nebula:not(.dark-mode) .sport-hub-tile,
-  body.usertheme-nebula:not(.dark-mode) .sport-hub-tile *,
-  body.usertheme-nebula:not(.dark-mode) .sports-tile,
-  body.usertheme-nebula:not(.dark-mode) .sports-tile *,
-  body.usertheme-nebula:not(.dark-mode) .sports-card,
-  body.usertheme-nebula:not(.dark-mode) .sports-card *,
-  body.usertheme-nebula:not(.dark-mode) .faculties .fac-tile:not(.all):nth-child(4n+1),
-  body.usertheme-nebula:not(.dark-mode) .faculties .fac-tile:not(.all):nth-child(4n+1) *{
     color:#FEFEFE !important;
   }
 
-  /* --- Targeted overrides: same ~30 call sites audited for the last four themes,
-     reapplied here with Nebula's colours. --- */
+  /* --- Targeted overrides: same ~30 call sites audited for the other dark-background
+     themes, reapplied here with Nebula's deepened colours. --- */
 
-  /* --coral text call-sites (variable is dark purple, background-role-optimised) */
+  /* --coral text call-sites (variable is deep purple, background-role-optimised) */
   body.usertheme-nebula:not(.dark-mode) .random-btn:hover,
   body.usertheme-nebula:not(.dark-mode) .domain-summary:hover h2,
   body.usertheme-nebula:not(.dark-mode) a.headline:hover,
@@ -1522,32 +1603,30 @@
 
   /* --coral-dark background call-site (variable is pale lavender, text-role-optimised) */
   body.usertheme-nebula:not(.dark-mode) .install-step-num{
-    background:#6A0DAD !important;
+    background:#3D0A66 !important;
   }
 
-  /* --gold background call-sites (variable is pale lavender, text-role-optimised;
-     gold as a tile fill fails badly with white text at 1.39:1, so both fill and text
-     need overriding together) */
+  /* --gold background call-sites (variable is pale lavender, text-role-optimised) */
   body.usertheme-nebula:not(.dark-mode) .bookmark-btn.active,
   body.usertheme-nebula:not(.dark-mode) .fg-bonus-tag,
   body.usertheme-nebula:not(.dark-mode) .bday-item.today{
-    background:#FFD700 !important;
-    color:#0A0518 !important;
+    background:#A05A32 !important;
+    color:#FEFEFE !important;
   }
   body.usertheme-nebula:not(.dark-mode) .bday-item.today .bday-name,
   body.usertheme-nebula:not(.dark-mode) .bday-item.today .bday-date{
-    color:#0A0518 !important;
+    color:#FEFEFE !important;
   }
 
-  /* --teal background call-sites (variable is pale lavender, text-role-optimised;
-     these already pair with white text, which passes fine against purple) */
+  /* --teal background call-sites (variable is pale lavender, text-role-optimised) */
   body.usertheme-nebula:not(.dark-mode) .fg-option-btn.fg-correct,
   body.usertheme-nebula:not(.dark-mode) .anagram-btn.check,
   body.usertheme-nebula:not(.dark-mode) .hanoi-disc[data-size="3"],
   body.usertheme-nebula:not(.dark-mode) .event-cat-badge{
-    background:#6A0DAD !important;
+    background:#3D0A66 !important;
     color:#FEFEFE !important;
   }
+
 
   body.dark-mode.usertheme-d1{
     --cream:#1B1512; --cream-2:#271E18; --card:#3A2C22; --ink:#F0E3D2; --ink-soft:#C2A98C;
@@ -24787,7 +24866,7 @@ const COMPLIMENTS = [
     { key:'soviet', label:'Soviet', c1:'#D34039', c2:'#AE352F' },
     { key:'hacker', label:'Matrix', c1:'#00CC41', c2:'#0F5C24' },
     { key:'bazaar', label:'Grand Bazaar', c1:'#C5510B', c2:'#93610B' },
-    { key:'nebula', label:'Nebula', c1:'#6A0DAD', c2:'#FF1493' },
+    { key:'nebula', label:'Nebula', c1:'#3D0A66', c2:'#8B0A50' },
   ];
 
   let themePickerBackdrop = null;
