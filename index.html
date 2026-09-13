@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Mr Eric's Lounge</title>
-<meta name="app-build" content="20260912213000">
+<meta name="app-build" content="20260913015811">
 <script>
   // PWA update-detection: an installed home-screen app's standalone-mode navigation
   // cache can hold an old shell far longer than the CDN's 10-minute cache -
@@ -1359,6 +1359,194 @@
   body.usertheme-hacker:not(.dark-mode) .event-cat-badge{
     background:#0A3D18 !important;
     color:#33FF33 !important;
+  }
+
+  /* - Nebula: deep-space astrophotography palette - magenta/pink (H-alpha emission),
+     cyan (OIII emission), deep purple (dust clouds), and star-gold, on near-black space.
+     No user photo to pixel-sample this time (it's a genre, not a specific object), so
+     colours are standard astrophotography channel-mapping references, verified with the
+     same contrast discipline as every other custom theme.
+
+     Same structural conflict as the last four dark-background themes (--coral/--teal/
+     --gold/--coral-dark each used both as light-needing text and dark-needing tile
+     fills elsewhere in the codebase) - same ~30 call-site audit, same resolution.
+
+     Three of the four tile colours (cyan, magenta, gold) are light enough that white
+     text on them fails badly (gold: 1.39:1, a real fail) and need dark text instead;
+     only purple is dark enough for white text. That's the opposite ratio from every
+     previous theme (usually 1 of 4 needs the exception, not 3 of 4), so the blanket
+     rule below is dark text by default with white text as the override for purple -
+     flipped from the usual pattern, and double-checked against the exact bug just
+     fixed in Hacker/Uzbekistan2 (the blanket rule must not skip the fac-tile grid's
+     nth-child position for the exception group). */
+  body.usertheme-nebula:not(.dark-mode){
+    --cream:#0A0518; --cream-2:#0A0518; --card:#1A0F33;
+    --ink:#FEFEFE; --ink-soft:#E0C8FF;
+    --coral:#6A0DAD; --coral-dark:#E0C8FF; --gold:#E0C8FF; --teal:#E0C8FF;
+    --line:rgba(224,200,255,.3);
+    --board-bg:rgba(106,13,173,.55);
+  }
+  body.usertheme-nebula:not(.dark-mode) .aurora-layer{ opacity:0; }
+  body.usertheme-nebula:not(.dark-mode) header{
+    background:#8A2BE2;
+    border-bottom:4px solid #E0C8FF;
+  }
+  body.usertheme-nebula:not(.dark-mode) header::before,
+  body.usertheme-nebula:not(.dark-mode) header::after{ content:none; }
+  body.usertheme-nebula:not(.dark-mode) header,
+  body.usertheme-nebula:not(.dark-mode) header *{
+    color:#FEFEFE;
+    text-shadow:none;
+  }
+  body.usertheme-nebula:not(.dark-mode) header .search-icon-btn,
+  body.usertheme-nebula:not(.dark-mode) header .search-icon-btn *{
+    color:#FEFEFE !important;
+  }
+  body.usertheme-nebula:not(.dark-mode) .faculties .fac-tile:not(.all):nth-child(4n+1){
+    background:#6A0DAD !important;
+  }
+  body.usertheme-nebula:not(.dark-mode) .faculties .fac-tile:not(.all):nth-child(4n+2){
+    background:#00CED1 !important;
+  }
+  body.usertheme-nebula:not(.dark-mode) .faculties .fac-tile:not(.all):nth-child(4n+3){
+    background:#FF1493 !important;
+  }
+  body.usertheme-nebula:not(.dark-mode) .faculties .fac-tile:not(.all):nth-child(4n+4){
+    background:#FFD700 !important;
+  }
+  body.usertheme-nebula:not(.dark-mode) .fac-tile.all{
+    background:#12081F !important;
+  }
+  /* Tile 1 (purple) in particular measures only 2.17:1 edge-contrast against the page -
+     close to invisible on its own - bright lavender border guarantees a visible edge on
+     every tile regardless. */
+  body.usertheme-nebula:not(.dark-mode) .fac-tile{
+    border:1.5px solid rgba(224,200,255,.6) !important;
+  }
+  body.usertheme-nebula:not(.dark-mode) .sport-hub-tile,
+  body.usertheme-nebula:not(.dark-mode) .sports-tile,
+  body.usertheme-nebula:not(.dark-mode) .sports-card{
+    background:#6A0DAD !important;
+    border:1.5px solid rgba(224,200,255,.6) !important;
+  }
+  body.usertheme-nebula:not(.dark-mode) .goodnews-tile,
+  body.usertheme-nebula:not(.dark-mode) .watch-tile,
+  body.usertheme-nebula:not(.dark-mode) .watch-card,
+  body.usertheme-nebula:not(.dark-mode) .otd-card{
+    background:#00CED1 !important;
+  }
+  body.usertheme-nebula:not(.dark-mode) .books-tile,
+  body.usertheme-nebula:not(.dark-mode) .mindtemple-tile,
+  body.usertheme-nebula:not(.dark-mode) .explore-tile,
+  body.usertheme-nebula:not(.dark-mode) .explore-card,
+  body.usertheme-nebula:not(.dark-mode) .page-result{
+    background:#FF1493 !important;
+  }
+  body.usertheme-nebula:not(.dark-mode) .bday-tile-card,
+  body.usertheme-nebula:not(.dark-mode) .random-tile,
+  body.usertheme-nebula:not(.dark-mode) .rec-item,
+  body.usertheme-nebula:not(.dark-mode) .empty-card,
+  body.usertheme-nebula:not(.dark-mode) .photo-tile,
+  body.usertheme-nebula:not(.dark-mode) .sotw-card{
+    background:#FFD700 !important;
+  }
+  /* Blanket is DARK text (covers the 3 light tiles: cyan/magenta/gold, both the
+     fac-tile grid via unqualified ".fac-tile" and the equivalent generic-class
+     components). Purple (tile 1 / sport-hub group) is the one exception needing WHITE
+     text - overridden below via BOTH its generic classes AND the fac-tile grid's
+     specific nth-child position, so the domains-grid bug from Hacker/Uzbekistan2 can't
+     recur here. */
+  body.usertheme-nebula:not(.dark-mode) .fac-tile,
+  body.usertheme-nebula:not(.dark-mode) .fac-tile *,
+  body.usertheme-nebula:not(.dark-mode) .goodnews-tile,
+  body.usertheme-nebula:not(.dark-mode) .goodnews-tile *,
+  body.usertheme-nebula:not(.dark-mode) .watch-tile,
+  body.usertheme-nebula:not(.dark-mode) .watch-tile *,
+  body.usertheme-nebula:not(.dark-mode) .watch-card,
+  body.usertheme-nebula:not(.dark-mode) .watch-card *,
+  body.usertheme-nebula:not(.dark-mode) .otd-card,
+  body.usertheme-nebula:not(.dark-mode) .otd-card *,
+  body.usertheme-nebula:not(.dark-mode) .books-tile,
+  body.usertheme-nebula:not(.dark-mode) .books-tile *,
+  body.usertheme-nebula:not(.dark-mode) .mindtemple-tile,
+  body.usertheme-nebula:not(.dark-mode) .mindtemple-tile *,
+  body.usertheme-nebula:not(.dark-mode) .explore-tile,
+  body.usertheme-nebula:not(.dark-mode) .explore-tile *,
+  body.usertheme-nebula:not(.dark-mode) .explore-card,
+  body.usertheme-nebula:not(.dark-mode) .explore-card *,
+  body.usertheme-nebula:not(.dark-mode) .page-result,
+  body.usertheme-nebula:not(.dark-mode) .page-result *,
+  body.usertheme-nebula:not(.dark-mode) .bday-tile-card,
+  body.usertheme-nebula:not(.dark-mode) .bday-tile-card *,
+  body.usertheme-nebula:not(.dark-mode) .random-tile,
+  body.usertheme-nebula:not(.dark-mode) .random-tile *,
+  body.usertheme-nebula:not(.dark-mode) .rec-item,
+  body.usertheme-nebula:not(.dark-mode) .rec-item *,
+  body.usertheme-nebula:not(.dark-mode) .empty-card,
+  body.usertheme-nebula:not(.dark-mode) .empty-card *,
+  body.usertheme-nebula:not(.dark-mode) .photo-tile,
+  body.usertheme-nebula:not(.dark-mode) .photo-tile *,
+  body.usertheme-nebula:not(.dark-mode) .sotw-card,
+  body.usertheme-nebula:not(.dark-mode) .sotw-card *{
+    color:#0A0518 !important;
+  }
+  body.usertheme-nebula:not(.dark-mode) .sport-hub-tile,
+  body.usertheme-nebula:not(.dark-mode) .sport-hub-tile *,
+  body.usertheme-nebula:not(.dark-mode) .sports-tile,
+  body.usertheme-nebula:not(.dark-mode) .sports-tile *,
+  body.usertheme-nebula:not(.dark-mode) .sports-card,
+  body.usertheme-nebula:not(.dark-mode) .sports-card *,
+  body.usertheme-nebula:not(.dark-mode) .faculties .fac-tile:not(.all):nth-child(4n+1),
+  body.usertheme-nebula:not(.dark-mode) .faculties .fac-tile:not(.all):nth-child(4n+1) *{
+    color:#FEFEFE !important;
+  }
+
+  /* --- Targeted overrides: same ~30 call sites audited for the last four themes,
+     reapplied here with Nebula's colours. --- */
+
+  /* --coral text call-sites (variable is dark purple, background-role-optimised) */
+  body.usertheme-nebula:not(.dark-mode) .random-btn:hover,
+  body.usertheme-nebula:not(.dark-mode) .domain-summary:hover h2,
+  body.usertheme-nebula:not(.dark-mode) a.headline:hover,
+  body.usertheme-nebula:not(.dark-mode) .share-btn:hover,
+  body.usertheme-nebula:not(.dark-mode) .rec-item a:hover,
+  body.usertheme-nebula:not(.dark-mode) .wordle-message,
+  body.usertheme-nebula:not(.dark-mode) .anagram-message,
+  body.usertheme-nebula:not(.dark-mode) .page-result-icon,
+  body.usertheme-nebula:not(.dark-mode) .bday-item.bday-cat-staff .bday-name,
+  body.usertheme-nebula:not(.dark-mode) .bottom-tabs a:hover,
+  body.usertheme-nebula:not(.dark-mode) .explore-card-name,
+  body.usertheme-nebula:not(.dark-mode) .question-item div:nth-child(3){
+    color:#E0C8FF !important;
+  }
+
+  /* --coral-dark background call-site (variable is pale lavender, text-role-optimised) */
+  body.usertheme-nebula:not(.dark-mode) .install-step-num{
+    background:#6A0DAD !important;
+  }
+
+  /* --gold background call-sites (variable is pale lavender, text-role-optimised;
+     gold as a tile fill fails badly with white text at 1.39:1, so both fill and text
+     need overriding together) */
+  body.usertheme-nebula:not(.dark-mode) .bookmark-btn.active,
+  body.usertheme-nebula:not(.dark-mode) .fg-bonus-tag,
+  body.usertheme-nebula:not(.dark-mode) .bday-item.today{
+    background:#FFD700 !important;
+    color:#0A0518 !important;
+  }
+  body.usertheme-nebula:not(.dark-mode) .bday-item.today .bday-name,
+  body.usertheme-nebula:not(.dark-mode) .bday-item.today .bday-date{
+    color:#0A0518 !important;
+  }
+
+  /* --teal background call-sites (variable is pale lavender, text-role-optimised;
+     these already pair with white text, which passes fine against purple) */
+  body.usertheme-nebula:not(.dark-mode) .fg-option-btn.fg-correct,
+  body.usertheme-nebula:not(.dark-mode) .anagram-btn.check,
+  body.usertheme-nebula:not(.dark-mode) .hanoi-disc[data-size="3"],
+  body.usertheme-nebula:not(.dark-mode) .event-cat-badge{
+    background:#6A0DAD !important;
+    color:#FEFEFE !important;
   }
 
   body.dark-mode.usertheme-d1{
@@ -24465,7 +24653,7 @@ const COMPLIMENTS = [
     // window) per Mr Eric - it's a real palette option forever, cyclable/pickable any
     // time. The window end (2 Sept 18:00 Tashkent) only controls the one-time default
     // reset below, not availability.
-    const base = ['default','d1','ihl','dihl','nationalday','uzbekistan2','arsenal','arsenal2','darsenal','vintage','dvintage','soviet','hacker','bazaar'];
+    const base = ['default','d1','ihl','dihl','nationalday','uzbekistan2','arsenal','arsenal2','darsenal','vintage','dvintage','soviet','hacker','bazaar','nebula'];
     return base;
   }
   let THEME_ORDER = buildThemeOrder();
@@ -24474,7 +24662,7 @@ const COMPLIMENTS = [
     const persist = !opts || opts.persist !== false;
     const isDark = key !== 'default' && key !== 'nationalday' && key.charAt(0) === 'd';
     document.body.classList.toggle('dark-mode', isDark);
-    ['ihl','arsenal','arsenal2','uzbekistan2','soviet','bazaar','hacker','vintage','d1','dihl','darsenal','dvintage'].forEach(k => document.body.classList.remove('usertheme-' + k));
+    ['ihl','arsenal','arsenal2','uzbekistan2','soviet','bazaar','hacker','nebula','vintage','d1','dihl','darsenal','dvintage'].forEach(k => document.body.classList.remove('usertheme-' + k));
     document.body.classList.remove('theme-nationalday');
     if(key === 'nationalday'){
       document.body.classList.add('theme-nationalday');
@@ -24599,6 +24787,7 @@ const COMPLIMENTS = [
     { key:'soviet', label:'Soviet', c1:'#D34039', c2:'#AE352F' },
     { key:'hacker', label:'Matrix', c1:'#00CC41', c2:'#0F5C24' },
     { key:'bazaar', label:'Grand Bazaar', c1:'#C5510B', c2:'#93610B' },
+    { key:'nebula', label:'Nebula', c1:'#6A0DAD', c2:'#FF1493' },
   ];
 
   let themePickerBackdrop = null;
