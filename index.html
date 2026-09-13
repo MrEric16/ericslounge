@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Mr Eric's Lounge</title>
-<meta name="app-build" content="20260913171238">
+<meta name="app-build" content="20260913171729">
 <script>
   // PWA update-detection: an installed home-screen app's standalone-mode navigation
   // cache can hold an old shell far longer than the CDN's 10-minute cache -
@@ -642,6 +642,25 @@
     --board-bg:rgba(7,9,59,.55);
   }
   body.usertheme-uzbekistan2:not(.dark-mode) .aurora-layer{ opacity:0; }
+  /* SIGNATURE: Uzbek brick-facade texture on the page background - the offset running-
+     bond coursing seen on real Bukhara/Samarkand brickwork, not a generic grid. Uses
+     only the navy already in the palette (--coral, #07093B) at low opacity layered
+     over the existing turquoise - no new colour introduced, the page reads the same
+     hue at a glance, just textured. Fixed so it stays put on scroll, low z-index so it
+     sits behind all real content (the header has its own opaque background and won't
+     show this - same reason every other header device on other themes needed its own
+     copy, not addressed here since Mr Eric asked for the page background specifically). */
+  body.usertheme-uzbekistan2:not(.dark-mode)::before{
+    content:'';
+    position:fixed; inset:0; z-index:-1; pointer-events:none;
+    background-image:
+      linear-gradient(335deg, rgba(7,9,59,.16) 12px, transparent 12px),
+      linear-gradient(155deg, rgba(7,9,59,.16) 12px, transparent 12px),
+      linear-gradient(335deg, rgba(7,9,59,.16) 12px, transparent 12px),
+      linear-gradient(155deg, rgba(7,9,59,.16) 12px, transparent 12px);
+    background-position:0px 2px, 0px 2px, 20px 32px, 20px 32px;
+    background-size:40px 64px;
+  }
   body.usertheme-uzbekistan2:not(.dark-mode) header{
     background:#DDA96E;
     border-bottom:4px solid #07093B;
