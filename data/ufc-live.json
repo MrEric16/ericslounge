@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-12T08:02:00.789630+00:00",
+  "generatedAt": "2026-09-13T08:27:19.251204+00:00",
   "scheduled": [
     {
       "name": "UFC 335",
@@ -73,16 +73,15 @@
       "venue": "Crypto.com Arena",
       "location": "Los Angeles,California, U.S.",
       "start_tashkent": "2026-09-20T06:00:00+05:00"
-    },
+    }
+  ],
+  "past": [
     {
       "name": "UFC Fight Night: Silva vs. Delgado",
       "date_text": "Sep 12, 2026",
       "venue": "Desert Diamond Arena",
-      "location": "Glendale,Arizona, U.S.",
-      "start_tashkent": "2026-09-13T02:00:00+05:00"
-    }
-  ],
-  "past": [
+      "location": "Glendale,Arizona, U.S."
+    },
     {
       "name": "UFC Fight Night: Hooker vs. Parnasse",
       "date_text": "Sep 5, 2026",
@@ -177,13 +176,6 @@
       "venue": "Galaxy Arena",
       "location": "MacauSAR, China",
       "result": "Song Yadong def. Deiveson Figueiredo (Submission, R2 4:42)"
-    },
-    {
-      "name": "UFC Fight Night: Allen vs. Costa",
-      "date_text": "May 16, 2026",
-      "venue": "Meta Apex",
-      "location": "Las Vegas,Nevada, U.S.",
-      "result": "Arnold Allen def. Melquizael Costa (Unanimous Decision)"
     }
   ]
 }
