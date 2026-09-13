@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-13T13:01:28.514247Z",
+  "generatedAt": "2026-09-13T16:55:49.837908Z",
   "results": [
     {
       "url": "https://www.goal.com/en/match/girona-vs-arsenal/__LS8d9Oc6I1wXn9g8956",
@@ -6285,9 +6285,124 @@
         }
       ],
       "competition": "PD"
+    },
+    {
+      "url": "https://www.goal.com/en/match/coventry-city-vs-brighton-and-hove-albion/TQW-svsFP60IyqCAmB4uq",
+      "date": null,
+      "home": "Coventry City",
+      "away": "Brighton And Hove Albion",
+      "htHome": 0,
+      "htAway": 1,
+      "ftHome": 0,
+      "ftAway": 5,
+      "homeGoals": [],
+      "awayGoals": [
+        {
+          "scorer": "C. Kostoulas",
+          "minute": 35
+        },
+        {
+          "scorer": "M. Yalcouye",
+          "minute": 51
+        },
+        {
+          "scorer": "P. Gross",
+          "minute": 70
+        },
+        {
+          "scorer": "L. Dunk",
+          "minute": 83
+        },
+        {
+          "scorer": "Y. Ayari",
+          "minute": 90
+        }
+      ],
+      "competition": "PL"
+    },
+    {
+      "url": "https://www.goal.com/en/match/celta-vigo-vs-malaga/iZVl2x2PEEL32gaY1m43T",
+      "date": null,
+      "home": "Celta Vigo",
+      "away": "Malaga",
+      "htHome": 1,
+      "htAway": 0,
+      "ftHome": 1,
+      "ftAway": 1,
+      "homeGoals": [
+        {
+          "scorer": "F. Jutgla",
+          "minute": 41
+        }
+      ],
+      "awayGoals": [
+        {
+          "scorer": "A. Nino",
+          "minute": 83
+        }
+      ],
+      "competition": "PD"
+    },
+    {
+      "url": "https://www.goal.com/en/match/rb-leipzig-vs-hamburger-sv/JzPPFM4UAuGAfMbrPAhYd",
+      "date": null,
+      "home": "Rb Leipzig",
+      "away": "Hamburger Sv",
+      "htHome": 2,
+      "htAway": 0,
+      "ftHome": 5,
+      "ftAway": 0,
+      "homeGoals": [
+        {
+          "scorer": "T. Gomis",
+          "minute": 17
+        },
+        {
+          "scorer": "A. Nusa",
+          "minute": 28
+        },
+        {
+          "scorer": "W. Orban",
+          "minute": 72
+        },
+        {
+          "scorer": "C. Nkunku",
+          "minute": 74
+        },
+        {
+          "scorer": "R. Cruz",
+          "minute": 77
+        }
+      ],
+      "awayGoals": [],
+      "competition": "BL1"
+    },
+    {
+      "url": "https://www.goal.com/en/match/lille-vs-troyes/FYD4DE5sDuCdS-8dJCYgE",
+      "date": null,
+      "home": "Lille",
+      "away": "Troyes",
+      "htHome": 1,
+      "htAway": 0,
+      "ftHome": 2,
+      "ftAway": 0,
+      "homeGoals": [
+        {
+          "scorer": "Tiago Santos",
+          "minute": 18
+        },
+        {
+          "scorer": "E. Mbappe",
+          "minute": 90
+        }
+      ],
+      "awayGoals": [],
+      "competition": "FL1"
     }
   ],
   "scorerParseRetryCounts": {
-    "https://www.goal.com/en/match/slavia-prague-vs-lens/8tl536s9YeGCuVkrI5O7Y": 2
+    "https://www.goal.com/en/match/slavia-prague-vs-lens/8tl536s9YeGCuVkrI5O7Y": 2,
+    "https://www.goal.com/en/match/levante-vs-barcelona/yIjUEP_4ATKfv2dgC_aZ7": 2,
+    "https://www.goal.com/en/match/lecce-vs-monza/nZWlT9uFtMToV-YzdDxgn": 1
   }
 }
