@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-13T21:32:21.901236Z",
+  "generatedAt": "2026-09-13T23:49:21.373776Z",
   "results": [
     {
       "url": "https://www.goal.com/en/match/girona-vs-arsenal/__LS8d9Oc6I1wXn9g8956",
@@ -6625,10 +6625,40 @@
         }
       ],
       "competition": "FL1"
+    },
+    {
+      "url": "https://www.goal.com/en/match/sassuolo-vs-juventus/tnRD1bsGLLA906m1dEyLA",
+      "date": null,
+      "home": "Sassuolo",
+      "away": "Juventus",
+      "htHome": 0,
+      "htAway": 0,
+      "ftHome": 3,
+      "ftAway": 2,
+      "homeGoals": [
+        {
+          "scorer": "S. Esposito",
+          "minute": 65
+        },
+        {
+          "scorer": "K. Bowie",
+          "minute": 89
+        },
+        {
+          "scorer": "V. Adzic",
+          "minute": 90
+        }
+      ],
+      "awayGoals": [
+        {
+          "scorer": "E. Zhegrova",
+          "minute": 82
+        }
+      ],
+      "competition": "SA"
     }
   ],
   "scorerParseRetryCounts": {
-    "https://www.goal.com/en/match/slavia-prague-vs-lens/8tl536s9YeGCuVkrI5O7Y": 2,
-    "https://www.goal.com/en/match/sassuolo-vs-juventus/tnRD1bsGLLA906m1dEyLA": 2
+    "https://www.goal.com/en/match/slavia-prague-vs-lens/8tl536s9YeGCuVkrI5O7Y": 2
   }
 }
