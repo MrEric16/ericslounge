@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Mr Eric's Lounge</title>
-<meta name="app-build" content="20260913071113">
+<meta name="app-build" content="20260913071916">
 <script>
   // PWA update-detection: an installed home-screen app's standalone-mode navigation
   // cache can hold an old shell far longer than the CDN's 10-minute cache -
@@ -1573,24 +1573,36 @@
   }
 
 
-  /* - Synthwave: retro-80s neon - hot pink, electric cyan, purple, sunset orange, on a
-     deep purple-black night sky. Same structural conflict as Nebula/Uzbekistan2/Grand
-     Bazaar (--coral/--teal/--gold/--coral-dark each used both as light-needing text and
-     dark-needing tile fills elsewhere in the codebase) - same ~30 call-site audit, same
-     resolution. Same majority-flip as Nebula too: 3 of 4 tile colours (pink, cyan,
-     orange) are bright enough that white text on them fails - cyan especially badly,
-     1.53:1 - so they need dark text; only purple is dark enough for white text. */
+  /* - Synthwave, pushed more toxic: Mr Eric wanted "deep, bright, toxic, highlighter"
+     colours after seeing a real contrast bug (see below), and attached Carpenter Brut
+     album art / retro-sunset references. Pushed each colour further into fluorescent
+     territory - hot magenta #FF00C8, neon cyan #00FFE1, acid highlighter green #CCFF00
+     (swapped in for the original sunset orange - reads more "toxic" than warm orange
+     does), vivid purple #9D00FF. All four re-verified: pushing brighter actually
+     IMPROVES contrast for the three that pair with dark text (brighter bg + dark text =
+     more contrast, not less) - purple is the one that pairs with white text, so it's
+     the one that can't be pushed as bright without losing its own contrast, and stayed
+     comparatively the most restrained of the four for exactly that reason.
+
+     Real bug fixed here too: the "Full Archive" tile (.fac-tile.all) has a fixed dark
+     background (#2A1450) independent of the 4-colour cycle, but the white-text
+     exception only covered the cycle's own white-text position (nth-child 4n+1) - so
+     .fac-tile.all fell through to the blanket DARK text rule meant for the bright
+     tiles, landing dark-on-dark at 1.17:1, functionally invisible. That's exactly what
+     Mr Eric's screenshot showed. Same root-cause family as the Hacker/Uzbekistan2 bug -
+     a fixed-background element not covered by the cycle's own exception logic - and
+     Hacker turned out to have the identical gap once checked, fixed there too. */
   body.usertheme-synthwave:not(.dark-mode){
     --cream:#170B2E; --cream-2:#170B2E; --card:#2A1450;
     --ink:#FEFEFE; --ink-soft:#9FF7FF;
-    --coral:#8A2BE2; --coral-dark:#9FF7FF; --gold:#9FF7FF; --teal:#9FF7FF;
+    --coral:#9D00FF; --coral-dark:#9FF7FF; --gold:#9FF7FF; --teal:#9FF7FF;
     --line:rgba(159,247,255,.3);
-    --board-bg:rgba(138,43,226,.55);
+    --board-bg:rgba(157,0,255,.55);
   }
   body.usertheme-synthwave:not(.dark-mode) .aurora-layer{ opacity:0; }
   body.usertheme-synthwave:not(.dark-mode) header{
-    background:#FF2E97;
-    border-bottom:4px solid #00E5FF;
+    background:#FF00C8;
+    border-bottom:4px solid #00FFE1;
   }
   body.usertheme-synthwave:not(.dark-mode) header::before,
   body.usertheme-synthwave:not(.dark-mode) header::after{ content:none; }
@@ -1604,43 +1616,43 @@
     color:#170B2E !important;
   }
   body.usertheme-synthwave:not(.dark-mode) .faculties .fac-tile:not(.all):nth-child(4n+1){
-    background:#8A2BE2 !important;
+    background:#9D00FF !important;
   }
   body.usertheme-synthwave:not(.dark-mode) .faculties .fac-tile:not(.all):nth-child(4n+2){
-    background:#FF2E97 !important;
+    background:#FF00C8 !important;
   }
   body.usertheme-synthwave:not(.dark-mode) .faculties .fac-tile:not(.all):nth-child(4n+3){
-    background:#00E5FF !important;
+    background:#00FFE1 !important;
   }
   body.usertheme-synthwave:not(.dark-mode) .faculties .fac-tile:not(.all):nth-child(4n+4){
-    background:#FF8C42 !important;
+    background:#CCFF00 !important;
   }
   body.usertheme-synthwave:not(.dark-mode) .fac-tile.all{
     background:#2A1450 !important;
   }
-  /* Purple in particular measures only 3.14:1 edge-contrast against the page - bright
-     cyan border guarantees a visible edge on every tile regardless. */
+  /* Purple still measures weak edge-contrast against the page on its own - bright cyan
+     border guarantees a visible edge on every tile regardless. */
   body.usertheme-synthwave:not(.dark-mode) .fac-tile{
     border:1.5px solid rgba(159,247,255,.6) !important;
   }
   body.usertheme-synthwave:not(.dark-mode) .sport-hub-tile,
   body.usertheme-synthwave:not(.dark-mode) .sports-tile,
   body.usertheme-synthwave:not(.dark-mode) .sports-card{
-    background:#8A2BE2 !important;
+    background:#9D00FF !important;
     border:1.5px solid rgba(159,247,255,.6) !important;
   }
   body.usertheme-synthwave:not(.dark-mode) .goodnews-tile,
   body.usertheme-synthwave:not(.dark-mode) .watch-tile,
   body.usertheme-synthwave:not(.dark-mode) .watch-card,
   body.usertheme-synthwave:not(.dark-mode) .otd-card{
-    background:#FF2E97 !important;
+    background:#FF00C8 !important;
   }
   body.usertheme-synthwave:not(.dark-mode) .books-tile,
   body.usertheme-synthwave:not(.dark-mode) .mindtemple-tile,
   body.usertheme-synthwave:not(.dark-mode) .explore-tile,
   body.usertheme-synthwave:not(.dark-mode) .explore-card,
   body.usertheme-synthwave:not(.dark-mode) .page-result{
-    background:#00E5FF !important;
+    background:#00FFE1 !important;
   }
   body.usertheme-synthwave:not(.dark-mode) .bday-tile-card,
   body.usertheme-synthwave:not(.dark-mode) .random-tile,
@@ -1648,12 +1660,11 @@
   body.usertheme-synthwave:not(.dark-mode) .empty-card,
   body.usertheme-synthwave:not(.dark-mode) .photo-tile,
   body.usertheme-synthwave:not(.dark-mode) .sotw-card{
-    background:#FF8C42 !important;
+    background:#CCFF00 !important;
   }
-  /* Groups 2-4 (pink/cyan/orange) all need dark text. Group 1 (purple) is the one
-     exception needing WHITE text - overridden after the blanket rule below, covering
-     both its generic classes and the fac-tile grid's specific nth-child position (the
-     exact gap that caused the Hacker/Uzbekistan2 bug). */
+  /* Groups 2-4 (pink/cyan/green) all need dark text. Group 1 (purple) AND the fixed-
+     background "all" tile are the two exceptions needing WHITE text - both covered
+     explicitly below, after the blanket rule, so they win the tie. */
   body.usertheme-synthwave:not(.dark-mode) .fac-tile,
   body.usertheme-synthwave:not(.dark-mode) .fac-tile *,
   body.usertheme-synthwave:not(.dark-mode) .goodnews-tile,
@@ -1694,15 +1705,17 @@
   body.usertheme-synthwave:not(.dark-mode) .sports-tile *,
   body.usertheme-synthwave:not(.dark-mode) .sports-card,
   body.usertheme-synthwave:not(.dark-mode) .sports-card *,
+  body.usertheme-synthwave:not(.dark-mode) .fac-tile.all,
+  body.usertheme-synthwave:not(.dark-mode) .fac-tile.all *,
   body.usertheme-synthwave:not(.dark-mode) .faculties .fac-tile:not(.all):nth-child(4n+1),
   body.usertheme-synthwave:not(.dark-mode) .faculties .fac-tile:not(.all):nth-child(4n+1) *{
     color:#FEFEFE !important;
   }
 
   /* --- Targeted overrides: same ~30 call sites audited for the prior dark-background
-     themes, reapplied here with Synthwave's colours. --- */
+     themes, reapplied here with the pushed-toxic colours. --- */
 
-  /* --coral text call-sites (variable is dark purple, background-role-optimised) */
+  /* --coral text call-sites (variable is vivid purple, background-role-optimised) */
   body.usertheme-synthwave:not(.dark-mode) .random-btn:hover,
   body.usertheme-synthwave:not(.dark-mode) .domain-summary:hover h2,
   body.usertheme-synthwave:not(.dark-mode) a.headline:hover,
@@ -1720,14 +1733,14 @@
 
   /* --coral-dark background call-site (variable is pale cyan, text-role-optimised) */
   body.usertheme-synthwave:not(.dark-mode) .install-step-num{
-    background:#8A2BE2 !important;
+    background:#9D00FF !important;
   }
 
   /* --gold background call-sites (variable is pale cyan, text-role-optimised) */
   body.usertheme-synthwave:not(.dark-mode) .bookmark-btn.active,
   body.usertheme-synthwave:not(.dark-mode) .fg-bonus-tag,
   body.usertheme-synthwave:not(.dark-mode) .bday-item.today{
-    background:#FF8C42 !important;
+    background:#CCFF00 !important;
     color:#170B2E !important;
   }
   body.usertheme-synthwave:not(.dark-mode) .bday-item.today .bday-name,
@@ -1740,9 +1753,10 @@
   body.usertheme-synthwave:not(.dark-mode) .anagram-btn.check,
   body.usertheme-synthwave:not(.dark-mode) .hanoi-disc[data-size="3"],
   body.usertheme-synthwave:not(.dark-mode) .event-cat-badge{
-    background:#8A2BE2 !important;
+    background:#9D00FF !important;
     color:#FEFEFE !important;
   }
+
 
   body.dark-mode.usertheme-d1{
     --cream:#1B1512; --cream-2:#271E18; --card:#3A2C22; --ink:#F0E3D2; --ink-soft:#C2A98C;
@@ -25029,7 +25043,7 @@ const COMPLIMENTS = [
     { key:'hacker', label:'Matrix', c1:'#00CC41', c2:'#0F5C24' },
     { key:'bazaar', label:'Grand Bazaar', c1:'#C5510B', c2:'#93610B' },
     { key:'nebula', label:'Nebula', c1:'#3D0A66', c2:'#8B0A50' },
-    { key:'synthwave', label:'Synthwave', c1:'#FF2E97', c2:'#00E5FF' },
+    { key:'synthwave', label:'Synthwave', c1:'#FF00C8', c2:'#00FFE1' },
   ];
 
   let themePickerBackdrop = null;
