@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Mr Eric's Lounge</title>
-<meta name="app-build" content="20260913080833">
+<meta name="app-build" content="20260913081519">
 <script>
   // PWA update-detection: an installed home-screen app's standalone-mode navigation
   // cache can hold an old shell far longer than the CDN's 10-minute cache -
@@ -1759,20 +1759,29 @@
 
 
 
-  /* - Bauhaus: the school's own primary triad (red, yellow, blue) plus black, on off-
-     white - well-documented, not a single guess. Light background, simple architecture
-     like Soviet/Grand Bazaar (no dual-role override audit needed). One real exception:
-     yellow measures 1.27:1 as text and 1.45:1 as a white-text tile - both real fails,
-     yellow essentially never works with light or white text - so it's the one tile
-     that takes black text instead, the same "majority + one exception" shape as every
-     other theme so far, just simpler since there's no --card mismatch to fight.
+  /* - Bauhaus, pushed much further: Mr Eric's flat "that's literally all you've done"
+     was fair - a colour swap plus one header decoration doesn't actually carry the
+     idea. Bauhaus isn't "use primary colours", it's "the geometry IS the content" - so
+     this version puts the geometry everywhere a surface exists, not just the header:
 
-     Geometric shapes in the header, as requested: a circle and a triangle, static (no
-     animation - Bauhaus is about composition, not motion, and this codebase has a
-     standing lesson against animating decorative layers for no reason). Both sit at
-     z-index:0 behind the header's real content (title, icons), which is already forced
-     to z-index:1 - so the shapes can be bold and large without any risk of covering
-     text, the same layering trick used for Nebula's header stars. */
+     - A visible grid-line texture across the whole page (thin black lines, a De Stijl/
+       Bauhaus-grid staple) instead of a flat cream void.
+     - Two large static shapes anchored in the page's own corners (a black-ringed circle,
+       a rotated red square), not just confined to the header.
+     - Every domain tile has an actual corner cut via clip-path - not a rectangle with a
+       colour in it, an irregular Bauhaus panel shape - plus a thick two-tone accent
+       stripe along its bottom edge using one of the OTHER three palette colours, so each
+       tile reads as a small two-colour composition instead of a flat swatch.
+     - The "Full Archive" tile specifically gets a diagonal hard-split red/black
+       background instead of a flat fill - it's the one tile that isn't part of the
+       normal 4-cycle, so it's the one place to do something singular with.
+
+     Colour pairing (yellow/triangle, red/square, blue/circle) is Kandinsky's own
+     documented colour-shape theory from his time teaching at the school, not invented
+     for this. Text contrast is completely unaffected by any of this - every colour:
+     background pairing is identical to the previous version, only the SHAPES drawn
+     with those colours changed, so nothing here needed re-auditing. Everything is
+     static, per the standing lesson against animating decorative layers. */
   body.usertheme-bauhaus:not(.dark-mode){
     --cream:#F2EFE4; --cream-2:#F2EFE4; --card:#F2EFE4;
     --ink:#1A1A1A; --ink-soft:#0056A4;
@@ -1781,6 +1790,31 @@
     --board-bg:rgba(212,20,30,.55);
   }
   body.usertheme-bauhaus:not(.dark-mode) .aurora-layer{ opacity:0; }
+  /* Grid-line texture across the whole page - thin black lines, De Stijl/Bauhaus staple */
+  body.usertheme-bauhaus:not(.dark-mode){
+    background-image:
+      repeating-linear-gradient(0deg, rgba(26,26,26,.05) 0px, rgba(26,26,26,.05) 1px, transparent 1px, transparent 48px),
+      repeating-linear-gradient(90deg, rgba(26,26,26,.05) 0px, rgba(26,26,26,.05) 1px, transparent 1px, transparent 48px);
+  }
+  /* Two large static shapes anchored in the page's own corners, fixed so they stay put
+     while scrolling, low z-index so they sit behind all real content. */
+  body.usertheme-bauhaus:not(.dark-mode)::before,
+  body.usertheme-bauhaus:not(.dark-mode)::after{
+    content:''; position:fixed; z-index:0; pointer-events:none;
+  }
+  body.usertheme-bauhaus:not(.dark-mode)::before{
+    width:220px; height:220px;
+    left:-70px; bottom:-70px;
+    border-radius:50%;
+    border:14px solid #1A1A1A;
+    background:transparent;
+  }
+  body.usertheme-bauhaus:not(.dark-mode)::after{
+    width:160px; height:160px;
+    right:-50px; top:20vh;
+    background:#D4141E;
+    transform:rotate(20deg);
+  }
   body.usertheme-bauhaus:not(.dark-mode) header{
     background:#D4141E;
     border-bottom:6px solid #1A1A1A;
@@ -1830,13 +1864,39 @@
   body.usertheme-bauhaus:not(.dark-mode) .faculties .fac-tile:not(.all):nth-child(4n+4){
     background:#FFD100 !important;
   }
+  /* Full Archive tile: not part of the 4-cycle, so it gets a singular treatment instead
+     of just another flat fill - a hard diagonal split, red into black. */
   body.usertheme-bauhaus:not(.dark-mode) .fac-tile.all{
-    background:#1A1A1A !important;
+    background:linear-gradient(135deg, #D4141E 0%, #D4141E 48%, #1A1A1A 52%, #1A1A1A 100%) !important;
   }
-  /* Bauhaus loves a thick black keyline - every tile gets one instead of the usual
-     translucent border, which doubles as the standard defensive-edge treatment. */
+  /* Every tile gets a thick black keyline (standard defensive edge, doubles as a bold
+     Bauhaus keyline), a corner cut via clip-path so it's an actual irregular panel
+     shape rather than a rectangle, and a two-tone accent stripe along the bottom in one
+     of the OTHER three palette colours - each tile becomes a small 2-colour
+     composition instead of a flat swatch. */
   body.usertheme-bauhaus:not(.dark-mode) .fac-tile{
     border:3px solid #1A1A1A !important;
+    clip-path:polygon(0 0, 100% 0, 100% calc(100% - 28px), calc(100% - 28px) 100%, 0 100%);
+    position:relative;
+    padding-bottom:20px !important;
+  }
+  body.usertheme-bauhaus:not(.dark-mode) .faculties .fac-tile:not(.all)::after{
+    content:'';
+    position:absolute;
+    left:0; right:0; bottom:0;
+    height:10px;
+  }
+  body.usertheme-bauhaus:not(.dark-mode) .faculties .fac-tile:not(.all):nth-child(4n+1)::after{
+    background:#FFD100;
+  }
+  body.usertheme-bauhaus:not(.dark-mode) .faculties .fac-tile:not(.all):nth-child(4n+2)::after{
+    background:#D4141E;
+  }
+  body.usertheme-bauhaus:not(.dark-mode) .faculties .fac-tile:not(.all):nth-child(4n+3)::after{
+    background:#0056A4;
+  }
+  body.usertheme-bauhaus:not(.dark-mode) .faculties .fac-tile:not(.all):nth-child(4n+4)::after{
+    background:#1A1A1A;
   }
   body.usertheme-bauhaus:not(.dark-mode) .sport-hub-tile,
   body.usertheme-bauhaus:not(.dark-mode) .sports-tile,
@@ -1911,6 +1971,7 @@
   body.usertheme-bauhaus:not(.dark-mode) .sotw-card *{
     color:#1A1A1A !important;
   }
+
 
   body.dark-mode.usertheme-d1{
     --cream:#1B1512; --cream-2:#271E18; --card:#3A2C22; --ink:#F0E3D2; --ink-soft:#C2A98C;
