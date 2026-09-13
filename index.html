@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Mr Eric's Lounge</title>
-<meta name="app-build" content="20260913081519">
+<meta name="app-build" content="20260913082431">
 <script>
   // PWA update-detection: an installed home-screen app's standalone-mode navigation
   // cache can hold an old shell far longer than the CDN's 10-minute cache -
@@ -1759,29 +1759,33 @@
 
 
 
-  /* - Bauhaus, pushed much further: Mr Eric's flat "that's literally all you've done"
-     was fair - a colour swap plus one header decoration doesn't actually carry the
-     idea. Bauhaus isn't "use primary colours", it's "the geometry IS the content" - so
-     this version puts the geometry everywhere a surface exists, not just the header:
+  /* - Bauhaus, round 3: two real fixes plus more of what was asked for.
 
-     - A visible grid-line texture across the whole page (thin black lines, a De Stijl/
-       Bauhaus-grid staple) instead of a flat cream void.
-     - Two large static shapes anchored in the page's own corners (a black-ringed circle,
-       a rotated red square), not just confined to the header.
-     - Every domain tile has an actual corner cut via clip-path - not a rectangle with a
-       colour in it, an irregular Bauhaus panel shape - plus a thick two-tone accent
-       stripe along its bottom edge using one of the OTHER three palette colours, so each
-       tile reads as a small two-colour composition instead of a flat swatch.
-     - The "Full Archive" tile specifically gets a diagonal hard-split red/black
-       background instead of a flat fill - it's the one tile that isn't part of the
-       normal 4-cycle, so it's the one place to do something singular with.
+     FIX 1 - Vox Populi: ".vox-my-pick .vox-result-label" (the label on whichever poll
+     option the user picked) uses var(--gold) for its text colour, sitting on the card
+     background. Bauhaus's --gold is the bright yellow, and yellow measures 1.27:1 as
+     text against this theme's cream - the same real fail yellow always has here,
+     just surfacing somewhere the earlier per-tile audit didn't reach because this
+     component isn't a tile at all. Overridden to red (4.66:1, passes) so the user's
+     own pick still reads as a distinct highlight colour instead of just failing
+     silently. Checked whether Soviet had the same latent issue - its --gold is a
+     burnt orange that passes at 4.57:1 on its own cream, so no fix needed there.
 
-     Colour pairing (yellow/triangle, red/square, blue/circle) is Kandinsky's own
-     documented colour-shape theory from his time teaching at the school, not invented
-     for this. Text contrast is completely unaffected by any of this - every colour:
-     background pairing is identical to the previous version, only the SHAPES drawn
-     with those colours changed, so nothing here needed re-auditing. Everything is
-     static, per the standing lesson against animating decorative layers. */
+     FIX/CHANGE 2 - the rotated square anchored at the page's right edge was reported
+     as reading like it sits in front of content ("foreground") despite z-index:0, and
+     was too large. Shrunk considerably, dropped to a much lower opacity so it reads as
+     a background watermark rather than a shape competing with real content, and moved
+     from z-index:0 to z-index:-1 so there's no ambiguity about which side of the
+     stacking order it's on.
+
+     CHANGE 3 - domain tiles made "whackier": alternating small rotation per tile
+     (nth-child based, so it's not literally random and stays visually controlled - a
+     scattered-poster feel rather than actual randomness), and the corner cut enlarged.
+
+     CHANGE 4 - the same cut-corner + alternating-rotation treatment extended to every
+     other tile-like component across the app (Sports hub, Good News, Books, Birthday
+     tile, etc.) - not just the homepage domains grid - so the geometric language shows
+     up everywhere, as asked. */
   body.usertheme-bauhaus:not(.dark-mode){
     --cream:#F2EFE4; --cream-2:#F2EFE4; --card:#F2EFE4;
     --ink:#1A1A1A; --ink-soft:#0056A4;
@@ -1790,17 +1794,19 @@
     --board-bg:rgba(212,20,30,.55);
   }
   body.usertheme-bauhaus:not(.dark-mode) .aurora-layer{ opacity:0; }
+  /* FIX 1: Vox Populi's "my pick" label was yellow-on-cream (1.27:1, a real fail) */
+  body.usertheme-bauhaus:not(.dark-mode) .vox-my-pick .vox-result-label{
+    color:#D4141E !important;
+  }
   /* Grid-line texture across the whole page - thin black lines, De Stijl/Bauhaus staple */
   body.usertheme-bauhaus:not(.dark-mode){
     background-image:
       repeating-linear-gradient(0deg, rgba(26,26,26,.05) 0px, rgba(26,26,26,.05) 1px, transparent 1px, transparent 48px),
       repeating-linear-gradient(90deg, rgba(26,26,26,.05) 0px, rgba(26,26,26,.05) 1px, transparent 1px, transparent 48px);
   }
-  /* Two large static shapes anchored in the page's own corners, fixed so they stay put
-     while scrolling, low z-index so they sit behind all real content. */
   body.usertheme-bauhaus:not(.dark-mode)::before,
   body.usertheme-bauhaus:not(.dark-mode)::after{
-    content:''; position:fixed; z-index:0; pointer-events:none;
+    content:''; position:fixed; z-index:-1; pointer-events:none;
   }
   body.usertheme-bauhaus:not(.dark-mode)::before{
     width:220px; height:220px;
@@ -1808,12 +1814,16 @@
     border-radius:50%;
     border:14px solid #1A1A1A;
     background:transparent;
+    opacity:.5;
   }
+  /* FIX 2: was 160px at full opacity reading as a foreground shape - shrunk to 70px,
+     opacity down to .12, z-index moved to -1 so it's unambiguously background. */
   body.usertheme-bauhaus:not(.dark-mode)::after{
-    width:160px; height:160px;
-    right:-50px; top:20vh;
+    width:70px; height:70px;
+    right:-15px; top:20vh;
     background:#D4141E;
     transform:rotate(20deg);
+    opacity:.12;
   }
   body.usertheme-bauhaus:not(.dark-mode) header{
     background:#D4141E;
@@ -1827,7 +1837,6 @@
     position:absolute;
     z-index:0;
   }
-  /* Circle - yellow, top-right corner, partly bled off the edge for a poster-corner feel */
   body.usertheme-bauhaus:not(.dark-mode) header::before{
     width:140px; height:140px;
     top:-50px; right:-40px;
@@ -1835,7 +1844,6 @@
     background:#FFD100;
     border:6px solid #1A1A1A;
   }
-  /* Triangle - blue, bottom-left, via clip-path */
   body.usertheme-bauhaus:not(.dark-mode) header::after{
     width:120px; height:100px;
     bottom:-20px; left:-20px;
@@ -1864,22 +1872,21 @@
   body.usertheme-bauhaus:not(.dark-mode) .faculties .fac-tile:not(.all):nth-child(4n+4){
     background:#FFD100 !important;
   }
-  /* Full Archive tile: not part of the 4-cycle, so it gets a singular treatment instead
-     of just another flat fill - a hard diagonal split, red into black. */
   body.usertheme-bauhaus:not(.dark-mode) .fac-tile.all{
     background:linear-gradient(135deg, #D4141E 0%, #D4141E 48%, #1A1A1A 52%, #1A1A1A 100%) !important;
   }
-  /* Every tile gets a thick black keyline (standard defensive edge, doubles as a bold
-     Bauhaus keyline), a corner cut via clip-path so it's an actual irregular panel
-     shape rather than a rectangle, and a two-tone accent stripe along the bottom in one
-     of the OTHER three palette colours - each tile becomes a small 2-colour
-     composition instead of a flat swatch. */
+  /* CHANGE 3: bigger corner cut + alternating small rotation per tile position - a
+     scattered-poster feel instead of a uniform grid. */
   body.usertheme-bauhaus:not(.dark-mode) .fac-tile{
     border:3px solid #1A1A1A !important;
-    clip-path:polygon(0 0, 100% 0, 100% calc(100% - 28px), calc(100% - 28px) 100%, 0 100%);
+    clip-path:polygon(0 0, 100% 0, 100% calc(100% - 44px), calc(100% - 44px) 100%, 0 100%);
     position:relative;
     padding-bottom:20px !important;
   }
+  body.usertheme-bauhaus:not(.dark-mode) .faculties .fac-tile:not(.all):nth-child(4n+1){ transform:rotate(-1.5deg); }
+  body.usertheme-bauhaus:not(.dark-mode) .faculties .fac-tile:not(.all):nth-child(4n+2){ transform:rotate(1.2deg); }
+  body.usertheme-bauhaus:not(.dark-mode) .faculties .fac-tile:not(.all):nth-child(4n+3){ transform:rotate(-1deg); }
+  body.usertheme-bauhaus:not(.dark-mode) .faculties .fac-tile:not(.all):nth-child(4n+4){ transform:rotate(1.8deg); }
   body.usertheme-bauhaus:not(.dark-mode) .faculties .fac-tile:not(.all)::after{
     content:'';
     position:absolute;
@@ -1898,11 +1905,40 @@
   body.usertheme-bauhaus:not(.dark-mode) .faculties .fac-tile:not(.all):nth-child(4n+4)::after{
     background:#1A1A1A;
   }
+  /* CHANGE 4: the same cut-corner + rotation treatment, extended to every other
+     tile-like component across the app - Sports hub, Good News, Books, Birthday tile,
+     etc - so the geometric language isn't confined to the homepage. */
+  body.usertheme-bauhaus:not(.dark-mode) .sport-hub-tile,
+  body.usertheme-bauhaus:not(.dark-mode) .sports-tile,
+  body.usertheme-bauhaus:not(.dark-mode) .sports-card,
+  body.usertheme-bauhaus:not(.dark-mode) .goodnews-tile,
+  body.usertheme-bauhaus:not(.dark-mode) .watch-tile,
+  body.usertheme-bauhaus:not(.dark-mode) .watch-card,
+  body.usertheme-bauhaus:not(.dark-mode) .otd-card,
+  body.usertheme-bauhaus:not(.dark-mode) .books-tile,
+  body.usertheme-bauhaus:not(.dark-mode) .mindtemple-tile,
+  body.usertheme-bauhaus:not(.dark-mode) .explore-tile,
+  body.usertheme-bauhaus:not(.dark-mode) .explore-card,
+  body.usertheme-bauhaus:not(.dark-mode) .page-result,
+  body.usertheme-bauhaus:not(.dark-mode) .bday-tile-card,
+  body.usertheme-bauhaus:not(.dark-mode) .random-tile,
+  body.usertheme-bauhaus:not(.dark-mode) .rec-item,
+  body.usertheme-bauhaus:not(.dark-mode) .empty-card,
+  body.usertheme-bauhaus:not(.dark-mode) .photo-tile,
+  body.usertheme-bauhaus:not(.dark-mode) .sotw-card{
+    clip-path:polygon(0 0, 100% 0, 100% calc(100% - 22px), calc(100% - 22px) 100%, 0 100%);
+    border:3px solid #1A1A1A !important;
+  }
+  body.usertheme-bauhaus:not(.dark-mode) .sport-hub-tile{ transform:rotate(-1.3deg); }
+  body.usertheme-bauhaus:not(.dark-mode) .goodnews-tile{ transform:rotate(1deg); }
+  body.usertheme-bauhaus:not(.dark-mode) .books-tile{ transform:rotate(-0.8deg); }
+  body.usertheme-bauhaus:not(.dark-mode) .bday-tile-card{ transform:rotate(1.4deg); }
+  body.usertheme-bauhaus:not(.dark-mode) .random-tile{ transform:rotate(-1deg); }
+  body.usertheme-bauhaus:not(.dark-mode) .explore-card{ transform:rotate(0.9deg); }
   body.usertheme-bauhaus:not(.dark-mode) .sport-hub-tile,
   body.usertheme-bauhaus:not(.dark-mode) .sports-tile,
   body.usertheme-bauhaus:not(.dark-mode) .sports-card{
     background:#D4141E !important;
-    border:3px solid #1A1A1A !important;
   }
   body.usertheme-bauhaus:not(.dark-mode) .goodnews-tile,
   body.usertheme-bauhaus:not(.dark-mode) .watch-tile,
@@ -1925,10 +1961,6 @@
   body.usertheme-bauhaus:not(.dark-mode) .sotw-card{
     background:#FFD100 !important;
   }
-  /* Groups 1-3 (red/blue/black) pass with white text. Group 4 (yellow) fails badly with
-     white text (1.45:1) and needs black instead - applied after the blanket rule below,
-     covering both the generic classes and the fac-tile grid's own nth-child position so
-     the domains-grid gap from the Hacker/Synthwave bugs can't recur here. */
   body.usertheme-bauhaus:not(.dark-mode) .fac-tile,
   body.usertheme-bauhaus:not(.dark-mode) .fac-tile *,
   body.usertheme-bauhaus:not(.dark-mode) .sport-hub-tile,
@@ -1971,7 +2003,6 @@
   body.usertheme-bauhaus:not(.dark-mode) .sotw-card *{
     color:#1A1A1A !important;
   }
-
 
   body.dark-mode.usertheme-d1{
     --cream:#1B1512; --cream-2:#271E18; --card:#3A2C22; --ink:#F0E3D2; --ink-soft:#C2A98C;
