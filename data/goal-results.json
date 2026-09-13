@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-13T16:55:49.837908Z",
+  "generatedAt": "2026-09-13T19:10:28.632363Z",
   "results": [
     {
       "url": "https://www.goal.com/en/match/girona-vs-arsenal/__LS8d9Oc6I1wXn9g8956",
@@ -6398,11 +6398,162 @@
       ],
       "awayGoals": [],
       "competition": "FL1"
+    },
+    {
+      "url": "https://www.goal.com/en/match/manchester-united-vs-manchester-city/1C77M_-tuYjWVQpjrfx0L",
+      "date": null,
+      "home": "Manchester United",
+      "away": "Manchester City",
+      "htHome": 0,
+      "htAway": 0,
+      "ftHome": 0,
+      "ftAway": 1,
+      "homeGoals": [],
+      "awayGoals": [
+        {
+          "scorer": "E. Haaland",
+          "minute": 60
+        }
+      ],
+      "competition": "PL"
+    },
+    {
+      "url": "https://www.goal.com/en/match/levante-vs-barcelona/yIjUEP_4ATKfv2dgC_aZ7",
+      "date": null,
+      "home": "Levante",
+      "away": "Barcelona",
+      "htHome": 0,
+      "htAway": 2,
+      "ftHome": 2,
+      "ftAway": 4,
+      "homeGoals": [
+        {
+          "scorer": "I. Romero",
+          "minute": 79
+        },
+        {
+          "scorer": "R. Brugue",
+          "minute": 88
+        }
+      ],
+      "awayGoals": [
+        {
+          "scorer": "X. Espart",
+          "minute": 5
+        },
+        {
+          "scorer": "L. Yamal",
+          "minute": 19
+        },
+        {
+          "scorer": "K. Adeyemi",
+          "minute": 90
+        }
+      ],
+      "competition": "PD"
+    },
+    {
+      "url": "https://www.goal.com/en/match/getafe-vs-deportivo-de-a-coruna/OqAhq49Bz_oeI-rmtkopN",
+      "date": null,
+      "home": "Getafe",
+      "away": "Deportivo De A Coruna",
+      "htHome": 0,
+      "htAway": 0,
+      "ftHome": 1,
+      "ftAway": 1,
+      "homeGoals": [
+        {
+          "scorer": "R. Terrats",
+          "minute": 66
+        }
+      ],
+      "awayGoals": [
+        {
+          "scorer": "P. Aubameyang",
+          "minute": 78
+        }
+      ],
+      "competition": "PD"
+    },
+    {
+      "url": "https://www.goal.com/en/match/elversberg-vs-bayern-munich/ubSTt163anjqjGPNew_Mq",
+      "date": null,
+      "home": "Elversberg",
+      "away": "Bayern Munich",
+      "htHome": 0,
+      "htAway": 1,
+      "ftHome": 1,
+      "ftAway": 2,
+      "homeGoals": [
+        {
+          "scorer": "M. Krattenmacher",
+          "minute": 61
+        }
+      ],
+      "awayGoals": [
+        {
+          "scorer": "L. Karl",
+          "minute": 26
+        },
+        {
+          "scorer": "H. Kane",
+          "minute": 72
+        }
+      ],
+      "competition": "BL1"
+    },
+    {
+      "url": "https://www.goal.com/en/match/ssc-napoli-vs-bologna/P1E2SMelI2TR7R9gKeDDI",
+      "date": null,
+      "home": "Ssc Napoli",
+      "away": "Bologna",
+      "htHome": 0,
+      "htAway": 0,
+      "ftHome": 1,
+      "ftAway": 0,
+      "homeGoals": [
+        {
+          "scorer": "S. Lobotka",
+          "minute": 66
+        }
+      ],
+      "awayGoals": [],
+      "competition": "SA"
+    },
+    {
+      "url": "https://www.goal.com/en/match/le-mans-vs-lens/sUEBn7nI3c6Yqw7tgbV4t",
+      "date": null,
+      "home": "Le Mans",
+      "away": "Lens",
+      "htHome": 2,
+      "htAway": 1,
+      "ftHome": 2,
+      "ftAway": 2,
+      "homeGoals": [
+        {
+          "scorer": "A. Bourabaa",
+          "minute": 32
+        },
+        {
+          "scorer": "L. Calodat",
+          "minute": 44
+        }
+      ],
+      "awayGoals": [
+        {
+          "scorer": "A. Sima",
+          "minute": 45
+        },
+        {
+          "scorer": "F. Ivanovic",
+          "minute": 51
+        }
+      ],
+      "competition": "FL1"
     }
   ],
   "scorerParseRetryCounts": {
     "https://www.goal.com/en/match/slavia-prague-vs-lens/8tl536s9YeGCuVkrI5O7Y": 2,
-    "https://www.goal.com/en/match/levante-vs-barcelona/yIjUEP_4ATKfv2dgC_aZ7": 2,
-    "https://www.goal.com/en/match/lecce-vs-monza/nZWlT9uFtMToV-YzdDxgn": 1
+    "https://www.goal.com/en/match/lecce-vs-monza/nZWlT9uFtMToV-YzdDxgn": 2
   }
 }
