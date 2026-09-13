@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Mr Eric's Lounge</title>
-<meta name="app-build" content="20260913180535">
+<meta name="app-build" content="20260913181834">
 <script>
   // PWA update-detection: an installed home-screen app's standalone-mode navigation
   // cache can hold an old shell far longer than the CDN's 10-minute cache -
@@ -472,6 +472,32 @@ body.usertheme-vintage:not(.dark-mode) header::before{
     --board-bg:rgba(17,52,118,.62);
   }
   body.usertheme-arsenal:not(.dark-mode) .aurora-layer{ opacity:0; }
+  /* Highbury-style analog clock, all 3 Arsenal themes: swaps visibility with the
+     digital #clock/#clockDate rather than removing either - the capital-city click
+     cycling is bound to .board-cell, unaffected either way. Not a literal trace of the
+     real clock or the club crest (no trademarked artwork reproduced), just the same
+     "big simple stadium-clock-end face" styling in the theme's own colours. */
+  body.usertheme-arsenal:not(.dark-mode) #analogClock,
+  body.usertheme-arsenal2:not(.dark-mode) #analogClock,
+  body.dark-mode.usertheme-darsenal #analogClock{
+    display:block !important;
+  }
+  body.usertheme-arsenal:not(.dark-mode) #clock,
+  body.usertheme-arsenal:not(.dark-mode) #clockDate,
+  body.usertheme-arsenal2:not(.dark-mode) #clock,
+  body.usertheme-arsenal2:not(.dark-mode) #clockDate,
+  body.dark-mode.usertheme-darsenal #clock,
+  body.dark-mode.usertheme-darsenal #clockDate{
+    display:none !important;
+  }
+  body.usertheme-arsenal:not(.dark-mode) .board-cell:first-child,
+  body.usertheme-arsenal2:not(.dark-mode) .board-cell:first-child,
+  body.dark-mode.usertheme-darsenal .board-cell:first-child{
+    display:flex; align-items:center; gap:10px;
+  }
+  body.usertheme-arsenal:not(.dark-mode) #analogClock .ac-second{ stroke:#EC0024; }
+  body.usertheme-arsenal2:not(.dark-mode) #analogClock .ac-second{ stroke:#2E375D; }
+  body.dark-mode.usertheme-darsenal #analogClock .ac-second{ stroke:#EC0024; }
   body.usertheme-arsenal:not(.dark-mode) header{
     background:#EC0024;
     border-bottom:4px solid #99824C;
@@ -3110,6 +3136,22 @@ body.usertheme-vintage:not(.dark-mode) header::before{
   .board-cell + .board-cell{
     border-left:1px dashed rgba(255,255,255,.18);
   }
+  /* Analog clock: hidden by default everywhere, only shown for the 3 Arsenal themes
+     (see theme-scoped rules further down, which swap visibility with the digital
+     #clock/#clockDate rather than removing either from the DOM - the existing click-
+     to-cycle-capital-cities handler is bound to .board-cell itself, not to the digital
+     text, so it keeps working unmodified regardless of which display is visible).
+     Hand rotation is computed in updateClock() itself (same single source of time as
+     the digital display, whether real local time or a clicked capital city) rather
+     than a separate function, so there's no risk of the two ever drifting apart. */
+  #analogClock{ display:none; width:52px; height:52px; flex-shrink:0; }
+  #analogClock .ac-face{ fill:#F5F0E6; stroke:#1A1A1A; stroke-width:3; }
+  #analogClock .ac-ticks line{ stroke:#1A1A1A; stroke-width:2; stroke-linecap:round; }
+  #analogClock .ac-hand{ stroke:#1A1A1A; stroke-linecap:round; transform-origin:50px 50px; }
+  #analogClock .ac-hour{ stroke-width:4.5; }
+  #analogClock .ac-minute{ stroke-width:3; }
+  #analogClock .ac-second{ stroke-width:1.4; stroke:#AE352F; }
+  #analogClock .ac-pin{ fill:#1A1A1A; }
   .board-cell .label{
     font-size:9px;
     font-weight:700;
@@ -5454,6 +5496,27 @@ body.usertheme-vintage:not(.dark-mode) header::before{
           <span class="label">Local time</span>
           <span class="value" id="clock">-:-:-</span>
           <span class="date" id="clockDate">-/-/-</span>
+          <svg id="analogClock" viewBox="0 0 100 100" aria-hidden="true">
+            <circle class="ac-face" cx="50" cy="50" r="46"/>
+            <g class="ac-ticks">
+              <line x1="50" y1="6" x2="50" y2="14"/>
+              <line x1="50" y1="94" x2="50" y2="86"/>
+              <line x1="6" y1="50" x2="14" y2="50"/>
+              <line x1="94" y1="50" x2="86" y2="50"/>
+              <line x1="71" y1="16.6" x2="67" y2="23.5"/>
+              <line x1="29" y1="16.6" x2="33" y2="23.5"/>
+              <line x1="71" y1="83.4" x2="67" y2="76.5"/>
+              <line x1="29" y1="83.4" x2="33" y2="76.5"/>
+              <line x1="83.4" y1="29" x2="76.5" y2="33"/>
+              <line x1="83.4" y1="71" x2="76.5" y2="67"/>
+              <line x1="16.6" y1="29" x2="23.5" y2="33"/>
+              <line x1="16.6" y1="71" x2="23.5" y2="67"/>
+            </g>
+            <line id="acHour" class="ac-hand ac-hour" x1="50" y1="50" x2="50" y2="28"/>
+            <line id="acMinute" class="ac-hand ac-minute" x1="50" y1="50" x2="50" y2="16"/>
+            <line id="acSecond" class="ac-hand ac-second" x1="50" y1="50" x2="50" y2="12"/>
+            <circle class="ac-pin" cx="50" cy="50" r="2.6"/>
+          </svg>
         </div>
         <div class="board-cell">
           <span class="label">Weekend in</span>
@@ -26654,6 +26717,19 @@ function wireClockTapCycling(){
   });
 }
 
+function updateAnalogClock(hours, minutes, seconds){
+  const hourHand = document.getElementById('acHour');
+  const minuteHand = document.getElementById('acMinute');
+  const secondHand = document.getElementById('acSecond');
+  if(!hourHand) return; // analog clock not in the DOM path for this theme - cheap no-op
+  const hourDeg = ((hours % 12) + minutes/60) * 30;
+  const minuteDeg = (minutes + seconds/60) * 6;
+  const secondDeg = seconds * 6;
+  hourHand.style.transform = `rotate(${hourDeg}deg)`;
+  minuteHand.style.transform = `rotate(${minuteDeg}deg)`;
+  secondHand.style.transform = `rotate(${secondDeg}deg)`;
+}
+
 function updateClock(){
   const now = new Date();
   if(clockActiveCity){
@@ -26665,12 +26741,14 @@ function updateClock(){
     const get = t => (parts.find(p=>p.type===t) || {}).value || '-';
     document.getElementById('clock').textContent = `${get('hour')}:${get('minute')}:${get('second')}`;
     document.getElementById('clockDate').textContent = `${get('day')}/${get('month')}/${get('year')}`;
+    updateAnalogClock(Number(get('hour')), Number(get('minute')), Number(get('second')));
     return;
   }
   document.getElementById('clock').textContent =
     `${pad(now.getHours())}:${pad(now.getMinutes())}:${pad(now.getSeconds())}`;
   document.getElementById('clockDate').textContent =
     `${pad(now.getDate())}/${pad(now.getMonth()+1)}/${now.getFullYear()}`;
+  updateAnalogClock(now.getHours(), now.getMinutes(), now.getSeconds());
 }
 
 /* - Weekend countdown - */
