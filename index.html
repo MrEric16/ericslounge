@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Mr Eric's Lounge</title>
-<meta name="app-build" content="20260913181834">
+<meta name="app-build" content="20260913182341">
 <script>
   // PWA update-detection: an installed home-screen app's standalone-mode navigation
   // cache can hold an old shell far longer than the CDN's 10-minute cache -
@@ -472,6 +472,23 @@ body.usertheme-vintage:not(.dark-mode) header::before{
     --board-bg:rgba(17,52,118,.62);
   }
   body.usertheme-arsenal:not(.dark-mode) .aurora-layer{ opacity:0; }
+  /* SIGNATURE (Arsenal - matchday/cannon devices): three things, none tracing the
+     real crest artwork - the cannon silhouette is built from plain rectangles/circles
+     (barrel, wheel, breech), abstract enough to read as "a cannon" without reproducing
+     any actual club artwork; the muzzle-flash burst (on the header, see above) is a
+     conic-gradient starburst, no SVG needed; confetti/ticker-tape is scattered small
+     rectangles, verified rendered before shipping. All static. */
+  body.usertheme-arsenal:not(.dark-mode)::before{
+    content:'';
+    position:fixed; inset:0; z-index:-1; pointer-events:none;
+    background-image:
+      url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%27140%27%20height%3D%2790%27%3E%3Crect%20x%3D%2720%27%20y%3D%2730%27%20width%3D%2775%27%20height%3D%2722%27%20rx%3D%276%27%20fill%3D%27rgba%28236%2C0%2C36%2C0.5%29%27%2F%3E%3Ccircle%20cx%3D%2738%27%20cy%3D%2762%27%20r%3D%2716%27%20fill%3D%27none%27%20stroke%3D%27rgba%28236%2C0%2C36%2C0.5%29%27%20stroke-width%3D%275%27%2F%3E%3Crect%20x%3D%2730%27%20y%3D%2744%27%20width%3D%2716%27%20height%3D%2720%27%20fill%3D%27rgba%28236%2C0%2C36%2C0.5%29%27%2F%3E%3Ccircle%20cx%3D%2795%27%20cy%3D%2741%27%20r%3D%2713%27%20fill%3D%27rgba%28236%2C0%2C36%2C0.5%29%27%2F%3E%3C%2Fsvg%3E"),
+      url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%27300%27%20height%3D%27300%27%3E%3Crect%20x%3D%27-6.85%27%20y%3D%27-2.9%27%20width%3D%2713.7%27%20height%3D%275.8%27%20fill%3D%27white%27%20fill-opacity%3D%270.35%27%20transform%3D%27translate%2871.4%2C163.3%29%20rotate%28225.3%29%27%2F%3E%3Crect%20x%3D%27-6.15%27%20y%3D%27-3.5%27%20width%3D%2712.3%27%20height%3D%277.0%27%20fill%3D%27%23EC0024%27%20fill-opacity%3D%270.52%27%20transform%3D%27translate%28251.2%2C77.8%29%20rotate%28169.3%29%27%2F%3E%3Crect%20x%3D%27-8.15%27%20y%3D%27-3.3%27%20width%3D%2716.3%27%20height%3D%276.6%27%20fill%3D%27%23EC0024%27%20fill-opacity%3D%270.58%27%20transform%3D%27translate%28191.7%2C45.2%29%20rotate%28188.3%29%27%2F%3E%3Crect%20x%3D%27-7.95%27%20y%3D%27-2.45%27%20width%3D%2715.9%27%20height%3D%274.9%27%20fill%3D%27%23EC0024%27%20fill-opacity%3D%270.52%27%20transform%3D%27translate%2819.2%2C227.5%29%20rotate%2811.2%29%27%2F%3E%3Crect%20x%3D%27-8.55%27%20y%3D%27-3.4%27%20width%3D%2717.1%27%20height%3D%276.8%27%20fill%3D%27%23EC0024%27%20fill-opacity%3D%270.51%27%20transform%3D%27translate%28215.6%2C263.6%29%20rotate%28142.2%29%27%2F%3E%3Crect%20x%3D%27-5.5%27%20y%3D%27-2.2%27%20width%3D%2711.0%27%20height%3D%274.4%27%20fill%3D%27%23EC0024%27%20fill-opacity%3D%270.5%27%20transform%3D%27translate%28280.7%2C263.7%29%20rotate%2878.1%29%27%2F%3E%3Crect%20x%3D%27-7.55%27%20y%3D%27-2.6%27%20width%3D%2715.1%27%20height%3D%275.2%27%20fill%3D%27%23EC0024%27%20fill-opacity%3D%270.55%27%20transform%3D%27translate%28188.0%2C90.3%29%20rotate%28126.3%29%27%2F%3E%3Crect%20x%3D%27-9.65%27%20y%3D%27-3.3%27%20width%3D%2719.3%27%20height%3D%276.6%27%20fill%3D%27%23EC0024%27%20fill-opacity%3D%270.41%27%20transform%3D%27translate%28271.3%2C204.6%29%20rotate%28356.8%29%27%2F%3E%3Crect%20x%3D%27-9.5%27%20y%3D%27-2.85%27%20width%3D%2719.0%27%20height%3D%275.7%27%20fill%3D%27white%27%20fill-opacity%3D%270.64%27%20transform%3D%27translate%28258.2%2C289.4%29%20rotate%28257.0%29%27%2F%3E%3Crect%20x%3D%27-5.3%27%20y%3D%27-3.3%27%20width%3D%2710.6%27%20height%3D%276.6%27%20fill%3D%27white%27%20fill-opacity%3D%270.63%27%20transform%3D%27translate%28172.1%2C85.5%29%20rotate%28356.3%29%27%2F%3E%3Crect%20x%3D%27-6.45%27%20y%3D%27-3.15%27%20width%3D%2712.9%27%20height%3D%276.3%27%20fill%3D%27white%27%20fill-opacity%3D%270.57%27%20transform%3D%27translate%28123.1%2C45.2%29%20rotate%28314.2%29%27%2F%3E%3Crect%20x%3D%27-6.65%27%20y%3D%27-3.3%27%20width%3D%2713.3%27%20height%3D%276.6%27%20fill%3D%27%23EC0024%27%20fill-opacity%3D%270.7%27%20transform%3D%27translate%2813.5%2C215.5%29%20rotate%28353.0%29%27%2F%3E%3Crect%20x%3D%27-8.0%27%20y%3D%27-2.05%27%20width%3D%2716.0%27%20height%3D%274.1%27%20fill%3D%27white%27%20fill-opacity%3D%270.56%27%20transform%3D%27translate%2892.9%2C23.1%29%20rotate%2871.1%29%27%2F%3E%3Crect%20x%3D%27-9.35%27%20y%3D%27-2.45%27%20width%3D%2718.7%27%20height%3D%274.9%27%20fill%3D%27%23EC0024%27%20fill-opacity%3D%270.48%27%20transform%3D%27translate%2846.9%2C12.7%29%20rotate%28345.1%29%27%2F%3E%3C%2Fsvg%3E");
+    background-position:right -10px bottom 15vh, 0 0;
+    background-repeat:no-repeat, repeat;
+    background-size:140px 90px, 300px 300px;
+    opacity:.5;
+  }
   /* Highbury-style analog clock, all 3 Arsenal themes: swaps visibility with the
      digital #clock/#clockDate rather than removing either - the capital-city click
      cycling is bound to .board-cell, unaffected either way. Not a literal trace of the
@@ -501,9 +518,20 @@ body.usertheme-vintage:not(.dark-mode) header::before{
   body.usertheme-arsenal:not(.dark-mode) header{
     background:#EC0024;
     border-bottom:4px solid #99824C;
+    position:relative;
+    overflow:hidden;
   }
-  body.usertheme-arsenal:not(.dark-mode) header::before,
+  body.usertheme-arsenal:not(.dark-mode) header::before{
+    content:'';
+    position:absolute; z-index:0; pointer-events:none;
+    top:50%; left:20%;
+    width:260px; height:260px;
+    transform:translate(-50%,-50%);
+    background:repeating-conic-gradient(rgba(255,255,255,.22) 0deg 4deg, transparent 4deg 18deg);
+    border-radius:50%;
+  }
   body.usertheme-arsenal:not(.dark-mode) header::after{ content:none; }
+  body.usertheme-arsenal:not(.dark-mode) header > *{ position:relative; z-index:1; }
   body.usertheme-arsenal:not(.dark-mode) header,
   body.usertheme-arsenal:not(.dark-mode) header *{
     color:#FEFEFE;
@@ -623,12 +651,43 @@ body.usertheme-vintage:not(.dark-mode) header::before{
     --board-bg:rgba(46,55,93,.62);
   }
   body.usertheme-arsenal2:not(.dark-mode) .aurora-layer{ opacity:0; }
+  /* SIGNATURE (Arsenal2 - stadium/pitch devices): grass-stripe mown-pitch banding,
+     built in the theme's OWN navy tones rather than literal green - introducing a new
+     colour family here would repeat the exact mistake corrected on Uzbekistan2's
+     brick texture (asked to keep to the existing palette). Same structural device
+     (alternating light/dark bands), just delivered without a new hue. Corner-arc pitch
+     marking and floodlight glow (header) are both genuinely white/gold, matching real
+     pitch line-markings and stadium lighting rather than club colours specifically. */
+  body.usertheme-arsenal2:not(.dark-mode)::before{
+    content:'';
+    position:fixed; inset:0; z-index:-1; pointer-events:none;
+    background-image:
+      repeating-linear-gradient(0deg, rgba(255,255,255,.035) 0px, rgba(255,255,255,.035) 40px, transparent 40px, transparent 80px),
+      radial-gradient(circle at 100% 100%, transparent 60px, rgba(255,255,255,.5) 62px, rgba(255,255,255,.5) 65px, transparent 67px);
+  }
   body.usertheme-arsenal2:not(.dark-mode) header{
     background:#C9A542;
     border-bottom:4px solid #BB2C38;
+    position:relative;
+    overflow:hidden;
   }
-  body.usertheme-arsenal2:not(.dark-mode) header::before,
-  body.usertheme-arsenal2:not(.dark-mode) header::after{ content:none; }
+  body.usertheme-arsenal2:not(.dark-mode) header::before{
+    content:'';
+    position:absolute; z-index:0; pointer-events:none;
+    top:-40%; left:15%;
+    width:220px; height:220px;
+    background:radial-gradient(circle, rgba(255,255,255,.6), transparent 70%);
+    border-radius:50%;
+  }
+  body.usertheme-arsenal2:not(.dark-mode) header::after{
+    content:'';
+    position:absolute; z-index:0; pointer-events:none;
+    top:-40%; right:15%;
+    width:220px; height:220px;
+    background:radial-gradient(circle, rgba(255,255,255,.6), transparent 70%);
+    border-radius:50%;
+  }
+  body.usertheme-arsenal2:not(.dark-mode) header > *{ position:relative; z-index:1; }
   body.usertheme-arsenal2:not(.dark-mode) header,
   body.usertheme-arsenal2:not(.dark-mode) header *{
     color:#1B2033;
@@ -2679,12 +2738,40 @@ body.usertheme-vintage:not(.dark-mode) header::before{
     --coral:#EC0024; --coral-dark:#CE0041; --gold:#99824C; --teal:#EC0024;
     --line:rgba(153,130,76,.35);
   }
+  /* SIGNATURE (Arsenal Dark - Marble Halls devices): Highbury's Art Deco entrance
+     hall, not generic "football club" decoration - a genuine, specific piece of club
+     history rather than a borrowed device. Stepped-chevron border (the actual Deco
+     motif, verified rendered before shipping) along the page edges, a pinned match-day
+     rosette badge in the header corner, and a scarf-stripe band using the theme's own
+     three colours (navy/red/gold) as a subtle page texture. All static. */
+  body.dark-mode.usertheme-darsenal::before{
+    content:'';
+    position:fixed; inset:0; z-index:-1; pointer-events:none;
+    background-image:
+      url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%2760%27%20height%3D%2716%27%3E%3Cpath%20d%3D%27M0%2C16%20L10%2C0%20L20%2C16%20L30%2C0%20L40%2C16%20L50%2C0%20L60%2C16%27%20fill%3D%27none%27%20stroke%3D%27rgba%28153%2C130%2C76%2C0.6%29%27%20stroke-width%3D%272%27%2F%3E%3C%2Fsvg%3E"),
+      url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%2760%27%20height%3D%2716%27%3E%3Cpath%20d%3D%27M0%2C16%20L10%2C0%20L20%2C16%20L30%2C0%20L40%2C16%20L50%2C0%20L60%2C16%27%20fill%3D%27none%27%20stroke%3D%27rgba%28153%2C130%2C76%2C0.6%29%27%20stroke-width%3D%272%27%2F%3E%3C%2Fsvg%3E"),
+      repeating-linear-gradient(0deg, rgba(236,0,36,.05) 0px, rgba(236,0,36,.05) 14px, rgba(153,130,76,.05) 14px, rgba(153,130,76,.05) 28px, transparent 28px, transparent 56px);
+    background-position:top left, bottom left, 0 0;
+    background-repeat:repeat-x, repeat-x, repeat;
+    background-size:60px 16px, 60px 16px, auto;
+  }
   body.dark-mode.usertheme-darsenal header{
     background:#EC0024 !important;
     border-bottom:4px solid #99824C;
+    position:relative;
+    overflow:hidden;
   }
-  body.dark-mode.usertheme-darsenal header::before,
+  body.dark-mode.usertheme-darsenal header::before{
+    content:'';
+    position:absolute; z-index:0; pointer-events:none;
+    top:8px; right:16px;
+    width:44px; height:66px;
+    background-image:url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%2760%27%20height%3D%2790%27%3E%3Cg%20stroke%3D%27%2399824C%27%20stroke-width%3D%271.5%27%20fill%3D%27none%27%3E%3Cline%20x1%3D%2730%27%20y1%3D%2722%27%20x2%3D%2752.0%27%20y2%3D%2722.0%27%2F%3E%3Cline%20x1%3D%2730%27%20y1%3D%2722%27%20x2%3D%2749.05255888325765%27%20y2%3D%2733.0%27%2F%3E%3Cline%20x1%3D%2730%27%20y1%3D%2722%27%20x2%3D%2741.0%27%20y2%3D%2741.052558883257646%27%2F%3E%3Cline%20x1%3D%2730%27%20y1%3D%2722%27%20x2%3D%2730.0%27%20y2%3D%2744.0%27%2F%3E%3Cline%20x1%3D%2730%27%20y1%3D%2722%27%20x2%3D%2719.000000000000007%27%20y2%3D%2741.05255888325765%27%2F%3E%3Cline%20x1%3D%2730%27%20y1%3D%2722%27%20x2%3D%2710.947441116742347%27%20y2%3D%2733.0%27%2F%3E%3Cline%20x1%3D%2730%27%20y1%3D%2722%27%20x2%3D%278.0%27%20y2%3D%2722.000000000000004%27%2F%3E%3Cline%20x1%3D%2730%27%20y1%3D%2722%27%20x2%3D%2710.94744111674235%27%20y2%3D%2710.999999999999998%27%2F%3E%3Cline%20x1%3D%2730%27%20y1%3D%2722%27%20x2%3D%2718.99999999999999%27%20y2%3D%272.947441116742354%27%2F%3E%3Cline%20x1%3D%2730%27%20y1%3D%2722%27%20x2%3D%2729.999999999999996%27%20y2%3D%270.0%27%2F%3E%3Cline%20x1%3D%2730%27%20y1%3D%2722%27%20x2%3D%2741.0%27%20y2%3D%272.9474411167423504%27%2F%3E%3Cline%20x1%3D%2730%27%20y1%3D%2722%27%20x2%3D%2749.052558883257646%27%20y2%3D%2710.99999999999999%27%2F%3E%3C%2Fg%3E%3Ccircle%20cx%3D%2730%27%20cy%3D%2722%27%20r%3D%2713%27%20fill%3D%27%23EC0024%27%20stroke%3D%27%2399824C%27%20stroke-width%3D%272%27%2F%3E%3Ccircle%20cx%3D%2730%27%20cy%3D%2722%27%20r%3D%276%27%20fill%3D%27%2399824C%27%2F%3E%3Cpath%20d%3D%27M20%2C32%20L14%2C80%20L28%2C68%20L30%2C80%20L32%2C68%20L46%2C80%20L40%2C32%20Z%27%20fill%3D%27%23EC0024%27%20fill-opacity%3D%270.85%27%20stroke%3D%27%2399824C%27%20stroke-width%3D%271%27%2F%3E%3C%2Fsvg%3E");
+    background-size:contain;
+    background-repeat:no-repeat;
+  }
   body.dark-mode.usertheme-darsenal header::after{ content:none; }
+  body.dark-mode.usertheme-darsenal header > *{ position:relative; z-index:1; }
   body.dark-mode.usertheme-darsenal header,
   body.dark-mode.usertheme-darsenal header *{
     color:#FEFEFE !important;
