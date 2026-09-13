@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Mr Eric's Lounge</title>
-<meta name="app-build" content="20260913082431">
+<meta name="app-build" content="20260913091518">
 <script>
   // PWA update-detection: an installed home-screen app's standalone-mode navigation
   // cache can hold an old shell far longer than the CDN's 10-minute cache -
@@ -1414,7 +1414,7 @@
     position:absolute; border-radius:50%; background:#fff; pointer-events:none;
     animation:nebulaStarTwinkle ease-in-out infinite;
   }
-  @keyframes nebulaStarTwinkle{ 0%,100%{opacity:.15;} 50%{opacity:1;} }
+  @keyframes nebulaStarTwinkle{ 0%,100%{opacity:.1;} 50%{opacity:var(--peak, 1);} }
   #nebula-star-field{
     position:fixed; inset:0; z-index:0; pointer-events:none; overflow:hidden;
   }
@@ -1875,18 +1875,36 @@
   body.usertheme-bauhaus:not(.dark-mode) .fac-tile.all{
     background:linear-gradient(135deg, #D4141E 0%, #D4141E 48%, #1A1A1A 52%, #1A1A1A 100%) !important;
   }
-  /* CHANGE 3: bigger corner cut + alternating small rotation per tile position - a
-     scattered-poster feel instead of a uniform grid. */
+  /* CHANGE (round 4): "randomize where the corner is cut" - CSS can't generate true
+     randomness, so this ties 4 different cut-corner positions (top-left, top-right,
+     bottom-right, bottom-left) to the same nth-child cycle already driving colour and
+     rotation, so which corner is cut varies tile-to-tile instead of always being the
+     same corner. Combined with the existing rotation, no two adjacent tiles now share
+     the same silhouette. */
   body.usertheme-bauhaus:not(.dark-mode) .fac-tile{
     border:3px solid #1A1A1A !important;
-    clip-path:polygon(0 0, 100% 0, 100% calc(100% - 44px), calc(100% - 44px) 100%, 0 100%);
     position:relative;
     padding-bottom:20px !important;
   }
-  body.usertheme-bauhaus:not(.dark-mode) .faculties .fac-tile:not(.all):nth-child(4n+1){ transform:rotate(-1.5deg); }
-  body.usertheme-bauhaus:not(.dark-mode) .faculties .fac-tile:not(.all):nth-child(4n+2){ transform:rotate(1.2deg); }
-  body.usertheme-bauhaus:not(.dark-mode) .faculties .fac-tile:not(.all):nth-child(4n+3){ transform:rotate(-1deg); }
-  body.usertheme-bauhaus:not(.dark-mode) .faculties .fac-tile:not(.all):nth-child(4n+4){ transform:rotate(1.8deg); }
+  body.usertheme-bauhaus:not(.dark-mode) .faculties .fac-tile:not(.all):nth-child(4n+1){
+    clip-path:polygon(44px 0, 100% 0, 100% 100%, 0 100%, 0 44px);
+    transform:rotate(-1.5deg);
+  }
+  body.usertheme-bauhaus:not(.dark-mode) .faculties .fac-tile:not(.all):nth-child(4n+2){
+    clip-path:polygon(0 0, calc(100% - 44px) 0, 100% 44px, 100% 100%, 0 100%);
+    transform:rotate(1.2deg);
+  }
+  body.usertheme-bauhaus:not(.dark-mode) .faculties .fac-tile:not(.all):nth-child(4n+3){
+    clip-path:polygon(0 0, 100% 0, 100% calc(100% - 44px), calc(100% - 44px) 100%, 0 100%);
+    transform:rotate(-1deg);
+  }
+  body.usertheme-bauhaus:not(.dark-mode) .faculties .fac-tile:not(.all):nth-child(4n+4){
+    clip-path:polygon(0 0, 100% 0, 100% 100%, 44px 100%, 0 calc(100% - 44px));
+    transform:rotate(1.8deg);
+  }
+  body.usertheme-bauhaus:not(.dark-mode) .fac-tile.all{
+    clip-path:polygon(0 0, 100% 0, 100% calc(100% - 44px), calc(100% - 44px) 100%, 0 100%);
+  }
   body.usertheme-bauhaus:not(.dark-mode) .faculties .fac-tile:not(.all)::after{
     content:'';
     position:absolute;
@@ -1907,7 +1925,9 @@
   }
   /* CHANGE 4: the same cut-corner + rotation treatment, extended to every other
      tile-like component across the app - Sports hub, Good News, Books, Birthday tile,
-     etc - so the geometric language isn't confined to the homepage. */
+     etc - so the geometric language isn't confined to the homepage. Corner cut
+     position now varies by colour-group here too (same "randomised corner" idea),
+     matching whichever corner that colour group uses on the homepage grid. */
   body.usertheme-bauhaus:not(.dark-mode) .sport-hub-tile,
   body.usertheme-bauhaus:not(.dark-mode) .sports-tile,
   body.usertheme-bauhaus:not(.dark-mode) .sports-card,
@@ -1926,8 +1946,37 @@
   body.usertheme-bauhaus:not(.dark-mode) .empty-card,
   body.usertheme-bauhaus:not(.dark-mode) .photo-tile,
   body.usertheme-bauhaus:not(.dark-mode) .sotw-card{
-    clip-path:polygon(0 0, 100% 0, 100% calc(100% - 22px), calc(100% - 22px) 100%, 0 100%);
     border:3px solid #1A1A1A !important;
+  }
+  /* Group 1 (red) - top-left cut */
+  body.usertheme-bauhaus:not(.dark-mode) .sport-hub-tile,
+  body.usertheme-bauhaus:not(.dark-mode) .sports-tile,
+  body.usertheme-bauhaus:not(.dark-mode) .sports-card{
+    clip-path:polygon(22px 0, 100% 0, 100% 100%, 0 100%, 0 22px);
+  }
+  /* Group 2 (blue) - top-right cut */
+  body.usertheme-bauhaus:not(.dark-mode) .goodnews-tile,
+  body.usertheme-bauhaus:not(.dark-mode) .watch-tile,
+  body.usertheme-bauhaus:not(.dark-mode) .watch-card,
+  body.usertheme-bauhaus:not(.dark-mode) .otd-card{
+    clip-path:polygon(0 0, calc(100% - 22px) 0, 100% 22px, 100% 100%, 0 100%);
+  }
+  /* Group 3 (black) - bottom-right cut */
+  body.usertheme-bauhaus:not(.dark-mode) .books-tile,
+  body.usertheme-bauhaus:not(.dark-mode) .mindtemple-tile,
+  body.usertheme-bauhaus:not(.dark-mode) .explore-tile,
+  body.usertheme-bauhaus:not(.dark-mode) .explore-card,
+  body.usertheme-bauhaus:not(.dark-mode) .page-result{
+    clip-path:polygon(0 0, 100% 0, 100% calc(100% - 22px), calc(100% - 22px) 100%, 0 100%);
+  }
+  /* Group 4 (yellow) - bottom-left cut */
+  body.usertheme-bauhaus:not(.dark-mode) .bday-tile-card,
+  body.usertheme-bauhaus:not(.dark-mode) .random-tile,
+  body.usertheme-bauhaus:not(.dark-mode) .rec-item,
+  body.usertheme-bauhaus:not(.dark-mode) .empty-card,
+  body.usertheme-bauhaus:not(.dark-mode) .photo-tile,
+  body.usertheme-bauhaus:not(.dark-mode) .sotw-card{
+    clip-path:polygon(0 0, 100% 0, 100% 100%, 22px 100%, 0 calc(100% - 22px));
   }
   body.usertheme-bauhaus:not(.dark-mode) .sport-hub-tile{ transform:rotate(-1.3deg); }
   body.usertheme-bauhaus:not(.dark-mode) .goodnews-tile{ transform:rotate(1deg); }
@@ -25126,17 +25175,25 @@ const COMPLIMENTS = [
       document.querySelectorAll('.nebula-header-star').forEach(el => el.remove());
       return;
     }
+    // Widened size (0.5-3.4px, was 0.8-2.4px) and duration (1.5-7s, was 2-5s) ranges so
+    // "some bigger some smaller, some faster some slower" is actually visible rather
+    // than a fairly uniform field. Peak opacity is now per-star too (--peak, .45-1) via
+    // a CSS custom property read by the keyframe, so brightness varies star-to-star as
+    // well, not just size/speed - bigger stars biased toward a higher peak (reads as
+    // "closer/brighter"), smaller stars can land dimmer.
     function makeStar(fixedX){
       const s = document.createElement('div');
       s.className = 'nebula-star' + (fixedX !== undefined ? ' nebula-header-star' : '');
-      const size = (Math.random()*1.6 + 0.8).toFixed(1);
+      const size = Math.random()*2.9 + 0.5;
       const x = (fixedX !== undefined ? fixedX : Math.random()*100).toFixed(1);
       const y = (Math.random()*100).toFixed(1);
-      const duration = (Math.random()*3 + 2).toFixed(2);
-      s.style.width = size + 'px';
-      s.style.height = size + 'px';
+      const duration = (Math.random()*5.5 + 1.5).toFixed(2);
+      const peak = (0.45 + (size/3.4)*0.4 + Math.random()*0.15).toFixed(2);
+      s.style.width = size.toFixed(1) + 'px';
+      s.style.height = size.toFixed(1) + 'px';
       s.style.left = x + '%';
       s.style.top = y + '%';
+      s.style.setProperty('--peak', peak);
       s.style.animationDuration = duration + 's';
       s.style.animationDelay = '-' + (Math.random()*duration).toFixed(2) + 's';
       return s;
@@ -25146,11 +25203,11 @@ const COMPLIMENTS = [
       field.id = 'nebula-star-field';
       field.setAttribute('aria-hidden', 'true');
       document.body.appendChild(field);
-      for(let i=0; i<45; i++) field.appendChild(makeStar());
+      for(let i=0; i<59; i++) field.appendChild(makeStar());
     }
     const header = document.querySelector('header');
     if(header && !header.querySelector('.nebula-header-star')){
-      for(let i=0; i<8; i++){
+      for(let i=0; i<10; i++){
         const leftSide = Math.random() < 0.5;
         const x = leftSide ? Math.random()*18 : 82 + Math.random()*18;
         header.appendChild(makeStar(x));
