@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Mr Eric's Lounge</title>
-<meta name="app-build" content="20260914020258">
+<meta name="app-build" content="20260914023725">
 <script>
   // PWA update-detection: an installed home-screen app's standalone-mode navigation
   // cache can hold an old shell far longer than the CDN's 10-minute cache -
@@ -1082,6 +1082,24 @@ body.usertheme-vintage:not(.dark-mode) header::before{
     font-family:'Propaganda','Impact',sans-serif !important;
     font-weight:normal !important;
   }
+  /* Thinning the font: Propaganda ships as a single static weight, so font-weight
+     alone has nowhere lower to go - font-weight:normal (above) already rules out the
+     browser synthesizing a fake bold on top, but the face's own inherent stroke
+     thickness is fixed at the file level and can't be changed via font-weight at all.
+     The actual way to visually thin a fixed-weight font is a text-stroke painted in
+     the SAME colour as whatever's behind the text - it shaves a thin sliver off each
+     glyph's outer edge, reducing how much ink-area the eye registers, without
+     touching the font file itself. Applied per background context since Soviet uses
+     several: beige page/card (majority of text) and the red header specifically. */
+  body.usertheme-soviet:not(.dark-mode){
+    -webkit-text-stroke:0.55px #E8DCC0;
+    text-stroke:0.55px #E8DCC0;
+  }
+  body.usertheme-soviet:not(.dark-mode) header,
+  body.usertheme-soviet:not(.dark-mode) header *{
+    -webkit-text-stroke:0.55px #D34039;
+    text-stroke:0.55px #D34039;
+  }
   body.usertheme-soviet:not(.dark-mode) .aurora-layer{ opacity:0; }
   /* DEVICE 3: aged-paper texture - vignette (::before) + real grain noise via SVG
      feTurbulence (::after), fixed so both stay put while scrolling, low z-index so
@@ -1257,6 +1275,52 @@ body.usertheme-vintage:not(.dark-mode) header::before{
   body.usertheme-soviet:not(.dark-mode) .sotw-card,
   body.usertheme-soviet:not(.dark-mode) .sotw-card *{
     color:#FEFEFE !important;
+  }
+  /* Reset the text-stroke thinning for tile text specifically - it inherits from body
+     by default, but the stroke colour there (beige/red) would show as a visible halo
+     around WHITE text on these coloured tile backgrounds instead of a clean thinning
+     effect. Text here is mostly short labels/counts anyway, not paragraph copy, so
+     leaving it at the font's normal edge is the safer trade. */
+  body.usertheme-soviet:not(.dark-mode) .fac-tile,
+  body.usertheme-soviet:not(.dark-mode) .fac-tile *,
+  body.usertheme-soviet:not(.dark-mode) .sport-hub-tile,
+  body.usertheme-soviet:not(.dark-mode) .sport-hub-tile *,
+  body.usertheme-soviet:not(.dark-mode) .sports-tile,
+  body.usertheme-soviet:not(.dark-mode) .sports-tile *,
+  body.usertheme-soviet:not(.dark-mode) .sports-card,
+  body.usertheme-soviet:not(.dark-mode) .sports-card *,
+  body.usertheme-soviet:not(.dark-mode) .goodnews-tile,
+  body.usertheme-soviet:not(.dark-mode) .goodnews-tile *,
+  body.usertheme-soviet:not(.dark-mode) .watch-tile,
+  body.usertheme-soviet:not(.dark-mode) .watch-tile *,
+  body.usertheme-soviet:not(.dark-mode) .watch-card,
+  body.usertheme-soviet:not(.dark-mode) .watch-card *,
+  body.usertheme-soviet:not(.dark-mode) .otd-card,
+  body.usertheme-soviet:not(.dark-mode) .otd-card *,
+  body.usertheme-soviet:not(.dark-mode) .books-tile,
+  body.usertheme-soviet:not(.dark-mode) .books-tile *,
+  body.usertheme-soviet:not(.dark-mode) .mindtemple-tile,
+  body.usertheme-soviet:not(.dark-mode) .mindtemple-tile *,
+  body.usertheme-soviet:not(.dark-mode) .explore-tile,
+  body.usertheme-soviet:not(.dark-mode) .explore-tile *,
+  body.usertheme-soviet:not(.dark-mode) .explore-card,
+  body.usertheme-soviet:not(.dark-mode) .explore-card *,
+  body.usertheme-soviet:not(.dark-mode) .page-result,
+  body.usertheme-soviet:not(.dark-mode) .page-result *,
+  body.usertheme-soviet:not(.dark-mode) .bday-tile-card,
+  body.usertheme-soviet:not(.dark-mode) .bday-tile-card *,
+  body.usertheme-soviet:not(.dark-mode) .random-tile,
+  body.usertheme-soviet:not(.dark-mode) .random-tile *,
+  body.usertheme-soviet:not(.dark-mode) .rec-item,
+  body.usertheme-soviet:not(.dark-mode) .rec-item *,
+  body.usertheme-soviet:not(.dark-mode) .empty-card,
+  body.usertheme-soviet:not(.dark-mode) .empty-card *,
+  body.usertheme-soviet:not(.dark-mode) .photo-tile,
+  body.usertheme-soviet:not(.dark-mode) .photo-tile *,
+  body.usertheme-soviet:not(.dark-mode) .sotw-card,
+  body.usertheme-soviet:not(.dark-mode) .sotw-card *{
+    -webkit-text-stroke:0;
+    text-stroke:0;
   }
 
   /* - Grand Bazaar, rebuilt from Mr Eric's own spice-market photos after the first
