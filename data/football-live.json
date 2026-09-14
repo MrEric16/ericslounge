@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-14T11:41:59.666891Z",
+  "generatedAt": "2026-09-14T17:36:26.692711Z",
   "standings": {
     "PL": [
       {
@@ -589,6 +589,26 @@
     ],
     "SA": [
       {
+        "name": "Roma",
+        "pld": 4,
+        "w": 4,
+        "d": 0,
+        "l": 0,
+        "gf": 11,
+        "ga": 1,
+        "pts": 12
+      },
+      {
+        "name": "Como 1907",
+        "pld": 4,
+        "w": 3,
+        "d": 1,
+        "l": 0,
+        "gf": 8,
+        "ga": 3,
+        "pts": 10
+      },
+      {
         "name": "Lazio",
         "pld": 4,
         "w": 3,
@@ -597,16 +617,6 @@
         "gf": 6,
         "ga": 3,
         "pts": 10
-      },
-      {
-        "name": "Roma",
-        "pld": 3,
-        "w": 3,
-        "d": 0,
-        "l": 0,
-        "gf": 10,
-        "ga": 1,
-        "pts": 9
       },
       {
         "name": "Inter",
@@ -637,16 +647,6 @@
         "gf": 7,
         "ga": 4,
         "pts": 8
-      },
-      {
-        "name": "Como 1907",
-        "pld": 3,
-        "w": 2,
-        "d": 1,
-        "l": 0,
-        "gf": 7,
-        "ga": 3,
-        "pts": 7
       },
       {
         "name": "Frosinone",
@@ -720,12 +720,12 @@
       },
       {
         "name": "Torino",
-        "pld": 3,
+        "pld": 4,
         "w": 1,
         "d": 0,
-        "l": 2,
+        "l": 3,
         "gf": 4,
-        "ga": 5,
+        "ga": 6,
         "pts": 3
       },
       {
@@ -750,12 +750,12 @@
       },
       {
         "name": "Parma",
-        "pld": 3,
+        "pld": 4,
         "w": 0,
         "d": 1,
-        "l": 2,
+        "l": 3,
         "gf": 1,
-        "ga": 4,
+        "ga": 5,
         "pts": 1
       },
       {
@@ -3093,7 +3093,7 @@
       "fixtures": [
         {
           "utcDate": "2026-09-14T16:30:00Z",
-          "status": "TIMED",
+          "status": "IN_PLAY",
           "matchday": 4,
           "homeTeam": {
             "id": 7397,
@@ -3106,15 +3106,15 @@
             "shortName": "Parma"
           },
           "score": {
-            "winner": null,
+            "winner": "HOME_TEAM",
             "duration": "REGULAR",
             "fullTime": {
-              "home": null,
-              "away": null
+              "home": 1,
+              "away": 0
             },
             "halfTime": {
-              "home": null,
-              "away": null
+              "home": 1,
+              "away": 0
             }
           },
           "competition": {
@@ -3124,7 +3124,7 @@
         },
         {
           "utcDate": "2026-09-14T16:30:00Z",
-          "status": "TIMED",
+          "status": "IN_PLAY",
           "matchday": 4,
           "homeTeam": {
             "id": 586,
@@ -3137,15 +3137,15 @@
             "shortName": "Roma"
           },
           "score": {
-            "winner": null,
+            "winner": "AWAY_TEAM",
             "duration": "REGULAR",
             "fullTime": {
-              "home": null,
-              "away": null
+              "home": 0,
+              "away": 1
             },
             "halfTime": {
-              "home": null,
-              "away": null
+              "home": 0,
+              "away": 1
             }
           },
           "competition": {
