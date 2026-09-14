@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Mr Eric's Lounge</title>
-<meta name="app-build" content="20260914012554">
+<meta name="app-build" content="20260914013209">
 <script>
   // PWA update-detection: an installed home-screen app's standalone-mode navigation
   // cache can hold an old shell far longer than the CDN's 10-minute cache -
@@ -540,15 +540,7 @@ body.usertheme-vintage:not(.dark-mode) header::before{
     position:relative;
     overflow:hidden;
   }
-  body.usertheme-arsenal:not(.dark-mode) header::before{
-    content:'';
-    position:absolute; z-index:0; pointer-events:none;
-    top:50%; left:20%;
-    width:260px; height:260px;
-    transform:translate(-50%,-50%);
-    background:repeating-conic-gradient(rgba(255,255,255,.22) 0deg 4deg, transparent 4deg 18deg);
-    border-radius:50%;
-  }
+  body.usertheme-arsenal:not(.dark-mode) header::before{ content:none; }
   body.usertheme-arsenal:not(.dark-mode) header::after{ content:none; }
   body.usertheme-arsenal:not(.dark-mode) header > *{ position:relative; z-index:1; }
   body.usertheme-arsenal:not(.dark-mode) header,
@@ -13390,7 +13382,6 @@ const TAGLINES = [
   "The internet's more well-read corner",
   "Less doomscroll, more actual scroll",
   "A teacher, unsupervised, with Wi-Fi",
-  "Reading material your parents can't complain about",
   "Passed the vibe check, allegedly",
   "What your teacher does instead of sleeping",
   "Somehow still better than the group chat",
