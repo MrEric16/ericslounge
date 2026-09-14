@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-14T15:08:23.426900Z",
+  "generatedAt": "2026-09-14T19:55:18.359327Z",
   "results": [
     {
       "url": "https://www.goal.com/en/match/girona-vs-arsenal/__LS8d9Oc6I1wXn9g8956",
@@ -6653,6 +6653,55 @@
         {
           "scorer": "E. Zhegrova",
           "minute": 82
+        }
+      ],
+      "competition": "SA"
+    },
+    {
+      "url": "https://www.goal.com/en/match/como-vs-parma-calcio-1913/i3mQC6Lwr5jvzhTAQEtqH",
+      "date": null,
+      "home": "Como",
+      "away": "Parma Calcio 1913",
+      "htHome": 1,
+      "htAway": 0,
+      "ftHome": 2,
+      "ftAway": 1,
+      "homeGoals": [
+        {
+          "scorer": "J. Ramon",
+          "minute": 23
+        },
+        {
+          "scorer": "Kaiki",
+          "minute": 83
+        }
+      ],
+      "awayGoals": [
+        {
+          "scorer": "D. Romero",
+          "minute": 90
+        }
+      ],
+      "competition": "SA"
+    },
+    {
+      "url": "https://www.goal.com/en/match/torino-vs-roma/Hc5KWhy7UJOf9UP3ySXkI",
+      "date": null,
+      "home": "Torino",
+      "away": "Roma",
+      "htHome": 0,
+      "htAway": 1,
+      "ftHome": 0,
+      "ftAway": 2,
+      "homeGoals": [],
+      "awayGoals": [
+        {
+          "scorer": "D. Malen",
+          "minute": 40
+        },
+        {
+          "scorer": "N. Pisilli",
+          "minute": 90
         }
       ],
       "competition": "SA"
