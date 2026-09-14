@@ -1,10 +1,11 @@
 [goal-scraper] Run started.
-[goal-scraper] [PL] Found 9 finished-match links
-[goal-scraper] [PD] Found 9 finished-match links
+[goal-scraper] [PL] Found 10 finished-match links
+[goal-scraper] [PL] Added: Leeds United 4-1 Newcastle United
+[goal-scraper] [PD] Found 10 finished-match links
+[goal-scraper] [PD] Added: Villarreal 1-2 Real Betis
 [goal-scraper] [BL1] Found 0 finished-match links
-[goal-scraper] [SA] Found 9 finished-match links
-[goal-scraper] [SA] Added: Como 2-1 Parma Calcio 1913
-[goal-scraper] [SA] Added: Torino 0-2 Roma
+[goal-scraper] [SA] Found 10 finished-match links
+[goal-scraper] [SA] Added: Inter 5-3 Udinese
 [goal-scraper] [FL1] Found 0 finished-match links
 [goal-scraper] [CL] Found 0 finished-match links
 [goal-scraper] [real-madrid] Found 21 finished-match links
@@ -47,7 +48,7 @@
 [goal-scraper] [bayern-munich] Skipping stale match (older than 45 days): Paris Saint Germain vs Bayern Munich on 2025-07-05
 [goal-scraper] WARNING: Bayern Munich scored 5 but only 4 scorer(s) were parsed for https://www.goal.com/en/match/salzburg-vs-bayern-munich/5HnHv_H00CkUM5w0_F4_S
 [goal-scraper] [bayern-munich] Skipping stale match (older than 45 days): Salzburg vs Bayern Munich on 2026-01-06
-[goal-scraper] [inter-milan] Found 14 finished-match links
+[goal-scraper] [inter-milan] Found 15 finished-match links
 [goal-scraper] [inter-milan] Skipping stale match (older than 45 days): Monterrey vs Inter on 2025-06-17
 [goal-scraper] [inter-milan] Skipping stale match (older than 45 days): Inter vs Urawa Red Diamonds on 2025-06-21
 [goal-scraper] [inter-milan] Skipping stale match (older than 45 days): Inter vs River Plate on 2025-06-25
@@ -89,6 +90,6 @@
 [goal-scraper] [juventus] Skipping stale match (older than 45 days): Juventus vs Manchester City on 2025-06-26
 [goal-scraper] [juventus] Skipping stale match (older than 45 days): Basel vs Juventus on 2026-07-18
 [goal-scraper] [arsenal-friendlies] Found 1 finished-match links
-[goal-scraper] TOTAL new results added this run: 2
+[goal-scraper] TOTAL new results added this run: 3
 [goal-scraper] Matches still awaiting a clean scorer parse (not yet committed): ['https://www.goal.com/en/match/slavia-prague-vs-lens/8tl536s9YeGCuVkrI5O7Y']
 [goal-scraper] Wrote data/goal-results.json

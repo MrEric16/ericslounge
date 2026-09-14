@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-14T19:55:18.359327Z",
+  "generatedAt": "2026-09-14T22:54:03.042053Z",
   "results": [
     {
       "url": "https://www.goal.com/en/match/girona-vs-arsenal/__LS8d9Oc6I1wXn9g8956",
@@ -6701,6 +6701,115 @@
         },
         {
           "scorer": "N. Pisilli",
+          "minute": 90
+        }
+      ],
+      "competition": "SA"
+    },
+    {
+      "url": "https://www.goal.com/en/match/leeds-united-vs-newcastle-united/_GDfilUHD4vbWB4kq3RIG",
+      "date": null,
+      "home": "Leeds United",
+      "away": "Newcastle United",
+      "htHome": 3,
+      "htAway": 0,
+      "ftHome": 4,
+      "ftAway": 1,
+      "homeGoals": [
+        {
+          "scorer": "L. Miley",
+          "minute": 32
+        },
+        {
+          "scorer": "J. Bogle",
+          "minute": 34
+        },
+        {
+          "scorer": "D. Calvert-Lewin",
+          "minute": 45
+        },
+        {
+          "scorer": "N. Okafor",
+          "minute": 59
+        }
+      ],
+      "awayGoals": [
+        {
+          "scorer": "B. Toure",
+          "minute": 90
+        }
+      ],
+      "competition": "PL"
+    },
+    {
+      "url": "https://www.goal.com/en/match/villarreal-vs-real-betis/RdYoc6Vb4lPsvVmflypCU",
+      "date": null,
+      "home": "Villarreal",
+      "away": "Real Betis",
+      "htHome": 1,
+      "htAway": 2,
+      "ftHome": 1,
+      "ftAway": 2,
+      "homeGoals": [
+        {
+          "scorer": "G. Moreno",
+          "minute": 29
+        }
+      ],
+      "awayGoals": [
+        {
+          "scorer": "J. Hernandez",
+          "minute": 39
+        },
+        {
+          "scorer": "Natan",
+          "minute": 43
+        }
+      ],
+      "competition": "PD"
+    },
+    {
+      "url": "https://www.goal.com/en/match/inter-vs-udinese/K2bR4te4-hrj-smIYNGht",
+      "date": null,
+      "home": "Inter",
+      "away": "Udinese",
+      "htHome": 2,
+      "htAway": 2,
+      "ftHome": 5,
+      "ftAway": 3,
+      "homeGoals": [
+        {
+          "scorer": "C. Augusto",
+          "minute": 26
+        },
+        {
+          "scorer": "N. Barella",
+          "minute": 35
+        },
+        {
+          "scorer": "M. Thuram",
+          "minute": 57
+        },
+        {
+          "scorer": "F. Esposito",
+          "minute": 67
+        },
+        {
+          "scorer": "A. Bonny",
+          "minute": 79
+        }
+      ],
+      "awayGoals": [
+        {
+          "scorer": "J. Abankwah",
+          "minute": 9
+        },
+        {
+          "scorer": "J. Ekkelenkamp",
+          "minute": 16
+        },
+        {
+          "scorer": "I. Gueye",
           "minute": 90
         }
       ],
