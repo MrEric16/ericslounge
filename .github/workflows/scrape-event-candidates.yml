@@ -7,6 +7,7 @@ on:
 
 permissions:
   contents: write
+  actions: write
 
 jobs:
   find:
@@ -37,3 +38,22 @@ jobs:
           git diff --cached --quiet && echo "No changes to commit" || git commit -m "Update event-candidates log"
           git pull --rebase --autostash origin main || true
           git push
+
+      # Explicitly trigger a Pages redeploy after a successful data commit. Necessary,
+      # not optional: a push authenticated with the default GITHUB_TOKEN (which is what
+      # actions/checkout uses here, with no custom token configured) does NOT cascade to
+      # trigger other workflows via their own `on: push` triggers - this is a deliberate
+      # GitHub anti-recursion safeguard, documented behaviour, and it applies regardless
+      # of whether [skip ci] is present. Removing [skip ci] alone (done in the same fix)
+      # was necessary but not sufficient - this explicit workflow_dispatch call is what
+      # actually closes the gap, using the exact same proven pattern as the existing
+      # UZ/UAE staleness watchdogs in football-fetch.yml, which already demonstrate this
+      # approach works correctly even when triggered from a GITHUB_TOKEN context.
+      - name: Trigger Pages redeploy
+        if: always()
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          curl -s -X POST -H "Authorization: token $GH_TOKEN" -H "Accept: application/vnd.github+json" \
+            "https://api.github.com/repos/${{ github.repository }}/actions/workflows/pages.yml/dispatches" \
+            -d '{"ref":"main"}'
