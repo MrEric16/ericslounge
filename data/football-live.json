@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-15T14:23:53.308749Z",
+  "generatedAt": "2026-09-15T18:21:39.220461Z",
   "standings": {
     "PL": [
       {
@@ -236,12 +236,12 @@
       },
       {
         "name": "Alavés",
-        "pld": 5,
+        "pld": 6,
         "w": 3,
         "d": 1,
-        "l": 1,
+        "l": 2,
         "gf": 11,
-        "ga": 5,
+        "ga": 6,
         "pts": 10
       },
       {
@@ -276,12 +276,12 @@
       },
       {
         "name": "Espanyol",
-        "pld": 5,
+        "pld": 6,
         "w": 2,
         "d": 1,
-        "l": 2,
-        "gf": 8,
-        "ga": 5,
+        "l": 3,
+        "gf": 9,
+        "ga": 7,
         "pts": 7
       },
       {
@@ -312,6 +312,16 @@
         "l": 2,
         "gf": 5,
         "ga": 8,
+        "pts": 7
+      },
+      {
+        "name": "Rayo Vallecano",
+        "pld": 6,
+        "w": 2,
+        "d": 1,
+        "l": 3,
+        "gf": 10,
+        "ga": 15,
         "pts": 7
       },
       {
@@ -355,13 +365,13 @@
         "pts": 4
       },
       {
-        "name": "Rayo Vallecano",
-        "pld": 5,
+        "name": "Valencia",
+        "pld": 6,
         "w": 1,
         "d": 1,
-        "l": 3,
-        "gf": 8,
-        "ga": 14,
+        "l": 4,
+        "gf": 2,
+        "ga": 10,
         "pts": 4
       },
       {
@@ -393,16 +403,6 @@
         "gf": 6,
         "ga": 13,
         "pts": 2
-      },
-      {
-        "name": "Valencia",
-        "pld": 5,
-        "w": 0,
-        "d": 1,
-        "l": 4,
-        "gf": 1,
-        "ga": 10,
-        "pts": 1
       }
     ],
     "BL1": [
@@ -2120,7 +2120,7 @@
       "fixtures": [
         {
           "utcDate": "2026-09-15T17:00:00Z",
-          "status": "TIMED",
+          "status": "IN_PLAY",
           "matchday": 6,
           "homeTeam": {
             "id": 87,
@@ -2133,15 +2133,15 @@
             "shortName": "Espanyol"
           },
           "score": {
-            "winner": null,
+            "winner": "HOME_TEAM",
             "duration": "REGULAR",
             "fullTime": {
-              "home": null,
-              "away": null
+              "home": 2,
+              "away": 1
             },
             "halfTime": {
-              "home": null,
-              "away": null
+              "home": 2,
+              "away": 0
             }
           },
           "competition": {
@@ -2151,7 +2151,7 @@
         },
         {
           "utcDate": "2026-09-15T18:00:00Z",
-          "status": "TIMED",
+          "status": "IN_PLAY",
           "matchday": 6,
           "homeTeam": {
             "id": 263,
@@ -2164,11 +2164,11 @@
             "shortName": "Valencia"
           },
           "score": {
-            "winner": null,
+            "winner": "DRAW",
             "duration": "REGULAR",
             "fullTime": {
-              "home": null,
-              "away": null
+              "home": 0,
+              "away": 0
             },
             "halfTime": {
               "home": null,
