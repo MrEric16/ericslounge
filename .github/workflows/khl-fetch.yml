@@ -32,6 +32,6 @@ jobs:
           git config user.email "actions@github.com"
           git add scripts/khl-log.txt || true
           [ -f data/khl-live.json ] && git add data/khl-live.json || true
-          git diff --cached --quiet && echo "No changes to commit" || git commit -m "Auto-update KHL [skip ci]"
+          git diff --cached --quiet && echo "No changes to commit" || git commit -m "Auto-update KHL"
           git pull --rebase --autostash origin main || true
           git push

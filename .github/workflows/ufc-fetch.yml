@@ -32,6 +32,6 @@ jobs:
           git config user.name "ufc-bot"
           git config user.email "actions@github.com"
           git add data/ufc-live.json scripts/ufc-fetch-log.txt scripts/debug-ufc-wiki.html || true
-          git diff --cached --quiet && echo "No changes to commit" || git commit -m "Auto-update UFC events data [skip ci]"
+          git diff --cached --quiet && echo "No changes to commit" || git commit -m "Auto-update UFC events data"
           git pull --rebase --autostash origin main || true
           git push

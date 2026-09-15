@@ -29,6 +29,6 @@ jobs:
           git config user.name "weather-bot"
           git config user.email "actions@github.com"
           git add data/weather-live.json || true
-          git diff --cached --quiet && echo "No changes to commit" || git commit -m "Auto-update weather data [skip ci]"
+          git diff --cached --quiet && echo "No changes to commit" || git commit -m "Auto-update weather data"
           git pull --rebase --autostash origin main || true
           git push

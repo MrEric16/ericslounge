@@ -31,6 +31,6 @@ jobs:
           git config user.name "events-bot"
           git config user.email "actions@github.com"
           git add data/events-virtual.json || true
-          git diff --cached --quiet && echo "No changes to commit" || git commit -m "Publish approved online events [skip ci]"
+          git diff --cached --quiet && echo "No changes to commit" || git commit -m "Publish approved online events"
           git pull --rebase --autostash origin main || true
           git push

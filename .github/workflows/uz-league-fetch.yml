@@ -32,6 +32,6 @@ jobs:
           git config user.name "uz-league-bot"
           git config user.email "actions@github.com"
           git add data/uz-league-live.json scripts/uz-league-fetch-log.txt scripts/debug-uz-*.html || true
-          git diff --cached --quiet && echo "No changes to commit" || git commit -m "Auto-update Uzbekistan Super League data [skip ci]"
+          git diff --cached --quiet && echo "No changes to commit" || git commit -m "Auto-update Uzbekistan Super League data"
           git pull --rebase --autostash origin main || true
           git push
