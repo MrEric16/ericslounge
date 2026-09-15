@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-15T16:14:05.672364Z",
+  "generatedAt": "2026-09-15T19:46:13.668230Z",
   "results": [
     {
       "url": "https://www.goal.com/en/match/girona-vs-arsenal/__LS8d9Oc6I1wXn9g8956",
@@ -6814,6 +6814,33 @@
         }
       ],
       "competition": "SA"
+    },
+    {
+      "url": "https://www.goal.com/en/match/rayo-vallecano-vs-espanyol/q3PSOrdLpYp18VV_d58WX",
+      "date": null,
+      "home": "Rayo Vallecano",
+      "away": "Espanyol",
+      "htHome": 2,
+      "htAway": 0,
+      "ftHome": 2,
+      "ftAway": 1,
+      "homeGoals": [
+        {
+          "scorer": "A. Garcia",
+          "minute": 3
+        },
+        {
+          "scorer": "A. Pedrosa",
+          "minute": 26
+        }
+      ],
+      "awayGoals": [
+        {
+          "scorer": "R. Fernandez",
+          "minute": 54
+        }
+      ],
+      "competition": "PD"
     }
   ],
   "scorerParseRetryCounts": {
