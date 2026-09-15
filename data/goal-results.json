@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-15T19:46:13.668230Z",
+  "generatedAt": "2026-09-15T22:35:41.897066Z",
   "results": [
     {
       "url": "https://www.goal.com/en/match/girona-vs-arsenal/__LS8d9Oc6I1wXn9g8956",
@@ -6841,9 +6841,63 @@
         }
       ],
       "competition": "PD"
+    },
+    {
+      "url": "https://www.goal.com/en/match/deportivo-alaves-vs-valencia/8csk-Rxk00kvrF7k7XuxF",
+      "date": null,
+      "home": "Deportivo Alaves",
+      "away": "Valencia",
+      "htHome": 0,
+      "htAway": 0,
+      "ftHome": 0,
+      "ftAway": 1,
+      "homeGoals": [],
+      "awayGoals": [
+        {
+          "scorer": "L. Rioja",
+          "minute": 78
+        }
+      ],
+      "competition": "PD"
+    },
+    {
+      "url": "https://www.goal.com/en/match/elche-vs-real-madrid/lRGbfuxyiQWb-wJ7tPObF",
+      "date": null,
+      "home": "Elche",
+      "away": "Real Madrid",
+      "htHome": 0,
+      "htAway": 2,
+      "ftHome": 2,
+      "ftAway": 3,
+      "homeGoals": [
+        {
+          "scorer": "A. Osorio",
+          "minute": 71
+        },
+        {
+          "scorer": "F. Nino",
+          "minute": 83
+        }
+      ],
+      "awayGoals": [
+        {
+          "scorer": "M. Dituro",
+          "minute": 25
+        },
+        {
+          "scorer": "K. Mbappe",
+          "minute": 33
+        },
+        {
+          "scorer": "C. Espi",
+          "minute": 90
+        }
+      ],
+      "competition": "PD"
     }
   ],
   "scorerParseRetryCounts": {
-    "https://www.goal.com/en/match/slavia-prague-vs-lens/8tl536s9YeGCuVkrI5O7Y": 2
+    "https://www.goal.com/en/match/slavia-prague-vs-lens/8tl536s9YeGCuVkrI5O7Y": 2,
+    "https://www.goal.com/en/match/ipswich-town-vs-arsenal/8Q9c3NpQC9ZoqIto7nBIZ": 1
   }
 }
