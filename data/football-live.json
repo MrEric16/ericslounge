@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-16T14:16:24.616076Z",
+  "generatedAt": "2026-09-16T18:17:31.330428Z",
   "standings": {
     "PL": [
       {
@@ -225,6 +225,16 @@
         "pts": 15
       },
       {
+        "name": "Atleti",
+        "pld": 6,
+        "w": 4,
+        "d": 1,
+        "l": 1,
+        "gf": 11,
+        "ga": 6,
+        "pts": 13
+      },
+      {
         "name": "Real Betis",
         "pld": 5,
         "w": 4,
@@ -233,6 +243,16 @@
         "gf": 7,
         "ga": 6,
         "pts": 12
+      },
+      {
+        "name": "Sevilla FC",
+        "pld": 6,
+        "w": 3,
+        "d": 2,
+        "l": 1,
+        "gf": 8,
+        "ga": 6,
+        "pts": 11
       },
       {
         "name": "Alavés",
@@ -245,34 +265,14 @@
         "pts": 10
       },
       {
-        "name": "Atleti",
-        "pld": 5,
-        "w": 3,
-        "d": 1,
-        "l": 1,
-        "gf": 10,
-        "ga": 6,
-        "pts": 10
-      },
-      {
-        "name": "Sevilla FC",
-        "pld": 5,
-        "w": 3,
-        "d": 1,
-        "l": 1,
-        "gf": 8,
-        "ga": 6,
-        "pts": 10
-      },
-      {
         "name": "Deportivo",
-        "pld": 5,
+        "pld": 6,
         "w": 2,
-        "d": 3,
+        "d": 4,
         "l": 0,
         "gf": 9,
         "ga": 6,
-        "pts": 9
+        "pts": 10
       },
       {
         "name": "Espanyol",
@@ -306,12 +306,12 @@
       },
       {
         "name": "Osasuna",
-        "pld": 5,
+        "pld": 6,
         "w": 2,
         "d": 1,
-        "l": 2,
+        "l": 3,
         "gf": 5,
-        "ga": 8,
+        "ga": 9,
         "pts": 7
       },
       {
@@ -2120,7 +2120,7 @@
       "fixtures": [
         {
           "utcDate": "2026-09-16T17:00:00Z",
-          "status": "TIMED",
+          "status": "IN_PLAY",
           "matchday": 6,
           "homeTeam": {
             "id": 560,
@@ -2133,15 +2133,15 @@
             "shortName": "Sevilla FC"
           },
           "score": {
-            "winner": null,
+            "winner": "AWAY_TEAM",
             "duration": "REGULAR",
             "fullTime": {
-              "home": null,
-              "away": null
+              "home": 0,
+              "away": 1
             },
             "halfTime": {
-              "home": null,
-              "away": null
+              "home": 0,
+              "away": 0
             }
           },
           "competition": {
@@ -2151,7 +2151,7 @@
         },
         {
           "utcDate": "2026-09-16T17:00:00Z",
-          "status": "TIMED",
+          "status": "IN_PLAY",
           "matchday": 6,
           "homeTeam": {
             "id": 78,
@@ -2164,15 +2164,15 @@
             "shortName": "Osasuna"
           },
           "score": {
-            "winner": null,
+            "winner": "HOME_TEAM",
             "duration": "REGULAR",
             "fullTime": {
-              "home": null,
-              "away": null
+              "home": 1,
+              "away": 0
             },
             "halfTime": {
-              "home": null,
-              "away": null
+              "home": 1,
+              "away": 0
             }
           },
           "competition": {
