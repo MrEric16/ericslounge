@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-16T18:59:33.591235Z",
+  "generatedAt": "2026-09-16T21:57:56.492238Z",
   "results": [
     {
       "url": "https://www.goal.com/en/match/girona-vs-arsenal/__LS8d9Oc6I1wXn9g8956",
@@ -6977,9 +6977,32 @@
         }
       ],
       "competition": "PD"
+    },
+    {
+      "url": "https://www.goal.com/en/match/ac-milan-vs-benfica/59f7dtd_4H5oieOR5guZx",
+      "date": null,
+      "home": "Ac Milan",
+      "away": "Benfica",
+      "htHome": 0,
+      "htAway": 1,
+      "ftHome": 0,
+      "ftAway": 2,
+      "homeGoals": [],
+      "awayGoals": [
+        {
+          "scorer": "D. Lukebakio",
+          "minute": 16
+        },
+        {
+          "scorer": "J. Kaminski",
+          "minute": 53
+        }
+      ],
+      "competition": "ac-milan"
     }
   ],
   "scorerParseRetryCounts": {
-    "https://www.goal.com/en/match/slavia-prague-vs-lens/8tl536s9YeGCuVkrI5O7Y": 2
+    "https://www.goal.com/en/match/slavia-prague-vs-lens/8tl536s9YeGCuVkrI5O7Y": 2,
+    "https://www.goal.com/en/match/barcelona-vs-racing-santander/6QiTE6CkBSCG9oJhD_Lx9": 2
   }
 }
