@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-16T15:14:21.197421Z",
+  "generatedAt": "2026-09-16T18:59:33.591235Z",
   "results": [
     {
       "url": "https://www.goal.com/en/match/girona-vs-arsenal/__LS8d9Oc6I1wXn9g8956",
@@ -6929,6 +6929,54 @@
         }
       ],
       "competition": "arsenal-friendlies"
+    },
+    {
+      "url": "https://www.goal.com/en/match/atletico-madrid-vs-osasuna/tLQlGPp80ur2AugIKmYkI",
+      "date": null,
+      "home": "Atletico Madrid",
+      "away": "Osasuna",
+      "htHome": 1,
+      "htAway": 0,
+      "ftHome": 4,
+      "ftAway": 0,
+      "homeGoals": [
+        {
+          "scorer": "J. David",
+          "minute": 24
+        },
+        {
+          "scorer": "K. Lee",
+          "minute": 54
+        },
+        {
+          "scorer": "R. Le Normand",
+          "minute": 63
+        },
+        {
+          "scorer": "A. Baena",
+          "minute": 82
+        }
+      ],
+      "awayGoals": [],
+      "competition": "PD"
+    },
+    {
+      "url": "https://www.goal.com/en/match/deportivo-de-a-coruna-vs-sevilla/nIdv6kKPje9RPsphYK5pq",
+      "date": null,
+      "home": "Deportivo De A Coruna",
+      "away": "Sevilla",
+      "htHome": 0,
+      "htAway": 0,
+      "ftHome": 0,
+      "ftAway": 1,
+      "homeGoals": [],
+      "awayGoals": [
+        {
+          "scorer": "M. Sierra",
+          "minute": 52
+        }
+      ],
+      "competition": "PD"
     }
   ],
   "scorerParseRetryCounts": {
