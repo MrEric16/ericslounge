@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-16T11:53:36.657332+00:00",
+  "generatedAt": "2026-09-16T17:11:55.378173+00:00",
   "standings": [
     {
       "team": "Lokomotiv",
@@ -26,6 +26,42 @@
       "points": 22
     },
     {
+      "team": "Neftekhimik",
+      "played": 9,
+      "won": 5,
+      "otWon": 4,
+      "soWon": 0,
+      "soLost": 0,
+      "otLost": 0,
+      "lost": 0,
+      "gf": 17,
+      "points": 18
+    },
+    {
+      "team": "Ak Bars",
+      "played": 9,
+      "won": 6,
+      "otWon": 2,
+      "soWon": 1,
+      "soLost": 1,
+      "otLost": 1,
+      "lost": 0,
+      "gf": 16,
+      "points": 20
+    },
+    {
+      "team": "Spartak",
+      "played": 8,
+      "won": 5,
+      "otWon": 4,
+      "soWon": 0,
+      "soLost": 0,
+      "otLost": 0,
+      "lost": 0,
+      "gf": 17,
+      "points": 18
+    },
+    {
       "team": "Torpedo",
       "played": 8,
       "won": 5,
@@ -38,52 +74,16 @@
       "points": 17
     },
     {
-      "team": "Neftekhimik",
-      "played": 7,
-      "won": 4,
-      "otWon": 3,
-      "soWon": 0,
-      "soLost": 0,
-      "otLost": 0,
-      "lost": 0,
-      "gf": 14,
-      "points": 14
-    },
-    {
-      "team": "Ak Bars",
-      "played": 7,
-      "won": 5,
-      "otWon": 2,
-      "soWon": 0,
-      "soLost": 1,
-      "otLost": 1,
-      "lost": 0,
-      "gf": 12,
-      "points": 16
-    },
-    {
       "team": "Metallurg Mg",
       "played": 7,
-      "won": 4,
+      "won": 5,
       "otWon": 1,
       "soWon": 1,
       "soLost": 1,
       "otLost": 0,
       "lost": 0,
-      "gf": 11,
-      "points": 13
-    },
-    {
-      "team": "Spartak",
-      "played": 6,
-      "won": 4,
-      "otWon": 3,
-      "soWon": 0,
-      "soLost": 0,
-      "otLost": 0,
-      "lost": 0,
-      "gf": 14,
-      "points": 14
+      "gf": 13,
+      "points": 15
     },
     {
       "team": "Avtomobilist",
@@ -122,6 +122,18 @@
       "points": 14
     },
     {
+      "team": "Salavat Yulaev",
+      "played": 5,
+      "won": 4,
+      "otWon": 2,
+      "soWon": 0,
+      "soLost": 0,
+      "otLost": 0,
+      "lost": 0,
+      "gf": 16,
+      "points": 12
+    },
+    {
       "team": "Barys",
       "played": 4,
       "won": 3,
@@ -131,18 +143,6 @@
       "otLost": 0,
       "lost": 0,
       "gf": 16,
-      "points": 10
-    },
-    {
-      "team": "Salavat Yulaev",
-      "played": 4,
-      "won": 3,
-      "otWon": 2,
-      "soWon": 0,
-      "soLost": 0,
-      "otLost": 0,
-      "lost": 0,
-      "gf": 13,
       "points": 10
     },
     {
@@ -196,14 +196,14 @@
     {
       "team": "Sibir",
       "played": 3,
-      "won": 4,
+      "won": 5,
       "otWon": 1,
       "soWon": 0,
       "soLost": 0,
       "otLost": 1,
       "lost": 0,
       "gf": 8,
-      "points": 11
+      "points": 13
     },
     {
       "team": "Severstal",
@@ -267,26 +267,6 @@
     }
   ],
   "fixtures": [
-    {
-      "home": "Metallurg Mg",
-      "away": "Spartak",
-      "start": "2026-09-16T10:00:00+05:00"
-    },
-    {
-      "home": "Salavat Yulaev",
-      "away": "Ak Bars",
-      "start": "2026-09-16T10:00:00+05:00"
-    },
-    {
-      "home": "Lada",
-      "away": "Barys",
-      "start": "2026-09-16T11:00:00+05:00"
-    },
-    {
-      "home": "HC Sochi",
-      "away": "CSKA",
-      "start": "2026-09-16T12:30:00+05:00"
-    },
     {
       "home": "Admiral",
       "away": "Dynamo Msk",
@@ -3769,6 +3749,30 @@
     }
   ],
   "results": [
+    {
+      "home": "Salavat Yulaev",
+      "away": "Ak Bars",
+      "start": "2026-09-16T10:00:00+05:00",
+      "homeScore": 3,
+      "awayScore": 4,
+      "finished": true
+    },
+    {
+      "home": "Metallurg Mg",
+      "away": "Spartak",
+      "start": "2026-09-16T10:00:00+05:00",
+      "homeScore": 2,
+      "awayScore": 3,
+      "finished": true
+    },
+    {
+      "home": "Sibir",
+      "away": "Neftekhimik",
+      "start": "2026-09-16T08:30:00+05:00",
+      "homeScore": 0,
+      "awayScore": 3,
+      "finished": true
+    },
     {
       "home": "SKA",
       "away": "Dragons",
