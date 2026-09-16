@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-16T00:56:25.771579Z",
+  "generatedAt": "2026-09-16T05:32:25.899672Z",
   "results": [
     {
       "url": "https://www.goal.com/en/match/girona-vs-arsenal/__LS8d9Oc6I1wXn9g8956",
@@ -6894,10 +6894,44 @@
         }
       ],
       "competition": "PD"
+    },
+    {
+      "url": "https://www.goal.com/en/match/ipswich-town-vs-arsenal/8Q9c3NpQC9ZoqIto7nBIZ",
+      "date": null,
+      "home": "Ipswich Town",
+      "away": "Arsenal",
+      "htHome": 0,
+      "htAway": 2,
+      "ftHome": 2,
+      "ftAway": 4,
+      "homeGoals": [
+        {
+          "scorer": "A. Mehmeti",
+          "minute": 62
+        },
+        {
+          "scorer": "C. Akpom",
+          "minute": 90
+        }
+      ],
+      "awayGoals": [
+        {
+          "scorer": "M. Dowman",
+          "minute": 7
+        },
+        {
+          "scorer": "N. Madueke",
+          "minute": 16
+        },
+        {
+          "scorer": "M. Merino",
+          "minute": 58
+        }
+      ],
+      "competition": "arsenal-friendlies"
     }
   ],
   "scorerParseRetryCounts": {
-    "https://www.goal.com/en/match/slavia-prague-vs-lens/8tl536s9YeGCuVkrI5O7Y": 2,
-    "https://www.goal.com/en/match/ipswich-town-vs-arsenal/8Q9c3NpQC9ZoqIto7nBIZ": 2
+    "https://www.goal.com/en/match/slavia-prague-vs-lens/8tl536s9YeGCuVkrI5O7Y": 2
   }
 }
