@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Mr Eric's Lounge</title>
-<meta name="app-build" content="20260916020004">
+<meta name="app-build" content="20260916023413">
 <script>
   // PWA update-detection: an installed home-screen app's standalone-mode navigation
   // cache can hold an old shell far longer than the CDN's 10-minute cache -
@@ -6554,8 +6554,35 @@ const ARSENAL_FRIENDLY_RESULTS = [
 // Tashkent). If/when goal.com's scraper does pick this up, the dedup key in
 // arsenalAllResults() (home|away|date) means this entry is silently superseded rather
 // than shown twice.
+//
+// Scorer detail (homeGoals/awayGoals) added separately from the base score - Mr Eric
+// gave scorer names but not minutes, and fabricating minute data would be presenting a
+// guess as fact, so minute is left unset here and the popup renderer (goalLine) skips
+// the minute badge entirely when it's missing rather than showing "undefined'". Wired
+// into findGoalResultDetail as an additional fallback source, checked after GOAL_RESULTS
+// finds nothing - same matching approach (team names + score), so this reuses the exact
+// same popup component every other match's scorer detail uses.
+//
+// ftHome/ftAway/htHome/htAway duplicate homeScore/awayScore rather than replacing them:
+// arsenalAllResults()'s own mapping below reads homeScore/awayScore for the match-row
+// score display, while the popup component (showGoalMatchDetailFromEl) expects the
+// ftHome/ftAway/htHome/htAway naming GOAL_RESULTS entries use - keeping both avoids
+// silently feeding the popup a shape it doesn't actually have fields for, which would
+// have rendered "undefined - undefined" and, worse, miscategorised real goals as "No
+// goals" (that check is `d.ftHome > 0`, and `undefined > 0` is false). No half-time
+// score was given, so htHome/htAway are left null and the popup only shows the HT line
+// when both are actually known, rather than displaying a fabricated "HT null - null".
 const ARSENAL_CUP_RESULTS = [
-  { home:"Ipswich Town", away:"Arsenal", homeScore:2, awayScore:4, start:"2026-09-16T00:00:00+05:00", finished:true, competition:"Carabao Cup" },
+  { home:"Ipswich Town", away:"Arsenal", homeScore:2, awayScore:4, start:"2026-09-16T00:00:00+05:00", finished:true, competition:"Carabao Cup",
+    ftHome:2, ftAway:4, htHome:null, htAway:null,
+    homeGoals: [],
+    awayGoals: [
+      { scorer:"Dowman", minute:null },
+      { scorer:"Dowman", minute:null },
+      { scorer:"Madueke", minute:null },
+      { scorer:"Merino", minute:null },
+    ],
+  },
 ];
 
 const ARSENAL_FIXTURES = [
@@ -12500,7 +12527,16 @@ function findGoalResultDetail(m){
   // reliable date from goal.com entirely for this fallback path. Only used when the
   // requested match has both scores known (m.homeScore/m.awayScore set).
   if(m.homeScore == null || m.awayScore == null) return null;
-  return GOAL_RESULTS.find(d =>
+  const scoreMatch = GOAL_RESULTS.find(d =>
+    namesMatch(d) && d.ftHome === m.homeScore && d.ftAway === m.awayScore
+  );
+  if(scoreMatch) return scoreMatch;
+  // Last resort: ARSENAL_CUP_RESULTS' own hand-typed scorer detail (see its definition -
+  // goal.com hadn't scraped this result at all yet as of when it was added), matched the
+  // same team-names+score way as the fallback above. Uses ftHome/ftAway (not
+  // homeScore/awayScore) since that's the field naming this returned object needs to
+  // match GOAL_RESULTS' shape for the popup renderer downstream.
+  return ARSENAL_CUP_RESULTS.find(d =>
     namesMatch(d) && d.ftHome === m.homeScore && d.ftAway === m.awayScore
   ) || null;
 }
@@ -12545,7 +12581,12 @@ function showGoalMatchDetailFromEl(el){
   // other league's match popup would wrongly turn red too. Read from the clicked row
   // itself (not a page-level global) for the same reason detail is: it can't go stale.
   const isArsenal = el.dataset.isArsenal === '1';
-  const goalLine = g => `<div style="font-size:13px; padding:3px 0;">${escapeHtml(g.scorer)} <span style="opacity:.6;">${g.minute}'</span></div>`;
+  const goalLine = g => `<div style="font-size:13px; padding:3px 0;">${escapeHtml(g.scorer)}${g.minute != null ? ` <span style="opacity:.6;">${g.minute}'</span>` : ''}</div>`;
+  // "HT x - y · " only renders when both halves are actually known - a hand-typed entry
+  // without half-time data (see ARSENAL_CUP_RESULTS) leaves htHome/htAway null rather
+  // than fabricating a half-time score that was never reported, so this omits the
+  // segment entirely instead of showing "HT null - null".
+  const htLine = (d.htHome != null && d.htAway != null) ? `HT ${d.htHome} - ${d.htAway} · ` : '';
   // Never render "No goals" for a side whose actual final score is above zero - that's
   // not "no goals," that's the scraper failing to extract scorer names while still getting
   // the score right (happened for real: Arsenal 2-3 Dortmund showed "No goals" under both
@@ -12563,7 +12604,7 @@ function showGoalMatchDetailFromEl(el){
     <div style="background:#9C0009;border-radius:16px;overflow:hidden;max-width:360px;width:100%;">
       <div style="background:#EF0107;color:#fff;text-align:center;padding:18px 20px 14px;">
         <div style="font-weight:800; font-size:19px;">${teamNameHtml(d.home, false, false)} ${d.ftHome} - ${d.ftAway} ${teamNameHtml(d.away, false, false)}</div>
-        <div style="font-size:12px; opacity:.85; margin-top:2px;">HT ${d.htHome} - ${d.htAway} · FT</div>
+        <div style="font-size:12px; opacity:.85; margin-top:2px;">${htLine}FT</div>
       </div>
       <div style="padding:18px 20px 20px; color:#fff;">
         <div style="display:flex; gap:18px;">
@@ -12582,7 +12623,7 @@ function showGoalMatchDetailFromEl(el){
   ` : `
     <div style="background:var(--card);border-radius:16px;padding:22px 20px;max-width:360px;width:100%;color:var(--ink);">
       <div style="text-align:center; font-weight:800; font-size:19px; margin-bottom:2px;">${teamNameHtml(d.home, false, false)} ${d.ftHome} - ${d.ftAway} ${teamNameHtml(d.away, false, false)}</div>
-      <div style="text-align:center; font-size:12px; color:var(--ink-soft); margin-bottom:16px;">HT ${d.htHome} - ${d.htAway} · FT</div>
+      <div style="text-align:center; font-size:12px; color:var(--ink-soft); margin-bottom:16px;">${htLine}FT</div>
       <div style="display:flex; gap:18px;">
         <div style="flex:1;">
           <div style="font-weight:700; font-size:12px; text-transform:uppercase; letter-spacing:.03em; color:var(--ink-soft); margin-bottom:6px;">${teamNameHtml(d.home, false, false)}</div>
