@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Mr Eric's Lounge</title>
-<meta name="app-build" content="20260914025436">
+<meta name="app-build" content="20260916020004">
 <script>
   // PWA update-detection: an installed home-screen app's standalone-mode navigation
   // cache can hold an old shell far longer than the CDN's 10-minute cache -
@@ -6544,6 +6544,20 @@ const ARSENAL_FRIENDLY_RESULTS = [
   { home:"Arsenal", away:"Real Betis", homeScore:1, awayScore:3, start:"2026-08-05T23:30:00+05:00", finished:true },
 ];
 
+// Domestic cup results (Carabao/League Cup, FA Cup) - same gap as friendlies but for a
+// different reason: football-data.org's free tier doesn't carry these competitions at
+// all, and goal.com's scraper (which does cover them, unlike friendlies) hadn't picked
+// this one up yet as of the fix - checked data/goal-results.json directly rather than
+// assuming, confirmed genuinely absent from both sources. Manual entry per Mr Eric's
+// report (Ipswich 2-4 Arsenal, scorers Dowman x2, Madueke, Merino), kickoff time taken
+// from the live arsenalNextFixture data shown before the match (Wed 16 Sep, 00:00
+// Tashkent). If/when goal.com's scraper does pick this up, the dedup key in
+// arsenalAllResults() (home|away|date) means this entry is silently superseded rather
+// than shown twice.
+const ARSENAL_CUP_RESULTS = [
+  { home:"Ipswich Town", away:"Arsenal", homeScore:2, awayScore:4, start:"2026-09-16T00:00:00+05:00", finished:true, competition:"Carabao Cup" },
+];
+
 const ARSENAL_FIXTURES = [
   { title:"Sunderland v Arsenal", venue:"(Away)", competition:"Premier League", stadium:"Stadium of Light", start:"2026-09-13T00:00:00+05:00" },
   { title:"Brighton and Hove Albion v Arsenal", venue:"(Away)", competition:"Premier League", stadium:"American Express Stadium", start:"2026-09-19T19:00:00+05:00" },
@@ -12356,7 +12370,7 @@ async function loadLiveSportsData(){
   const arsTableEl = document.getElementById('arsenalTableContainer');
   if(arsTableEl) arsTableEl.innerHTML = oneTableHtml(SPORTS_LEAGUES[0].teams);
 }
-// Merges three sources of Arsenal results, in priority order, deduped by team pairing +
+// Merges four sources of Arsenal results, in priority order, deduped by team pairing +
 // date so the same match never appears twice even if it exists in more than one source:
 //   1. live      - football-data.org API (window._sportsCache.arsenalResults). Only ever
 //                   covers official competitions (Premier League, Champions League, etc).
@@ -12373,6 +12387,11 @@ async function loadLiveSportsData(){
 //                   safety net in case the goal.com scraper ever misses or is delayed on a
 //                   given friendly, but is no longer the primary path - previously this
 //                   was the ONLY path, requiring a manual edit after every single friendly.
+//   4. staticCup   - ARSENAL_CUP_RESULTS, same idea as staticFriendly but for domestic cup
+//                   competitions (Carabao Cup, FA Cup) - football-data.org's free tier
+//                   doesn't cover these at all, and unlike friendlies, goal.com's scraper
+//                   isn't guaranteed to have picked a given cup result up yet either, so
+//                   this is a genuine manual-entry fallback, not just a safety net.
 function arsenalAllResults(){
   const live = (window._sportsCache && window._sportsCache.arsenalResults) || [];
   const goalFriendly = GOAL_RESULTS
@@ -12397,9 +12416,13 @@ function arsenalAllResults(){
     home: m.home, away: m.away, homeScore: m.homeScore, awayScore: m.awayScore,
     start: m.start, finished: true,
   }));
+  const staticCup = ARSENAL_CUP_RESULTS.map(m => ({
+    home: m.home, away: m.away, homeScore: m.homeScore, awayScore: m.awayScore,
+    start: m.start, finished: true,
+  }));
   const seen = new Set();
   const merged = [];
-  [...live, ...goalFriendly, ...staticFriendly].forEach(m => {
+  [...live, ...goalFriendly, ...staticFriendly, ...staticCup].forEach(m => {
     const key = `${m.home}|${m.away}|${m.start.slice(0,10)}`;
     if(seen.has(key)) return;
     seen.add(key);
