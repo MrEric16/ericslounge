@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-17T08:40:18.106546Z",
+  "generatedAt": "2026-09-17T15:33:39.235222Z",
   "teams": [
     {
       "name": "Neftchi Fargona",
@@ -23,13 +23,13 @@
     },
     {
       "name": "Navbahor Namangan",
-      "pld": 21,
-      "w": 12,
+      "pld": 22,
+      "w": 13,
       "d": 5,
       "l": 4,
-      "gf": 36,
-      "ga": 19,
-      "pts": 41
+      "gf": 39,
+      "ga": 21,
+      "pts": 44
     },
     {
       "name": "Lok. Tashkent",
@@ -83,12 +83,12 @@
     },
     {
       "name": "Din. Samarkand",
-      "pld": 21,
+      "pld": 22,
       "w": 8,
       "d": 6,
-      "l": 7,
-      "gf": 31,
-      "ga": 31,
+      "l": 8,
+      "gf": 33,
+      "ga": 34,
       "pts": 30
     },
     {
@@ -163,6 +163,13 @@
     }
   ],
   "results": [
+    {
+      "home": "Navbahor Namangan",
+      "away": "Din. Samarkand",
+      "raw_time": "17.09. 13:00",
+      "homeScore": 3,
+      "awayScore": 2
+    },
     {
       "home": "Buxoro",
       "away": "Navbahor Namangan",
@@ -295,21 +302,9 @@
       "raw_time": "26.08. 14:00",
       "homeScore": 0,
       "awayScore": 2
-    },
-    {
-      "home": "Din. Samarkand",
-      "away": "Pakhtakor",
-      "raw_time": "25.08. 15:00",
-      "homeScore": 1,
-      "awayScore": 1
     }
   ],
   "fixtures": [
-    {
-      "home": "Navbahor Namangan",
-      "away": "Din. Samarkand",
-      "raw_time": "17.09. 13:00"
-    },
     {
       "home": "Mashal Muborak",
       "away": "Pakhtakor",
@@ -403,6 +398,11 @@
     {
       "home": "Bunyodkor",
       "away": "Sogdiana",
+      "raw_time": "17.10. 15:00"
+    },
+    {
+      "home": "Mashal Muborak",
+      "away": "OKMK",
       "raw_time": "17.10. 15:00"
     }
   ]
