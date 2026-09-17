@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-16T21:57:56.492238Z",
+  "generatedAt": "2026-09-17T00:03:45.676099Z",
   "results": [
     {
       "url": "https://www.goal.com/en/match/girona-vs-arsenal/__LS8d9Oc6I1wXn9g8956",
@@ -6999,10 +6999,52 @@
         }
       ],
       "competition": "ac-milan"
+    },
+    {
+      "url": "https://www.goal.com/en/match/barcelona-vs-racing-santander/6QiTE6CkBSCG9oJhD_Lx9",
+      "date": null,
+      "home": "Barcelona",
+      "away": "Racing Santander",
+      "htHome": 4,
+      "htAway": 1,
+      "ftHome": 7,
+      "ftAway": 2,
+      "homeGoals": [
+        {
+          "scorer": "J. Cancelo",
+          "minute": 8
+        },
+        {
+          "scorer": "Raphinha",
+          "minute": 25
+        },
+        {
+          "scorer": "A. Villalibre",
+          "minute": 36
+        },
+        {
+          "scorer": "G. Jesus",
+          "minute": 79
+        },
+        {
+          "scorer": "L. Yamal",
+          "minute": 89
+        }
+      ],
+      "awayGoals": [
+        {
+          "scorer": "M. Gueye",
+          "minute": 30
+        },
+        {
+          "scorer": "Y. Zabiri",
+          "minute": 65
+        }
+      ],
+      "competition": "PD"
     }
   ],
   "scorerParseRetryCounts": {
-    "https://www.goal.com/en/match/slavia-prague-vs-lens/8tl536s9YeGCuVkrI5O7Y": 2,
-    "https://www.goal.com/en/match/barcelona-vs-racing-santander/6QiTE6CkBSCG9oJhD_Lx9": 2
+    "https://www.goal.com/en/match/slavia-prague-vs-lens/8tl536s9YeGCuVkrI5O7Y": 2
   }
 }

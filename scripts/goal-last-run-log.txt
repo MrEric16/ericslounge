@@ -2,7 +2,8 @@
 [goal-scraper] [PL] Found 0 finished-match links
 [goal-scraper] [PD] Found 7 finished-match links
 [goal-scraper] WARNING: Barcelona scored 7 but only 5 scorer(s) were parsed for https://www.goal.com/en/match/barcelona-vs-racing-santander/6QiTE6CkBSCG9oJhD_Lx9
-[goal-scraper] [PD] SCORER PARSE FAILED (attempt 1/3) for Barcelona 7-2 Racing Santander -- NOT committing, will retry next run: https://www.goal.com/en/match/barcelona-vs-racing-santander/6QiTE6CkBSCG9oJhD_Lx9
+[goal-scraper] [PD] SCORER PARSE FAILED 3 times, giving up and committing WITH INCOMPLETE SCORER DATA (page structure likely changed) for Barcelona 7-2 Racing Santander: https://www.goal.com/en/match/barcelona-vs-racing-santander/6QiTE6CkBSCG9oJhD_Lx9
+[goal-scraper] [PD] Added: Barcelona 7-2 Racing Santander
 [goal-scraper] [BL1] Found 0 finished-match links
 [goal-scraper] [SA] Found 0 finished-match links
 [goal-scraper] [FL1] Found 0 finished-match links
@@ -31,8 +32,6 @@
 [goal-scraper] [barcelona] Skipping stale match (older than 45 days): Atletico Madrid vs Barcelona on 2026-02-12
 [goal-scraper] WARNING: Barcelona scored 3 but only 2 scorer(s) were parsed for https://www.goal.com/en/match/barcelona-vs-atletico-madrid/_ZprE2-vo0-u6L1aa-2iV
 [goal-scraper] [barcelona] Skipping stale match (older than 45 days): Barcelona vs Atletico Madrid on 2026-03-03
-[goal-scraper] WARNING: Barcelona scored 7 but only 5 scorer(s) were parsed for https://www.goal.com/en/match/barcelona-vs-racing-santander/6QiTE6CkBSCG9oJhD_Lx9
-[goal-scraper] [barcelona] SCORER PARSE FAILED (attempt 2/3) for Barcelona 7-2 Racing Santander -- NOT committing, will retry next run: https://www.goal.com/en/match/barcelona-vs-racing-santander/6QiTE6CkBSCG9oJhD_Lx9
 [goal-scraper] [bayern-munich] Found 20 finished-match links
 [goal-scraper] WARNING: Bayern Munich scored 6 but 0 scorers were parsed for https://www.goal.com/en/match/bayern-munich-vs-fenerbahce/ZCL4D3f-5GWp7UCPC24C5
 [goal-scraper] WARNING: Fenerbahce scored 1 but 0 scorers were parsed for https://www.goal.com/en/match/bayern-munich-vs-fenerbahce/ZCL4D3f-5GWp7UCPC24C5
@@ -57,7 +56,6 @@
 [goal-scraper] [inter-milan] Skipping stale match (older than 45 days): Bologna vs Inter on 2025-12-19
 [goal-scraper] [ac-milan] Found 10 finished-match links
 [goal-scraper] [ac-milan] Skipping stale match (older than 45 days): Ssc Napoli vs Ac Milan on 2025-12-18
-[goal-scraper] [ac-milan] Added: Ac Milan 0-2 Benfica
 [goal-scraper] [psg] Found 18 finished-match links
 [goal-scraper] [psg] Skipping stale match (older than 45 days): Paris Saint Germain vs Atletico Madrid on 2025-06-15
 [goal-scraper] [psg] Skipping stale match (older than 45 days): Paris Saint Germain vs Botafogo Rj on 2025-06-19
@@ -93,5 +91,5 @@
 [goal-scraper] [juventus] Skipping stale match (older than 45 days): Basel vs Juventus on 2026-07-18
 [goal-scraper] [arsenal-friendlies] Found 2 finished-match links
 [goal-scraper] TOTAL new results added this run: 1
-[goal-scraper] Matches still awaiting a clean scorer parse (not yet committed): ['https://www.goal.com/en/match/slavia-prague-vs-lens/8tl536s9YeGCuVkrI5O7Y', 'https://www.goal.com/en/match/barcelona-vs-racing-santander/6QiTE6CkBSCG9oJhD_Lx9']
+[goal-scraper] Matches still awaiting a clean scorer parse (not yet committed): ['https://www.goal.com/en/match/slavia-prague-vs-lens/8tl536s9YeGCuVkrI5O7Y']
 [goal-scraper] Wrote data/goal-results.json
