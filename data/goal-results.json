@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-17T19:08:50.813746Z",
+  "generatedAt": "2026-09-17T22:18:54.274451Z",
   "results": [
     {
       "url": "https://www.goal.com/en/match/girona-vs-arsenal/__LS8d9Oc6I1wXn9g8956",
@@ -7060,9 +7060,79 @@
       ],
       "awayGoals": [],
       "competition": "PD"
+    },
+    {
+      "url": "https://www.goal.com/en/match/besiktas-vs-marseille/zn6rDZ3JdmDhXBK4hhv4Y",
+      "date": null,
+      "home": "Besiktas",
+      "away": "Marseille",
+      "htHome": 1,
+      "htAway": 1,
+      "ftHome": 4,
+      "ftAway": 1,
+      "homeGoals": [
+        {
+          "scorer": "I. Fakili",
+          "minute": 15
+        },
+        {
+          "scorer": "V. Cerny",
+          "minute": 56
+        },
+        {
+          "scorer": "A. Murillo",
+          "minute": 59
+        },
+        {
+          "scorer": "E. Poku",
+          "minute": 81
+        }
+      ],
+      "awayGoals": [
+        {
+          "scorer": "K. Abdallah",
+          "minute": 30
+        }
+      ],
+      "competition": "marseille"
+    },
+    {
+      "url": "https://www.goal.com/en/match/juventus-vs-nec-nijmegen/UyTB_NxrYmZNOowxGPOI9",
+      "date": null,
+      "home": "Juventus",
+      "away": "Nec Nijmegen",
+      "htHome": 3,
+      "htAway": 0,
+      "ftHome": 5,
+      "ftAway": 0,
+      "homeGoals": [
+        {
+          "scorer": "N. Gonzalez",
+          "minute": 9
+        },
+        {
+          "scorer": "K. Alajbegovic",
+          "minute": 24
+        },
+        {
+          "scorer": "N. Woltemade",
+          "minute": 35
+        },
+        {
+          "scorer": "M. Celik",
+          "minute": 75
+        },
+        {
+          "scorer": "R. Kolo Muani",
+          "minute": 82
+        }
+      ],
+      "awayGoals": [],
+      "competition": "juventus"
     }
   ],
   "scorerParseRetryCounts": {
-    "https://www.goal.com/en/match/slavia-prague-vs-lens/8tl536s9YeGCuVkrI5O7Y": 2
+    "https://www.goal.com/en/match/slavia-prague-vs-lens/8tl536s9YeGCuVkrI5O7Y": 2,
+    "https://www.goal.com/en/match/malaga-vs-villarreal/PCEduGGdaYN4KZlTPoJUM": 1
   }
 }
