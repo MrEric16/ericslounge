@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-17T15:09:38.878670Z",
+  "generatedAt": "2026-09-17T19:09:24.424418Z",
   "standings": {
     "PL": [
       {
@@ -225,6 +225,16 @@
         "pts": 15
       },
       {
+        "name": "Real Betis",
+        "pld": 6,
+        "w": 5,
+        "d": 0,
+        "l": 1,
+        "gf": 8,
+        "ga": 6,
+        "pts": 15
+      },
+      {
         "name": "Atleti",
         "pld": 6,
         "w": 4,
@@ -243,16 +253,6 @@
         "gf": 9,
         "ga": 6,
         "pts": 13
-      },
-      {
-        "name": "Real Betis",
-        "pld": 5,
-        "w": 4,
-        "d": 0,
-        "l": 1,
-        "gf": 7,
-        "ga": 6,
-        "pts": 12
       },
       {
         "name": "Alavés",
@@ -346,12 +346,12 @@
       },
       {
         "name": "Getafe",
-        "pld": 5,
+        "pld": 6,
         "w": 1,
         "d": 2,
-        "l": 2,
+        "l": 3,
         "gf": 3,
-        "ga": 6,
+        "ga": 7,
         "pts": 5
       },
       {
@@ -2150,37 +2150,6 @@
           "venue": null
         },
         {
-          "utcDate": "2026-09-17T17:00:00Z",
-          "status": "TIMED",
-          "matchday": 6,
-          "homeTeam": {
-            "id": 90,
-            "name": "Real Betis Balompié",
-            "shortName": "Real Betis"
-          },
-          "awayTeam": {
-            "id": 82,
-            "name": "Getafe CF",
-            "shortName": "Getafe"
-          },
-          "score": {
-            "winner": null,
-            "duration": "REGULAR",
-            "fullTime": {
-              "home": null,
-              "away": null
-            },
-            "halfTime": {
-              "home": null,
-              "away": null
-            }
-          },
-          "competition": {
-            "name": "Primera Division"
-          },
-          "venue": null
-        },
-        {
           "utcDate": "2026-09-17T19:30:00Z",
           "status": "TIMED",
           "matchday": 6,
@@ -2213,6 +2182,37 @@
         }
       ],
       "results": [
+        {
+          "utcDate": "2026-09-17T17:00:00Z",
+          "status": "FINISHED",
+          "matchday": 6,
+          "homeTeam": {
+            "id": 90,
+            "name": "Real Betis Balompié",
+            "shortName": "Real Betis"
+          },
+          "awayTeam": {
+            "id": 82,
+            "name": "Getafe CF",
+            "shortName": "Getafe"
+          },
+          "score": {
+            "winner": "HOME_TEAM",
+            "duration": "REGULAR",
+            "fullTime": {
+              "home": 1,
+              "away": 0
+            },
+            "halfTime": {
+              "home": 1,
+              "away": 0
+            }
+          },
+          "competition": {
+            "name": "Primera Division"
+          },
+          "venue": null
+        },
         {
           "utcDate": "2026-09-16T19:30:00Z",
           "status": "FINISHED",
@@ -2640,37 +2640,6 @@
             "halfTime": {
               "home": 0,
               "away": 2
-            }
-          },
-          "competition": {
-            "name": "Primera Division"
-          },
-          "venue": null
-        },
-        {
-          "utcDate": "2026-09-12T12:00:00Z",
-          "status": "FINISHED",
-          "matchday": 5,
-          "homeTeam": {
-            "id": 5335,
-            "name": "Real Racing Club de Santander",
-            "shortName": "Santander"
-          },
-          "awayTeam": {
-            "id": 263,
-            "name": "Deportivo Alavés",
-            "shortName": "Alavés"
-          },
-          "score": {
-            "winner": "HOME_TEAM",
-            "duration": "REGULAR",
-            "fullTime": {
-              "home": 2,
-              "away": 1
-            },
-            "halfTime": {
-              "home": 1,
-              "away": 1
             }
           },
           "competition": {
