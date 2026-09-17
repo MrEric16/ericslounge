@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-17T15:08:11.109222Z",
+  "generatedAt": "2026-09-17T19:08:50.813746Z",
   "results": [
     {
       "url": "https://www.goal.com/en/match/girona-vs-arsenal/__LS8d9Oc6I1wXn9g8956",
@@ -7041,6 +7041,24 @@
           "minute": 65
         }
       ],
+      "competition": "PD"
+    },
+    {
+      "url": "https://www.goal.com/en/match/real-betis-vs-getafe/qSYDcqq4neZM6QaGmhzj_",
+      "date": null,
+      "home": "Real Betis",
+      "away": "Getafe",
+      "htHome": 1,
+      "htAway": 0,
+      "ftHome": 1,
+      "ftAway": 0,
+      "homeGoals": [
+        {
+          "scorer": "A. Ezzalzouli",
+          "minute": 45
+        }
+      ],
+      "awayGoals": [],
       "competition": "PD"
     }
   ],
