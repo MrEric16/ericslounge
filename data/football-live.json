@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-17T19:09:24.424418Z",
+  "generatedAt": "2026-09-17T22:19:36.193257Z",
   "standings": {
     "PL": [
       {
@@ -335,6 +335,16 @@
         "pts": 7
       },
       {
+        "name": "Villarreal",
+        "pld": 6,
+        "w": 1,
+        "d": 2,
+        "l": 3,
+        "gf": 10,
+        "ga": 11,
+        "pts": 5
+      },
+      {
         "name": "Levante",
         "pld": 5,
         "w": 1,
@@ -376,23 +386,13 @@
       },
       {
         "name": "Málaga",
-        "pld": 5,
+        "pld": 6,
         "w": 0,
         "d": 3,
-        "l": 2,
-        "gf": 2,
-        "ga": 8,
-        "pts": 3
-      },
-      {
-        "name": "Villarreal",
-        "pld": 5,
-        "w": 0,
-        "d": 2,
         "l": 3,
-        "gf": 7,
-        "ga": 10,
-        "pts": 2
+        "gf": 3,
+        "ga": 11,
+        "pts": 3
       },
       {
         "name": "Elche",
@@ -2148,10 +2148,12 @@
             "name": "Primera Division"
           },
           "venue": null
-        },
+        }
+      ],
+      "results": [
         {
           "utcDate": "2026-09-17T19:30:00Z",
-          "status": "TIMED",
+          "status": "FINISHED",
           "matchday": 6,
           "homeTeam": {
             "id": 84,
@@ -2164,24 +2166,22 @@
             "shortName": "Villarreal"
           },
           "score": {
-            "winner": null,
+            "winner": "AWAY_TEAM",
             "duration": "REGULAR",
             "fullTime": {
-              "home": null,
-              "away": null
+              "home": 1,
+              "away": 3
             },
             "halfTime": {
-              "home": null,
-              "away": null
+              "home": 1,
+              "away": 2
             }
           },
           "competition": {
             "name": "Primera Division"
           },
           "venue": null
-        }
-      ],
-      "results": [
+        },
         {
           "utcDate": "2026-09-17T17:00:00Z",
           "status": "FINISHED",
@@ -2609,37 +2609,6 @@
             "halfTime": {
               "home": 0,
               "away": 0
-            }
-          },
-          "competition": {
-            "name": "Primera Division"
-          },
-          "venue": null
-        },
-        {
-          "utcDate": "2026-09-12T14:15:00Z",
-          "status": "FINISHED",
-          "matchday": 5,
-          "homeTeam": {
-            "id": 79,
-            "name": "CA Osasuna",
-            "shortName": "Osasuna"
-          },
-          "awayTeam": {
-            "id": 80,
-            "name": "RCD Espanyol de Barcelona",
-            "shortName": "Espanyol"
-          },
-          "score": {
-            "winner": "AWAY_TEAM",
-            "duration": "REGULAR",
-            "fullTime": {
-              "home": 0,
-              "away": 2
-            },
-            "halfTime": {
-              "home": 0,
-              "away": 2
             }
           },
           "competition": {
