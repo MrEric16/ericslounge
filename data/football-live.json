@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-17T00:02:53.697099Z",
+  "generatedAt": "2026-09-17T05:06:17.261915Z",
   "standings": {
     "PL": [
       {
@@ -275,16 +275,6 @@
         "pts": 9
       },
       {
-        "name": "Athletic",
-        "pld": 6,
-        "w": 2,
-        "d": 2,
-        "l": 2,
-        "gf": 7,
-        "ga": 6,
-        "pts": 8
-      },
-      {
         "name": "Espanyol",
         "pld": 6,
         "w": 2,
@@ -292,6 +282,16 @@
         "l": 3,
         "gf": 9,
         "ga": 7,
+        "pts": 7
+      },
+      {
+        "name": "Athletic",
+        "pld": 5,
+        "w": 2,
+        "d": 1,
+        "l": 2,
+        "gf": 7,
+        "ga": 6,
         "pts": 7
       },
       {
@@ -336,13 +336,13 @@
       },
       {
         "name": "Levante",
-        "pld": 6,
+        "pld": 5,
         "w": 1,
-        "d": 3,
+        "d": 2,
         "l": 2,
         "gf": 7,
         "ga": 9,
-        "pts": 6
+        "pts": 5
       },
       {
         "name": "Getafe",
@@ -2119,8 +2119,8 @@
     "PD": {
       "fixtures": [
         {
-          "utcDate": "2026-09-16T19:30:00Z",
-          "status": "IN_PLAY",
+          "utcDate": "2026-09-16T00:00:00Z",
+          "status": "POSTPONED",
           "matchday": 6,
           "homeTeam": {
             "id": 88,
