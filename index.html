@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Mr Eric's Lounge</title>
-<meta name="app-build" content="20260918120952">
+<meta name="app-build" content="20260918121931">
 <script>
   // PWA update-detection: an installed home-screen app's standalone-mode navigation
   // cache can hold an old shell far longer than the CDN's 10-minute cache -
@@ -2358,6 +2358,21 @@ body.usertheme-vintage:not(.dark-mode) header::before{
       repeating-linear-gradient(0deg, rgba(255,20,200,.22) 0px, rgba(255,20,200,.22) 9px, transparent 9px, transparent 70px),
       repeating-linear-gradient(0deg, rgba(255,170,235,1) 0px, rgba(255,170,235,1) 2px, transparent 2px, transparent 70px);
     animation:synthwaveGridFlow 6s linear infinite;
+    /* Round 6: one horizontal line was still rendering as a single sharp white-hot
+       band, clearly brighter than everything else - a more extreme version of the
+       same root cause as round 5 (rotateX compression), not a new bug. At the very
+       far edge of a 400vh-tall rotated rectangle, the repeating pattern compresses so
+       hard that dozens of repetitions collapse into one row of screen pixels right
+       near the vanishing point, and that pile-up anti-aliases into a single
+       over-bright line rather than a uniformly brighter zone. Making the grid taller
+       last round to reach the sun made this specific artifact worse, not better -
+       taller means the far edge sits even further into extreme-compression territory.
+       Rather than fight the aliasing directly again, masking the worst zone out
+       entirely: fade the grid to transparent well before it reaches that point. This
+       is also just correct for the reference look anyway - a real synthwave grid
+       fades toward the horizon rather than staying full-brightness all the way up. */
+    mask-image:linear-gradient(to top, black 0%, black 45%, transparent 78%);
+    -webkit-mask-image:linear-gradient(to top, black 0%, black 45%, transparent 78%);
   }
   @keyframes synthwaveGridFlow{
     0%{ filter:hue-rotate(0deg); }
