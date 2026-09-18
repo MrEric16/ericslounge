@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Mr Eric's Lounge</title>
-<meta name="app-build" content="20260918111436">
+<meta name="app-build" content="20260918113208">
 <script>
   // PWA update-detection: an installed home-screen app's standalone-mode navigation
   // cache can hold an old shell far longer than the CDN's 10-minute cache -
@@ -2290,7 +2290,12 @@ body.usertheme-vintage:not(.dark-mode) header::before{
      the page background, and a perspective grid floor beneath it - the two devices
      actually requested, not a colour reskin. Both purely decorative shapes with no
      text on them, so neither needed any contrast check - unlike the header title (see
-     below), which does. */
+     below), which does.
+     Round 2: sun colours now flow/pulsate via a hue-rotate animation (cheap - filter
+     animations aren't quite as free as pure transform/opacity, but hue-rotate on one
+     small 260px element is a long way from the noise-texture/canvas costs this
+     codebase actually avoids) plus a gentle opacity breathe, so the stripes visibly
+     shift colour over time rather than sitting static. */
   body.usertheme-synthwave:not(.dark-mode)::before{
     content:'';
     position:fixed; z-index:-1; pointer-events:none;
@@ -2301,11 +2306,23 @@ body.usertheme-vintage:not(.dark-mode) header::before{
     background:
       repeating-linear-gradient(0deg, #170B2E 0px, #170B2E 7px, transparent 7px, transparent 16px),
       linear-gradient(180deg, #FF2E97 0%, #FF6EC7 40%, #FFB86B 75%, #FFD700 100%);
-    opacity:.8;
+    animation:synthwaveSunFlow 5s ease-in-out infinite;
+  }
+  @keyframes synthwaveSunFlow{
+    0%,100%{ filter:hue-rotate(0deg); opacity:.8; }
+    50%{ filter:hue-rotate(50deg); opacity:.98; }
   }
   /* Grid floor: a large rectangle tilted back via perspective, grid lines fading
      toward the horizon. Faint scanline texture folded into the same layer rather than
-     a separate full-page overlay - keeps this to 2 pseudo-elements total on body. */
+     a separate full-page overlay - keeps this to 2 pseudo-elements total on body.
+     Round 2: radiating tunnel/burst lines added as a third background layer within
+     this SAME element rather than a new pseudo-element (body only has 2 slots and
+     both were already spoken for) - centred at the element's own top edge, which sits
+     right where the sun meets the horizon, so the rays read as converging toward the
+     sun. Inheriting this element's existing perspective(320deg) rotateX(65deg)
+     transform turns out to help rather than hurt here - the same distortion that
+     makes the grid lines converge toward a vanishing point does the same to the rays,
+     reinforcing the tunnel illusion instead of needing separate maths for it. */
   body.usertheme-synthwave:not(.dark-mode)::after{
     content:'';
     position:fixed; z-index:-1; pointer-events:none;
@@ -2316,7 +2333,8 @@ body.usertheme-vintage:not(.dark-mode) header::before{
     background-image:
       repeating-linear-gradient(90deg, rgba(159,247,255,.35) 0px, rgba(159,247,255,.35) 1.5px, transparent 1.5px, transparent 40px),
       repeating-linear-gradient(0deg, rgba(159,247,255,.25) 0px, rgba(159,247,255,.25) 1.5px, transparent 1.5px, transparent 40px),
-      repeating-linear-gradient(0deg, rgba(0,0,0,.06) 0px, rgba(0,0,0,.06) 1px, transparent 1px, transparent 3px);
+      repeating-linear-gradient(0deg, rgba(0,0,0,.06) 0px, rgba(0,0,0,.06) 1px, transparent 1px, transparent 3px),
+      repeating-conic-gradient(from 180deg at 50% 0%, rgba(255,110,199,.22) 0deg 1.5deg, transparent 1.5deg 9deg);
     opacity:.7;
   }
   /* SIGNATURE: neon glow on section headings ("Domains", "Vox Populi", etc) - these
