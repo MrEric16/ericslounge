@@ -1,8 +1,6 @@
 [goal-scraper] Run started.
 [goal-scraper] [PL] Found 0 finished-match links
-[goal-scraper] [PD] Found 9 finished-match links
-[goal-scraper] WARNING: Villarreal scored 3 but only 2 scorer(s) were parsed for https://www.goal.com/en/match/malaga-vs-villarreal/PCEduGGdaYN4KZlTPoJUM
-[goal-scraper] [PD] SCORER PARSE FAILED (attempt 2/3) for Malaga 1-3 Villarreal -- NOT committing, will retry next run: https://www.goal.com/en/match/malaga-vs-villarreal/PCEduGGdaYN4KZlTPoJUM
+[goal-scraper] [PD] Found 0 finished-match links
 [goal-scraper] [BL1] Found 0 finished-match links
 [goal-scraper] [SA] Found 0 finished-match links
 [goal-scraper] [FL1] Found 0 finished-match links
