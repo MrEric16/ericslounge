@@ -1,6 +1,18 @@
 {
-  "generatedAt": "2026-09-18T11:34:35.000025+00:00",
+  "generatedAt": "2026-09-18T16:37:00.284058+00:00",
   "standings": [
+    {
+      "team": "Spartak",
+      "played": 10,
+      "won": 6,
+      "otWon": 5,
+      "soWon": 0,
+      "soLost": 0,
+      "otLost": 0,
+      "lost": 0,
+      "gf": 20,
+      "points": 22
+    },
     {
       "team": "Lokomotiv",
       "played": 10,
@@ -28,14 +40,26 @@
     {
       "team": "Neftekhimik",
       "played": 9,
-      "won": 5,
+      "won": 6,
       "otWon": 4,
       "soWon": 0,
       "soLost": 0,
       "otLost": 0,
       "lost": 0,
       "gf": 17,
-      "points": 18
+      "points": 20
+    },
+    {
+      "team": "Metallurg Mg",
+      "played": 9,
+      "won": 6,
+      "otWon": 2,
+      "soWon": 1,
+      "soLost": 1,
+      "otLost": 0,
+      "lost": 0,
+      "gf": 16,
+      "points": 19
     },
     {
       "team": "Ak Bars",
@@ -48,18 +72,6 @@
       "lost": 0,
       "gf": 16,
       "points": 20
-    },
-    {
-      "team": "Spartak",
-      "played": 8,
-      "won": 5,
-      "otWon": 4,
-      "soWon": 0,
-      "soLost": 0,
-      "otLost": 0,
-      "lost": 0,
-      "gf": 17,
-      "points": 18
     },
     {
       "team": "Torpedo",
@@ -86,28 +98,28 @@
       "points": 18
     },
     {
-      "team": "Metallurg Mg",
+      "team": "Salavat Yulaev",
       "played": 7,
       "won": 5,
-      "otWon": 1,
-      "soWon": 1,
-      "soLost": 1,
+      "otWon": 3,
+      "soWon": 0,
+      "soLost": 0,
       "otLost": 0,
       "lost": 0,
-      "gf": 13,
-      "points": 15
+      "gf": 18,
+      "points": 16
     },
     {
       "team": "Barys",
       "played": 6,
-      "won": 4,
+      "won": 5,
       "otWon": 3,
       "soWon": 0,
       "soLost": 0,
       "otLost": 0,
       "lost": 0,
       "gf": 22,
-      "points": 14
+      "points": 16
     },
     {
       "team": "Avtomobilist",
@@ -132,18 +144,6 @@
       "lost": 0,
       "gf": 10,
       "points": 14
-    },
-    {
-      "team": "Salavat Yulaev",
-      "played": 5,
-      "won": 4,
-      "otWon": 2,
-      "soWon": 0,
-      "soLost": 0,
-      "otLost": 0,
-      "lost": 0,
-      "gf": 16,
-      "points": 12
     },
     {
       "team": "CSKA",
@@ -244,14 +244,14 @@
     {
       "team": "Traktor",
       "played": 2,
-      "won": 4,
+      "won": 5,
       "otWon": 0,
       "soWon": 1,
       "soLost": 0,
       "otLost": 0,
       "lost": 0,
-      "gf": 7,
-      "points": 10
+      "gf": 8,
+      "points": 12
     },
     {
       "team": "HC Sochi",
@@ -267,41 +267,6 @@
     }
   ],
   "fixtures": [
-    {
-      "home": "Metallurg Mg",
-      "away": "Barys",
-      "start": "2026-09-18T09:00:00+05:00"
-    },
-    {
-      "home": "Traktor",
-      "away": "Spartak",
-      "start": "2026-09-18T09:00:00+05:00"
-    },
-    {
-      "home": "Salavat Yulaev",
-      "away": "Neftekhimik",
-      "start": "2026-09-18T09:00:00+05:00"
-    },
-    {
-      "home": "Dynamo Minsk",
-      "away": "Sibir",
-      "start": "2026-09-18T11:10:00+05:00"
-    },
-    {
-      "home": "Torpedo",
-      "away": "CSKA",
-      "start": "2026-09-18T11:30:00+05:00"
-    },
-    {
-      "home": "HC Sochi",
-      "away": "Ak Bars",
-      "start": "2026-09-18T11:30:00+05:00"
-    },
-    {
-      "home": "Lokomotiv",
-      "away": "Avangard",
-      "start": "2026-09-18T11:30:00+05:00"
-    },
     {
       "home": "Amur",
       "away": "Dynamo Msk",
@@ -3744,6 +3709,30 @@
     }
   ],
   "results": [
+    {
+      "home": "Salavat Yulaev",
+      "away": "Neftekhimik",
+      "start": "2026-09-18T09:00:00+05:00",
+      "homeScore": 2,
+      "awayScore": 0,
+      "finished": true
+    },
+    {
+      "home": "Traktor",
+      "away": "Spartak",
+      "start": "2026-09-18T09:00:00+05:00",
+      "homeScore": 1,
+      "awayScore": 3,
+      "finished": true
+    },
+    {
+      "home": "Metallurg Mg",
+      "away": "Barys",
+      "start": "2026-09-18T09:00:00+05:00",
+      "homeScore": 3,
+      "awayScore": 0,
+      "finished": true
+    },
     {
       "home": "Admiral",
       "away": "Dynamo Msk",
