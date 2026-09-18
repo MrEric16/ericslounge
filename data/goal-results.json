@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-18T20:13:37.568098Z",
+  "generatedAt": "2026-09-18T22:43:31.466068Z",
   "results": [
     {
       "url": "https://www.goal.com/en/match/girona-vs-arsenal/__LS8d9Oc6I1wXn9g8956",
@@ -7129,10 +7129,66 @@
       ],
       "awayGoals": [],
       "competition": "juventus"
+    },
+    {
+      "url": "https://www.goal.com/en/match/brentford-vs-chelsea/1cxeTxhs-sVi06yIPMF-c",
+      "date": null,
+      "home": "Brentford",
+      "away": "Chelsea",
+      "htHome": 0,
+      "htAway": 0,
+      "ftHome": 3,
+      "ftAway": 0,
+      "homeGoals": [
+        {
+          "scorer": "J. Anthony",
+          "minute": 61
+        },
+        {
+          "scorer": "I. Thiago",
+          "minute": 83
+        },
+        {
+          "scorer": "F. Carvalho",
+          "minute": 90
+        }
+      ],
+      "awayGoals": [],
+      "competition": "PL"
+    },
+    {
+      "url": "https://www.goal.com/en/match/monaco-vs-lens/k187XVXTx4py25uVPS3H0",
+      "date": null,
+      "home": "Monaco",
+      "away": "Lens",
+      "htHome": 1,
+      "htAway": 0,
+      "ftHome": 2,
+      "ftAway": 1,
+      "homeGoals": [
+        {
+          "scorer": "P. Brunner",
+          "minute": 32
+        },
+        {
+          "scorer": "J. Gradit",
+          "minute": 84
+        }
+      ],
+      "awayGoals": [
+        {
+          "scorer": "M. Udol",
+          "minute": 57
+        }
+      ],
+      "competition": "FL1"
     }
   ],
   "scorerParseRetryCounts": {
     "https://www.goal.com/en/match/slavia-prague-vs-lens/8tl536s9YeGCuVkrI5O7Y": 2,
-    "https://www.goal.com/en/match/malaga-vs-villarreal/PCEduGGdaYN4KZlTPoJUM": 2
+    "https://www.goal.com/en/match/malaga-vs-villarreal/PCEduGGdaYN4KZlTPoJUM": 2,
+    "https://www.goal.com/en/match/espanyol-vs-elche/CPCMh7V9vizHPBVZQW-n_": 1,
+    "https://www.goal.com/en/match/bayern-munich-vs-union-berlin/Q8njM_VTL1U_vImKQdiBf": 2,
+    "https://www.goal.com/en/match/monza-vs-sassuolo/LqN0scEyAUGb4PbZjcW9o": 1
   }
 }
