@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Mr Eric's Lounge</title>
-<meta name="app-build" content="20260918113638">
+<meta name="app-build" content="20260918120339">
 <script>
   // PWA update-detection: an installed home-screen app's standalone-mode navigation
   // cache can hold an old shell far longer than the CDN's 10-minute cache -
@@ -2322,12 +2322,20 @@ body.usertheme-vintage:not(.dark-mode) header::before{
      edges), and a continuous hue-rotate sweeping the full colour wheel so the lines
      genuinely cycle colour rather than sitting on one fixed hue. The rays layer from
      round 2 is gone entirely rather than kept alongside this - it wasn't what "the
-     lines" meant and was visually redundant with a grid this bold anyway. */
+     lines" meant and was visually redundant with a grid this bold anyway.
+     Round 4: height bumped 45vh -> 140vh after Mr Eric reported the grid rendering as
+     a thin sliver way down at the very bottom, nowhere near the sun. Real cause:
+     rotateX(65deg) dramatically foreshortens an element's apparent on-screen height -
+     tipping a rectangle back that steeply compresses most of its height into a sliver
+     regardless of the raw height value, so 45vh of pre-rotation rectangle was never
+     going to read as tall once actually tilted. Overshooting the raw height
+     substantially compensates for that compression so the visible (post-rotation)
+     grid actually reaches up toward the sun rather than hugging the very bottom edge. */
   body.usertheme-synthwave:not(.dark-mode)::after{
     content:'';
     position:fixed; z-index:-1; pointer-events:none;
     left:0; right:0; bottom:0;
-    height:45vh;
+    height:140vh;
     transform-origin:bottom;
     transform:perspective(300px) rotateX(65deg);
     background-image:
