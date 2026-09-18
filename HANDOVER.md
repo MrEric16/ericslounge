@@ -6,8 +6,8 @@ trying the "obvious" approach first and having it rejected or breaking something
 
 ## The basics
 
-- **Live site:** https://mreric16.github.io/ericslounge/
-- **Repo:** MrEric16/ericslounge, main file: `index.html` (everything — HTML, CSS, JS —
+- **Live site:** https://mreric16.github.io/
+- **Repo:** MrEric16/mreric16.github.io, main file: `index.html` (everything — HTML, CSS, JS —
   lives in one file, no build step, no framework)
 - **Other key files:** `manifest.json`, `icon-192.png`, `icon-180.png`, `icon-512.png`
   (Add to Home Screen support), `sw.js` (offline service worker), `review.html`
