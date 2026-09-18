@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Mr Eric's Lounge</title>
-<meta name="app-build" content="20260918120339">
+<meta name="app-build" content="20260918120952">
 <script>
   // PWA update-detection: an installed home-screen app's standalone-mode navigation
   // cache can hold an old shell far longer than the CDN's 10-minute cache -
@@ -2331,18 +2331,32 @@ body.usertheme-vintage:not(.dark-mode) header::before{
      going to read as tall once actually tilted. Overshooting the raw height
      substantially compensates for that compression so the visible (post-rotation)
      grid actually reaches up toward the sun rather than hugging the very bottom edge. */
+  /* Round 5: two more fixes from Mr Eric's screenshots.
+     (a) Centre lines rendering visibly brighter than the sides on desktop - this is a
+     rendering artifact of the perspective transform itself, not a colour/opacity bug:
+     rotateX compresses the repeating pattern non-uniformly, so near the vanishing
+     point (dead centre) many more repetitions of the 44px grid get packed into the
+     same on-screen space than at the edges, and those compressed/overlapping lines
+     anti-alias into a visibly brighter, denser-looking band. Widened the repeat
+     interval 44px->70px (fewer total repetitions competing for the same compressed
+     space near centre reduces how much pile-up there is) and took the glow layer's
+     opacity down slightly (.35->.22) since it's the layer that compounds most
+     visibly when lines overlap.
+     (b) Height still wasn't reaching the sun at 140vh - going substantially further
+     (400vh) this time rather than nudging it again, since the exact foreshortening
+     ratio clearly needs a bigger margin than estimated last round. */
   body.usertheme-synthwave:not(.dark-mode)::after{
     content:'';
     position:fixed; z-index:-1; pointer-events:none;
     left:0; right:0; bottom:0;
-    height:140vh;
+    height:400vh;
     transform-origin:bottom;
     transform:perspective(300px) rotateX(65deg);
     background-image:
-      repeating-linear-gradient(90deg, rgba(255,20,200,.35) 0px, rgba(255,20,200,.35) 7px, transparent 7px, transparent 44px),
-      repeating-linear-gradient(90deg, rgba(255,170,235,1) 0px, rgba(255,170,235,1) 2px, transparent 2px, transparent 44px),
-      repeating-linear-gradient(0deg, rgba(255,20,200,.35) 0px, rgba(255,20,200,.35) 7px, transparent 7px, transparent 44px),
-      repeating-linear-gradient(0deg, rgba(255,170,235,1) 0px, rgba(255,170,235,1) 2px, transparent 2px, transparent 44px);
+      repeating-linear-gradient(90deg, rgba(255,20,200,.22) 0px, rgba(255,20,200,.22) 9px, transparent 9px, transparent 70px),
+      repeating-linear-gradient(90deg, rgba(255,170,235,1) 0px, rgba(255,170,235,1) 2px, transparent 2px, transparent 70px),
+      repeating-linear-gradient(0deg, rgba(255,20,200,.22) 0px, rgba(255,20,200,.22) 9px, transparent 9px, transparent 70px),
+      repeating-linear-gradient(0deg, rgba(255,170,235,1) 0px, rgba(255,170,235,1) 2px, transparent 2px, transparent 70px);
     animation:synthwaveGridFlow 6s linear infinite;
   }
   @keyframes synthwaveGridFlow{
