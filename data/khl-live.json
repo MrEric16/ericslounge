@@ -1,6 +1,18 @@
 {
-  "generatedAt": "2026-09-18T16:37:00.284058+00:00",
+  "generatedAt": "2026-09-18T21:05:35.621946+00:00",
   "standings": [
+    {
+      "team": "Lokomotiv",
+      "played": 12,
+      "won": 6,
+      "otWon": 5,
+      "soWon": 1,
+      "soLost": 0,
+      "otLost": 0,
+      "lost": 0,
+      "gf": 19,
+      "points": 24
+    },
     {
       "team": "Spartak",
       "played": 10,
@@ -12,18 +24,6 @@
       "lost": 0,
       "gf": 20,
       "points": 22
-    },
-    {
-      "team": "Lokomotiv",
-      "played": 10,
-      "won": 5,
-      "otWon": 4,
-      "soWon": 1,
-      "soLost": 0,
-      "otLost": 0,
-      "lost": 0,
-      "gf": 17,
-      "points": 20
     },
     {
       "team": "SKA",
@@ -64,26 +64,26 @@
     {
       "team": "Ak Bars",
       "played": 9,
-      "won": 6,
+      "won": 7,
       "otWon": 2,
       "soWon": 1,
       "soLost": 1,
       "otLost": 1,
       "lost": 0,
-      "gf": 16,
-      "points": 20
+      "gf": 18,
+      "points": 22
     },
     {
       "team": "Torpedo",
       "played": 8,
-      "won": 5,
+      "won": 6,
       "otWon": 3,
       "soWon": 0,
       "soLost": 1,
       "otLost": 0,
       "lost": 0,
-      "gf": 15,
-      "points": 17
+      "gf": 17,
+      "points": 19
     },
     {
       "team": "Dynamo Msk",
@@ -122,6 +122,18 @@
       "points": 16
     },
     {
+      "team": "CSKA",
+      "played": 6,
+      "won": 6,
+      "otWon": 3,
+      "soWon": 0,
+      "soLost": 0,
+      "otLost": 0,
+      "lost": 0,
+      "gf": 16,
+      "points": 18
+    },
+    {
       "team": "Avtomobilist",
       "played": 6,
       "won": 5,
@@ -136,25 +148,25 @@
     {
       "team": "Avangard",
       "played": 6,
-      "won": 4,
+      "won": 5,
       "otWon": 1,
       "soWon": 2,
       "soLost": 0,
       "otLost": 0,
       "lost": 0,
-      "gf": 10,
-      "points": 14
+      "gf": 11,
+      "points": 16
     },
     {
-      "team": "CSKA",
-      "played": 4,
+      "team": "Dinamo Mn",
+      "played": 5,
       "won": 5,
-      "otWon": 2,
+      "otWon": 1,
       "soWon": 0,
       "soLost": 0,
-      "otLost": 0,
+      "otLost": 2,
       "lost": 0,
-      "gf": 13,
+      "gf": 14,
       "points": 14
     },
     {
@@ -206,18 +218,6 @@
       "points": 10
     },
     {
-      "team": "Sibir",
-      "played": 3,
-      "won": 5,
-      "otWon": 1,
-      "soWon": 0,
-      "soLost": 0,
-      "otLost": 1,
-      "lost": 0,
-      "gf": 8,
-      "points": 13
-    },
-    {
       "team": "Severstal",
       "played": 3,
       "won": 5,
@@ -230,16 +230,28 @@
       "points": 12
     },
     {
-      "team": "Dinamo Mn",
+      "team": "Sibir",
       "played": 3,
-      "won": 4,
-      "otWon": 0,
+      "won": 6,
+      "otWon": 1,
       "soWon": 0,
       "soLost": 0,
-      "otLost": 2,
+      "otLost": 1,
       "lost": 0,
-      "gf": 10,
-      "points": 10
+      "gf": 9,
+      "points": 15
+    },
+    {
+      "team": "HC Sochi",
+      "played": 2,
+      "won": 5,
+      "otWon": 1,
+      "soWon": 0,
+      "soLost": 0,
+      "otLost": 0,
+      "lost": 0,
+      "gf": 5,
+      "points": 12
     },
     {
       "team": "Traktor",
@@ -252,18 +264,6 @@
       "lost": 0,
       "gf": 8,
       "points": 12
-    },
-    {
-      "team": "HC Sochi",
-      "played": 0,
-      "won": 4,
-      "otWon": 0,
-      "soWon": 0,
-      "soLost": 0,
-      "otLost": 0,
-      "lost": 0,
-      "gf": 2,
-      "points": 8
     }
   ],
   "fixtures": [
@@ -3709,6 +3709,38 @@
     }
   ],
   "results": [
+    {
+      "home": "Lokomotiv",
+      "away": "Avangard",
+      "start": "2026-09-18T11:30:00+05:00",
+      "homeScore": 2,
+      "awayScore": 1,
+      "finished": true
+    },
+    {
+      "home": "HC Sochi",
+      "away": "Ak Bars",
+      "start": "2026-09-18T11:30:00+05:00",
+      "homeScore": 3,
+      "awayScore": 2,
+      "finished": true
+    },
+    {
+      "home": "Torpedo",
+      "away": "CSKA",
+      "start": "2026-09-18T11:30:00+05:00",
+      "homeScore": 2,
+      "awayScore": 3,
+      "finished": true
+    },
+    {
+      "home": "Dynamo Minsk",
+      "away": "Sibir",
+      "start": "2026-09-18T11:10:00+05:00",
+      "homeScore": 4,
+      "awayScore": 1,
+      "finished": true
+    },
     {
       "home": "Salavat Yulaev",
       "away": "Neftekhimik",
