@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Mr Eric's Lounge</title>
-<meta name="app-build" content="20260918113208">
+<meta name="app-build" content="20260918113638">
 <script>
   // PWA update-detection: an installed home-screen app's standalone-mode navigation
   // cache can hold an old shell far longer than the CDN's 10-minute cache -
@@ -2312,30 +2312,34 @@ body.usertheme-vintage:not(.dark-mode) header::before{
     0%,100%{ filter:hue-rotate(0deg); opacity:.8; }
     50%{ filter:hue-rotate(50deg); opacity:.98; }
   }
-  /* Grid floor: a large rectangle tilted back via perspective, grid lines fading
-     toward the horizon. Faint scanline texture folded into the same layer rather than
-     a separate full-page overlay - keeps this to 2 pseudo-elements total on body.
-     Round 2: radiating tunnel/burst lines added as a third background layer within
-     this SAME element rather than a new pseudo-element (body only has 2 slots and
-     both were already spoken for) - centred at the element's own top edge, which sits
-     right where the sun meets the horizon, so the rays read as converging toward the
-     sun. Inheriting this element's existing perspective(320deg) rotateX(65deg)
-     transform turns out to help rather than hurt here - the same distortion that
-     makes the grid lines converge toward a vanishing point does the same to the rays,
-     reinforcing the tunnel illusion instead of needing separate maths for it. */
+  /* Grid floor: a large rectangle tilted back via perspective, converging toward the
+     horizon where the sun sits - rebuilt properly after the first pass (thin, faint
+     lines plus a separate barely-visible rays layer) turned out not to read at all
+     against the reference Mr Eric sent. This version matches that reference directly:
+     bold glowing lines (a wide soft "bloom" layer underneath a thin bright core layer,
+     in both directions - the standard way to fake a neon glow in pure CSS without an
+     actual blur filter, which would soften the whole grid rather than just the line
+     edges), and a continuous hue-rotate sweeping the full colour wheel so the lines
+     genuinely cycle colour rather than sitting on one fixed hue. The rays layer from
+     round 2 is gone entirely rather than kept alongside this - it wasn't what "the
+     lines" meant and was visually redundant with a grid this bold anyway. */
   body.usertheme-synthwave:not(.dark-mode)::after{
     content:'';
     position:fixed; z-index:-1; pointer-events:none;
     left:0; right:0; bottom:0;
-    height:40vh;
+    height:45vh;
     transform-origin:bottom;
-    transform:perspective(320px) rotateX(65deg);
+    transform:perspective(300px) rotateX(65deg);
     background-image:
-      repeating-linear-gradient(90deg, rgba(159,247,255,.35) 0px, rgba(159,247,255,.35) 1.5px, transparent 1.5px, transparent 40px),
-      repeating-linear-gradient(0deg, rgba(159,247,255,.25) 0px, rgba(159,247,255,.25) 1.5px, transparent 1.5px, transparent 40px),
-      repeating-linear-gradient(0deg, rgba(0,0,0,.06) 0px, rgba(0,0,0,.06) 1px, transparent 1px, transparent 3px),
-      repeating-conic-gradient(from 180deg at 50% 0%, rgba(255,110,199,.22) 0deg 1.5deg, transparent 1.5deg 9deg);
-    opacity:.7;
+      repeating-linear-gradient(90deg, rgba(255,20,200,.35) 0px, rgba(255,20,200,.35) 7px, transparent 7px, transparent 44px),
+      repeating-linear-gradient(90deg, rgba(255,170,235,1) 0px, rgba(255,170,235,1) 2px, transparent 2px, transparent 44px),
+      repeating-linear-gradient(0deg, rgba(255,20,200,.35) 0px, rgba(255,20,200,.35) 7px, transparent 7px, transparent 44px),
+      repeating-linear-gradient(0deg, rgba(255,170,235,1) 0px, rgba(255,170,235,1) 2px, transparent 2px, transparent 44px);
+    animation:synthwaveGridFlow 6s linear infinite;
+  }
+  @keyframes synthwaveGridFlow{
+    0%{ filter:hue-rotate(0deg); }
+    100%{ filter:hue-rotate(360deg); }
   }
   /* SIGNATURE: neon glow on section headings ("Domains", "Vox Populi", etc) - these
      use --ink (white) against the dark page background at 18.53:1, so there's a lot of
