@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Mr Eric's Lounge</title>
-<meta name="app-build" content="20260919155242">
+<meta name="app-build" content="20260919155936">
 <script>
   // PWA update-detection: an installed home-screen app's standalone-mode navigation
   // cache can hold an old shell far longer than the CDN's 10-minute cache -
@@ -5552,6 +5552,7 @@ body.usertheme-vintage:not(.dark-mode) header::before{
   .ttt-timer.urgent{ color:var(--coral); }
   .ttt-grid{
     display:grid; grid-template-columns:repeat(3,1fr); gap:8px; max-width:280px; margin:0 auto;
+    position:relative;
   }
   .ttt-cell{
     aspect-ratio:1; background:var(--card); border:2px solid var(--line); border-radius:12px;
@@ -5566,6 +5567,19 @@ body.usertheme-vintage:not(.dark-mode) header::before{
     padding:9px 20px; font-family:'Nunito',sans-serif; font-weight:700; font-size:13px;
     color:var(--ink-soft); cursor:pointer;
   }
+  /* Winning-line overlay: absolutely positioned over the grid (which is given
+     position:relative above specifically to anchor this), coordinates in percentage
+     terms rather than measured pixels - see drawTttWinLine's own comment for why that's
+     a reasonable approximation here. stroke-dasharray/dashoffset gives a simple
+     "draws itself" animation using only a CSS transition, no JS animation loop. */
+  .ttt-winline{ position:absolute; inset:0; pointer-events:none; }
+  .ttt-winline svg{ width:100%; height:100%; }
+  .ttt-winline-stroke{
+    stroke:var(--coral); stroke-width:4; stroke-linecap:round;
+    stroke-dasharray:100; stroke-dashoffset:100;
+    animation:tttWinLineDraw .5s ease-out forwards;
+  }
+  @keyframes tttWinLineDraw{ to{ stroke-dashoffset:0; } }
 
   /* - Watch page: white + red theme (layout unchanged) - */
   body.theme-watch{background:#FFFFFF;}
@@ -7119,10 +7133,11 @@ function showGamePopup(msg){
 // --- Tic-tac-toe ---
 const TTT_LINES = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
 function checkTttWinner(board){
-  for(const [a,b,c] of TTT_LINES){
-    if(board[a] && board[a] === board[b] && board[a] === board[c]) return board[a];
+  for(const line of TTT_LINES){
+    const [a,b,c] = line;
+    if(board[a] && board[a] === board[b] && board[a] === board[c]) return { symbol: board[a], line };
   }
-  if(board.every(c => c)) return 'draw';
+  if(board.every(c => c)) return { symbol:'draw', line:null };
   return null;
 }
 
@@ -7214,6 +7229,9 @@ function updateTttStatus(){
   const statusEl = document.getElementById('tttStatus');
   if(statusEl) statusEl.textContent = ttt.myTurn ? 'Your turn' : "Opponent's turn";
 }
+function disableAllTttCells(){
+  document.querySelectorAll('.ttt-cell').forEach(btn => { btn.disabled = true; });
+}
 
 function makeTttMove(idx){
   if(!ttt || !ttt.myTurn || ttt.board[idx]) return;
@@ -7240,13 +7258,48 @@ function handleIncomingMove(payload){
   startTurnTimer();
 }
 
+// Draws a line through the winning three cells so it's visible which line actually
+// won, not just that someone won. Uses percentage-based coordinates within the grid
+// (each cell centre sits at col*33.33+16.67, row*33.33+16.67) rather than measuring
+// real pixel positions - the grid's small 8px gap means this is a close approximation
+// rather than pixel-perfect, but the line's own stroke width provides enough visual
+// tolerance that the approximation isn't noticeable in practice.
+function drawTttWinLine(line){
+  const grid = document.querySelector('.ttt-grid');
+  if(!grid || !line) return;
+  const [a, , c] = line;
+  const centerOf = (idx) => ({ x: (idx % 3) * 33.333 + 16.667, y: Math.floor(idx / 3) * 33.333 + 16.667 });
+  const p1 = centerOf(a), p2 = centerOf(c);
+  const wrap = document.createElement('div');
+  wrap.className = 'ttt-winline';
+  wrap.innerHTML = `<svg viewBox="0 0 100 100" preserveAspectRatio="none">
+    <line class="ttt-winline-stroke" x1="${p1.x}" y1="${p1.y}" x2="${p2.x}" y2="${p2.y}"/>
+  </svg>`;
+  grid.appendChild(wrap);
+}
+
 function endTttGame(result){
   clearTurnTimer();
-  const iWon = result === ttt.mySymbol;
-  const msg = result === 'draw' ? "It's a draw!" : (iWon ? 'You won! 🎉' : 'You lost.');
-  ttt = null;
-  document.querySelectorAll('.challenge-overlay').forEach(el => el.remove());
-  showGamePopup(msg);
+  const { symbol, line } = result;
+  const iWon = symbol === ttt.mySymbol;
+  const msg = symbol === 'draw' ? "It's a draw!" : (iWon ? 'You won! 🎉' : 'You lost.');
+  disableAllTttCells(); // explicit, regardless of whose turn it technically still is -
+  // the game is over, so every cell should look locked during the pause, not just the
+  // ones the normal turn-based enable/disable logic would happen to cover.
+  if(line){
+    drawTttWinLine(line);
+    // Brief pause so the line is actually visible before the board disappears behind
+    // the result popup - a draw has no line to show, so no pause needed there.
+    setTimeout(() => {
+      ttt = null;
+      document.querySelectorAll('.challenge-overlay').forEach(el => el.remove());
+      showGamePopup(msg);
+    }, 1400);
+  } else {
+    ttt = null;
+    document.querySelectorAll('.challenge-overlay').forEach(el => el.remove());
+    showGamePopup(msg);
+  }
 }
 
 function sendForfeit(reason){
