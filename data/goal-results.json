@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-19T00:51:45.618025Z",
+  "generatedAt": "2026-09-19T05:21:53.320446Z",
   "results": [
     {
       "url": "https://www.goal.com/en/match/girona-vs-arsenal/__LS8d9Oc6I1wXn9g8956",
@@ -7212,12 +7212,60 @@
       ],
       "awayGoals": [],
       "competition": "BL1"
+    },
+    {
+      "url": "https://www.goal.com/en/match/espanyol-vs-elche/CPCMh7V9vizHPBVZQW-n_",
+      "date": null,
+      "home": "Espanyol",
+      "away": "Elche",
+      "htHome": 0,
+      "htAway": 2,
+      "ftHome": 1,
+      "ftAway": 3,
+      "homeGoals": [
+        {
+          "scorer": "V. Chust",
+          "minute": 72
+        }
+      ],
+      "awayGoals": [
+        {
+          "scorer": "F. Nino",
+          "minute": 26
+        },
+        {
+          "scorer": "G. Valera",
+          "minute": 78
+        }
+      ],
+      "competition": "PD"
+    },
+    {
+      "url": "https://www.goal.com/en/match/monza-vs-sassuolo/LqN0scEyAUGb4PbZjcW9o",
+      "date": null,
+      "home": "Monza",
+      "away": "Sassuolo",
+      "htHome": 0,
+      "htAway": 0,
+      "ftHome": 2,
+      "ftAway": 1,
+      "homeGoals": [
+        {
+          "scorer": "G. Varela",
+          "minute": 51
+        }
+      ],
+      "awayGoals": [
+        {
+          "scorer": "V. Adzic",
+          "minute": 88
+        }
+      ],
+      "competition": "SA"
     }
   ],
   "scorerParseRetryCounts": {
     "https://www.goal.com/en/match/slavia-prague-vs-lens/8tl536s9YeGCuVkrI5O7Y": 2,
-    "https://www.goal.com/en/match/malaga-vs-villarreal/PCEduGGdaYN4KZlTPoJUM": 2,
-    "https://www.goal.com/en/match/espanyol-vs-elche/CPCMh7V9vizHPBVZQW-n_": 2,
-    "https://www.goal.com/en/match/monza-vs-sassuolo/LqN0scEyAUGb4PbZjcW9o": 2
+    "https://www.goal.com/en/match/malaga-vs-villarreal/PCEduGGdaYN4KZlTPoJUM": 2
   }
 }
