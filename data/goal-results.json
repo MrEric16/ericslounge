@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-19T16:58:33.883090Z",
+  "generatedAt": "2026-09-19T19:09:47.431141Z",
   "results": [
     {
       "url": "https://www.goal.com/en/match/girona-vs-arsenal/__LS8d9Oc6I1wXn9g8956",
@@ -7581,10 +7581,97 @@
         }
       ],
       "competition": "SA"
+    },
+    {
+      "url": "https://www.goal.com/en/match/nottingham-forest-vs-coventry-city/RLCU8mqN48pPaeFqZahMx",
+      "date": null,
+      "home": "Nottingham Forest",
+      "away": "Coventry City",
+      "htHome": 0,
+      "htAway": 0,
+      "ftHome": 0,
+      "ftAway": 1,
+      "homeGoals": [],
+      "awayGoals": [
+        {
+          "scorer": "J. Dasilva",
+          "minute": 55
+        }
+      ],
+      "competition": "PL"
+    },
+    {
+      "url": "https://www.goal.com/en/match/vfb-stuttgart-vs-borussia-dortmund/HGGH2xENy0ku7WIGCQ51O",
+      "date": null,
+      "home": "Vfb Stuttgart",
+      "away": "Borussia Dortmund",
+      "htHome": 0,
+      "htAway": 0,
+      "ftHome": 0,
+      "ftAway": 1,
+      "homeGoals": [],
+      "awayGoals": [
+        {
+          "scorer": "M. Beier",
+          "minute": 70
+        }
+      ],
+      "competition": "BL1"
+    },
+    {
+      "url": "https://www.goal.com/en/match/paris-fc-vs-strasbourg/ztGV6iSUSWDrfyPyLrd5e",
+      "date": null,
+      "home": "Paris Fc",
+      "away": "Strasbourg",
+      "htHome": 1,
+      "htAway": 0,
+      "ftHome": 2,
+      "ftAway": 1,
+      "homeGoals": [
+        {
+          "scorer": "I. Kebbal",
+          "minute": 18
+        },
+        {
+          "scorer": "P. Pagis",
+          "minute": 57
+        }
+      ],
+      "awayGoals": [
+        {
+          "scorer": "M. Mbow",
+          "minute": 88
+        }
+      ],
+      "competition": "FL1"
+    },
+    {
+      "url": "https://www.goal.com/en/match/roma-vs-inter/ljBwYBhTxoHwHbmeiORO-",
+      "date": null,
+      "home": "Roma",
+      "away": "Inter",
+      "htHome": 2,
+      "htAway": 0,
+      "ftHome": 2,
+      "ftAway": 2,
+      "homeGoals": [
+        {
+          "scorer": "M. Kone",
+          "minute": 6
+        }
+      ],
+      "awayGoals": [
+        {
+          "scorer": "L. Martinez",
+          "minute": 46
+        }
+      ],
+      "competition": "roma"
     }
   ],
   "scorerParseRetryCounts": {
     "https://www.goal.com/en/match/slavia-prague-vs-lens/8tl536s9YeGCuVkrI5O7Y": 2,
-    "https://www.goal.com/en/match/malaga-vs-villarreal/PCEduGGdaYN4KZlTPoJUM": 2
+    "https://www.goal.com/en/match/malaga-vs-villarreal/PCEduGGdaYN4KZlTPoJUM": 2,
+    "https://www.goal.com/en/match/celta-vigo-vs-racing-santander/G9ObZqKWJ8XXB_1P8u1nL": 1
   }
 }
