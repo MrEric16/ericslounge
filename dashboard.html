@@ -404,6 +404,34 @@ async function loadAll(){
   const dayUserCounts = last30.map(d => dayUsers[d] ? dayUsers[d].size : 0);
   const dayOpenCounts = last30.map(d => dayOpens[d] || 0);
 
+  // --- Weekly breakdown (Mr Eric's request) - weeks start Monday, ISO-style. Unique
+  // users per week is a genuine UNION of that week's daily user-sets, not a sum of the
+  // daily counts - summing would double-count anyone active on more than one day in
+  // the same week, which would overstate weekly reach. Sessions, by contrast, are
+  // legitimately additive (each session is its own event, no dedup needed), so those
+  // are just a daily-count sum. Every calendar week that has ANY data is shown, not
+  // capped to a fixed lookback window like the daily charts - weeks accumulate slowly
+  // enough that showing all of them (rather than just "last 12" or similar) is still
+  // readable and doesn't need trimming yet.
+  function mondayOf(dayStr){
+    const dt = new Date(dayStr + 'T00:00:00');
+    const diff = (dt.getDay() + 6) % 7; // days since Monday (Mon=0 ... Sun=6)
+    dt.setDate(dt.getDate() - diff);
+    return dt.toISOString().slice(0,10);
+  }
+  const weekUserSets = {}; // weekStart -> Set(user_id), union of that week's days
+  const weekSessions = {}; // weekStart -> summed session count
+  allDays.forEach(day => {
+    const wk = mondayOf(day);
+    if(!weekUserSets[wk]) weekUserSets[wk] = new Set();
+    dayUsers[day].forEach(uid => weekUserSets[wk].add(uid));
+    weekSessions[wk] = (weekSessions[wk] || 0) + (dayOpens[day] || 0);
+  });
+  const allWeeks = Object.keys(weekUserSets).sort();
+  const weekLabels = allWeeks.map(w => w.slice(5).replace('-','/'));
+  const weekUserCounts = allWeeks.map(w => weekUserSets[w].size);
+  const weekSessionCounts = allWeeks.map(w => weekSessions[w] || 0);
+
   // --- Hour-of-day and day-of-week patterns (from 'open' events, Tashkent local time
   // already baked into created_at's timezone by however Supabase stores it - using
   // local browser interpretation via new Date(), consistent with how the existing
@@ -444,6 +472,17 @@ async function loadAll(){
       <div class="stat-card"><div class="stat-num">${avgSessionSec}s</div><div class="stat-label">Avg session length</div></div>
       <div class="stat-card"><div class="stat-num">${totalMinutes.toLocaleString()}</div><div class="stat-label">Total minutes logged</div></div>
     </div>
+    <div class="sub" style="font-family:'Nunito',sans-serif; margin:0 0 22px 0; line-height:1.4;">"Unique users" = distinct anonymous device IDs (stored in each visitor's browser), not real logins - there's no sign-in system on the main site, so this counts devices/browsers, not verified people. Someone using two devices counts as two.</div>
+
+    <section>
+      <h2>Weekly unique users</h2>
+      ${svgBarChart(weekLabels, weekUserCounts, {labelEvery: Math.ceil(weekLabels.length/10) || 1})}
+    </section>
+
+    <section>
+      <h2>Weekly sessions</h2>
+      ${svgBarChart(weekLabels, weekSessionCounts, {labelEvery: Math.ceil(weekLabels.length/10) || 1})}
+    </section>
 
     <section>
       <h2>Daily unique users (last 30 days)</h2>
