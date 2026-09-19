@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-19T09:39:02.290409Z",
+  "generatedAt": "2026-09-19T13:38:16.196364Z",
   "results": [
     {
       "url": "https://www.goal.com/en/match/girona-vs-arsenal/__LS8d9Oc6I1wXn9g8956",
@@ -7262,6 +7262,41 @@
         }
       ],
       "competition": "SA"
+    },
+    {
+      "url": "https://www.goal.com/en/match/tottenham-hotspur-vs-aston-villa/-gpaEQd-ZHVWbT5z83FIU",
+      "date": null,
+      "home": "Tottenham Hotspur",
+      "away": "Aston Villa",
+      "htHome": 0,
+      "htAway": 1,
+      "ftHome": 2,
+      "ftAway": 3,
+      "homeGoals": [
+        {
+          "scorer": "C. Gallagher",
+          "minute": 86
+        },
+        {
+          "scorer": "J. van Hecke",
+          "minute": 90
+        }
+      ],
+      "awayGoals": [
+        {
+          "scorer": "J. Manzambi",
+          "minute": 45
+        },
+        {
+          "scorer": "N. Jackson",
+          "minute": 67
+        },
+        {
+          "scorer": "E. Buendia",
+          "minute": 79
+        }
+      ],
+      "competition": "PL"
     }
   ],
   "scorerParseRetryCounts": {
