@@ -1,9 +1,19 @@
 [goal-scraper] Run started.
-[goal-scraper] [PL] Found 2 finished-match links
-[goal-scraper] [PL] Added: Tottenham Hotspur 2-3 Aston Villa
-[goal-scraper] [PD] Found 1 finished-match links
-[goal-scraper] [BL1] Found 1 finished-match links
-[goal-scraper] [SA] Found 1 finished-match links
+[goal-scraper] [PL] Found 5 finished-match links
+[goal-scraper] [PL] Added: Newcastle United 2-1 Hull City
+[goal-scraper] [PL] Added: Everton 1-0 Ipswich Town
+[goal-scraper] [PL] Added: Brighton And Hove Albion 3-0 Arsenal
+[goal-scraper] [PD] Found 3 finished-match links
+[goal-scraper] [PD] Added: Osasuna 1-1 Rayo Vallecano
+[goal-scraper] [PD] Added: Athletic Bilbao 0-0 Deportivo Alaves
+[goal-scraper] [BL1] Found 5 finished-match links
+[goal-scraper] [BL1] Added: Borussia Moenchengladbach 3-4 Mainz 05
+[goal-scraper] [BL1] Added: Werder Bremen 3-2 Augsburg
+[goal-scraper] [BL1] Added: Eintracht Frankfurt 2-2 Freiburg
+[goal-scraper] [BL1] Added: Hamburger Sv 2-1 Fc Koeln
+[goal-scraper] [SA] Found 3 finished-match links
+[goal-scraper] [SA] Added: Udinese 0-1 Cagliari
+[goal-scraper] [SA] Added: Bologna 1-1 Torino
 [goal-scraper] [FL1] Found 1 finished-match links
 [goal-scraper] [CL] Found 0 finished-match links
 [goal-scraper] [real-madrid] Found 22 finished-match links
@@ -87,7 +97,7 @@
 [goal-scraper] [juventus] Skipping stale match (older than 45 days): Juventus vs Wydad Casablanca on 2025-06-22
 [goal-scraper] [juventus] Skipping stale match (older than 45 days): Juventus vs Manchester City on 2025-06-26
 [goal-scraper] [juventus] Skipping stale match (older than 45 days): Basel vs Juventus on 2026-07-18
-[goal-scraper] [arsenal-friendlies] Found 2 finished-match links
-[goal-scraper] TOTAL new results added this run: 1
+[goal-scraper] [arsenal-friendlies] Found 3 finished-match links
+[goal-scraper] TOTAL new results added this run: 11
 [goal-scraper] Matches still awaiting a clean scorer parse (not yet committed): ['https://www.goal.com/en/match/slavia-prague-vs-lens/8tl536s9YeGCuVkrI5O7Y', 'https://www.goal.com/en/match/malaga-vs-villarreal/PCEduGGdaYN4KZlTPoJUM']
 [goal-scraper] Wrote data/goal-results.json

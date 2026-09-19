@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-19T13:38:16.196364Z",
+  "generatedAt": "2026-09-19T16:58:33.883090Z",
   "results": [
     {
       "url": "https://www.goal.com/en/match/girona-vs-arsenal/__LS8d9Oc6I1wXn9g8956",
@@ -7297,6 +7297,290 @@
         }
       ],
       "competition": "PL"
+    },
+    {
+      "url": "https://www.goal.com/en/match/newcastle-united-vs-hull-city/8I7bFOwa-BO6SFnsEkPYp",
+      "date": null,
+      "home": "Newcastle United",
+      "away": "Hull City",
+      "htHome": 2,
+      "htAway": 0,
+      "ftHome": 2,
+      "ftAway": 1,
+      "homeGoals": [
+        {
+          "scorer": "J. Willock",
+          "minute": 3
+        },
+        {
+          "scorer": "L. Hall",
+          "minute": 7
+        }
+      ],
+      "awayGoals": [
+        {
+          "scorer": "M. Cho",
+          "minute": 67
+        }
+      ],
+      "competition": "PL"
+    },
+    {
+      "url": "https://www.goal.com/en/match/everton-vs-ipswich-town/Dup0N-xy8dLLdLOXH8dK9",
+      "date": null,
+      "home": "Everton",
+      "away": "Ipswich Town",
+      "htHome": 1,
+      "htAway": 0,
+      "ftHome": 1,
+      "ftAway": 0,
+      "homeGoals": [
+        {
+          "scorer": "T. Barry",
+          "minute": 11
+        }
+      ],
+      "awayGoals": [],
+      "competition": "PL"
+    },
+    {
+      "url": "https://www.goal.com/en/match/brighton-and-hove-albion-vs-arsenal/v9CRFg1O00YuCgbnHJS8e",
+      "date": null,
+      "home": "Brighton And Hove Albion",
+      "away": "Arsenal",
+      "htHome": 2,
+      "htAway": 0,
+      "ftHome": 3,
+      "ftAway": 0,
+      "homeGoals": [
+        {
+          "scorer": "P. Gross",
+          "minute": 31
+        },
+        {
+          "scorer": "C. Kostoulas",
+          "minute": 45
+        },
+        {
+          "scorer": "C. Andres",
+          "minute": 57
+        }
+      ],
+      "awayGoals": [],
+      "competition": "PL"
+    },
+    {
+      "url": "https://www.goal.com/en/match/osasuna-vs-rayo-vallecano/KImjMIjEHadnS_UxG-v2r",
+      "date": null,
+      "home": "Osasuna",
+      "away": "Rayo Vallecano",
+      "htHome": 1,
+      "htAway": 0,
+      "ftHome": 1,
+      "ftAway": 1,
+      "homeGoals": [
+        {
+          "scorer": "A. Budimir",
+          "minute": 16
+        }
+      ],
+      "awayGoals": [
+        {
+          "scorer": "S. Camello",
+          "minute": 50
+        }
+      ],
+      "competition": "PD"
+    },
+    {
+      "url": "https://www.goal.com/en/match/athletic-bilbao-vs-deportivo-alaves/qMtWU_6owwNYxA-eeTAf7",
+      "date": null,
+      "home": "Athletic Bilbao",
+      "away": "Deportivo Alaves",
+      "htHome": 0,
+      "htAway": 0,
+      "ftHome": 0,
+      "ftAway": 0,
+      "homeGoals": [],
+      "awayGoals": [],
+      "competition": "PD"
+    },
+    {
+      "url": "https://www.goal.com/en/match/borussia-moenchengladbach-vs-mainz-05/bCETMrUWnznwFTFW19P7s",
+      "date": null,
+      "home": "Borussia Moenchengladbach",
+      "away": "Mainz 05",
+      "htHome": 1,
+      "htAway": 2,
+      "ftHome": 3,
+      "ftAway": 4,
+      "homeGoals": [
+        {
+          "scorer": "F. Neuhaus",
+          "minute": 11
+        },
+        {
+          "scorer": "I. Lidberg",
+          "minute": 59
+        },
+        {
+          "scorer": "S. Machino",
+          "minute": 90
+        }
+      ],
+      "awayGoals": [
+        {
+          "scorer": "P. Tietz",
+          "minute": 18
+        },
+        {
+          "scorer": "S. Becker",
+          "minute": 45
+        },
+        {
+          "scorer": "E. Martel",
+          "minute": 78
+        },
+        {
+          "scorer": "D. da Costa",
+          "minute": 89
+        }
+      ],
+      "competition": "BL1"
+    },
+    {
+      "url": "https://www.goal.com/en/match/werder-bremen-vs-augsburg/uoGKAkIBL-2aLdsA6myHK",
+      "date": null,
+      "home": "Werder Bremen",
+      "away": "Augsburg",
+      "htHome": 0,
+      "htAway": 1,
+      "ftHome": 3,
+      "ftAway": 2,
+      "homeGoals": [
+        {
+          "scorer": "M. Gruell",
+          "minute": 66
+        },
+        {
+          "scorer": "N. Fuellkrug",
+          "minute": 86
+        },
+        {
+          "scorer": "M. Weiser",
+          "minute": 90
+        }
+      ],
+      "awayGoals": [
+        {
+          "scorer": "R. Fellhauer",
+          "minute": 18
+        },
+        {
+          "scorer": "C. Brackelmann",
+          "minute": 58
+        }
+      ],
+      "competition": "BL1"
+    },
+    {
+      "url": "https://www.goal.com/en/match/eintracht-frankfurt-vs-freiburg/DfOmc9jiitcbTX7rI1Q3k",
+      "date": null,
+      "home": "Eintracht Frankfurt",
+      "away": "Freiburg",
+      "htHome": 2,
+      "htAway": 1,
+      "ftHome": 2,
+      "ftAway": 2,
+      "homeGoals": [
+        {
+          "scorer": "Y. Ebnoutalib",
+          "minute": 10
+        },
+        {
+          "scorer": "J. Burkardt",
+          "minute": 36
+        }
+      ],
+      "awayGoals": [
+        {
+          "scorer": "D. Scherhant",
+          "minute": 34
+        },
+        {
+          "scorer": "Y. Suzuki",
+          "minute": 48
+        }
+      ],
+      "competition": "BL1"
+    },
+    {
+      "url": "https://www.goal.com/en/match/hamburger-sv-vs-fc-koeln/N4t3gabHRu4yeKaoKElXy",
+      "date": null,
+      "home": "Hamburger Sv",
+      "away": "Fc Koeln",
+      "htHome": 1,
+      "htAway": 0,
+      "ftHome": 2,
+      "ftAway": 1,
+      "homeGoals": [
+        {
+          "scorer": "N. Capaldo",
+          "minute": 44
+        },
+        {
+          "scorer": "Y. Poulsen",
+          "minute": 50
+        }
+      ],
+      "awayGoals": [
+        {
+          "scorer": "R. Ache",
+          "minute": 90
+        }
+      ],
+      "competition": "BL1"
+    },
+    {
+      "url": "https://www.goal.com/en/match/udinese-vs-cagliari/nwA8bMj-9u7BL20mjdS8E",
+      "date": null,
+      "home": "Udinese",
+      "away": "Cagliari",
+      "htHome": 0,
+      "htAway": 0,
+      "ftHome": 0,
+      "ftAway": 1,
+      "homeGoals": [],
+      "awayGoals": [
+        {
+          "scorer": "D. Maldini",
+          "minute": 54
+        }
+      ],
+      "competition": "SA"
+    },
+    {
+      "url": "https://www.goal.com/en/match/bologna-vs-torino/CqUyQHvlanJIaLevvJBQJ",
+      "date": null,
+      "home": "Bologna",
+      "away": "Torino",
+      "htHome": 1,
+      "htAway": 0,
+      "ftHome": 1,
+      "ftAway": 1,
+      "homeGoals": [
+        {
+          "scorer": "F. Bernardeschi",
+          "minute": 14
+        }
+      ],
+      "awayGoals": [
+        {
+          "scorer": "S. Kulenovic",
+          "minute": 77
+        }
+      ],
+      "competition": "SA"
     }
   ],
   "scorerParseRetryCounts": {
