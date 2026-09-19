@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Mr Eric's Lounge</title>
-<meta name="app-build" content="20260918131126">
+<meta name="app-build" content="20260919151746">
 <script>
   // PWA update-detection: an installed home-screen app's standalone-mode navigation
   // cache can hold an old shell far longer than the CDN's 10-minute cache -
@@ -25661,6 +25661,12 @@ document.addEventListener('click', (e) => {
   if(!href) return;
   if(href === '#mind-temple'){
     e.preventDefault();
+    // Same bug class already found and fixed for the arcade route (see the comment on
+    // the arcade branch just below): mtOpenOverlay never touches location.hash, so
+    // renderRoute's logEvent('view', hash) call was logging whatever page the user was
+    // previously on, not 'mind-temple' - every Mind Temple open was silently
+    // misattributed. Logging it explicitly here instead, same fix, same reason.
+    logEvent('view', 'mind-temple');
     mtOpenOverlay(['mind-temple']);
     return;
   }

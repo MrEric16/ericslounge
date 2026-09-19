@@ -465,7 +465,61 @@ async function loadAll(){
   const topVideos = topN(clicksVideo);
   const topInstruments = topN(clicksInstrument);
 
+  // --- Today / this week at a glance (Mr Eric's request) - uses Tashkent-local day
+  // boundaries specifically for this section, NOT the same UTC-sliced boundary the
+  // daily/weekly charts above use. Reason: Tashkent is a fixed UTC+5 with no DST, so
+  // this is safe to hardcode, and a UTC-midnight "today" would be actively confusing
+  // here - checking at 9am Tashkent time would still show yesterday's data, since the
+  // UTC day hasn't rolled over yet. The existing charts stay UTC-based (unchanged) to
+  // avoid touching working code; this new section gets the correct-feeling boundary
+  // since "today" is exactly what it's being asked to answer.
+  function tashkentDateStr(iso){
+    const dt = new Date(iso);
+    dt.setUTCHours(dt.getUTCHours() + 5);
+    return dt.toISOString().slice(0,10);
+  }
+  const todayT = tashkentDateStr(new Date().toISOString());
+  const weekStartT = mondayOf(todayT);
+  const isToday = ev => tashkentDateStr(ev.created_at) === todayT;
+  const isThisWeek = ev => tashkentDateStr(ev.created_at) >= weekStartT;
+
+  const opensToday = opens.filter(isToday).length;
+  const opensThisWeek = opens.filter(isThisWeek).length;
+  const sessionsToday = sessions.filter(isToday);
+  const durationsToday = sessionsToday.map(x => parseInt(x.label || '0', 10)).filter(n => !isNaN(n));
+  const avgSessionSecToday = durationsToday.length ? Math.round(durationsToday.reduce((a,b)=>a+b,0)/durationsToday.length) : 0;
+
+  const gameCountsToday = {};
+  views.filter(isToday).forEach(v => { if(gameRouteSet.has(v.label)) gameCountsToday[v.label] = (gameCountsToday[v.label]||0) + 1; });
+  const gamesPlayedTodayList = Object.entries(gameCountsToday)
+    .map(([route, count]) => [gameNameByRoute[route] || route, count])
+    .sort((a,b) => b[1]-a[1]);
+  const gamesPlayedTodayTotal = gamesPlayedTodayList.reduce((sum,[,c]) => sum+c, 0);
+
+  const articlesToday = clicksArticle.filter(isToday).length;
+  const videosToday = clicksVideo.filter(isToday).length;
+  const instrumentsToday = clicksInstrument.filter(isToday).length;
+  const mindTempleOpensToday = views.filter(isToday).filter(v => v.label === 'mind-temple').length;
+
   bodyEl.innerHTML = `
+    <section style="border:2px solid var(--coral);">
+      <h2>Today (${todayT}, Tashkent time)</h2>
+      <div class="card-grid">
+        <div class="stat-card"><div class="stat-num">${opensToday.toLocaleString()}</div><div class="stat-label">Opens today</div></div>
+        <div class="stat-card"><div class="stat-num">${opensThisWeek.toLocaleString()}</div><div class="stat-label">Opens this week</div></div>
+        <div class="stat-card"><div class="stat-num">${avgSessionSecToday}s</div><div class="stat-label">Avg time today</div></div>
+        <div class="stat-card"><div class="stat-num">${mindTempleOpensToday.toLocaleString()}</div><div class="stat-label">Mind Temple opens today</div></div>
+      </div>
+      <div class="sub" style="font-family:'Nunito',sans-serif; margin:14px 0 10px; line-height:1.4;">Mind Temple counts opens (visits), not logs - the situation/thought/feeling/action entries themselves are never saved anywhere, not even locally in aggregate, by deliberate design (this is personal wellbeing reflection data).</div>
+      <div style="display:flex; gap:20px; flex-wrap:wrap; margin-top:4px;">
+        <div><span class="stat-num" style="font-size:18px;">${articlesToday}</span> <span class="stat-label" style="text-transform:none;">articles opened</span></div>
+        <div><span class="stat-num" style="font-size:18px;">${videosToday}</span> <span class="stat-label" style="text-transform:none;">videos opened</span></div>
+        <div><span class="stat-num" style="font-size:18px;">${instrumentsToday}</span> <span class="stat-label" style="text-transform:none;">instruments opened</span></div>
+      </div>
+      <h2 style="margin-top:18px;">Games played today (${gamesPlayedTodayTotal} plays, ${gamesPlayedTodayList.length} distinct games)</h2>
+      ${barListHtml(gamesPlayedTodayList, gamesPlayedTodayList.length)}
+    </section>
+
     <div class="card-grid">
       <div class="stat-card"><div class="stat-num">${opens.length.toLocaleString()}</div><div class="stat-label">Total sessions</div></div>
       <div class="stat-card"><div class="stat-num">${uniqueUsersAll.toLocaleString()}</div><div class="stat-label">Unique users (all time)</div></div>
