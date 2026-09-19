@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-18T22:43:31.466068Z",
+  "generatedAt": "2026-09-19T00:51:45.618025Z",
   "results": [
     {
       "url": "https://www.goal.com/en/match/girona-vs-arsenal/__LS8d9Oc6I1wXn9g8956",
@@ -7182,13 +7182,42 @@
         }
       ],
       "competition": "FL1"
+    },
+    {
+      "url": "https://www.goal.com/en/match/bayern-munich-vs-union-berlin/Q8njM_VTL1U_vImKQdiBf",
+      "date": null,
+      "home": "Bayern Munich",
+      "away": "Union Berlin",
+      "htHome": 3,
+      "htAway": 0,
+      "ftHome": 7,
+      "ftAway": 0,
+      "homeGoals": [
+        {
+          "scorer": "J. Musiala",
+          "minute": 18
+        },
+        {
+          "scorer": "H. Kane",
+          "minute": 39
+        },
+        {
+          "scorer": "M. Olise",
+          "minute": 43
+        },
+        {
+          "scorer": "I. Saibari",
+          "minute": 70
+        }
+      ],
+      "awayGoals": [],
+      "competition": "BL1"
     }
   ],
   "scorerParseRetryCounts": {
     "https://www.goal.com/en/match/slavia-prague-vs-lens/8tl536s9YeGCuVkrI5O7Y": 2,
     "https://www.goal.com/en/match/malaga-vs-villarreal/PCEduGGdaYN4KZlTPoJUM": 2,
-    "https://www.goal.com/en/match/espanyol-vs-elche/CPCMh7V9vizHPBVZQW-n_": 1,
-    "https://www.goal.com/en/match/bayern-munich-vs-union-berlin/Q8njM_VTL1U_vImKQdiBf": 2,
-    "https://www.goal.com/en/match/monza-vs-sassuolo/LqN0scEyAUGb4PbZjcW9o": 1
+    "https://www.goal.com/en/match/espanyol-vs-elche/CPCMh7V9vizHPBVZQW-n_": 2,
+    "https://www.goal.com/en/match/monza-vs-sassuolo/LqN0scEyAUGb4PbZjcW9o": 2
   }
 }

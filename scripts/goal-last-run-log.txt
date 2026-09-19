@@ -1,17 +1,16 @@
 [goal-scraper] Run started.
 [goal-scraper] [PL] Found 1 finished-match links
-[goal-scraper] [PL] Added: Brentford 3-0 Chelsea
 [goal-scraper] [PD] Found 1 finished-match links
 [goal-scraper] WARNING: Elche scored 3 but only 2 scorer(s) were parsed for https://www.goal.com/en/match/espanyol-vs-elche/CPCMh7V9vizHPBVZQW-n_
-[goal-scraper] [PD] SCORER PARSE FAILED (attempt 1/3) for Espanyol 1-3 Elche -- NOT committing, will retry next run: https://www.goal.com/en/match/espanyol-vs-elche/CPCMh7V9vizHPBVZQW-n_
+[goal-scraper] [PD] SCORER PARSE FAILED (attempt 2/3) for Espanyol 1-3 Elche -- NOT committing, will retry next run: https://www.goal.com/en/match/espanyol-vs-elche/CPCMh7V9vizHPBVZQW-n_
 [goal-scraper] [BL1] Found 1 finished-match links
 [goal-scraper] WARNING: Bayern Munich scored 7 but only 4 scorer(s) were parsed for https://www.goal.com/en/match/bayern-munich-vs-union-berlin/Q8njM_VTL1U_vImKQdiBf
-[goal-scraper] [BL1] SCORER PARSE FAILED (attempt 1/3) for Bayern Munich 7-0 Union Berlin -- NOT committing, will retry next run: https://www.goal.com/en/match/bayern-munich-vs-union-berlin/Q8njM_VTL1U_vImKQdiBf
+[goal-scraper] [BL1] SCORER PARSE FAILED 3 times, giving up and committing WITH INCOMPLETE SCORER DATA (page structure likely changed) for Bayern Munich 7-0 Union Berlin: https://www.goal.com/en/match/bayern-munich-vs-union-berlin/Q8njM_VTL1U_vImKQdiBf
+[goal-scraper] [BL1] Added: Bayern Munich 7-0 Union Berlin
 [goal-scraper] [SA] Found 1 finished-match links
 [goal-scraper] WARNING: Monza scored 2 but only 1 scorer(s) were parsed for https://www.goal.com/en/match/monza-vs-sassuolo/LqN0scEyAUGb4PbZjcW9o
-[goal-scraper] [SA] SCORER PARSE FAILED (attempt 1/3) for Monza 2-1 Sassuolo -- NOT committing, will retry next run: https://www.goal.com/en/match/monza-vs-sassuolo/LqN0scEyAUGb4PbZjcW9o
+[goal-scraper] [SA] SCORER PARSE FAILED (attempt 2/3) for Monza 2-1 Sassuolo -- NOT committing, will retry next run: https://www.goal.com/en/match/monza-vs-sassuolo/LqN0scEyAUGb4PbZjcW9o
 [goal-scraper] [FL1] Found 1 finished-match links
-[goal-scraper] [FL1] Added: Monaco 2-1 Lens
 [goal-scraper] [CL] Found 0 finished-match links
 [goal-scraper] [real-madrid] Found 22 finished-match links
 [goal-scraper] WARNING: Tottenham Hotspur scored 1 but 0 scorers were parsed for https://www.goal.com/en/match/real-madrid-vs-tottenham-hotspur/xdLKWe_FxdSoHo2tVKBzZ
@@ -53,8 +52,6 @@
 [goal-scraper] [bayern-munich] Skipping stale match (older than 45 days): Paris Saint Germain vs Bayern Munich on 2025-07-05
 [goal-scraper] WARNING: Bayern Munich scored 5 but only 4 scorer(s) were parsed for https://www.goal.com/en/match/salzburg-vs-bayern-munich/5HnHv_H00CkUM5w0_F4_S
 [goal-scraper] [bayern-munich] Skipping stale match (older than 45 days): Salzburg vs Bayern Munich on 2026-01-06
-[goal-scraper] WARNING: Bayern Munich scored 7 but only 4 scorer(s) were parsed for https://www.goal.com/en/match/bayern-munich-vs-union-berlin/Q8njM_VTL1U_vImKQdiBf
-[goal-scraper] [bayern-munich] SCORER PARSE FAILED (attempt 2/3) for Bayern Munich 7-0 Union Berlin -- NOT committing, will retry next run: https://www.goal.com/en/match/bayern-munich-vs-union-berlin/Q8njM_VTL1U_vImKQdiBf
 [goal-scraper] [inter-milan] Found 15 finished-match links
 [goal-scraper] [inter-milan] Skipping stale match (older than 45 days): Monterrey vs Inter on 2025-06-17
 [goal-scraper] [inter-milan] Skipping stale match (older than 45 days): Inter vs Urawa Red Diamonds on 2025-06-21
@@ -97,6 +94,6 @@
 [goal-scraper] [juventus] Skipping stale match (older than 45 days): Juventus vs Manchester City on 2025-06-26
 [goal-scraper] [juventus] Skipping stale match (older than 45 days): Basel vs Juventus on 2026-07-18
 [goal-scraper] [arsenal-friendlies] Found 2 finished-match links
-[goal-scraper] TOTAL new results added this run: 2
-[goal-scraper] Matches still awaiting a clean scorer parse (not yet committed): ['https://www.goal.com/en/match/slavia-prague-vs-lens/8tl536s9YeGCuVkrI5O7Y', 'https://www.goal.com/en/match/malaga-vs-villarreal/PCEduGGdaYN4KZlTPoJUM', 'https://www.goal.com/en/match/espanyol-vs-elche/CPCMh7V9vizHPBVZQW-n_', 'https://www.goal.com/en/match/bayern-munich-vs-union-berlin/Q8njM_VTL1U_vImKQdiBf', 'https://www.goal.com/en/match/monza-vs-sassuolo/LqN0scEyAUGb4PbZjcW9o']
+[goal-scraper] TOTAL new results added this run: 1
+[goal-scraper] Matches still awaiting a clean scorer parse (not yet committed): ['https://www.goal.com/en/match/slavia-prague-vs-lens/8tl536s9YeGCuVkrI5O7Y', 'https://www.goal.com/en/match/malaga-vs-villarreal/PCEduGGdaYN4KZlTPoJUM', 'https://www.goal.com/en/match/espanyol-vs-elche/CPCMh7V9vizHPBVZQW-n_', 'https://www.goal.com/en/match/monza-vs-sassuolo/LqN0scEyAUGb4PbZjcW9o']
 [goal-scraper] Wrote data/goal-results.json
