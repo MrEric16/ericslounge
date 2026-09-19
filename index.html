@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Mr Eric's Lounge</title>
-<meta name="app-build" content="20260919154346">
+<meta name="app-build" content="20260919155242">
 <script>
   // PWA update-detection: an installed home-screen app's standalone-mode navigation
   // cache can hold an old shell far longer than the CDN's 10-minute cache -
@@ -7188,24 +7188,55 @@ function renderTttOverlay(){
   document.body.appendChild(overlay);
 }
 
+// Called once at game start (see startGame). Every move after that updates the board
+// IN PLACE (updateTttCell/updateTttStatus/updateTttCellsEnabled below) rather than
+// tearing down and rebuilding this whole overlay - the previous version called
+// renderTttOverlay() again after every single move (mine or the opponent's), which
+// destroyed and recreated the entire grid element each time. Real bug, not a rendering
+// quirk: recreating the DOM node is what caused the visible "jump" on every move Mr
+// Eric reported, not anything about the layout/CSS itself. The grid and its 9 cell
+// buttons now get created exactly once per game and never removed until the game ends.
+function updateTttCell(idx){
+  const btn = document.querySelector(`.ttt-cell[data-idx="${idx}"]`);
+  if(!btn || !ttt) return;
+  const v = ttt.board[idx];
+  btn.textContent = v || '';
+  btn.classList.toggle('mine', v === ttt.mySymbol);
+  btn.classList.toggle('theirs', !!v && v !== ttt.mySymbol);
+}
+function updateTttCellsEnabled(){
+  document.querySelectorAll('.ttt-cell').forEach(btn => {
+    const idx = parseInt(btn.dataset.idx, 10);
+    btn.disabled = !!ttt.board[idx] || !ttt.myTurn;
+  });
+}
+function updateTttStatus(){
+  const statusEl = document.getElementById('tttStatus');
+  if(statusEl) statusEl.textContent = ttt.myTurn ? 'Your turn' : "Opponent's turn";
+}
+
 function makeTttMove(idx){
   if(!ttt || !ttt.myTurn || ttt.board[idx]) return;
   ttt.board[idx] = ttt.mySymbol;
   clearTurnTimer();
   gameChannel.send({ type:'broadcast', event:'game_move', payload:{ to:ttt.opponentKey, from:myPresenceKey, idx, symbol:ttt.mySymbol } });
+  updateTttCell(idx);
   const result = checkTttWinner(ttt.board);
   if(result){ endTttGame(result); return; }
   ttt.myTurn = false;
-  renderTttOverlay();
+  updateTttStatus();
+  updateTttCellsEnabled();
 }
 
 function handleIncomingMove(payload){
   if(!ttt || payload.from !== ttt.opponentKey) return;
   ttt.board[payload.idx] = payload.symbol;
+  updateTttCell(payload.idx);
   const result = checkTttWinner(ttt.board);
   if(result){ endTttGame(result); return; }
   ttt.myTurn = true;
-  renderTttOverlay();
+  updateTttStatus();
+  updateTttCellsEnabled();
   startTurnTimer();
 }
 
